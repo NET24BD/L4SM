@@ -36,10 +36,6 @@ background:#f4f7f6;
 }
 
 
-
-/* ================= SIDEBAR ================= */
-
-
 .sidebar{
 
 position:fixed;
@@ -111,12 +107,6 @@ font-size:22px;
 }
 
 
-
-
-
-/* MENU */
-
-
 .menu{
 
 margin-top:20px;
@@ -172,13 +162,6 @@ font-size:18px;
 }
 
 
-
-
-
-
-/* LOGOUT */
-
-
 .logout{
 
 
@@ -208,15 +191,6 @@ background:#ff4757;
 
 
 
-
-
-
-
-
-/* ================= MAIN ================= */
-
-
-
 .main{
 
 
@@ -237,13 +211,6 @@ margin-left:0;
 
 }
 
-
-
-
-
-
-
-/* TOP BAR */
 
 
 
@@ -282,14 +249,6 @@ color:#062b25;
 
 }
 
-
-
-
-
-
-
-
-/* PROFILE */
 
 
 
@@ -349,14 +308,6 @@ color:#777;
 
 }
 
-
-
-
-
-
-
-
-/* PROFILE DROPDOWN */
 
 
 .profile-menu{
@@ -428,12 +379,6 @@ background:#f1f5f4;
 }
 
 
-
-
-
-/* MOBILE */
-
-
 @media(max-width:768px){
 
 
@@ -472,11 +417,6 @@ margin-left:0;
 
 <body>
 
-
-
-
-
-<!-- SIDEBAR -->
 
 
 <div class="sidebar" id="sidebar">
@@ -620,13 +560,6 @@ Logout
 </div>
 
 
-
-
-
-
-<!-- MAIN AREA -->
-
-
 <div class="main" id="main">
 
 
@@ -713,8 +646,6 @@ Logout
 
 
 </div>
-<!-- ================= DASHBOARD CARDS ================= -->
-
 
 <style>
 
@@ -1039,9 +970,6 @@ OC
 <script>
 
 
-// ================= LOGIN CHECK =================
-
-
 let user = localStorage.getItem("user");
 
 
@@ -1088,13 +1016,6 @@ data.photo;
 
 
 
-
-
-
-// ================= SIDEBAR TOGGLE =================
-
-
-
 function toggleMenu(){
 
 
@@ -1132,15 +1053,6 @@ main.classList.toggle("full");
 }
 
 
-
-
-
-
-
-// ================= PROFILE DROPDOWN =================
-
-
-
 function openProfile(){
 
 
@@ -1150,15 +1062,6 @@ document
 
 
 }
-
-
-
-
-
-
-
-
-// Close Profile Menu Outside Click
 
 
 document.addEventListener("click",function(e){
@@ -1187,16 +1090,6 @@ menu.classList.remove("show");
 
 
 
-
-
-
-
-
-
-// ================= LOGOUT =================
-
-
-
 function logout(){
 
 
@@ -1208,15 +1101,6 @@ window.location.replace("login.html");
 
 }
 
-
-
-
-
-
-
-
-
-// ================= AUTO LOGOUT 10 MINUTES =================
 
 
 
@@ -1258,13 +1142,6 @@ window.location.replace("login.html");
 
 }
 
-
-
-
-
-
-
-// User Activity Detect
 
 
 window.onload = resetTimer;
