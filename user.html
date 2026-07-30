@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>User Management | Link4</title>
+<title>User Management</title>
 
 
 <style>
@@ -21,9 +21,9 @@ font-family:Arial,sans-serif;
 
 body{
 
-background:#07111f;
-color:white;
-padding:20px;
+background:#f5f7fb;
+color:#222;
+padding:25px;
 
 }
 
@@ -40,19 +40,21 @@ margin:auto;
 
 .header{
 
-background:#101c30;
+background:white;
 padding:25px;
 border-radius:20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
 
 
+
 .header h1{
 
-color:#00d4ff;
+color:#0b5c45;
 
 }
 
@@ -60,8 +62,8 @@ color:#00d4ff;
 
 button{
 
-padding:12px 18px;
 border:none;
+padding:12px 18px;
 border-radius:10px;
 cursor:pointer;
 font-weight:bold;
@@ -72,23 +74,10 @@ font-weight:bold;
 
 .add{
 
-background:#00d4ff;
+background:#0b5c45;
+color:white;
 
 }
-
-
-
-.search{
-
-width:100%;
-margin:20px 0;
-padding:15px;
-border-radius:12px;
-border:none;
-font-size:16px;
-
-}
-
 
 
 
@@ -98,6 +87,7 @@ font-size:16px;
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:20px;
+margin-top:25px;
 
 }
 
@@ -105,20 +95,38 @@ gap:20px;
 
 .card{
 
-background:#101c30;
+background:white;
 padding:25px;
 border-radius:18px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
 text-align:center;
 
 }
 
 
+
 .card h2{
 
-color:#00d4ff;
+color:#0b5c45;
+font-size:30px;
 
 }
 
+
+
+
+.search{
+
+margin-top:25px;
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:white;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+font-size:16px;
+
+}
 
 
 
@@ -126,9 +134,10 @@ color:#00d4ff;
 .table-box{
 
 margin-top:25px;
-background:#101c30;
+background:white;
 padding:25px;
 border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
 overflow:auto;
 
 }
@@ -145,17 +154,19 @@ border-collapse:collapse;
 
 th{
 
-background:#07111f;
+background:#f1f5f9;
 padding:15px;
+text-align:center;
 
 }
+
 
 
 td{
 
 padding:15px;
 text-align:center;
-border-bottom:1px solid #26364f;
+border-bottom:1px solid #eee;
 
 }
 
@@ -183,10 +194,12 @@ color:white;
 
 .delete{
 
-background:#c0392b;
+background:#e74c3c;
 color:white;
 
 }
+
+
 
 
 
@@ -195,11 +208,8 @@ color:white;
 
 display:none;
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#0008;
+inset:0;
+background:#0006;
 justify-content:center;
 align-items:center;
 
@@ -209,10 +219,18 @@ align-items:center;
 
 .form{
 
-background:#101c30;
+background:white;
+width:420px;
 padding:30px;
 border-radius:20px;
-width:400px;
+
+}
+
+
+
+.form h2{
+
+margin-bottom:15px;
 
 }
 
@@ -224,8 +242,8 @@ width:400px;
 width:100%;
 padding:12px;
 margin:8px 0;
-border-radius:8px;
-border:none;
+border:1px solid #ddd;
+border-radius:10px;
 
 }
 
@@ -233,7 +251,8 @@ border:none;
 
 .save{
 
-background:#00d4ff;
+background:#0b5c45;
+color:white;
 width:100%;
 
 }
@@ -242,13 +261,12 @@ width:100%;
 
 .close{
 
-background:#c0392b;
+margin-top:10px;
+background:#e74c3c;
 color:white;
 width:100%;
-margin-top:10px;
 
 }
-
 
 
 
@@ -260,6 +278,15 @@ grid-template-columns:1fr 1fr;
 
 }
 
+
+.header{
+
+flex-direction:column;
+gap:15px;
+
+}
+
+
 }
 
 
@@ -269,8 +296,8 @@ grid-template-columns:1fr 1fr;
 </head>
 
 
-<body>
 
+<body>
 
 
 <div class="container">
@@ -330,9 +357,10 @@ User Management
 
 <input 
 class="search"
+id="search"
 placeholder="Search User..."
-onkeyup="searchUser()"
-id="search">
+onkeyup="searchUser()">
+
 
 
 
@@ -358,12 +386,11 @@ id="search">
 
 </tr>
 
+
 </thead>
 
 
-<tbody id="list">
-
-</tbody>
+<tbody id="list"></tbody>
 
 
 </table>
@@ -372,16 +399,12 @@ id="search">
 </div>
 
 
+
 </div>
 
 
 
 
-
-
-
-
-<!-- FORM -->
 
 
 <div class="modal" id="modal">
@@ -390,9 +413,10 @@ id="search">
 <div class="form">
 
 
-<h2 id="formTitle">
-Add User
+<h2>
+Add / Edit User
 </h2>
+
 
 
 <input id="username" placeholder="Username">
@@ -403,6 +427,7 @@ Add User
 
 <input id="role" placeholder="Role">
 
+
 <select id="status">
 
 <option>Active</option>
@@ -410,6 +435,7 @@ Add User
 <option>Blocked</option>
 
 </select>
+
 
 
 <input id="picture" placeholder="Picture URL">
@@ -425,7 +451,6 @@ Add User
 <input id="joinDate" placeholder="DD-MM-YYYY">
 
 
-
 <button class="save" onclick="saveUser()">
 Save
 </button>
@@ -436,11 +461,10 @@ Close
 </button>
 
 
-
 </div>
 
-</div>
 
+</div>
 
 
 
@@ -463,7 +487,6 @@ let editRow=null;
 
 
 
-
 function loadUsers(){
 
 
@@ -472,10 +495,7 @@ fetch(API_URL,{
 method:"POST",
 
 headers:{
-
-"Content-Type":
-"application/x-www-form-urlencoded"
-
+"Content-Type":"application/x-www-form-urlencoded"
 },
 
 body:"action=getUsers"
@@ -483,18 +503,14 @@ body:"action=getUsers"
 
 })
 
-
 .then(r=>r.json())
-
 
 .then(data=>{
 
 
-users=data.users;
-
+users=data.users || [];
 
 showUsers(users);
-
 
 countUsers();
 
@@ -508,13 +524,15 @@ countUsers();
 
 
 
+
+
 function showUsers(data){
 
 
 let html="";
 
 
-data.forEach((u)=>{
+data.forEach(u=>{
 
 
 html+=`
@@ -522,9 +540,7 @@ html+=`
 <tr>
 
 <td>
-
 <img src="${u.picture || 'https://i.imgur.com/6VBx3io.png'}">
-
 </td>
 
 
@@ -541,14 +557,12 @@ html+=`
 
 <td>
 
-<button class="edit"
-onclick='editUser(${JSON.stringify(u)})'>
+<button class="edit" onclick='editUser(${JSON.stringify(u)})'>
 Edit
 </button>
 
 
-<button class="delete"
-onclick="deleteUser('${u.username}')">
+<button class="delete" onclick="deleteUser('${u.username}')">
 Delete
 </button>
 
@@ -558,15 +572,14 @@ Delete
 
 </tr>
 
+
 `;
 
 
 });
 
 
-
 document.getElementById("list").innerHTML=html;
-
 
 
 }
@@ -582,20 +595,16 @@ function countUsers(){
 total.innerHTML=users.length;
 
 
-active.innerHTML=
-users.filter(x=>x.status=="Active").length;
+active.innerHTML=users.filter(x=>x.status=="Active").length;
 
 
-inactive.innerHTML=
-users.filter(x=>x.status=="Inactive").length;
+inactive.innerHTML=users.filter(x=>x.status=="Inactive").length;
 
 
-blocked.innerHTML=
-users.filter(x=>x.status=="Blocked").length;
+blocked.innerHTML=users.filter(x=>x.status=="Blocked").length;
 
 
 }
-
 
 
 
@@ -605,26 +614,18 @@ users.filter(x=>x.status=="Blocked").length;
 function searchUser(){
 
 
-let t =
-search.value.toLowerCase();
-
+let t=search.value.toLowerCase();
 
 
 showUsers(
-
 users.filter(u=>
-
-u.name.toLowerCase().includes(t)
-||
+u.name.toLowerCase().includes(t) ||
 u.username.toLowerCase().includes(t)
-
 )
-
 );
 
 
 }
-
 
 
 
@@ -636,7 +637,6 @@ function openForm(){
 modal.style.display="flex";
 
 }
-
 
 
 
@@ -652,162 +652,32 @@ modal.style.display="none";
 
 function saveUser(){
 
-
-let action =
-editRow ? "updateUser":"addUser";
-
-
-
-let body =
-
-
-"action="+action+
-
-"&row="+(editRow || "")+
-
-"&username="+username.value+
-
-"&password="+password.value+
-
-"&name="+name.value+
-
-"&role="+role.value+
-
-"&status="+status.value+
-
-"&picture="+picture.value+
-
-"&address="+address.value+
-
-"&number="+number.value+
-
-"&email="+email.value+
-
-"&department="+department.value+
-
-"&joinDate="+joinDate.value;
-
-
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/x-www-form-urlencoded"
-
-},
-
-body:body
-
-
-})
-
-
-.then(r=>r.json())
-
-
-.then(()=>{
-
-
-closeForm();
-
-loadUsers();
-
-
-});
-
-
+alert("Save API Ready");
 
 }
-
-
-
 
 
 
 
 function editUser(u){
 
-
-editRow=u.row;
-
-
-username.value=u.username;
-
-password.value=u.password;
-
-name.value=u.name;
-
-role.value=u.role;
-
-status.value=u.status;
-
-picture.value=u.picture;
-
-address.value=u.address;
-
-number.value=u.number;
-
-email.value=u.email;
-
-department.value=u.department;
-
-joinDate.value=u.joinDate;
-
-
-openForm();
-
+alert("Edit : "+u.name);
 
 }
 
 
 
 
+function deleteUser(u){
 
-
-
-
-function deleteUser(username){
-
-
-if(confirm("Delete User?")){
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/x-www-form-urlencoded"
-
-},
-
-body:
-
-"action=deleteUser&username="+username
-
-
-})
-
-.then(()=>loadUsers());
-
+alert("Delete : "+u);
 
 }
-
-
-}
-
 
 
 
 
 loadUsers();
-
 
 
 </script>
