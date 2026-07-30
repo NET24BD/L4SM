@@ -227,6 +227,7 @@ Login
 
 
 
+
 <script>
 
 
@@ -261,23 +262,26 @@ pass.type="password";
 
 
 
+
 function login(){
 
 
-let username=
+let username =
 document.getElementById("username").value.trim();
 
 
-let password=
+let password =
 document.getElementById("password").value.trim();
 
 
-let msg=
+
+let msg =
 document.getElementById("msg");
 
 
-let btn=
+let btn =
 document.getElementById("btn");
+
 
 
 
@@ -295,9 +299,13 @@ return;
 
 
 
+
+
 btn.innerHTML="Checking...";
 
 btn.disabled=true;
+
+
 
 
 
@@ -312,10 +320,12 @@ headers:{
 
 },
 
+
 body:
 
 "username="+encodeURIComponent(username)
 +"&password="+encodeURIComponent(password)
+
 
 
 })
@@ -327,14 +337,47 @@ body:
 .then(data=>{
 
 
+
 if(data.success){
 
 
+
+// Save Login Data
 
 localStorage.setItem(
 "user",
 JSON.stringify(data)
 );
+
+
+
+localStorage.setItem(
+"username",
+data.username
+);
+
+
+
+localStorage.setItem(
+"name",
+data.name
+);
+
+
+
+localStorage.setItem(
+"role",
+data.role
+);
+
+
+
+localStorage.setItem(
+"photo",
+data.photo
+);
+
+
 
 
 
@@ -344,7 +387,9 @@ msg.innerHTML="Login Successful";
 
 
 
-setTimeout(function(){
+
+
+setTimeout(()=>{
 
 
 window.location.href="dashboard.html";
@@ -354,11 +399,12 @@ window.location.href="dashboard.html";
 
 
 
+
+
 }
 
-
-
 else{
+
 
 
 msg.style.color="red";
@@ -371,6 +417,7 @@ btn.innerHTML="Login";
 btn.disabled=false;
 
 
+
 }
 
 
@@ -378,7 +425,9 @@ btn.disabled=false;
 })
 
 
+
 .catch(error=>{
+
 
 
 msg.style.color="red";
@@ -391,6 +440,7 @@ btn.innerHTML="Login";
 btn.disabled=false;
 
 
+
 });
 
 
@@ -401,14 +451,14 @@ btn.disabled=false;
 
 
 
-// ENTER KEY LOGIN
-
 document.addEventListener("keydown",function(e){
 
 
 if(e.key==="Enter"){
 
+
 login();
+
 
 }
 
@@ -418,7 +468,6 @@ login();
 
 
 </script>
-
 
 
 </body>
