@@ -26,7 +26,6 @@ background:#f4f7f6;
 }
 
 
-
 /* SIDEBAR */
 
 .sidebar{
@@ -53,7 +52,6 @@ left:-260px;
 
 
 
-
 .logo{
 
 text-align:center;
@@ -74,12 +72,12 @@ color:#00d084;
 .logo h2{
 
 margin-top:10px;
-font-size:22px;
 
 }
 
 
 
+/* MENU */
 
 .menu{
 
@@ -87,7 +85,6 @@ margin-top:20px;
 flex:1;
 
 }
-
 
 
 .menu a{
@@ -105,13 +102,11 @@ transition:.3s;
 }
 
 
-
 .menu a:hover{
 
 background:#00a86b;
 
 }
-
 
 
 .menu i{
@@ -122,7 +117,7 @@ width:25px;
 
 
 
-
+/* LOGOUT */
 
 .logout{
 
@@ -137,17 +132,6 @@ cursor:pointer;
 }
 
 
-
-.logout:hover{
-
-background:#ff4757;
-
-}
-
-
-
-
-
 /* MAIN */
 
 .main{
@@ -159,7 +143,6 @@ transition:.3s;
 }
 
 
-
 .main.full{
 
 margin-left:0;
@@ -168,10 +151,7 @@ margin-left:0;
 
 
 
-
-
 /* TOPBAR */
-
 
 .topbar{
 
@@ -187,7 +167,6 @@ box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
 
-
 .toggle{
 
 font-size:25px;
@@ -198,31 +177,29 @@ color:#062b25;
 
 
 
+/* PROFILE */
 
 
 .profile{
 
+position:relative;
 display:flex;
 align-items:center;
 gap:12px;
+cursor:pointer;
 
 }
 
 
-
-.avatar{
+.profile img{
 
 width:45px;
 height:45px;
-background:#00a86b;
-color:white;
 border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
+object-fit:cover;
+border:2px solid #00a86b;
 
 }
-
 
 
 .profile h4{
@@ -242,16 +219,48 @@ color:#777;
 
 
 
-/* WELCOME */
+.profile-menu{
+
+display:none;
+position:absolute;
+right:20px;
+top:80px;
+width:180px;
+background:white;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+overflow:hidden;
+z-index:2000;
+
+}
 
 
-.welcome{
 
-margin-top:20px;
-background:linear-gradient(135deg,#062b25,#00a86b);
-color:white;
-padding:25px;
-border-radius:20px;
+.profile-menu.show{
+
+display:block;
+
+}
+
+
+
+.profile-menu a,
+.profile-menu div{
+
+display:flex;
+gap:12px;
+padding:14px;
+color:#062b25;
+text-decoration:none;
+cursor:pointer;
+
+}
+
+
+.profile-menu a:hover,
+.profile-menu div:hover{
+
+background:#f1f5f4;
 
 }
 
@@ -273,7 +282,6 @@ gap:20px;
 
 
 
-
 .card{
 
 background:white;
@@ -286,13 +294,11 @@ transition:.3s;
 }
 
 
-
 .card:hover{
 
 transform:translateY(-7px);
 
 }
-
 
 
 .card i{
@@ -303,14 +309,12 @@ color:#00a86b;
 }
 
 
-
 .card h3{
 
 margin-top:15px;
 color:#062b25;
 
 }
-
 
 
 .code{
@@ -330,11 +334,7 @@ text-decoration:none;
 
 
 
-
-/* MOBILE */
-
 @media(max-width:768px){
-
 
 .sidebar{
 
@@ -356,22 +356,17 @@ margin-left:0;
 
 }
 
-
 }
 
 
 
 </style>
 
-
 </head>
 
 
 <body>
 
-
-
-<!-- SIDEBAR -->
 
 
 <div class="sidebar" id="sidebar">
@@ -385,9 +380,7 @@ margin-left:0;
 Link4 Support
 </h2>
 
-
 </div>
-
 
 
 
@@ -395,112 +388,66 @@ Link4 Support
 
 
 <a href="dashboard.html">
-
 <i class="fa-solid fa-house"></i>
-
 Dashboard
-
 </a>
-
 
 
 <a href="AC.html">
-
-<i class="fa-solid fa-user-circle"></i>
-
+<i class="fa-solid fa-user"></i>
 My Account
-
 </a>
-
-
 
 
 <a href="NS.html">
-
 <i class="fa-solid fa-headset"></i>
-
 New Support
-
 </a>
-
-
 
 
 <a href="PS.html">
-
 <i class="fa-solid fa-clock"></i>
-
 Pending Support
-
 </a>
-
-
 
 
 <a href="PC.html">
-
 <i class="fa-solid fa-phone"></i>
-
 Pending Call
-
 </a>
-
-
 
 
 <a href="H.html">
-
-<i class="fa-solid fa-file-lines"></i>
-
+<i class="fa-solid fa-file"></i>
 History
-
 </a>
-
-
 
 
 <a href="ON.html">
-
 <i class="fa-solid fa-pen"></i>
-
 Offline Entry
-
 </a>
-
-
 
 
 <a href="OF.html">
-
 <i class="fa-solid fa-folder"></i>
-
 Offline
-
 </a>
-
-
 
 
 <a href="OC.html">
-
 <i class="fa-solid fa-coins"></i>
-
 Offline Collect
-
 </a>
-
 
 
 </div>
 
 
 
-
-
-<div onclick="logout()" class="logout">
+<div class="logout" onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
-
 Logout
 
 </div>
@@ -515,10 +462,6 @@ Logout
 
 
 
-
-<!-- MAIN -->
-
-
 <div class="main" id="main">
 
 
@@ -526,7 +469,7 @@ Logout
 <div class="topbar">
 
 
-<div onclick="toggleMenu()" class="toggle">
+<div class="toggle" onclick="toggleMenu()">
 
 <i class="fa-solid fa-bars"></i>
 
@@ -534,16 +477,11 @@ Logout
 
 
 
+<div class="profile" onclick="openProfile()">
 
 
-<div class="profile">
-
-
-<div class="avatar">
-
-<i class="fa-solid fa-user"></i>
-
-</div>
+<img id="profileImg"
+src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
 
 
 <div>
@@ -552,39 +490,43 @@ Logout
 User
 </h4>
 
-
 <span id="role">
 Role
 </span>
 
+</div>
+
+
+<i class="fa-solid fa-chevron-down"></i>
+
+
+</div>
+
+
+
+<div class="profile-menu" id="profileMenu">
+
+
+<a href="AC.html">
+
+<i class="fa-solid fa-user"></i>
+
+My Account
+
+</a>
+
+
+<div onclick="logout()">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
 
 </div>
 
 
 </div>
 
-
-
-
-</div>
-
-
-
-
-
-
-
-<div class="welcome">
-
-
-<h2 id="welcome">
-Welcome User
-</h2>
-
-
-<p>
-Link4 Support Management System
-</p>
 
 
 </div>
@@ -596,7 +538,6 @@ Link4 Support Management System
 
 
 <div class="cards">
-
 
 
 <a href="NS.html">
@@ -655,7 +596,6 @@ Link4 Support Management System
 
 
 
-
 <a href="ON.html">
 <div class="card">
 
@@ -667,7 +607,6 @@ Link4 Support Management System
 
 </div>
 </a>
-
 
 
 
@@ -685,11 +624,10 @@ Link4 Support Management System
 
 
 
-
 <a href="OC.html">
 <div class="card">
 
-<i class="fa-solid fa-money-bill-transfer"></i>
+<i class="fa-solid fa-money-bill"></i>
 
 <h3>Offline Collect</h3>
 
@@ -700,8 +638,9 @@ Link4 Support Management System
 
 
 
-
 </div>
+
+
 
 
 
@@ -716,7 +655,7 @@ Link4 Support Management System
 <script>
 
 
-let user = localStorage.getItem("user");
+let user=localStorage.getItem("user");
 
 
 if(!user){
@@ -728,7 +667,7 @@ window.location.replace("login.html");
 else{
 
 
-let data = JSON.parse(user);
+let data=JSON.parse(user);
 
 
 
@@ -736,15 +675,16 @@ document.getElementById("name").innerHTML =
 data.name || "User";
 
 
-
 document.getElementById("role").innerHTML =
 data.role || "User";
 
 
 
-document.getElementById("welcome").innerHTML =
-"Welcome, "+(data.name || "User");
+if(data.photo){
 
+document.getElementById("profileImg").src=data.photo;
+
+}
 
 
 }
@@ -755,54 +695,49 @@ document.getElementById("welcome").innerHTML =
 
 function toggleMenu(){
 
-
 let sidebar=document.getElementById("sidebar");
-
 let main=document.getElementById("main");
-
 
 
 if(window.innerWidth <=768){
 
-
 sidebar.classList.toggle("show");
-
 
 }
 
 else{
 
-
 sidebar.classList.toggle("hide");
-
 main.classList.toggle("full");
 
+}
 
 }
 
 
 
-}
 
+function openProfile(){
+
+document.getElementById("profileMenu")
+.classList.toggle("show");
+
+}
 
 
 
 
 function logout(){
 
-
 localStorage.removeItem("user");
 
-
 window.location.replace("login.html");
-
 
 }
 
 
 
 </script>
-
 
 
 </body>
