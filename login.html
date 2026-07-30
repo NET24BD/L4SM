@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -7,136 +8,163 @@
 
 <title>Login | Link4 Support Team</title>
 
+
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
 }
+
 
 body{
 
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#07111f,#0b3d3a);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#07111f,#0b5c45);
 
 }
+
+
 
 .login-box{
 
-    width:350px;
-    background:white;
-    padding:35px;
-    border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,.3);
+width:360px;
+background:white;
+padding:35px;
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+
 }
+
 
 
 .logo{
 
-    text-align:center;
-    margin-bottom:25px;
+text-align:center;
+margin-bottom:25px;
+
 }
 
 
 .logo h2{
 
-    color:#0b3d3a;
+color:#0b5c45;
+font-size:25px;
+
 }
 
 
 .logo p{
 
-    color:#777;
-    font-size:14px;
+color:#777;
+font-size:14px;
 
 }
+
 
 
 input{
 
-    width:100%;
-    padding:14px;
-    margin:10px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
-    outline:none;
-    font-size:15px;
+width:100%;
+padding:14px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:15px;
+outline:none;
 
 }
 
 
-.password-box{
 
-    position:relative;
+.password{
+
+position:relative;
 
 }
 
 
-.password-box span{
+.password span{
 
-    position:absolute;
-    right:15px;
-    top:25px;
-    cursor:pointer;
+position:absolute;
+right:15px;
+top:24px;
+cursor:pointer;
+
 }
+
 
 
 button{
 
-    width:100%;
-    padding:14px;
-    margin-top:15px;
-    border:none;
-    border-radius:10px;
-    background:#0b3d3a;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+background:#0b5c45;
+color:white;
+font-size:16px;
+cursor:pointer;
 
 }
 
 
 button:hover{
 
-    background:#062522;
+background:#064333;
 
 }
+
+
+
+button:disabled{
+
+opacity:.6;
+
+}
+
 
 
 #msg{
 
-    text-align:center;
-    margin-top:15px;
-    color:red;
-    font-size:14px;
+text-align:center;
+margin-top:15px;
+font-size:14px;
 
 }
+
 
 
 .footer{
 
-    text-align:center;
-    margin-top:20px;
-    font-size:12px;
-    color:#777;
+text-align:center;
+margin-top:20px;
+font-size:12px;
+color:#888;
 
 }
 
 
+
 </style>
 
+
 </head>
+
 
 
 <body>
 
 
+
 <div class="login-box">
+
 
 
 <div class="logo">
@@ -150,32 +178,40 @@ button:hover{
 
 
 <input 
-type="text" 
-id="username" 
+id="username"
+type="text"
 placeholder="Username">
 
 
 
-<div class="password-box">
+<div class="password">
 
-<input 
-type="password" 
-id="password" 
+
+<input
+id="password"
+type="password"
 placeholder="Password">
 
 
-<span onclick="showPass()">👁</span>
+<span onclick="showPassword()">👁</span>
+
 
 </div>
 
 
 
-<button onclick="login()" id="btn">
+<button 
+id="btn"
+onclick="login()">
+
 Login
+
 </button>
 
 
+
 <div id="msg"></div>
+
 
 
 <div class="footer">
@@ -185,8 +221,8 @@ Login
 </div>
 
 
-</div>
 
+</div>
 
 
 
@@ -199,41 +235,59 @@ const API =
 
 
 
-function showPass(){
 
-let p=document.getElementById("password");
 
-if(p.type==="password"){
+function showPassword(){
 
-p.type="text";
+let pass=document.getElementById("password");
 
-}else{
 
-p.type="password";
+if(pass.type==="password"){
+
+pass.type="text";
+
+}
+
+else{
+
+pass.type="password";
 
 }
 
+
 }
+
+
 
 
 
 function login(){
 
 
-let username=document.getElementById("username").value.trim();
-
-let password=document.getElementById("password").value.trim();
-
-
-let msg=document.getElementById("msg");
-
-let btn=document.getElementById("btn");
+let username=
+document.getElementById("username").value.trim();
 
 
+let password=
+document.getElementById("password").value.trim();
 
-if(username==="" || password===""){
 
-msg.innerHTML="Please enter username and password";
+let msg=
+document.getElementById("msg");
+
+
+let btn=
+document.getElementById("btn");
+
+
+
+if(username=="" || password==""){
+
+
+msg.style.color="red";
+
+msg.innerHTML="Enter Username and Password";
+
 
 return;
 
@@ -242,6 +296,7 @@ return;
 
 
 btn.innerHTML="Checking...";
+
 btn.disabled=true;
 
 
@@ -251,19 +306,22 @@ fetch(API,{
 method:"POST",
 
 headers:{
-"Content-Type":"application/x-www-form-urlencoded"
+
+"Content-Type":
+"application/x-www-form-urlencoded"
+
 },
 
 body:
 
-"username="+encodeURIComponent(username)+
-"&password="+encodeURIComponent(password)
+"username="+encodeURIComponent(username)
++"&password="+encodeURIComponent(password)
 
 
 })
 
 
-.then(res=>res.json())
+.then(response=>response.json())
 
 
 .then(data=>{
@@ -272,24 +330,49 @@ body:
 if(data.success){
 
 
-localStorage.setItem("user",JSON.stringify(data));
+
+localStorage.setItem(
+"user",
+JSON.stringify(data)
+);
+
+
+
+msg.style.color="green";
+
+msg.innerHTML="Login Successful";
+
+
+
+setTimeout(function(){
 
 
 window.location.href="dashboard.html";
 
 
+},800);
+
+
+
 }
+
+
 
 else{
 
 
+msg.style.color="red";
+
 msg.innerHTML=data.message;
 
+
 btn.innerHTML="Login";
+
 btn.disabled=false;
 
 
 }
+
 
 
 })
@@ -298,21 +381,46 @@ btn.disabled=false;
 .catch(error=>{
 
 
-msg.innerHTML="Server Error";
+msg.style.color="red";
+
+msg.innerHTML="Connection Error";
+
 
 btn.innerHTML="Login";
+
 btn.disabled=false;
 
 
 });
 
 
+
 }
+
+
+
+
+
+// ENTER KEY LOGIN
+
+document.addEventListener("keydown",function(e){
+
+
+if(e.key==="Enter"){
+
+login();
+
+}
+
+
+});
 
 
 
 </script>
 
 
+
 </body>
+
 </html>
