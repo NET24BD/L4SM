@@ -4,22 +4,29 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dashboard | Link4 Support Team</title>
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
+
 <style>
 
+
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:"Segoe UI",sans-serif;
+font-family:"Segoe UI",Arial,sans-serif;
+
 }
+
 
 
 body{
@@ -29,25 +36,38 @@ background:#f4f7f6;
 }
 
 
+
 /* ================= SIDEBAR ================= */
 
 
 .sidebar{
 
 position:fixed;
+
 top:0;
+
 left:0;
+
 width:260px;
+
 height:100vh;
+
 background:#062b25;
+
 color:white;
+
 padding:20px;
+
 display:flex;
+
 flex-direction:column;
+
 transition:.3s;
+
 z-index:1000;
 
 }
+
 
 
 .sidebar.hide{
@@ -58,29 +78,39 @@ left:-260px;
 
 
 
+
+
 .logo{
 
 text-align:center;
+
 padding-bottom:20px;
+
 border-bottom:1px solid rgba(255,255,255,.2);
 
 }
 
 
+
 .logo i{
 
 font-size:45px;
+
 color:#00d084;
 
 }
 
 
+
 .logo h2{
 
 margin-top:10px;
+
 font-size:22px;
 
 }
+
+
 
 
 
@@ -90,23 +120,36 @@ font-size:22px;
 .menu{
 
 margin-top:20px;
+
 flex:1;
-overflow:auto;
+
+overflow-y:auto;
 
 }
 
 
+
 .menu a{
 
+
 display:flex;
+
 align-items:center;
+
 gap:15px;
+
 padding:13px;
+
 margin-bottom:8px;
+
 border-radius:12px;
+
 color:white;
+
 text-decoration:none;
+
 transition:.3s;
+
 
 }
 
@@ -124,7 +167,12 @@ background:#00a86b;
 
 width:25px;
 
+font-size:18px;
+
 }
+
+
+
 
 
 
@@ -133,15 +181,23 @@ width:25px;
 
 .logout{
 
+
 background:#d63031;
-padding:13px;
+
+padding:14px;
+
 border-radius:12px;
+
 display:flex;
+
 align-items:center;
+
 gap:15px;
+
 cursor:pointer;
 
 }
+
 
 
 .logout:hover{
@@ -152,16 +208,27 @@ background:#ff4757;
 
 
 
+
+
+
+
+
 /* ================= MAIN ================= */
+
 
 
 .main{
 
+
 margin-left:260px;
+
 padding:20px;
+
 transition:.3s;
 
+
 }
+
 
 
 .main.full{
@@ -173,28 +240,44 @@ margin-left:0;
 
 
 
-/* TOPBAR */
+
+
+
+/* TOP BAR */
+
 
 
 .topbar{
 
+
 height:65px;
+
 background:white;
+
 border-radius:15px;
+
 display:flex;
+
 align-items:center;
+
 justify-content:space-between;
+
 padding:0 20px;
+
 box-shadow:0 5px 20px rgba(0,0,0,.1);
 
+
 }
+
 
 
 
 .toggle{
 
 font-size:25px;
+
 cursor:pointer;
+
 color:#062b25;
 
 }
@@ -202,34 +285,53 @@ color:#062b25;
 
 
 
+
+
+
+
 /* PROFILE */
+
 
 
 .profile{
 
+
 position:relative;
+
 display:flex;
+
 align-items:center;
+
 gap:12px;
+
 cursor:pointer;
+
 
 }
 
 
 
+
 .profile img{
 
+
 width:45px;
+
 height:45px;
+
 border-radius:50%;
+
 object-fit:cover;
+
 border:2px solid #00a86b;
+
 
 }
 
 
 
 .profile h4{
+
 
 color:#062b25;
 
@@ -239,29 +341,47 @@ color:#062b25;
 
 .profile span{
 
+
 font-size:12px;
+
 color:#777;
+
 
 }
 
 
 
 
-/* PROFILE MENU */
+
+
+
+
+/* PROFILE DROPDOWN */
 
 
 .profile-menu{
 
+
 display:none;
+
 position:absolute;
+
 right:20px;
+
 top:80px;
+
 width:190px;
+
 background:white;
+
 border-radius:15px;
+
 box-shadow:0 10px 30px rgba(0,0,0,.2);
+
 overflow:hidden;
+
 z-index:2000;
+
 
 }
 
@@ -278,13 +398,21 @@ display:block;
 .profile-menu a,
 .profile-menu div{
 
+
 display:flex;
-gap:12px;
+
 align-items:center;
+
+gap:12px;
+
 padding:14px;
+
 color:#062b25;
+
 text-decoration:none;
+
 cursor:pointer;
+
 
 }
 
@@ -293,7 +421,9 @@ cursor:pointer;
 .profile-menu a:hover,
 .profile-menu div:hover{
 
+
 background:#f1f5f4;
+
 
 }
 
@@ -321,6 +451,7 @@ left:0;
 }
 
 
+
 .main{
 
 margin-left:0;
@@ -328,9 +459,13 @@ margin-left:0;
 }
 
 
+
 }
 
+
+
 </style>
+
 
 </head>
 
@@ -339,27 +474,35 @@ margin-left:0;
 
 
 
-<!-- ================= SIDEBAR ================= -->
+
+
+<!-- SIDEBAR -->
 
 
 <div class="sidebar" id="sidebar">
 
 
+
 <div class="logo">
+
 
 <i class="fa-solid fa-headset"></i>
 
+
 <h2>
+
 Link4 Support
+
 </h2>
+
 
 </div>
 
 
 
 
-<div class="menu">
 
+<div class="menu">
 
 
 <a href="dashboard.html">
@@ -369,7 +512,6 @@ Link4 Support
 Dashboard
 
 </a>
-
 
 
 
@@ -383,8 +525,6 @@ My Account
 
 
 
-
-
 <a href="NS.html">
 
 <i class="fa-solid fa-headset"></i>
@@ -392,8 +532,6 @@ My Account
 New Support
 
 </a>
-
-
 
 
 
@@ -407,8 +545,6 @@ Pending Support
 
 
 
-
-
 <a href="PC.html">
 
 <i class="fa-solid fa-phone"></i>
@@ -416,8 +552,6 @@ Pending Support
 Pending Call
 
 </a>
-
-
 
 
 
@@ -431,8 +565,6 @@ History
 
 
 
-
-
 <a href="ON.html">
 
 <i class="fa-solid fa-pen"></i>
@@ -443,17 +575,13 @@ Offline Entry
 
 
 
-
-
 <a href="OF.html">
 
-<i class="fa-solid fa-folder"></i>
+<i class="fa-solid fa-folder-open"></i>
 
 Offline
 
 </a>
-
-
 
 
 
@@ -467,7 +595,6 @@ Offline Collect
 
 
 
-
 </div>
 
 
@@ -477,13 +604,12 @@ Offline Collect
 
 <div class="logout" onclick="logout()">
 
+
 <i class="fa-solid fa-right-from-bracket"></i>
+
 
 Logout
 
-</div>
-
-
 
 </div>
 
@@ -491,8 +617,14 @@ Logout
 
 
 
+</div>
 
-<!-- ================= MAIN ================= -->
+
+
+
+
+
+<!-- MAIN AREA -->
 
 
 <div class="main" id="main">
@@ -502,13 +634,11 @@ Logout
 <div class="topbar">
 
 
-
 <div class="toggle" onclick="toggleMenu()">
 
 <i class="fa-solid fa-bars"></i>
 
 </div>
-
 
 
 
@@ -525,14 +655,21 @@ src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
 
 <div>
 
+
 <h4 id="name">
+
 User
+
 </h4>
 
 
+
 <span id="role">
+
 Role
+
 </span>
+
 
 
 </div>
@@ -540,7 +677,6 @@ Role
 
 
 <i class="fa-solid fa-chevron-down"></i>
-
 
 
 </div>
@@ -571,6 +707,7 @@ Logout
 </div>
 
 
+
 </div>
 
 
@@ -579,128 +716,327 @@ Logout
 <!-- ================= DASHBOARD CARDS ================= -->
 
 
+<style>
+
+
+.cards{
+
+
+margin-top:25px;
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:20px;
+
+
+}
+
+
+
+.card{
+
+
+background:white;
+
+padding:30px 20px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+
+transition:.3s;
+
+
+}
+
+
+
+.card:hover{
+
+
+transform:translateY(-8px);
+
+
+box-shadow:0 10px 25px rgba(0,0,0,.18);
+
+
+}
+
+
+
+.card i{
+
+
+font-size:45px;
+
+color:#00a86b;
+
+
+}
+
+
+
+.card h3{
+
+
+margin-top:15px;
+
+color:#062b25;
+
+font-size:18px;
+
+
+}
+
+
+
+.card p{
+
+
+margin-top:8px;
+
+color:#777;
+
+font-weight:bold;
+
+font-size:14px;
+
+
+}
+
+
+
+
+.cards a{
+
+
+text-decoration:none;
+
+
+}
+
+
+
+
+</style>
+
+
+
+
+
+
+
 <div class="cards">
 
 
+
+
+
 <a href="NS.html">
+
 <div class="card">
+
 
 <i class="fa-solid fa-headset"></i>
 
-<h3>New Support</h3>
 
-<p>NS</p>
+<h3>
+New Support
+</h3>
+
+
+<p>
+NS
+</p>
+
 
 </div>
+
 </a>
+
+
+
 
 
 
 
 <a href="PS.html">
+
 <div class="card">
+
 
 <i class="fa-solid fa-clock"></i>
 
-<h3>Pending Support</h3>
 
-<p>PS</p>
+<h3>
+Pending Support
+</h3>
+
+
+<p>
+PS
+</p>
+
 
 </div>
+
 </a>
+
+
+
 
 
 
 
 <a href="PC.html">
+
 <div class="card">
+
 
 <i class="fa-solid fa-phone-volume"></i>
 
-<h3>Pending Call</h3>
 
-<p>PC</p>
+<h3>
+Pending Call
+</h3>
+
+
+<p>
+PC
+</p>
+
 
 </div>
+
 </a>
+
+
+
+
 
 
 
 
 <a href="H.html">
+
 <div class="card">
+
 
 <i class="fa-solid fa-file-lines"></i>
 
-<h3>History</h3>
 
-<p>H</p>
+<h3>
+History
+</h3>
+
+
+<p>
+H
+</p>
+
 
 </div>
+
 </a>
+
+
+
+
 
 
 
 
 <a href="ON.html">
+
 <div class="card">
+
 
 <i class="fa-solid fa-file-circle-plus"></i>
 
-<h3>Offline Entry</h3>
 
-<p>ON</p>
+<h3>
+Offline Entry
+</h3>
+
+
+<p>
+ON
+</p>
+
 
 </div>
+
 </a>
+
+
+
 
 
 
 
 <a href="OF.html">
+
 <div class="card">
+
 
 <i class="fa-solid fa-folder-open"></i>
 
-<h3>Offline</h3>
 
-<p>OF</p>
+<h3>
+Offline
+</h3>
+
+
+<p>
+OF
+</p>
+
 
 </div>
+
 </a>
+
+
+
+
 
 
 
 
 <a href="OC.html">
+
 <div class="card">
 
-<i class="fa-solid fa-money-bill"></i>
 
-<h3>Offline Collect</h3>
+<i class="fa-solid fa-money-bill-transfer"></i>
 
-<p>OC</p>
+
+<h3>
+Offline Collect
+</h3>
+
+
+<p>
+OC
+</p>
+
 
 </div>
+
 </a>
 
 
 
+
+
+
+
 </div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
 <script>
-
 
 
 // ================= LOGIN CHECK =================
@@ -737,7 +1073,7 @@ data.role || "User";
 
 
 
-if(data.photo){
+if(data.photo && data.photo!=""){
 
 
 document.getElementById("profileImg").src =
@@ -755,20 +1091,16 @@ data.photo;
 
 
 
-
-// ================= SIDEBAR MENU =================
+// ================= SIDEBAR TOGGLE =================
 
 
 
 function toggleMenu(){
 
 
-let sidebar =
-document.getElementById("sidebar");
+let sidebar = document.getElementById("sidebar");
 
-
-let main =
-document.getElementById("main");
+let main = document.getElementById("main");
 
 
 
@@ -805,7 +1137,7 @@ main.classList.toggle("full");
 
 
 
-// ================= PROFILE MENU =================
+// ================= PROFILE DROPDOWN =================
 
 
 
@@ -826,6 +1158,41 @@ document
 
 
 
+// Close Profile Menu Outside Click
+
+
+document.addEventListener("click",function(e){
+
+
+let profile =
+document.querySelector(".profile");
+
+
+let menu =
+document.getElementById("profileMenu");
+
+
+
+if(!profile.contains(e.target)){
+
+
+menu.classList.remove("show");
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+
+
 // ================= LOGOUT =================
 
 
@@ -833,12 +1200,10 @@ document
 function logout(){
 
 
-
 localStorage.removeItem("user");
 
 
 window.location.replace("login.html");
-
 
 
 }
@@ -849,7 +1214,9 @@ window.location.replace("login.html");
 
 
 
-// ================= AUTO LOGOUT 10 MIN =================
+
+
+// ================= AUTO LOGOUT 10 MINUTES =================
 
 
 
@@ -865,6 +1232,7 @@ function resetTimer(){
 
 
 clearTimeout(timer);
+
 
 
 
@@ -884,7 +1252,7 @@ window.location.replace("login.html");
 
 
 
-},logoutTime);
+}, logoutTime);
 
 
 
@@ -893,7 +1261,10 @@ window.location.replace("login.html");
 
 
 
-// Activity Detect
+
+
+
+// User Activity Detect
 
 
 window.onload = resetTimer;
@@ -915,8 +1286,9 @@ document.ontouchstart = resetTimer;
 
 
 
-</script>
 
+
+</script>
 
 
 </body>
