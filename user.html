@@ -14,12 +14,10 @@
 
 
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
-
 }
 
 
@@ -28,18 +26,17 @@ body{
 
 background:#f5f7fb;
 
-color:#222;
-
 padding:25px;
+
+color:#222;
 
 }
 
 
 
-
 .container{
 
-max-width:1200px;
+max-width:1250px;
 
 margin:auto;
 
@@ -47,7 +44,7 @@ margin:auto;
 
 
 
-
+/* HEADER */
 
 .header{
 
@@ -69,13 +66,11 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 
 
-
 .header h1{
 
 color:#0b5c45;
 
 }
-
 
 
 
@@ -87,9 +82,9 @@ color:white;
 
 border:none;
 
-padding:13px 22px;
+padding:13px 25px;
 
-border-radius:10px;
+border-radius:12px;
 
 cursor:pointer;
 
@@ -99,10 +94,10 @@ font-size:15px;
 
 
 
+/* CARDS */
+
 
 .cards{
-
-margin-top:25px;
 
 display:grid;
 
@@ -110,9 +105,9 @@ grid-template-columns:repeat(4,1fr);
 
 gap:20px;
 
+margin-top:25px;
+
 }
-
-
 
 
 
@@ -138,9 +133,15 @@ font-size:32px;
 
 color:#0b5c45;
 
+margin-bottom:8px;
+
 }
 
 
+
+
+
+/* SEARCH */
 
 
 .search{
@@ -153,21 +154,22 @@ padding:15px;
 
 border:none;
 
+outline:none;
+
 border-radius:12px;
 
-background:white;
+font-size:16px;
 
 box-shadow:0 5px 20px rgba(0,0,0,.08);
-
-font-size:16px;
 
 }
 
 
 
+/* TABLE */
+
 
 .table-box{
-
 
 margin-top:25px;
 
@@ -181,10 +183,7 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 overflow:auto;
 
-
 }
-
-
 
 
 
@@ -278,6 +277,95 @@ color:white;
 
 
 
+/* LOADING */
+
+
+#loadingBox{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(255,255,255,.7);
+
+z-index:999;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+
+
+.loader{
+
+width:45px;
+
+height:45px;
+
+border:5px solid #ddd;
+
+border-top:5px solid #0b5c45;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+}
+
+
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+
+
+
+
+/* NOTIFICATION */
+
+
+#notify{
+
+position:fixed;
+
+right:30px;
+
+top:30px;
+
+background:#0b5c45;
+
+color:white;
+
+padding:15px 25px;
+
+border-radius:12px;
+
+display:none;
+
+z-index:1000;
+
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+}
+
+
 
 
 
@@ -285,7 +373,6 @@ color:white;
 
 
 .modal{
-
 
 display:none;
 
@@ -305,15 +392,13 @@ justify-content:center;
 
 align-items:center;
 
+z-index:500;
 
 }
 
 
 
-
-
 .form-box{
-
 
 background:white;
 
@@ -325,16 +410,11 @@ padding:30px;
 
 border-radius:20px;
 
-box-shadow:0 10px 40px rgba(0,0,0,.2);
-
-
 }
 
 
 
-
 .form-box h2{
-
 
 text-align:center;
 
@@ -342,15 +422,11 @@ color:#0b5c45;
 
 margin-bottom:25px;
 
-
 }
 
 
 
-
-
 .form-grid{
-
 
 display:grid;
 
@@ -358,44 +434,32 @@ grid-template-columns:repeat(3,1fr);
 
 gap:15px;
 
-
 }
-
 
 
 
 .form-group{
 
-
 display:flex;
 
 flex-direction:column;
 
-
 }
-
 
 
 
 .form-group label{
 
-
 font-size:14px;
 
 margin-bottom:6px;
-
-color:#555;
-
 
 }
 
 
 
-
-
 .form-group input,
 .form-group select{
-
 
 padding:13px;
 
@@ -403,28 +467,19 @@ border:1px solid #ddd;
 
 border-radius:10px;
 
-font-size:15px;
-
-
 }
-
-
 
 
 
 .full{
 
-
 grid-column:1/4;
-
 
 }
 
 
 
-
 .save-btn{
-
 
 margin-top:20px;
 
@@ -434,15 +489,11 @@ background:#0b5c45;
 
 color:white;
 
-
 }
 
 
 
-
-
 .close-btn{
-
 
 margin-top:10px;
 
@@ -451,7 +502,6 @@ width:100%;
 background:#e74c3c;
 
 color:white;
-
 
 }
 
@@ -495,8 +545,19 @@ grid-column:auto;
 </head>
 
 
-
 <body>
+
+
+
+<div id="loadingBox">
+
+<div class="loader"></div>
+
+</div>
+
+
+
+<div id="notify"></div>
 
 
 
@@ -508,9 +569,7 @@ grid-column:auto;
 
 
 <h1>
-
 User Management
-
 </h1>
 
 
@@ -521,9 +580,7 @@ User Management
 </button>
 
 
-
 </div>
-
 
 
 
@@ -534,9 +591,7 @@ User Management
 
 <div class="card">
 
-<h2 id="total">
-0
-</h2>
+<h2 id="total">0</h2>
 
 <p>Total User</p>
 
@@ -546,9 +601,7 @@ User Management
 
 <div class="card">
 
-<h2 id="active">
-0
-</h2>
+<h2 id="active">0</h2>
 
 <p>Active</p>
 
@@ -559,9 +612,7 @@ User Management
 
 <div class="card">
 
-<h2 id="inactive">
-0
-</h2>
+<h2 id="inactive">0</h2>
 
 <p>Inactive</p>
 
@@ -572,18 +623,14 @@ User Management
 
 <div class="card">
 
-<h2 id="blocked">
-0
-</h2>
+<h2 id="blocked">0</h2>
 
 <p>Blocked</p>
 
 </div>
 
 
-
 </div>
-
 
 
 
@@ -597,14 +644,7 @@ id="search"
 
 placeholder="Search User..."
 
-onkeyup="searchUser()"
-
->
-
-
-
-
-
+onkeyup="searchUser()">
 
 
 <div class="table-box">
@@ -632,8 +672,8 @@ onkeyup="searchUser()"
 
 </tr>
 
-
 </thead>
+
 
 
 <tbody id="userList">
@@ -645,15 +685,17 @@ onkeyup="searchUser()"
 </table>
 
 
-
 </div>
 
-<!-- USER FORM MODAL -->
+<!-- USER ADD / EDIT MODAL -->
+
 
 <div class="modal" id="modal">
 
 
+
 <div class="form-box">
+
 
 
 <h2>
@@ -662,9 +704,10 @@ User Information
 
 
 
+
 <input 
-id="row"
-type="hidden">
+type="hidden"
+id="row">
 
 
 
@@ -686,7 +729,10 @@ Username
 id="username"
 placeholder="Username">
 
+
 </div>
+
+
 
 
 
@@ -702,7 +748,10 @@ Password
 id="password"
 placeholder="Password">
 
+
 </div>
+
+
 
 
 
@@ -718,7 +767,9 @@ Name
 id="name"
 placeholder="Name">
 
+
 </div>
+
 
 
 
@@ -735,7 +786,10 @@ Role
 id="role"
 placeholder="Role">
 
+
 </div>
+
+
 
 
 
@@ -752,17 +806,17 @@ Status
 <select id="status">
 
 
-<option>
+<option value="Active">
 Active
 </option>
 
 
-<option>
+<option value="Inactive">
 Inactive
 </option>
 
 
-<option>
+<option value="Blocked">
 Blocked
 </option>
 
@@ -779,6 +833,7 @@ Blocked
 
 
 
+
 <div class="form-group">
 
 <label>
@@ -786,7 +841,7 @@ Join Date
 </label>
 
 
-<input 
+<input
 
 id="joinDate"
 
@@ -804,6 +859,7 @@ placeholder="DD-MM-YYYY">
 
 <div class="form-group full">
 
+
 <label>
 Picture URL
 </label>
@@ -817,6 +873,8 @@ placeholder="Picture Link">
 
 
 </div>
+
+
 
 
 
@@ -847,6 +905,8 @@ placeholder="Address">
 
 
 
+
+
 <div class="form-group">
 
 
@@ -863,6 +923,7 @@ placeholder="Email">
 
 
 </div>
+
 
 
 
@@ -900,7 +961,7 @@ placeholder="Department">
 
 
 
-<button 
+<button
 
 class="save-btn"
 
@@ -915,7 +976,8 @@ Save Update
 
 
 
-<button 
+
+<button
 
 class="close-btn"
 
@@ -929,15 +991,15 @@ Close
 
 
 
-</div>
-
 
 </div>
 
+
+</div>
 <script>
 
 
-const API_URL = 
+const API_URL =
 "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
 
@@ -948,10 +1010,67 @@ let users=[];
 
 
 
+// LOADING
+
+
+function loading(show){
+
+document.getElementById("loadingBox")
+.style.display = show ? "flex" : "none";
+
+}
+
+
+
+
+
+
+// NOTIFICATION
+
+
+function notify(msg,type="success"){
+
+
+let box=document.getElementById("notify");
+
+
+box.innerHTML=msg;
+
+
+box.style.background =
+type=="error" ? "#e74c3c" : "#0b5c45";
+
+
+box.style.display="block";
+
+
+
+setTimeout(()=>{
+
+
+box.style.display="none";
+
+
+},2500);
+
+
+
+}
+
+
+
+
+
+
+
 // LOAD USERS
 
 
 function loadUsers(){
+
+
+loading(true);
+
 
 
 fetch(API_URL,{
@@ -965,18 +1084,19 @@ headers:{
 
 },
 
-body:
-
-"action=getUsers"
+body:"action=getUsers"
 
 
 })
-
 
 .then(res=>res.json())
 
 
 .then(data=>{
+
+
+loading(false);
+
 
 
 if(data.success){
@@ -994,13 +1114,25 @@ countUsers();
 }
 
 
-})
+else{
 
+
+notify("Data Load Failed","error");
+
+
+}
+
+
+
+})
 
 .catch(()=>{
 
 
-alert("Connection Error");
+loading(false);
+
+
+notify("Connection Error","error");
 
 
 });
@@ -1014,11 +1146,12 @@ alert("Connection Error");
 
 
 
-// SHOW USERS
+
+
+// SHOW TABLE
 
 
 function showUsers(data){
-
 
 
 let html="";
@@ -1028,7 +1161,6 @@ let html="";
 data.forEach(u=>{
 
 
-
 html+=`
 
 <tr>
@@ -1036,9 +1168,11 @@ html+=`
 
 <td>
 
+
 <img class="profile-img"
 
 src="${u.picture || 'https://i.imgur.com/6VBx3io.png'}">
+
 
 </td>
 
@@ -1083,19 +1217,20 @@ Delete
 
 </tr>
 
-
 `;
-
 
 
 });
 
 
 
-document.getElementById("userList").innerHTML=html;
+document.getElementById("userList")
+.innerHTML=html;
+
 
 
 }
+
 
 
 
@@ -1111,29 +1246,34 @@ function countUsers(){
 
 
 
-document.getElementById("total").innerHTML=
-users.length;
+document.getElementById("total")
+.innerHTML=users.length;
 
 
 
-document.getElementById("active").innerHTML=
+document.getElementById("active")
+.innerHTML=
 
 users.filter(x=>x.status=="Active").length;
 
 
 
-document.getElementById("inactive").innerHTML=
+document.getElementById("inactive")
+.innerHTML=
 
 users.filter(x=>x.status=="Inactive").length;
 
 
 
-document.getElementById("blocked").innerHTML=
+document.getElementById("blocked")
+.innerHTML=
 
 users.filter(x=>x.status=="Blocked").length;
 
 
+
 }
+
 
 
 
@@ -1148,11 +1288,11 @@ users.filter(x=>x.status=="Blocked").length;
 function searchUser(){
 
 
-let text=document
-.getElementById("search")
+let text=
+
+document.getElementById("search")
 .value
 .toLowerCase();
-
 
 
 
@@ -1178,7 +1318,10 @@ let result=users.filter(u=>
 showUsers(result);
 
 
+
 }
+
+
 
 
 
@@ -1205,6 +1348,8 @@ document.getElementById("modal")
 
 
 
+
+
 // CLOSE FORM
 
 
@@ -1223,33 +1368,34 @@ document.getElementById("modal")
 
 
 
-// CLEAR
+
+// CLEAR FORM
 
 
 function clearForm(){
 
 
-row.value="";
+document.getElementById("row").value="";
 
-username.value="";
+document.getElementById("username").value="";
 
-password.value="";
+document.getElementById("password").value="";
 
-name.value="";
+document.getElementById("name").value="";
 
-role.value="";
+document.getElementById("role").value="";
 
-status.value="Active";
+document.getElementById("status").value="Active";
 
-picture.value="";
+document.getElementById("picture").value="";
 
-address.value="";
+document.getElementById("address").value="";
 
-email.value="";
+document.getElementById("email").value="";
 
-department.value="";
+document.getElementById("department").value="";
 
-joinDate.value="";
+document.getElementById("joinDate").value="";
 
 
 }
@@ -1260,38 +1406,41 @@ joinDate.value="";
 
 
 
-// EDIT
+
+// EDIT USER
 
 
 function editUser(u){
 
 
 
-row.value=u.row || "";
+document.getElementById("row").value=u.row || "";
 
-username.value=u.username || "";
+document.getElementById("username").value=u.username || "";
 
-password.value=u.password || "";
+document.getElementById("password").value=u.password || "";
 
-name.value=u.name || "";
+document.getElementById("name").value=u.name || "";
 
-role.value=u.role || "";
+document.getElementById("role").value=u.role || "";
 
-status.value=u.status || "Active";
+document.getElementById("status").value=u.status || "Active";
 
-picture.value=u.picture || "";
+document.getElementById("picture").value=u.picture || "";
 
-address.value=u.address || "";
+document.getElementById("address").value=u.address || "";
 
-email.value=u.email || "";
+document.getElementById("email").value=u.email || "";
 
-department.value=u.department || "";
+document.getElementById("department").value=u.department || "";
 
-joinDate.value=u.joinDate || "";
+document.getElementById("joinDate").value=u.joinDate || "";
 
 
 
-modal.style.display="flex";
+document.getElementById("modal")
+.style.display="flex";
+
 
 
 }
@@ -1303,21 +1452,20 @@ modal.style.display="flex";
 
 
 
-// SAVE
+
+// SAVE USER
 
 
 function saveUser(){
 
 
+let row = 
+document.getElementById("row").value;
+
+
 
 let action =
-
-row.value ?
-
-"updateUser" :
-
-"addUser";
-
+row ? "updateUser" : "addUser";
 
 
 
@@ -1327,31 +1475,54 @@ let body =
 
 "action="+action+
 
-"&row="+encodeURIComponent(row.value)+
+"&row="+encodeURIComponent(row)+
 
-"&username="+encodeURIComponent(username.value)+
+"&username="+encodeURIComponent(
+document.getElementById("username").value
+)+
 
-"&password="+encodeURIComponent(password.value)+
+"&password="+encodeURIComponent(
+document.getElementById("password").value
+)+
 
-"&name="+encodeURIComponent(name.value)+
+"&name="+encodeURIComponent(
+document.getElementById("name").value
+)+
 
-"&role="+encodeURIComponent(role.value)+
+"&role="+encodeURIComponent(
+document.getElementById("role").value
+)+
 
-"&status="+encodeURIComponent(status.value)+
+"&status="+encodeURIComponent(
+document.getElementById("status").value
+)+
 
-"&picture="+encodeURIComponent(picture.value)+
+"&picture="+encodeURIComponent(
+document.getElementById("picture").value
+)+
 
-"&address="+encodeURIComponent(address.value)+
+"&address="+encodeURIComponent(
+document.getElementById("address").value
+)+
 
-"&email="+encodeURIComponent(email.value)+
+"&email="+encodeURIComponent(
+document.getElementById("email").value
+)+
 
-"&department="+encodeURIComponent(department.value)+
+"&department="+encodeURIComponent(
+document.getElementById("department").value
+)+
 
-"&joinDate="+encodeURIComponent(joinDate.value);
+"&joinDate="+encodeURIComponent(
+document.getElementById("joinDate").value
+);
 
 
 
 
+
+
+loading(true);
 
 
 
@@ -1378,7 +1549,11 @@ body:body
 .then(data=>{
 
 
-alert(data.message || "Saved");
+loading(false);
+
+
+
+notify(data.message);
 
 
 closeForm();
@@ -1387,10 +1562,24 @@ closeForm();
 loadUsers();
 
 
+})
+
+
+.catch(()=>{
+
+
+loading(false);
+
+
+notify("Save Failed","error");
+
+
 });
 
 
+
 }
+
 
 
 
@@ -1405,8 +1594,14 @@ loadUsers();
 function deleteUser(username){
 
 
+if(!confirm("Delete User?"))
 
-if(confirm("Delete this user?")){
+return;
+
+
+
+
+loading(true);
 
 
 
@@ -1427,7 +1622,6 @@ body:
 encodeURIComponent(username)
 
 
-
 })
 
 
@@ -1437,10 +1631,26 @@ encodeURIComponent(username)
 .then(data=>{
 
 
-alert(data.message || "Deleted");
+loading(false);
+
+
+notify(data.message);
 
 
 loadUsers();
+
+
+})
+
+
+
+.catch(()=>{
+
+
+loading(false);
+
+
+notify("Delete Failed","error");
 
 
 });
@@ -1448,9 +1658,6 @@ loadUsers();
 
 }
 
-
-
-}
 
 
 
@@ -1466,6 +1673,7 @@ loadUsers();
 
 
 </script>
+
 
 
 </body>
