@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>History | Link4 Support</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef2f5;
+display:flex;
+}
+
+/*================ SIDEBAR ================*/
+
+.sidebar{
+width:260px;
+height:100vh;
+background:#062f28;
+color:#fff;
+position:fixed;
+left:0;
+top:0;
+display:flex;
+flex-direction:column;
+}
+
+.logo{
+text-align:center;
+padding:25px 15px;
+border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.logo i{
+font-size:48px;
+color:#00d084;
+margin-bottom:10px;
+}
+
+.logo h2{
+font-size:18px;
+}
+
+.menu{
+padding:20px;
+flex:1;
+overflow:auto;
+}
+
+.menu a{
+display:flex;
+align-items:center;
+gap:15px;
+padding:14px 12px;
+margin-bottom:8px;
+text-decoration:none;
+color:#fff;
+border-radius:8px;
+transition:.3s;
+}
+
+.menu a:hover{
+background:#0b4b40;
+}
+
+.menu a.active{
+background:#00b96b;
+}
+
+.menu i{
+width:22px;
+text-align:center;
+}
+
+.logout{
+padding:20px;
+}
+
+.logout button{
+width:100%;
+padding:14px;
+background:#e22c2c;
+border:none;
+color:#fff;
+font-size:16px;
+border-radius:10px;
+cursor:pointer;
+}
+
+/*================ CONTENT ================*/
+
+.main{
+margin-left:260px;
+width:calc(100% - 260px);
+padding:20px;
+}
+
+/*================ TOPBAR ================*/
+
+.topbar{
+height:65px;
+background:#fff;
+border-radius:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.left i{
+font-size:28px;
+cursor:pointer;
+}
+
+.right{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.right img{
+width:45px;
+height:45px;
+border-radius:50%;
+border:2px solid #00b96b;
+}
+
+.right h4{
+font-size:17px;
+}
+
+.right small{
+color:#777;
+}
+
+/*================ PAGE TITLE ================*/
+
+.title{
+margin:25px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.title h2{
+color:#0b3c34;
+}
+
+.total{
+background:#00b96b;
+color:#fff;
+padding:10px 18px;
+border-radius:30px;
+font-weight:bold;
+}
+
+/*================ FILTER ================*/
+
+.filter{
+background:#fff;
+padding:20px;
+border-radius:15px;
+display:flex;
+gap:15px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.filter input{
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:15px;
+}
+
+.filter button{
+padding:12px 18px;
+border:none;
+background:#00b96b;
+color:#fff;
+border-radius:8px;
+cursor:pointer;
+font-size:15px;
+}
+
+/*================ TABLE ================*/
+
+.table-box{
+background:#fff;
+border-radius:15px;
+overflow:auto;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1100px;
+}
+
+thead{
+background:#00b96b;
+color:#fff;
+}
+
+th{
+padding:15px;
+text-align:left;
+}
+
+td{
+padding:14px;
+border-bottom:1px solid #eee;
+}
+
+tbody tr:hover{
+background:#f7f7f7;
+}
+
+.status{
+background:#dff8ea;
+color:#00a65a;
+padding:5px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+display:inline-block;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<div class="logo">
+<i class="fas fa-headset"></i>
+<h2>Link4 Support</h2>
+</div>
+
+<div class="menu">
+
+<a href="dashboard.html">
+<i class="fas fa-home"></i> Dashboard
+</a>
+
+<a href="account.html">
+<i class="fas fa-user-circle"></i> My Account
+</a>
+
+<a href="NS.html">
+<i class="fas fa-headset"></i> New Support
+</a>
+
+<a href="PS.html">
+<i class="fas fa-clock"></i> Pending Support
+</a>
+
+<a href="PC.html">
+<i class="fas fa-phone"></i> Pending Call
+</a>
+
+<a class="active" href="H.html">
+<i class="fas fa-file-alt"></i> History
+</a>
+
+<a href="ON.html">
+<i class="fas fa-file-circle-plus"></i> Offline Entry
+</a>
+
+<a href="OF.html">
+<i class="fas fa-folder-open"></i> Offline
+</a>
+
+<a href="OC.html">
+<i class="fas fa-database"></i> Offline Collect
+</a>
+
+</div>
+
+<div class="logout">
+<button>
+<i class="fas fa-right-from-bracket"></i>
+Logout
+</button>
+</div>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+<div class="topbar">
+
+<div class="left">
+<i class="fas fa-bars"></i>
+</div>
+
+<div class="right">
+
+<img src="https://i.pravatar.cc/100">
+
+<div>
+<h4>Shemanto</h4>
+<small>Admin</small>
+</div>
+
+<i class="fas fa-angle-down"></i>
+
+</div>
+
+</div>
+
+<div class="title">
+
+<h2>History Dashboard</h2>
+
+<div class="total">
+Total : <span id="total">0</span>
+</div>
+
+</div>
+
+<div class="filter">
+
+<input
+type="text"
+id="search"
+placeholder="Search IP / Problem">
+
+<input
+type="date"
+id="date">
+
+<button>
+<i class="fas fa-search"></i>
+Search
+</button>
+
+<button>
+<i class="fas fa-rotate-right"></i>
+Refresh
+</button>
+
+</div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>IP</th>
+<th>Problem</th>
+<th>Reference</th>
+<th>Date</th>
+<th>Support</th>
+<th>Support Work</th>
+<th>Call</th>
+<th>Call Work</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyTable">
+
+<!-- Data আসবে এখানে -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+<!-- ================= Demo History Data ================= -->
+
+<script>
+
+const historyData = [
+
+{
+ip:"1001",
+problem:"No Internet",
+reference:"REF-001",
+date:"30-07-2026",
+support:"Done",
+supportWork:"Router Restart",
+call:"Completed",
+callWork:"Customer Confirmed",
+status:"Closed"
+},
+
+{
+ip:"1002",
+problem:"Slow Speed",
+reference:"REF-002",
+date:"30-07-2026",
+support:"Done",
+supportWork:"Bandwidth Reset",
+call:"Completed",
+callWork:"Speed OK",
+status:"Closed"
+},
+
+{
+ip:"1003",
+problem:"ONU Offline",
+reference:"REF-003",
+date:"29-07-2026",
+support:"Done",
+supportWork:"ONU Reconfigured",
+call:"Completed",
+callWork:"Internet Running",
+status:"Closed"
+},
+
+{
+ip:"1004",
+problem:"Fiber Cut",
+reference:"REF-004",
+date:"29-07-2026",
+support:"Done",
+supportWork:"Fiber Joint",
+call:"Completed",
+callWork:"Customer Satisfied",
+status:"Closed"
+},
+
+{
+ip:"1005",
+problem:"Router Problem",
+reference:"REF-005",
+date:"28-07-2026",
+support:"Done",
+supportWork:"Router Replace",
+call:"Completed",
+callWork:"Working Fine",
+status:"Closed"
+}
+
+];
+
+const tbody=document.getElementById("historyTable");
+
+function loadTable(){
+
+tbody.innerHTML="";
+
+historyData.forEach((item,index)=>{
+
+tbody.innerHTML+=`
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${item.ip}</td>
+
+<td>${item.problem}</td>
+
+<td>${item.reference}</td>
+
+<td>${item.date}</td>
+
+<td>${item.support}</td>
+
+<td>${item.supportWork}</td>
+
+<td>${item.call}</td>
+
+<td>${item.callWork}</td>
+
+<td>
+<span class="status">
+${item.status}
+</span>
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("total").innerHTML=historyData.length;
+
+}
+
+loadTable();
+
+</script>
+
+<style>
+
+/*========== Responsive ==========*/
+
+@media(max-width:1100px){
+
+.sidebar{
+
+width:75px;
+
+}
+
+.logo h2{
+
+display:none;
+
+}
+
+.menu a{
+
+justify-content:center;
+
+}
+
+.menu a span{
+
+display:none;
+
+}
+
+.menu a{
+
+font-size:22px;
+
+}
+
+.main{
+
+margin-left:75px;
+
+width:calc(100% - 75px);
+
+}
+
+.logout button{
+
+font-size:0;
+
+}
+
+.logout button i{
+
+font-size:20px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.main{
+
+padding:15px;
+
+}
+
+.filter{
+
+flex-direction:column;
+
+}
+
+.filter input{
+
+width:100%;
+
+}
+
+.filter button{
+
+width:100%;
+
+}
+
+.right h4,
+
+.right small{
+
+display:none;
+
+}
+
+.title{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+
+}
+
+}
+
+.table-box{
+
+animation:fade .5s;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+tbody tr{
+
+transition:.3s;
+
+}
+
+tbody tr:hover{
+
+transform:scale(1.01);
+
+}
+
+.status{
+
+min-width:70px;
+
+text-align:center;
+
+}
+
+</style>
+<script>
+
+/* ===========================
+   Live Search
+=========================== */
+
+const searchInput = document.getElementById("search");
+
+searchInput.addEventListener("keyup", function(){
+
+let value = this.value.toLowerCase();
+
+let rows = document.querySelectorAll("#historyTable tr");
+
+rows.forEach(row=>{
+
+let text = row.innerText.toLowerCase();
+
+row.style.display = text.indexOf(value)>-1 ? "" : "none";
+
+});
+
+});
+
+
+/* ===========================
+   Date Filter
+=========================== */
+
+const dateInput = document.getElementById("date");
+
+dateInput.addEventListener("change", function(){
+
+let value=this.value;
+
+if(value==""){
+
+loadTable();
+
+return;
+
+}
+
+let d=value.split("-");
+
+let format=d[2]+"-"+d[1]+"-"+d[0];
+
+let rows=document.querySelectorAll("#historyTable tr");
+
+rows.forEach(row=>{
+
+if(row.innerText.includes(format)){
+
+row.style.display="";
+
+}else{
+
+row.style.display="none";
+
+}
+
+});
+
+});
+
+
+/* ===========================
+   Refresh Button
+=========================== */
+
+document.querySelectorAll(".filter button")[1].onclick=function(){
+
+document.getElementById("search").value="";
+
+document.getElementById("date").value="";
+
+loadTable();
+
+};
+
+
+/* ===========================
+   Sidebar Toggle
+=========================== */
+
+const menuBtn=document.querySelector(".fa-bars");
+
+const sidebar=document.querySelector(".sidebar");
+
+const main=document.querySelector(".main");
+
+let closeMenu=false;
+
+menuBtn.onclick=function(){
+
+closeMenu=!closeMenu;
+
+if(closeMenu){
+
+sidebar.style.width="75px";
+
+main.style.marginLeft="75px";
+
+main.style.width="calc(100% - 75px)";
+
+document.querySelectorAll(".menu a").forEach(a=>{
+
+let txt=a.childNodes[2];
+
+if(txt) txt.style.display="none";
+
+});
+
+document.querySelector(".logo h2").style.display="none";
+
+}else{
+
+sidebar.style.width="260px";
+
+main.style.marginLeft="260px";
+
+main.style.width="calc(100% - 260px)";
+
+document.querySelectorAll(".menu a").forEach(a=>{
+
+let txt=a.childNodes[2];
+
+if(txt) txt.style.display="inline";
+
+});
+
+document.querySelector(".logo h2").style.display="block";
+
+}
+
+};
+
+
+/* ===========================
+   Logout
+=========================== */
+
+document.querySelector(".logout button").onclick=function(){
+
+if(confirm("Are you sure you want to logout?")){
+
+localStorage.clear();
+
+window.location.href="login.html";
+
+}
+
+};
+
+
+/* ===========================
+   Row Animation
+=========================== */
+
+function animateRows(){
+
+let rows=document.querySelectorAll("#historyTable tr");
+
+rows.forEach((row,index)=>{
+
+row.style.opacity="0";
+row.style.transform="translateY(15px)";
+
+setTimeout(()=>{
+
+row.style.transition=".35s";
+
+row.style.opacity="1";
+
+row.style.transform="translateY(0)";
+
+},index*60);
+
+});
+
+}
+
+animateRows();
+
+</script>
+
+</body>
+</html>
