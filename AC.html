@@ -26,113 +26,162 @@ background:linear-gradient(135deg,#07111f,#0b5c45);
 display:flex;
 justify-content:center;
 align-items:center;
+padding:20px;
+
+}
+
+
+
+.account-container{
+
+width:95%;
+max-width:900px;
+background:#101c30;
+border-radius:25px;
+padding:40px;
+box-shadow:0 20px 50px rgba(0,0,0,.5);
 color:white;
 
 }
 
 
 
-.account-box{
+/* Profile Header */
 
-width:380px;
-background:#101c30;
-padding:25px;
-border-radius:20px;
-box-shadow:0 0 30px #000;
-
-}
-
-
-
-.profile{
+.profile-header{
 
 text-align:center;
-
-}
-
-
-
-.profile img{
-
-width:120px;
-height:120px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid #00d4ff;
-
-}
-
-
-
-.profile h2{
-
-margin-top:15px;
-
-}
-
-
-
-.role{
-
-color:#00d4ff;
-margin-top:8px;
-
-}
-
-
-
-.info{
-
-margin-top:20px;
-background:#07111f;
-padding:15px;
-border-radius:15px;
-
-}
-
-
-
-.row{
-
-display:flex;
-justify-content:space-between;
-padding:10px 0;
+padding-bottom:30px;
 border-bottom:1px solid #26364f;
 
 }
 
 
-.row:last-child{
 
-border:none;
+.profile-header img{
 
-}
-
-
-
-.label{
-
-color:#aaa;
+width:170px;
+height:170px;
+border-radius:50%;
+object-fit:cover;
+border:6px solid #00d4ff;
+box-shadow:0 0 25px #00d4ff;
 
 }
 
 
 
-.value{
+.profile-header h1{
 
+margin-top:20px;
+font-size:32px;
+
+}
+
+
+
+.profile-header .role{
+
+margin-top:8px;
+font-size:18px;
+color:#00d4ff;
+
+}
+
+
+
+
+
+/* Information */
+
+.info-title{
+
+margin-top:35px;
+font-size:22px;
+color:#00d4ff;
+}
+
+
+
+.info-box{
+
+margin-top:20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+
+}
+
+
+
+.field{
+
+background:#07111f;
+padding:20px;
+border-radius:15px;
+border:1px solid #26364f;
+
+}
+
+
+
+.field label{
+
+display:block;
+color:#999;
+font-size:14px;
+margin-bottom:8px;
+
+}
+
+
+
+.field span{
+
+font-size:18px;
 font-weight:bold;
-max-width:180px;
-text-align:right;
 word-break:break-word;
 
 }
 
 
 
+
+
+@media(max-width:700px){
+
+
+.info-box{
+
+grid-template-columns:1fr;
+
+}
+
+
+
+.account-container{
+
+padding:25px;
+
+}
+
+
+
+.profile-header img{
+
+width:130px;
+height:130px;
+
+}
+
+
+}
+
+
 #loading{
 
 text-align:center;
-font-size:18px;
+font-size:22px;
 
 }
 
@@ -143,12 +192,12 @@ font-size:18px;
 </head>
 
 
-
 <body>
 
 
 
-<div class="account-box">
+
+<div class="account-container">
 
 
 
@@ -161,12 +210,11 @@ Loading Account...
 
 
 
-
 <div id="account" style="display:none;">
 
 
 
-<div class="profile">
+<div class="profile-header">
 
 
 <img id="photo"
@@ -174,10 +222,13 @@ src="https://i.imgur.com/6VBx3io.png">
 
 
 
-<h2 id="name"></h2>
+<h1 id="name">
+</h1>
 
 
-<div class="role" id="role"></div>
+<div class="role" id="role">
+</div>
+
 
 
 </div>
@@ -186,86 +237,86 @@ src="https://i.imgur.com/6VBx3io.png">
 
 
 
-<div class="info">
+<h2 class="info-title">
+Account Information
+</h2>
 
 
 
-<div class="row">
+<div class="info-box">
 
-<span class="label">
+
+
+<div class="field">
+
+<label>
 Username
-</span>
+</label>
 
-<span class="value" id="username"></span>
+<span id="username"></span>
 
 </div>
 
 
 
+<div class="field">
 
-<div class="row">
-
-<span class="label">
+<label>
 Status
-</span>
+</label>
 
-<span class="value" id="status"></span>
+<span id="status"></span>
+
+</div>
+
+
+
+<div class="field">
+
+<label>
+Phone Number
+</label>
+
+<span id="number"></span>
 
 </div>
 
 
 
 
-<div class="row">
+<div class="field">
 
-<span class="label">
-Number
-</span>
-
-<span class="value" id="number"></span>
-
-</div>
-
-
-
-
-<div class="row">
-
-<span class="label">
+<label>
 Email
-</span>
+</label>
 
-<span class="value" id="email"></span>
+<span id="email"></span>
 
 </div>
 
 
 
 
-<div class="row">
+<div class="field">
 
-<span class="label">
+<label>
 Department
-</span>
+</label>
 
-<span class="value" id="department"></span>
+<span id="department"></span>
 
 </div>
 
 
 
 
-<div class="row">
+<div class="field">
 
-<span class="label">
+<label>
 Join Date
-</span>
+</label>
 
-<span class="value" id="joinDate"></span>
-
-</div>
-
-
+<span id="joinDate"></span>
 
 </div>
 
@@ -274,7 +325,12 @@ Join Date
 </div>
 
 
+
 </div>
+
+
+</div>
+
 
 
 
@@ -284,13 +340,13 @@ Join Date
 <script>
 
 
-const API_URL = 
+const API_URL =
 "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
 
 
 
-// Get login user
+// Get Login Data
 
 let user = JSON.parse(localStorage.getItem("user"));
 
@@ -307,11 +363,6 @@ window.location.href="login.html";
 else{
 
 
-let username = user.username;
-
-
-
-
 fetch(API_URL,{
 
 method:"POST",
@@ -323,27 +374,23 @@ headers:{
 
 },
 
+
 body:
 
-"action=account&username="+encodeURIComponent(username)
+"action=account&username="+encodeURIComponent(user.username)
+
 
 
 })
 
 
-
 .then(response=>response.text())
 
 
-
-.then(text=>{
-
-
-console.log(text);
+.then(result=>{
 
 
-
-let data = JSON.parse(text);
+let data=JSON.parse(result);
 
 
 
@@ -358,8 +405,6 @@ document.getElementById("account").style.display="block";
 
 
 
-
-
 document.getElementById("photo").src =
 
 data.picture ||
@@ -368,43 +413,28 @@ data.picture ||
 
 
 
-document.getElementById("name").innerHTML =
-data.name;
+document.getElementById("name").innerHTML=data.name;
 
 
-
-document.getElementById("role").innerHTML =
-data.role;
+document.getElementById("role").innerHTML=data.role;
 
 
-
-document.getElementById("username").innerHTML =
-data.username;
+document.getElementById("username").innerHTML=data.username;
 
 
-
-document.getElementById("status").innerHTML =
-data.status;
+document.getElementById("status").innerHTML=data.status;
 
 
-
-document.getElementById("number").innerHTML =
-data.number;
+document.getElementById("number").innerHTML=data.number;
 
 
-
-document.getElementById("email").innerHTML =
-data.email;
+document.getElementById("email").innerHTML=data.email;
 
 
-
-document.getElementById("department").innerHTML =
-data.department;
+document.getElementById("department").innerHTML=data.department;
 
 
-
-document.getElementById("joinDate").innerHTML =
-data.joinDate;
+document.getElementById("joinDate").innerHTML=data.joinDate;
 
 
 
@@ -413,8 +443,8 @@ data.joinDate;
 else{
 
 
-document.getElementById("loading").innerHTML =
-data.message;
+document.getElementById("loading").innerHTML=
+"Account Not Found";
 
 
 }
@@ -428,10 +458,7 @@ data.message;
 .catch(error=>{
 
 
-console.log(error);
-
-
-document.getElementById("loading").innerHTML =
+document.getElementById("loading").innerHTML=
 "Connection Error";
 
 
@@ -444,6 +471,7 @@ document.getElementById("loading").innerHTML =
 
 
 </script>
+
 
 
 </body>
