@@ -23,11 +23,13 @@ font-family:Arial,sans-serif;
 
 
 body{
-background:#f1f5f9;
+
+background:#f3fdf8;
+
 }
 
 
-/* SIDEBAR */
+/* DEEP GREEN SIDEBAR */
 
 .sidebar{
 
@@ -36,44 +38,80 @@ top:0;
 left:0;
 width:260px;
 height:100vh;
-background:#0f172a;
+
+background:#022c22;
+
 color:white;
+
 padding:20px;
+
 transition:.3s;
+
+box-shadow:5px 0 25px rgba(0,0,0,.30);
 
 }
 
 
 .sidebar.hide{
+
 left:-260px;
+
 }
+
 
 
 .logo{
 
 font-size:24px;
+
 font-weight:bold;
+
 margin-bottom:35px;
 
 }
 
 
-.menu a{
 
-display:flex;
-gap:15px;
-padding:14px;
-color:white;
-text-decoration:none;
-border-radius:8px;
-margin-bottom:8px;
+.logo i{
+
+color:#00f5a0;
+
+font-size:28px;
 
 }
 
 
+
+
+.menu a{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+padding:14px;
+
+color:#ecfdf5;
+
+text-decoration:none;
+
+border-radius:10px;
+
+margin-bottom:8px;
+
+transition:.3s;
+
+}
+
+
+
 .menu a:hover{
 
-background:#1e293b;
+background:#065f46;
+
+transform:translateX(5px);
 
 }
 
@@ -81,13 +119,17 @@ background:#1e293b;
 
 /* MAIN */
 
+
 .main{
 
 margin-left:260px;
+
 padding:25px;
+
 transition:.3s;
 
 }
+
 
 
 .main.full{
@@ -98,35 +140,53 @@ margin-left:0;
 
 
 
+
+
 .topbar{
 
 background:white;
+
 padding:15px 20px;
-border-radius:12px;
+
+border-radius:15px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
 
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+
 }
+
 
 
 .toggle{
 
 font-size:25px;
+
 cursor:pointer;
+
+color:#047857;
 
 }
 
 
 
 
-/* CARDS */
+
+/* DASHBOARD CARDS */
+
 
 .cards{
 
 display:grid;
+
 grid-template-columns:repeat(4,1fr);
+
 gap:20px;
+
 margin-top:25px;
 
 }
@@ -136,9 +196,14 @@ margin-top:25px;
 .card{
 
 background:white;
+
 padding:25px;
-border-radius:15px;
-box-shadow:0 5px 15px #ddd;
+
+border-radius:18px;
+
+box-shadow:0 10px 30px rgba(2,44,34,.12);
+
+border-left:5px solid #10b981;
 
 }
 
@@ -148,6 +213,8 @@ box-shadow:0 5px 15px #ddd;
 
 font-size:30px;
 
+color:#047857;
+
 }
 
 
@@ -156,56 +223,87 @@ font-size:30px;
 
 /* BOX */
 
+
 .box{
 
 background:white;
+
 padding:25px;
-border-radius:15px;
+
+border-radius:18px;
+
 margin-top:25px;
 
+box-shadow:0 10px 30px rgba(2,44,34,.10);
+
 }
+
+
 
 
 
 .btn{
 
 padding:9px 15px;
+
 border:none;
-border-radius:7px;
+
+border-radius:8px;
+
 cursor:pointer;
 
 }
 
 
-.add{
 
-background:#16a34a;
+.add,
+.save{
+
+background:#059669;
+
 color:white;
 
 }
+
+
+
+.add:hover,
+.save:hover{
+
+background:#047857;
+
+}
+
 
 
 .edit{
 
 background:#2563eb;
+
 color:white;
 
 }
+
 
 
 .block-btn{
 
 background:#f59e0b;
+
 color:white;
 
 }
+
+
 
 
 
 .search{
 
 padding:12px;
+
 border:1px solid #ddd;
+
 border-radius:8px;
 
 }
@@ -219,32 +317,41 @@ border-radius:8px;
 table{
 
 width:100%;
+
 border-collapse:collapse;
+
 margin-top:20px;
 
 }
 
 
+
 th{
 
-background:#0f172a;
+background:#065f46;
+
 color:white;
 
 }
 
 
+
 td,th{
 
 padding:12px;
+
 text-align:center;
+
 border-bottom:1px solid #ddd;
 
 }
 
 
+
 .active{
 
-color:green;
+color:#059669;
+
 font-weight:bold;
 
 }
@@ -253,316 +360,17 @@ font-weight:bold;
 .blocked{
 
 color:red;
-font-weight:bold;
-
-}
-
-
-
-
-
-/* MODAL */
-
-
-.modal{
-
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.5);
-align-items:center;
-justify-content:center;
-z-index:999;
-
-}
-
-
-
-.modal-box{
-
-background:white;
-width:750px;
-padding:25px;
-border-radius:15px;
-
-}
-
-
-
-.modal-head{
-
-display:flex;
-justify-content:space-between;
-margin-bottom:20px;
-
-}
-
-
-
-.close{
-
-font-size:22px;
-cursor:pointer;
-
-}
-
-
-
-.form-grid{
-
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-
-}
-
-
-
-.form-grid input,
-.form-grid select,
-.form-grid textarea{
-
-width:100%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:8px;
-
-}
-
-
-textarea{
-
-height:80px;
-
-}
-
-
-
-label{
 
 font-weight:bold;
-display:block;
-margin-bottom:5px;
 
 }
-
-
-
-.save{
-
-background:#16a34a;
-color:white;
-
-}
-
-
-
-@media(max-width:900px){
-
-
-.cards{
-
-grid-template-columns:1fr;
-
-}
-
-
-.main{
-
-margin-left:0;
-
-}
-
-
-.form-grid{
-
-grid-template-columns:1fr;
-
-}
-
-
-.modal-box{
-
-width:90%;
-
-}
-
-
-}
-
-
-</style>
-
-
-</head>
-
-
-
-<body>
-
-
-
-<!-- SIDEBAR -->
-
-<div class="sidebar" id="sidebar">
-
-
-<div class="logo">
-
-<i class="fa fa-users"></i>
-
-User Control
-
-</div>
-
-
-<div class="menu">
-
-
-<a href="#">
-
-<i class="fa fa-home"></i>
-
-Dashboard
-
-</a>
-
-
-
-<a href="#">
-
-<i class="fa fa-users"></i>
-
-Users
-
-</a>
-
-
-
-<a href="#">
-
-<i class="fa fa-user-shield"></i>
-
-Roles
-
-</a>
-
-
-
-<a href="#">
-
-<i class="fa fa-gear"></i>
-
-Settings
-
-</a>
-
-
-
-<a href="#">
-
-<i class="fa fa-right-from-bracket"></i>
-
-Logout
-
-</a>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<!-- MAIN -->
-
-
-<div class="main" id="main">
-
-
-
-<div class="topbar">
-
-
-<div class="toggle" onclick="menu()">
-
-<i class="fa fa-bars"></i>
-
-</div>
-
-
-<h2>User Management</h2>
-
-
-<i class="fa fa-user-circle fa-2x"></i>
-
-
-</div>
-
-
-
-
-
-
-<div class="cards">
-
-
-<div class="card">
-
-<h2>250</h2>
-
-<p>Total User</p>
-
-</div>
-
-
-<div class="card">
-
-<h2>220</h2>
-
-<p>Active User</p>
-
-</div>
-
-
-<div class="card">
-
-<h2>30</h2>
-
-<p>Blocked</p>
-
-</div>
-
-
-<div class="card">
-
-<h2>10</h2>
-
-<p>Admin</p>
-
-</div>
-
-
-</div>
-
-
-
-
-
+<!-- USER TABLE SECTION -->
 
 
 <div class="box">
 
 
-<div style="display:flex;justify-content:space-between;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
 
 
 <h2>User List</h2>
@@ -588,17 +396,25 @@ Add User
 
 
 
+
+
 <table>
 
 
 <tr>
 
 <th>ID</th>
+
 <th>Picture</th>
+
 <th>Name</th>
+
 <th>Username</th>
+
 <th>Role</th>
+
 <th>Status</th>
+
 <th>Action</th>
 
 
@@ -606,26 +422,50 @@ Add User
 
 
 
+
 <tr>
 
+
 <td>1</td>
+
 
 
 <td>
 
 <img src="https://i.imgur.com/6VBx3io.png"
-width="40"
-height="40"
-style="border-radius:50%">
+width="45"
+height="45"
+style="border-radius:50%;">
 
 </td>
 
 
-<td>Fahim</td>
 
-<td>admin</td>
 
-<td>Admin</td>
+<td>
+
+Fahim
+
+</td>
+
+
+
+<td>
+
+admin
+
+</td>
+
+
+
+
+<td>
+
+Admin
+
+</td>
+
+
 
 
 <td class="active">
@@ -633,6 +473,8 @@ style="border-radius:50%">
 Active
 
 </td>
+
+
 
 
 <td>
@@ -657,7 +499,9 @@ Block
 </button>
 
 
+
 </td>
+
 
 
 </tr>
@@ -671,6 +515,12 @@ Block
 
 
 
+
+
+
+
+
+
 </div>
 
 
@@ -681,7 +531,7 @@ Block
 
 
 
-<!-- ADD USER FORM -->
+<!-- ADD USER MODAL -->
 
 
 <div class="modal" id="userModal">
@@ -697,6 +547,7 @@ Block
 <h2>Add New User</h2>
 
 
+
 <span class="close" onclick="closeUserForm()">
 
 ✖
@@ -704,7 +555,11 @@ Block
 </span>
 
 
+
 </div>
+
+
+
 
 
 
@@ -713,13 +568,19 @@ Block
 <div class="form-grid">
 
 
+
+
+
 <div>
 
 <label>Username</label>
 
-<input placeholder="Username">
+<input placeholder="Enter Username">
 
 </div>
+
+
+
 
 
 
@@ -727,9 +588,14 @@ Block
 
 <label>Password</label>
 
-<input type="password">
+<input type="password"
+placeholder="Enter Password">
 
 </div>
+
+
+
+
 
 
 
@@ -737,9 +603,12 @@ Block
 
 <label>Name</label>
 
-<input>
+<input placeholder="Full Name">
 
 </div>
+
+
+
 
 
 
@@ -748,7 +617,9 @@ Block
 
 <label>Role</label>
 
+
 <select>
+
 
 <option>Select Role</option>
 
@@ -760,10 +631,17 @@ Block
 
 <option>Call</option>
 
+<option>Guest</option>
+
+
 </select>
 
 
 </div>
+
+
+
+
 
 
 
@@ -772,15 +650,24 @@ Block
 
 <label>Status</label>
 
+
 <select>
+
 
 <option>Active</option>
 
 <option>Blocked</option>
 
+<option>Inactive</option>
+
+
 </select>
 
+
 </div>
+
+
+
 
 
 
@@ -789,9 +676,16 @@ Block
 
 <label>Picture URL</label>
 
+
 <input placeholder="Image URL">
 
+
 </div>
+
+
+
+
+
 
 
 
@@ -800,9 +694,15 @@ Block
 
 <label>Number</label>
 
-<input>
+
+<input placeholder="Mobile Number">
+
 
 </div>
+
+
+
+
 
 
 
@@ -810,9 +710,15 @@ Block
 
 <label>Email</label>
 
-<input>
+
+<input placeholder="Email Address">
+
 
 </div>
+
+
+
+
 
 
 
@@ -820,9 +726,16 @@ Block
 
 <label>Department</label>
 
-<input>
+
+<input placeholder="Department">
+
 
 </div>
+
+
+
+
+
 
 
 
@@ -830,9 +743,14 @@ Block
 
 <label>Join Date</label>
 
+
 <input type="date">
 
+
 </div>
+
+
+
 
 
 
@@ -842,14 +760,20 @@ Block
 
 <label>Address</label>
 
-<textarea></textarea>
+
+<textarea placeholder="Full Address"></textarea>
+
+
+
+</div>
+
+
+
 
 
 </div>
 
 
-
-</div>
 
 
 
@@ -857,25 +781,28 @@ Block
 <br>
 
 
+
+
 <button class="btn save">
+
+<i class="fa fa-save"></i>
 
 Save User
 
 </button>
 
 
+
+
+
 </div>
 
 
 </div>
+  <script>
 
 
-
-
-
-
-<script>
-
+// SIDEBAR TOGGLE
 
 function menu(){
 
@@ -892,6 +819,11 @@ document.getElementById("main")
 
 
 
+
+
+// OPEN ADD USER FORM
+
+
 function openUserForm(){
 
 document.getElementById("userModal")
@@ -901,12 +833,44 @@ document.getElementById("userModal")
 
 
 
+
+
+
+// CLOSE ADD USER FORM
+
+
 function closeUserForm(){
 
 document.getElementById("userModal")
 .style.display="none";
 
 }
+
+
+
+
+
+
+
+// CLOSE MODAL OUTSIDE CLICK
+
+
+window.onclick=function(event){
+
+let modal=document.getElementById("userModal");
+
+
+if(event.target==modal){
+
+modal.style.display="none";
+
+}
+
+
+}
+
+
+
 
 
 </script>
