@@ -8,7 +8,8 @@
 
 <title>Dashboard | Link4 Support Team</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
 <style>
@@ -22,11 +23,14 @@ font-family:"Segoe UI",sans-serif;
 
 
 body{
+
 background:#f4f7f6;
+
 }
 
 
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
+
 
 .sidebar{
 
@@ -47,7 +51,9 @@ z-index:1000;
 
 
 .sidebar.hide{
+
 left:-260px;
+
 }
 
 
@@ -72,6 +78,7 @@ color:#00d084;
 .logo h2{
 
 margin-top:10px;
+font-size:22px;
 
 }
 
@@ -79,10 +86,12 @@ margin-top:10px;
 
 /* MENU */
 
+
 .menu{
 
 margin-top:20px;
 flex:1;
+overflow:auto;
 
 }
 
@@ -102,11 +111,13 @@ transition:.3s;
 }
 
 
+
 .menu a:hover{
 
 background:#00a86b;
 
 }
+
 
 
 .menu i{
@@ -118,6 +129,7 @@ width:25px;
 
 
 /* LOGOUT */
+
 
 .logout{
 
@@ -132,7 +144,16 @@ cursor:pointer;
 }
 
 
-/* MAIN */
+.logout:hover{
+
+background:#ff4757;
+
+}
+
+
+
+/* ================= MAIN ================= */
+
 
 .main{
 
@@ -151,7 +172,9 @@ margin-left:0;
 
 
 
+
 /* TOPBAR */
+
 
 .topbar{
 
@@ -167,6 +190,7 @@ box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
 
+
 .toggle{
 
 font-size:25px;
@@ -174,6 +198,7 @@ cursor:pointer;
 color:#062b25;
 
 }
+
 
 
 
@@ -191,6 +216,7 @@ cursor:pointer;
 }
 
 
+
 .profile img{
 
 width:45px;
@@ -202,11 +228,13 @@ border:2px solid #00a86b;
 }
 
 
+
 .profile h4{
 
 color:#062b25;
 
 }
+
 
 
 .profile span{
@@ -219,13 +247,16 @@ color:#777;
 
 
 
+/* PROFILE MENU */
+
+
 .profile-menu{
 
 display:none;
 position:absolute;
 right:20px;
 top:80px;
-width:180px;
+width:190px;
 background:white;
 border-radius:15px;
 box-shadow:0 10px 30px rgba(0,0,0,.2);
@@ -249,12 +280,14 @@ display:block;
 
 display:flex;
 gap:12px;
+align-items:center;
 padding:14px;
 color:#062b25;
 text-decoration:none;
 cursor:pointer;
 
 }
+
 
 
 .profile-menu a:hover,
@@ -268,73 +301,11 @@ background:#f1f5f4;
 
 
 
-/* CARDS */
-
-
-.cards{
-
-margin-top:25px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-
-}
-
-
-
-.card{
-
-background:white;
-padding:25px;
-border-radius:20px;
-text-align:center;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-transition:.3s;
-
-}
-
-
-.card:hover{
-
-transform:translateY(-7px);
-
-}
-
-
-.card i{
-
-font-size:40px;
-color:#00a86b;
-
-}
-
-
-.card h3{
-
-margin-top:15px;
-color:#062b25;
-
-}
-
-
-.code{
-
-color:#888;
-font-weight:bold;
-
-}
-
-
-a{
-
-text-decoration:none;
-
-}
-
-
+/* MOBILE */
 
 
 @media(max-width:768px){
+
 
 .sidebar{
 
@@ -356,9 +327,8 @@ margin-left:0;
 
 }
 
+
 }
-
-
 
 </style>
 
@@ -367,6 +337,9 @@ margin-left:0;
 
 <body>
 
+
+
+<!-- ================= SIDEBAR ================= -->
 
 
 <div class="sidebar" id="sidebar">
@@ -384,70 +357,128 @@ Link4 Support
 
 
 
+
 <div class="menu">
 
 
+
 <a href="dashboard.html">
+
 <i class="fa-solid fa-house"></i>
+
 Dashboard
+
 </a>
+
+
 
 
 <a href="AC.html">
-<i class="fa-solid fa-user"></i>
+
+<i class="fa-solid fa-user-circle"></i>
+
 My Account
+
 </a>
+
+
+
 
 
 <a href="NS.html">
+
 <i class="fa-solid fa-headset"></i>
+
 New Support
+
 </a>
+
+
+
 
 
 <a href="PS.html">
+
 <i class="fa-solid fa-clock"></i>
+
 Pending Support
+
 </a>
+
+
+
 
 
 <a href="PC.html">
+
 <i class="fa-solid fa-phone"></i>
+
 Pending Call
+
 </a>
+
+
+
 
 
 <a href="H.html">
-<i class="fa-solid fa-file"></i>
+
+<i class="fa-solid fa-file-lines"></i>
+
 History
+
 </a>
+
+
+
 
 
 <a href="ON.html">
+
 <i class="fa-solid fa-pen"></i>
+
 Offline Entry
+
 </a>
+
+
+
 
 
 <a href="OF.html">
+
 <i class="fa-solid fa-folder"></i>
+
 Offline
+
 </a>
+
+
+
 
 
 <a href="OC.html">
+
 <i class="fa-solid fa-coins"></i>
+
 Offline Collect
+
 </a>
+
+
 
 
 </div>
 
 
 
+
+
+
 <div class="logout" onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
+
 Logout
 
 </div>
@@ -461,12 +492,15 @@ Logout
 
 
 
+<!-- ================= MAIN ================= -->
+
 
 <div class="main" id="main">
 
 
 
 <div class="topbar">
+
 
 
 <div class="toggle" onclick="toggleMenu()">
@@ -477,11 +511,16 @@ Logout
 
 
 
+
+
+
 <div class="profile" onclick="openProfile()">
+
 
 
 <img id="profileImg"
 src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+
 
 
 <div>
@@ -490,17 +529,23 @@ src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
 User
 </h4>
 
+
 <span id="role">
 Role
 </span>
 
+
 </div>
+
 
 
 <i class="fa-solid fa-chevron-down"></i>
 
 
+
 </div>
+
+
 
 
 
@@ -514,6 +559,7 @@ Role
 My Account
 
 </a>
+
 
 
 <div onclick="logout()">
@@ -530,11 +576,7 @@ Logout
 
 
 </div>
-
-
-
-
-
+<!-- ================= DASHBOARD CARDS ================= -->
 
 
 <div class="cards">
@@ -547,10 +589,11 @@ Logout
 
 <h3>New Support</h3>
 
-<div class="code">NS</div>
+<p>NS</p>
 
 </div>
 </a>
+
 
 
 
@@ -561,10 +604,11 @@ Logout
 
 <h3>Pending Support</h3>
 
-<div class="code">PS</div>
+<p>PS</p>
 
 </div>
 </a>
+
 
 
 
@@ -575,10 +619,11 @@ Logout
 
 <h3>Pending Call</h3>
 
-<div class="code">PC</div>
+<p>PC</p>
 
 </div>
 </a>
+
 
 
 
@@ -589,10 +634,11 @@ Logout
 
 <h3>History</h3>
 
-<div class="code">H</div>
+<p>H</p>
 
 </div>
 </a>
+
 
 
 
@@ -603,10 +649,11 @@ Logout
 
 <h3>Offline Entry</h3>
 
-<div class="code">ON</div>
+<p>ON</p>
 
 </div>
 </a>
+
 
 
 
@@ -617,10 +664,11 @@ Logout
 
 <h3>Offline</h3>
 
-<div class="code">OF</div>
+<p>OF</p>
 
 </div>
 </a>
+
 
 
 
@@ -631,7 +679,7 @@ Logout
 
 <h3>Offline Collect</h3>
 
-<div class="code">OC</div>
+<p>OC</p>
 
 </div>
 </a>
@@ -642,9 +690,8 @@ Logout
 
 
 
-
-
 </div>
+
 
 
 
@@ -655,19 +702,26 @@ Logout
 <script>
 
 
-let user=localStorage.getItem("user");
+
+// ================= LOGIN CHECK =================
+
+
+let user = localStorage.getItem("user");
+
 
 
 if(!user){
 
+
 window.location.replace("login.html");
+
 
 }
 
 else{
 
 
-let data=JSON.parse(user);
+let data = JSON.parse(user);
 
 
 
@@ -675,69 +729,194 @@ document.getElementById("name").innerHTML =
 data.name || "User";
 
 
+
 document.getElementById("role").innerHTML =
 data.role || "User";
 
 
 
+
+
 if(data.photo){
 
-document.getElementById("profileImg").src=data.photo;
+
+document.getElementById("profileImg").src =
+data.photo;
+
 
 }
 
 
+
 }
 
 
+
+
+
+
+
+// ================= SIDEBAR MENU =================
 
 
 
 function toggleMenu(){
 
-let sidebar=document.getElementById("sidebar");
-let main=document.getElementById("main");
+
+let sidebar =
+document.getElementById("sidebar");
 
 
-if(window.innerWidth <=768){
+let main =
+document.getElementById("main");
+
+
+
+if(window.innerWidth <= 768){
+
+
 
 sidebar.classList.toggle("show");
+
+
 
 }
 
 else{
 
+
+
 sidebar.classList.toggle("hide");
+
+
 main.classList.toggle("full");
 
-}
+
 
 }
 
+
+
+}
+
+
+
+
+
+
+
+// ================= PROFILE MENU =================
 
 
 
 function openProfile(){
 
-document.getElementById("profileMenu")
+
+document
+.getElementById("profileMenu")
 .classList.toggle("show");
+
 
 }
 
+
+
+
+
+
+
+
+// ================= LOGOUT =================
 
 
 
 function logout(){
 
+
+
 localStorage.removeItem("user");
 
+
 window.location.replace("login.html");
+
+
 
 }
 
 
 
+
+
+
+
+// ================= AUTO LOGOUT 10 MIN =================
+
+
+
+let logoutTime = 10 * 60 * 1000;
+
+
+let timer;
+
+
+
+function resetTimer(){
+
+
+
+clearTimeout(timer);
+
+
+
+timer = setTimeout(function(){
+
+
+
+localStorage.removeItem("user");
+
+
+
+alert("Session expired. Please login again");
+
+
+
+window.location.replace("login.html");
+
+
+
+},logoutTime);
+
+
+
+}
+
+
+
+
+// Activity Detect
+
+
+window.onload = resetTimer;
+
+
+document.onclick = resetTimer;
+
+
+document.onmousemove = resetTimer;
+
+
+document.onkeypress = resetTimer;
+
+
+document.onscroll = resetTimer;
+
+
+document.ontouchstart = resetTimer;
+
+
+
 </script>
+
 
 
 </body>
