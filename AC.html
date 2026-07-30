@@ -32,13 +32,13 @@ padding:20px;
 
 
 
-.account-container{
+.account-box{
 
-width:95%;
-max-width:900px;
+width:100%;
+max-width:850px;
 background:#101c30;
-border-radius:25px;
 padding:40px;
+border-radius:25px;
 box-shadow:0 20px 50px rgba(0,0,0,.5);
 color:white;
 
@@ -46,32 +46,29 @@ color:white;
 
 
 
-/* Profile Header */
-
-.profile-header{
+.profile{
 
 text-align:center;
-padding-bottom:30px;
 border-bottom:1px solid #26364f;
+padding-bottom:30px;
 
 }
 
 
 
-.profile-header img{
+.profile img{
 
-width:170px;
-height:170px;
+width:160px;
+height:160px;
 border-radius:50%;
 object-fit:cover;
-border:6px solid #00d4ff;
-box-shadow:0 0 25px #00d4ff;
+border:5px solid #00d4ff;
 
 }
 
 
 
-.profile-header h1{
+.profile h1{
 
 margin-top:20px;
 font-size:32px;
@@ -80,10 +77,20 @@ font-size:32px;
 
 
 
-.profile-header .role{
+.profile p{
 
-margin-top:8px;
+color:#00d4ff;
 font-size:18px;
+
+}
+
+
+
+
+.title{
+
+margin-top:30px;
+font-size:24px;
 color:#00d4ff;
 
 }
@@ -91,55 +98,43 @@ color:#00d4ff;
 
 
 
-
-/* Information */
-
-.info-title{
-
-margin-top:35px;
-font-size:22px;
-color:#00d4ff;
-}
-
-
-
-.info-box{
+.info{
 
 margin-top:20px;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
 
 }
 
 
 
-.field{
+.row{
 
+display:flex;
+justify-content:space-between;
+align-items:center;
 background:#07111f;
-padding:20px;
-border-radius:15px;
-border:1px solid #26364f;
+padding:18px;
+margin-bottom:12px;
+border-radius:12px;
 
 }
 
 
 
-.field label{
+.label{
 
-display:block;
-color:#999;
-font-size:14px;
-margin-bottom:8px;
+color:#aaa;
+font-size:16px;
 
 }
 
 
 
-.field span{
+.value{
 
-font-size:18px;
 font-weight:bold;
+font-size:17px;
+text-align:right;
+max-width:350px;
 word-break:break-word;
 
 }
@@ -147,35 +142,25 @@ word-break:break-word;
 
 
 
+.password-box{
 
-@media(max-width:700px){
-
-
-.info-box{
-
-grid-template-columns:1fr;
+display:flex;
+gap:10px;
+align-items:center;
 
 }
 
 
 
-.account-container{
+.eye{
 
-padding:25px;
-
-}
-
-
-
-.profile-header img{
-
-width:130px;
-height:130px;
+cursor:pointer;
+color:#00d4ff;
+font-size:20px;
 
 }
 
 
-}
 
 
 #loading{
@@ -186,18 +171,47 @@ font-size:22px;
 }
 
 
+
+
+@media(max-width:600px){
+
+.account-box{
+
+padding:25px;
+
+}
+
+
+.row{
+
+flex-direction:column;
+align-items:flex-start;
+gap:8px;
+
+}
+
+
+.value{
+
+text-align:left;
+
+}
+
+}
+
+
 </style>
 
 
 </head>
 
 
+
 <body>
 
 
 
-
-<div class="account-container">
+<div class="account-box">
 
 
 
@@ -214,21 +228,17 @@ Loading Account...
 
 
 
-<div class="profile-header">
+<div class="profile">
 
 
 <img id="photo"
 src="https://i.imgur.com/6VBx3io.png">
 
 
-
-<h1 id="name">
-</h1>
+<h1 id="name"></h1>
 
 
-<div class="role" id="role">
-</div>
-
+<p id="role"></p>
 
 
 </div>
@@ -237,100 +247,148 @@ src="https://i.imgur.com/6VBx3io.png">
 
 
 
-<h2 class="info-title">
+<div class="title">
+
 Account Information
-</h2>
+
+</div>
 
 
 
-<div class="info-box">
+
+<div class="info">
 
 
 
-<div class="field">
+<div class="row">
 
-<label>
+<div class="label">
 Username
-</label>
+</div>
 
-<span id="username"></span>
+<div class="value" id="username"></div>
 
 </div>
 
 
 
-<div class="field">
 
-<label>
+
+<div class="row">
+
+<div class="label">
+Password
+</div>
+
+
+<div class="value password-box">
+
+<span id="password">
+********
+</span>
+
+<span class="eye" onclick="showPassword()">
+👁
+</span>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="row">
+
+<div class="label">
 Status
-</label>
+</div>
 
-<span id="status"></span>
+<div class="value" id="status"></div>
 
 </div>
 
 
 
-<div class="field">
 
-<label>
+
+<div class="row">
+
+<div class="label">
+Role
+</div>
+
+<div class="value" id="role2"></div>
+
+</div>
+
+
+
+
+
+<div class="row">
+
+<div class="label">
 Phone Number
-</label>
+</div>
 
-<span id="number"></span>
+<div class="value" id="number"></div>
 
 </div>
 
 
 
 
-<div class="field">
 
-<label>
+<div class="row">
+
+<div class="label">
 Email
-</label>
+</div>
 
-<span id="email"></span>
+<div class="value" id="email"></div>
 
 </div>
 
 
 
 
-<div class="field">
 
-<label>
+<div class="row">
+
+<div class="label">
 Department
-</label>
+</div>
 
-<span id="department"></span>
+<div class="value" id="department"></div>
 
 </div>
 
 
 
 
-<div class="field">
 
-<label>
+<div class="row">
+
+<div class="label">
 Join Date
-</label>
+</div>
 
-<span id="joinDate"></span>
+<div class="value" id="joinDate"></div>
 
 </div>
 
 
 
-</div>
-
-
 
 </div>
 
 
 </div>
 
+
+</div>
 
 
 
@@ -345,18 +403,19 @@ const API_URL =
 
 
 
-
-// Get Login Data
-
 let user = JSON.parse(localStorage.getItem("user"));
+
+
+
+let realPassword="";
+
+
 
 
 
 if(!user){
 
-
 window.location.href="login.html";
-
 
 }
 
@@ -374,24 +433,19 @@ headers:{
 
 },
 
-
 body:
 
 "action=account&username="+encodeURIComponent(user.username)
 
 
-
 })
 
 
-.then(response=>response.text())
+
+.then(res=>res.json())
 
 
-.then(result=>{
-
-
-let data=JSON.parse(result);
-
+.then(data=>{
 
 
 if(data.success){
@@ -407,8 +461,7 @@ document.getElementById("account").style.display="block";
 
 document.getElementById("photo").src =
 
-data.picture ||
-
+data.picture || 
 "https://i.imgur.com/6VBx3io.png";
 
 
@@ -419,7 +472,13 @@ document.getElementById("name").innerHTML=data.name;
 document.getElementById("role").innerHTML=data.role;
 
 
+document.getElementById("role2").innerHTML=data.role;
+
+
 document.getElementById("username").innerHTML=data.username;
+
+
+realPassword=data.password;
 
 
 document.getElementById("status").innerHTML=data.status;
@@ -442,36 +501,48 @@ document.getElementById("joinDate").innerHTML=data.joinDate;
 
 else{
 
-
-document.getElementById("loading").innerHTML=
-"Account Not Found";
-
+document.getElementById("loading").innerHTML="Account Not Found";
 
 }
-
 
 
 })
 
+.catch(()=>{
 
-
-.catch(error=>{
-
-
-document.getElementById("loading").innerHTML=
-"Connection Error";
-
+document.getElementById("loading").innerHTML="Connection Error";
 
 });
-
 
 
 }
 
 
 
-</script>
 
+function showPassword(){
+
+
+let box=document.getElementById("password");
+
+
+if(box.innerHTML=="********"){
+
+box.innerHTML=realPassword;
+
+}
+
+else{
+
+box.innerHTML="********";
+
+}
+
+
+}
+
+
+</script>
 
 
 </body>
