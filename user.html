@@ -4,51 +4,70 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>User Management | Link4</title>
+<title>Link4 User Management</title>
 
 
 <style>
 
+
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
+
 }
+
 
 
 body{
 
 background:#f5f7fb;
+
 color:#222;
+
 padding:25px;
 
 }
+
 
 
 
 .container{
 
 max-width:1200px;
+
 margin:auto;
 
 }
 
 
 
+
+
 .header{
 
-background:#ffffff;
+background:white;
+
 padding:25px;
+
 border-radius:20px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
+
+
 
 
 .header h1{
@@ -59,46 +78,54 @@ color:#0b5c45;
 
 
 
-button{
-
-border:none;
-padding:12px 18px;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
-
-}
-
-
 
 .add-btn{
 
 background:#0b5c45;
+
 color:white;
 
-}
+border:none;
 
+padding:13px 22px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-size:15px;
+
+}
 
 
 
 
 .cards{
 
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:20px;
 margin-top:25px;
 
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:20px;
+
 }
+
+
 
 
 
 .card{
 
 background:white;
+
 padding:25px;
+
 border-radius:18px;
+
 text-align:center;
+
 box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
@@ -107,7 +134,8 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 .card h2{
 
-font-size:30px;
+font-size:32px;
+
 color:#0b5c45;
 
 }
@@ -115,48 +143,67 @@ color:#0b5c45;
 
 
 
-.search-box{
+.search{
 
 margin-top:25px;
+
 width:100%;
+
 padding:15px;
+
 border:none;
+
 border-radius:12px;
-font-size:16px;
+
 background:white;
+
 box-shadow:0 5px 20px rgba(0,0,0,.08);
 
-}
+font-size:16px;
 
+}
 
 
 
 
 .table-box{
 
+
 margin-top:25px;
+
 background:white;
+
 padding:25px;
+
 border-radius:20px;
+
 box-shadow:0 5px 20px rgba(0,0,0,.08);
+
 overflow:auto;
 
+
 }
+
+
 
 
 
 table{
 
 width:100%;
+
 border-collapse:collapse;
 
 }
 
 
+
 th{
 
 background:#0b5c45;
+
 color:white;
+
 padding:15px;
 
 }
@@ -166,7 +213,9 @@ padding:15px;
 td{
 
 padding:15px;
+
 text-align:center;
+
 border-bottom:1px solid #eee;
 
 }
@@ -176,28 +225,56 @@ border-bottom:1px solid #eee;
 .profile-img{
 
 width:45px;
+
 height:45px;
+
 border-radius:50%;
+
 object-fit:cover;
 
 }
 
 
 
+
+
+button{
+
+cursor:pointer;
+
+border:none;
+
+border-radius:8px;
+
+padding:10px 15px;
+
+font-weight:bold;
+
+}
+
+
+
+
+
 .edit-btn{
 
 background:#3498db;
+
 color:white;
 
 }
+
 
 
 .delete-btn{
 
 background:#e74c3c;
+
 color:white;
 
 }
+
+
 
 
 
@@ -209,68 +286,172 @@ color:white;
 
 .modal{
 
+
 display:none;
+
 position:fixed;
+
 top:0;
+
 left:0;
+
 width:100%;
+
 height:100%;
-background:rgba(0,0,0,.5);
+
+background:rgba(0,0,0,.45);
+
 justify-content:center;
+
 align-items:center;
 
+
 }
+
+
 
 
 
 .form-box{
 
+
 background:white;
-width:420px;
+
+width:850px;
+
+max-width:95%;
+
 padding:30px;
+
 border-radius:20px;
 
+box-shadow:0 10px 40px rgba(0,0,0,.2);
+
+
 }
+
 
 
 
 .form-box h2{
 
-margin-bottom:15px;
+
+text-align:center;
+
+color:#0b5c45;
+
+margin-bottom:25px;
+
 
 }
 
 
 
-.form-box input,
-.form-box select{
 
-width:100%;
-padding:12px;
-margin:7px 0;
+
+.form-grid{
+
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:15px;
+
+
+}
+
+
+
+
+.form-group{
+
+
+display:flex;
+
+flex-direction:column;
+
+
+}
+
+
+
+
+.form-group label{
+
+
+font-size:14px;
+
+margin-bottom:6px;
+
+color:#555;
+
+
+}
+
+
+
+
+
+.form-group input,
+.form-group select{
+
+
+padding:13px;
+
 border:1px solid #ddd;
+
 border-radius:10px;
 
+font-size:15px;
+
+
 }
+
+
+
+
+
+.full{
+
+
+grid-column:1/4;
+
+
+}
+
 
 
 
 .save-btn{
 
+
+margin-top:20px;
+
 width:100%;
+
 background:#0b5c45;
+
 color:white;
+
 
 }
 
 
 
+
+
 .close-btn{
 
-width:100%;
+
 margin-top:10px;
+
+width:100%;
+
 background:#e74c3c;
+
 color:white;
+
 
 }
 
@@ -288,21 +469,31 @@ grid-template-columns:1fr 1fr;
 }
 
 
-.header{
 
-flex-direction:column;
-gap:15px;
+.form-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+
+.full{
+
+grid-column:auto;
 
 }
 
 
 }
+
 
 
 </style>
 
 
 </head>
+
 
 
 <body>
@@ -317,13 +508,18 @@ gap:15px;
 
 
 <h1>
+
 User Management
+
 </h1>
 
 
 <button class="add-btn" onclick="openForm()">
+
 + Add User
+
 </button>
+
 
 
 </div>
@@ -360,6 +556,7 @@ User Management
 
 
 
+
 <div class="card">
 
 <h2 id="inactive">
@@ -369,6 +566,7 @@ User Management
 <p>Inactive</p>
 
 </div>
+
 
 
 
@@ -393,7 +591,7 @@ User Management
 
 <input
 
-class="search-box"
+class="search"
 
 id="search"
 
@@ -402,6 +600,7 @@ placeholder="Search User..."
 onkeyup="searchUser()"
 
 >
+
 
 
 
@@ -418,34 +617,17 @@ onkeyup="searchUser()"
 
 <tr>
 
-<th>
-Picture
-</th>
+<th>Picture</th>
 
+<th>Name</th>
 
-<th>
-Name
-</th>
+<th>Username</th>
 
+<th>Role</th>
 
-<th>
-Username
-</th>
+<th>Status</th>
 
-
-<th>
-Role
-</th>
-
-
-<th>
-Status
-</th>
-
-
-<th>
-Action
-</th>
+<th>Action</th>
 
 
 </tr>
@@ -454,12 +636,10 @@ Action
 </thead>
 
 
-
 <tbody id="userList">
 
 
 </tbody>
-
 
 
 </table>
@@ -468,20 +648,7 @@ Action
 
 </div>
 
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- ADD EDIT FORM -->
-
+<!-- USER FORM MODAL -->
 
 <div class="modal" id="modal">
 
@@ -495,62 +662,274 @@ User Information
 
 
 
-<input id="row" type="hidden">
+<input 
+id="row"
+type="hidden">
 
 
 
-<input id="username" placeholder="Username">
 
 
-<input id="password" placeholder="Password">
+<div class="form-grid">
 
 
-<input id="name" placeholder="Name">
 
 
-<input id="role" placeholder="Role">
 
+<div class="form-group">
+
+<label>
+Username
+</label>
+
+<input 
+id="username"
+placeholder="Username">
+
+</div>
+
+
+
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input 
+id="password"
+placeholder="Password">
+
+</div>
+
+
+
+
+
+<div class="form-group">
+
+<label>
+Name
+</label>
+
+<input 
+id="name"
+placeholder="Name">
+
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+Role
+</label>
+
+<input 
+id="role"
+placeholder="Role">
+
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+Status
+</label>
 
 
 <select id="status">
 
-<option>Active</option>
 
-<option>Inactive</option>
+<option>
+Active
+</option>
 
-<option>Blocked</option>
+
+<option>
+Inactive
+</option>
+
+
+<option>
+Blocked
+</option>
+
+
 
 </select>
 
 
-
-
-<input id="picture" placeholder="Picture URL">
-
-
-<input id="address" placeholder="Address">
-
-
-<input id="email" placeholder="Email">
-
-
-<input id="department" placeholder="Department">
-
-
-<input id="joinDate" placeholder="DD-MM-YYYY">
+</div>
 
 
 
-<button class="save-btn" onclick="saveUser()">
-Save
+
+
+
+
+<div class="form-group">
+
+<label>
+Join Date
+</label>
+
+
+<input 
+
+id="joinDate"
+
+placeholder="DD-MM-YYYY">
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="form-group full">
+
+<label>
+Picture URL
+</label>
+
+
+<input
+
+id="picture"
+
+placeholder="Picture Link">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group full">
+
+
+<label>
+Address
+</label>
+
+
+<input
+
+id="address"
+
+placeholder="Address">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Email
+</label>
+
+
+<input
+
+id="email"
+
+placeholder="Email">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Department
+</label>
+
+
+<input
+
+id="department"
+
+placeholder="Department">
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<button 
+
+class="save-btn"
+
+onclick="saveUser()">
+
+Save Update
+
 </button>
 
 
 
-<button class="close-btn" onclick="closeForm()">
+
+
+
+<button 
+
+class="close-btn"
+
+onclick="closeForm()">
+
 Close
+
 </button>
 
+
+
+
+
+</div>
 
 
 </div>
@@ -558,7 +937,7 @@ Close
 <script>
 
 
-const API_URL =
+const API_URL = 
 "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
 
@@ -569,8 +948,8 @@ let users=[];
 
 
 
-
 // LOAD USERS
+
 
 function loadUsers(){
 
@@ -586,12 +965,15 @@ headers:{
 
 },
 
-body:"action=getUsers"
+body:
+
+"action=getUsers"
+
 
 })
 
 
-.then(response=>response.json())
+.then(res=>res.json())
 
 
 .then(data=>{
@@ -612,6 +994,14 @@ countUsers();
 }
 
 
+})
+
+
+.catch(()=>{
+
+
+alert("Connection Error");
+
 
 });
 
@@ -624,12 +1014,11 @@ countUsers();
 
 
 
-
-
-// SHOW USERS TABLE
+// SHOW USERS
 
 
 function showUsers(data){
+
 
 
 let html="";
@@ -637,6 +1026,7 @@ let html="";
 
 
 data.forEach(u=>{
+
 
 
 html+=`
@@ -653,18 +1043,16 @@ src="${u.picture || 'https://i.imgur.com/6VBx3io.png'}">
 </td>
 
 
-
-<td>${u.name}</td>
-
-
-<td>${u.username}</td>
+<td>${u.name || ""}</td>
 
 
-<td>${u.role}</td>
+<td>${u.username || ""}</td>
 
 
-<td>${u.status}</td>
+<td>${u.role || ""}</td>
 
+
+<td>${u.status || ""}</td>
 
 
 <td>
@@ -689,8 +1077,8 @@ Delete
 </button>
 
 
-</td>
 
+</td>
 
 
 </tr>
@@ -699,8 +1087,8 @@ Delete
 `;
 
 
-});
 
+});
 
 
 
@@ -716,8 +1104,7 @@ document.getElementById("userList").innerHTML=html;
 
 
 
-
-// COUNT USER
+// COUNT
 
 
 function countUsers(){
@@ -731,31 +1118,22 @@ users.length;
 
 document.getElementById("active").innerHTML=
 
-users.filter(
-x=>x.status=="Active"
-).length;
+users.filter(x=>x.status=="Active").length;
 
 
 
 document.getElementById("inactive").innerHTML=
 
-users.filter(
-x=>x.status=="Inactive"
-).length;
+users.filter(x=>x.status=="Inactive").length;
 
 
 
 document.getElementById("blocked").innerHTML=
 
-users.filter(
-x=>x.status=="Blocked"
-).length;
-
+users.filter(x=>x.status=="Blocked").length;
 
 
 }
-
-
 
 
 
@@ -770,25 +1148,27 @@ x=>x.status=="Blocked"
 function searchUser(){
 
 
-
-let text =
-
-document.getElementById("search")
+let text=document
+.getElementById("search")
 .value
 .toLowerCase();
 
 
 
 
-let result = users.filter(u=>
+let result=users.filter(u=>
 
 
-u.name.toLowerCase().includes(text)
+(u.name||"")
+.toLowerCase()
+.includes(text)
+
 
 ||
 
-u.username.toLowerCase().includes(text)
-
+(u.username||"")
+.toLowerCase()
+.includes(text)
 
 
 );
@@ -798,10 +1178,7 @@ u.username.toLowerCase().includes(text)
 showUsers(result);
 
 
-
 }
-
-
 
 
 
@@ -828,7 +1205,6 @@ document.getElementById("modal")
 
 
 
-
 // CLOSE FORM
 
 
@@ -847,47 +1223,33 @@ document.getElementById("modal")
 
 
 
-
-
-// CLEAR FORM
+// CLEAR
 
 
 function clearForm(){
 
 
+row.value="";
 
-document.getElementById("row").value="";
+username.value="";
 
+password.value="";
 
-document.getElementById("username").value="";
+name.value="";
 
+role.value="";
 
-document.getElementById("password").value="";
+status.value="Active";
 
+picture.value="";
 
-document.getElementById("name").value="";
+address.value="";
 
+email.value="";
 
-document.getElementById("role").value="";
+department.value="";
 
-
-document.getElementById("status").value="Active";
-
-
-document.getElementById("picture").value="";
-
-
-document.getElementById("address").value="";
-
-
-document.getElementById("email").value="";
-
-
-document.getElementById("department").value="";
-
-
-document.getElementById("joinDate").value="";
-
+joinDate.value="";
 
 
 }
@@ -898,52 +1260,38 @@ document.getElementById("joinDate").value="";
 
 
 
-
-
-// EDIT USER
+// EDIT
 
 
 function editUser(u){
 
 
 
-document.getElementById("row").value=u.row;
+row.value=u.row || "";
 
+username.value=u.username || "";
 
-document.getElementById("username").value=u.username;
+password.value=u.password || "";
 
+name.value=u.name || "";
 
-document.getElementById("password").value=u.password;
+role.value=u.role || "";
 
+status.value=u.status || "Active";
 
-document.getElementById("name").value=u.name;
+picture.value=u.picture || "";
 
+address.value=u.address || "";
 
-document.getElementById("role").value=u.role;
+email.value=u.email || "";
 
+department.value=u.department || "";
 
-document.getElementById("status").value=u.status;
-
-
-document.getElementById("picture").value=u.picture;
-
-
-document.getElementById("address").value=u.address;
-
-
-document.getElementById("email").value=u.email;
-
-
-document.getElementById("department").value=u.department;
-
-
-document.getElementById("joinDate").value=u.joinDate;
+joinDate.value=u.joinDate || "";
 
 
 
-document.getElementById("modal")
-.style.display="flex";
-
+modal.style.display="flex";
 
 
 }
@@ -955,21 +1303,21 @@ document.getElementById("modal")
 
 
 
-
-// SAVE USER
+// SAVE
 
 
 function saveUser(){
 
 
 
-let row =
-document.getElementById("row").value;
-
-
-
 let action =
-row ? "updateUser" : "addUser";
+
+row.value ?
+
+"updateUser" :
+
+"addUser";
+
 
 
 
@@ -979,37 +1327,27 @@ let body =
 
 "action="+action+
 
-"&row="+row+
+"&row="+encodeURIComponent(row.value)+
 
-"&username="+
-encodeURIComponent(username.value)+
+"&username="+encodeURIComponent(username.value)+
 
-"&password="+
-encodeURIComponent(password.value)+
+"&password="+encodeURIComponent(password.value)+
 
-"&name="+
-encodeURIComponent(name.value)+
+"&name="+encodeURIComponent(name.value)+
 
-"&role="+
-encodeURIComponent(role.value)+
+"&role="+encodeURIComponent(role.value)+
 
-"&status="+
-encodeURIComponent(status.value)+
+"&status="+encodeURIComponent(status.value)+
 
-"&picture="+
-encodeURIComponent(picture.value)+
+"&picture="+encodeURIComponent(picture.value)+
 
-"&address="+
-encodeURIComponent(address.value)+
+"&address="+encodeURIComponent(address.value)+
 
-"&email="+
-encodeURIComponent(email.value)+
+"&email="+encodeURIComponent(email.value)+
 
-"&department="+
-encodeURIComponent(department.value)+
+"&department="+encodeURIComponent(department.value)+
 
-"&joinDate="+
-encodeURIComponent(joinDate.value);
+"&joinDate="+encodeURIComponent(joinDate.value);
 
 
 
@@ -1034,16 +1372,13 @@ body:body
 })
 
 
-
-.then(response=>response.json())
-
+.then(res=>res.json())
 
 
 .then(data=>{
 
 
-alert(data.message);
-
+alert(data.message || "Saved");
 
 
 closeForm();
@@ -1052,9 +1387,7 @@ closeForm();
 loadUsers();
 
 
-
 });
-
 
 
 }
@@ -1066,15 +1399,14 @@ loadUsers();
 
 
 
-
-// DELETE USER
+// DELETE
 
 
 function deleteUser(username){
 
 
 
-if(confirm("Are you sure delete this user?")){
+if(confirm("Delete this user?")){
 
 
 
@@ -1091,34 +1423,31 @@ headers:{
 
 body:
 
-"action=deleteUser&username="
-+
+"action=deleteUser&username="+
 encodeURIComponent(username)
+
 
 
 })
 
 
-
-.then(response=>response.json())
-
+.then(res=>res.json())
 
 
 .then(data=>{
 
 
-alert(data.message);
+alert(data.message || "Deleted");
 
 
 loadUsers();
 
 
-
 });
 
 
-
 }
+
 
 
 }
@@ -1131,6 +1460,7 @@ loadUsers();
 
 // START
 
+
 loadUsers();
 
 
@@ -1141,6 +1471,3 @@ loadUsers();
 </body>
 
 </html>
-
-</div>
-
