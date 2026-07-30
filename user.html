@@ -1,13 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 
 <head>
 
+
 <meta charset="UTF-8">
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Link4 User Management</title>
+
+<title>
+
+Link4 User Management
+
+</title>
+
 
 
 <style>
@@ -16,11 +26,16 @@
 *{
 
 margin:0;
+
 padding:0;
+
 box-sizing:border-box;
+
 font-family:Arial,sans-serif;
 
 }
+
+
 
 
 
@@ -30,26 +45,222 @@ background:#f5f7fb;
 
 color:#222;
 
-padding:25px;
+}
+
+
+
+
+
+/* ===================
+SIDEBAR
+=================== */
+
+
+.sidebar{
+
+
+position:fixed;
+
+top:0;
+
+left:-260px;
+
+width:260px;
+
+height:100vh;
+
+background:#063b32;
+
+color:white;
+
+padding:20px;
+
+transition:.3s;
+
+z-index:1000;
+
+box-shadow:5px 0 20px rgba(0,0,0,.2);
+
+
+}
+
+
+
+.sidebar.active{
+
+left:0;
 
 }
 
 
 
 
-.container{
 
-max-width:1250px;
+.side-logo{
 
-margin:auto;
+
+font-size:22px;
+
+font-weight:bold;
+
+padding:20px 10px;
+
+margin-bottom:20px;
+
+border-bottom:1px solid rgba(255,255,255,.2);
+
 
 }
+
+
+
+
+
+.sidebar a{
+
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+color:white;
+
+text-decoration:none;
+
+padding:13px;
+
+margin:8px 0;
+
+border-radius:10px;
+
+font-size:15px;
+
+transition:.3s;
+
+
+}
+
+
+
+
+
+.sidebar a:hover{
+
+
+background:rgba(255,255,255,.15);
+
+
+}
+
+
+
+
+
+
+.logout{
+
+
+position:absolute;
+
+bottom:25px;
+
+left:20px;
+
+right:20px;
+
+background:#e74c3c;
+
+padding:14px;
+
+text-align:center;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* ===================
+MENU BUTTON
+=================== */
+
+
+.menu-btn{
+
+
+position:fixed;
+
+top:20px;
+
+left:20px;
+
+width:45px;
+
+height:45px;
+
+border-radius:10px;
+
+border:none;
+
+background:#063b32;
+
+color:white;
+
+font-size:25px;
+
+cursor:pointer;
+
+z-index:1100;
+
+
+}
+
+
+
+
+
+
+/* ===================
+MAIN
+=================== */
+
+
+.main{
+
+
+padding:30px;
+
+margin-left:0;
+
+transition:.3s;
+
+
+}
+
+
+
+.main.active{
+
+
+margin-left:260px;
+
+
+}
+
+
 
 
 
 
 
 .header{
+
 
 background:white;
 
@@ -65,15 +276,26 @@ align-items:center;
 
 box-shadow:0 5px 20px rgba(0,0,0,.08);
 
+margin-top:40px;
+
+
 }
+
+
 
 
 
 .header h1{
 
-color:#0b5c45;
+
+color:#063b32;
+
+font-size:28px;
+
 
 }
+
+
 
 
 
@@ -81,7 +303,8 @@ color:#0b5c45;
 
 .add-btn{
 
-background:#0b5c45;
+
+background:#063b32;
 
 color:white;
 
@@ -93,13 +316,24 @@ border-radius:12px;
 
 cursor:pointer;
 
+
 }
 
 
 
 
 
+
+
+
+
+/* ===================
+CARDS
+=================== */
+
+
 .cards{
+
 
 margin-top:25px;
 
@@ -109,6 +343,7 @@ grid-template-columns:repeat(4,1fr);
 
 gap:20px;
 
+
 }
 
 
@@ -116,6 +351,7 @@ gap:20px;
 
 
 .card{
+
 
 background:white;
 
@@ -127,6 +363,7 @@ text-align:center;
 
 box-shadow:0 5px 20px rgba(0,0,0,.08);
 
+
 }
 
 
@@ -135,9 +372,11 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 .card h2{
 
+
 font-size:32px;
 
-color:#0b5c45;
+color:#063b32;
+
 
 }
 
@@ -145,23 +384,54 @@ color:#0b5c45;
 
 
 
-.search{
 
-margin-top:25px;
 
-width:100%;
 
-padding:15px;
 
-border:none;
+/* ===================
+RESPONSIVE
+=================== */
 
-outline:none;
 
-border-radius:12px;
+@media(max-width:900px){
 
-font-size:16px;
 
-box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+.main.active{
+
+margin-left:0;
+
+}
+
+
+
+
+.cards{
+
+
+grid-template-columns:1fr 1fr;
+
+
+}
+
+
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.cards{
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
 
 }
 
@@ -169,6 +439,749 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 
 
+
+
+</style>
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- MENU BUTTON -->
+
+
+<button class="menu-btn" onclick="toggleSidebar()">
+
+
+☰
+
+
+</button>
+
+
+
+
+
+
+<!-- SIDEBAR -->
+
+
+<div class="sidebar" id="sidebar">
+
+
+
+<div class="side-logo">
+
+
+🎧 Link4 Support
+
+
+</div>
+
+
+
+
+
+<a href="user.html">
+
+🏠 Dashboard
+
+</a>
+
+
+
+
+
+<a href="AC.html">
+
+👤 My Account
+
+</a>
+
+
+
+
+
+<a href="NS.html">
+
+🎧 New Support
+
+</a>
+
+
+
+
+
+<a href="PS.html">
+
+🕒 Pending Support
+
+</a>
+
+
+
+
+
+<a href="PC.html">
+
+☎ Pending Call
+
+</a>
+
+
+
+
+
+<a href="H.html">
+
+📄 History
+
+</a>
+
+
+
+
+
+<a href="ON.html">
+
+✏ Offline Entry
+
+</a>
+
+
+
+
+
+<a href="OF.html">
+
+📁 Offline
+
+</a>
+
+
+
+
+
+<a href="OC.html">
+
+💰 Offline Collect
+
+</a>
+
+
+
+
+
+
+
+<div class="logout">
+
+
+🚪 Logout
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- MAIN CONTENT -->
+
+
+<div class="main" id="main">
+
+
+
+<div class="header">
+
+
+
+<h1>
+
+User Management
+
+</h1>
+
+
+
+
+<button class="add-btn" onclick="openForm()">
+
++ Add User
+
+</button>
+
+
+
+
+</div>
+<!-- ==========================
+USER DASHBOARD CONTENT
+========================== -->
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<h2 id="total">
+0
+</h2>
+
+<p>Total User</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2 id="active">
+0
+</h2>
+
+<p>Active</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2 id="inactive">
+0
+</h2>
+
+<p>Inactive</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2 id="blocked">
+0
+</h2>
+
+<p>Blocked</p>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- SEARCH -->
+
+
+<input
+
+class="search"
+
+id="search"
+
+placeholder="Search User..."
+
+onkeyup="searchUser()"
+
+>
+
+
+
+
+
+
+
+
+<!-- USER TABLE -->
+
+
+<div class="table-box">
+
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Picture
+</th>
+
+
+<th>
+Name
+</th>
+
+
+<th>
+Username
+</th>
+
+
+<th>
+Role
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
+
+
+
+</tr>
+
+
+
+</thead>
+
+
+
+
+<tbody id="userList">
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ==========================
+ADD EDIT MODAL
+========================== -->
+
+
+
+<div class="modal" id="modal">
+
+
+
+<div class="form-box">
+
+
+
+
+
+
+<div class="form-title">
+
+
+
+<h2>
+User Information
+</h2>
+
+
+
+<button
+
+class="exit-btn"
+
+onclick="closeForm()">
+
+✕
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+<input 
+type="hidden"
+id="row">
+
+
+
+
+
+
+
+<div class="form-grid">
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Username
+</label>
+
+
+<input
+
+id="username"
+
+placeholder="Username">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Password
+</label>
+
+
+<input
+
+id="password"
+
+placeholder="Password">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Name
+</label>
+
+
+<input
+
+id="name"
+
+placeholder="Name">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Role
+</label>
+
+
+<input
+
+id="role"
+
+placeholder="Role">
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Status
+</label>
+
+
+
+<select id="status">
+
+
+<option>
+Active
+</option>
+
+
+<option>
+Inactive
+</option>
+
+
+<option>
+Blocked
+</option>
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Phone Number
+</label>
+
+
+<input
+
+id="number"
+
+placeholder="Phone Number">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Join Date
+</label>
+
+
+<input
+
+id="joinDate"
+
+placeholder="DD-MM-YYYY">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Email
+</label>
+
+
+<input
+
+id="email"
+
+placeholder="Email">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Department
+</label>
+
+
+<input
+
+id="department"
+
+placeholder="Department">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group full">
+
+
+<label>
+Picture URL
+</label>
+
+
+<input
+
+id="picture"
+
+placeholder="Picture Link">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group full">
+
+
+<label>
+Address
+</label>
+
+
+<input
+
+id="address"
+
+placeholder="Address">
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<button
+
+class="save-btn"
+
+onclick="saveUser()">
+
+Save Update
+
+</button>
+
+
+
+
+
+
+
+<button
+
+class="delete-btn"
+
+onclick="deleteCurrentUser()">
+
+Delete User
+
+</button>
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+<!-- ==========================
+EXTRA CSS
+========================== -->
+
+
+<style>
 
 
 .table-box{
@@ -185,8 +1198,8 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 overflow:auto;
 
-}
 
+}
 
 
 
@@ -202,18 +1215,15 @@ border-collapse:collapse;
 
 
 
-
 th{
 
-background:#0b5c45;
+background:#063b32;
 
 color:white;
 
 padding:15px;
 
 }
-
-
 
 
 
@@ -247,148 +1257,25 @@ object-fit:cover;
 
 
 
-button{
+.search{
 
-cursor:pointer;
+margin-top:25px;
+
+width:100%;
+
+padding:15px;
 
 border:none;
 
-border-radius:8px;
-
-padding:10px 15px;
-
-font-weight:bold;
-
-}
-
-
-
-
-.edit-btn{
-
-background:#3498db;
-
-color:white;
-
-}
-
-
-
-
-.delete-btn{
-
-background:#e74c3c;
-
-color:white;
-
-}
-
-
-
-
-
-
-/* LOADING BOX */
-
-
-#loadingBox{
-
-
-display:none;
-
-position:fixed;
-
-top:50%;
-
-left:50%;
-
-transform:translate(-50%,-50%);
+outline:none;
 
 background:white;
 
-padding:25px 35px;
-
-border-radius:15px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-
-z-index:999;
-
-
-}
-
-
-
-
-
-.loader{
-
-
-width:40px;
-
-height:40px;
-
-border:5px solid #ddd;
-
-border-top:5px solid #0b5c45;
-
-border-radius:50%;
-
-animation:spin 1s linear infinite;
-
-margin:auto;
-
-
-}
-
-
-
-
-@keyframes spin{
-
-
-100%{
-
-transform:rotate(360deg);
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-/* NOTIFICATION */
-
-
-#notify{
-
-
-display:none;
-
-position:fixed;
-
-right:25px;
-
-top:25px;
-
-background:#0b5c45;
-
-color:white;
-
-padding:15px 25px;
-
 border-radius:12px;
 
-box-shadow:0 10px 25px rgba(0,0,0,.2);
+font-size:16px;
 
-z-index:1000;
-
+box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
 
@@ -396,9 +1283,6 @@ z-index:1000;
 
 
 
-
-
-/* MODAL */
 
 
 .modal{
@@ -422,7 +1306,7 @@ justify-content:center;
 
 align-items:center;
 
-z-index:500;
+z-index:2000;
 
 
 }
@@ -444,8 +1328,6 @@ padding:30px;
 
 border-radius:20px;
 
-box-shadow:0 10px 40px rgba(0,0,0,.25);
-
 
 }
 
@@ -462,19 +1344,7 @@ justify-content:space-between;
 
 align-items:center;
 
-margin-bottom:25px;
-
-
-}
-
-
-
-
-
-.form-title h2{
-
-
-color:#0b5c45;
+margin-bottom:20px;
 
 
 }
@@ -490,6 +1360,8 @@ background:#e74c3c;
 
 color:white;
 
+border:none;
+
 width:40px;
 
 height:40px;
@@ -497,8 +1369,6 @@ height:40px;
 border-radius:50%;
 
 font-size:20px;
-
-padding:0;
 
 
 }
@@ -540,15 +1410,12 @@ flex-direction:column;
 .form-group label{
 
 
+margin-bottom:5px;
+
 font-size:14px;
-
-margin-bottom:6px;
-
-color:#555;
 
 
 }
-
 
 
 
@@ -557,13 +1424,11 @@ color:#555;
 .form-group select{
 
 
-padding:13px;
+padding:12px;
 
 border:1px solid #ddd;
 
 border-radius:10px;
-
-font-size:15px;
 
 
 }
@@ -583,14 +1448,72 @@ grid-column:1/4;
 
 
 
+
 .save-btn{
 
 
+width:100%;
+
 margin-top:20px;
+
+background:#063b32;
+
+color:white;
+
+padding:13px;
+
+border:none;
+
+border-radius:10px;
+
+
+}
+
+
+
+
+
+.delete-btn{
+
 
 width:100%;
 
-background:#0b5c45;
+margin-top:10px;
+
+background:#e74c3c;
+
+color:white;
+
+padding:13px;
+
+border:none;
+
+border-radius:10px;
+
+
+}
+
+
+
+
+
+
+.edit-btn{
+
+
+background:#3498db;
+
+color:white;
+
+
+}
+
+
+
+.status-btn{
+
+
+background:#063b32;
 
 color:white;
 
@@ -601,17 +1524,97 @@ color:white;
 
 
 
+#loadingBox{
 
 
-@media(max-width:800px){
+display:none;
 
+position:fixed;
 
-.cards{
+top:50%;
 
-grid-template-columns:1fr 1fr;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+background:white;
+
+padding:25px;
+
+border-radius:15px;
+
+z-index:3000;
+
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+
 
 }
 
+
+
+.loader{
+
+
+width:40px;
+
+height:40px;
+
+border:5px solid #ddd;
+
+border-top:5px solid #063b32;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+
+}
+
+
+
+@keyframes spin{
+
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+
+}
+
+
+
+
+
+#notify{
+
+
+display:none;
+
+position:fixed;
+
+top:25px;
+
+right:25px;
+
+background:#063b32;
+
+color:white;
+
+padding:15px 25px;
+
+border-radius:12px;
+
+z-index:4000;
+
+
+}
+
+
+
+@media(max-width:800px){
 
 
 .form-grid{
@@ -632,14 +1635,18 @@ grid-column:auto;
 }
 
 
+
 </style>
 
 
-</head>
 
 
-<body>
 
+
+
+
+
+<!-- LOADING -->
 
 <div id="loadingBox">
 
@@ -649,498 +1656,23 @@ grid-column:auto;
 
 
 
+
+
+<!-- NOTIFICATION -->
+
+
 <div id="notify"></div>
 
 
 
-<div class="container">
 
 
 
-<div class="header">
 
 
-<h1>
 
-User Management
-
-</h1>
-
-
-<button class="add-btn" onclick="openForm()">
-
-+ Add User
-
-</button>
-
-
-</div>
-
-
-
-
-
-<div class="cards">
-
-
-<div class="card">
-
-<h2 id="total">
-0
-</h2>
-
-<p>Total User</p>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h2 id="active">
-0
-</h2>
-
-<p>Active</p>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h2 id="inactive">
-0
-</h2>
-
-<p>Inactive</p>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h2 id="blocked">
-0
-</h2>
-
-<p>Blocked</p>
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<input
-
-class="search"
-
-id="search"
-
-placeholder="Search User..."
-
-onkeyup="searchUser()"
-
->
-
-
-
-
-
-<div class="table-box">
-
-
-<table>
-
-
-<thead>
-
-
-<tr>
-
-<th>Picture</th>
-
-<th>Name</th>
-
-<th>Username</th>
-
-<th>Role</th>
-
-<th>Status</th>
-
-<th>Action</th>
-
-
-</tr>
-
-
-</thead>
-
-
-
-<tbody id="userList">
-
-
-</tbody>
-
-
-</table>
-
-
-</div>
-<!-- USER ADD / EDIT FORM -->
-
-
-<div class="modal" id="modal">
-
-
-
-<div class="form-box">
-
-
-
-<div class="form-title">
-
-
-<h2>
-User Information
-</h2>
-
-
-
-<button 
-class="exit-btn"
-onclick="closeForm()">
-
-✕
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-<input 
-type="hidden"
-id="row">
-
-
-
-
-
-
-
-<div class="form-grid">
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Username
-</label>
-
-<input
-
-id="username"
-
-placeholder="Username">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Password
-</label>
-
-<input
-
-id="password"
-
-placeholder="Password">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Name
-</label>
-
-<input
-
-id="name"
-
-placeholder="Name">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Role
-</label>
-
-<input
-
-id="role"
-
-placeholder="Role">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Status
-</label>
-
-
-<select id="status">
-
-
-<option value="Active">
-Active
-</option>
-
-
-<option value="Inactive">
-Inactive
-</option>
-
-
-<option value="Blocked">
-Blocked
-</option>
-
-
-</select>
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Phone Number
-</label>
-
-
-<input
-
-id="number"
-
-placeholder="Phone Number">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Join Date
-</label>
-
-
-<input
-
-id="joinDate"
-
-placeholder="DD-MM-YYYY">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Email
-</label>
-
-
-<input
-
-id="email"
-
-placeholder="Email">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Department
-</label>
-
-
-<input
-
-id="department"
-
-placeholder="Department">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group full">
-
-<label>
-Picture URL
-</label>
-
-
-<input
-
-id="picture"
-
-placeholder="Picture Link">
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group full">
-
-<label>
-Address
-</label>
-
-
-<input
-
-id="address"
-
-placeholder="Address">
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-<button
-
-class="save-btn"
-
-onclick="saveUser()">
-
-Save Update
-
-</button>
-
-
-
-
-
-
-
-</div>
-
-
-</div>
 <script>
+
 
 
 const API_URL =
@@ -1150,15 +1682,44 @@ const API_URL =
 
 let users=[];
 
+let deleteUsername="";
+
+
+
+
+
+
+
+// SIDEBAR
+
+
+function toggleSidebar(){
+
+
+document
+.getElementById("sidebar")
+.classList.toggle("active");
+
+
+}
+
+
+
+
+
+
 
 
 
 // LOADING
 
-function loading(show){
+
+function loading(x){
+
 
 document.getElementById("loadingBox")
-.style.display = show ? "block" : "none";
+.style.display=x?"block":"none";
+
 
 }
 
@@ -1168,35 +1729,40 @@ document.getElementById("loadingBox")
 
 
 
-// NOTIFICATION
 
-function notify(message,type="success"){
-
-
-let box=document.getElementById("notify");
+// NOTIFY
 
 
-box.innerHTML=message;
+function notify(msg,type="success"){
 
 
-box.style.background =
-type=="error" ? "#e74c3c" : "#0b5c45";
+let n=document.getElementById("notify");
 
 
-box.style.display="block";
+n.innerHTML=msg;
+
+
+n.style.background=
+type=="error"?
+"#e74c3c":
+"#063b32";
+
+
+n.style.display="block";
 
 
 
 setTimeout(()=>{
 
-
-box.style.display="none";
-
+n.style.display="none";
 
 },2500);
 
 
+
 }
+
+
 
 
 
@@ -1222,10 +1788,13 @@ method:"POST",
 
 headers:{
 
+
 "Content-Type":
 "application/x-www-form-urlencoded"
 
+
 },
+
 
 body:"action=getUsers"
 
@@ -1233,7 +1802,7 @@ body:"action=getUsers"
 })
 
 
-.then(res=>res.json())
+.then(r=>r.json())
 
 
 .then(data=>{
@@ -1258,17 +1827,7 @@ countUsers();
 }
 
 
-else{
-
-
-notify("User Load Failed","error");
-
-
-}
-
-
 })
-
 
 .catch(()=>{
 
@@ -1282,7 +1841,10 @@ notify("Connection Error","error");
 });
 
 
+
 }
+
+
 
 
 
@@ -1295,7 +1857,7 @@ notify("Connection Error","error");
 // SHOW USER
 
 
-function showUsers(data){
+function showUsers(list){
 
 
 
@@ -1303,42 +1865,39 @@ let html="";
 
 
 
-data.forEach(u=>{
+list.forEach(u=>{
+
 
 
 html+=`
-
 
 <tr>
 
 
 <td>
 
-
 <img class="profile-img"
 
 src="${u.picture || 'https://i.imgur.com/6VBx3io.png'}">
-
 
 </td>
 
 
 
-<td>${u.name || ""}</td>
+<td>${u.name}</td>
 
 
-<td>${u.username || ""}</td>
+<td>${u.username}</td>
 
 
-<td>${u.role || ""}</td>
+<td>${u.role}</td>
 
 
-<td>${u.status || ""}</td>
+<td>${u.status}</td>
 
 
 
 <td>
-
 
 
 <button class="edit-btn"
@@ -1351,23 +1910,20 @@ Edit
 
 
 
+<button class="status-btn"
 
-<button class="delete-btn"
+onclick="changeStatus('${u.username}','${u.status}')">
 
-onclick="deleteUser('${u.username}')">
-
-Delete
+${u.status}
 
 </button>
-
 
 
 </td>
 
 
+
 </tr>
-
-
 
 `;
 
@@ -1392,33 +1948,29 @@ document.getElementById("userList")
 
 
 
-// COUNT USER
+// COUNT
 
 
 function countUsers(){
 
 
-document.getElementById("total").innerHTML=
-users.length;
+total.innerHTML=users.length;
 
 
-
-document.getElementById("active").innerHTML=
+active.innerHTML=
 users.filter(x=>x.status=="Active").length;
 
 
-
-document.getElementById("inactive").innerHTML=
+inactive.innerHTML=
 users.filter(x=>x.status=="Inactive").length;
 
 
-
-document.getElementById("blocked").innerHTML=
+blocked.innerHTML=
 users.filter(x=>x.status=="Blocked").length;
 
 
-
 }
+
 
 
 
@@ -1434,37 +1986,23 @@ users.filter(x=>x.status=="Blocked").length;
 function searchUser(){
 
 
-
-let text=
-
-document.getElementById("search")
-.value
-.toLowerCase();
+let t=
+search.value.toLowerCase();
 
 
 
+showUsers(
 
-let result=users.filter(u=>
+users.filter(u=>
 
-
-(u.name||"")
-.toLowerCase()
-.includes(text)
-
+u.name.toLowerCase().includes(t)
 
 ||
+u.username.toLowerCase().includes(t)
 
-
-(u.username||"")
-.toLowerCase()
-.includes(text)
-
+)
 
 );
-
-
-
-showUsers(result);
 
 
 
@@ -1472,6 +2010,21 @@ showUsers(result);
 
 
 
+
+
+
+
+
+
+// START
+
+
+loadUsers();
+
+
+
+</script>
+<script>
 
 
 
@@ -1491,6 +2044,7 @@ document.getElementById("modal")
 
 
 }
+
 
 
 
@@ -1525,7 +2079,6 @@ document.getElementById("modal")
 function clearForm(){
 
 
-
 row.value="";
 
 username.value="";
@@ -1550,6 +2103,8 @@ department.value="";
 
 joinDate.value="";
 
+deleteUsername="";
+
 
 }
 
@@ -1565,6 +2120,10 @@ joinDate.value="";
 
 
 function editUser(u){
+
+
+
+deleteUsername=u.username;
 
 
 
@@ -1594,7 +2153,10 @@ joinDate.value=u.joinDate || "";
 
 
 
-modal.style.display="flex";
+
+document.getElementById("modal")
+.style.display="flex";
+
 
 
 }
@@ -1616,7 +2178,12 @@ function saveUser(){
 
 let action =
 
-row.value ? "updateUser" : "addUser";
+row.value ?
+
+"updateUser" :
+
+"addUser";
+
 
 
 
@@ -1658,7 +2225,6 @@ let body =
 
 
 
-
 loading(true);
 
 
@@ -1670,9 +2236,11 @@ method:"POST",
 headers:{
 
 "Content-Type":
+
 "application/x-www-form-urlencoded"
 
 },
+
 
 body:body
 
@@ -1680,7 +2248,8 @@ body:body
 })
 
 
-.then(res=>res.json())
+
+.then(r=>r.json())
 
 
 .then(data=>{
@@ -1689,7 +2258,11 @@ body:body
 loading(false);
 
 
-notify(data.message || "Saved");
+
+notify(
+data.message || "Saved"
+);
+
 
 
 closeForm();
@@ -1698,7 +2271,9 @@ closeForm();
 loadUsers();
 
 
+
 })
+
 
 
 .catch(()=>{
@@ -1707,10 +2282,14 @@ loadUsers();
 loading(false);
 
 
-notify("Save Failed","error");
+notify(
+"Save Failed",
+"error"
+);
 
 
 });
+
 
 
 }
@@ -1723,14 +2302,33 @@ notify("Save Failed","error");
 
 
 
-// DELETE USER
 
 
-function deleteUser(username){
+// DELETE USER FROM EDIT
+
+
+function deleteCurrentUser(){
 
 
 
-loading(true);
+if(!deleteUsername){
+
+
+notify(
+"Select User First",
+"error"
+);
+
+
+return;
+
+
+}
+
+
+
+
+if(confirm("Delete this user?")){
 
 
 
@@ -1740,29 +2338,119 @@ method:"POST",
 
 headers:{
 
+
 "Content-Type":
+
 "application/x-www-form-urlencoded"
+
 
 },
 
 
 body:
 
-"action=deleteUser&username="+
-encodeURIComponent(username)
+"action=deleteUser&username="
++
+encodeURIComponent(deleteUsername)
+
+
+})
+
+
+
+.then(r=>r.json())
+
+
+.then(data=>{
+
+
+notify(data.message);
+
+
+closeForm();
+
+
+loadUsers();
+
+
+});
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+// CHANGE STATUS
+
+
+function changeStatus(username,status){
+
+
+
+let newStatus =
+
+
+status=="Active"
+
+?
+
+"Blocked"
+
+:
+
+"Active";
+
+
+
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+
+
+"Content-Type":
+
+"application/x-www-form-urlencoded"
+
+
+},
+
+
+body:
+
+"action=updateStatus"+
+
+"&username="+encodeURIComponent(username)+
+
+"&status="+encodeURIComponent(newStatus)
 
 
 
 })
 
 
-.then(res=>res.json())
+
+.then(r=>r.json())
 
 
 .then(data=>{
-
-
-loading(false);
 
 
 notify(data.message);
@@ -1772,19 +2460,8 @@ loadUsers();
 
 
 
-})
-
-
-.catch(()=>{
-
-
-loading(false);
-
-
-notify("Delete Failed","error");
-
-
 });
+
 
 
 }
@@ -1795,18 +2472,16 @@ notify("Delete Failed","error");
 
 
 
-
-
-// START
-
-
-loadUsers();
-
-
-
 </script>
 
 
+
+
+
+</div>
+
+
 </body>
+
 
 </html>
