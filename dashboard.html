@@ -2,36 +2,12 @@
 <html lang="en">
 
 <head>
-<script>
-(function () {
 
-    const username = localStorage.getItem("username");
-    const name = localStorage.getItem("name");
-    const role = localStorage.getItem("role");
-
-    if (
-        !username ||
-        !name ||
-        !role
-    ) {
-
-        alert("Please Login First");
-
-        window.location.replace("login.html");
-
-    }
-
-})();
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard | Link$ Support</title>
+<title>Dashboard | Link4 Support Team</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -39,333 +15,459 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+font-family:"Segoe UI",Arial,sans-serif;
 }
+
 
 body{
 
-background:#0f172a;
-color:#fff;
-min-height:100vh;
+background:#f1f5f4;
 
 }
 
-/* Header */
 
-header{
 
-height:75px;
-background:#111827;
+/* HEADER */
+
+.header{
+
+height:65px;
+background:#0b5c45;
+color:white;
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 padding:0 25px;
-box-shadow:0 5px 20px rgba(0,0,0,.3);
 
 }
 
-.logo{
 
-font-size:24px;
-font-weight:700;
-color:#22c55e;
 
-}
+.header h2{
 
-.user{
-
-text-align:right;
+font-size:22px;
 
 }
 
-.user h3{
 
-font-size:17px;
-
-}
-
-.user p{
-
-font-size:13px;
-color:#cbd5e1;
-
-}
 
 .logout{
 
-margin-top:8px;
-padding:8px 18px;
-border:none;
-border-radius:8px;
-background:#ef4444;
-color:#fff;
+background:white;
+color:#0b5c45;
+padding:9px 18px;
+border-radius:10px;
+font-weight:bold;
 cursor:pointer;
-font-weight:600;
 
 }
 
-/* Container */
 
-.container{
 
-width:95%;
-max-width:1200px;
-margin:35px auto;
+/* USER CARD */
 
-}
 
-.title{
+.user-box{
 
-font-size:28px;
-margin-bottom:30px;
-font-weight:600;
+margin:20px;
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,.12);
 
 }
 
-/* Cards */
 
-.grid{
 
+.user-box h3{
+
+color:#0b5c45;
+
+}
+
+
+.user-box p{
+
+color:#666;
+margin-top:5px;
+
+}
+
+
+
+/* MENU */
+
+
+.menu{
+
+padding:20px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:22px;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
 
 }
+
+
 
 .card{
 
-background:#1e293b;
+background:white;
+padding:25px 15px;
 border-radius:18px;
-padding:30px;
-cursor:pointer;
+text-align:center;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
 transition:.3s;
-border:1px solid rgba(255,255,255,.08);
 
 }
+
+
 
 .card:hover{
 
-transform:translateY(-8px);
-background:#2563eb;
+transform:translateY(-6px);
 
 }
+
+
+
+a{
+
+text-decoration:none;
+color:black;
+
+}
+
+
 
 .icon{
 
-font-size:42px;
-margin-bottom:15px;
+font-size:40px;
 
 }
 
-.card h2{
 
-font-size:22px;
-margin-bottom:10px;
+
+.title{
+
+font-size:18px;
+font-weight:bold;
+color:#0b5c45;
+margin-top:12px;
 
 }
 
-.card p{
 
-color:#cbd5e1;
+
+.short{
+
+margin-top:8px;
 font-size:14px;
+color:#888;
 
 }
 
-/* Footer */
 
-footer{
 
-margin-top:50px;
-padding:20px;
+.footer{
+
 text-align:center;
-color:#94a3b8;
+padding:20px;
+font-size:13px;
+color:#777;
 
 }
+
+
 
 </style>
 
 </head>
 
+
+
 <body>
 
-<header>
 
-<div class="logo">
-Link$ Support
-</div>
 
-<div class="user">
+<div class="header">
 
-<h3 id="name">Loading...</h3>
 
-<p id="role"></p>
+<h2>
+Link4 Support Team
+</h2>
 
-<button class="logout" onclick="logout()">
+
+<div class="logout" onclick="logout()">
+
 Logout
-</button>
 
 </div>
 
-</header>
 
-<div class="container">
+</div>
+
+
+
+
+
+<div class="user-box">
+
+<h3 id="name">
+
+Welcome User
+
+</h3>
+
+
+<p id="role">
+
+Role:
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="menu">
+
+
+
+<a href="NS.html">
+
+<div class="card">
+
+<div class="icon">
+🆕
+</div>
 
 <div class="title">
-Dashboard
+New Support
 </div>
 
-<div class="grid">
-
-<div class="card" onclick="location.href='NS.html'">
-
-<div class="icon">🆕</div>
-
-<h2>New Support</h2>
-
-<p>Create New Support Entry</p>
-
-</div>
-
-<div class="card" onclick="location.href='PS.html'">
-
-<div class="icon">🛠</div>
-
-<h2>Pending Support</h2>
-
-<p>View Pending Support</p>
-
-</div>
-
-<div class="card" onclick="location.href='PC.html'">
-
-<div class="icon">📞</div>
-
-<h2>Pending Call</h2>
-
-<p>Call Waiting List</p>
-
-</div>
-
-<div class="card" onclick="location.href='H.html'">
-
-<div class="icon">📜</div>
-
-<h2>History</h2>
-
-<p>Support History</p>
-
-</div>
-
-<div class="card" onclick="location.href='ON.html'">
-
-<div class="icon">📝</div>
-
-<h2>Offline Entry</h2>
-
-<p>Create Offline Entry</p>
-
-</div>
-
-<div class="card" onclick="location.href='OF.html'">
-
-<div class="icon">📂</div>
-
-<h2>Offline</h2>
-
-<p>Offline Management</p>
-
-</div>
-
-<div class="card" onclick="location.href='OC.html'">
-
-<div class="icon">💰</div>
-
-<h2>Offline Collect</h2>
-
-<p>Collect Offline Payment</p>
-
-</div>
-
-<div class="card" onclick="location.href='account.html'">
-
-<div class="icon">👤</div>
-
-<h2>My Account</h2>
-
-<p>Profile Information</p>
-
+<div class="short">
+NS
 </div>
 
 </div>
 
+</a>
+
+
+
+
+
+<a href="PS.html">
+
+<div class="card">
+
+<div class="icon">
+⏳
 </div>
 
-<footer>
+<div class="title">
+Pending Support
+</div>
 
-© 2026 Link$ Support Management System
+<div class="short">
+PS
+</div>
 
-</footer>
+</div>
 
-<!-- PART 2 এখান থেকে শুরু হবে -->
+</a>
+
+
+
+
+
+<a href="PC.html">
+
+<div class="card">
+
+<div class="icon">
+📞
+</div>
+
+<div class="title">
+Pending Call
+</div>
+
+<div class="short">
+PC
+</div>
+
+</div>
+
+</a>
+
+
+
+
+
+<a href="H.html">
+
+<div class="card">
+
+<div class="icon">
+📜
+</div>
+
+<div class="title">
+History
+</div>
+
+<div class="short">
+H
+</div>
+
+</div>
+
+</a>
+
+
+
+
+
+<a href="ON.html">
+
+<div class="card">
+
+<div class="icon">
+📝
+</div>
+
+<div class="title">
+Offline Entry
+</div>
+
+<div class="short">
+ON
+</div>
+
+</div>
+
+</a>
+
+
+
+
+
+<a href="OF.html">
+
+<div class="card">
+
+<div class="icon">
+📂
+</div>
+
+<div class="title">
+Offline
+</div>
+
+<div class="short">
+OF
+</div>
+
+</div>
+
+</a>
+
+
+
+
+
+<a href="OC.html">
+
+<div class="card">
+
+<div class="icon">
+💰
+</div>
+
+<div class="title">
+Offline Collect
+</div>
+
+<div class="short">
+OC
+</div>
+
+</div>
+
+</a>
+
+
+
+
+</div>
+
+
+
+
+
+<div class="footer">
+
+© Link4 Support Management System
+
+</div>
+
+
+
+
+
 <script>
 
-// ===============================
-// Login Check
-// ===============================
 
-const username = localStorage.getItem("username");
-const name = localStorage.getItem("name");
-const role = localStorage.getItem("role");
+// LOGIN CHECK
 
-if (!username) {
-    window.location.href = "login.html";
+let user = localStorage.getItem("user");
+
+
+if(!user){
+
+window.location.href="login.html";
+
 }
 
-// ===============================
-// User Information
-// ===============================
+else{
+
+
+let data = JSON.parse(user);
+
 
 document.getElementById("name").innerHTML =
-    name || "Unknown User";
+"Welcome, " + data.name;
+
 
 document.getElementById("role").innerHTML =
-    role || "No Role";
+"Role : " + data.role;
 
-// ===============================
-// Logout
-// ===============================
-
-function logout() {
-
-    if(confirm("Are you sure you want to logout?")){
-
-        localStorage.clear();
-
-        window.location.href = "login.html";
-
-    }
 
 }
 
-// ===============================
-// Disable Back Button
-// ===============================
 
-history.pushState(null,null,location.href);
 
-window.onpopstate=function(){
 
-history.go(1);
 
-};
+// LOGOUT
 
-// ===============================
-// Welcome
-// ===============================
+function logout(){
 
-console.log("Dashboard Loaded");
+localStorage.removeItem("user");
+
+window.location.href="login.html";
+
+}
+
+
 
 </script>
+
+
 </body>
 
 </html>
