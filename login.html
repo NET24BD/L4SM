@@ -331,5 +331,20 @@ if (localStorage.getItem("username")) {
   window.location.href = "dashboard.html";
 }
 </script>
+  <script>
+// Enter Press = Login
+
+document.getElementById("username").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        login();
+    }
+});
+
+document.getElementById("password").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        login();
+    }
+});
+</script>
 </body>
 </html>
