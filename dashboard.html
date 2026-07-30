@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script>
+(function () {
+
+    const username = localStorage.getItem("username");
+    const name = localStorage.getItem("name");
+    const role = localStorage.getItem("role");
+
+    if (
+        !username ||
+        !name ||
+        !role
+    ) {
+
+        alert("Please Login First");
+
+        window.location.replace("login.html");
+
+    }
+
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | Link$ Support</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:#0f172a;
+color:#fff;
+min-height:100vh;
+
+}
+
+/* Header */
+
+header{
+
+height:75px;
+background:#111827;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 25px;
+box-shadow:0 5px 20px rgba(0,0,0,.3);
+
+}
+
+.logo{
+
+font-size:24px;
+font-weight:700;
+color:#22c55e;
+
+}
+
+.user{
+
+text-align:right;
+
+}
+
+.user h3{
+
+font-size:17px;
+
+}
+
+.user p{
+
+font-size:13px;
+color:#cbd5e1;
+
+}
+
+.logout{
+
+margin-top:8px;
+padding:8px 18px;
+border:none;
+border-radius:8px;
+background:#ef4444;
+color:#fff;
+cursor:pointer;
+font-weight:600;
+
+}
+
+/* Container */
+
+.container{
+
+width:95%;
+max-width:1200px;
+margin:35px auto;
+
+}
+
+.title{
+
+font-size:28px;
+margin-bottom:30px;
+font-weight:600;
+
+}
+
+/* Cards */
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:22px;
+
+}
+
+.card{
+
+background:#1e293b;
+border-radius:18px;
+padding:30px;
+cursor:pointer;
+transition:.3s;
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+.card:hover{
+
+transform:translateY(-8px);
+background:#2563eb;
+
+}
+
+.icon{
+
+font-size:42px;
+margin-bottom:15px;
+
+}
+
+.card h2{
+
+font-size:22px;
+margin-bottom:10px;
+
+}
+
+.card p{
+
+color:#cbd5e1;
+font-size:14px;
+
+}
+
+/* Footer */
+
+footer{
+
+margin-top:50px;
+padding:20px;
+text-align:center;
+color:#94a3b8;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+Link$ Support
+</div>
+
+<div class="user">
+
+<h3 id="name">Loading...</h3>
+
+<p id="role"></p>
+
+<button class="logout" onclick="logout()">
+Logout
+</button>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="title">
+Dashboard
+</div>
+
+<div class="grid">
+
+<div class="card" onclick="location.href='NS.html'">
+
+<div class="icon">🆕</div>
+
+<h2>New Support</h2>
+
+<p>Create New Support Entry</p>
+
+</div>
+
+<div class="card" onclick="location.href='PS.html'">
+
+<div class="icon">🛠</div>
+
+<h2>Pending Support</h2>
+
+<p>View Pending Support</p>
+
+</div>
+
+<div class="card" onclick="location.href='PC.html'">
+
+<div class="icon">📞</div>
+
+<h2>Pending Call</h2>
+
+<p>Call Waiting List</p>
+
+</div>
+
+<div class="card" onclick="location.href='H.html'">
+
+<div class="icon">📜</div>
+
+<h2>History</h2>
+
+<p>Support History</p>
+
+</div>
+
+<div class="card" onclick="location.href='ON.html'">
+
+<div class="icon">📝</div>
+
+<h2>Offline Entry</h2>
+
+<p>Create Offline Entry</p>
+
+</div>
+
+<div class="card" onclick="location.href='OF.html'">
+
+<div class="icon">📂</div>
+
+<h2>Offline</h2>
+
+<p>Offline Management</p>
+
+</div>
+
+<div class="card" onclick="location.href='OC.html'">
+
+<div class="icon">💰</div>
+
+<h2>Offline Collect</h2>
+
+<p>Collect Offline Payment</p>
+
+</div>
+
+<div class="card" onclick="location.href='account.html'">
+
+<div class="icon">👤</div>
+
+<h2>My Account</h2>
+
+<p>Profile Information</p>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 Link$ Support Management System
+
+</footer>
+
+<!-- PART 2 এখান থেকে শুরু হবে -->
+<script>
+
+// ===============================
+// Login Check
+// ===============================
+
+const username = localStorage.getItem("username");
+const name = localStorage.getItem("name");
+const role = localStorage.getItem("role");
+
+if (!username) {
+    window.location.href = "login.html";
+}
+
+// ===============================
+// User Information
+// ===============================
+
+document.getElementById("name").innerHTML =
+    name || "Unknown User";
+
+document.getElementById("role").innerHTML =
+    role || "No Role";
+
+// ===============================
+// Logout
+// ===============================
+
+function logout() {
+
+    if(confirm("Are you sure you want to logout?")){
+
+        localStorage.clear();
+
+        window.location.href = "login.html";
+
+    }
+
+}
+
+// ===============================
+// Disable Back Button
+// ===============================
+
+history.pushState(null,null,location.href);
+
+window.onpopstate=function(){
+
+history.go(1);
+
+};
+
+// ===============================
+// Welcome
+// ===============================
+
+console.log("Dashboard Loaded");
+
+</script>
+</body>
+
+</html>
