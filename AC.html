@@ -8,13 +8,14 @@
 
 <title>My Account</title>
 
+
 <style>
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
 }
 
 
@@ -30,15 +31,17 @@ body{
 }
 
 
+
 .account-box{
 
-    width:360px;
+    width:380px;
     background:#101c30;
-    border-radius:20px;
     padding:25px;
+    border-radius:20px;
     box-shadow:0 0 30px #000;
 
 }
+
 
 
 .profile{
@@ -48,30 +51,31 @@ body{
 }
 
 
+
 .profile img{
 
-    width:110px;
-    height:110px;
+    width:120px;
+    height:120px;
     border-radius:50%;
     object-fit:cover;
     border:4px solid #00d4ff;
-    margin-bottom:15px;
 
 }
+
 
 
 .profile h2{
 
-    font-size:24px;
-    margin-bottom:5px;
+    margin-top:15px;
 
 }
+
 
 
 .role{
 
     color:#00d4ff;
-    margin-bottom:20px;
+    margin:8px;
 
 }
 
@@ -79,6 +83,7 @@ body{
 
 .info{
 
+    margin-top:20px;
     background:#07111f;
     padding:15px;
     border-radius:15px;
@@ -97,11 +102,13 @@ body{
 }
 
 
+
 .row:last-child{
 
     border:none;
 
 }
+
 
 
 .label{
@@ -111,15 +118,19 @@ body{
 }
 
 
+
 .value{
 
     font-weight:bold;
+    max-width:180px;
     text-align:right;
+    overflow-wrap:break-word;
 
 }
 
 
-.loading{
+
+#loading{
 
     text-align:center;
     font-size:18px;
@@ -129,16 +140,20 @@ body{
 
 </style>
 
+
 </head>
+
 
 
 <body>
 
 
+
 <div class="account-box">
 
 
-<div id="loading" class="loading">
+
+<div id="loading">
 
 Loading Account...
 
@@ -149,17 +164,17 @@ Loading Account...
 <div id="account" style="display:none;">
 
 
+
 <div class="profile">
 
 
 <img id="photo" src="https://i.imgur.com/6VBx3io.png">
 
 
-<h2 id="name">Name</h2>
+<h2 id="name"></h2>
 
-<div class="role" id="role">
-Role
-</div>
+
+<div class="role" id="role"></div>
 
 
 </div>
@@ -170,9 +185,12 @@ Role
 <div class="info">
 
 
+
 <div class="row">
 
-<span class="label">Username</span>
+<span class="label">
+Username
+</span>
 
 <span class="value" id="username"></span>
 
@@ -182,7 +200,9 @@ Role
 
 <div class="row">
 
-<span class="label">Status</span>
+<span class="label">
+Status
+</span>
 
 <span class="value" id="status"></span>
 
@@ -192,7 +212,9 @@ Role
 
 <div class="row">
 
-<span class="label">Number</span>
+<span class="label">
+Number
+</span>
 
 <span class="value" id="number"></span>
 
@@ -202,7 +224,9 @@ Role
 
 <div class="row">
 
-<span class="label">Email</span>
+<span class="label">
+Email
+</span>
 
 <span class="value" id="email"></span>
 
@@ -212,7 +236,9 @@ Role
 
 <div class="row">
 
-<span class="label">Department</span>
+<span class="label">
+Department
+</span>
 
 <span class="value" id="department"></span>
 
@@ -222,20 +248,24 @@ Role
 
 <div class="row">
 
-<span class="label">Join Date</span>
+<span class="label">
+Join Date
+</span>
 
 <span class="value" id="joinDate"></span>
 
 </div>
 
 
-</div>
-
 
 </div>
 
 
 </div>
+
+
+</div>
+
 
 
 
@@ -244,22 +274,28 @@ Role
 <script>
 
 
+// আপনার Apps Script Web App URL
+
 const API_URL = "YOUR_WEB_APP_URL";
 
 
+
+
+// Login User
 
 const username = localStorage.getItem("username");
 
 
 
+// যদি login না থাকে
+
 if(!username){
 
-    alert("Login Required");
     window.location.href="login.html";
 
 }
 
-
+else{
 
 
 fetch(API_URL,{
@@ -272,6 +308,7 @@ headers:{
 
 },
 
+
 body:
 
 "action=account&username="+encodeURIComponent(username)
@@ -280,7 +317,7 @@ body:
 })
 
 
-.then(res=>res.json())
+.then(response=>response.json())
 
 
 .then(data=>{
@@ -292,42 +329,54 @@ if(data.success){
 
 document.getElementById("loading").style.display="none";
 
+
 document.getElementById("account").style.display="block";
+
+
+
+document.getElementById("photo").src =
+
+data.picture ||
+
+"https://i.imgur.com/6VBx3io.png";
 
 
 
 document.getElementById("name").innerHTML=data.name;
 
+
 document.getElementById("username").innerHTML=data.username;
+
 
 document.getElementById("role").innerHTML=data.role;
 
+
 document.getElementById("status").innerHTML=data.status;
+
 
 document.getElementById("number").innerHTML=data.number;
 
+
 document.getElementById("email").innerHTML=data.email;
 
+
 document.getElementById("department").innerHTML=data.department;
+
 
 document.getElementById("joinDate").innerHTML=data.joinDate;
 
 
 
-if(data.picture){
-
-document.getElementById("photo").src=data.picture;
-
 }
 
 
-
-}
 
 else{
 
 
-document.getElementById("loading").innerHTML="Account Not Found";
+document.getElementById("loading").innerHTML=
+
+"Account Not Found";
 
 
 }
@@ -336,17 +385,26 @@ document.getElementById("loading").innerHTML="Account Not Found";
 
 })
 
+
+
 .catch(error=>{
 
 
-document.getElementById("loading").innerHTML="Server Error";
+document.getElementById("loading").innerHTML=
+
+"Connection Error";
 
 
 });
 
 
 
+}
+
+
+
 </script>
+
 
 
 </body>
