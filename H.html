@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>History | Link4 Support</title>
+<title>History Dashboard</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -20,62 +21,54 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#eef2f5;
+background:#f4f7fb;
 display:flex;
 }
 
-/*================ SIDEBAR ================*/
+/*======================
+SIDEBAR
+======================*/
 
 .sidebar{
-width:260px;
-height:100vh;
-background:#062f28;
-color:#fff;
 position:fixed;
 left:0;
 top:0;
-display:flex;
-flex-direction:column;
+width:260px;
+height:100%;
+background:#0f3d36;
+color:#fff;
+transition:.3s;
+overflow:auto;
 }
 
 .logo{
+padding:25px;
+font-size:24px;
+font-weight:bold;
 text-align:center;
-padding:25px 15px;
-border-bottom:1px solid rgba(255,255,255,.1);
+border-bottom:1px solid rgba(255,255,255,.15);
 }
 
 .logo i{
-font-size:48px;
 color:#00d084;
-margin-bottom:10px;
-}
-
-.logo h2{
-font-size:18px;
+margin-right:10px;
 }
 
 .menu{
-padding:20px;
-flex:1;
-overflow:auto;
+padding:20px 0;
 }
 
 .menu a{
 display:flex;
 align-items:center;
 gap:15px;
-padding:14px 12px;
-margin-bottom:8px;
-text-decoration:none;
+padding:15px 25px;
 color:#fff;
-border-radius:8px;
+text-decoration:none;
 transition:.3s;
 }
 
-.menu a:hover{
-background:#0b4b40;
-}
-
+.menu a:hover,
 .menu a.active{
 background:#00b96b;
 }
@@ -86,21 +79,26 @@ text-align:center;
 }
 
 .logout{
-padding:20px;
+position:absolute;
+bottom:20px;
+left:20px;
+right:20px;
 }
 
 .logout button{
 width:100%;
-padding:14px;
-background:#e22c2c;
+padding:12px;
+background:#e53935;
 border:none;
 color:#fff;
-font-size:16px;
-border-radius:10px;
+border-radius:8px;
 cursor:pointer;
+font-size:15px;
 }
 
-/*================ CONTENT ================*/
+/*======================
+MAIN
+======================*/
 
 .main{
 margin-left:260px;
@@ -108,17 +106,19 @@ width:calc(100% - 260px);
 padding:20px;
 }
 
-/*================ TOPBAR ================*/
+/*======================
+TOPBAR
+======================*/
 
 .topbar{
-height:65px;
 background:#fff;
-border-radius:15px;
+height:70px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:0 20px;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
+border-radius:12px;
+box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .left{
@@ -128,94 +128,83 @@ gap:20px;
 }
 
 .left i{
-font-size:28px;
+font-size:24px;
 cursor:pointer;
+}
+
+.left h2{
+color:#0f3d36;
 }
 
 .right{
 display:flex;
 align-items:center;
-gap:12px;
+gap:15px;
 }
 
 .right img{
-width:45px;
-height:45px;
+width:50px;
+height:50px;
 border-radius:50%;
-border:2px solid #00b96b;
+border:3px solid #00b96b;
+object-fit:cover;
 }
 
 .right h4{
-font-size:17px;
+font-size:16px;
 }
 
-.right small{
+.right p{
+font-size:13px;
 color:#777;
 }
 
-/*================ PAGE TITLE ================*/
+/*======================
+SEARCH
+======================*/
 
-.title{
+.search-area{
 margin:25px 0;
 display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.title h2{
-color:#0b3c34;
-}
-
-.total{
-background:#00b96b;
-color:#fff;
-padding:10px 18px;
-border-radius:30px;
-font-weight:bold;
-}
-
-/*================ FILTER ================*/
-
-.filter{
-background:#fff;
-padding:20px;
-border-radius:15px;
-display:flex;
 gap:15px;
-margin-bottom:20px;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
+flex-wrap:wrap;
 }
 
-.filter input{
+.search-area input{
 padding:12px;
-border:1px solid #ccc;
+border:1px solid #ddd;
 border-radius:8px;
 font-size:15px;
 }
 
-.filter button{
-padding:12px 18px;
-border:none;
+.search-area input[type=text]{
+flex:1;
+}
+
+.search-area button{
+padding:12px 20px;
 background:#00b96b;
+border:none;
 color:#fff;
 border-radius:8px;
 cursor:pointer;
-font-size:15px;
 }
 
-/*================ TABLE ================*/
+/*======================
+TABLE
+======================*/
 
 .table-box{
 background:#fff;
-border-radius:15px;
+border-radius:12px;
 overflow:auto;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
+box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-min-width:1100px;
+min-width:1200px;
 }
 
 thead{
@@ -223,24 +212,20 @@ background:#00b96b;
 color:#fff;
 }
 
-th{
+th,td{
 padding:15px;
 text-align:left;
-}
-
-td{
-padding:14px;
 border-bottom:1px solid #eee;
 }
 
 tbody tr:hover{
-background:#f7f7f7;
+background:#f8f8f8;
 }
 
 .status{
-background:#dff8ea;
-color:#00a65a;
-padding:5px 12px;
+background:#d9fbe8;
+color:#0d8a47;
+padding:6px 12px;
 border-radius:20px;
 font-size:13px;
 font-weight:bold;
@@ -259,45 +244,54 @@ display:inline-block;
 
 <div class="logo">
 <i class="fas fa-headset"></i>
-<h2>Link4 Support</h2>
+Link4 Support
 </div>
 
 <div class="menu">
 
 <a href="dashboard.html">
-<i class="fas fa-home"></i> Dashboard
+<i class="fas fa-home"></i>
+<span>Dashboard</span>
 </a>
 
 <a href="account.html">
-<i class="fas fa-user-circle"></i> My Account
+<i class="fas fa-user"></i>
+<span>My Account</span>
 </a>
 
 <a href="NS.html">
-<i class="fas fa-headset"></i> New Support
+<i class="fas fa-headset"></i>
+<span>New Support</span>
 </a>
 
 <a href="PS.html">
-<i class="fas fa-clock"></i> Pending Support
+<i class="fas fa-clock"></i>
+<span>Pending Support</span>
 </a>
 
 <a href="PC.html">
-<i class="fas fa-phone"></i> Pending Call
+<i class="fas fa-phone"></i>
+<span>Pending Call</span>
 </a>
 
-<a class="active" href="H.html">
-<i class="fas fa-file-alt"></i> History
+<a href="H.html" class="active">
+<i class="fas fa-file-lines"></i>
+<span>History</span>
 </a>
 
 <a href="ON.html">
-<i class="fas fa-file-circle-plus"></i> Offline Entry
+<i class="fas fa-file-circle-plus"></i>
+<span>Offline Entry</span>
 </a>
 
 <a href="OF.html">
-<i class="fas fa-folder-open"></i> Offline
+<i class="fas fa-folder-open"></i>
+<span>Offline</span>
 </a>
 
 <a href="OC.html">
-<i class="fas fa-database"></i> Offline Collect
+<i class="fas fa-database"></i>
+<span>Offline Collect</span>
 </a>
 
 </div>
@@ -319,34 +313,31 @@ Logout
 
 <div class="left">
 <i class="fas fa-bars"></i>
+<h2>History Dashboard</h2>
 </div>
 
 <div class="right">
 
-<img src="https://i.pravatar.cc/100">
+<img id="profilePic"
+src="https://i.pravatar.cc/150?img=12">
 
 <div>
-<h4>Shemanto</h4>
-<small>Admin</small>
+
+<h4 id="profileName">
+Shemanto
+</h4>
+
+<p id="profileRole">
+Support Engineer
+</p>
+
 </div>
 
-<i class="fas fa-angle-down"></i>
-
-</div>
-
-</div>
-
-<div class="title">
-
-<h2>History Dashboard</h2>
-
-<div class="total">
-Total : <span id="total">0</span>
 </div>
 
 </div>
 
-<div class="filter">
+<div class="search-area">
 
 <input
 type="text"
@@ -357,13 +348,13 @@ placeholder="Search IP / Problem">
 type="date"
 id="date">
 
-<button>
+<button id="searchBtn">
 <i class="fas fa-search"></i>
 Search
 </button>
 
-<button>
-<i class="fas fa-rotate-right"></i>
+<button id="refreshBtn">
+<i class="fas fa-rotate"></i>
 Refresh
 </button>
 
@@ -394,7 +385,71 @@ Refresh
 
 <tbody id="historyTable">
 
-<!-- Data আসবে এখানে -->
+<!-- Data will load here -->
+<tr>
+<td>1</td>
+<td>1001</td>
+<td>No Internet</td>
+<td>REF-001</td>
+<td>30-07-2026</td>
+<td>Done</td>
+<td>Router Restart</td>
+<td>Completed</td>
+<td>Customer Confirmed</td>
+<td><span class="status">Closed</span></td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>1002</td>
+<td>Slow Speed</td>
+<td>REF-002</td>
+<td>30-07-2026</td>
+<td>Done</td>
+<td>Bandwidth Reset</td>
+<td>Completed</td>
+<td>Speed OK</td>
+<td><span class="status">Closed</span></td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>1003</td>
+<td>ONU Offline</td>
+<td>REF-003</td>
+<td>29-07-2026</td>
+<td>Done</td>
+<td>ONU Replace</td>
+<td>Completed</td>
+<td>Internet Running</td>
+<td><span class="status">Closed</span></td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>1004</td>
+<td>Fiber Cut</td>
+<td>REF-004</td>
+<td>29-07-2026</td>
+<td>Done</td>
+<td>Fiber Joint</td>
+<td>Completed</td>
+<td>Customer OK</td>
+<td><span class="status">Closed</span></td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>1005</td>
+<td>Router Problem</td>
+<td>REF-005</td>
+<td>28-07-2026</td>
+<td>Done</td>
+<td>Router Replace</td>
+<td>Completed</td>
+<td>Working Fine</td>
+<td><span class="status">Closed</span></td>
+</tr>
 
 </tbody>
 
@@ -403,459 +458,244 @@ Refresh
 </div>
 
 </div>
-<!-- ================= Demo History Data ================= -->
 
 <script>
 
-const historyData = [
+/* ===== Total Record ===== */
 
-{
-ip:"1001",
-problem:"No Internet",
-reference:"REF-001",
-date:"30-07-2026",
-support:"Done",
-supportWork:"Router Restart",
-call:"Completed",
-callWork:"Customer Confirmed",
-status:"Closed"
-},
+document.querySelector("#profileName").innerHTML="Shemanto";
+document.querySelector("#profileRole").innerHTML="Support Engineer";
 
-{
-ip:"1002",
-problem:"Slow Speed",
-reference:"REF-002",
-date:"30-07-2026",
-support:"Done",
-supportWork:"Bandwidth Reset",
-call:"Completed",
-callWork:"Speed OK",
-status:"Closed"
-},
+document.querySelector("#profilePic").src=
+"https://i.pravatar.cc/150?img=12";
 
-{
-ip:"1003",
-problem:"ONU Offline",
-reference:"REF-003",
-date:"29-07-2026",
-support:"Done",
-supportWork:"ONU Reconfigured",
-call:"Completed",
-callWork:"Internet Running",
-status:"Closed"
-},
+document.getElementById("search").addEventListener("keyup",function(){
 
-{
-ip:"1004",
-problem:"Fiber Cut",
-reference:"REF-004",
-date:"29-07-2026",
-support:"Done",
-supportWork:"Fiber Joint",
-call:"Completed",
-callWork:"Customer Satisfied",
-status:"Closed"
-},
-
-{
-ip:"1005",
-problem:"Router Problem",
-reference:"REF-005",
-date:"28-07-2026",
-support:"Done",
-supportWork:"Router Replace",
-call:"Completed",
-callWork:"Working Fine",
-status:"Closed"
-}
-
-];
-
-const tbody=document.getElementById("historyTable");
-
-function loadTable(){
-
-tbody.innerHTML="";
-
-historyData.forEach((item,index)=>{
-
-tbody.innerHTML+=`
-
-<tr>
-
-<td>${index+1}</td>
-
-<td>${item.ip}</td>
-
-<td>${item.problem}</td>
-
-<td>${item.reference}</td>
-
-<td>${item.date}</td>
-
-<td>${item.support}</td>
-
-<td>${item.supportWork}</td>
-
-<td>${item.call}</td>
-
-<td>${item.callWork}</td>
-
-<td>
-<span class="status">
-${item.status}
-</span>
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById("total").innerHTML=historyData.length;
-
-}
-
-loadTable();
-
-</script>
-
-<style>
-
-/*========== Responsive ==========*/
-
-@media(max-width:1100px){
-
-.sidebar{
-
-width:75px;
-
-}
-
-.logo h2{
-
-display:none;
-
-}
-
-.menu a{
-
-justify-content:center;
-
-}
-
-.menu a span{
-
-display:none;
-
-}
-
-.menu a{
-
-font-size:22px;
-
-}
-
-.main{
-
-margin-left:75px;
-
-width:calc(100% - 75px);
-
-}
-
-.logout button{
-
-font-size:0;
-
-}
-
-.logout button i{
-
-font-size:20px;
-
-}
-
-}
-
-@media(max-width:768px){
-
-.main{
-
-padding:15px;
-
-}
-
-.filter{
-
-flex-direction:column;
-
-}
-
-.filter input{
-
-width:100%;
-
-}
-
-.filter button{
-
-width:100%;
-
-}
-
-.right h4,
-
-.right small{
-
-display:none;
-
-}
-
-.title{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-gap:15px;
-
-}
-
-}
-
-.table-box{
-
-animation:fade .5s;
-
-}
-
-@keyframes fade{
-
-from{
-
-opacity:0;
-
-transform:translateY(15px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
-
-tbody tr{
-
-transition:.3s;
-
-}
-
-tbody tr:hover{
-
-transform:scale(1.01);
-
-}
-
-.status{
-
-min-width:70px;
-
-text-align:center;
-
-}
-
-</style>
-<script>
-
-/* ===========================
-   Live Search
-=========================== */
-
-const searchInput = document.getElementById("search");
-
-searchInput.addEventListener("keyup", function(){
-
-let value = this.value.toLowerCase();
-
-let rows = document.querySelectorAll("#historyTable tr");
-
-rows.forEach(row=>{
-
-let text = row.innerText.toLowerCase();
-
-row.style.display = text.indexOf(value)>-1 ? "" : "none";
-
-});
-
-});
-
-
-/* ===========================
-   Date Filter
-=========================== */
-
-const dateInput = document.getElementById("date");
-
-dateInput.addEventListener("change", function(){
-
-let value=this.value;
-
-if(value==""){
-
-loadTable();
-
-return;
-
-}
-
-let d=value.split("-");
-
-let format=d[2]+"-"+d[1]+"-"+d[0];
+let value=this.value.toLowerCase();
 
 let rows=document.querySelectorAll("#historyTable tr");
 
-rows.forEach(row=>{
+rows.forEach(function(row){
 
-if(row.innerText.includes(format)){
+row.style.display=row.innerText.toLowerCase().includes(value)
+? ""
+: "none";
+
+});
+
+});
+
+/* ===== Refresh ===== */
+
+document.getElementById("refreshBtn").onclick=function(){
+
+document.getElementById("search").value="";
+document.getElementById("date").value="";
+
+let rows=document.querySelectorAll("#historyTable tr");
+
+rows.forEach(function(row){
 
 row.style.display="";
 
-}else{
-
-row.style.display="none";
-
-}
-
 });
-
-});
-
-
-/* ===========================
-   Refresh Button
-=========================== */
-
-document.querySelectorAll(".filter button")[1].onclick=function(){
-
-document.getElementById("search").value="";
-
-document.getElementById("date").value="";
-
-loadTable();
 
 };
 
+/* ===== Sidebar Toggle ===== */
 
-/* ===========================
-   Sidebar Toggle
-=========================== */
+let menu=document.querySelector(".fa-bars");
 
-const menuBtn=document.querySelector(".fa-bars");
+let sidebar=document.querySelector(".sidebar");
 
-const sidebar=document.querySelector(".sidebar");
+let main=document.querySelector(".main");
 
-const main=document.querySelector(".main");
+let close=false;
 
-let closeMenu=false;
+menu.onclick=function(){
 
-menuBtn.onclick=function(){
+close=!close;
 
-closeMenu=!closeMenu;
+if(close){
 
-if(closeMenu){
+sidebar.style.width="80px";
+main.style.marginLeft="80px";
+main.style.width="calc(100% - 80px)";
 
-sidebar.style.width="75px";
-
-main.style.marginLeft="75px";
-
-main.style.width="calc(100% - 75px)";
-
-document.querySelectorAll(".menu a").forEach(a=>{
-
-let txt=a.childNodes[2];
-
-if(txt) txt.style.display="none";
-
+document.querySelectorAll(".menu span").forEach(function(e){
+e.style.display="none";
 });
-
-document.querySelector(".logo h2").style.display="none";
 
 }else{
 
 sidebar.style.width="260px";
-
 main.style.marginLeft="260px";
-
 main.style.width="calc(100% - 260px)";
 
-document.querySelectorAll(".menu a").forEach(a=>{
-
-let txt=a.childNodes[2];
-
-if(txt) txt.style.display="inline";
-
+document.querySelectorAll(".menu span").forEach(function(e){
+e.style.display="inline";
 });
-
-document.querySelector(".logo h2").style.display="block";
 
 }
 
 };
 
-
-/* ===========================
-   Logout
-=========================== */
+/* ===== Logout ===== */
 
 document.querySelector(".logout button").onclick=function(){
 
-if(confirm("Are you sure you want to logout?")){
+if(confirm("Logout?")){
 
-localStorage.clear();
-
-window.location.href="login.html";
+window.location="login.html";
 
 }
 
 };
+/* ==========================
+   Live Total Record
+========================== */
 
+function updateTotal(){
+    const rows = document.querySelectorAll("#historyTable tr");
+    let count = 0;
 
-/* ===========================
-   Row Animation
-=========================== */
+    rows.forEach(row=>{
+        if(row.style.display!="none"){
+            count++;
+        }
+    });
 
-function animateRows(){
+    let total=document.getElementById("totalRecord");
 
-let rows=document.querySelectorAll("#historyTable tr");
+    if(total){
+        total.innerHTML=count;
+    }
+}
 
-rows.forEach((row,index)=>{
+updateTotal();
 
-row.style.opacity="0";
-row.style.transform="translateY(15px)";
+/* ==========================
+   Search
+========================== */
 
-setTimeout(()=>{
+document.getElementById("search").addEventListener("keyup",function(){
 
-row.style.transition=".35s";
+    let value=this.value.toLowerCase();
 
-row.style.opacity="1";
+    document.querySelectorAll("#historyTable tr").forEach(function(row){
 
-row.style.transform="translateY(0)";
+        row.style.display=row.innerText.toLowerCase().includes(value)
+        ?"":"none";
 
-},index*60);
+    });
+
+    updateTotal();
 
 });
 
-}
+/* ==========================
+   Date Filter
+========================== */
 
-animateRows();
+document.getElementById("date").addEventListener("change",function(){
 
+    let value=this.value;
+
+    if(value==""){
+        document.querySelectorAll("#historyTable tr").forEach(r=>r.style.display="");
+        updateTotal();
+        return;
+    }
+
+    let d=value.split("-");
+    let format=d[2]+"-"+d[1]+"-"+d[0];
+
+    document.querySelectorAll("#historyTable tr").forEach(function(row){
+
+        row.style.display=row.innerText.includes(format)
+        ?"":"none";
+
+    });
+
+    updateTotal();
+
+});
+
+/* ==========================
+   Refresh
+========================== */
+
+document.getElementById("refreshBtn").onclick=function(){
+
+    document.getElementById("search").value="";
+    document.getElementById("date").value="";
+
+    document.querySelectorAll("#historyTable tr").forEach(function(row){
+        row.style.display="";
+    });
+
+    updateTotal();
+
+};
+
+/* ==========================
+   Sidebar Toggle
+========================== */
+
+const sidebar=document.querySelector(".sidebar");
+const main=document.querySelector(".main");
+
+document.querySelector(".fa-bars").onclick=function(){
+
+    sidebar.classList.toggle("mini");
+
+    if(sidebar.classList.contains("mini")){
+
+        sidebar.style.width="80px";
+
+        main.style.marginLeft="80px";
+
+        main.style.width="calc(100% - 80px)";
+
+        document.querySelectorAll(".menu span").forEach(e=>e.style.display="none");
+
+    }else{
+
+        sidebar.style.width="260px";
+
+        main.style.marginLeft="260px";
+
+        main.style.width="calc(100% - 260px)";
+
+        document.querySelectorAll(".menu span").forEach(e=>e.style.display="inline");
+
+    }
+
+};
+
+/* ==========================
+   Profile Demo
+========================== */
+
+document.getElementById("profileName").innerHTML="Shemanto";
+document.getElementById("profileRole").innerHTML="Support Engineer";
+document.getElementById("profilePic").src="https://i.pravatar.cc/150?img=15";
+
+/* ==========================
+   Logout
+========================== */
+
+document.querySelector(".logout button").onclick=function(){
+
+    if(confirm("Are you sure you want to logout?")){
+
+        localStorage.clear();
+
+        location.href="login.html";
+
+    }
+
+};
 </script>
 
 </body>
