@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Management</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b,#0f766e);
+}
+
+.card{
+    width:90%;
+    max-width:500px;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:20px;
+    padding:45px 30px;
+    text-align:center;
+    color:#fff;
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    margin:auto;
+    border-radius:50%;
+    background:#16a34a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:38px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+h1{
+    font-size:36px;
+    margin-bottom:10px;
+}
+
+p{
+    color:#d1d5db;
+    margin-bottom:35px;
+    line-height:1.6;
+}
+
+.btn{
+    display:inline-block;
+    text-decoration:none;
+    background:#16a34a;
+    color:#fff;
+    padding:14px 40px;
+    border-radius:50px;
+    font-size:18px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#15803d;
+    transform:translateY(-3px);
+}
+
+.footer{
+    margin-top:35px;
+    font-size:13px;
+    color:#cbd5e1;
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<div class="logo">
+SM
+</div>
+
+<h1>Welcome</h1>
+
+<p>
+Welcome to the <b>System Management</b> Portal.<br>
+Manage your services securely and quickly.
+</p>
+
+<a href="login.html" class="btn">Login</a>
+
+<div class="footer">
+© 2026 System Management. All Rights Reserved.
+</div>
+
+</div>
+
+</body>
+</html>
