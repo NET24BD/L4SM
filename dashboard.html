@@ -8,7 +8,6 @@
 
 <title>Dashboard | Link4 Support Team</title>
 
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
@@ -23,9 +22,7 @@ font-family:"Segoe UI",sans-serif;
 
 
 body{
-
 background:#f4f7f6;
-
 }
 
 
@@ -35,23 +32,23 @@ background:#f4f7f6;
 .sidebar{
 
 position:fixed;
-top:0;
 left:0;
+top:0;
 width:260px;
 height:100vh;
 background:#062b25;
 color:white;
 padding:20px;
-transition:.35s;
+display:flex;
+flex-direction:column;
+transition:.3s;
 z-index:1000;
 
 }
 
 
 .sidebar.hide{
-
 left:-260px;
-
 }
 
 
@@ -78,9 +75,9 @@ color:#00d084;
 .logo h2{
 
 margin-top:10px;
+font-size:22px;
 
 }
-
 
 
 
@@ -89,6 +86,7 @@ margin-top:10px;
 .menu{
 
 margin-top:25px;
+flex:1;
 
 }
 
@@ -98,11 +96,11 @@ margin-top:25px;
 display:flex;
 align-items:center;
 gap:15px;
-padding:14px;
+padding:13px;
 margin-bottom:10px;
 border-radius:12px;
-color:white;
 text-decoration:none;
+color:white;
 transition:.3s;
 
 }
@@ -116,11 +114,39 @@ background:#00a86b;
 }
 
 
-
 .menu i{
 
 width:25px;
-font-size:20px;
+
+}
+
+
+
+/* LOGOUT */
+
+.logout-box{
+
+margin-top:auto;
+
+}
+
+
+.logout{
+
+display:flex;
+align-items:center;
+gap:15px;
+padding:14px;
+background:#c0392b;
+border-radius:12px;
+cursor:pointer;
+
+}
+
+
+.logout:hover{
+
+background:#e74c3c;
 
 }
 
@@ -134,7 +160,7 @@ font-size:20px;
 
 margin-left:260px;
 padding:20px;
-transition:.35s;
+transition:.3s;
 
 }
 
@@ -148,7 +174,9 @@ margin-left:0;
 
 
 
+
 /* TOPBAR */
+
 
 .topbar{
 
@@ -174,13 +202,46 @@ color:#062b25;
 
 
 
-.logout{
 
-background:#062b25;
+/* PROFILE */
+
+
+.profile-mini{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+}
+
+
+.avatar{
+
+width:42px;
+height:42px;
+background:#00a86b;
 color:white;
-padding:10px 18px;
-border-radius:10px;
-cursor:pointer;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+
+}
+
+
+
+.profile-mini h4{
+
+color:#062b25;
+
+}
+
+
+.profile-mini span{
+
+font-size:12px;
+color:#777;
 
 }
 
@@ -188,22 +249,16 @@ cursor:pointer;
 
 
 
-/* PROFILE */
+/* WELCOME */
 
-.profile{
+
+.welcome{
 
 margin-top:20px;
 padding:25px;
 border-radius:20px;
-color:white;
 background:linear-gradient(135deg,#062b25,#00a86b);
-
-}
-
-
-.profile h2{
-
-margin-bottom:8px;
+color:white;
 
 }
 
@@ -211,6 +266,7 @@ margin-bottom:8px;
 
 
 /* CARDS */
+
 
 .cards{
 
@@ -266,10 +322,8 @@ color:#062b25;
 
 color:#888;
 font-weight:bold;
-margin-top:5px;
 
 }
-
 
 
 a{
@@ -277,7 +331,6 @@ a{
 text-decoration:none;
 
 }
-
 
 
 
@@ -319,7 +372,6 @@ margin-left:0;
 </head>
 
 
-
 <body>
 
 
@@ -338,7 +390,6 @@ margin-left:0;
 <h2>
 Link4 Support
 </h2>
-
 
 </div>
 
@@ -386,7 +437,7 @@ Pending Call
 
 <a href="H.html">
 
-<i class="fa-solid fa-history"></i>
+<i class="fa-solid fa-file-lines"></i>
 History
 
 </a>
@@ -413,14 +464,29 @@ Offline
 
 <a href="OC.html">
 
-<i class="fa-solid fa-money-bill"></i>
+<i class="fa-solid fa-coins"></i>
 Offline Collect
 
 </a>
 
 
+</div>
+
+
+
+
+<div class="logout-box">
+
+<div class="logout" onclick="logout()">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
 
 </div>
+
+</div>
+
 
 
 </div>
@@ -449,10 +515,27 @@ Offline Collect
 
 
 
-<div class="logout" onclick="logout()">
 
-<i class="fa-solid fa-right-from-bracket"></i>
-Logout
+<div class="profile-mini">
+
+
+<div class="avatar">
+
+<i class="fa-solid fa-user"></i>
+
+</div>
+
+
+<div>
+
+<h4 id="topName">
+User
+</h4>
+
+<span id="topRole">
+Role
+</span>
+
 
 </div>
 
@@ -461,23 +544,30 @@ Logout
 
 
 
+</div>
 
 
 
-<div class="profile">
 
 
-<h2 id="name">
+
+<div class="welcome">
+
+
+<h2 id="welcome">
+
 Welcome User
+
 </h2>
 
 
-<p id="role">
-Role :
+<p>
+Link4 Support Management System
 </p>
 
 
 </div>
+
 
 
 
@@ -495,13 +585,10 @@ Role :
 
 <h3>New Support</h3>
 
-<div class="code">
-NS
-</div>
+<div class="code">NS</div>
 
 </div>
 </a>
-
 
 
 
@@ -512,13 +599,10 @@ NS
 
 <h3>Pending Support</h3>
 
-<div class="code">
-PS
-</div>
+<div class="code">PS</div>
 
 </div>
 </a>
-
 
 
 
@@ -529,47 +613,38 @@ PS
 
 <h3>Pending Call</h3>
 
-<div class="code">
-PC
-</div>
+<div class="code">PC</div>
 
 </div>
 </a>
-
 
 
 
 <a href="H.html">
 <div class="card">
 
-<i class="fa-solid fa-file-lines"></i>
+<i class="fa-solid fa-file"></i>
 
 <h3>History</h3>
 
-<div class="code">
-H
-</div>
+<div class="code">H</div>
 
 </div>
 </a>
-
 
 
 
 <a href="ON.html">
 <div class="card">
 
-<i class="fa-solid fa-file-circle-plus"></i>
+<i class="fa-solid fa-pen"></i>
 
 <h3>Offline Entry</h3>
 
-<div class="code">
-ON
-</div>
+<div class="code">ON</div>
 
 </div>
 </a>
-
 
 
 
@@ -580,26 +655,21 @@ ON
 
 <h3>Offline</h3>
 
-<div class="code">
-OF
-</div>
+<div class="code">OF</div>
 
 </div>
 </a>
-
 
 
 
 <a href="OC.html">
 <div class="card">
 
-<i class="fa-solid fa-coins"></i>
+<i class="fa-solid fa-money-bill"></i>
 
 <h3>Offline Collect</h3>
 
-<div class="code">
-OC
-</div>
+<div class="code">OC</div>
 
 </div>
 </a>
@@ -607,6 +677,7 @@ OC
 
 
 </div>
+
 
 
 
@@ -618,9 +689,6 @@ OC
 
 
 <script>
-
-
-// LOGIN CHECK
 
 
 let user = localStorage.getItem("user");
@@ -635,23 +703,28 @@ window.location.replace("login.html");
 else{
 
 
-let data=JSON.parse(user);
+let data = JSON.parse(user);
 
 
-document.getElementById("name").innerHTML =
+
+document.getElementById("welcome").innerHTML =
 "Welcome, "+(data.name || "User");
 
 
-document.getElementById("role").innerHTML =
-"Role : "+(data.role || "User");
+
+document.getElementById("topName").innerHTML =
+data.name || "User";
+
+
+
+document.getElementById("topRole").innerHTML =
+data.role || "User";
 
 
 }
 
 
 
-
-// MENU TOGGLE
 
 
 function toggleMenu(){
@@ -659,36 +732,14 @@ function toggleMenu(){
 
 let sidebar=document.getElementById("sidebar");
 
-let main=document.getElementById("main");
-
-
-
-if(window.innerWidth <= 768){
-
 
 sidebar.classList.toggle("show");
 
 
 }
 
-else{
 
 
-sidebar.classList.toggle("hide");
-
-main.classList.toggle("full");
-
-
-}
-
-
-}
-
-
-
-
-
-// LOGOUT
 
 
 function logout(){
