@@ -8,6 +8,8 @@
 
 <title>Dashboard | Link4 Support Team</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 <style>
 
@@ -15,87 +17,186 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:"Segoe UI",Arial,sans-serif;
+font-family:"Segoe UI",sans-serif;
 }
 
 
 body{
-background:#f1f5f4;
+
+background:#f4f7f6;
+
+}
+
+
+/* SIDEBAR */
+
+
+.sidebar{
+
+position:fixed;
+left:0;
+top:0;
+width:260px;
+height:100vh;
+background:#062b25;
+color:white;
+padding:20px;
+transition:.3s;
+z-index:1000;
+
 }
 
 
 
-/* HEADER */
+.logo{
 
-.header{
+text-align:center;
+padding:20px 0;
+border-bottom:1px solid rgba(255,255,255,.2);
 
-height:65px;
-background:#0b5c45;
-color:white;
+}
+
+
+.logo i{
+
+font-size:40px;
+color:#00d084;
+
+}
+
+
+.logo h2{
+
+margin-top:10px;
+
+}
+
+
+
+.menu{
+
+margin-top:25px;
+
+}
+
+
+
+.menu a{
+
 display:flex;
 align-items:center;
+gap:15px;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+transition:.3s;
+
+}
+
+
+
+.menu a:hover{
+
+background:#00a86b;
+
+}
+
+
+.menu i{
+
+width:25px;
+font-size:20px;
+
+}
+
+
+
+/* MAIN */
+
+
+.main{
+
+margin-left:260px;
+padding:20px;
+transition:.3s;
+
+}
+
+
+
+/* TOP */
+
+
+.topbar{
+
+background:white;
+padding:15px 20px;
+border-radius:15px;
+display:flex;
 justify-content:space-between;
-padding:0 25px;
+align-items:center;
+box-shadow:0 5px 20px #ddd;
 
 }
 
 
-.header h2{
 
-font-size:22px;
+.toggle{
+
+font-size:25px;
+cursor:pointer;
+color:#062b25;
 
 }
+
 
 
 .logout{
 
-background:white;
-color:#0b5c45;
-padding:9px 18px;
+background:#062b25;
+color:white;
+padding:10px 18px;
 border-radius:10px;
-font-weight:bold;
 cursor:pointer;
 
 }
 
 
 
-/* USER BOX */
 
-.user-box{
-
-margin:20px;
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,.12);
-
-}
+/* USER */
 
 
-.user-box h3{
+.profile{
 
-color:#0b5c45;
+margin-top:20px;
+background:linear-gradient(135deg,#062b25,#00a86b);
+color:white;
+padding:25px;
+border-radius:20px;
 
 }
 
 
-.user-box p{
+.profile h2{
 
-color:#666;
-margin-top:5px;
+margin-bottom:8px;
 
 }
 
 
 
-/* MENU */
 
-.menu{
+/* CARDS */
 
-padding:20px;
+
+.cards{
+
+margin-top:25px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 
 }
@@ -105,8 +206,8 @@ gap:20px;
 .card{
 
 background:white;
-padding:25px 15px;
-border-radius:18px;
+padding:25px;
+border-radius:20px;
 text-align:center;
 box-shadow:0 5px 20px rgba(0,0,0,.1);
 transition:.3s;
@@ -114,93 +215,242 @@ transition:.3s;
 }
 
 
+
 .card:hover{
 
-transform:translateY(-6px);
+transform:translateY(-8px);
 
 }
+
+
+
+.card i{
+
+font-size:40px;
+color:#00a86b;
+
+}
+
+
+.card h3{
+
+margin:15px 0 5px;
+color:#062b25;
+
+}
+
+
+.code{
+
+color:#888;
+font-weight:bold;
+
+}
+
 
 
 a{
 
 text-decoration:none;
-color:black;
 
 }
 
 
 
-.icon{
 
-font-size:40px;
-
-}
+/* MOBILE */
 
 
-.title{
+@media(max-width:768px){
 
-font-size:18px;
-font-weight:bold;
-color:#0b5c45;
-margin-top:12px;
+
+.sidebar{
+
+left:-260px;
 
 }
 
 
-.short{
+.sidebar.active{
 
-margin-top:8px;
-font-size:14px;
-color:#888;
+left:0;
 
 }
 
 
+.main{
 
-.footer{
-
-text-align:center;
-padding:20px;
-font-size:13px;
-color:#777;
+margin-left:0;
 
 }
+
+
+}
+
 
 
 </style>
 
-</head>
 
+</head>
 
 
 <body>
 
 
 
-<div class="header">
+<!-- SIDEBAR -->
 
+
+<div class="sidebar" id="sidebar">
+
+
+<div class="logo">
+
+<i class="fa-solid fa-headset"></i>
 
 <h2>
-Link4 Support Team
+Link4 Support
 </h2>
 
 
+</div>
+
+
+
+
+<div class="menu">
+
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Dashboard
+
+</a>
+
+
+
+<a href="NS.html">
+
+<i class="fa-solid fa-plus-circle"></i>
+
+New Support
+
+</a>
+
+
+
+<a href="PS.html">
+
+<i class="fa-solid fa-clock"></i>
+
+Pending Support
+
+</a>
+
+
+
+<a href="PC.html">
+
+<i class="fa-solid fa-phone"></i>
+
+Pending Call
+
+</a>
+
+
+
+<a href="H.html">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+History
+
+</a>
+
+
+
+<a href="ON.html">
+
+<i class="fa-solid fa-pen-to-square"></i>
+
+Offline Entry
+
+</a>
+
+
+
+<a href="OF.html">
+
+<i class="fa-solid fa-folder-open"></i>
+
+Offline
+
+</a>
+
+
+
+<a href="OC.html">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+Offline Collect
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- MAIN -->
+
+
+<div class="main">
+
+
+<div class="topbar">
+
+
+<div class="toggle" onclick="menu()">
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
+
 <div class="logout" onclick="logout()">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
 Logout
-</div>
-
 
 </div>
 
 
+</div>
 
 
-<div class="user-box">
 
 
-<h3 id="name">
+
+
+<div class="profile">
+
+
+<h2 id="name">
 Welcome User
-</h3>
+</h2>
 
 
 <p id="role">
@@ -214,89 +464,161 @@ Role :
 
 
 
-<div class="menu">
+
+<div class="cards">
 
 
 
 <a href="NS.html">
+
 <div class="card">
-<div class="icon">🆕</div>
-<div class="title">New Support</div>
-<div class="short">NS</div>
+
+<i class="fa-solid fa-headset"></i>
+
+<h3>
+New Support
+</h3>
+
+<div class="code">
+NS
 </div>
+
+</div>
+
 </a>
+
 
 
 
 <a href="PS.html">
+
 <div class="card">
-<div class="icon">⏳</div>
-<div class="title">Pending Support</div>
-<div class="short">PS</div>
+
+<i class="fa-solid fa-hourglass-half"></i>
+
+<h3>
+Pending Support
+</h3>
+
+<div class="code">
+PS
 </div>
+
+</div>
+
 </a>
+
 
 
 
 <a href="PC.html">
+
 <div class="card">
-<div class="icon">📞</div>
-<div class="title">Pending Call</div>
-<div class="short">PC</div>
+
+<i class="fa-solid fa-phone-volume"></i>
+
+<h3>
+Pending Call
+</h3>
+
+<div class="code">
+PC
 </div>
+
+</div>
+
 </a>
+
 
 
 
 <a href="H.html">
+
 <div class="card">
-<div class="icon">📜</div>
-<div class="title">History</div>
-<div class="short">H</div>
+
+<i class="fa-solid fa-file-lines"></i>
+
+<h3>
+History
+</h3>
+
+<div class="code">
+H
 </div>
+
+</div>
+
 </a>
+
 
 
 
 <a href="ON.html">
+
 <div class="card">
-<div class="icon">📝</div>
-<div class="title">Offline Entry</div>
-<div class="short">ON</div>
+
+<i class="fa-solid fa-file-circle-plus"></i>
+
+<h3>
+Offline Entry
+</h3>
+
+<div class="code">
+ON
 </div>
+
+</div>
+
 </a>
+
 
 
 
 <a href="OF.html">
+
 <div class="card">
-<div class="icon">📂</div>
-<div class="title">Offline</div>
-<div class="short">OF</div>
+
+<i class="fa-solid fa-file"></i>
+
+<h3>
+Offline
+</h3>
+
+<div class="code">
+OF
 </div>
+
+</div>
+
 </a>
+
 
 
 
 <a href="OC.html">
+
 <div class="card">
-<div class="icon">💰</div>
-<div class="title">Offline Collect</div>
-<div class="short">OC</div>
+
+<i class="fa-solid fa-coins"></i>
+
+<h3>
+Offline Collect
+</h3>
+
+<div class="code">
+OC
 </div>
+
+</div>
+
 </a>
 
 
 
+
 </div>
 
 
-
-
-
-<div class="footer">
-
-© Link4 Support Management System
 
 </div>
 
@@ -308,56 +630,46 @@ Role :
 <script>
 
 
-// CHECK LOGIN
+// USER DATA
 
 
-let user = localStorage.getItem("user");
+let user=localStorage.getItem("user");
 
 
 if(!user){
 
-window.location.replace("login.html");
+window.location.href="login.html";
 
 }
 
 else{
 
 
-try{
+let data=JSON.parse(user);
 
 
-let data = JSON.parse(user);
+document.getElementById("name").innerHTML=
+"Welcome, "+(data.name || "User");
 
 
-
-document.getElementById("name").innerHTML =
-"Welcome, " + 
-(data.name || data.username || "User");
-
-
-
-document.getElementById("role").innerHTML =
-"Role : " + 
-(data.role || "User");
-
-
-
-}
-
-catch(error){
-
-
-localStorage.removeItem("user");
-
-window.location.replace("login.html");
+document.getElementById("role").innerHTML=
+"Role : "+(data.role || "User");
 
 
 }
 
 
 
-}
 
+// SIDEBAR
+
+
+function menu(){
+
+document.getElementById("sidebar")
+.classList.toggle("active");
+
+}
 
 
 
@@ -366,19 +678,15 @@ window.location.replace("login.html");
 
 function logout(){
 
-
 localStorage.removeItem("user");
 
-
-window.location.replace("login.html");
-
+window.location.href="login.html";
 
 }
 
 
 
 </script>
-
 
 
 
