@@ -8,6 +8,7 @@
 
 <title>Dashboard | Link4 Support Team</title>
 
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
@@ -28,30 +29,39 @@ background:#f4f7f6;
 }
 
 
-/* SIDEBAR */
 
+/* SIDEBAR */
 
 .sidebar{
 
 position:fixed;
-left:0;
 top:0;
+left:0;
 width:260px;
 height:100vh;
 background:#062b25;
 color:white;
 padding:20px;
-transition:.3s;
+transition:.35s;
 z-index:1000;
 
 }
 
 
+.sidebar.hide{
+
+left:-260px;
+
+}
+
+
+
+/* LOGO */
 
 .logo{
 
 text-align:center;
-padding:20px 0;
+padding-bottom:20px;
 border-bottom:1px solid rgba(255,255,255,.2);
 
 }
@@ -59,7 +69,7 @@ border-bottom:1px solid rgba(255,255,255,.2);
 
 .logo i{
 
-font-size:40px;
+font-size:45px;
 color:#00d084;
 
 }
@@ -73,12 +83,14 @@ margin-top:10px;
 
 
 
+
+/* MENU */
+
 .menu{
 
 margin-top:25px;
 
 }
-
 
 
 .menu a{
@@ -104,6 +116,7 @@ background:#00a86b;
 }
 
 
+
 .menu i{
 
 width:25px;
@@ -113,34 +126,42 @@ font-size:20px;
 
 
 
-/* MAIN */
 
+
+/* MAIN */
 
 .main{
 
 margin-left:260px;
 padding:20px;
-transition:.3s;
+transition:.35s;
+
+}
+
+
+.main.full{
+
+margin-left:0;
 
 }
 
 
 
-/* TOP */
 
+/* TOPBAR */
 
 .topbar{
 
 background:white;
-padding:15px 20px;
+height:65px;
 border-radius:15px;
 display:flex;
-justify-content:space-between;
 align-items:center;
-box-shadow:0 5px 20px #ddd;
+justify-content:space-between;
+padding:0 20px;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
 
 }
-
 
 
 .toggle{
@@ -166,16 +187,16 @@ cursor:pointer;
 
 
 
-/* USER */
 
+/* PROFILE */
 
 .profile{
 
 margin-top:20px;
-background:linear-gradient(135deg,#062b25,#00a86b);
-color:white;
 padding:25px;
 border-radius:20px;
+color:white;
+background:linear-gradient(135deg,#062b25,#00a86b);
 
 }
 
@@ -190,7 +211,6 @@ margin-bottom:8px;
 
 
 /* CARDS */
-
 
 .cards{
 
@@ -218,7 +238,7 @@ transition:.3s;
 
 .card:hover{
 
-transform:translateY(-8px);
+transform:translateY(-7px);
 
 }
 
@@ -232,18 +252,21 @@ color:#00a86b;
 }
 
 
+
 .card h3{
 
-margin:15px 0 5px;
+margin-top:15px;
 color:#062b25;
 
 }
+
 
 
 .code{
 
 color:#888;
 font-weight:bold;
+margin-top:5px;
 
 }
 
@@ -254,6 +277,7 @@ a{
 text-decoration:none;
 
 }
+
 
 
 
@@ -271,7 +295,7 @@ left:-260px;
 }
 
 
-.sidebar.active{
+.sidebar.show{
 
 left:0;
 
@@ -295,7 +319,9 @@ margin-left:0;
 </head>
 
 
+
 <body>
+
 
 
 
@@ -325,7 +351,6 @@ Link4 Support
 <a href="dashboard.html">
 
 <i class="fa-solid fa-house"></i>
-
 Dashboard
 
 </a>
@@ -334,8 +359,7 @@ Dashboard
 
 <a href="NS.html">
 
-<i class="fa-solid fa-plus-circle"></i>
-
+<i class="fa-solid fa-headset"></i>
 New Support
 
 </a>
@@ -345,7 +369,6 @@ New Support
 <a href="PS.html">
 
 <i class="fa-solid fa-clock"></i>
-
 Pending Support
 
 </a>
@@ -355,7 +378,6 @@ Pending Support
 <a href="PC.html">
 
 <i class="fa-solid fa-phone"></i>
-
 Pending Call
 
 </a>
@@ -364,8 +386,7 @@ Pending Call
 
 <a href="H.html">
 
-<i class="fa-solid fa-clock-rotate-left"></i>
-
+<i class="fa-solid fa-history"></i>
 History
 
 </a>
@@ -374,8 +395,7 @@ History
 
 <a href="ON.html">
 
-<i class="fa-solid fa-pen-to-square"></i>
-
+<i class="fa-solid fa-pen"></i>
 Offline Entry
 
 </a>
@@ -384,8 +404,7 @@ Offline Entry
 
 <a href="OF.html">
 
-<i class="fa-solid fa-folder-open"></i>
-
+<i class="fa-solid fa-folder"></i>
 Offline
 
 </a>
@@ -394,8 +413,7 @@ Offline
 
 <a href="OC.html">
 
-<i class="fa-solid fa-money-bill-transfer"></i>
-
+<i class="fa-solid fa-money-bill"></i>
 Offline Collect
 
 </a>
@@ -416,23 +434,24 @@ Offline Collect
 <!-- MAIN -->
 
 
-<div class="main">
+<div class="main" id="main">
+
 
 
 <div class="topbar">
 
 
-<div class="toggle" onclick="menu()">
+<div class="toggle" onclick="toggleMenu()">
 
 <i class="fa-solid fa-bars"></i>
 
 </div>
 
 
+
 <div class="logout" onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
-
 Logout
 
 </div>
@@ -470,149 +489,120 @@ Role :
 
 
 <a href="NS.html">
-
 <div class="card">
 
 <i class="fa-solid fa-headset"></i>
 
-<h3>
-New Support
-</h3>
+<h3>New Support</h3>
 
 <div class="code">
 NS
 </div>
 
 </div>
-
 </a>
 
 
 
 
 <a href="PS.html">
-
 <div class="card">
 
-<i class="fa-solid fa-hourglass-half"></i>
+<i class="fa-solid fa-clock"></i>
 
-<h3>
-Pending Support
-</h3>
+<h3>Pending Support</h3>
 
 <div class="code">
 PS
 </div>
 
 </div>
-
 </a>
 
 
 
 
 <a href="PC.html">
-
 <div class="card">
 
 <i class="fa-solid fa-phone-volume"></i>
 
-<h3>
-Pending Call
-</h3>
+<h3>Pending Call</h3>
 
 <div class="code">
 PC
 </div>
 
 </div>
-
 </a>
 
 
 
 
 <a href="H.html">
-
 <div class="card">
 
 <i class="fa-solid fa-file-lines"></i>
 
-<h3>
-History
-</h3>
+<h3>History</h3>
 
 <div class="code">
 H
 </div>
 
 </div>
-
 </a>
 
 
 
 
 <a href="ON.html">
-
 <div class="card">
 
 <i class="fa-solid fa-file-circle-plus"></i>
 
-<h3>
-Offline Entry
-</h3>
+<h3>Offline Entry</h3>
 
 <div class="code">
 ON
 </div>
 
 </div>
-
 </a>
 
 
 
 
 <a href="OF.html">
-
 <div class="card">
 
-<i class="fa-solid fa-file"></i>
+<i class="fa-solid fa-folder-open"></i>
 
-<h3>
-Offline
-</h3>
+<h3>Offline</h3>
 
 <div class="code">
 OF
 </div>
 
 </div>
-
 </a>
 
 
 
 
 <a href="OC.html">
-
 <div class="card">
 
 <i class="fa-solid fa-coins"></i>
 
-<h3>
-Offline Collect
-</h3>
+<h3>Offline Collect</h3>
 
 <div class="code">
 OC
 </div>
 
 </div>
-
 </a>
-
 
 
 
@@ -630,15 +620,15 @@ OC
 <script>
 
 
-// USER DATA
+// LOGIN CHECK
 
 
-let user=localStorage.getItem("user");
+let user = localStorage.getItem("user");
 
 
 if(!user){
 
-window.location.href="login.html";
+window.location.replace("login.html");
 
 }
 
@@ -648,11 +638,11 @@ else{
 let data=JSON.parse(user);
 
 
-document.getElementById("name").innerHTML=
+document.getElementById("name").innerHTML =
 "Welcome, "+(data.name || "User");
 
 
-document.getElementById("role").innerHTML=
+document.getElementById("role").innerHTML =
 "Role : "+(data.role || "User");
 
 
@@ -661,15 +651,40 @@ document.getElementById("role").innerHTML=
 
 
 
-// SIDEBAR
+// MENU TOGGLE
 
 
-function menu(){
+function toggleMenu(){
 
-document.getElementById("sidebar")
-.classList.toggle("active");
+
+let sidebar=document.getElementById("sidebar");
+
+let main=document.getElementById("main");
+
+
+
+if(window.innerWidth <= 768){
+
+
+sidebar.classList.toggle("show");
+
 
 }
+
+else{
+
+
+sidebar.classList.toggle("hide");
+
+main.classList.toggle("full");
+
+
+}
+
+
+}
+
+
 
 
 
@@ -678,9 +693,12 @@ document.getElementById("sidebar")
 
 function logout(){
 
+
 localStorage.removeItem("user");
 
-window.location.href="login.html";
+
+window.location.replace("login.html");
+
 
 }
 
