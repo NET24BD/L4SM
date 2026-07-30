@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>User Management</title>
+<title>User Management | Link4</title>
 
 
 <style>
@@ -40,7 +40,7 @@ margin:auto;
 
 .header{
 
-background:white;
+background:#ffffff;
 padding:25px;
 border-radius:20px;
 display:flex;
@@ -49,7 +49,6 @@ align-items:center;
 box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
-
 
 
 .header h1{
@@ -72,12 +71,13 @@ font-weight:bold;
 
 
 
-.add{
+.add-btn{
 
 background:#0b5c45;
 color:white;
 
 }
+
 
 
 
@@ -98,8 +98,8 @@ margin-top:25px;
 background:white;
 padding:25px;
 border-radius:18px;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
 text-align:center;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
 
@@ -107,26 +107,27 @@ text-align:center;
 
 .card h2{
 
-color:#0b5c45;
 font-size:30px;
+color:#0b5c45;
 
 }
 
 
 
 
-.search{
+.search-box{
 
 margin-top:25px;
 width:100%;
 padding:15px;
 border:none;
 border-radius:12px;
+font-size:16px;
 background:white;
 box-shadow:0 5px 20px rgba(0,0,0,.08);
-font-size:16px;
 
 }
+
 
 
 
@@ -154,9 +155,9 @@ border-collapse:collapse;
 
 th{
 
-background:#f1f5f9;
+background:#0b5c45;
+color:white;
 padding:15px;
-text-align:center;
 
 }
 
@@ -172,7 +173,7 @@ border-bottom:1px solid #eee;
 
 
 
-img{
+.profile-img{
 
 width:45px;
 height:45px;
@@ -183,16 +184,15 @@ object-fit:cover;
 
 
 
-.edit{
+.edit-btn{
 
-background:#0b5c45;
+background:#3498db;
 color:white;
 
 }
 
 
-
-.delete{
+.delete-btn{
 
 background:#e74c3c;
 color:white;
@@ -204,12 +204,18 @@ color:white;
 
 
 
+/* MODAL */
+
+
 .modal{
 
 display:none;
 position:fixed;
-inset:0;
-background:#0006;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
 justify-content:center;
 align-items:center;
 
@@ -217,7 +223,7 @@ align-items:center;
 
 
 
-.form{
+.form-box{
 
 background:white;
 width:420px;
@@ -228,7 +234,7 @@ border-radius:20px;
 
 
 
-.form h2{
+.form-box h2{
 
 margin-bottom:15px;
 
@@ -236,12 +242,12 @@ margin-bottom:15px;
 
 
 
-.form input,
-.form select{
+.form-box input,
+.form-box select{
 
 width:100%;
 padding:12px;
-margin:8px 0;
+margin:7px 0;
 border:1px solid #ddd;
 border-radius:10px;
 
@@ -249,28 +255,31 @@ border-radius:10px;
 
 
 
-.save{
+.save-btn{
 
+width:100%;
 background:#0b5c45;
 color:white;
-width:100%;
 
 }
 
 
 
-.close{
+.close-btn{
 
+width:100%;
 margin-top:10px;
 background:#e74c3c;
 color:white;
-width:100%;
 
 }
+
+
 
 
 
 @media(max-width:800px){
+
 
 .cards{
 
@@ -290,14 +299,14 @@ gap:15px;
 }
 
 
-
 </style>
+
 
 </head>
 
 
-
 <body>
+
 
 
 <div class="container">
@@ -306,12 +315,13 @@ gap:15px;
 
 <div class="header">
 
+
 <h1>
 User Management
 </h1>
 
 
-<button class="add" onclick="openForm()">
+<button class="add-btn" onclick="openForm()">
 + Add User
 </button>
 
@@ -322,44 +332,76 @@ User Management
 
 
 
+
 <div class="cards">
 
 
 <div class="card">
-<h2 id="total">0</h2>
+
+<h2 id="total">
+0
+</h2>
+
 <p>Total User</p>
+
 </div>
 
 
+
 <div class="card">
-<h2 id="active">0</h2>
+
+<h2 id="active">
+0
+</h2>
+
 <p>Active</p>
+
 </div>
 
 
+
 <div class="card">
-<h2 id="inactive">0</h2>
+
+<h2 id="inactive">
+0
+</h2>
+
 <p>Inactive</p>
+
 </div>
+
 
 
 <div class="card">
-<h2 id="blocked">0</h2>
+
+<h2 id="blocked">
+0
+</h2>
+
 <p>Blocked</p>
-</div>
-
 
 </div>
 
 
 
+</div>
 
 
-<input 
-class="search"
+
+
+
+
+<input
+
+class="search-box"
+
 id="search"
+
 placeholder="Search User..."
-onkeyup="searchUser()">
+
+onkeyup="searchUser()"
+
+>
 
 
 
@@ -376,13 +418,35 @@ onkeyup="searchUser()">
 
 <tr>
 
-<th>Picture</th>
-<th>Name</th>
-<th>Username</th>
-<th>Role</th>
-<th>Status</th>
-<th>Number</th>
-<th>Action</th>
+<th>
+Picture
+</th>
+
+
+<th>
+Name
+</th>
+
+
+<th>
+Username
+</th>
+
+
+<th>
+Role
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
+
 
 </tr>
 
@@ -390,87 +454,106 @@ onkeyup="searchUser()">
 </thead>
 
 
-<tbody id="list"></tbody>
+
+<tbody id="userList">
+
+
+</tbody>
+
 
 
 </table>
 
 
-</div>
-
-
 
 </div>
 
 
 
 
+</div>
+
+
+
+
+
+
+
+
+<!-- ADD EDIT FORM -->
 
 
 <div class="modal" id="modal">
 
 
-<div class="form">
+<div class="form-box">
 
 
 <h2>
-Add / Edit User
+User Information
 </h2>
+
+
+
+<input id="row" type="hidden">
 
 
 
 <input id="username" placeholder="Username">
 
+
 <input id="password" placeholder="Password">
+
 
 <input id="name" placeholder="Name">
 
+
 <input id="role" placeholder="Role">
+
 
 
 <select id="status">
 
 <option>Active</option>
+
 <option>Inactive</option>
+
 <option>Blocked</option>
 
 </select>
 
 
 
+
 <input id="picture" placeholder="Picture URL">
+
 
 <input id="address" placeholder="Address">
 
-<input id="number" placeholder="Number">
 
 <input id="email" placeholder="Email">
 
+
 <input id="department" placeholder="Department">
+
 
 <input id="joinDate" placeholder="DD-MM-YYYY">
 
 
-<button class="save" onclick="saveUser()">
+
+<button class="save-btn" onclick="saveUser()">
 Save
 </button>
 
 
-<button class="close" onclick="closeForm()">
+
+<button class="close-btn" onclick="closeForm()">
 Close
 </button>
 
 
-</div>
-
 
 </div>
-
-
-
-
-
-
 
 <script>
 
@@ -482,10 +565,12 @@ const API_URL =
 
 let users=[];
 
-let editRow=null;
 
 
 
+
+
+// LOAD USERS
 
 function loadUsers(){
 
@@ -495,24 +580,37 @@ fetch(API_URL,{
 method:"POST",
 
 headers:{
-"Content-Type":"application/x-www-form-urlencoded"
+
+"Content-Type":
+"application/x-www-form-urlencoded"
+
 },
 
 body:"action=getUsers"
 
-
 })
 
-.then(r=>r.json())
+
+.then(response=>response.json())
+
 
 .then(data=>{
 
 
-users=data.users || [];
+if(data.success){
+
+
+users=data.users;
+
 
 showUsers(users);
 
+
 countUsers();
+
+
+}
+
 
 
 });
@@ -526,10 +624,16 @@ countUsers();
 
 
 
+
+
+// SHOW USERS TABLE
+
+
 function showUsers(data){
 
 
 let html="";
+
 
 
 data.forEach(u=>{
@@ -539,35 +643,54 @@ html+=`
 
 <tr>
 
+
 <td>
-<img src="${u.picture || 'https://i.imgur.com/6VBx3io.png'}">
+
+<img class="profile-img"
+
+src="${u.picture || 'https://i.imgur.com/6VBx3io.png'}">
+
 </td>
+
 
 
 <td>${u.name}</td>
 
+
 <td>${u.username}</td>
+
 
 <td>${u.role}</td>
 
+
 <td>${u.status}</td>
 
-<td>${u.number}</td>
 
 
 <td>
 
-<button class="edit" onclick='editUser(${JSON.stringify(u)})'>
+
+<button class="edit-btn"
+
+onclick='editUser(${JSON.stringify(u)})'>
+
 Edit
+
 </button>
 
 
-<button class="delete" onclick="deleteUser('${u.username}')">
+
+<button class="delete-btn"
+
+onclick="deleteUser('${u.username}')">
+
 Delete
+
 </button>
 
 
 </td>
+
 
 
 </tr>
@@ -579,7 +702,9 @@ Delete
 });
 
 
-document.getElementById("list").innerHTML=html;
+
+
+document.getElementById("userList").innerHTML=html;
 
 
 }
@@ -587,21 +712,45 @@ document.getElementById("list").innerHTML=html;
 
 
 
+
+
+
+
+
+// COUNT USER
 
 
 function countUsers(){
 
 
-total.innerHTML=users.length;
+
+document.getElementById("total").innerHTML=
+users.length;
 
 
-active.innerHTML=users.filter(x=>x.status=="Active").length;
+
+document.getElementById("active").innerHTML=
+
+users.filter(
+x=>x.status=="Active"
+).length;
 
 
-inactive.innerHTML=users.filter(x=>x.status=="Inactive").length;
+
+document.getElementById("inactive").innerHTML=
+
+users.filter(
+x=>x.status=="Inactive"
+).length;
 
 
-blocked.innerHTML=users.filter(x=>x.status=="Blocked").length;
+
+document.getElementById("blocked").innerHTML=
+
+users.filter(
+x=>x.status=="Blocked"
+).length;
+
 
 
 }
@@ -609,20 +758,45 @@ blocked.innerHTML=users.filter(x=>x.status=="Blocked").length;
 
 
 
+
+
+
+
+
+
+// SEARCH
 
 
 function searchUser(){
 
 
-let t=search.value.toLowerCase();
+
+let text =
+
+document.getElementById("search")
+.value
+.toLowerCase();
 
 
-showUsers(
-users.filter(u=>
-u.name.toLowerCase().includes(t) ||
-u.username.toLowerCase().includes(t)
-)
+
+
+let result = users.filter(u=>
+
+
+u.name.toLowerCase().includes(text)
+
+||
+
+u.username.toLowerCase().includes(text)
+
+
+
 );
+
+
+
+showUsers(result);
+
 
 
 }
@@ -630,19 +804,40 @@ u.username.toLowerCase().includes(t)
 
 
 
+
+
+
+
+
+// OPEN FORM
 
 
 function openForm(){
 
-modal.style.display="flex";
+
+clearForm();
+
+
+document.getElementById("modal")
+.style.display="flex";
+
 
 }
 
+
+
+
+
+
+// CLOSE FORM
 
 
 function closeForm(){
 
-modal.style.display="none";
+
+document.getElementById("modal")
+.style.display="none";
+
 
 }
 
@@ -650,34 +845,294 @@ modal.style.display="none";
 
 
 
-function saveUser(){
 
-alert("Save API Ready");
+
+
+
+// CLEAR FORM
+
+
+function clearForm(){
+
+
+
+document.getElementById("row").value="";
+
+
+document.getElementById("username").value="";
+
+
+document.getElementById("password").value="";
+
+
+document.getElementById("name").value="";
+
+
+document.getElementById("role").value="";
+
+
+document.getElementById("status").value="Active";
+
+
+document.getElementById("picture").value="";
+
+
+document.getElementById("address").value="";
+
+
+document.getElementById("email").value="";
+
+
+document.getElementById("department").value="";
+
+
+document.getElementById("joinDate").value="";
+
+
 
 }
 
 
+
+
+
+
+
+
+
+// EDIT USER
 
 
 function editUser(u){
 
-alert("Edit : "+u.name);
+
+
+document.getElementById("row").value=u.row;
+
+
+document.getElementById("username").value=u.username;
+
+
+document.getElementById("password").value=u.password;
+
+
+document.getElementById("name").value=u.name;
+
+
+document.getElementById("role").value=u.role;
+
+
+document.getElementById("status").value=u.status;
+
+
+document.getElementById("picture").value=u.picture;
+
+
+document.getElementById("address").value=u.address;
+
+
+document.getElementById("email").value=u.email;
+
+
+document.getElementById("department").value=u.department;
+
+
+document.getElementById("joinDate").value=u.joinDate;
+
+
+
+document.getElementById("modal")
+.style.display="flex";
+
+
 
 }
 
 
 
 
-function deleteUser(u){
-
-alert("Delete : "+u);
-
-}
 
 
+
+
+
+// SAVE USER
+
+
+function saveUser(){
+
+
+
+let row =
+document.getElementById("row").value;
+
+
+
+let action =
+row ? "updateUser" : "addUser";
+
+
+
+
+
+let body =
+
+"action="+action+
+
+"&row="+row+
+
+"&username="+
+encodeURIComponent(username.value)+
+
+"&password="+
+encodeURIComponent(password.value)+
+
+"&name="+
+encodeURIComponent(name.value)+
+
+"&role="+
+encodeURIComponent(role.value)+
+
+"&status="+
+encodeURIComponent(status.value)+
+
+"&picture="+
+encodeURIComponent(picture.value)+
+
+"&address="+
+encodeURIComponent(address.value)+
+
+"&email="+
+encodeURIComponent(email.value)+
+
+"&department="+
+encodeURIComponent(department.value)+
+
+"&joinDate="+
+encodeURIComponent(joinDate.value);
+
+
+
+
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":
+"application/x-www-form-urlencoded"
+
+},
+
+body:body
+
+
+})
+
+
+
+.then(response=>response.json())
+
+
+
+.then(data=>{
+
+
+alert(data.message);
+
+
+
+closeForm();
 
 
 loadUsers();
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// DELETE USER
+
+
+function deleteUser(username){
+
+
+
+if(confirm("Are you sure delete this user?")){
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":
+"application/x-www-form-urlencoded"
+
+},
+
+body:
+
+"action=deleteUser&username="
++
+encodeURIComponent(username)
+
+
+})
+
+
+
+.then(response=>response.json())
+
+
+
+.then(data=>{
+
+
+alert(data.message);
+
+
+loadUsers();
+
+
+
+});
+
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+// START
+
+loadUsers();
+
 
 
 </script>
@@ -686,3 +1141,6 @@ loadUsers();
 </body>
 
 </html>
+
+</div>
+
