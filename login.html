@@ -5,346 +5,314 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Login | Link$ Support</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Login | Link4 Support Team</title>
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
 
 body{
 
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-
-background:linear-gradient(135deg,#0f172a,#1e293b,#2563eb);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#07111f,#0b3d3a);
 
 }
 
 .login-box{
 
-width:380px;
-background:#ffffff;
-padding:35px;
-border-radius:18px;
-
-box-shadow:0 20px 40px rgba(0,0,0,.25);
-
+    width:350px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
+
 
 .logo{
 
-text-align:center;
-font-size:30px;
-font-weight:700;
-color:#2563eb;
-margin-bottom:8px;
+    text-align:center;
+    margin-bottom:25px;
+}
+
+
+.logo h2{
+
+    color:#0b3d3a;
+}
+
+
+.logo p{
+
+    color:#777;
+    font-size:14px;
 
 }
 
-.sub{
-
-text-align:center;
-color:#6b7280;
-margin-bottom:30px;
-
-}
-
-.input-group{
-
-margin-bottom:18px;
-
-}
-
-label{
-
-display:block;
-font-size:14px;
-font-weight:600;
-margin-bottom:6px;
-color:#374151;
-
-}
 
 input{
 
-width:100%;
-padding:14px;
-border:1px solid #d1d5db;
-border-radius:10px;
-outline:none;
-font-size:15px;
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #ddd;
+    outline:none;
+    font-size:15px;
 
 }
 
-input:focus{
-
-border-color:#2563eb;
-
-}
 
 .password-box{
 
-position:relative;
+    position:relative;
 
 }
 
-.password-box button{
 
-position:absolute;
-right:10px;
-top:50%;
-transform:translateY(-50%);
-border:none;
-background:none;
-cursor:pointer;
-font-size:18px;
+.password-box span{
+
+    position:absolute;
+    right:15px;
+    top:25px;
+    cursor:pointer;
+}
+
+
+button{
+
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#0b3d3a;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
 
 }
 
-.login-btn{
 
-width:100%;
-padding:14px;
-margin-top:10px;
+button:hover{
 
-border:none;
-border-radius:10px;
-
-background:#2563eb;
-
-color:white;
-
-font-size:16px;
-font-weight:600;
-
-cursor:pointer;
-
-transition:.3s;
+    background:#062522;
 
 }
 
-.login-btn:hover{
 
-background:#1d4ed8;
+#msg{
 
-}
-
-.loading{
-
-display:none;
-margin-top:15px;
-text-align:center;
-color:#2563eb;
-font-weight:600;
+    text-align:center;
+    margin-top:15px;
+    color:red;
+    font-size:14px;
 
 }
 
-.message{
-
-margin-top:15px;
-text-align:center;
-font-size:14px;
-font-weight:600;
-
-}
 
 .footer{
 
-margin-top:25px;
-text-align:center;
-font-size:13px;
-color:#6b7280;
+    text-align:center;
+    margin-top:20px;
+    font-size:12px;
+    color:#777;
 
 }
+
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="login-box">
 
+
 <div class="logo">
 
-Link$ Support
+<h2>Link4 Support Team</h2>
+
+<p>Management Login System</p>
 
 </div>
 
-<div class="sub">
 
-Support Management System
 
-</div>
+<input 
+type="text" 
+id="username" 
+placeholder="Username">
 
-<div class="input-group">
 
-<label>
-
-Username
-
-</label>
-
-<input
-type="text"
-id="username"
-placeholder="Enter Username">
-
-</div>
-
-<div class="input-group">
-
-<label>
-
-Password
-
-</label>
 
 <div class="password-box">
 
-<input
-type="password"
-id="password"
-placeholder="Enter Password">
+<input 
+type="password" 
+id="password" 
+placeholder="Password">
 
-<button
-type="button"
-onclick="togglePassword()">
 
-👁️
+<span onclick="showPass()">👁</span>
 
+</div>
+
+
+
+<button onclick="login()" id="btn">
+Login
 </button>
 
-</div>
 
-</div>
+<div id="msg"></div>
 
-<button
-class="login-btn"
-onclick="login()">
-
-LOGIN
-
-</button>
-
-<div
-class="loading"
-id="loading">
-
-Please Wait...
-
-</div>
-
-<div
-class="message"
-id="message">
-
-</div>
 
 <div class="footer">
 
-© 2026 Link$ Support System
+© Link4 Support Team
 
 </div>
 
+
 </div>
 
-<!-- Part 2 JavaScript এখানে বসবে -->
+
+
+
+
 <script>
-const API = "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
-function togglePassword() {
-  const p = document.getElementById("password");
-  p.type = p.type === "password" ? "text" : "password";
-}
 
-async function login() {
+const API = 
+"https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const loading = document.getElementById("loading");
-  const message = document.getElementById("message");
 
-  message.innerHTML = "";
 
-  if (!username || !password) {
-    message.style.color = "red";
-    message.innerHTML = "Username and Password required";
-    return;
-  }
+function showPass(){
 
-  loading.style.display = "block";
+let p=document.getElementById("password");
 
-  try {
+if(p.type==="password"){
 
-    const form = new FormData();
-    form.append("username", username);
-    form.append("password", password);
+p.type="text";
 
-    const response = await fetch(API, {
-      method: "POST",
-      body: form,
-      redirect: "follow"
-    });
+}else{
 
-    const data = await response.json();
-
-    loading.style.display = "none";
-
-    if (data.success) {
-
-      localStorage.setItem("username", data.username);
-      localStorage.setItem("name", data.name);
-      localStorage.setItem("role", data.role);
-
-      window.location.href = "dashboard.html";
-
-    } else {
-
-      message.style.color = "red";
-      message.innerHTML = data.message;
-
-    }
-
-  } catch (err) {
-
-    loading.style.display = "none";
-    message.style.color = "red";
-    message.innerHTML = "Server Error";
-
-    console.error(err);
-
-  }
+p.type="password";
 
 }
 
-if (localStorage.getItem("username")) {
-  window.location.href = "dashboard.html";
 }
-</script>
-  <script>
-// Enter Press = Login
 
-document.getElementById("username").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        login();
-    }
+
+
+function login(){
+
+
+let username=document.getElementById("username").value.trim();
+
+let password=document.getElementById("password").value.trim();
+
+
+let msg=document.getElementById("msg");
+
+let btn=document.getElementById("btn");
+
+
+
+if(username==="" || password===""){
+
+msg.innerHTML="Please enter username and password";
+
+return;
+
+}
+
+
+
+btn.innerHTML="Checking...";
+btn.disabled=true;
+
+
+
+fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+
+body:
+
+"username="+encodeURIComponent(username)+
+"&password="+encodeURIComponent(password)
+
+
+})
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+if(data.success){
+
+
+localStorage.setItem("user",JSON.stringify(data));
+
+
+window.location.href="dashboard.html";
+
+
+}
+
+else{
+
+
+msg.innerHTML=data.message;
+
+btn.innerHTML="Login";
+btn.disabled=false;
+
+
+}
+
+
+})
+
+
+.catch(error=>{
+
+
+msg.innerHTML="Server Error";
+
+btn.innerHTML="Login";
+btn.disabled=false;
+
+
 });
 
-document.getElementById("password").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        login();
-    }
-});
+
+}
+
+
+
 </script>
+
+
 </body>
 </html>
