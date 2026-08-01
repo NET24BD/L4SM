@@ -1,1 +1,452 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Control Dashboard</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="usercontrol.css">
+
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- Sidebar -->
+    <!-- ========================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <i class="fas fa-users-cog"></i>
+            </div>
+
+            <div class="logo-text">
+                <h2>Link4</h2>
+                <span>User Control</span>
+            </div>
+
+        </div>
+
+        <ul class="menu">
+
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    <span>User List</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add User</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Edit User</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-id-card"></i>
+                    <span>My Account</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- ========================= -->
+    <!-- Main Content -->
+    <!-- ========================= -->
+
+    <main class="main">
+
+        <!-- Top Bar -->
+
+        <header class="topbar">
+
+            <button id="toggleSidebar" class="toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="page-title">
+                <h1>User Control Dashboard</h1>
+                <p>Google Sheets Connected Management System</p>
+            </div>
+
+            <div class="top-right">
+
+                <div class="search-box">
+
+                    <i class="fas fa-search"></i>
+
+                    <input
+                        type="text"
+                        id="searchUser"
+                        placeholder="Search User...">
+
+                </div>
+
+                <div class="profile">
+
+                    <img
+                        id="profileImage"
+                        src="https://i.imgur.com/2DhmtJ4.png"
+                        alt="Profile">
+
+                    <div>
+
+                        <h4 id="profileName">
+                            Administrator
+                        </h4>
+
+                        <span id="profileRole">
+                            Admin
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Dashboard Content Starts Here -->
+              <!-- ========================= -->
+        <!-- Dashboard Cards -->
+        <!-- ========================= -->
+
+        <section class="dashboard-cards">
+
+            <div class="card blue">
+
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+
+                <div class="card-info">
+                    <h2 id="totalUsers">0</h2>
+                    <p>Total Users</p>
+                </div>
+
+            </div>
+
+            <div class="card green">
+
+                <div class="card-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+
+                <div class="card-info">
+                    <h2 id="activeUsers">0</h2>
+                    <p>Active Users</p>
+                </div>
+
+            </div>
+
+            <div class="card red">
+
+                <div class="card-icon">
+                    <i class="fas fa-user-slash"></i>
+                </div>
+
+                <div class="card-info">
+                    <h2 id="inactiveUsers">0</h2>
+                    <p>Inactive Users</p>
+                </div>
+
+            </div>
+
+            <div class="card purple">
+
+                <div class="card-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+
+                <div class="card-info">
+                    <h2 id="departmentCount">0</h2>
+                    <p>Departments</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- User List -->
+        <!-- ========================= -->
+
+        <section class="table-section">
+
+            <div class="table-header">
+
+                <div>
+
+                    <h2>
+                        <i class="fas fa-users"></i>
+                        User List
+                    </h2>
+
+                    <p>
+                        All users from Google Sheets will appear here.
+                    </p>
+
+                </div>
+
+                <div class="table-buttons">
+
+                    <button
+                        id="refreshBtn"
+                        class="btn btn-primary">
+
+                        <i class="fas fa-rotate"></i>
+                        Refresh
+
+                    </button>
+
+                    <button
+                        id="addUserBtn"
+                        class="btn btn-success">
+
+                        <i class="fas fa-user-plus"></i>
+                        Add User
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table id="userTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Picture</th>
+
+                            <th>Username</th>
+
+                            <th>Password</th>
+
+                            <th>Name</th>
+
+                            <th>Role</th>
+
+                            <th>Status</th>
+
+                            <th>Department</th>
+
+                            <th>Number</th>
+
+                            <th>Email</th>
+
+                            <th>Join Date</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="userTableBody">
+
+                        <tr>
+
+                            <td colspan="12" class="loading">
+
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Loading Users...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+                <!-- ========================= -->
+        <!-- Add / Edit User Modal -->
+        <!-- ========================= -->
+
+        <div class="modal" id="userModal">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h2 id="modalTitle">
+                        Add New User
+                    </h2>
+
+                    <button class="close-btn" id="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                </div>
+
+                <form id="userForm">
+
+                    <input type="hidden" id="row">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="text" id="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select id="role">
+                                <option>Admin</option>
+                                <option>Manager</option>
+                                <option>Support</option>
+                                <option>Call</option>
+                                <option>User</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="status">
+                                <option>Active</option>
+                                <option>Inactive</option>
+                                <option>Blocked</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Picture URL</label>
+                            <input type="text" id="picture">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" id="address">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Number</label>
+                            <input type="text" id="number">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input type="text" id="department">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Join Date</label>
+                            <input type="date" id="joinDate">
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" id="cancelBtn" class="btn btn-secondary">
+                            Cancel
+                        </button>
+
+                        <button type="submit" class="btn btn-success">
+                            Save User
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- Loading -->
+        <!-- ========================= -->
+
+        <div id="loading" class="loading-overlay">
+
+            <div class="loader">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Please Wait...</p>
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- Toast -->
+        <!-- ========================= -->
+
+        <div id="toast" class="toast"></div>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="usercontrol.js"></script>
+
+</body>
+</html>
