@@ -11,7 +11,7 @@
 
 body{
 
-    background:#f8fafc;
+    background:#3b3a40;
     color:#1f2937;
 
 }
@@ -24,6 +24,8 @@ body{
     margin:auto;
 
 }
+
+
 
 
 
@@ -45,7 +47,8 @@ header{
 
     align-items:center;
 
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.18);
 
 }
 
@@ -64,6 +67,7 @@ header{
 
 
 /* Profile */
+
 
 .profile{
 
@@ -101,6 +105,8 @@ header{
 
     font-size:14px;
 
+    color:#111827;
+
 }
 
 
@@ -134,7 +140,8 @@ header{
 
     border-radius:12px;
 
-    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.25);
 
     display:none;
 
@@ -183,6 +190,8 @@ header{
 
     margin:25px 0;
 
+    color:white;
+
 }
 
 
@@ -190,8 +199,6 @@ header{
 .welcome h1{
 
     font-size:22px;
-
-    color:#111827;
 
 }
 
@@ -201,9 +208,11 @@ header{
 
     font-size:13px;
 
-    color:#6b7280;
+    color:#d1d5db;
 
 }
+
+
 
 
 
@@ -226,6 +235,7 @@ header{
 
 
 
+
 .card{
 
     background:white;
@@ -240,7 +250,9 @@ header{
 
     border:1px solid #e5e7eb;
 
-    box-shadow:0 6px 20px rgba(0,0,0,0.06);
+    box-shadow:
+
+    0 8px 25px rgba(0,0,0,0.18);
 
     transition:.3s;
 
@@ -248,15 +260,20 @@ header{
 
 
 
+
+
 .card:hover{
 
-    transform:translateY(-6px);
+    transform:translateY(-7px);
 
     border-color:#2563eb;
 
-    box-shadow:0 12px 30px rgba(37,99,235,0.15);
+    box-shadow:
+
+    0 15px 35px rgba(37,99,235,0.25);
 
 }
+
 
 
 
@@ -271,6 +288,7 @@ header{
     margin-bottom:12px;
 
 }
+
 
 
 
@@ -299,6 +317,7 @@ header{
 
 
 /* Mobile */
+
 
 @media(max-width:600px){
 
