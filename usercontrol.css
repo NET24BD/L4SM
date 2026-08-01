@@ -1,5 +1,5 @@
 /* =======================================================
-   USER CONTROL DASHBOARD
+   USER CONTROL DASHBOARD WITHOUT SIDEBAR
    PART 1
 ======================================================= */
 
@@ -10,10 +10,8 @@
     font-family:"Segoe UI",Arial,sans-serif;
 }
 
-:root{
 
-    --sidebar:#1f2937;
-    --sidebar-hover:#374151;
+:root{
 
     --primary:#2563eb;
     --success:#16a34a;
@@ -31,6 +29,7 @@
 
 }
 
+
 body{
 
     background:var(--bg);
@@ -39,155 +38,6 @@ body{
 
 }
 
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-
-    position:fixed;
-    left:0;
-    top:0;
-
-    width:260px;
-    height:100vh;
-
-    background:var(--sidebar);
-
-    color:#fff;
-
-    transition:.3s;
-
-    z-index:999;
-
-    box-shadow:5px 0 20px rgba(0,0,0,.25);
-
-}
-
-.sidebar.collapsed{
-
-    width:80px;
-
-}
-
-.logo{
-
-    height:80px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    padding:20px;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-
-}
-
-.logo-icon{
-
-    width:48px;
-    height:48px;
-
-    background:var(--primary);
-
-    border-radius:12px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:22px;
-
-}
-
-.logo-text h2{
-
-    font-size:22px;
-
-}
-
-.logo-text span{
-
-    font-size:13px;
-
-    color:#cbd5e1;
-
-}
-
-.sidebar.collapsed .logo-text{
-
-    display:none;
-
-}
-
-/* =========================
-   MENU
-========================= */
-
-.menu{
-
-    list-style:none;
-
-    padding:15px;
-
-}
-
-.menu li{
-
-    margin-bottom:8px;
-
-}
-
-.menu li a{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    text-decoration:none;
-
-    color:#fff;
-
-    padding:14px 16px;
-
-    border-radius:12px;
-
-    transition:.25s;
-
-}
-
-.menu li a:hover{
-
-    background:var(--sidebar-hover);
-
-}
-
-.menu li.active a{
-
-    background:var(--primary);
-
-}
-
-.menu li i{
-
-    width:22px;
-
-    text-align:center;
-
-    font-size:18px;
-
-}
-
-.sidebar.collapsed .menu span{
-
-    display:none;
-
-}
 
 /* =========================
    MAIN AREA
@@ -195,21 +45,12 @@ body{
 
 .main{
 
-    margin-left:260px;
-
+    width:100%;
     min-height:100vh;
-
-    transition:.3s;
-
     padding:25px;
 
 }
 
-.sidebar.collapsed + .main{
-
-    margin-left:80px;
-
-}
 
 /* =========================
    TOPBAR
@@ -235,61 +76,41 @@ body{
 
 }
 
-.toggle-btn{
-
-    border:none;
-
-    background:var(--primary);
-
-    color:#fff;
-
-    width:46px;
-
-    height:46px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-}
 
 .page-title{
 
     flex:1;
 
-    margin-left:20px;
-
 }
+
 
 .page-title h1{
 
     font-size:28px;
-
     font-weight:700;
 
 }
 
+
 .page-title p{
 
     color:var(--gray);
-
-    margin-top:4px;
-
+    margin-top:5px;
     font-size:14px;
 
 }
 
+
+
 .top-right{
 
     display:flex;
-
     align-items:center;
-
     gap:20px;
 
 }
+
+
 
 /* =========================
    SEARCH
@@ -311,6 +132,7 @@ body{
 
 }
 
+
 .search-box input{
 
     border:none;
@@ -325,15 +147,19 @@ body{
 
 }
 
+
 .search-box i{
 
     color:#888;
 
 }
 
+
+
 /* =========================
    PROFILE
 ========================= */
+
 
 .profile{
 
@@ -344,6 +170,7 @@ body{
     gap:12px;
 
 }
+
 
 .profile img{
 
@@ -359,11 +186,13 @@ body{
 
 }
 
+
 .profile h4{
 
     font-size:15px;
 
 }
+
 
 .profile span{
 
@@ -373,9 +202,10 @@ body{
 
 }
 /* =======================================================
-   USER CONTROL DASHBOARD
+   USER CONTROL DASHBOARD WITHOUT SIDEBAR
    PART 2
 ======================================================= */
+
 
 /* =========================
    DASHBOARD CARDS
@@ -392,6 +222,8 @@ body{
     margin-bottom:25px;
 
 }
+
+
 
 .card{
 
@@ -415,6 +247,8 @@ body{
 
 }
 
+
+
 .card:hover{
 
     transform:translateY(-6px);
@@ -422,6 +256,8 @@ body{
     box-shadow:0 20px 35px rgba(0,0,0,.12);
 
 }
+
+
 
 .card-icon{
 
@@ -443,11 +279,14 @@ body{
 
 }
 
+
+
 .blue .card-icon{
 
     background:#2563eb;
 
 }
+
 
 .green .card-icon{
 
@@ -455,17 +294,21 @@ body{
 
 }
 
+
 .red .card-icon{
 
     background:#dc2626;
 
 }
 
+
 .purple .card-icon{
 
     background:#7c3aed;
 
 }
+
+
 
 .card-info h2{
 
@@ -477,6 +320,8 @@ body{
 
 }
 
+
+
 .card-info p{
 
     color:#666;
@@ -485,9 +330,12 @@ body{
 
 }
 
+
+
 /* =========================
    TABLE SECTION
 ========================= */
+
 
 .table-section{
 
@@ -500,6 +348,8 @@ body{
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 
 }
+
+
 
 .table-header{
 
@@ -517,13 +367,15 @@ body{
 
 }
 
+
+
 .table-header h2{
 
     font-size:24px;
 
-    margin-bottom:5px;
-
 }
+
+
 
 .table-header p{
 
@@ -533,6 +385,8 @@ body{
 
 }
 
+
+
 .table-buttons{
 
     display:flex;
@@ -541,9 +395,12 @@ body{
 
 }
 
+
+
 /* =========================
    BUTTONS
 ========================= */
+
 
 .btn{
 
@@ -571,11 +428,15 @@ body{
 
 }
 
+
+
 .btn:hover{
 
     transform:translateY(-2px);
 
 }
+
+
 
 .btn-primary{
 
@@ -585,6 +446,7 @@ body{
 
 }
 
+
 .btn-success{
 
     background:#16a34a;
@@ -592,6 +454,7 @@ body{
     color:#fff;
 
 }
+
 
 .btn-danger{
 
@@ -601,6 +464,7 @@ body{
 
 }
 
+
 .btn-secondary{
 
     background:#6b7280;
@@ -609,15 +473,20 @@ body{
 
 }
 
+
+
 /* =========================
    TABLE
 ========================= */
+
 
 .table-responsive{
 
     overflow:auto;
 
 }
+
+
 
 table{
 
@@ -629,6 +498,8 @@ table{
 
 }
 
+
+
 thead{
 
     background:#2563eb;
@@ -636,6 +507,8 @@ thead{
     color:#fff;
 
 }
+
+
 
 thead th{
 
@@ -646,6 +519,8 @@ thead th{
     font-size:14px;
 
 }
+
+
 
 tbody td{
 
@@ -659,15 +534,20 @@ tbody td{
 
 }
 
+
+
 tbody tr:hover{
 
     background:#f8fafc;
 
 }
 
+
+
 /* =========================
    USER IMAGE
 ========================= */
+
 
 tbody img{
 
@@ -683,9 +563,12 @@ tbody img{
 
 }
 
+
+
 /* =========================
    STATUS BADGE
 ========================= */
+
 
 .status{
 
@@ -703,11 +586,14 @@ tbody img{
 
 }
 
+
+
 .status.active{
 
     background:#16a34a;
 
 }
+
 
 .status.inactive{
 
@@ -715,15 +601,19 @@ tbody img{
 
 }
 
+
 .status.blocked{
 
     background:#dc2626;
 
 }
 
+
+
 /* =========================
    ACTION BUTTONS
 ========================= */
+
 
 .action-buttons{
 
@@ -732,6 +622,8 @@ tbody img{
     gap:8px;
 
 }
+
+
 
 .action-buttons button{
 
@@ -747,9 +639,9 @@ tbody img{
 
     color:#fff;
 
-    transition:.2s;
-
 }
+
+
 
 .edit-btn{
 
@@ -757,11 +649,15 @@ tbody img{
 
 }
 
+
+
 .delete-btn{
 
     background:#dc2626;
 
 }
+
+
 
 .action-buttons button:hover{
 
@@ -769,9 +665,12 @@ tbody img{
 
 }
 
+
+
 /* =========================
-   LOADING ROW
+   LOADING
 ========================= */
+
 
 .loading{
 
@@ -785,6 +684,7 @@ tbody img{
 
 }
 
+
 .loading i{
 
     margin-right:8px;
@@ -793,32 +693,51 @@ tbody img{
 
 }
 /* =======================================================
-   USER CONTROL DASHBOARD
+   USER CONTROL DASHBOARD WITHOUT SIDEBAR
    PART 3
 ======================================================= */
+
 
 /* =========================
    MODAL
 ========================= */
 
+
 .modal{
+
     position:fixed;
+
     inset:0;
+
     background:rgba(0,0,0,.55);
+
     display:none;
+
     justify-content:center;
+
     align-items:center;
+
     z-index:9999;
+
     padding:20px;
+
 }
 
+
+
 .modal.show{
+
     display:flex;
+
 }
+
+
 
 .modal-content{
 
+
     width:100%;
+
     max-width:900px;
 
     background:#fff;
@@ -831,23 +750,42 @@ tbody img{
 
     box-shadow:0 20px 60px rgba(0,0,0,.25);
 
+
 }
+
+
 
 @keyframes popup{
 
+
     from{
+
         transform:scale(.9);
+
         opacity:0;
+
     }
 
+
     to{
+
         transform:scale(1);
+
         opacity:1;
+
     }
 
 }
 
+
+
+/* =========================
+   MODAL HEADER
+========================= */
+
+
 .modal-header{
+
 
     background:#2563eb;
 
@@ -861,7 +799,10 @@ tbody img{
 
     align-items:center;
 
+
 }
+
+
 
 .modal-header h2{
 
@@ -869,9 +810,13 @@ tbody img{
 
 }
 
+
+
 .close-btn{
 
+
     width:40px;
+
     height:40px;
 
     border:none;
@@ -886,7 +831,10 @@ tbody img{
 
     font-size:18px;
 
+
 }
+
+
 
 .close-btn:hover{
 
@@ -894,9 +842,12 @@ tbody img{
 
 }
 
+
+
 /* =========================
    FORM
 ========================= */
+
 
 #userForm{
 
@@ -904,7 +855,10 @@ tbody img{
 
 }
 
+
+
 .form-grid{
+
 
     display:grid;
 
@@ -912,17 +866,25 @@ tbody img{
 
     gap:20px;
 
+
 }
 
+
+
 .form-group{
+
 
     display:flex;
 
     flex-direction:column;
 
+
 }
 
+
+
 .form-group label{
+
 
     font-size:14px;
 
@@ -930,10 +892,14 @@ tbody img{
 
     margin-bottom:8px;
 
+
 }
+
+
 
 .form-group input,
 .form-group select{
+
 
     width:100%;
 
@@ -945,22 +911,28 @@ tbody img{
 
     outline:none;
 
-    transition:.25s;
-
     font-size:14px;
+
 
 }
 
+
+
 .form-group input:focus,
 .form-group select:focus{
+
 
     border-color:#2563eb;
 
     box-shadow:0 0 0 3px rgba(37,99,235,.15);
 
+
 }
 
+
+
 .modal-footer{
+
 
     margin-top:25px;
 
@@ -970,13 +942,55 @@ tbody img{
 
     gap:12px;
 
+
 }
 
+
+
 /* =========================
-   LOADING
+   DELETE USER BUTTON
 ========================= */
 
+
+.delete-user-btn{
+
+
+    background:#dc2626;
+
+    color:#fff;
+
+    padding:12px 18px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+
+}
+
+
+
+.delete-user-btn:hover{
+
+
+    background:#b91c1c;
+
+
+}
+
+
+
+/* =========================
+   LOADING OVERLAY
+========================= */
+
+
 .loading-overlay{
+
 
     position:fixed;
 
@@ -992,7 +1006,10 @@ tbody img{
 
     z-index:99999;
 
+
 }
+
+
 
 .loading-overlay.show{
 
@@ -1000,7 +1017,10 @@ tbody img{
 
 }
 
+
+
 .loader{
+
 
     background:#fff;
 
@@ -1012,9 +1032,13 @@ tbody img{
 
     box-shadow:0 15px 40px rgba(0,0,0,.15);
 
+
 }
 
+
+
 .loader i{
+
 
     font-size:38px;
 
@@ -1022,21 +1046,30 @@ tbody img{
 
     margin-bottom:15px;
 
+
 }
 
+
+
 .loader p{
+
 
     font-size:15px;
 
     color:#555;
 
+
 }
 
+
+
 /* =========================
-   TOAST
+   TOAST MESSAGE
 ========================= */
 
+
 .toast{
+
 
     position:fixed;
 
@@ -1062,89 +1095,151 @@ tbody img{
 
     z-index:999999;
 
+
 }
 
+
+
 .toast.show{
+
 
     opacity:1;
 
     visibility:visible;
 
+
 }
+
+
 
 .toast.error{
 
+
     background:#dc2626;
 
+
 }
+
+
+
+/* =========================
+   EMPTY DATA
+========================= */
+
+
+.empty-row{
+
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#777;
+
+
+}
+
+
+
+.empty-row i{
+
+
+    font-size:40px;
+
+    margin-bottom:10px;
+
+    color:#aaa;
+
+
+}
+
+
 
 /* =========================
    SCROLLBAR
 ========================= */
 
+
 ::-webkit-scrollbar{
 
+
     width:8px;
+
     height:8px;
 
+
 }
+
+
 
 ::-webkit-scrollbar-thumb{
 
+
     background:#2563eb;
+
     border-radius:10px;
 
+
 }
+
+
 
 ::-webkit-scrollbar-track{
 
+
     background:#ececec;
 
+
 }
+
+
 
 /* =========================
    RESPONSIVE
 ========================= */
 
+
 @media(max-width:992px){
+
 
     .dashboard-cards{
 
+
         grid-template-columns:repeat(2,1fr);
 
+
     }
+
 
     .form-grid{
 
+
         grid-template-columns:1fr;
 
+
     }
+
 
 }
 
+
+
+
 @media(max-width:768px){
 
-    .sidebar{
-
-        left:-260px;
-
-    }
-
-    .sidebar.show{
-
-        left:0;
-
-    }
 
     .main{
 
-        margin-left:0;
 
         padding:15px;
 
+
     }
 
+
+
     .topbar{
+
 
         flex-direction:column;
 
@@ -1152,9 +1247,13 @@ tbody img{
 
         gap:15px;
 
+
     }
 
+
+
     .top-right{
+
 
         width:100%;
 
@@ -1162,70 +1261,112 @@ tbody img{
 
         align-items:stretch;
 
+
     }
+
+
 
     .search-box{
 
+
         width:100%;
 
+
     }
+
+
 
     .search-box input{
 
+
         width:100%;
 
+
     }
+
+
 
     .dashboard-cards{
 
+
         grid-template-columns:1fr;
+
 
     }
 
+
+
     .table-header{
+
 
         flex-direction:column;
 
         align-items:flex-start;
 
+
     }
 
+
+
     .table-buttons{
+
 
         width:100%;
 
         flex-wrap:wrap;
 
+
     }
 
+
+
     .btn{
+
 
         flex:1;
 
         justify-content:center;
 
+
     }
+
 
 }
 
+
+
+
+
 @media(max-width:480px){
+
 
     .modal-content{
 
-        max-width:100%;
+
+        width:100%;
+
 
     }
+
+
 
     .modal-header h2{
 
+
         font-size:18px;
 
+
     }
+
+
 
     .page-title h1{
 
+
         font-size:22px;
 
+
     }
+
 
 }
