@@ -1,9 +1,9 @@
 *{
 
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 
 }
 
@@ -11,7 +11,8 @@ font-family:Arial,sans-serif;
 
 body{
 
-background:#f4f7fb;
+    background:#f8fafc;
+    color:#1f2937;
 
 }
 
@@ -19,8 +20,8 @@ background:#f4f7fb;
 
 .container{
 
-width:90%;
-margin:auto;
+    width:90%;
+    margin:auto;
 
 }
 
@@ -30,21 +31,21 @@ margin:auto;
 
 header{
 
-margin-top:20px;
+    margin-top:20px;
 
-background:white;
+    background:white;
 
-padding:12px 20px;
+    padding:12px 20px;
 
-border-radius:15px;
+    border-radius:15px;
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    justify-content:space-between;
 
-align-items:center;
+    align-items:center;
 
-box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
 
 }
 
@@ -52,9 +53,9 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 .title h2{
 
-font-size:20px;
+    font-size:20px;
 
-color:#087f3d;
+    color:#1e3a8a;
 
 }
 
@@ -64,18 +65,17 @@ color:#087f3d;
 
 /* Profile */
 
-
 .profile{
 
-position:relative;
+    position:relative;
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:10px;
+    gap:10px;
 
-cursor:pointer;
+    cursor:pointer;
 
 }
 
@@ -83,15 +83,15 @@ cursor:pointer;
 
 .profile img{
 
-width:45px;
+    width:45px;
 
-height:45px;
+    height:45px;
 
-border-radius:50%;
+    border-radius:50%;
 
-object-fit:cover;
+    object-fit:cover;
 
-border:3px solid #087f3d;
+    border:3px solid #2563eb;
 
 }
 
@@ -99,7 +99,7 @@ border:3px solid #087f3d;
 
 .profile h4{
 
-font-size:14px;
+    font-size:14px;
 
 }
 
@@ -107,9 +107,9 @@ font-size:14px;
 
 .profile p{
 
-font-size:11px;
+    font-size:11px;
 
-color:green;
+    color:#16a34a;
 
 }
 
@@ -117,30 +117,30 @@ color:green;
 
 
 
-/* Dropdown */
+/* Profile Dropdown */
 
 
 .profile-menu{
 
-position:absolute;
+    position:absolute;
 
-right:0;
+    right:0;
 
-top:55px;
+    top:55px;
 
-width:160px;
+    width:160px;
 
-background:white;
+    background:white;
 
-border-radius:10px;
+    border-radius:12px;
 
-box-shadow:0 8px 25px rgba(0,0,0,.15);
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
 
-display:none;
+    display:none;
 
-overflow:hidden;
+    overflow:hidden;
 
-z-index:10;
+    z-index:100;
 
 }
 
@@ -148,15 +148,17 @@ z-index:10;
 
 .profile-menu div{
 
-padding:12px;
+    padding:12px;
 
-font-size:14px;
+    font-size:14px;
 
-display:flex;
+    display:flex;
 
-gap:10px;
+    align-items:center;
 
-align-items:center;
+    gap:10px;
+
+    color:#374151;
 
 }
 
@@ -164,7 +166,9 @@ align-items:center;
 
 .profile-menu div:hover{
 
-background:#f2f2f2;
+    background:#eff6ff;
+
+    color:#2563eb;
 
 }
 
@@ -177,7 +181,7 @@ background:#f2f2f2;
 
 .welcome{
 
-margin:25px 0;
+    margin:25px 0;
 
 }
 
@@ -185,7 +189,9 @@ margin:25px 0;
 
 .welcome h1{
 
-font-size:22px;
+    font-size:22px;
+
+    color:#111827;
 
 }
 
@@ -193,9 +199,9 @@ font-size:22px;
 
 .welcome p{
 
-font-size:13px;
+    font-size:13px;
 
-color:#777;
+    color:#6b7280;
 
 }
 
@@ -208,12 +214,12 @@ color:#777;
 
 .cards{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:
-repeat(auto-fit,minmax(210px,1fr));
+    grid-template-columns:
+    repeat(auto-fit,minmax(210px,1fr));
 
-gap:20px;
+    gap:20px;
 
 }
 
@@ -222,19 +228,21 @@ gap:20px;
 
 .card{
 
-background:white;
+    background:white;
 
-padding:25px 20px;
+    padding:25px 20px;
 
-border-radius:16px;
+    border-radius:18px;
 
-text-align:center;
+    text-align:center;
 
-cursor:pointer;
+    cursor:pointer;
 
-box-shadow:0 6px 20px rgba(0,0,0,.08);
+    border:1px solid #e5e7eb;
 
-transition:.3s;
+    box-shadow:0 6px 20px rgba(0,0,0,0.06);
+
+    transition:.3s;
 
 }
 
@@ -242,19 +250,25 @@ transition:.3s;
 
 .card:hover{
 
-transform:translateY(-6px);
+    transform:translateY(-6px);
+
+    border-color:#2563eb;
+
+    box-shadow:0 12px 30px rgba(37,99,235,0.15);
 
 }
 
 
 
+
+
 .card i{
 
-font-size:32px;
+    font-size:32px;
 
-color:#087f3d;
+    color:#2563eb;
 
-margin-bottom:12px;
+    margin-bottom:12px;
 
 }
 
@@ -262,7 +276,9 @@ margin-bottom:12px;
 
 .card h3{
 
-font-size:16px;
+    font-size:16px;
+
+    color:#111827;
 
 }
 
@@ -270,32 +286,63 @@ font-size:16px;
 
 .card p{
 
-font-size:12px;
+    font-size:12px;
 
-color:#777;
+    color:#6b7280;
 
-margin-top:8px;
+    margin-top:8px;
 
 }
 
 
 
+
+
+/* Mobile */
 
 @media(max-width:600px){
 
 
 .container{
 
-width:94%;
+    width:94%;
 
 }
+
+
+
+header{
+
+    padding:12px;
+
+}
+
+
+
+.title h2{
+
+    font-size:18px;
+
+}
+
+
+
+.profile img{
+
+    width:40px;
+
+    height:40px;
+
+}
+
 
 
 .cards{
 
-grid-template-columns:1fr;
+    grid-template-columns:1fr;
 
 }
+
 
 
 }
