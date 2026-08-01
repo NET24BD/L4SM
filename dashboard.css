@@ -1,41 +1,263 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+
+body{
+    background:#f4f7fb;
+    color:#222;
+}
+
+
+.container{
+    width:90%;
+    margin:auto;
+}
+
+
+
+/* Header */
+
+header{
+    margin-top:20px;
+    background:white;
+    padding:12px 20px;
+    border-radius:15px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+
 .title h2{
+    color:#087f3d;
     font-size:20px;
 }
 
 
+
+
+/* Profile */
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+
+.profile img{
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #087f3d;
+
+}
+
+
 .profile h4{
+
     font-size:14px;
+
 }
 
 
 .profile p{
+
+    color:green;
     font-size:11px;
+
+}
+
+
+
+
+
+/* Welcome */
+
+
+.welcome{
+
+    margin:25px 0;
+
+}
+
+
+.welcome h1{
+
+    font-size:22px;
+
+}
+
+
+.welcome p{
+
+    font-size:13px;
+    color:#777;
+
+}
+
+
+
+
+/* Cards */
+
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(210px,1fr));
+
+    gap:20px;
+
+}
+
+
+
+
+.card{
+
+    background:white;
+
+    padding:25px 20px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 6px 20px rgba(0,0,0,0.08);
+
+    transition:.3s;
+
+}
+
+
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+    0 12px 30px rgba(0,0,0,0.15);
+
+}
+
+
+
+
+.card i{
+
+    font-size:32px;
+
+    color:#087f3d;
+
+    margin-bottom:12px;
+
+}
+
+
+
+
+.card h3{
+
+    font-size:16px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+
+.card p{
+
+    font-size:12px;
+
+    color:#777;
+
+}
+
+
+
+
+
+
+/* Mobile Responsive */
+
+
+@media(max-width:600px){
+
+
+.container{
+
+    width:94%;
+
+}
+
+
+
+header{
+
+    padding:12px;
+
+}
+
+
+
+.title h2{
+
+    font-size:18px;
+
+}
+
+
+
+.profile img{
+
+    width:40px;
+    height:40px;
+
 }
 
 
 
 .welcome h1{
-    font-size:22px;
-}
 
+    font-size:20px;
 
-.welcome p{
-    font-size:13px;
-}
-
-
-
-.card h3{
-    font-size:16px;
-}
-
-
-.card p{
-    font-size:12px;
 }
 
 
 
-.card i{
-    font-size:32px;
+.cards{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.card{
+
+    padding:22px;
+
+}
+
+
 }
