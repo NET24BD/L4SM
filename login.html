@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Secure Login</title>
+<title>ISP Secure Login</title>
 
 <link rel="stylesheet" href="login.css">
 
@@ -19,54 +19,118 @@
 <div class="scene">
 
 
+<!-- ISP Logo -->
+
+<div class="brand">
+
+<img src="logo.png" alt="ISP Logo">
+
+<h2>
+YOUR ISP NAME
+</h2>
+
+</div>
+
+
+
 <!-- Character -->
 
-<div class="character">
+<div class="character" id="character">
 
 🧑‍💼
 
 </div>
 
 
+
 <!-- Bag -->
 
-<div class="bag" onclick="openBag()">
+<div class="bag" id="bag">
 
 🎒
 
 </div>
 
 
+
+<!-- Bag Open Effect -->
+
+<div class="bag-light" id="bagLight">
+
+</div>
+
+
+
 <!-- Login Portal -->
 
-<div class="login-box" id="loginBox">
+<div class="portal" id="portal">
+
+
+<div class="portal-header">
 
 
 <h2>
-Login Portal
+🔐 Secure Login
 </h2>
 
 
+</div>
+
+
+
+<!-- Fingerprint Animation -->
+
+<div class="fingerprint">
+
+🖐️
+
+<div class="scan-line">
+
+</div>
+
+</div>
+
+
+
+<!-- Login Form -->
+
+
+<div class="login-form">
+
+
 <input 
+type="text"
 id="username"
 placeholder="Username">
 
 
+
 <input 
-id="password"
 type="password"
+id="password"
 placeholder="Password">
 
 
+
 <button onclick="login()">
+
 LOGIN
+
 </button>
 
 
-<p id="msg"></p>
+
+<p id="msg">
+
+</p>
 
 
 </div>
+
+
+
+</div>
+
 
 
 </div>
@@ -74,6 +138,7 @@ LOGIN
 
 
 <script src="login.js"></script>
+
 
 </body>
 
