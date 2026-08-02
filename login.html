@@ -1,96 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSupport System - Login</title>
+
+    <title>eSupport System Login</title>
 
     <link rel="stylesheet" href="login.css">
 
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
 
 <body>
 
-<div class="background"></div>
+    <div class="login-box">
 
-<div class="login-container">
-
-    <div class="logo">
-        <i class="fa-solid fa-headset"></i>
-    </div>
-
-    <h2>eSupport System</h2>
-    <p>Sign in to your account</p>
-
-    <form id="loginForm">
-
-        <!-- Username -->
-        <div class="input-box">
-            <i class="fa-solid fa-user"></i>
-            <input
-                type="text"
-                id="username"
-                placeholder="Username"
-                autocomplete="username"
-                required>
+        <div class="logo">
+            <i class="fa-solid fa-headset"></i>
         </div>
 
-        <!-- Password -->
-        <div class="input-box">
-            <i class="fa-solid fa-lock"></i>
+        <h2>eSupport System</h2>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                autocomplete="current-password"
-                required>
+        <p>Login to continue</p>
 
-            <span id="togglePassword">
-                <i class="fa-solid fa-eye"></i>
-            </span>
+        <form id="loginForm">
+
+            <!-- Username -->
+
+            <div class="input-group">
+
+                <i class="fa-solid fa-user"></i>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Username"
+                    autocomplete="username"
+                    required>
+
+            </div>
+
+            <!-- Password -->
+
+            <div class="input-group">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required>
+
+                <span id="togglePassword">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                </span>
+
+            </div>
+
+            <!-- Message -->
+
+            <div id="message"></div>
+
+            <!-- Login Button -->
+
+            <button
+                type="submit"
+                id="loginBtn">
+
+                LOGIN
+
+            </button>
+
+        </form>
+
+        <div class="footer">
+
+            © 2026 eSupport System
+
         </div>
 
-        <!-- Message -->
-        <div id="message"></div>
-
-        <!-- Login Button -->
-        <button id="loginBtn" type="submit">
-            LOGIN
-        </button>
-
-    </form>
-
-    <div class="footer">
-        © 2026 eSupport System
     </div>
 
-</div>
+    <script>
 
-<script>
-const password = document.getElementById("password");
-const toggle = document.getElementById("togglePassword");
+        const password = document.getElementById("password");
 
-toggle.onclick = function () {
+        const toggle = document.getElementById("togglePassword");
 
-    if (password.type === "password") {
+        toggle.onclick = function () {
 
-        password.type = "text";
-        toggle.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+            if (password.type === "password") {
 
-    } else {
+                password.type = "text";
 
-        password.type = "password";
-        toggle.innerHTML = '<i class="fa-solid fa-eye"></i>';
+                toggle.innerHTML =
+                    '<i class="fa-solid fa-eye-slash"></i>';
 
-    }
+            } else {
 
-};
-</script>
+                password.type = "password";
 
-<script src="login.js"></script>
+                toggle.innerHTML =
+                    '<i class="fa-solid fa-eye"></i>';
+
+            }
+
+        };
+
+    </script>
+
+    <script src="login.js"></script>
 
 </body>
+
 </html>
