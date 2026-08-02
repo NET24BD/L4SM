@@ -1,26 +1,30 @@
-/* ===== Simple Login Theme ===== */
+/* ===== eSupport Login ===== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
-    background:#f4f6f9;
+    background:#f1f5f9;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    min-height:100vh;
+}
+
+.background{
+    display:none;
 }
 
 .login-container{
-    width:360px;
-    background:#fff;
+    width:380px;
+    background:#ffffff;
     padding:35px;
-    border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
     text-align:center;
 }
 
@@ -28,9 +32,9 @@ body{
     width:70px;
     height:70px;
     margin:0 auto 20px;
-    border-radius:50%;
     background:#0d6efd;
     color:#fff;
+    border-radius:50%;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -38,8 +42,9 @@ body{
 }
 
 h2{
-    color:#333;
+    color:#222;
     margin-bottom:5px;
+    font-size:28px;
 }
 
 p{
@@ -50,24 +55,25 @@ p{
 
 .input-box{
     position:relative;
-    margin-bottom:15px;
+    margin-bottom:18px;
 }
 
 .input-box input{
     width:100%;
-    height:45px;
+    height:48px;
     padding:0 45px;
-    border:1px solid #ddd;
-    border-radius:6px;
+    border:1px solid #dcdcdc;
+    border-radius:8px;
     outline:none;
-    font-size:14px;
+    font-size:15px;
+    transition:.3s;
 }
 
 .input-box input:focus{
     border-color:#0d6efd;
 }
 
-.input-box i{
+.input-box i:first-child{
     position:absolute;
     left:15px;
     top:50%;
@@ -86,12 +92,12 @@ p{
 
 button{
     width:100%;
-    height:45px;
-    border:none;
-    border-radius:6px;
+    height:48px;
     background:#0d6efd;
     color:#fff;
-    font-size:15px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
     font-weight:bold;
     cursor:pointer;
     transition:.3s;
@@ -101,21 +107,29 @@ button:hover{
     background:#0b5ed7;
 }
 
+button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
 #message{
-    margin-top:10px;
+    margin-top:15px;
     font-size:14px;
     min-height:20px;
+    font-weight:600;
 }
 
 .footer{
     margin-top:20px;
-    color:#888;
-    font-size:12px;
+    color:#777;
+    font-size:13px;
 }
 
-@media(max-width:480px){
-    .login-container{
-        width:90%;
-        padding:25px;
-    }
+@media(max-width:500px){
+
+.login-container{
+    width:92%;
+    padding:25px;
+}
+
 }
