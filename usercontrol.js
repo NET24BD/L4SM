@@ -970,7 +970,98 @@ document.getElementById("closeModal")
 document.getElementById("cancelBtn")
 ?.addEventListener("click",closeModal);
 
+//===============================
+// PROFILE DROPDOWN
+//===============================
 
+
+const profileBtn =
+document.getElementById("profileBtn");
+
+
+const profileMenu =
+document.getElementById("profileMenu");
+
+
+
+if(profileBtn){
+
+
+profileBtn.onclick=(e)=>{
+
+
+e.stopPropagation();
+
+
+profileMenu.classList.toggle("show");
+
+
+};
+
+
+}
+
+
+
+
+
+document.addEventListener("click",()=>{
+
+
+if(profileMenu)
+
+profileMenu.classList.remove("show");
+
+
+});
+
+
+
+
+
+//===============================
+// MY ACCOUNT
+//===============================
+
+function openAccount(){
+
+
+let username =
+localStorage.getItem("username");
+
+
+
+if(username){
+
+
+window.location.href =
+"my-account.html";
+
+
+}
+
+
+}
+
+
+
+
+
+//===============================
+// LOGOUT
+//===============================
+
+function logoutUser(){
+
+
+localStorage.clear();
+
+
+window.location.href =
+"login.html";
+
+
+}
 
 
 
