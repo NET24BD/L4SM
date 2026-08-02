@@ -1,24 +1,57 @@
-
-// Bag click করলে Login Portal বের হবে
-
-function openBag(){
-
-
-document
-.getElementById("loginBox")
-.classList
-.add("show");
+// ================================
+// AUTO ANIMATION CONTROL
+// ================================
 
 
-}
+window.onload = function(){
+
+
+    setTimeout(()=>{
+
+
+        // Bag open
+
+        document
+        .getElementById("bag")
+        .classList
+        .add("open");
+
+
+
+    },5500);
+
+
+
+    setTimeout(()=>{
+
+
+        // Portal show
+
+        document
+        .getElementById("portal")
+        .classList
+        .add("show");
+
+
+
+    },6500);
+
+
+
+};
 
 
 
 
-// Google Sheet API URL
 
-const API_URL =
-"https://script.google.com/macros/s/YOUR_URL/exec";
+// ================================
+// GOOGLE SHEET LOGIN API
+// ================================
+
+
+const API_URL = 
+"https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec";
+
 
 
 
@@ -26,8 +59,10 @@ const API_URL =
 function login(){
 
 
+
 let username =
 document.getElementById("username").value;
+
 
 
 let password =
@@ -35,28 +70,71 @@ document.getElementById("password").value;
 
 
 
+
+if(username=="" || password==""){
+
+
+document.getElementById("msg")
+.innerHTML="Enter Username & Password";
+
+
+return;
+
+
+}
+
+
+
+
+
+// Fingerprint Scan Effect
+
+
+document.querySelector(".fingerprint")
+.innerHTML="🔍";
+
+
+
+
+
+
 fetch(API_URL,{
+
 
 method:"POST",
 
+
 body:JSON.stringify({
 
-username,
-password
+
+username:username,
+
+
+password:password
+
+
 
 })
 
 
+
 })
 
 
-.then(res=>res.json())
+
+.then(response=>response.json())
+
 
 
 .then(data=>{
 
 
+
 if(data.success){
+
+
+
+// Save User Data
 
 
 localStorage.setItem(
@@ -66,60 +144,107 @@ JSON.stringify(data.user)
 
 
 
+
+
 let role=data.user.role;
+
+
+
+
+
+// =====================
+// ROLE REDIRECT
+// =====================
 
 
 
 if(role=="admin"){
 
-location.href="1d.html";
+
+window.location.href="1d.html";
+
 
 }
+
+
 
 else if(role=="support"){
 
-location.href="2S.html";
+
+window.location.href="2S.html";
+
 
 }
+
 
 
 else if(role=="call"){
 
-location.href="3C.html";
+
+window.location.href="3C.html";
+
 
 }
+
 
 
 else if(role=="guest"){
 
-location.href="G.html";
+
+window.location.href="G.html";
+
 
 }
 
-
-}
 
 
 else{
 
 
 document.getElementById("msg")
-.innerHTML=data.message;
+.innerHTML=
+"Invalid Role";
 
 
 }
 
 
-})
 
-.catch(()=>{
+}
+
+
+
+else{
 
 
 document.getElementById("msg")
-.innerHTML="Server Error";
+.innerHTML=
+data.message;
+
+
+}
+
+
+
+})
+
+
+
+.catch(error=>{
+
+
+
+console.log(error);
+
+
+
+document.getElementById("msg")
+.innerHTML=
+"Server Error";
 
 
 });
+
 
 
 }
