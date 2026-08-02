@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>eSupport System</title>
 
 <link rel="stylesheet" href="login.css">
 
@@ -16,23 +19,37 @@
 <div class="login-box">
 
 
-<h2>Login</h2>
+<h2>eSupport System</h2>
+
+
+<p class="sub">
+User Login
+</p>
+
 
 
 <input 
+type="text"
 id="username"
-placeholder="Username">
+placeholder="Username"
+onkeydown="enterLogin(event)">
+
 
 
 <input 
-id="password"
 type="password"
-placeholder="Password">
+id="password"
+placeholder="Password"
+onkeydown="enterLogin(event)">
+
 
 
 <button onclick="login()">
+
 LOGIN
+
 </button>
+
 
 
 <p id="msg"></p>
