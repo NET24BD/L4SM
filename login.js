@@ -1,56 +1,20 @@
-// ================================
-// AUTO ANIMATION CONTROL
-// ================================
-
-
-window.onload = function(){
-
-
-    setTimeout(()=>{
-
-
-        // Bag open
-
-        document
-        .getElementById("bag")
-        .classList
-        .add("open");
-
-
-
-    },5500);
-
-
-
-    setTimeout(()=>{
-
-
-        // Portal show
-
-        document
-        .getElementById("portal")
-        .classList
-        .add("show");
-
-
-
-    },6500);
-
-
-
-};
-
-
-
-
-
-// ================================
-// GOOGLE SHEET LOGIN API
-// ================================
-
-
-const API_URL = 
+const API_URL =
 "https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec";
+
+
+
+
+// Enter Button Login
+
+function enterLogin(event){
+
+    if(event.key === "Enter"){
+
+        login();
+
+    }
+
+}
 
 
 
@@ -61,12 +25,13 @@ function login(){
 
 
 let username =
-document.getElementById("username").value;
+document.getElementById("username").value.trim();
 
 
 
 let password =
-document.getElementById("password").value;
+document.getElementById("password").value.trim();
+
 
 
 
@@ -74,26 +39,14 @@ document.getElementById("password").value;
 if(username=="" || password==""){
 
 
-document.getElementById("msg")
-.innerHTML="Enter Username & Password";
+document.getElementById("msg").innerHTML =
+"Enter Username & Password";
 
 
 return;
 
 
 }
-
-
-
-
-
-// Fingerprint Scan Effect
-
-
-document.querySelector(".fingerprint")
-.innerHTML="🔍";
-
-
 
 
 
@@ -106,16 +59,11 @@ method:"POST",
 
 body:JSON.stringify({
 
-
 username:username,
-
 
 password:password
 
-
-
 })
-
 
 
 })
@@ -123,7 +71,6 @@ password:password
 
 
 .then(response=>response.json())
-
 
 
 .then(data=>{
@@ -134,12 +81,14 @@ if(data.success){
 
 
 
-// Save User Data
-
+// Save User
 
 localStorage.setItem(
+
 "user",
+
 JSON.stringify(data.user)
+
 );
 
 
@@ -152,57 +101,50 @@ let role=data.user.role;
 
 
 
-// =====================
-// ROLE REDIRECT
-// =====================
+// Redirect Dashboard
 
 
 
-if(role=="admin"){
+switch(role){
 
+
+
+case "admin":
 
 window.location.href="1d.html";
 
-
-}
-
+break;
 
 
-else if(role=="support"){
 
+case "support":
 
 window.location.href="2S.html";
 
-
-}
-
+break;
 
 
-else if(role=="call"){
 
+case "call":
 
 window.location.href="3C.html";
 
-
-}
-
+break;
 
 
-else if(role=="guest"){
 
+case "guest":
 
 window.location.href="G.html";
 
-
-}
-
+break;
 
 
-else{
+
+default:
 
 
-document.getElementById("msg")
-.innerHTML=
+document.getElementById("msg").innerHTML =
 "Invalid Role";
 
 
@@ -217,8 +159,7 @@ document.getElementById("msg")
 else{
 
 
-document.getElementById("msg")
-.innerHTML=
+document.getElementById("msg").innerHTML =
 data.message;
 
 
@@ -233,13 +174,10 @@ data.message;
 .catch(error=>{
 
 
-
 console.log(error);
 
 
-
-document.getElementById("msg")
-.innerHTML=
+document.getElementById("msg").innerHTML =
 "Server Error";
 
 
