@@ -1,104 +1,134 @@
-// ================================
-// eSupport Login System
-// ================================
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
-const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
-const form = document.getElementById("loginForm");
-const btn = document.getElementById("loginBtn");
-const msg = document.getElementById("message");
-
-form.addEventListener("submit", login);
-
-async function login(e){
+document.getElementById("loginForm").addEventListener("submit", function(e){
 
     e.preventDefault();
 
-    const username=document.getElementById("username").value.trim();
-    const password=document.getElementById("password").value.trim();
 
-    if(username==="" || password===""){
-        showMessage("Please enter Username & Password","red");
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+
+    let message = document.getElementById("message");
+    let btn = document.getElementById("loginBtn");
+
+
+    if(username === "" || password === ""){
+
+        message.innerHTML = "Enter Username & Password";
+        message.style.color="red";
         return;
+
     }
 
+
+    btn.innerHTML="Checking...";
     btn.disabled=true;
-    btn.innerHTML="Logging in...";
 
-    try{
 
-        const res=await fetch(WEB_APP_URL,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                action:"login",
-                username:username,
-                password:password
-            })
-        });
 
-        const data=await res.json();
+    fetch(WEB_APP_URL,{
+
+        method:"POST",
+
+        body: JSON.stringify({
+
+            action:"login",
+
+            username:username,
+
+            password:password
+
+        })
+
+    })
+
+    .then(res=>res.json())
+
+    .then(data=>{
+
 
         if(data.success){
 
-            // Save Login Session
-            sessionStorage.setItem("user",JSON.stringify(data));
 
-            showMessage("Login Successful","green");
+            sessionStorage.setItem(
+                "user",
+                JSON.stringify(data)
+            );
+
+
+            message.innerHTML="Login Successful";
+            message.style.color="green";
+
+
 
             setTimeout(()=>{
 
-                switch(data.role){
 
-                    case "admin":
-                        location.href="admin.html";
-                        break;
+                if(data.role=="admin"){
 
-                    case "support":
-                        location.href="support.html";
-                        break;
-
-                    case "call":
-                        location.href="call.html";
-                        break;
-
-                    case "manager":
-                        location.href="manager.html";
-                        break;
-
-                    default:
-                        location.href="dashboard.html";
-                        break;
+                    window.location.href="admin.html";
 
                 }
 
+                else if(data.role=="support"){
+
+                    window.location.href="support.html";
+
+                }
+
+                else if(data.role=="call"){
+
+                    window.location.href="call.html";
+
+                }
+
+                else{
+
+                    window.location.href="dashboard.html";
+
+                }
+
+
             },500);
 
-        }else{
 
-            showMessage(data.message,"red");
 
         }
 
-    }catch(err){
+        else{
 
-        console.error(err);
 
-        showMessage("Server Connection Failed","red");
+            message.innerHTML=data.message;
+            message.style.color="red";
 
-    }
 
-    btn.disabled=false;
-    btn.innerHTML="LOGIN";
+        }
 
-}
 
-function showMessage(text,color){
 
-    msg.innerHTML=text;
-    msg.style.color=color;
+    })
 
-}
+
+    .catch(error=>{
+
+
+        console.log(error);
+
+        message.innerHTML="Server Connection Failed";
+        message.style.color="red";
+
+
+    })
+
+
+    .finally(()=>{
+
+        btn.innerHTML="LOGIN";
+        btn.disabled=false;
+
+    });
+
+
+
+});
