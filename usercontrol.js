@@ -1,36 +1,48 @@
 /* =====================================================
    USER CONTROL DASHBOARD
-   PART 1
+   FINAL JS
+   PART-1
 ===================================================== */
 
-// ===============================
+//===============================
 // GOOGLE APPS SCRIPT API
-// ===============================
+//===============================
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
 let users = [];
 let editRow = null;
+let saving = false;
 
 
-// ===============================
+//===============================
 // PAGE LOAD
-// ===============================
+//===============================
 
 window.addEventListener("load", () => {
 
-    loadUsers();
     sidebarToggle();
+
+    loadUsers();
+
+    const loginUser =
+        localStorage.getItem("username");
+
+    if(loginUser){
+
+        loadAccount(loginUser);
+
+    }
 
 });
 
 
-// ===============================
+//===============================
 // SIDEBAR
-// ===============================
+//===============================
 
-function sidebarToggle() {
+function sidebarToggle(){
 
     const sidebar =
         document.getElementById("sidebar");
@@ -38,7 +50,9 @@ function sidebarToggle() {
     const btn =
         document.getElementById("toggleSidebar");
 
-    btn.onclick = () => {
+    if(!sidebar || !btn) return;
+
+    btn.onclick = ()=>{
 
         sidebar.classList.toggle("collapsed");
 
@@ -48,46 +62,62 @@ function sidebarToggle() {
 
 
 
-// ===============================
+//===============================
 // LOADING
-// ===============================
+//===============================
 
-function showLoading() {
+function showLoading(){
 
-    document
-        .getElementById("loading")
-        .classList
-        .add("show");
+    const loading =
+        document.getElementById("loading");
 
-}
+    if(loading){
 
-function hideLoading() {
+        loading.classList.add("show");
 
-    document
-        .getElementById("loading")
-        .classList
-        .remove("show");
+    }
 
 }
 
+function hideLoading(){
+
+    const loading =
+        document.getElementById("loading");
+
+    if(loading){
+
+        loading.classList.remove("show");
+
+    }
+
+}
 
 
-// ===============================
+
+//===============================
 // TOAST
-// ===============================
+//===============================
 
-function toast(message, error = false) {
+function toast(message,error=false){
 
     const t =
         document.getElementById("toast");
 
+    if(!t){
+
+        alert(message);
+
+        return;
+
+    }
+
     t.innerHTML = message;
 
-    if (error) {
+    if(error){
 
         t.classList.add("error");
 
-    } else {
+    }else{
 
         t.classList.remove("error");
 
@@ -95,35 +125,35 @@ function toast(message, error = false) {
 
     t.classList.add("show");
 
-    setTimeout(() => {
+    setTimeout(()=>{
 
         t.classList.remove("show");
 
-    }, 3000);
+    },3000);
 
 }
 
 
 
-// ===============================
+//===============================
 // LOAD USERS
-// ===============================
+//===============================
 
-async function loadUsers() {
+async function loadUsers(){
 
     showLoading();
 
-    try {
+    try{
 
         const body =
             new URLSearchParams();
 
-        body.append("action", "getUsers");
+        body.append("action","getUsers");
 
         const res =
-            await fetch(API_URL, {
+            await fetch(API_URL,{
 
-                method: "POST",
+                method:"POST",
 
                 body
 
@@ -132,27 +162,28 @@ async function loadUsers() {
         const data =
             await res.json();
 
-        if (data.success) {
+        if(data.success){
 
-            users = data.users;
+            users =
+                Array.isArray(data.users)
+                ? data.users
+                : [];
 
-            renderUsers();
+            renderUsers(users);
 
             updateCards();
 
-        } else {
+        }else{
 
-            toast("Failed to Load Users", true);
+            toast(data.message || "Failed To Load Users",true);
 
         }
 
-    }
+    }catch(err){
 
-    catch (err) {
+        console.error(err);
 
-        console.log(err);
-
-        toast("Server Connection Failed", true);
+        toast("Server Connection Failed",true);
 
     }
 
@@ -162,28 +193,37 @@ async function loadUsers() {
 
 
 
-// ===============================
+//===============================
 // DASHBOARD CARDS
-// ===============================
+//===============================
 
-function updateCards() {
+function updateCards(){
 
     document.getElementById("totalUsers").innerHTML =
         users.length;
 
     document.getElementById("activeUsers").innerHTML =
-        users.filter(x =>
-            String(x.status).toLowerCase() === "active"
+        users.filter(x=>
+
+            String(x.status)
+            .toLowerCase()=="active"
+
         ).length;
 
     document.getElementById("inactiveUsers").innerHTML =
-        users.filter(x =>
-            String(x.status).toLowerCase() !== "active"
+        users.filter(x=>
+
+            String(x.status)
+            .toLowerCase()!="active"
+
         ).length;
 
     const dep =
+
         [...new Set(
-            users.map(x => x.department)
+
+            users.map(x=>x.department)
+
         )];
 
     document.getElementById("departmentCount").innerHTML =
@@ -193,158 +233,45 @@ function updateCards() {
 
 
 
-// ===============================
-// REFRESH BUTTON
-// ===============================
+//===============================
+// REFRESH
+//===============================
 
-document
-    .getElementById("refreshBtn")
-    .onclick = () => {
+const refreshBtn =
+document.getElementById("refreshBtn");
+
+if(refreshBtn){
+
+    refreshBtn.onclick=()=>{
 
         loadUsers();
 
     };
-/* =====================================================
-   USER CONTROL DASHBOARD
-   PART 2
-===================================================== */
-
-
-// ===============================
-// RENDER USER TABLE
-// ===============================
-
-function renderUsers(list = users) {
-
-    const tbody =
-        document.getElementById("userTableBody");
-
-    tbody.innerHTML = "";
-
-    if (list.length === 0) {
-
-        tbody.innerHTML = `
-
-        <tr>
-
-            <td colspan="12" class="loading">
-
-                No User Found
-
-            </td>
-
-        </tr>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.forEach((user, index) => {
-
-        const picture =
-            user.picture && user.picture.trim() !== ""
-            ? user.picture
-            : "https://i.imgur.com/2DhmtJ4.png";
-
-
-        const status =
-            String(user.status).toLowerCase();
-
-
-        tbody.innerHTML += `
-
-<tr>
-
-<td>${index + 1}</td>
-
-<td>
-
-<img src="${picture}"
-
-onerror="this.src='https://i.imgur.com/2DhmtJ4.png'">
-
-</td>
-
-<td>${user.username}</td>
-
-<td>${user.password}</td>
-
-<td>${user.name}</td>
-
-<td>${user.role}</td>
-
-<td>
-
-<span class="status ${status}">
-
-${user.status}
-
-</span>
-
-</td>
-
-<td>${user.department}</td>
-
-<td>${user.number}</td>
-
-<td>${user.email}</td>
-
-<td>${user.joinDate}</td>
-
-<td>
-
-<div class="action-buttons">
-
-<button
-class="edit-btn"
-
-onclick="editUser(${user.row})">
-
-<i class="fas fa-pen"></i>
-
-</button>
-
-<button
-class="delete-btn"
-
-onclick="deleteUserConfirm('${user.username}')">
-
-<i class="fas fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-`;
-
-    });
 
 }
 
 
 
-// ===============================
+//===============================
 // SEARCH USER
-// ===============================
+//===============================
 
-document
-.getElementById("searchUser")
-.addEventListener("keyup", function () {
+const searchInput =
+document.getElementById("searchUser");
+
+if(searchInput){
+
+searchInput.addEventListener("keyup",function(){
 
     const keyword =
-        this.value
-        .toLowerCase()
-        .trim();
+    this.value
+    .toLowerCase()
+    .trim();
 
     const result =
-        users.filter(user =>
+    users.filter(user=>{
+
+        return(
 
             String(user.username)
             .toLowerCase()
@@ -374,24 +301,180 @@ document
             .toLowerCase()
             .includes(keyword)
 
+            ||
+
+            String(user.email)
+            .toLowerCase()
+            .includes(keyword)
+
         );
+
+    });
 
     renderUsers(result);
 
 });
 
+}
+/* =====================================================
+   USER CONTROL DASHBOARD
+   FINAL JS
+   PART-2
+===================================================== */
 
 
-// ===============================
+//===============================
+// RENDER USER TABLE
+//===============================
+
+function renderUsers(list = users){
+
+    const tbody =
+    document.getElementById("userTableBody");
+
+    if(!tbody) return;
+
+    tbody.innerHTML="";
+
+    if(list.length===0){
+
+        tbody.innerHTML=`
+
+        <tr>
+
+            <td colspan="12" class="loading">
+
+                No User Found
+
+            </td>
+
+        </tr>
+
+        `;
+
+        return;
+
+    }
+
+    list.forEach((user,index)=>{
+
+        const picture=
+
+        user.picture && user.picture.trim()!=""
+
+        ? user.picture
+
+        : "https://i.imgur.com/2DhmtJ4.png";
+
+
+
+        const status=
+
+        String(user.status)
+
+        .toLowerCase();
+
+
+
+        tbody.innerHTML+=`
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>
+
+<img
+
+src="${picture}"
+
+onerror="this.src='https://i.imgur.com/2DhmtJ4.png'"
+
+class="profile-img"
+
+>
+
+</td>
+
+<td>${user.username}</td>
+
+<td>${user.password}</td>
+
+<td>${user.name}</td>
+
+<td>${user.role}</td>
+
+<td>
+
+<span class="status ${status}">
+
+${user.status}
+
+</span>
+
+</td>
+
+<td>${user.department||""}</td>
+
+<td>${user.number||""}</td>
+
+<td>${user.email||""}</td>
+
+<td>${user.joinDate||""}</td>
+
+<td>
+
+<div class="action-buttons">
+
+<button
+
+class="edit-btn"
+
+title="Edit User"
+
+onclick="editUser(${user.row})">
+
+<i class="fas fa-pen"></i>
+
+</button>
+
+<button
+
+class="delete-btn"
+
+title="Delete User"
+
+onclick="deleteUserConfirm(${user.row})">
+
+<i class="fas fa-trash"></i>
+
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+    });
+
+}
+
+
+
+//===============================
 // EDIT USER
-// ===============================
+//===============================
 
 function editUser(row){
 
-    editRow = row;
+    editRow=row;
 
-    const user =
-        users.find(u => u.row == row);
+    const user=
+
+    users.find(x=>x.row==row);
 
     if(!user){
 
@@ -401,78 +484,79 @@ function editUser(row){
 
     }
 
-    document
-    .getElementById("modalTitle")
-    .innerHTML = "Edit User";
+    document.getElementById("modalTitle").innerHTML=
+
+    "Edit User";
+
+
+
+    document.getElementById("row").value=user.row;
+
+    document.getElementById("username").value=user.username;
+
+    document.getElementById("password").value=user.password;
+
+    document.getElementById("name").value=user.name;
+
+    document.getElementById("role").value=user.role;
+
+    document.getElementById("status").value=user.status;
+
+    document.getElementById("picture").value=user.picture;
+
+    document.getElementById("address").value=user.address;
+
+    document.getElementById("number").value=user.number;
+
+    document.getElementById("email").value=user.email;
+
+    document.getElementById("department").value=user.department;
+
+    document.getElementById("joinDate").value=
+
+    convertDate(user.joinDate);
+
+
+
+    if(document.getElementById("bloodGroup")){
+
+        document.getElementById("bloodGroup").value=
+
+        user.bloodGroup || "";
+
+    }
+
+    if(document.getElementById("profession")){
+
+        document.getElementById("profession").value=
+
+        user.profession || "";
+
+    }
 
     document
-    .getElementById("row")
-    .value = user.row;
 
-    document
-    .getElementById("username")
-    .value = user.username;
-
-    document
-    .getElementById("password")
-    .value = user.password;
-
-    document
-    .getElementById("name")
-    .value = user.name;
-
-    document
-    .getElementById("role")
-    .value = user.role;
-
-    document
-    .getElementById("status")
-    .value = user.status;
-
-    document
-    .getElementById("picture")
-    .value = user.picture;
-
-    document
-    .getElementById("address")
-    .value = user.address;
-
-    document
-    .getElementById("number")
-    .value = user.number;
-
-    document
-    .getElementById("email")
-    .value = user.email;
-
-    document
-    .getElementById("department")
-    .value = user.department;
-
-    document
-    .getElementById("joinDate")
-    .value = convertDate(user.joinDate);
-
-    document
     .getElementById("userModal")
+
     .classList
+
     .add("show");
 
 }
 
 
 
-// ===============================
+//===============================
 // DATE FORMAT
-// ===============================
+//===============================
 
 function convertDate(date){
 
     if(!date) return "";
 
-    const d = date.split("-");
+    const d=date.split("-");
 
-    if(d.length !== 3) return "";
+    if(d.length!==3) return "";
 
     return d[2]+"-"+d[1]+"-"+d[0];
 
@@ -480,80 +564,112 @@ function convertDate(date){
 
 
 
-// ===============================
-// DELETE
-// ===============================
+//===============================
+// ADD USER
+//===============================
 
-function deleteUserConfirm(username){
+const addUserBtn=
+
+document.getElementById("addUserBtn");
+
+if(addUserBtn){
+
+addUserBtn.onclick=()=>{
+
+    editRow=null;
+
+    document
+
+    .getElementById("modalTitle")
+
+    .innerHTML="Add New User";
+
+    document
+
+    .getElementById("userForm")
+
+    .reset();
+
+    document
+
+    .getElementById("row")
+
+    .value="";
+
+    document
+
+    .getElementById("userModal")
+
+    .classList
+
+    .add("show");
+
+};
+
+}
+
+
+
+//===============================
+// DELETE CONFIRM
+//===============================
+
+function deleteUserConfirm(row){
 
     if(!confirm(
+
         "Delete this user?"
-    )){
 
-        return;
+    )) return;
 
-    }
-
-    deleteUser(username);
+    deleteUser(row);
 
 }
 /* =====================================================
    USER CONTROL DASHBOARD
-   PART 3A
+   FINAL JS
+   PART-3
 ===================================================== */
 
-// ===============================
+//===============================
 // ELEMENTS
-// ===============================
+//===============================
 
 const userModal = document.getElementById("userModal");
 const userForm = document.getElementById("userForm");
-
-const addUserBtn = document.getElementById("addUserBtn");
 const closeModal = document.getElementById("closeModal");
 const cancelBtn = document.getElementById("cancelBtn");
 
 
-// ===============================
-// OPEN MODAL
-// ===============================
-
-addUserBtn.onclick = () => {
-
-    editRow = null;
-
-    document.getElementById("modalTitle").innerHTML =
-        "Add New User";
-
-    userForm.reset();
-
-    document.getElementById("row").value = "";
-
-    userModal.classList.add("show");
-
-};
-
-
-// ===============================
+//===============================
 // CLOSE MODAL
-// ===============================
+//===============================
 
-function hideModal() {
+function hideModal(){
 
-    userModal.classList.remove("show");
+    if(userModal){
+
+        userModal.classList.remove("show");
+
+    }
 
 }
 
-closeModal.onclick = hideModal;
+if(closeModal){
 
-cancelBtn.onclick = hideModal;
+    closeModal.onclick = hideModal;
 
+}
 
-// Click outside
+if(cancelBtn){
 
-window.addEventListener("click", function (e) {
+    cancelBtn.onclick = hideModal;
 
-    if (e.target === userModal) {
+}
+
+window.addEventListener("click",function(e){
+
+    if(e.target===userModal){
 
         hideModal();
 
@@ -562,126 +678,154 @@ window.addEventListener("click", function (e) {
 });
 
 
-// ===============================
+//===============================
 // SAVE USER
-// ===============================
+//===============================
 
-userForm.addEventListener("submit", async function (e) {
+userForm.addEventListener("submit",async function(e){
 
     e.preventDefault();
 
-    showLoading();
+    if(saving) return;
 
-    const body = new URLSearchParams();
-
-    if (editRow == null) {
-
-        body.append("action", "addUser");
-
-    } else {
-
-        body.append("action", "updateUser");
-        body.append("row", editRow);
-
-    }
-
-
-    body.append("username",
-        document.getElementById("username").value.trim());
-
-    body.append("password",
-        document.getElementById("password").value.trim());
-
-    body.append("name",
-        document.getElementById("name").value.trim());
-
-    body.append("role",
-        document.getElementById("role").value);
-
-    body.append("status",
-        document.getElementById("status").value);
-
-    body.append("picture",
-        document.getElementById("picture").value.trim());
-
-    body.append("address",
-        document.getElementById("address").value.trim());
-
-    body.append("number",
-        document.getElementById("number").value.trim());
-
-    body.append("email",
-        document.getElementById("email").value.trim());
-
-    body.append("department",
-        document.getElementById("department").value.trim());
-
-    body.append("joinDate",
-        document.getElementById("joinDate").value);
-
-    try {
-
-        const res = await fetch(API_URL, {
-
-            method: "POST",
-
-            body: body
-
-        });
-
-        const data = await res.json();
-
-        if (data.success) {
-
-            toast(data.message || "Saved Successfully");
-
-            hideModal();
-
-            loadUsers();
-
-        } else {
-
-            toast(data.message || "Failed", true);
-
-        }
-
-    } catch (err) {
-
-        console.error(err);
-
-        toast("Connection Failed", true);
-
-    }
-
-    hideLoading();
-
-});
-/* =====================================================
-   USER CONTROL DASHBOARD
-   PART 3B
-===================================================== */
-
-// ===============================
-// DELETE USER
-// ===============================
-
-async function deleteUser(username){
+    saving=true;
 
     showLoading();
 
     try{
 
-        const body = new URLSearchParams();
+        const body=new URLSearchParams();
 
-        body.append("action","deleteUser");
-        body.append("username",username);
+        if(editRow==null){
 
-        const res = await fetch(API_URL,{
+            body.append("action","addUser");
+
+        }else{
+
+            body.append("action","updateUser");
+            body.append("row",editRow);
+
+        }
+
+        body.append("username",
+            document.getElementById("username").value.trim());
+
+        body.append("password",
+            document.getElementById("password").value.trim());
+
+        body.append("name",
+            document.getElementById("name").value.trim());
+
+        body.append("role",
+            document.getElementById("role").value);
+
+        body.append("status",
+            document.getElementById("status").value);
+
+        body.append("picture",
+            document.getElementById("picture").value.trim());
+
+        body.append("address",
+            document.getElementById("address").value.trim());
+
+        body.append("number",
+            document.getElementById("number").value.trim());
+
+        body.append("email",
+            document.getElementById("email").value.trim());
+
+        body.append("department",
+            document.getElementById("department").value.trim());
+
+        body.append("joinDate",
+            document.getElementById("joinDate").value);
+
+        // Optional Fields
+
+        if(document.getElementById("bloodGroup")){
+
+            body.append(
+                "bloodGroup",
+                document.getElementById("bloodGroup").value
+            );
+
+        }
+
+        if(document.getElementById("profession")){
+
+            body.append(
+                "profession",
+                document.getElementById("profession").value
+            );
+
+        }
+
+        const res=await fetch(API_URL,{
+
             method:"POST",
-            body:body
+
+            body
+
         });
 
-        const data = await res.json();
+        const data=await res.json();
+
+        if(data.success){
+
+            toast(data.message || "Saved Successfully");
+
+            hideModal();
+
+            editRow=null;
+
+            loadUsers();
+
+        }else{
+
+            toast(data.message || "Save Failed",true);
+
+        }
+
+    }catch(err){
+
+        console.error(err);
+
+        toast("Server Connection Failed",true);
+
+    }
+
+    saving=false;
+
+    hideLoading();
+
+});
+
+
+
+//===============================
+// DELETE USER
+//===============================
+
+async function deleteUser(row){
+
+    showLoading();
+
+    try{
+
+        const body=new URLSearchParams();
+
+        body.append("action","deleteUser");
+        body.append("row",row);
+
+        const res=await fetch(API_URL,{
+
+            method:"POST",
+
+            body
+
+        });
+
+        const data=await res.json();
 
         if(data.success){
 
@@ -695,9 +839,9 @@ async function deleteUser(username){
 
         }
 
-    }catch(error){
+    }catch(err){
 
-        console.error(error);
+        console.error(err);
 
         toast("Server Connection Failed",true);
 
@@ -706,161 +850,3 @@ async function deleteUser(username){
     hideLoading();
 
 }
-
-
-
-// ===============================
-// ACCOUNT
-// ===============================
-
-async function loadAccount(username){
-
-    if(!username) return;
-
-    try{
-
-        const body = new URLSearchParams();
-
-        body.append("action","account");
-        body.append("username",username);
-
-        const res = await fetch(API_URL,{
-            method:"POST",
-            body:body
-        });
-
-        const data = await res.json();
-
-        if(data.success){
-
-            document.getElementById("profileName").innerHTML =
-                data.name || "Administrator";
-
-            document.getElementById("profileRole").innerHTML =
-                data.role || "Admin";
-
-            if(data.picture){
-
-                document.getElementById("profileImage").src =
-                    data.picture;
-
-            }
-
-        }
-
-    }catch(err){
-
-        console.log(err);
-
-    }
-
-}
-
-
-
-// ===============================
-// LOGOUT
-// ===============================
-
-function logout(){
-
-    if(!confirm("Are you sure you want to logout?")){
-
-        return;
-
-    }
-
-    localStorage.removeItem("username");
-
-    window.location.href="login.html";
-
-}
-
-
-
-// ===============================
-// LOGOUT BUTTON
-// ===============================
-
-document.querySelectorAll(".menu a").forEach(link=>{
-
-    if(link.textContent.includes("Logout")){
-
-        link.addEventListener("click",function(e){
-
-            e.preventDefault();
-
-            logout();
-
-        });
-
-    }
-
-});
-
-
-
-// ===============================
-// SESSION CHECK
-// ===============================
-
-const loginUser =
-    localStorage.getItem("username");
-
-if(loginUser){
-
-    loadAccount(loginUser);
-
-}
-
-
-
-// ===============================
-// ESC KEY CLOSE MODAL
-// ===============================
-
-window.addEventListener("keydown",function(e){
-
-    if(e.key==="Escape"){
-
-        hideModal();
-
-    }
-
-});
-
-
-
-// ===============================
-// PREVENT DOUBLE SUBMIT
-// ===============================
-
-let saving = false;
-
-userForm.addEventListener("submit",function(e){
-
-    if(saving){
-
-        e.preventDefault();
-
-        return;
-
-    }
-
-    saving = true;
-
-    setTimeout(()=>{
-
-        saving = false;
-
-    },1500);
-
-});
-
-
-
-// ===============================
-// STARTUP
-// ===============================
-
-console.log("User Control Dashboard Ready");
