@@ -1,30 +1,28 @@
-/* ===== eSupport Login ===== */
+/* ==========================================
+   eSupport System - Simple Login Theme
+========================================== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+    font-family:"Segoe UI",Arial,sans-serif;
 }
 
 body{
-    background:#f1f5f9;
+    background:#f4f6f9;
     display:flex;
     justify-content:center;
     align-items:center;
     min-height:100vh;
 }
 
-.background{
-    display:none;
-}
-
-.login-container{
+.login-box{
     width:380px;
-    background:#ffffff;
+    background:#fff;
     padding:35px;
     border-radius:12px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
     text-align:center;
 }
 
@@ -32,9 +30,9 @@ body{
     width:70px;
     height:70px;
     margin:0 auto 20px;
+    border-radius:50%;
     background:#0d6efd;
     color:#fff;
-    border-radius:50%;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -53,12 +51,12 @@ p{
     font-size:14px;
 }
 
-.input-box{
+.input-group{
     position:relative;
     margin-bottom:18px;
 }
 
-.input-box input{
+.input-group input{
     width:100%;
     height:48px;
     padding:0 45px;
@@ -69,11 +67,12 @@ p{
     transition:.3s;
 }
 
-.input-box input:focus{
+.input-group input:focus{
     border-color:#0d6efd;
+    box-shadow:0 0 0 3px rgba(13,110,253,.15);
 }
 
-.input-box i:first-child{
+.input-group i:first-child{
     position:absolute;
     left:15px;
     top:50%;
@@ -98,7 +97,7 @@ button{
     border:none;
     border-radius:8px;
     font-size:16px;
-    font-weight:bold;
+    font-weight:600;
     cursor:pointer;
     transition:.3s;
 }
@@ -113,23 +112,33 @@ button:disabled{
 }
 
 #message{
-    margin-top:15px;
-    font-size:14px;
     min-height:20px;
+    margin:15px 0;
+    font-size:14px;
     font-weight:600;
 }
 
 .footer{
     margin-top:20px;
-    color:#777;
     font-size:13px;
+    color:#888;
 }
 
-@media(max-width:500px){
+@media(max-width:480px){
 
-.login-container{
-    width:92%;
-    padding:25px;
-}
+    .login-box{
+        width:92%;
+        padding:25px;
+    }
+
+    h2{
+        font-size:24px;
+    }
+
+    .logo{
+        width:60px;
+        height:60px;
+        font-size:26px;
+    }
 
 }
