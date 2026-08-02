@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eSupport System - Login</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
 
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
@@ -22,12 +22,13 @@
     </div>
 
     <h2>eSupport System</h2>
-    <p>Sign in to continue</p>
+    <p>Sign in to your account</p>
 
     <form id="loginForm">
 
+        <!-- Username -->
         <div class="input-box">
-            <i class="fa fa-user"></i>
+            <i class="fa-solid fa-user"></i>
             <input
                 type="text"
                 id="username"
@@ -36,8 +37,9 @@
                 required>
         </div>
 
+        <!-- Password -->
         <div class="input-box">
-            <i class="fa fa-lock"></i>
+            <i class="fa-solid fa-lock"></i>
 
             <input
                 type="password"
@@ -47,17 +49,19 @@
                 required>
 
             <span id="togglePassword">
-                <i class="fa fa-eye"></i>
+                <i class="fa-solid fa-eye"></i>
             </span>
         </div>
 
+        <!-- Message -->
+        <div id="message"></div>
+
+        <!-- Login Button -->
         <button id="loginBtn" type="submit">
             LOGIN
         </button>
 
     </form>
-
-    <div id="message"></div>
 
     <div class="footer">
         © 2026 eSupport System
@@ -65,28 +69,28 @@
 
 </div>
 
-<script src="script.js"></script>
-
 <script>
-const password=document.getElementById("password");
-const toggle=document.getElementById("togglePassword");
+const password = document.getElementById("password");
+const toggle = document.getElementById("togglePassword");
 
-toggle.onclick=function(){
+toggle.onclick = function () {
 
-    if(password.type==="password"){
+    if (password.type === "password") {
 
-        password.type="text";
-        toggle.innerHTML='<i class="fa fa-eye-slash"></i>';
+        password.type = "text";
+        toggle.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
 
-    }else{
+    } else {
 
-        password.type="password";
-        toggle.innerHTML='<i class="fa fa-eye"></i>';
+        password.type = "password";
+        toggle.innerHTML = '<i class="fa-solid fa-eye"></i>';
 
     }
 
-}
+};
 </script>
+
+<script src="login.js"></script>
 
 </body>
 </html>
