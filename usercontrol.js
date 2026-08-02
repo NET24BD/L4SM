@@ -1,45 +1,51 @@
 /* =====================================================
    LINK4 USER CONTROL DASHBOARD
-   FINAL JS CONNECTED WITH GOOGLE SHEET API
+   FINAL JAVASCRIPT
 ===================================================== */
 
 
-//===============================
-// API
-//===============================
+// ===============================
+// API URL
+// ===============================
+
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
 
+
 let users = [];
+
 let editRow = null;
+
 let saving = false;
 
 
 
-//===============================
+
+
+// ===============================
 // PAGE LOAD
-//===============================
+// ===============================
+
 
 window.addEventListener("load",()=>{
 
 
-    sidebarToggle();
+loadUsers();
 
 
-    loadUsers();
+
+let username =
+localStorage.getItem("username");
 
 
-    const username =
-    localStorage.getItem("username");
 
+if(username){
 
-    if(username){
+loadAccount(username);
 
-        loadAccount(username);
-
-    }
+}
 
 
 });
@@ -47,50 +53,20 @@ window.addEventListener("load",()=>{
 
 
 
-//===============================
-// SIDEBAR
-//===============================
-
-function sidebarToggle(){
-
-
-    const btn =
-    document.getElementById("toggleSidebar");
-
-
-    const sidebar =
-    document.getElementById("sidebar");
-
-
-    if(btn && sidebar){
-
-
-        btn.onclick=()=>{
-
-            sidebar.classList.toggle("collapsed");
-
-        };
-
-
-    }
-
-}
 
 
 
-
-//===============================
+// ===============================
 // LOADING
-//===============================
+// ===============================
+
 
 function showLoading(){
 
-    const x =
-    document.getElementById("loading");
-
-
-    if(x)
-    x.classList.add("show");
+document
+.getElementById("loading")
+?.classList
+.add("show");
 
 }
 
@@ -98,12 +74,10 @@ function showLoading(){
 
 function hideLoading(){
 
-    const x =
-    document.getElementById("loading");
-
-
-    if(x)
-    x.classList.remove("show");
+document
+.getElementById("loading")
+?.classList
+.remove("show");
 
 }
 
@@ -111,48 +85,53 @@ function hideLoading(){
 
 
 
-//===============================
+
+// ===============================
 // TOAST
-//===============================
-
-function toast(msg,error=false){
+// ===============================
 
 
-    const t =
-    document.getElementById("toast");
+function toast(message,error=false){
 
 
-    if(!t){
-
-        alert(msg);
-
-        return;
-
-    }
-
-
-    t.innerHTML=msg;
-
-
-    if(error)
-
-        t.classList.add("error");
-
-    else
-
-        t.classList.remove("error");
+let t =
+document.getElementById("toast");
 
 
 
-    t.classList.add("show");
+if(!t){
+
+alert(message);
+
+return;
+
+}
 
 
 
-    setTimeout(()=>{
+t.innerHTML=message;
 
-        t.classList.remove("show");
 
-    },3000);
+
+if(error)
+
+t.classList.add("error");
+
+else
+
+t.classList.remove("error");
+
+
+
+t.classList.add("show");
+
+
+
+setTimeout(()=>{
+
+t.classList.remove("show");
+
+},3000);
 
 
 }
@@ -161,9 +140,12 @@ function toast(msg,error=false){
 
 
 
-//===============================
+
+
+// ===============================
 // LOAD USERS
-//===============================
+// ===============================
+
 
 async function loadUsers(){
 
@@ -171,76 +153,78 @@ async function loadUsers(){
 showLoading();
 
 
+
 try{
 
 
-    let body =
-    new URLSearchParams();
-
-
-    body.append(
-        "action",
-        "getUsers"
-    );
+let body =
+new URLSearchParams();
 
 
 
-    let res =
-    await fetch(API_URL,{
-
-        method:"POST",
-
-        body
-
-    });
+body.append(
+"action",
+"getUsers"
+);
 
 
 
-    let data =
-    await res.json();
+let res =
+await fetch(API_URL,{
+
+method:"POST",
+
+body
+
+});
 
 
 
-    if(data.success){
-
-
-        users =
-        data.users || [];
+let data =
+await res.json();
 
 
 
-        renderUsers(users);
+
+if(data.success){
 
 
-        updateCards();
+users =
+data.users || [];
 
 
-    }
-    else{
+
+renderUsers(users);
 
 
-        toast(
-        data.message ||
-        "Load Failed",
-        true
-        );
+
+updateCards();
 
 
-    }
 
+}else{
+
+
+toast(
+data.message,
+true
+);
 
 
 }
-catch(err){
 
 
-    console.log(err);
+
+}catch(err){
 
 
-    toast(
-    "Server Connection Failed",
-    true
-    );
+console.log(err);
+
+
+toast(
+"Server Connection Failed",
+true
+);
 
 
 }
@@ -257,9 +241,11 @@ hideLoading();
 
 
 
-//===============================
+
+// ===============================
 // DASHBOARD COUNT
-//===============================
+// ===============================
+
 
 function updateCards(){
 
@@ -271,6 +257,7 @@ users.length;
 
 document.getElementById("activeUsers").innerHTML =
 
+
 users.filter(x=>
 
 String(x.status)
@@ -280,7 +267,9 @@ String(x.status)
 
 
 
+
 document.getElementById("inactiveUsers").innerHTML =
+
 
 users.filter(x=>
 
@@ -291,14 +280,13 @@ String(x.status)
 
 
 
+
 let dep =
 [
 ...new Set(
-
-users.map(x=>x.department)
-
+users
+.map(x=>x.department)
 .filter(Boolean)
-
 )
 
 ];
@@ -309,30 +297,27 @@ document.getElementById("departmentCount").innerHTML =
 dep.length;
 
 
-
 }
 
 
 
 
 
-//===============================
+
+
+
+// ===============================
 // SEARCH
-//===============================
-
-const searchUser =
-document.getElementById("searchUser");
+// ===============================
 
 
-
-if(searchUser){
-
-
-searchUser.addEventListener("keyup",()=>{
+document
+.getElementById("searchUser")
+?.addEventListener("keyup",function(){
 
 
 let key =
-searchUser.value
+this.value
 .toLowerCase()
 .trim();
 
@@ -342,7 +327,7 @@ let result =
 users.filter(u=>{
 
 
-return (
+return(
 
 String(u.username)
 .toLowerCase()
@@ -369,14 +354,6 @@ String(u.department)
 .toLowerCase()
 .includes(key)
 
-
-||
-
-String(u.number)
-.toLowerCase()
-.includes(key)
-
-
 );
 
 
@@ -387,11 +364,9 @@ String(u.number)
 renderUsers(result);
 
 
-
 });
 
 
-}
 
 
 
@@ -399,14 +374,15 @@ renderUsers(result);
 
 
 
-//===============================
-// RENDER TABLE
-//===============================
+// ===============================
+// TABLE RENDER
+// ===============================
+
 
 function renderUsers(list){
 
 
-const tbody =
+let tbody =
 document.getElementById("userTableBody");
 
 
@@ -432,6 +408,7 @@ No User Found
 
 `;
 
+
 return;
 
 
@@ -440,34 +417,26 @@ return;
 
 
 
-list.forEach((u,i)=>{
+
+list.forEach((u,index)=>{
 
 
-let img =
-u.picture ||
-"https://i.imgur.com/2DhmtJ4.png";
-
-
-
-let status =
-String(u.status)
-.toLowerCase();
-
-
-
-tbody.innerHTML+=`
+tbody.innerHTML += `
 
 
 <tr>
 
-<td>${i+1}</td>
+
+<td>${index+1}</td>
 
 
 <td>
+
 <img class="profile-img"
-src="${img}"
-onerror="this.src='https://i.imgur.com/2DhmtJ4.png'">
+src="${u.picture || 'https://i.imgur.com/2DhmtJ4.png'}">
+
 </td>
+
 
 
 <td>${u.username}</td>
@@ -484,35 +453,45 @@ onerror="this.src='https://i.imgur.com/2DhmtJ4.png'">
 
 <td>
 
-<span class="status ${status}">
+<span class="status ${String(u.status).toLowerCase()}">
+
 ${u.status}
+
 </span>
 
 </td>
 
 
-<td>${u.department||""}</td>
+<td>${u.department || ""}</td>
 
 
-<td>${u.number||""}</td>
+<td>${u.number || ""}</td>
 
 
-<td>${u.email||""}</td>
+<td>${u.email || ""}</td>
 
 
-<td>${u.joinDate||""}</td>
+<td>${u.joinDate || ""}</td>
+
 
 
 <td>
 
+
 <button onclick="editUser(${u.row})">
-<i class="fa fa-edit"></i>
+
+<i class="fas fa-edit"></i>
+
 </button>
+
 
 
 <button onclick="deleteUserConfirm(${u.row})">
-<i class="fa fa-trash"></i>
+
+<i class="fas fa-trash"></i>
+
 </button>
+
 
 
 </td>
@@ -534,9 +513,13 @@ ${u.status}
 
 
 
-//===============================
-// LOAD ACCOUNT PROFILE
-//===============================
+
+
+
+
+// ===============================
+// ACCOUNT PROFILE
+// ===============================
 
 
 async function loadAccount(username){
@@ -546,10 +529,12 @@ let body =
 new URLSearchParams();
 
 
+
 body.append(
 "action",
 "account"
 );
+
 
 
 body.append(
@@ -572,6 +557,7 @@ body
 });
 
 
+
 let data =
 await res.json();
 
@@ -580,26 +566,22 @@ await res.json();
 if(data.success){
 
 
-document.getElementById("profileName").innerHTML =
+profileName.innerHTML =
 data.name;
 
 
 
-document.getElementById("profileRole").innerHTML =
+profileRole.innerHTML =
 data.role;
 
 
 
-document.getElementById("profileImage").src =
-
+profileImage.src =
 data.picture ||
-
 "https://i.imgur.com/2DhmtJ4.png";
 
 
-
 }
-
 
 
 }catch(e){
@@ -611,7 +593,6 @@ console.log(e);
 }
 
 
-
 }
 
 
@@ -620,27 +601,47 @@ console.log(e);
 
 
 
-//===============================
-// ADD USER BUTTON
-//===============================
+
+// ===============================
+// PROFILE DROPDOWN
+// ===============================
 
 
-document.getElementById("addUserBtn")
-?.addEventListener("click",()=>{
+const profileBtn =
+document.getElementById("profileBtn");
 
 
-editRow=null;
+const profileMenu =
+document.getElementById("profileMenu");
 
 
-document.getElementById("userForm").reset();
 
 
-document.getElementById("modalTitle").innerHTML =
-"Add New User";
+if(profileBtn){
 
 
-document.getElementById("userModal")
-.classList.add("show");
+profileBtn.onclick=(e)=>{
+
+
+e.stopPropagation();
+
+
+profileMenu.classList.toggle("show");
+
+
+};
+
+
+}
+
+
+
+
+
+document.addEventListener("click",()=>{
+
+
+profileMenu?.classList.remove("show");
 
 
 });
@@ -651,9 +652,74 @@ document.getElementById("userModal")
 
 
 
-//===============================
+function openAccount(){
+
+
+window.location.href="AC.html";
+
+
+}
+
+
+
+
+
+function logoutUser(){
+
+
+localStorage.clear();
+
+
+window.location.href="login.html";
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// ADD USER
+// ===============================
+
+
+document
+.getElementById("addUserBtn")
+?.addEventListener("click",()=>{
+
+
+editRow=null;
+
+
+userForm.reset();
+
+
+modalTitle.innerHTML=
+"Add New User";
+
+
+
+userModal.classList.add("show");
+
+
+});
+
+
+
+
+
+
+
+
+// ===============================
 // EDIT USER
-//===============================
+// ===============================
+
 
 function editUser(row){
 
@@ -672,17 +738,28 @@ if(!u)return;
 
 
 username.value=u.username;
+
 password.value=u.password;
+
 name.value=u.name;
+
 role.value=u.role;
+
 status.value=u.status;
+
 picture.value=u.picture;
+
 address.value=u.address;
+
 number.value=u.number;
+
 email.value=u.email;
+
 department.value=u.department;
-profession.value=u.profession;
+
 bloodGroup.value=u.bloodGroup;
+
+profession.value=u.profession;
 
 
 
@@ -691,13 +768,12 @@ convertDate(u.joinDate);
 
 
 
-modalTitle.innerHTML =
+modalTitle.innerHTML=
 "Edit User";
 
 
 
 userModal.classList.add("show");
-
 
 
 }
@@ -706,9 +782,7 @@ userModal.classList.add("show");
 
 
 
-//===============================
-// DATE
-//===============================
+
 
 function convertDate(d){
 
@@ -728,9 +802,14 @@ return x[2]+"-"+x[1]+"-"+x[0];
 
 
 
-//===============================
+
+
+
+
+// ===============================
 // SAVE USER
-//===============================
+// ===============================
+
 
 userForm.addEventListener("submit",async e=>{
 
@@ -738,7 +817,9 @@ userForm.addEventListener("submit",async e=>{
 e.preventDefault();
 
 
+
 if(saving)return;
+
 
 
 saving=true;
@@ -748,16 +829,24 @@ showLoading();
 
 
 
+
 let body =
 new URLSearchParams();
 
 
 
 body.append(
+
 "action",
-editRow?
-"updateUser":
+
+editRow ?
+
+"updateUser"
+
+:
+
 "addUser"
+
 );
 
 
@@ -789,19 +878,15 @@ editRow
 ].forEach(id=>{
 
 
-let el =
-document.getElementById(id);
-
-
-if(el)
-
 body.append(
 id,
-el.value
+document.getElementById(id).value
 );
 
 
 });
+
+
 
 
 
@@ -845,7 +930,7 @@ loadUsers();
 
 
 
-}catch(e){
+}catch(err){
 
 
 toast(
@@ -864,7 +949,6 @@ saving=false;
 hideLoading();
 
 
-
 });
 
 
@@ -872,9 +956,11 @@ hideLoading();
 
 
 
-//===============================
+
+
+// ===============================
 // DELETE
-//===============================
+// ===============================
 
 
 function deleteUserConfirm(row){
@@ -900,16 +986,19 @@ let body =
 new URLSearchParams();
 
 
+
 body.append(
 "action",
 "deleteUser"
 );
 
 
+
 body.append(
 "row",
 row
 );
+
 
 
 
@@ -948,126 +1037,56 @@ loadUsers();
 
 
 
-//===============================
+
+
+
+// ===============================
 // MODAL CLOSE
-//===============================
+// ===============================
+
 
 function closeModal(){
 
 
-document.getElementById("userModal")
-.classList.remove("show");
-
-
-}
-
-
-document.getElementById("closeModal")
-?.addEventListener("click",closeModal);
-
-
-
-document.getElementById("cancelBtn")
-?.addEventListener("click",closeModal);
-
-//===============================
-// PROFILE DROPDOWN
-//===============================
-
-
-const profileBtn =
-document.getElementById("profileBtn");
-
-
-const profileMenu =
-document.getElementById("profileMenu");
-
-
-
-if(profileBtn){
-
-
-profileBtn.onclick=(e)=>{
-
-
-e.stopPropagation();
-
-
-profileMenu.classList.toggle("show");
-
-
-};
+userModal.classList.remove("show");
 
 
 }
 
 
 
+closeModalBtn =
+document.getElementById("closeModal");
 
 
-document.addEventListener("click",()=>{
-
-
-if(profileMenu)
-
-profileMenu.classList.remove("show");
-
-
-});
+closeModalBtn?.addEventListener(
+"click",
+closeModal
+);
 
 
 
-
-
-//===============================
-// MY ACCOUNT
-//===============================
-
-function openAccount(){
-
-
-let username =
-localStorage.getItem("username");
-
-
-
-if(username){
-
-
-window.location.href =
-"my-account.html";
-
-
-}
-
-
-}
+document
+.getElementById("cancelBtn")
+?.addEventListener(
+"click",
+closeModal
+);
 
 
 
 
 
-//===============================
-// LOGOUT
-//===============================
-
-function logoutUser(){
 
 
-localStorage.clear();
-
-
-window.location.href =
-"login.html";
-
-
-}
-
-
-
-//===============================
+// ===============================
 // REFRESH
-//===============================
+// ===============================
 
-document.getElementById("refreshBtn")
-?.addEventListener("click",loadUsers);
+
+document
+.getElementById("refreshBtn")
+?.addEventListener(
+"click",
+loadUsers
+);
