@@ -1,12 +1,12 @@
-/* ===========================
-   eSupport Login Theme
-=========================== */
+/* ===================================
+   eSupport Login CSS
+=================================== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Segoe UI",sans-serif;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
@@ -19,10 +19,10 @@ body{
 
 .login-box{
     width:380px;
-    background:#ffffff;
-    padding:35px;
+    background:#fff;
     border-radius:12px;
-    box-shadow:0 8px 25px rgba(0,0,0,.15);
+    padding:35px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
     text-align:center;
 }
 
@@ -30,14 +30,13 @@ body{
     width:70px;
     height:70px;
     margin:0 auto 20px;
-    background:#ffffff;
-    border:3px solid #698D94;
     border-radius:50%;
+    background:#698D94;
     display:flex;
     justify-content:center;
     align-items:center;
+    color:#fff;
     font-size:30px;
-    color:#698D94;
 }
 
 h2{
@@ -46,7 +45,7 @@ h2{
 }
 
 p{
-    color:#666;
+    color:#777;
     margin-bottom:25px;
 }
 
@@ -57,19 +56,23 @@ p{
 
 .input-group input{
     width:100%;
-    height:48px;
-    padding:0 45px;
-    border:1px solid #ccc;
+    height:50px;
+    border:1px solid #d5d5d5;
     border-radius:8px;
     outline:none;
     font-size:15px;
+    padding-left:45px;
+    padding-right:45px;
+    transition:.3s;
 }
 
 .input-group input:focus{
     border-color:#698D94;
 }
 
-.input-group i:first-child{
+/* Left Icon */
+
+.icon{
     position:absolute;
     left:15px;
     top:50%;
@@ -77,18 +80,36 @@ p{
     color:#777;
 }
 
+/* Eye Icon */
+
 #togglePassword{
     position:absolute;
     right:15px;
     top:50%;
     transform:translateY(-50%);
-    cursor:pointer;
     color:#777;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:20px;
+    height:20px;
 }
+
+/* Message */
+
+#message{
+    min-height:20px;
+    font-size:14px;
+    margin-bottom:10px;
+    font-weight:600;
+}
+
+/* Button */
 
 button{
     width:100%;
-    height:48px;
+    height:50px;
     border:none;
     border-radius:8px;
     background:#698D94;
@@ -100,26 +121,23 @@ button{
 }
 
 button:hover{
-    background:#5c7d84;
+    background:#56767d;
 }
 
-#message{
-    margin-top:15px;
-    min-height:20px;
-    font-size:14px;
-    font-weight:600;
-}
+/* Footer */
 
 .footer{
     margin-top:20px;
-    color:#777;
     font-size:13px;
+    color:#777;
 }
 
-@media(max-width:480px){
+/* Responsive */
+
+@media(max-width:450px){
 
 .login-box{
-    width:92%;
+    width:95%;
     padding:25px;
 }
 
