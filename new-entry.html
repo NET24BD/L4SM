@@ -4,29 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Support Entry - eSupport System</title>
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="entry.css">
-    
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 
-    <!-- Live Floating Emojis Background -->
     <ul class="background-emojis">
-        <li>🚀</li>
-        <li>💻</li>
-        <li>⚡</li>
-        <li>🛡️</li>
-        <li>✨</li>
-        <li>🔒</li>
-        <li>🎧</li>
-        <li>🌐</li>
+        <li>🚀</li><li>💻</li><li>⚡</li><li>🛡️</li><li>✨</li><li>🔒</li><li>🎧</li><li>🌐</li>
     </ul>
 
-    <!-- Entry Form Card Container -->
     <div class="entry-box">
+        <div class="top-bar" style="text-align: left; margin-bottom: 15px;">
+            <a href="dashboard.html" style="color: #4f46e5; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+
         <div class="header">
             <div class="logo">
                 <i class="fa-solid fa-headset"></i>
@@ -36,55 +29,35 @@
         </div>
 
         <form id="entryForm">
-
-            <!-- Reference (Logged-in Username, Read-only) -->
             <div class="input-group">
-                <label for="reference"><i class="fa-solid fa-user icon"></i> Reference User</label>
-                <input 
-                    type="text" 
-                    id="reference" 
-                    readonly 
-                    placeholder="Loading User..."
-                    autocomplete="off">
+                <label for="reference" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
+                    <i class="fa-solid fa-user icon"></i> Reference User
+                </label>
+                <input type="text" id="reference" readonly placeholder="Loading User..." autocomplete="off">
             </div>
 
-            <!-- IP Address Input -->
             <div class="input-group">
-                <label for="ipAddress"><i class="fa-solid fa-network-wired icon"></i> IP Address</label>
-                <input 
-                    type="text" 
-                    id="ipAddress" 
-                    placeholder="e.g. 192.168.1.100" 
-                    required>
+                <label for="ipAddress" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
+                    <i class="fa-solid fa-network-wired icon"></i> IP Address
+                </label>
+                <input type="text" id="ipAddress" placeholder="e.g. 192.168.1.100" required>
             </div>
 
-            <!-- Problem Description Input -->
             <div class="input-group">
-                <label for="problem"><i class="fa-solid fa-triangle-exclamation icon"></i> Problem Details</label>
-                <textarea 
-                    id="problem" 
-                    rows="4" 
-                    placeholder="Describe the issue in detail..." 
-                    required></textarea>
+                <label for="problem" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
+                    <i class="fa-solid fa-triangle-exclamation icon"></i> Problem Details
+                </label>
+                <textarea id="problem" rows="4" placeholder="Describe the issue in detail..." required></textarea>
             </div>
 
-            <!-- Response Message Area -->
             <div id="message"></div>
 
-            <!-- Submit Button -->
             <button id="submitBtn" type="submit">
                 <i class="fa-solid fa-paper-plane"></i> SUBMIT ENTRY
             </button>
-
         </form>
-
-        <div class="footer">
-            <a href="dashboard.html"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-        </div>
     </div>
 
-    <!-- JavaScript Logic -->
     <script src="entry.js"></script>
-
 </body>
 </html>
