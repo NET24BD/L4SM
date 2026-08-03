@@ -29,6 +29,7 @@
         </div>
 
         <form id="entryForm">
+            <!-- 1. Reference User (Auto Loaded & Readonly) -->
             <div class="input-group">
                 <label for="reference" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
                     <i class="fa-solid fa-user icon"></i> Reference User
@@ -36,13 +37,15 @@
                 <input type="text" id="reference" readonly placeholder="Loading User..." autocomplete="off">
             </div>
 
+            <!-- 2. Customer ID -->
             <div class="input-group">
-                <label for="ipAddress" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
-                    <i class="fa-solid fa-network-wired icon"></i> IP Address
+                <label for="customerId" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
+                    <i class="fa-solid fa-id-card icon"></i> Customer ID
                 </label>
-                <input type="text" id="ipAddress" placeholder="e.g. 192.168.1.100" required>
+                <input type="text" id="customerId" placeholder="e.g. CUST-1001" required>
             </div>
 
+            <!-- 3. Problem Details -->
             <div class="input-group">
                 <label for="problem" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
                     <i class="fa-solid fa-triangle-exclamation icon"></i> Problem Details
