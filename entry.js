@@ -15,13 +15,13 @@ document.getElementById("entryForm").addEventListener("submit", async function(e
     e.preventDefault();
 
     const reference = document.getElementById("reference").value;
-    const ipAddress = document.getElementById("ipAddress").value.trim();
+    const customerId = document.getElementById("customerId").value.trim();
     const problem = document.getElementById("problem").value.trim();
     const message = document.getElementById("message");
     const btn = document.getElementById("submitBtn");
 
-    if (!ipAddress || !problem) {
-        message.innerHTML = "Please fill in all fields.";
+    if (!customerId || !problem) {
+        message.innerHTML = "Please fill in all required fields.";
         message.style.color = "#dc2626";
         return;
     }
@@ -36,7 +36,7 @@ document.getElementById("entryForm").addEventListener("submit", async function(e
             body: JSON.stringify({
                 action: "addEntry",
                 reference: reference,
-                ipAddress: ipAddress,
+                customerId: customerId,
                 problem: problem
             })
         });
@@ -46,7 +46,9 @@ document.getElementById("entryForm").addEventListener("submit", async function(e
         if (data.success) {
             message.innerHTML = "Entry Created Successfully!";
             message.style.color = "#16a34a";
-            document.getElementById("ipAddress").value = "";
+            
+            // Clear inputs except Reference
+            document.getElementById("customerId").value = "";
             document.getElementById("problem").value = "";
         } else {
             message.innerHTML = data.message || "Failed to submit entry.";
