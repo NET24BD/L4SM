@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Support Entry - eSupport System</title>
     <link rel="stylesheet" href="entry.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css">
 </head>
 <body>
 
@@ -14,8 +14,9 @@
     </ul>
 
     <div class="entry-box">
+        <!-- Back to Dashboard -->
         <div class="top-bar" style="text-align: left; margin-bottom: 15px;">
-            <a href="dashboard.html" style="color: #4f46e5; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+            <a href="1d.html" style="color: #4f46e5; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
             </a>
         </div>
@@ -29,28 +30,28 @@
         </div>
 
         <form id="entryForm">
-            <!-- 1. Reference User (Auto Loaded & Readonly) -->
+            <!-- 1. Customer ID -->
             <div class="input-group">
-                <label for="reference" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
-                    <i class="fa-solid fa-user icon"></i> Reference User
-                </label>
-                <input type="text" id="reference" readonly placeholder="Loading User..." autocomplete="off">
-            </div>
-
-            <!-- 2. Customer ID -->
-            <div class="input-group">
-                <label for="customerId" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
+                <label for="customerId">
                     <i class="fa-solid fa-id-card icon"></i> Customer ID
                 </label>
                 <input type="text" id="customerId" placeholder="e.g. CUST-1001" required>
             </div>
 
-            <!-- 3. Problem Details -->
+            <!-- 2. Problem Details -->
             <div class="input-group">
-                <label for="problem" style="display: block; text-align: left; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: #1f2937;">
+                <label for="problem">
                     <i class="fa-solid fa-triangle-exclamation icon"></i> Problem Details
                 </label>
                 <textarea id="problem" rows="4" placeholder="Describe the issue in detail..." required></textarea>
+            </div>
+
+            <!-- 3. Reference User (Sobar Niche & Auto Loaded) -->
+            <div class="input-group">
+                <label for="reference">
+                    <i class="fa-solid fa-user icon"></i> Reference User
+                </label>
+                <input type="text" id="reference" readonly placeholder="Loading User..." autocomplete="off">
             </div>
 
             <div id="message"></div>
