@@ -1,35 +1,144 @@
-<form action="" get=""
+/* ===================================
+   eSupport Login CSS
+=================================== */
 
-enctype="multipart/form-data"
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
-onsubmit="return login()">
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:#698D94;
+}
 
-<div class="input-box">
+.login-box{
+    width:380px;
+    background:#fff;
+    border-radius:12px;
+    padding:35px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    text-align:center;
+}
 
-<input type="text" id="user"
+.logo{
+    width:70px;
+    height:70px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    background:#698D94;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-size:30px;
+}
 
-class="input-field" required>
+h2{
+    color:#333;
+    margin-bottom:5px;
+}
 
-<label for="user" class="label">ব্যবহারকারীর নাম
+p{
+    color:#777;
+    margin-bottom:25px;
+}
 
-</ label>
+.input-group{
+    position:relative;
+    margin-bottom:18px;
+}
 
-<i class="bx bx-user icon"></i>
+.input-group input{
+    width:100%;
+    height:50px;
+    border:1px solid #d5d5d5;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+    padding-left:45px;
+    padding-right:45px;
+    transition:.3s;
+}
 
-</div>
+.input-group input:focus{
+    border-color:#698D94;
+}
 
-<div class="input-box">
+/* Left Icon */
 
-<input type="password" id="pass"
+.icon{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#777;
+}
 
-class="input-field" autocomplete="off">
+/* Eye Icon */
 
-<label for="pass" class="label">পাসওয়ার্ড</label>
+#togglePassword{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#777;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:20px;
+    height:20px;
+}
 
-<i class="bx bx-lock-alt icon"
+/* Message */
 
-id="show-password"> </i>
+#message{
+    min-height:20px;
+    font-size:14px;
+    margin-bottom:10px;
+    font-weight:600;
+}
 
-</div>
+/* Button */
 
-</form>
+button{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:8px;
+    background:#698D94;
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#56767d;
+}
+
+/* Footer */
+
+.footer{
+    margin-top:20px;
+    font-size:13px;
+    color:#777;
+}
+
+/* Responsive */
+
+@media(max-width:450px){
+
+.login-box{
+    width:95%;
+    padding:25px;
+}
+
+}
