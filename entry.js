@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("entryForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const reference = document.getElementById("reference").value;
     const customerId = document.getElementById("customerId").value.trim();
     const problem = document.getElementById("problem").value.trim();
+    const reference = document.getElementById("reference").value;
     const message = document.getElementById("message");
     const btn = document.getElementById("submitBtn");
 
@@ -35,9 +35,9 @@ document.getElementById("entryForm").addEventListener("submit", async function(e
             headers: { "Content-Type": "text/plain;charset=utf-8" },
             body: JSON.stringify({
                 action: "addEntry",
-                reference: reference,
                 customerId: customerId,
-                problem: problem
+                problem: problem,
+                reference: reference
             })
         });
 
@@ -47,7 +47,6 @@ document.getElementById("entryForm").addEventListener("submit", async function(e
             message.innerHTML = "Entry Created Successfully!";
             message.style.color = "#16a34a";
             
-            // Clear inputs except Reference
             document.getElementById("customerId").value = "";
             document.getElementById("problem").value = "";
         } else {
