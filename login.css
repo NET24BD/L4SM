@@ -1,216 +1,144 @@
 /* ===================================
-   eSupport System Modern CSS
-   =================================== */
+eSupport Login CSS
+=================================== */
 
-:root {
-  --primary-color: #4f46e5;
-  --primary-hover: #4338ca;
-  --text-main: #1f2937;
-  --text-muted: #6b7280;
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.5);
-  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
-  --radius-lg: 20px;
-  --radius-md: 10px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
 }
 
-/* Reset */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+body{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+background:#698D94;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
-  /* Dark Gradient Background */
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-  padding: 20px;
+.login-box{
+width:380px;
+background:#fff;
+border-radius:12px;
+padding:35px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+text-align:center;
 }
 
-/* Live Floating Background Emojis */
-.background-emojis {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 1;
+.logo{
+width:70px;
+height:70px;
+margin:0 auto 20px;
+border-radius:50%;
+background:#698D94;
+display:flex;
+justify-content:center;
+align-items:center;
+color:#fff;
+font-size:30px;
 }
 
-.background-emojis li {
-  position: absolute;
-  display: block;
-  list-style: none;
-  font-size: 2.5rem;
-  bottom: -150px;
-  animation: floatUp 20s linear infinite;
-  opacity: 0.6;
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+h2{
+color:#333;
+margin-bottom:5px;
 }
 
-.background-emojis li:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 3rem; }
-.background-emojis li:nth-child(2) { left: 25%; animation-delay: 3s; animation-duration: 18s; }
-.background-emojis li:nth-child(3) { left: 40%; animation-delay: 6s; font-size: 2rem; }
-.background-emojis li:nth-child(4) { left: 55%; animation-delay: 1s; animation-duration: 22s; }
-.background-emojis li:nth-child(5) { left: 70%; animation-delay: 8s; }
-.background-emojis li:nth-child(6) { left: 85%; animation-delay: 4s; animation-duration: 16s; }
-.background-emojis li:nth-child(7) { left: 18%; animation-delay: 11s; font-size: 3.5rem; }
-.background-emojis li:nth-child(8) { left: 78%; animation-delay: 14s; }
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  80% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-120vh) rotate(360deg);
-    opacity: 0;
-  }
+p{
+color:#777;
+margin-bottom:25px;
 }
 
-/* Login Box (Glassmorphism Effect) */
-.login-box {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  max-width: 400px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: 40px 30px;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
+.input-group{
+position:relative;
+margin-bottom:18px;
 }
 
-/* Logo Structure */
-.logo {
-  width: 75px;
-  height: 75px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-color), #818cf8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  font-size: 32px;
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+.input-group input{
+width:100%;
+height:50px;
+border:1px solid #d5d5d5;
+border-radius:8px;
+outline:none;
+font-size:15px;
+padding-left:45px;
+padding-right:45px;
+transition:.3s;
 }
 
-h2 {
-  color: var(--text-main);
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 6px;
+.input-group input:focus{
+border-color:#698D94;
 }
 
-p {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 25px;
+/* Left Icon */
+
+.icon{
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+color:#777;
 }
 
-/* Input Fields */
-.input-group {
-  position: relative;
-  margin-bottom: 20px;
+/* Eye Icon */
+
+#togglePassword{
+position:absolute;
+right:15px;
+top:50%;
+transform:translateY(-50%);
+color:#777;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+width:20px;
+height:20px;
 }
 
-.input-group input {
-  width: 100%;
-  height: 52px;
-  border: 1.5px solid rgba(209, 213, 219, 0.8);
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: var(--radius-md);
-  font-size: 15px;
-  padding: 0 45px;
-  outline: none;
-  transition: var(--transition);
-  color: var(--text-main);
+/* Message */
+
+#message{
+min-height:20px;
+font-size:14px;
+margin-bottom:10px;
+font-weight:600;
 }
 
-.input-group input:focus {
-  border-color: var(--primary-color);
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+/* Button */
+
+button{
+width:100%;
+height:50px;
+border:none;
+border-radius:8px;
+background:#698D94;
+color:#fff;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
 }
 
-.icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted);
-  pointer-events: none;
-}
-
-#togglePassword {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-#togglePassword:hover {
-  color: var(--primary-color);
-}
-
-/* Feedback Message */
-#message {
-  min-height: 20px;
-  font-size: 13.5px;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-/* Login Button */
-button {
-  width: 100%;
-  height: 52px;
-  border: none;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--primary-color), #6366f1);
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-}
-
-button:hover {
-  background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.45);
-}
-
-button:active {
-  transform: translateY(0);
+button:hover{
+background:#56767d;
 }
 
 /* Footer */
-.footer {
-  margin-top: 22px;
-  font-size: 13px;
-  color: var(--text-muted);
+
+.footer{
+margin-top:20px;
+font-size:13px;
+color:#777;
+}
+
+/* Responsive */
+
+@media(max-width:450px){
+
+.login-box{
+width:95%;
+padding:25px;
+}
+
 }
