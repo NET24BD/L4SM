@@ -2,84 +2,106 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>eSupport System Login</title>
-    
-    <!-- Custom CSS -->
+
     <link rel="stylesheet" href="login.css">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
 
 <body>
 
-    <!-- Live Floating Background Emojis -->
-    <ul class="background-emojis">
-        <li>🚀</li>
-        <li>💻</li>
-        <li>⚡</li>
-        <li>🛡️</li>
-        <li>✨</li>
-        <li>🔒</li>
-        <li>🎧</li>
-        <li>🌐</li>
-    </ul>
+<div class="login-box">
 
-    <!-- Login Box Container -->
-    <div class="login-box">
-
-        <div class="logo">
-            <i class="fa-solid fa-headset"></i>
-        </div>
-
-        <h2>eSupport System</h2>
-        <p>Login to continue</p>
-
-        <form id="loginForm">
-
-            <!-- Username -->
-            <div class="input-group">
-                <i class="fa-solid fa-user icon"></i>
-                <input
-                    type="text"
-                    id="username"
-                    placeholder="Username"
-                    autocomplete="username"
-                    required>
-            </div>
-
-            <!-- Password -->
-            <div class="input-group password-group">
-                <i class="fa-solid fa-lock icon"></i>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                    autocomplete="current-password"
-                    required>
-                <span id="togglePassword">
-                    <i class="fa-solid fa-eye"></i>
-                </span>
-            </div>
-
-            <div id="message"></div>
-
-            <button id="loginBtn" type="submit">
-                LOGIN
-            </button>
-
-        </form>
-
-        <div class="footer">
-            © 2026 eSupport System
-        </div>
-
+    <div class="logo">
+        <i class="fa-solid fa-headset"></i>
     </div>
 
-    <!-- JavaScript File -->
-    <script src="login.js"></script>
+    <h2>eSupport System</h2>
+
+    <p>Login to continue</p>
+
+    <form id="loginForm">
+
+        <!-- Username -->
+
+        <div class="input-group">
+
+            <i class="fa-solid fa-user icon"></i>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                autocomplete="username"
+                required>
+
+        </div>
+
+        <!-- Password -->
+
+        <div class="input-group password-group">
+
+            <i class="fa-solid fa-lock icon"></i>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required>
+
+            <span id="togglePassword">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+
+        </div>
+
+        <div id="message"></div>
+
+        <button id="loginBtn" type="submit">
+            LOGIN
+        </button>
+
+    </form>
+
+    <div class="footer">
+        © 2026 eSupport System
+    </div>
+
+</div>
+
+<script>
+
+const password=document.getElementById("password");
+const toggle=document.getElementById("togglePassword");
+
+toggle.onclick=function(){
+
+    if(password.type==="password"){
+
+        password.type="text";
+        toggle.innerHTML='<i class="fa-solid fa-eye-slash"></i>';
+
+    }else{
+
+        password.type="password";
+        toggle.innerHTML='<i class="fa-solid fa-eye"></i>';
+
+    }
+
+};
+
+</script>
+
+<script src="login.js"></script>
 
 </body>
+
 </html>
