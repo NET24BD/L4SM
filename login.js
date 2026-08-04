@@ -1,241 +1,76 @@
-/* ==========================================
-   LOGIN SYSTEM JS
-   Google Sheet API Connection
-========================================== */
-
-
-const API_URL = "https://script.google.com/macros/s/AKfycbxV8eXKDB0HIuUfCPqMn-DH0icDIWv95diK_wgDs_M/dev";
-
-
-/* ==========================
-   LOGIN FUNCTION
-========================== */
-
-function loginUser(){
-
-    let username = document
-        .getElementById("username")
-        .value
-        .trim();
-
-    let password = document
-        .getElementById("password")
-        .value
-        .trim();
-
-
-    if(username === "" || password === ""){
-
-        alert("Username and Password required!");
-        return;
-
-    }
-
-
-    let btn = document.getElementById("loginBtn");
-
-    if(btn){
-        btn.innerHTML = "Checking...";
-        btn.disabled = true;
-    }
-
-
-
-    fetch(API_URL,{
-        method:"POST",
-
-        body:JSON.stringify({
-
-            action:"login",
-            username:username,
-            password:password
-
-        })
-
-    })
-
-
-    .then(res=>res.json())
-
-
-    .then(data=>{
-
-
-        if(btn){
-
-            btn.innerHTML="Login";
-            btn.disabled=false;
-
-        }
-
-
-
-        if(data.success){
-
-
-            // Save Login Data
-
-            localStorage.setItem(
-                "user",
-                JSON.stringify(data.user)
-            );
-
-
-
-            localStorage.setItem(
-                "login",
-                "true"
-            );
-
-
-
-            let role = data.user.role;
-
-
-
-            // Role Based Dashboard
-
-
-            if(role==="admin"){
-
-                window.location.href="admin.html";
-
-            }
-
-
-            else if(role==="support"){
-
-                window.location.href="support.html";
-
-            }
-
-
-            else if(role==="call"){
-
-                window.location.href="call.html";
-
-            }
-
-
-            else if(role==="manager"){
-
-                window.location.href="manager.html";
-
-            }
-
-
-            else if(role==="guest"){
-
-                window.location.href="guest.html";
-
-            }
-
-
-            else{
-
-                window.location.href="dashboard.html";
-
-            }
-
-
-        }
-
-
-        else{
-
-
-            alert(data.message || "Login Failed");
-
-
-        }
-
-
-
-    })
-
-
-    .catch(error=>{
-
-
-        console.log(error);
-
-        alert(
-          "Server connection error!"
-        );
-
-
-        if(btn){
-
-            btn.innerHTML="Login";
-            btn.disabled=false;
-
-        }
-
-
+// আপনার Google Apps Script Web App URL
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec';
+
+/**
+ * লগইন ফাংশন
+ * @param {string} username - ইউজারনেম
+ * @param {string} password - পাসওয়ার্ড
+ */
+async function handleLogin(username, password) {
+  const messageElement = document.getElementById('login-message');
+  
+  if (messageElement) {
+    messageElement.style.color = 'blue';
+    messageElement.innerText = "লগইন প্রসেস হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...";
+  }
+
+  try {
+    // Google Apps Script-এ CORS সমস্যা এড়াতে text/plain পেলোড ব্যবহার করা হয়
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        username: username.trim(),
+        password: password.trim()
+      })
     });
 
+    const data = await response.json();
 
+    if (data.status === 'success') {
+      console.log('User Details:', data.user);
 
-}
+      if (messageElement) {
+        messageElement.style.color = 'green';
+        messageElement.innerText = `স্বাগতম, ${data.user.name}!`;
+      }
 
+      // ব্রাউজারে ইউজার ডাটা সেভ রাখা (Session Management)
+      localStorage.setItem('user', JSON.stringify(data.user));
 
+      // সফল লগইনের পর অন্য পেজে রিডাইরেক্ট করতে চাইলে নিচের লাইনটির কমেন্ট তুলে দিন:
+      // window.location.href = 'dashboard.html';
 
-/* ==========================
-   ENTER BUTTON LOGIN
-========================== */
-
-
-document.addEventListener(
-"keypress",
-function(e){
-
-    if(e.key==="Enter"){
-
-        loginUser();
-
+    } else {
+      if (messageElement) {
+        messageElement.style.color = 'red';
+        messageElement.innerText = data.message;
+      }
     }
 
+  } catch (error) {
+    console.error('Error during login:', error);
+    if (messageElement) {
+      messageElement.style.color = 'red';
+      messageElement.innerText = "সার্ভারে কানেক্ট করতে সমস্যা হচ্ছে! আবার চেষ্টা করুন।";
+    }
+  }
+}
+
+// Form Submit Event Listeners (যদি আপনার HTML-এ form থাকে)
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('login-form');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const usernameInput = document.getElementById('username').value;
+      const passwordInput = document.getElementById('password').value;
+
+      handleLogin(usernameInput, passwordInput);
+    });
+  }
 });
-
-
-
-/* ==========================
-   LOGOUT FUNCTION
-========================== */
-
-
-function logout(){
-
-
-    localStorage.removeItem("user");
-
-    localStorage.removeItem("login");
-
-
-    window.location.href="index.html";
-
-
-}
-
-
-
-/* ==========================
-   CHECK LOGIN
-========================== */
-
-
-function checkLogin(){
-
-
-    let login =
-    localStorage.getItem("login");
-
-
-    if(login!=="true"){
-
-        window.location.href="index.html";
-
-    }
-
-
-}
