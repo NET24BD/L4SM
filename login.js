@@ -1,147 +1,241 @@
 /* ==========================================
-   eSupport System Login
+   LOGIN SYSTEM JS
+   Google Sheet API Connection
 ========================================== */
 
-const API = "https://script.google.com/macros/s/AKfycbxV8eXKDB0HIuUfCPqMn-DH0icDIWv95diK_wgDs_M/dev?action=users";
 
-const form = document.getElementById("loginForm");
-const username = document.getElementById("username");
-const password = document.getElementById("password");
-const loginBtn = document.getElementById("loginBtn");
-const message = document.getElementById("message");
+const API_URL = "https://script.google.com/macros/s/AKfycbxV8eXKDB0HIuUfCPqMn-DH0icDIWv95diK_wgDs_M/dev";
+
 
 /* ==========================
-   Already Login
+   LOGIN FUNCTION
 ========================== */
 
-if (localStorage.getItem("isLogin") === "true") {
+function loginUser(){
 
-    const role = localStorage.getItem("role");
+    let username = document
+        .getElementById("username")
+        .value
+        .trim();
 
-    switch (role) {
+    let password = document
+        .getElementById("password")
+        .value
+        .trim();
 
-        case "admin":
-            location.replace("admin.html");
-            break;
 
-        case "support":
-            location.replace("support.html");
-            break;
+    if(username === "" || password === ""){
 
-        case "call":
-            location.replace("call.html");
-            break;
-
-        case "manager":
-            location.replace("manager.html");
-            break;
-
-        case "guest":
-            location.replace("guest.html");
-            break;
-
-    }
-
-}
-
-/* ==========================
-   Login
-========================== */
-
-form.addEventListener("submit", async function (e) {
-
-    e.preventDefault();
-
-    const user = username.value.trim();
-    const pass = password.value.trim();
-
-    message.innerHTML = "";
-
-    if (!user || !pass) {
-
-        message.innerHTML = "Please enter Username & Password";
+        alert("Username and Password required!");
         return;
 
     }
 
-    loginBtn.disabled = true;
-    loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in...';
 
-    try {
+    let btn = document.getElementById("loginBtn");
 
-        const response = await fetch(
-
-            `${API}?action=login&username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`
-
-        );
-
-        const data = await response.json();
-
-        if (!data.success) {
-
-            message.innerHTML = data.message;
-
-            loginBtn.disabled = false;
-            loginBtn.innerHTML = "LOGIN";
-
-            return;
-
-        }
-
-        /* Save Session */
-
-        localStorage.setItem("isLogin", "true");
-        localStorage.setItem("username", data.username);
-        localStorage.setItem("name", data.name);
-        localStorage.setItem("role", data.role);
-        localStorage.setItem("picture", data.picture);
-
-        /* Redirect */
-
-        switch (data.role.toLowerCase()) {
-
-            case "admin":
-                location.replace("admin.html");
-                break;
-
-            case "support":
-                location.replace("support.html");
-                break;
-
-            case "call":
-                location.replace("call.html");
-                break;
-
-            case "manager":
-                location.replace("manager.html");
-                break;
-
-            case "guest":
-                location.replace("guest.html");
-                break;
-
-            default:
-
-                localStorage.clear();
-
-                message.innerHTML = "Unknown Role";
-
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = "LOGIN";
-
-        }
-
+    if(btn){
+        btn.innerHTML = "Checking...";
+        btn.disabled = true;
     }
 
-    catch (err) {
 
-        console.error(err);
 
-        message.innerHTML = "Server Connection Failed";
+    fetch(API_URL,{
+        method:"POST",
 
-        loginBtn.disabled = false;
-        loginBtn.innerHTML = "LOGIN";
+        body:JSON.stringify({
+
+            action:"login",
+            username:username,
+            password:password
+
+        })
+
+    })
+
+
+    .then(res=>res.json())
+
+
+    .then(data=>{
+
+
+        if(btn){
+
+            btn.innerHTML="Login";
+            btn.disabled=false;
+
+        }
+
+
+
+        if(data.success){
+
+
+            // Save Login Data
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(data.user)
+            );
+
+
+
+            localStorage.setItem(
+                "login",
+                "true"
+            );
+
+
+
+            let role = data.user.role;
+
+
+
+            // Role Based Dashboard
+
+
+            if(role==="admin"){
+
+                window.location.href="admin.html";
+
+            }
+
+
+            else if(role==="support"){
+
+                window.location.href="support.html";
+
+            }
+
+
+            else if(role==="call"){
+
+                window.location.href="call.html";
+
+            }
+
+
+            else if(role==="manager"){
+
+                window.location.href="manager.html";
+
+            }
+
+
+            else if(role==="guest"){
+
+                window.location.href="guest.html";
+
+            }
+
+
+            else{
+
+                window.location.href="dashboard.html";
+
+            }
+
+
+        }
+
+
+        else{
+
+
+            alert(data.message || "Login Failed");
+
+
+        }
+
+
+
+    })
+
+
+    .catch(error=>{
+
+
+        console.log(error);
+
+        alert(
+          "Server connection error!"
+        );
+
+
+        if(btn){
+
+            btn.innerHTML="Login";
+            btn.disabled=false;
+
+        }
+
+
+    });
+
+
+
+}
+
+
+
+/* ==========================
+   ENTER BUTTON LOGIN
+========================== */
+
+
+document.addEventListener(
+"keypress",
+function(e){
+
+    if(e.key==="Enter"){
+
+        loginUser();
 
     }
 
 });
+
+
+
+/* ==========================
+   LOGOUT FUNCTION
+========================== */
+
+
+function logout(){
+
+
+    localStorage.removeItem("user");
+
+    localStorage.removeItem("login");
+
+
+    window.location.href="index.html";
+
+
+}
+
+
+
+/* ==========================
+   CHECK LOGIN
+========================== */
+
+
+function checkLogin(){
+
+
+    let login =
+    localStorage.getItem("login");
+
+
+    if(login!=="true"){
+
+        window.location.href="index.html";
+
+    }
+
+
+}
