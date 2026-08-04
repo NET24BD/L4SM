@@ -11,96 +11,92 @@
     <link rel="stylesheet" href="login.css">
 
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="login-box">
+    <div class="login-box">
 
-    <div class="logo">
-        <i class="fa-solid fa-headset"></i>
-    </div>
-
-    <h2>eSupport System</h2>
-
-    <p>Login to continue</p>
-
-    <form id="loginForm">
-
-        <!-- Username -->
-
-        <div class="input-group">
-
-            <i class="fa-solid fa-user icon"></i>
-
-            <input
-                type="text"
-                id="username"
-                placeholder="Username"
-                autocomplete="username"
-                required>
-
+        <div class="logo">
+            <i class="fa-solid fa-headset"></i>
         </div>
 
-        <!-- Password -->
+        <h2>eSupport System</h2>
 
-        <div class="input-group password-group">
+        <p>Login to continue</p>
 
-            <i class="fa-solid fa-lock icon"></i>
+        <form id="loginForm">
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                autocomplete="current-password"
-                required>
+            <div class="input-group">
 
-            <span id="togglePassword">
-                <i class="fa-solid fa-eye"></i>
-            </span>
+                <i class="fa-solid fa-user icon"></i>
 
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Username"
+                    autocomplete="username"
+                    required>
+
+            </div>
+
+            <div class="input-group password-group">
+
+                <i class="fa-solid fa-lock icon"></i>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required>
+
+                <span id="togglePassword">
+                    <i class="fa-solid fa-eye"></i>
+                </span>
+
+            </div>
+
+            <div id="message"></div>
+
+            <button id="loginBtn" type="submit">
+                LOGIN
+            </button>
+
+        </form>
+
+        <div class="footer">
+            © 2026 eSupport System
         </div>
 
-        <div id="message"></div>
-
-        <button id="loginBtn" type="submit">
-            LOGIN
-        </button>
-
-    </form>
-
-    <div class="footer">
-        © 2026 eSupport System
     </div>
 
-</div>
+    <script>
 
-<script>
+        const password = document.getElementById("password");
+        const toggle = document.getElementById("togglePassword");
 
-const password=document.getElementById("password");
-const toggle=document.getElementById("togglePassword");
+        toggle.onclick = function () {
 
-toggle.onclick=function(){
+            if (password.type === "password") {
 
-    if(password.type==="password"){
+                password.type = "text";
+                toggle.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
 
-        password.type="text";
-        toggle.innerHTML='<i class="fa-solid fa-eye-slash"></i>';
+            } else {
 
-    }else{
+                password.type = "password";
+                toggle.innerHTML = '<i class="fa-solid fa-eye"></i>';
 
-        password.type="password";
-        toggle.innerHTML='<i class="fa-solid fa-eye"></i>';
+            }
 
-    }
+        };
 
-};
+    </script>
 
-</script>
-
-<script src="login.js"></script>
+    <script src="login.js"></script>
 
 </body>
 
