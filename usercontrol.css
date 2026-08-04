@@ -1,13 +1,13 @@
 /* =========================================================
    USER CONTROL DASHBOARD
-   PART 1
+   FINAL CSS - PART 1
 ========================================================= */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    font-family:"Segoe UI",Arial,sans-serif;
 }
 
 :root{
@@ -17,19 +17,18 @@
 
     --success:#16a34a;
     --danger:#dc2626;
-    --warning:#f59e0b;
 
-    --bg:#f4f7fb;
-    --white:#ffffff;
+    --bg:#f4f6fb;
+    --card:#ffffff;
 
     --text:#1f2937;
     --text-light:#6b7280;
 
     --border:#e5e7eb;
 
-    --shadow:0 10px 30px rgba(0,0,0,.08);
+    --shadow:0 10px 25px rgba(0,0,0,.08);
 
-    --radius:15px;
+    --radius:14px;
 
 }
 
@@ -40,9 +39,9 @@ body{
 
 }
 
-/*==========================
+/*==================================
 Container
-==========================*/
+==================================*/
 
 .container{
 
@@ -53,181 +52,74 @@ Container
 
 }
 
-/*==========================
-Header
-==========================*/
+/*==================================
+Top Bar
+==================================*/
 
-.header{
-
-    background:var(--white);
+.topbar{
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    padding:18px 25px;
-
-    border-radius:var(--radius);
-
-    box-shadow:var(--shadow);
-
-    margin-bottom:25px;
+    margin-bottom:20px;
 
 }
 
-.header-left h2{
+/*==================================
+Back Button
+==================================*/
 
-    font-size:28px;
-    font-weight:700;
+.back-btn{
 
     display:flex;
     align-items:center;
+    gap:8px;
 
-    gap:10px;
-
-}
-
-.header-left i{
-
-    color:var(--primary);
-
-}
-
-/*==========================
-Header Right
-==========================*/
-
-.header-right{
-
-    display:flex;
-    align-items:center;
-
-    gap:15px;
-
-}
-
-/*==========================
-Search
-==========================*/
-
-.search-box{
-
-    width:300px;
-    height:45px;
-
-    display:flex;
-    align-items:center;
-
-    border:1px solid var(--border);
-
-    border-radius:12px;
-
-    background:#fafafa;
-
-    padding:0 15px;
-
-}
-
-.search-box i{
-
-    color:#888;
-
-}
-
-.search-box input{
-
-    flex:1;
-
-    border:none;
-    outline:none;
-
-    background:none;
-
-    padding-left:10px;
-
-    font-size:15px;
-
-}
-
-/*==========================
-Add User Button
-==========================*/
-
-#addUserBtn{
-
-    border:none;
+    text-decoration:none;
 
     background:var(--primary);
-
     color:#fff;
 
-    padding:12px 18px;
+    padding:10px 16px;
 
-    border-radius:12px;
+    border-radius:10px;
 
-    cursor:pointer;
-
-    font-size:15px;
+    font-size:14px;
     font-weight:600;
 
     transition:.3s;
 
 }
 
-#addUserBtn:hover{
+.back-btn:hover{
 
     background:var(--primary-dark);
 
 }
 
-/*==========================
-Notification
-==========================*/
-
-.notification{
-
-    width:45px;
-    height:45px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#f8fafc;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-    transition:.3s;
-
-}
-
-.notification:hover{
-
-    background:#e5e7eb;
-
-}
-
-/*==========================
+/*==================================
 Profile
-==========================*/
+==================================*/
 
 .profile{
 
     display:flex;
-
     align-items:center;
 
-    gap:12px;
+    gap:10px;
+
+    background:#fff;
+
+    padding:8px 12px;
+
+    border-radius:12px;
 
     cursor:pointer;
 
     position:relative;
 
-    padding:8px 12px;
-
-    border-radius:12px;
+    box-shadow:var(--shadow);
 
     transition:.3s;
 
@@ -235,14 +127,14 @@ Profile
 
 .profile:hover{
 
-    background:#f5f5f5;
+    background:#f9fafb;
 
 }
 
 .profile img{
 
-    width:48px;
-    height:48px;
+    width:42px;
+    height:42px;
 
     border-radius:50%;
 
@@ -255,38 +147,129 @@ Profile
 .profile-info{
 
     display:flex;
-
     flex-direction:column;
 
 }
 
 .profile-info span{
 
-    font-weight:700;
-
-    font-size:15px;
+    font-size:14px;
+    font-weight:600;
 
 }
 
 .profile-info small{
 
-    color:var(--text-light);
+    font-size:11px;
 
-    font-size:12px;
+    color:var(--text-light);
 
 }
 
 .profile .fa-chevron-down{
 
-    font-size:13px;
+    font-size:12px;
 
     color:#888;
 
 }
 
-/*==========================
+/*==================================
+Profile Dropdown
+==================================*/
+
+.profile-dropdown{
+
+    position:absolute;
+
+    top:58px;
+    right:0;
+
+    width:170px;
+
+    background:#fff;
+
+    border-radius:12px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    overflow:hidden;
+
+    display:none;
+
+    z-index:999;
+
+}
+
+.profile-dropdown.show{
+
+    display:block;
+
+}
+
+.profile-dropdown a{
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    padding:13px 15px;
+
+    text-decoration:none;
+
+    color:#374151;
+
+    font-size:14px;
+
+    transition:.3s;
+
+}
+
+.profile-dropdown a:hover{
+
+    background:#f3f4f6;
+
+}
+
+.profile-dropdown i{
+
+    width:18px;
+
+}
+
+/*==================================
+Page Title
+==================================*/
+
+.page-title{
+
+    margin-bottom:18px;
+
+}
+
+.page-title h2{
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+.page-title i{
+
+    color:var(--primary);
+
+}
+
+/*==================================
 Cards
-==========================*/
+==================================*/
 
 .cards{
 
@@ -296,17 +279,17 @@ Cards
 
     gap:20px;
 
-    margin-bottom:25px;
+    margin-bottom:22px;
 
 }
 
 .card{
 
-    background:#fff;
+    background:var(--card);
 
-    border-radius:18px;
+    border-radius:16px;
 
-    padding:25px;
+    padding:22px;
 
     display:flex;
 
@@ -328,55 +311,171 @@ Cards
 
 .card h4{
 
-    color:#666;
+    font-size:13px;
 
-    margin-bottom:10px;
+    color:#6b7280;
 
-    font-size:15px;
+    margin-bottom:8px;
+
+    font-weight:600;
 
 }
 
 .card h2{
 
-    font-size:34px;
+    font-size:28px;
+
+    font-weight:700;
 
 }
 
 .card i{
 
-    font-size:45px;
+    font-size:42px;
 
-    opacity:.2;
+    opacity:.18;
 
 }
 
 .total{
 
-    border-left:6px solid var(--primary);
+    border-left:5px solid var(--primary);
 
 }
 
 .active{
 
-    border-left:6px solid var(--success);
+    border-left:5px solid var(--success);
 
 }
 
 .blocked{
 
-    border-left:6px solid var(--danger);
+    border-left:5px solid var(--danger);
+
+}
+/* =========================================================
+   USER CONTROL DASHBOARD
+   FINAL CSS - PART 2
+========================================================= */
+
+/*==================================
+Toolbar
+==================================*/
+
+.toolbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:20px;
 
 }
 
-/*==========================
+/*==================================
+Add User Button
+==================================*/
+
+#addUserBtn{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    height:44px;
+
+    padding:0 18px;
+
+    border:none;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:14px;
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+#addUserBtn:hover{
+
+    background:var(--primary-dark);
+
+}
+
+/*==================================
+Search Box
+==================================*/
+
+.search-box{
+
+    width:320px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+
+    border:1px solid var(--border);
+
+    background:#fff;
+
+    border-radius:10px;
+
+    padding:0 15px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.search-box i{
+
+    color:#9ca3af;
+
+    font-size:14px;
+
+}
+
+.search-box input{
+
+    flex:1;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+
+    padding-left:10px;
+
+    font-size:14px;
+
+    color:var(--text);
+
+}
+
+.search-box input::placeholder{
+
+    color:#9ca3af;
+
+}
+
+/*==================================
 Table
-==========================*/
+==================================*/
 
 .table-area{
 
     background:#fff;
 
-    border-radius:18px;
+    border-radius:16px;
 
     overflow:hidden;
 
@@ -396,136 +495,143 @@ thead{
 
     background:var(--primary);
 
-    color:#fff;
-
 }
 
 thead th{
 
-    padding:16px;
+    color:#fff;
+
+    font-size:13px;
+
+    font-weight:600;
 
     text-align:left;
 
-    font-size:15px;
+    padding:15px;
 
 }
 
 tbody td{
 
-    padding:16px;
+    padding:15px;
 
-    border-bottom:1px solid #eee;
+    font-size:13px;
 
-    font-size:14px;
+    border-bottom:1px solid #edf2f7;
 
 }
 
 tbody tr{
 
-    transition:.3s;
+    transition:.25s;
 
 }
 
 tbody tr:hover{
 
-    background:#f9fafb;
+    background:#f8fafc;
 
 }
-/*=========================================================
-USER CONTROL DASHBOARD
-PART 2
-=========================================================*/
 
-/*==========================
+tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+/*==================================
 Status Badge
-==========================*/
+==================================*/
 
 .status{
 
     display:inline-flex;
+
     align-items:center;
     justify-content:center;
 
-    min-width:90px;
+    min-width:85px;
 
-    padding:7px 14px;
+    height:30px;
+
+    padding:0 14px;
 
     border-radius:30px;
 
     color:#fff;
 
-    font-size:13px;
+    font-size:12px;
+
     font-weight:600;
 
 }
 
 .status.active{
 
-    background:#16a34a;
+    background:var(--success);
 
 }
 
 .status.blocked{
 
-    background:#dc2626;
+    background:var(--danger);
 
 }
 
-/*==========================
-Action Button
-==========================*/
+/*==================================
+Action Button (⋮)
+==================================*/
 
 .action-btn{
 
-    width:40px;
-    height:40px;
+    width:36px;
+    height:36px;
 
     border:none;
 
-    background:#f3f4f6;
-
     border-radius:10px;
+
+    background:#f3f4f6;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:.25s;
 
 }
 
 .action-btn:hover{
 
-    background:#2563eb;
+    background:var(--primary);
+
     color:#fff;
 
 }
 
-/*==========================
+/*==================================
 Action Menu
-==========================*/
+==================================*/
 
 .action-menu{
 
     position:absolute;
 
-    right:25px;
-
-    min-width:200px;
+    min-width:190px;
 
     background:#fff;
 
     border-radius:12px;
 
-    box-shadow:0 12px 30px rgba(0,0,0,.15);
-
-    display:none;
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
 
     overflow:hidden;
 
-    z-index:999;
+    display:none;
+
+    z-index:9999;
 
 }
 
-.action-menu.active{
+.action-menu.show{
 
     display:block;
 
@@ -535,33 +641,37 @@ Action Menu
 
     width:100%;
 
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
     border:none;
 
     background:none;
 
-    text-align:left;
-
-    padding:14px 18px;
+    padding:13px 16px;
 
     cursor:pointer;
 
-    font-size:14px;
+    font-size:13px;
 
-    transition:.3s;
+    color:#374151;
 
-}
-
-.action-menu button i{
-
-    width:20px;
-
-    margin-right:8px;
+    transition:.25s;
 
 }
 
 .action-menu button:hover{
 
-    background:#f4f7fb;
+    background:#f4f6fb;
+
+}
+
+.action-menu button i{
+
+    width:18px;
 
 }
 
@@ -571,89 +681,33 @@ Action Menu
 
 }
 
-/*==========================
-Profile Dropdown
-==========================*/
+.action-menu .delete:hover{
 
-.profile-dropdown{
-
-    position:absolute;
-
-    top:70px;
-
-    right:0;
-
-    width:220px;
-
-    background:#fff;
-
-    border-radius:12px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.12);
-
-    display:none;
-
-    overflow:hidden;
-
-    z-index:999;
+    background:#fee2e2;
 
 }
+/* =========================================================
+   USER CONTROL DASHBOARD
+   FINAL CSS - PART 3
+========================================================= */
 
-.profile-dropdown.show{
-
-    display:block;
-
-}
-
-.profile-dropdown a{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    text-decoration:none;
-
-    color:#333;
-
-    padding:14px 18px;
-
-    transition:.3s;
-
-}
-
-.profile-dropdown a:hover{
-
-    background:#f5f5f5;
-
-}
-
-.profile-dropdown i{
-
-    width:20px;
-
-}
-
-/*==========================
-Popup
-==========================*/
+/*==================================
+Popup Background
+==================================*/
 
 .popup{
 
     position:fixed;
-
     inset:0;
 
-    background:rgba(0,0,0,.45);
+    background:rgba(15,23,42,.45);
 
     display:none;
 
     justify-content:center;
-
     align-items:center;
 
-    z-index:9999;
+    z-index:99999;
 
 }
 
@@ -663,14 +717,13 @@ Popup
 
 }
 
-/*==========================
+/*==================================
 Popup Content
-==========================*/
+==================================*/
 
 .popup-content{
 
     width:900px;
-
     max-width:95%;
 
     background:#fff;
@@ -679,56 +732,55 @@ Popup Content
 
     padding:25px;
 
-    animation:popup .25s ease;
+    box-shadow:0 20px 50px rgba(0,0,0,.20);
+
+    animation:popupShow .25s ease;
 
 }
 
-@keyframes popup{
+@keyframes popupShow{
 
     from{
 
-        transform:scale(.90);
-
+        transform:translateY(20px) scale(.95);
         opacity:0;
 
     }
 
     to{
 
-        transform:scale(1);
-
+        transform:translateY(0) scale(1);
         opacity:1;
 
     }
 
 }
 
-/*==========================
+/*==================================
 Popup Header
-==========================*/
+==================================*/
 
 .popup-header{
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
-    margin-bottom:25px;
+    margin-bottom:22px;
 
 }
 
 .popup-header h2{
 
-    font-size:26px;
+    font-size:20px;
+    font-weight:700;
 
 }
 
 #closePopup{
 
-    width:42px;
-    height:42px;
+    width:38px;
+    height:38px;
 
     border:none;
 
@@ -740,13 +792,19 @@ Popup Header
 
     cursor:pointer;
 
-    font-size:18px;
+    transition:.25s;
 
 }
 
-/*==========================
+#closePopup:hover{
+
+    background:#dc2626;
+
+}
+
+/*==================================
 Form
-==========================*/
+==================================*/
 
 .form-grid{
 
@@ -761,53 +819,54 @@ Form
 .form-group{
 
     display:flex;
-
     flex-direction:column;
 
 }
 
 .form-group label{
 
-    margin-bottom:8px;
-
-    font-size:14px;
-
+    font-size:13px;
     font-weight:600;
+
+    margin-bottom:8px;
 
 }
 
 .form-group input,
 .form-group select{
 
-    height:48px;
+    height:45px;
 
     border:1px solid #d1d5db;
 
     border-radius:10px;
 
-    padding:0 15px;
+    padding:0 14px;
 
     outline:none;
 
-    font-size:14px;
+    font-size:13px;
+
+    transition:.25s;
 
 }
 
 .form-group input:focus,
 .form-group select:focus{
 
-    border-color:#2563eb;
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.12);
 
 }
 
-/*==========================
+/*==================================
 Popup Footer
-==========================*/
+==================================*/
 
 .popup-footer{
 
     display:flex;
-
     justify-content:flex-end;
 
     gap:12px;
@@ -818,43 +877,54 @@ Popup Footer
 
 .cancel-btn{
 
-    background:#e5e7eb;
-
     border:none;
 
-    padding:12px 20px;
+    background:#e5e7eb;
+
+    padding:11px 18px;
 
     border-radius:10px;
 
     cursor:pointer;
+
+    font-size:13px;
+
+}
+
+.cancel-btn:hover{
+
+    background:#d1d5db;
 
 }
 
 .save-btn{
 
-    background:#2563eb;
+    border:none;
+
+    background:var(--primary);
 
     color:#fff;
 
-    border:none;
-
-    padding:12px 20px;
+    padding:11px 20px;
 
     border-radius:10px;
 
     cursor:pointer;
 
+    font-size:13px;
+    font-weight:600;
+
 }
 
 .save-btn:hover{
 
-    background:#1d4ed8;
+    background:var(--primary-dark);
 
 }
 
-/*==========================
-Delete Confirm
-==========================*/
+/*==================================
+Delete Popup
+==================================*/
 
 .confirm-box{
 
@@ -862,15 +932,14 @@ Delete Confirm
 
     inset:0;
 
-    background:rgba(0,0,0,.45);
+    background:rgba(15,23,42,.45);
 
     display:none;
 
     justify-content:center;
-
     align-items:center;
 
-    z-index:10000;
+    z-index:100000;
 
 }
 
@@ -882,7 +951,9 @@ Delete Confirm
 
 .confirm-content{
 
-    width:420px;
+    width:400px;
+
+    max-width:95%;
 
     background:#fff;
 
@@ -891,6 +962,8 @@ Delete Confirm
     padding:30px;
 
     text-align:center;
+
+    animation:popupShow .25s ease;
 
 }
 
@@ -906,11 +979,15 @@ Delete Confirm
 
 .confirm-content h2{
 
+    font-size:22px;
+
     margin-bottom:10px;
 
 }
 
 .confirm-content p{
+
+    font-size:14px;
 
     color:#6b7280;
 
@@ -924,17 +1001,19 @@ Delete Confirm
 
     justify-content:center;
 
-    gap:15px;
+    gap:12px;
 
     margin-top:25px;
 
 }
 
-.confirm-btn button{
+#cancelDelete{
 
     border:none;
 
-    padding:12px 22px;
+    background:#e5e7eb;
+
+    padding:11px 18px;
 
     border-radius:10px;
 
@@ -942,27 +1021,31 @@ Delete Confirm
 
 }
 
-#cancelDelete{
-
-    background:#e5e7eb;
-
-}
-
 #confirmDelete{
+
+    border:none;
 
     background:#dc2626;
 
     color:#fff;
 
-}
-/*=========================================================
-USER CONTROL DASHBOARD
-PART 3 (FINAL)
-=========================================================*/
+    padding:11px 20px;
 
-/*==========================
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+#confirmDelete:hover{
+
+    background:#b91c1c;
+
+}
+
+/*==================================
 Scrollbar
-==========================*/
+==================================*/
 
 ::-webkit-scrollbar{
 
@@ -971,15 +1054,10 @@ Scrollbar
 
 }
 
-::-webkit-scrollbar-track{
-
-    background:#f1f5f9;
-
-}
-
 ::-webkit-scrollbar-thumb{
 
     background:#cbd5e1;
+
     border-radius:20px;
 
 }
@@ -990,67 +1068,114 @@ Scrollbar
 
 }
 
-/*==========================
-Table Animation
-==========================*/
+/*==================================
+Responsive
+==================================*/
 
-tbody tr{
+@media(max-width:992px){
 
-    animation:fadeIn .25s ease;
+    .cards{
 
-}
-
-@keyframes fadeIn{
-
-    from{
-
-        opacity:0;
-        transform:translateY(8px);
+        grid-template-columns:repeat(2,1fr);
 
     }
 
-    to{
+    .toolbar{
 
-        opacity:1;
-        transform:translateY(0);
+        flex-direction:column;
+        align-items:stretch;
+
+    }
+
+    .search-box{
+
+        width:100%;
+
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
 
     }
 
 }
 
-/*==========================
-Hover Effects
-==========================*/
+@media(max-width:768px){
 
-button{
+    .topbar{
 
-    transition:.25s;
+        flex-direction:column;
+        gap:15px;
+
+        align-items:flex-start;
+
+    }
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .table-area{
+
+        overflow:auto;
+
+    }
+
+    table{
+
+        min-width:700px;
+
+    }
+
+    .popup-content{
+
+        width:96%;
+        padding:20px;
+
+    }
 
 }
 
-button:active{
+@media(max-width:480px){
 
-    transform:scale(.96);
+    .container{
+
+        width:96%;
+
+    }
+
+    .page-title h2{
+
+        font-size:20px;
+
+    }
+
+    .card{
+
+        padding:18px;
+
+    }
+
+    .card h2{
+
+        font-size:24px;
+
+    }
+
+    .profile{
+
+        width:100%;
+
+    }
 
 }
 
-input,
-select{
-
-    transition:.25s;
-
-}
-
-input:focus,
-select:focus{
-
-    box-shadow:0 0 0 3px rgba(37,99,235,.15);
-
-}
-
-/*==========================
+/*==================================
 Utility
-==========================*/
+==================================*/
 
 .hidden{
 
@@ -1064,279 +1189,8 @@ Utility
 
 }
 
-.text-right{
-
-    text-align:right;
-
-}
-
 .w-100{
 
     width:100%;
-
-}
-
-/*==========================
-Tablet
-==========================*/
-
-@media(max-width:1024px){
-
-    .header{
-
-        flex-direction:column;
-        align-items:flex-start;
-        gap:20px;
-
-    }
-
-    .header-right{
-
-        width:100%;
-        flex-wrap:wrap;
-        gap:12px;
-
-    }
-
-    .search-box{
-
-        width:100%;
-        order:1;
-
-    }
-
-    #addUserBtn{
-
-        order:2;
-
-    }
-
-    .notification{
-
-        order:3;
-
-    }
-
-    .profile{
-
-        margin-left:auto;
-
-    }
-
-    .cards{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-    .form-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .popup-content{
-
-        width:95%;
-
-    }
-
-}
-
-/*==========================
-Mobile
-==========================*/
-
-@media(max-width:768px){
-
-    .container{
-
-        width:96%;
-
-        margin:15px auto;
-
-    }
-
-    .header-left h2{
-
-        font-size:22px;
-
-    }
-
-    .header-right{
-
-        flex-direction:column;
-        align-items:stretch;
-
-    }
-
-    .search-box{
-
-        width:100%;
-
-    }
-
-    #addUserBtn{
-
-        width:100%;
-
-    }
-
-    .notification{
-
-        width:100%;
-        border-radius:10px;
-
-    }
-
-    .profile{
-
-        width:100%;
-        justify-content:flex-start;
-
-    }
-
-    .cards{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .card{
-
-        padding:20px;
-
-    }
-
-    .card h2{
-
-        font-size:28px;
-
-    }
-
-    .table-area{
-
-        overflow-x:auto;
-
-    }
-
-    table{
-
-        min-width:700px;
-
-    }
-
-    .popup-content{
-
-        padding:20px;
-
-    }
-
-    .popup-header h2{
-
-        font-size:22px;
-
-    }
-
-    .popup-footer{
-
-        flex-direction:column;
-
-    }
-
-    .popup-footer button{
-
-        width:100%;
-
-    }
-
-    .confirm-content{
-
-        width:95%;
-
-    }
-
-}
-
-/*==========================
-Small Mobile
-==========================*/
-
-@media(max-width:480px){
-
-    .header{
-
-        padding:15px;
-
-    }
-
-    .card{
-
-        flex-direction:column;
-        align-items:flex-start;
-        gap:10px;
-
-    }
-
-    .card i{
-
-        font-size:36px;
-
-    }
-
-    .profile img{
-
-        width:42px;
-        height:42px;
-
-    }
-
-    .profile-info span{
-
-        font-size:14px;
-
-    }
-
-    .profile-info small{
-
-        font-size:11px;
-
-    }
-
-    .action-menu{
-
-        width:180px;
-
-    }
-
-}
-
-/*==========================
-Print
-==========================*/
-
-@media print{
-
-    .header,
-    .popup,
-    .confirm-box,
-    .action-menu{
-
-        display:none !important;
-
-    }
-
-    body{
-
-        background:#fff;
-
-    }
-
-    .table-area{
-
-        box-shadow:none;
-        border:1px solid #ddd;
-
-    }
 
 }
