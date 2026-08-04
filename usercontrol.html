@@ -1,170 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Control Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <title>User Control Center</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="usercontrol.css">
 </head>
 <body>
 
-<main class="main">
-  <!-- TOP BAR -->
-  <header class="topbar">
-    <div class="page-title">
-      <h1>User Control</h1>
-      <p>Simple Management System</p>
-    </div>
-
-    <div class="top-right">
-      <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input id="searchUser" type="text" placeholder="Search User...">
+<!-- Login Section -->
+<div id="loginView" class="login-wrapper">
+  <div class="login-card">
+    <h2><i class="fas fa-lock"></i> System Login</h2>
+    <div id="loginAlert" class="alert hidden"></div>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="loginUsername" required placeholder="Enter username">
       </div>
-
-      <div class="profile-dropdown">
-        <div class="profile" id="profileBtn">
-          <img id="profileImage" src="https://i.imgur.com/2DhmtJ4.png" alt="Profile">
-          <div>
-            <h4 id="profileName">Administrator</h4>
-            <span id="profileRole">Admin</span>
-          </div>
-        </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" required placeholder="Enter password">
       </div>
-    </div>
-  </header>
+      <button type="submit" id="loginBtn" class="btn btn-primary btn-block">Login</button>
+    </form>
+  </div>
+</div>
 
-  <!-- DASHBOARD CARDS -->
-  <section class="dashboard-cards">
-    <div class="card blue">
-      <div class="card-icon"><i class="fas fa-users"></i></div>
-      <div class="card-info">
-        <h2 id="totalUsers">0</h2>
+<!-- Main Dashboard Section -->
+<div id="dashboardView" class="dashboard-wrapper hidden">
+  <nav class="navbar">
+    <div class="nav-brand"><i class="fas fa-users-cog"></i> User Control Panel</div>
+    <div class="user-profile">
+      <img id="navPic" src="https://i.imgur.com/2DhmtJ4.png" alt="Profile">
+      <div>
+        <h4 id="navName">User Name</h4>
+        <span id="navRole" class="badge">Role</span>
+      </div>
+      <button onclick="logout()" class="btn-logout" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Stat Cards -->
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <h3 id="statTotal">0</h3>
         <p>Total Users</p>
       </div>
-    </div>
-
-    <div class="card green">
-      <div class="card-icon"><i class="fas fa-user-check"></i></div>
-      <div class="card-info">
-        <h2 id="activeUsers">0</h2>
+      <div class="stat-card green">
+        <h3 id="statActive">0</h3>
         <p>Active Users</p>
       </div>
-    </div>
-
-    <div class="card red">
-      <div class="card-icon"><i class="fas fa-user-slash"></i></div>
-      <div class="card-info">
-        <h2 id="inactiveUsers">0</h2>
-        <p>Inactive/Blocked</p>
+      <div class="stat-card red">
+        <h3 id="statBlocked">0</h3>
+        <p>Blocked/Inactive</p>
       </div>
     </div>
-  </section>
 
-  <!-- USER TABLE -->
-  <section class="table-section">
+    <!-- Table Search & Action Bar -->
     <div class="table-header">
-      <h2><i class="fas fa-users"></i> User List</h2>
-      <div class="table-buttons">
-        <button id="refreshBtn" class="btn btn-primary"><i class="fas fa-rotate"></i> Refresh</button>
-        <button id="addUserBtn" class="btn btn-success"><i class="fas fa-user-plus"></i> Add User</button>
-      </div>
+      <input type="text" id="searchBox" placeholder="Search by name, username..." oninput="searchUsers()">
+      <button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Add New User</button>
     </div>
 
+    <!-- User Data Table -->
     <div class="table-responsive">
       <table>
         <thead>
           <tr>
             <th>#</th>
-            <th>Picture</th>
+            <th>Avatar</th>
+            <th>Full Name</th>
             <th>Username</th>
             <th>Password</th>
-            <th>Name</th>
             <th>Role</th>
             <th>Status</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="userTableBody">
-          <tr>
-            <td colspan="8"><i class="fas fa-spinner fa-spin"></i> Loading Users...</td>
-          </tr>
+          <tr><td colspan="8" style="text-align:center;">Loading users...</td></tr>
         </tbody>
       </table>
     </div>
-  </section>
+  </main>
+</div>
 
-  <!-- USER MODAL -->
-  <div class="modal" id="userModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 id="modalTitle">Add New User</h2>
-        <button id="closeModal" class="close-btn"><i class="fas fa-times"></i></button>
+<!-- Add / Edit User Modal -->
+<div id="userModal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="modalTitle">Add New User</h3>
+    <form id="userForm" onsubmit="saveUser(event)">
+      <input type="hidden" id="rowNumber">
+      <input type="hidden" id="userId">
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="name" required placeholder="John Doe">
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" required placeholder="johndoe">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="text" id="password" required placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <select id="role">
+          <option value="Admin">Admin</option>
+          <option value="Manager">Manager</option>
+          <option value="User">User</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="status">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+          <option value="Blocked">Blocked</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Picture URL</label>
+        <input type="url" id="picture" placeholder="https://example.com/photo.jpg">
       </div>
 
-      <form id="userForm">
-        <input type="hidden" id="row">
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Username</label>
-            <input id="username" required>
-          </div>
-
-          <div class="form-group">
-            <label>Password</label>
-            <input id="password" required>
-          </div>
-
-          <div class="form-group">
-            <label>Name</label>
-            <input id="name" required>
-          </div>
-
-          <div class="form-group">
-            <label>Role</label>
-            <select id="role">
-              <option>Admin</option>
-              <option>Manager</option>
-              <option>User</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Status</label>
-            <select id="status">
-              <option>Active</option>
-              <option>Inactive</option>
-              <option>Blocked</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Picture URL</label>
-            <input id="picture" placeholder="https://...">
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
-          <button type="submit" class="btn btn-success">Save User</button>
-        </div>
-      </form>
-    </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button type="submit" id="saveBtn" class="btn btn-primary">Save User</button>
+      </div>
+    </form>
   </div>
-
-  <!-- LOADING OVERLAY -->
-  <div id="loading" class="loading-overlay">
-    <div class="loader">
-      <i class="fas fa-spinner fa-spin"></i>
-      <p>Please Wait...</p>
-    </div>
-  </div>
-
-  <!-- TOAST ALERT -->
-  <div id="toast" class="toast"></div>
-</main>
+</div>
 
 <script src="usercontrol.js"></script>
 </body>
