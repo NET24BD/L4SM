@@ -1,313 +1,126 @@
-// =================================
-// GOOGLE SHEET LOGIN SYSTEM
-// =================================
+/* ==========================================
+   LOGIN.JS
+========================================== */
 
+const API = "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
 
-const WEB_APP_URL = 
-"https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
+const loginForm = document.getElementById("loginForm");
+const username = document.getElementById("username");
+const password = document.getElementById("password");
+const loginBtn = document.getElementById("loginBtn");
+const msg = document.getElementById("msg");
 
+loginForm.addEventListener("submit", login);
 
-
-// Login Form
-
-document
-.getElementById("loginForm")
-.addEventListener("submit", login);
-
-
-
-
-
-async function login(e){
-
+async function login(e) {
 
     e.preventDefault();
 
+    const user = username.value.trim();
+    const pass = password.value.trim();
 
-
-    let username =
-    document.getElementById("username").value.trim();
-
-
-
-    let password =
-    document.getElementById("password").value.trim();
-
-
-
-    let message =
-    document.getElementById("message");
-
-
-
-    let btn =
-    document.getElementById("loginBtn");
-
-
-
-
-    if(username==="" || password===""){
-
-
-        message.innerHTML =
-        "Please enter Username and Password";
-
-
-        message.style.color="red";
-
+    if (!user || !pass) {
+        msg.innerHTML = "Enter Username & Password";
         return;
-
     }
 
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = "Logging in...";
 
+    try {
 
+        const res = await fetch(
+            `${API}?action=login&username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`
+        );
 
-    btn.innerHTML="Checking...";
+        const data = await res.json();
 
-    btn.disabled=true;
+        if (!data.success) {
 
-
-
-
-
-    try{
-
-
-
-        let response = await fetch(WEB_APP_URL,{
-
-
-            method:"POST",
-
-
-            headers:{
-
-
-                "Content-Type":
-                "text/plain;charset=utf-8"
-
-
-            },
-
-
-            body:JSON.stringify({
-
-
-                action:"login",
-
-
-                username:username,
-
-
-                password:password
-
-
-            })
-
-
-        });
-
-
-
-
-
-
-        let data = await response.json();
-
-
-
-
-
-        console.log(data);
-
-
-
-
-
-        if(data.success){
-
-
-
-
-
-            // SAVE LOGIN DATA
-
-
-            localStorage.setItem(
-                "user",
-                JSON.stringify(data)
-            );
-
-
-
-            localStorage.setItem(
-                "loggedIn",
-                "true"
-            );
-
-
-
-            localStorage.setItem(
-                "username",
-                data.name
-            );
-
-
-
-            localStorage.setItem(
-                "photo",
-                data.picture || "profile.png"
-            );
-
-
-
-
-
-
-
-            message.innerHTML =
-            "Login Successful";
-
-
-            message.style.color="green";
-
-
-
-
-
-
-
-            setTimeout(()=>{
-
-
-
-
-
-                // ROLE REDIRECT
-
-
-
-                if(data.role==="admin"){
-
-
-                    window.location.href="1d.html";
-
-
-                }
-
-
-
-                else if(data.role==="support"){
-
-
-                    window.location.href="support.html";
-
-
-                }
-
-
-
-
-                else if(data.role==="call"){
-
-
-                    window.location.href="call.html";
-
-
-                }
-
-
-
-
-                else if(data.role==="manager"){
-
-
-                    window.location.href="manager.html";
-
-
-                }
-
-
-
-
-                else{
-
-
-                    window.location.href="dashboard.html";
-
-
-                }
-
-
-
-
-
-            },700);
-
-
-
-
-
+            msg.innerHTML = data.message;
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = "Login";
+            return;
 
         }
 
-        else{
+        // Save Login Session
+        localStorage.setItem("isLogin", "true");
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("picture", data.picture);
 
+        // Role Redirect
+        switch (data.role.toLowerCase()) {
 
+            case "admin":
+                location.href = "admin.html";
+                break;
 
-            message.innerHTML =
-            data.message;
+            case "support":
+                location.href = "support.html";
+                break;
 
+            case "call":
+                location.href = "call.html";
+                break;
 
-            message.style.color="red";
+            case "manager":
+                location.href = "manager.html";
+                break;
 
+            case "guest":
+                location.href = "guest.html";
+                break;
 
-
+            default:
+                msg.innerHTML = "Invalid Role";
+                localStorage.clear();
         }
 
+    } catch (err) {
 
-
-
-
-
-    }
-
-    catch(error){
-
-
-
-        console.log(error);
-
-
-
-        message.innerHTML =
-        "Server Connection Failed";
-
-
-        message.style.color="red";
-
-
+        console.error(err);
+        msg.innerHTML = "Server Connection Failed";
 
     }
 
+    loginBtn.disabled = false;
+    loginBtn.innerHTML = "Login";
 
+}
 
+/* ==========================================
+   Already Login
+========================================== */
 
+if (localStorage.getItem("isLogin") === "true") {
 
-    finally{
+    const role = localStorage.getItem("role");
 
+    switch (role) {
 
+        case "admin":
+            location.href = "admin.html";
+            break;
 
-        btn.innerHTML="LOGIN";
+        case "support":
+            location.href = "support.html";
+            break;
 
-        btn.disabled=false;
+        case "call":
+            location.href = "call.html";
+            break;
 
+        case "manager":
+            location.href = "manager.html";
+            break;
 
+        case "guest":
+            location.href = "guest.html";
+            break;
 
     }
-
-
-
-
 
 }
