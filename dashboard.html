@@ -7,9 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>L4SM Dashboard</title>
-
 
 
 <link rel="stylesheet" href="dashboard.css">
@@ -22,22 +20,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </head>
 
 
-
 <body>
 
 
 
-<!-- =========================
-HEADER
-========================= -->
+<!-- SIDEBAR -->
+
+<div class="sidebar">
 
 
-<header class="topbar">
+<div class="brand">
 
-
-<div class="logo">
-
-<i class="fa-solid fa-chart-line"></i>
+<i class="fa-solid fa-layer-group"></i>
 
 L4SM
 
@@ -45,21 +39,97 @@ L4SM
 
 
 
+<ul>
 
 
-<div class="profile">
+<li onclick="openPage('dashboard.html')">
+
+<i class="fa-solid fa-house"></i>
+
+Dashboard
+
+</li>
 
 
 
-<div class="profile-box"
+<li onclick="openPage('usercontrol.html')">
+
+<i class="fa-solid fa-users"></i>
+
+Users
+
+</li>
+
+
+
+<li onclick="openPage('support.html')">
+
+<i class="fa-solid fa-headset"></i>
+
+Support
+
+</li>
+
+
+
+<li onclick="openPage('call.html')">
+
+<i class="fa-solid fa-phone"></i>
+
+Caller
+
+</li>
+
+
+
+<li onclick="openPage('manager.html')">
+
+<i class="fa-solid fa-user-tie"></i>
+
+Manager
+
+</li>
+
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- MAIN -->
+
+
+<div class="main">
+
+
+
+<header>
+
+
+
+<h2>
+Dashboard
+</h2>
+
+
+
+
+<div class="profile"
 onclick="toggleProfileMenu()">
 
 
 
-<img 
-id="profileImg"
-src="assets/profile.png"
-alt="Profile">
+<img id="profileImg"
+src="assets/profile.png">
 
 
 
@@ -69,23 +139,15 @@ User
 
 
 
-<i class="fa-solid fa-chevron-down"></i>
+
+<i class="fa-solid fa-angle-down"></i>
 
 
 
-</div>
-
-
-
-
-
-
-<!-- PROFILE MENU -->
 
 
 <div id="profileMenu"
 class="profile-menu">
-
 
 
 <button onclick="openMyAccount()">
@@ -98,8 +160,6 @@ My Account
 
 
 
-
-
 <button onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
@@ -107,7 +167,6 @@ My Account
 Logout
 
 </button>
-
 
 
 </div>
@@ -127,140 +186,54 @@ Logout
 
 
 
-
-<!-- =========================
-SIDEBAR
-========================= -->
-
-
-<div class="sidebar">
-
-
-
-<h3>
-MENU
-</h3>
-
-
-
-
-
-<button onclick="openPage('dashboard.html')">
-
-<i class="fa-solid fa-house"></i>
-
-Dashboard
-
-</button>
-
-
-
-
-
-
-<button onclick="openPage('usercontrol.html')">
-
-<i class="fa-solid fa-users"></i>
-
-User Control
-
-</button>
-
-
-
-
-
-
-<button onclick="openPage('support.html')">
-
-<i class="fa-solid fa-headset"></i>
-
-Support
-
-</button>
-
-
-
-
-
-
-<button onclick="openPage('call.html')">
-
-<i class="fa-solid fa-phone"></i>
-
-Caller
-
-</button>
-
-
-
-
-
-
-<button onclick="openPage('manager.html')">
-
-<i class="fa-solid fa-user-tie"></i>
-
-Manager
-
-</button>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- =========================
-MAIN CONTENT
-========================= -->
-
-
-<div class="main">
-
-
-
+<section class="welcome">
 
 
 <h1>
-Welcome,
+
+Welcome Back,
 <span id="username">
 User
 </span>
+
 </h1>
 
 
+<p>
+Manage your L4SM system from here
+</p>
+
+
+</section>
 
 
 
-<div class="cards">
 
 
 
 
 
-<div class="card">
+
+<section class="cards">
+
+
+
+<div class="card blue">
 
 
 <i class="fa-solid fa-users"></i>
 
+<div>
 
-<h2>
+<h3>
 Users
-</h2>
-
+</h3>
 
 <p>
-Manage Users
+Manage All Users
 </p>
+
+</div>
 
 
 </div>
@@ -270,23 +243,23 @@ Manage Users
 
 
 
-
-
-<div class="card">
+<div class="card green">
 
 
 <i class="fa-solid fa-headset"></i>
 
+<div>
 
-<h2>
+<h3>
 Support
-</h2>
-
+</h3>
 
 <p>
 Support Panel
 </p>
 
+</div>
+
 
 </div>
 
@@ -296,32 +269,101 @@ Support Panel
 
 
 
-
-<div class="card">
+<div class="card orange">
 
 
 <i class="fa-solid fa-phone"></i>
 
 
+<div>
+
+<h3>
+Calls
+</h3>
+
+<p>
+Caller Management
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card purple">
+
+
+<i class="fa-solid fa-chart-line"></i>
+
+
+<div>
+
+<h3>
+Reports
+</h3>
+
+<p>
+System Overview
+</p>
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="quick">
+
+
 <h2>
-Caller
+Quick Access
 </h2>
 
 
-<p>
-Call Management
-</p>
+
+<div class="buttons">
+
+
+<button onclick="openPage('usercontrol.html')">
+
+<i class="fa-solid fa-user-plus"></i>
+
+Add User
+
+</button>
+
+
+
+<button onclick="openMyAccount()">
+
+<i class="fa-solid fa-key"></i>
+
+Change Password
+
+</button>
 
 
 </div>
 
 
-
-
-
-
-
-</div>
+</section>
 
 
 
@@ -331,6 +373,8 @@ Call Management
 
 
 </div>
+
+
 
 
 
@@ -338,7 +382,6 @@ Call Management
 <script src="session.js"></script>
 
 <script src="dashboard.js"></script>
-
 
 
 </body>
