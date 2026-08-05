@@ -1,104 +1,254 @@
-const API_URL =
+const API_URL = 
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
-
-const form=document.getElementById("loginForm");
-
-const message=document.getElementById("message");
-
-const button=document.getElementById("loginBtn");
+const loginForm = document.getElementById("loginForm");
+const message = document.getElementById("message");
+const loginBtn = document.getElementById("loginBtn");
 
 
 
-form.addEventListener("submit",function(e){
+loginForm.addEventListener("submit", function(e){
+
+    e.preventDefault();
 
 
-e.preventDefault();
+    const username = document
+    .getElementById("username")
+    .value
+    .trim();
 
 
-
-let username=
-document.getElementById("username").value.trim();
-
-
-
-let password=
-document.getElementById("password").value.trim();
-
-
-
-
-button.innerHTML="CHECKING...";
-
-button.disabled=true;
+    const password = document
+    .getElementById("password")
+    .value
+    .trim();
 
 
 
+    if(username === "" || password === ""){
 
-fetch(API_URL,{
+        message.style.color = "red";
+        message.innerHTML = "Enter Username and Password";
 
-method:"POST",
+        return;
 
-headers:{
-
-"Content-Type":"text/plain;charset=utf-8"
-
-},
-
-
-body:JSON.stringify({
-
-username:username,
-
-password:password
-
-})
-
-
-})
-
-
-.then(res=>res.json())
-
-
-.then(data=>{
-
-
-console.log(data);
+    }
 
 
 
-if(data.success){
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = "CHECKING...";
 
 
 
-localStorage.setItem("isLogin","true");
+    fetch(API_URL,{
 
-localStorage.setItem("username",data.username);
+        method:"POST",
 
-localStorage.setItem("name",data.name);
-
-localStorage.setItem("role",data.role);
-
-localStorage.setItem("picture",data.picture);
+        headers:{
+            "Content-Type":"text/plain;charset=utf-8"
+        },
 
 
+        body:JSON.stringify({
 
-message.style.color="green";
+            username:username,
 
-message.innerHTML="Login Success";
+            password:password
 
-
-
-setTimeout(()=>{
-
-
-window.location.href="dashboard.html";
+        })
 
 
-},1000);
+    })
 
+
+    .then(response=>response.json())
+
+
+    .then(data=>{
+
+
+        console.log(data);
+
+
+
+        if(data.success === true){
+
+
+
+            // Save User Data
+
+            localStorage.setItem(
+                "isLogin",
+                "true"
+            );
+
+
+            localStorage.setItem(
+                "username",
+                data.username
+            );
+
+
+            localStorage.setItem(
+                "name",
+                data.name
+            );
+
+
+            localStorage.setItem(
+                "role",
+                data.role
+            );
+
+
+            localStorage.setItem(
+                "picture",
+                data.picture || ""
+            );
+
+
+
+
+            message.style.color="green";
+
+            message.innerHTML="Login Successful";
+
+
+
+
+            // Role Based Redirect
+
+            setTimeout(()=>{
+
+
+                let role = data.role;
+
+
+                if(role === "Admin"){
+
+                    window.location.href="dashboard.html";
+
+                }
+
+
+                else if(role === "Support"){
+
+                    window.location.href="support.html";
+
+                }
+
+
+                else if(role === "Caller"){
+
+                    window.location.href="call.html";
+
+                }
+
+
+                else if(role === "Manager"){
+
+                    window.location.href="manager.html";
+
+                }
+
+
+                else if(role === "Guest"){
+
+                    window.location.href="guest.html";
+
+                }
+
+
+                else{
+
+                    window.location.href="guest.html";
+
+                }
+
+
+
+            },1000);
+
+
+
+        }
+
+
+
+        else{
+
+
+            message.style.color="red";
+
+            message.innerHTML=data.message;
+
+
+
+        }
+
+
+
+    })
+
+
+    .catch(error=>{
+
+
+        console.log(error);
+
+
+        message.style.color="red";
+
+        message.innerHTML="Server Connection Error";
+
+
+    })
+
+
+    .finally(()=>{
+
+
+        loginBtn.disabled=false;
+
+        loginBtn.innerHTML="LOGIN";
+
+
+    });
+
+
+
+});
+
+
+
+
+
+// Password Show / Hide
+
+const togglePassword = document.getElementById("togglePassword");
+
+
+if(togglePassword){
+
+
+togglePassword.onclick=function(){
+
+
+const password =
+document.getElementById("password");
+
+
+
+if(password.type==="password"){
+
+
+password.type="text";
+
+
+togglePassword.innerHTML =
+'<i class="fa-solid fa-eye-slash"></i>';
 
 
 }
@@ -106,78 +256,18 @@ window.location.href="dashboard.html";
 else{
 
 
-message.style.color="red";
-
-message.innerHTML=data.message;
+password.type="password";
 
 
-}
-
-
-})
-
-
-.catch(err=>{
-
-
-console.log(err);
-
-
-message.style.color="red";
-
-message.innerHTML="Server Connection Error";
-
-
-})
-
-
-.finally(()=>{
-
-
-button.disabled=false;
-
-button.innerHTML="LOGIN";
-
-
-});
-
-
-});
-
-
-
-
-
-// Password Show Hide
-
-
-document
-.getElementById("togglePassword")
-.onclick=function(){
-
-
-let pass=document.getElementById("password");
-
-
-if(pass.type==="password"){
-
-
-pass.type="text";
-
-this.innerHTML='<i class="fa-solid fa-eye-slash"></i>';
+togglePassword.innerHTML =
+'<i class="fa-solid fa-eye"></i>';
 
 
 }
 
-else{
-
-
-pass.type="password";
-
-this.innerHTML='<i class="fa-solid fa-eye"></i>';
-
-
-}
 
 
 };
+
+
+}
