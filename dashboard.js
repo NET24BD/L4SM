@@ -1,80 +1,79 @@
 // ===============================
-// LOGIN CHECK
+// Login Check
 // ===============================
 
+if (localStorage.getItem("isLogin") !== "true") {
 
-let userData = localStorage.getItem("user");
-
-
-if(!userData){
-
-    window.location.replace("login.html");
+    window.location.href = "login.html";
 
 }
 
 
-
-
 // ===============================
-// LOAD USER DATA
+// Load User Information
 // ===============================
 
-
-let user = JSON.parse(userData);
-
+document.addEventListener("DOMContentLoaded", function () {
 
 
-if(user){
+    const name = localStorage.getItem("name");
+    const username = localStorage.getItem("username");
+    const picture = localStorage.getItem("picture");
 
 
-    // Username Show
+    // Header Username
+    const userElements = document.querySelectorAll("#username");
 
-    let usernameElements = document.querySelectorAll("#username");
+    userElements.forEach(function(el){
 
-
-    usernameElements.forEach(function(el){
-
-        el.innerHTML = user.name || user.username;
+        el.innerHTML = name || username || "User";
 
     });
 
 
-
     // Profile Image
 
-    if(user.picture){
+    const profileImg = document.getElementById("profileImg");
 
-        document.getElementById("profileImg").src = user.picture;
+
+    if(picture && picture !== ""){
+
+        profileImg.src = picture;
 
     }
 
+
+});
+
+
+
+// ===============================
+// Profile Menu Toggle
+// ===============================
+
+function toggleProfileMenu(){
+
+    const menu = document.getElementById("profileMenu");
+
+
+    if(menu.style.display === "block"){
+
+        menu.style.display = "none";
+
+    }
+    else{
+
+        menu.style.display = "block";
+
+    }
 
 }
 
 
 
-
 // ===============================
-// PREVENT BACK AFTER LOGOUT
+// Open Page
 // ===============================
-
-
-history.pushState(null,null,location.href);
-
-
-window.onpopstate=function(){
-
-    history.go(1);
-
-};
-
-
-
-
-// ===============================
-// CARD REDIRECT
-// ===============================
-
 
 function openPage(page){
 
@@ -84,113 +83,43 @@ function openPage(page){
 
 
 
-
-
 // ===============================
-// PROFILE DROPDOWN
+// Logout
 // ===============================
-
-
-function toggleProfileMenu(){
-
-
-    let menu=document.getElementById("profileMenu");
-
-
-    if(menu.style.display==="block"){
-
-        menu.style.display="none";
-
-    }
-
-    else{
-
-        menu.style.display="block";
-
-    }
-
-
-}
-
-
-
-
-
-// ===============================
-// LOGOUT
-// ===============================
-
 
 function logout(){
 
 
-    localStorage.removeItem("user");
-
-    localStorage.removeItem("loggedIn");
-
+    localStorage.removeItem("isLogin");
     localStorage.removeItem("username");
-
-    localStorage.removeItem("photo");
-
-
-    window.location.replace("login.html");
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+    localStorage.removeItem("picture");
 
 
-}
-
-
-
-
-
-// ===============================
-// AUTO LOGOUT AFTER 10 MINUTES
-// ===============================
-
-
-let logoutTime = 10 * 60 * 1000;
-
-
-let timer;
-
-
-
-function resetTimer(){
-
-
-    clearTimeout(timer);
-
-
-    timer=setTimeout(()=>{
-
-
-        alert(
-        "10 minutes inactive. You have been logged out."
-        );
-
-
-        logout();
-
-
-    },logoutTime);
+    window.location.href = "login.html";
 
 
 }
 
 
 
-
 // ===============================
-// USER ACTIVITY CHECK
+// Close Menu Outside Click
 // ===============================
 
+document.addEventListener("click", function(e){
 
-window.onload = resetTimer;
+
+    const profile = document.querySelector(".profile");
+    const menu = document.getElementById("profileMenu");
 
 
-document.onmousemove = resetTimer;
+    if(profile && !profile.contains(e.target)){
 
-document.onkeypress = resetTimer;
+        menu.style.display = "none";
 
-document.onclick = resetTimer;
+    }
 
-document.onscroll = resetTimer;
+
+});
