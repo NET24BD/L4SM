@@ -1,44 +1,70 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>User Control</title>
+<title>User Control Panel</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="usercontrol.css">
 
 </head>
+
 
 <body>
 
 
 <div class="container">
 
+
 <h2>User Control Panel</h2>
 
 
-<div class="form">
+
+<div class="form-box">
+
 
 <input id="username" placeholder="Username">
 
+
 <input id="password" placeholder="Password">
+
 
 <input id="name" placeholder="Name">
 
 
+
 <select id="role">
-<option value="Admin">Admin</option>
-<option value="User">User</option>
+
+<option value="Admin">
+Admin
+</option>
+
+<option value="User">
+User
+</option>
+
 </select>
+
 
 
 <select id="status">
-<option value="Active">Active</option>
-<option value="Inactive">Inactive</option>
+
+<option value="Active">
+Active
+</option>
+
+<option value="Inactive">
+Inactive
+</option>
+
 </select>
 
 
+
 <input id="picture" placeholder="Picture URL">
+
 
 
 <button onclick="addUser()">
@@ -50,23 +76,27 @@ Add User
 
 
 
+
 <hr>
+
 
 
 <h3>User List</h3>
 
 
+
 <table>
+
 
 <thead>
 
 <tr>
 
+<th>Picture</th>
 <th>Username</th>
 <th>Name</th>
 <th>Role</th>
 <th>Status</th>
-<th>Picture</th>
 <th>Action</th>
 
 </tr>
@@ -74,20 +104,24 @@ Add User
 </thead>
 
 
+
 <tbody id="userList">
 
 </tbody>
 
 
+
 </table>
+
 
 
 </div>
 
 
 
-<script src="script.js"></script>
+<script src="usercontrol.js"></script>
 
 
 </body>
+
 </html>
