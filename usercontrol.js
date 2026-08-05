@@ -1,4 +1,7 @@
-// Load User Profile
+// ============================
+// LOAD PROFILE
+// ============================
+
 
 document.addEventListener("DOMContentLoaded",function(){
 
@@ -9,23 +12,14 @@ let picture = localStorage.getItem("picture");
 
 
 
-let userName = document.getElementById("userName");
-
-let profileImg = document.getElementById("profileImg");
-
-
-
-if(userName){
-
-userName.innerHTML = name || "User";
-
-}
+document.getElementById("userName").innerHTML =
+name || "User";
 
 
 
-if(profileImg && picture){
+if(picture && picture!=""){
 
-profileImg.src = picture;
+document.getElementById("profileImg").src = picture;
 
 }
 
@@ -37,32 +31,30 @@ profileImg.src = picture;
 
 
 
-// Profile Menu Open Close
+// ============================
+// PROFILE MENU
+// ============================
 
 
-document.addEventListener("DOMContentLoaded",function(){
+let profileBtn =
+document.getElementById("profileBtn");
 
 
-const profile = document.getElementById("profile");
-
-const menu = document.getElementById("profileMenu");
-
-
-
-if(profile && menu){
+let profileMenu =
+document.getElementById("profileMenu");
 
 
 
-profile.addEventListener("click",function(e){
+profileBtn.addEventListener("click",function(e){
 
 
 e.stopPropagation();
 
 
-if(menu.style.display === "block"){
+if(profileMenu.style.display=="block"){
 
 
-menu.style.display="none";
+profileMenu.style.display="none";
 
 
 }
@@ -70,14 +62,14 @@ menu.style.display="none";
 else{
 
 
-menu.style.display="block";
+profileMenu.style.display="block";
 
 
 }
 
 
-
 });
+
 
 
 
@@ -85,15 +77,7 @@ menu.style.display="block";
 document.addEventListener("click",function(){
 
 
-menu.style.display="none";
-
-
-});
-
-
-
-}
-
+profileMenu.style.display="none";
 
 
 });
@@ -102,41 +86,52 @@ menu.style.display="none";
 
 
 
+// ============================
+// BACK BUTTON
+// ============================
 
 
-// Back Button
+document.getElementById("backBtn")
+.onclick=function(){
 
-
-function goBack(){
 
 window.location.href="dashboard.html";
 
-}
+
+};
 
 
 
 
 
+// ============================
+// MY ACCOUNT
+// ============================
 
 
-// Open Page
+document.getElementById("accountBtn")
+.onclick=function(e){
 
 
-function openPage(page){
-
-window.location.href=page;
-
-}
+e.stopPropagation();
 
 
+window.location.href="my-account.html";
+
+
+};
 
 
 
 
-// Logout
+
+// ============================
+// LOGOUT
+// ============================
 
 
-function logout(){
+document.getElementById("logoutBtn")
+.onclick=function(){
 
 
 localStorage.clear();
@@ -145,4 +140,22 @@ localStorage.clear();
 window.location.href="login.html";
 
 
-}
+};
+
+
+
+
+
+// ============================
+// ADD USER
+// ============================
+
+
+document.getElementById("addUserBtn")
+.onclick=function(){
+
+
+alert("Add User Coming Soon");
+
+
+};
