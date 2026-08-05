@@ -1,75 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
+<meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>User Control Panel</title>
+
+<title>User Control</title>
+
 
 <link rel="stylesheet" href="usercontrol.css">
 
+
+<link rel="stylesheet" href="loading.css">
+
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
 </head>
+
 
 
 <body>
 
 
+
 <div class="container">
 
 
-<h2>User Control Panel</h2>
 
 
 
-<div class="form-box">
+<!-- HEADER -->
 
 
-<input id="username" placeholder="Username">
-
-
-<input id="password" placeholder="Password">
-
-
-<input id="name" placeholder="Name">
+<header>
 
 
 
-<select id="role">
+<button class="back-btn" id="backBtn">
 
-<option value="Admin">
-Admin
-</option>
+<i class="fa-solid fa-arrow-left"></i>
 
-<option value="User">
-User
-</option>
-
-</select>
-
-
-
-<select id="status">
-
-<option value="Active">
-Active
-</option>
-
-<option value="Inactive">
-Inactive
-</option>
-
-</select>
-
-
-
-<input id="picture" placeholder="Picture URL">
-
-
-
-<button onclick="addUser()">
-Add User
 </button>
+
+
+
+
+
+<div class="title">
+
+<h2>
+
+User Control
+
+</h2>
+
+</div>
+
+
+
+
+
+
+
+
+<!-- PROFILE -->
+
+
+<div class="profile" id="profileBtn">
+
+
+
+<img id="profileImg" src="profile.png">
+
+
+
+
+
+<div class="profile-info">
+
+
+<h4 id="userName">
+
+Username
+
+</h4>
+
+
+
+<p>
+
+Online
+
+</p>
+
 
 
 </div>
@@ -77,37 +107,256 @@ Add User
 
 
 
-<hr>
 
 
 
-<h3>User List</h3>
+
+<!-- PROFILE MENU -->
+
+
+<div class="profile-menu" id="profileMenu">
+
+
+
+<div id="accountBtn">
+
+
+<i class="fa-solid fa-user"></i>
+
+My Account
+
+
+</div>
+
+
+
+
+
+
+<div id="logoutBtn">
+
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</header>
+
+
+
+
+
+
+
+
+
+<!-- LOADING AREA -->
+
+
+<div id="loadingArea"></div>
+
+
+
+
+
+
+
+
+
+<!-- USER LIST -->
+
+
+<div class="user-box">
+
+
+
+
+
+<div class="top">
+
+
+
+
+
+<h3>
+
+
+<i class="fa-solid fa-users"></i>
+
+
+Users List
+
+
+</h3>
+
+
+
+
+
+
+
+<div class="search-box">
+
+
+<i class="fa-solid fa-search"></i>
+
+
+
+<input 
+
+type="text"
+
+id="searchUser"
+
+placeholder="Search User...">
+
+
+</div>
+
+
+
+
+
+
+
+
+<button id="addUserBtn">
+
+
+<i class="fa-solid fa-user-plus"></i>
+
+
+Add User
+
+
+</button>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="table-area">
 
 
 
 <table>
 
 
+
 <thead>
+
 
 <tr>
 
-<th>Picture</th>
-<th>Username</th>
-<th>Name</th>
-<th>Role</th>
-<th>Status</th>
-<th>Action</th>
+
+<th>
+
+Picture
+
+</th>
+
+
+<th>
+
+Username
+
+</th>
+
+
+<th>
+
+Name
+
+</th>
+
+
+<th>
+
+Role
+
+</th>
+
+
+<th>
+
+Status
+
+</th>
+
+
+<th>
+
+Action
+
+</th>
+
 
 </tr>
+
+
 
 </thead>
 
 
 
-<tbody id="userList">
+
+
+
+
+<tbody id="userTable">
+
+
+<tr>
+
+<td colspan="6">
+
+Loading...
+
+</td>
+
+
+</tr>
+
+
 
 </tbody>
+
+
+
+
 
 
 
@@ -119,9 +368,323 @@ Add User
 
 
 
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- USER FORM MODAL -->
+
+
+<div class="modal" id="userModal">
+
+
+
+
+
+<div class="modal-box">
+
+
+
+
+
+<button class="close-modal" id="closeModal">
+
+
+<i class="fa-solid fa-xmark"></i>
+
+
+</button>
+
+
+
+
+
+
+
+<h2 id="formTitle">
+
+
+Add User
+
+
+</h2>
+
+
+
+
+
+
+
+
+<input
+
+type="text"
+
+id="username"
+
+placeholder="Username">
+
+
+
+
+
+
+<input
+
+type="password"
+
+id="password"
+
+placeholder="Password">
+
+
+
+
+
+
+<input
+
+type="text"
+
+id="name"
+
+placeholder="Full Name">
+
+
+
+
+
+
+
+<select id="role">
+
+
+<option>
+
+Admin
+
+</option>
+
+
+<option>
+
+Support
+
+</option>
+
+
+<option>
+
+Caller
+
+</option>
+
+
+<option>
+
+Manager
+
+</option>
+
+
+<option>
+
+Guest
+
+</option>
+
+
+
+</select>
+
+
+
+
+
+
+
+
+<select id="status">
+
+
+<option>
+
+Active
+
+</option>
+
+
+<option>
+
+Block
+
+</option>
+
+
+
+</select>
+
+
+
+
+
+
+
+
+<input
+
+type="text"
+
+id="picture"
+
+placeholder="Picture URL">
+
+
+
+
+
+
+
+<div class="form-buttons">
+
+
+
+<button id="saveUser">
+
+<i class="fa-solid fa-save"></i>
+
+Save
+
+</button>
+
+
+
+
+
+
+<button id="cancelUser">
+
+Cancel
+
+</button>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- SUCCESS POPUP -->
+
+
+<div class="popup" id="popupBox">
+
+
+
+
+
+<div class="popup-content">
+
+
+
+
+
+<i class="fa-solid fa-circle-check"></i>
+
+
+
+
+
+<h3 id="popupTitle">
+
+Success
+
+</h3>
+
+
+
+
+
+
+<p id="popupMessage">
+
+Done
+
+</p>
+
+
+
+
+
+
+<button onclick="closePopup()">
+
+OK
+
+</button>
+
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+<script src="loading.js"></script>
+
+
 <script src="usercontrol.js"></script>
 
 
+
+
 </body>
+
 
 </html>
