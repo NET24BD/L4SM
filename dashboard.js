@@ -1,41 +1,52 @@
-// ===============================
-// Login Check
-// ===============================
-
-if(localStorage.getItem("isLogin") !== "true"){
-
-    window.location.href="login.html";
-
-}
+// =====================================
+// DASHBOARD JS
+// =====================================
 
 
-
-
-// ===============================
-// Load User Information
-// ===============================
+// =====================================
+// LOAD USER DATA
+// =====================================
 
 document.addEventListener("DOMContentLoaded",function(){
 
 
 
-const name =
+// Dashboard visited
+
+localStorage.setItem(
+    "dashboardAccess",
+    "true"
+);
+
+
+
+
+
+let name =
 localStorage.getItem("name");
 
 
-const username =
+
+let username =
 localStorage.getItem("username");
 
 
-const picture =
+
+let picture =
 localStorage.getItem("picture");
 
 
 
 
-// Username Show
 
-document.querySelectorAll("#username")
+
+// ===============================
+// USER NAME SHOW
+// ===============================
+
+
+document
+.querySelectorAll("#username")
 .forEach(function(el){
 
 
@@ -51,10 +62,15 @@ document.querySelectorAll("#username")
 
 
 
-// Profile Image
+
+// ===============================
+// PROFILE IMAGE
+// ===============================
+
 
 const profileImg =
 document.getElementById("profileImg");
+
 
 
 
@@ -62,11 +78,14 @@ if(profileImg){
 
 
 
-    if(picture && picture.trim() !== ""){
+    if(
+    picture &&
+    picture.trim() !== ""
+    ){
 
 
-        profileImg.src = picture;
-
+        profileImg.src =
+        picture;
 
 
     }
@@ -81,7 +100,7 @@ if(profileImg){
 
 
 
-    // Image Error Backup
+
 
     profileImg.onerror=function(){
 
@@ -108,9 +127,9 @@ if(profileImg){
 
 
 
-// ===============================
-// Profile Menu
-// ===============================
+// =====================================
+// PROFILE MENU TOGGLE
+// =====================================
 
 
 function toggleProfileMenu(){
@@ -122,7 +141,9 @@ document.getElementById("profileMenu");
 
 
 
-if(!menu) return;
+if(!menu)
+return;
+
 
 
 
@@ -153,15 +174,16 @@ menu.style.display="block";
 
 
 
-// ===============================
-// Open Page
-// ===============================
+// =====================================
+// OPEN PAGE
+// =====================================
 
 
 function openPage(page){
 
 
-window.location.href=page;
+window.location.href =
+page;
 
 
 }
@@ -174,9 +196,31 @@ window.location.href=page;
 
 
 
-// ===============================
-// Logout
-// ===============================
+// =====================================
+// MY ACCOUNT
+// =====================================
+
+
+function openMyAccount(){
+
+
+window.location.href =
+"my-account.html";
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================================
+// LOGOUT
+// =====================================
 
 
 function logout(){
@@ -186,7 +230,8 @@ function logout(){
 localStorage.clear();
 
 
-window.location.href="login.html";
+window.location.href =
+"login.html";
 
 
 }
@@ -199,12 +244,14 @@ window.location.href="login.html";
 
 
 
-// ===============================
-// Close Menu
-// ===============================
+// =====================================
+// CLOSE PROFILE MENU
+// =====================================
 
 
-document.addEventListener("click",function(e){
+document.addEventListener(
+"click",
+function(e){
 
 
 
@@ -212,23 +259,24 @@ const profile =
 document.querySelector(".profile");
 
 
+
 const menu =
 document.getElementById("profileMenu");
 
 
 
-if(profile && menu){
+
+
+if(
+profile &&
+menu &&
+!profile.contains(e.target)
+){
 
 
 
-if(!profile.contains(e.target)){
-
-
-menu.style.display="none";
-
-
-}
-
+menu.style.display =
+"none";
 
 
 }
