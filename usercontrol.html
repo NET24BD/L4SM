@@ -24,11 +24,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
+
 <div class="container">
 
 
 
+<!-- ================= HEADER ================= -->
+
+
 <header>
+
 
 
 <button class="back-btn" id="backBtn">
@@ -40,67 +45,111 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
+
 <div class="title">
 
-<h2>User Control</h2>
+<h2>
+
+User Control
+
+</h2>
 
 </div>
 
 
 
 
+
+
+
+
+<!-- PROFILE -->
 
 
 <div class="profile" id="profileBtn">
 
 
+
 <img id="profileImg" src="profile.png">
+
+
+
 
 
 <div class="profile-info">
 
+
 <h4 id="userName">
+
 Username
+
 </h4>
 
+
+
 <p>
+
 Online
+
 </p>
+
 
 </div>
 
 
 
+
+
+
+
+<!-- PROFILE MENU -->
 
 
 <div class="profile-menu" id="profileMenu">
 
 
+
 <div id="accountBtn">
+
 
 <i class="fa-solid fa-user"></i>
 
+
 My Account
 
+
 </div>
+
+
 
 
 
 <div id="logoutBtn">
 
+
 <i class="fa-solid fa-right-from-bracket"></i>
+
 
 Logout
 
-</div>
-
-
 
 </div>
 
 
 
+
+
 </div>
+
+
+
+
+
+
+</div>
+
+
 
 
 
@@ -114,21 +163,36 @@ Logout
 
 
 
+<!-- ================= USER LIST ================= -->
+
+
 
 <div class="user-box">
+
+
 
 
 
 <div class="top">
 
 
+
+
+
 <h3>
+
 
 <i class="fa-solid fa-users"></i>
 
+
 Users List
 
+
 </h3>
+
+
+
+
 
 
 
@@ -139,10 +203,15 @@ Users List
 <i class="fa-solid fa-search"></i>
 
 
+
 <input 
+
 type="text"
+
 id="searchUser"
+
 placeholder="Search User...">
+
 
 
 </div>
@@ -152,13 +221,21 @@ placeholder="Search User...">
 
 
 
+
+
 <button id="addUserBtn">
+
 
 <i class="fa-solid fa-user-plus"></i>
 
+
 Add User
 
+
 </button>
+
+
+
 
 
 
@@ -175,29 +252,55 @@ Add User
 <div class="table-area">
 
 
+
 <table>
+
+
 
 
 <thead>
 
+
 <tr>
 
-<th>Picture</th>
 
-<th>Username</th>
+<th>
+Picture
+</th>
 
-<th>Name</th>
 
-<th>Role</th>
+<th>
+Username
+</th>
 
-<th>Status</th>
 
-<th>Action</th>
+<th>
+Name
+</th>
+
+
+<th>
+Role
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
 
 
 </tr>
 
+
+
 </thead>
+
+
 
 
 
@@ -207,11 +310,13 @@ Add User
 
 <tr>
 
+
 <td colspan="6">
 
 Loading...
 
 </td>
+
 
 </tr>
 
@@ -220,12 +325,13 @@ Loading...
 
 
 
+
+
+
+
 </table>
 
 
-</div>
-
-
 
 </div>
 
@@ -233,56 +339,110 @@ Loading...
 
 
 
+</div>
 
 
 
 
-<!-- ADD EDIT FORM -->
+
+
+
+
+
+
+
+
+
+
+<!-- ================= ADD EDIT FORM ================= -->
+
 
 
 <div class="modal" id="userModal">
+
+
+
 
 
 <div class="modal-box">
 
 
 
+
+
+
 <button class="close-modal" id="closeModal">
 
+
 <i class="fa-solid fa-xmark"></i>
+
 
 </button>
 
 
 
 
+
+
+
+
 <h2 id="formTitle">
 
+
 Add User
+
 
 </h2>
 
 
 
 
-<input 
+
+
+
+
+<input
+
 type="text"
+
 id="username"
+
 placeholder="Username">
 
 
 
+
+
+
+
+
 <input
+
 type="password"
+
 id="password"
+
 placeholder="Password">
 
 
 
+
+
+
+
+
 <input
+
 type="text"
+
 id="name"
+
 placeholder="Full Name">
+
+
+
+
+
 
 
 
@@ -291,18 +451,54 @@ placeholder="Full Name">
 <select id="role">
 
 
-<option>Admin</option>
 
-<option>Support</option>
+<option value="Admin">
 
-<option>Caller</option>
+Admin
 
-<option>Manager</option>
+</option>
 
-<option>Guest</option>
+
+
+<option value="Support">
+
+Support
+
+</option>
+
+
+
+<option value="Caller">
+
+Caller
+
+</option>
+
+
+
+<option value="Manager">
+
+Manager
+
+</option>
+
+
+
+<option value="Guest">
+
+Guest
+
+</option>
+
 
 
 </select>
+
+
+
+
+
+
 
 
 
@@ -310,9 +506,23 @@ placeholder="Full Name">
 
 <select id="status">
 
-<option>Active</option>
 
-<option>Block</option>
+
+<option value="Active">
+
+Active
+
+</option>
+
+
+
+<option value="Block">
+
+Block
+
+</option>
+
+
 
 </select>
 
@@ -320,10 +530,22 @@ placeholder="Full Name">
 
 
 
+
+
+
+
 <input
+
 type="text"
+
 id="picture"
+
 placeholder="Picture URL">
+
+
+
+
+
 
 
 
@@ -333,29 +555,57 @@ placeholder="Picture URL">
 <div class="form-buttons">
 
 
+
+
+
 <button id="saveUser">
+
+
+<i class="fa-solid fa-save"></i>
+
 
 Save
 
+
 </button>
+
+
+
+
 
 
 
 <button id="cancelUser">
 
+
+<i class="fa-solid fa-xmark"></i>
+
+
 Cancel
+
 
 </button>
 
 
+
+
+
+
+
 </div>
 
 
 
 
+
+
+
 </div>
 
 
+
+
+
 </div>
 
 
@@ -366,35 +616,63 @@ Cancel
 
 
 
-<!-- SMALL LOADING -->
+
+
+
+
+<!-- ================= PROGRESS LOADING ================= -->
+
 
 
 <div class="loading-box" id="loadingBox">
 
 
 
-<div class="loader">
 
 
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
+<div class="percent" id="percent">
+
+
+0%
 
 
 </div>
+
+
+
+
+
+
+
+<div class="progress">
+
+
+
+<div class="progress-bar" id="progressBar">
+
+
+</div>
+
+
+
+</div>
+
+
+
+
 
 
 
 <h3 id="loadingText">
 
+
 Loading...
 
+
 </h3>
+
+
+
 
 
 
@@ -408,48 +686,85 @@ Loading...
 
 
 
-<!-- POPUP -->
+
+
+
+
+<!-- ================= SUCCESS POPUP ================= -->
+
 
 
 <div class="popup" id="popupBox">
 
 
+
+
+
 <div class="popup-content">
+
+
+
 
 
 <i class="fa-solid fa-circle-check"></i>
 
 
 
+
+
+
 <h3 id="popupTitle">
 
+
 Success
+
 
 </h3>
 
 
 
+
+
+
+
 <p id="popupMessage">
 
+
 Done
+
 
 </p>
 
 
 
 
+
+
+
 <button onclick="closePopup()">
 
+
+
 OK
+
+
 
 </button>
 
 
 
-</div>
+
+
 
 
 </div>
+
+
+
+
+
+</div>
+
 
 
 
@@ -461,6 +776,9 @@ OK
 <script src="usercontrol.js"></script>
 
 
+
+
 </body>
+
 
 </html>
