@@ -2,8 +2,12 @@ const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
+let allUsers = [];
+
 let editMode = false;
+
 let oldUsername = "";
+
 
 
 
@@ -11,13 +15,17 @@ let oldUsername = "";
 // PAGE LOAD
 // ===============================
 
+
 document.addEventListener("DOMContentLoaded",()=>{
 
-    loadProfile();
 
-    loadUsers();
+loadProfile();
+
+loadUsers();
+
 
 });
+
 
 
 
@@ -53,8 +61,9 @@ picture;
 }
 
 
-
 }
+
+
 
 
 
@@ -78,11 +87,12 @@ document.getElementById("profileMenu");
 
 profileBtn.onclick=function(e){
 
+
 e.stopPropagation();
 
 
 profileMenu.style.display =
-profileMenu.style.display=="block"
+profileMenu.style.display==="block"
 ?
 "none"
 :
@@ -106,6 +116,7 @@ profileMenu.style.display="none";
 
 
 
+
 // ===============================
 // BACK BUTTON
 // ===============================
@@ -113,7 +124,9 @@ profileMenu.style.display="none";
 
 document.getElementById("backBtn").onclick=function(){
 
+
 window.location.href="dashboard.html";
+
 
 };
 
@@ -124,13 +137,15 @@ window.location.href="dashboard.html";
 
 
 // ===============================
-// ACCOUNT
+// MY ACCOUNT
 // ===============================
 
 
 document.getElementById("accountBtn").onclick=function(){
 
+
 window.location.href="my-account.html";
+
 
 };
 
@@ -172,6 +187,7 @@ window.location.href="login.html";
 function loadUsers(){
 
 
+
 showLoading("Loading Users...");
 
 
@@ -184,6 +200,61 @@ fetch(API_URL+"?action=users")
 .then(users=>{
 
 
+allUsers = users;
+
+
+displayUsers(users);
+
+
+
+})
+
+
+
+.catch(error=>{
+
+
+console.log(error);
+
+
+showPopup(
+"Error",
+"User Load Failed"
+);
+
+
+})
+
+
+
+.finally(()=>{
+
+
+hideLoading();
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// DISPLAY USERS
+// ===============================
+
+
+function displayUsers(users){
+
+
 
 let table =
 document.getElementById("userTable");
@@ -191,6 +262,34 @@ document.getElementById("userTable");
 
 
 table.innerHTML="";
+
+
+
+
+if(users.length===0){
+
+
+
+table.innerHTML=`
+
+<tr>
+
+<td colspan="6">
+
+No User Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+
+}
+
+
 
 
 
@@ -202,12 +301,14 @@ table.innerHTML += `
 
 <tr>
 
+
 <td>
 
 <img class="user-photo"
 src="${user.picture || 'profile.png'}">
 
 </td>
+
 
 
 <td>${user.username}</td>
@@ -220,6 +321,7 @@ src="${user.picture || 'profile.png'}">
 
 
 <td>${user.status}</td>
+
 
 
 <td>
@@ -240,12 +342,13 @@ Edit
 
 
 
+
+
 <button onclick="deleteUser('${user.username}')">
 
 Delete
 
 </button>
-
 
 
 </td>
@@ -257,31 +360,9 @@ Delete
 `;
 
 
-});
-
-
-})
-
-
-.catch(()=>{
-
-
-showPopup(
-"Error",
-"User Load Failed"
-);
-
-
-})
-
-
-.finally(()=>{
-
-
-hideLoading();
-
 
 });
+
 
 
 }
@@ -295,11 +376,72 @@ hideLoading();
 
 
 // ===============================
-// ADD USER OPEN
+// SEARCH USER
+// ===============================
+
+
+document
+.getElementById("searchUser")
+.addEventListener("keyup",function(){
+
+
+
+let value =
+this.value.toLowerCase();
+
+
+
+
+let result =
+allUsers.filter(user=>{
+
+
+return (
+
+user.username.toLowerCase()
+.includes(value)
+
+
+||
+
+user.name.toLowerCase()
+.includes(value)
+
+
+||
+
+user.role.toLowerCase()
+.includes(value)
+
+
+);
+
+
+});
+
+
+
+displayUsers(result);
+
+
+
+});
+
+
+
+
+
+
+
+
+
+// ===============================
+// ADD USER BUTTON
 // ===============================
 
 
 document.getElementById("addUserBtn").onclick=function(){
+
 
 
 editMode=false;
@@ -308,11 +450,15 @@ editMode=false;
 clearForm();
 
 
+
 document.getElementById("formTitle").innerHTML=
 "Add User";
 
 
-document.getElementById("userModal").style.display="flex";
+
+document.getElementById("userModal").style.display=
+"flex";
+
 
 
 };
@@ -323,15 +469,29 @@ document.getElementById("userModal").style.display="flex";
 
 
 
+
+
 // ===============================
-// CANCEL FORM
+// CLOSE MODAL
 // ===============================
+
+
+document.getElementById("closeModal").onclick=function(){
+
+
+document.getElementById("userModal").style.display=
+"none";
+
+
+};
+
 
 
 document.getElementById("cancelUser").onclick=function(){
 
 
-document.getElementById("userModal").style.display="none";
+document.getElementById("userModal").style.display=
+"none";
 
 
 };
@@ -360,20 +520,25 @@ username:
 document.getElementById("username").value.trim(),
 
 
+
 password:
 document.getElementById("password").value.trim(),
+
 
 
 name:
 document.getElementById("name").value.trim(),
 
 
+
 role:
 document.getElementById("role").value,
 
 
+
 status:
 document.getElementById("status").value,
+
 
 
 picture:
@@ -385,7 +550,8 @@ document.getElementById("picture").value.trim()
 
 
 
-if(data.username=="" || data.password==""){
+
+if(data.username==="" || data.password===""){
 
 
 showPopup(
@@ -396,7 +562,10 @@ showPopup(
 
 return;
 
+
 }
+
+
 
 
 
@@ -406,10 +575,12 @@ if(editMode){
 
 data.action="update";
 
+
 data.oldUsername=oldUsername;
 
 
 }
+
 else{
 
 
@@ -422,8 +593,9 @@ data.action="add";
 
 
 
+
 showLoading(
-editMode?
+editMode ?
 "Updating User..."
 :
 "Creating User..."
@@ -433,13 +605,20 @@ editMode?
 
 
 
+
+
 fetch(API_URL,{
+
 
 method:"POST",
 
+
 headers:{
 
-"Content-Type":"text/plain;charset=utf-8"
+
+"Content-Type":
+"text/plain;charset=utf-8"
+
 
 },
 
@@ -447,7 +626,9 @@ headers:{
 body:JSON.stringify(data)
 
 
+
 })
+
 
 
 .then(res=>res.json())
@@ -461,16 +642,25 @@ hideLoading();
 
 
 showPopup(
-result.success ? "Success":"Error",
+
+result.success ?
+"Success"
+:
+"Error",
+
 result.message
+
 );
+
+
 
 
 
 if(result.success){
 
 
-document.getElementById("userModal").style.display="none";
+document.getElementById("userModal").style.display=
+"none";
 
 
 loadUsers();
@@ -486,10 +676,12 @@ clearForm();
 })
 
 
+
 .catch(()=>{
 
 
 hideLoading();
+
 
 
 showPopup(
@@ -536,6 +728,8 @@ oldUsername=username;
 
 
 
+
+
 document.getElementById("formTitle").innerHTML=
 "Edit User";
 
@@ -560,7 +754,8 @@ document.getElementById("picture").value=picture;
 
 
 
-document.getElementById("userModal").style.display="flex";
+document.getElementById("userModal").style.display=
+"flex";
 
 
 }
@@ -590,36 +785,50 @@ return;
 
 
 
+
+
 showLoading("Deleting User...");
+
+
 
 
 
 
 fetch(API_URL,{
 
+
 method:"POST",
+
 
 headers:{
 
-"Content-Type":"text/plain;charset=utf-8"
+
+"Content-Type":
+"text/plain;charset=utf-8"
+
 
 },
 
 
 body:JSON.stringify({
 
+
 action:"delete",
+
 
 username:username
 
 
+
 })
 
 
 })
+
 
 
 .then(res=>res.json())
+
 
 
 .then(result=>{
@@ -630,9 +839,16 @@ hideLoading();
 
 
 showPopup(
-result.success?"Deleted":"Error",
+
+result.success ?
+"Deleted"
+:
+"Error",
+
 result.message
+
 );
+
 
 
 
@@ -649,10 +865,12 @@ loadUsers();
 })
 
 
+
 .catch(()=>{
 
 
 hideLoading();
+
 
 
 showPopup(
@@ -662,6 +880,7 @@ showPopup(
 
 
 });
+
 
 
 }
@@ -680,6 +899,7 @@ showPopup(
 
 
 function clearForm(){
+
 
 
 document.getElementById("username").value="";
@@ -711,7 +931,7 @@ document.getElementById("picture").value="";
 
 
 // ===============================
-// CENTER LOADING
+// LOADING
 // ===============================
 
 
@@ -745,21 +965,26 @@ document.getElementById("loadingBox").style.display="none";
 
 
 // ===============================
-// CENTER POPUP
+// POPUP
 // ===============================
 
 
 function showPopup(title,message){
 
 
-document.getElementById("popupTitle").innerHTML=title;
+
+document.getElementById("popupTitle").innerHTML=
+title;
 
 
-document.getElementById("popupMessage").innerHTML=message;
+
+document.getElementById("popupMessage").innerHTML=
+message;
 
 
 
-document.getElementById("popupBox").style.display="flex";
+document.getElementById("popupBox").style.display=
+"flex";
 
 
 }
@@ -769,7 +994,8 @@ document.getElementById("popupBox").style.display="flex";
 function closePopup(){
 
 
-document.getElementById("popupBox").style.display="none";
+document.getElementById("popupBox").style.display=
+"none";
 
 
 }
