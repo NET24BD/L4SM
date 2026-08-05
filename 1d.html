@@ -1,125 +1,351 @@
-// ===============================
-// Login Check
-// ===============================
+<!DOCTYPE html>
+<html lang="en">
 
-if (localStorage.getItem("isLogin") !== "true") {
+<head>
 
-    window.location.href = "login.html";
+<meta charset="UTF-8">
 
-}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-// ===============================
-// Load User Information
-// ===============================
-
-document.addEventListener("DOMContentLoaded", function () {
+<title>Link4 Support Dashboard</title>
 
 
-    const name = localStorage.getItem("name");
-    const username = localStorage.getItem("username");
-    const picture = localStorage.getItem("picture");
+<link rel="stylesheet" href="dashboard.css">
 
 
-    // Header Username
-    const userElements = document.querySelectorAll("#username");
-
-    userElements.forEach(function(el){
-
-        el.innerHTML = name || username || "User";
-
-    });
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 
-    // Profile Image
-
-    const profileImg = document.getElementById("profileImg");
-
-
-    if(picture && picture !== ""){
-
-        profileImg.src = picture;
-
-    }
-
-
-});
+</head>
 
 
 
-// ===============================
-// Profile Menu Toggle
-// ===============================
-
-function toggleProfileMenu(){
-
-    const menu = document.getElementById("profileMenu");
+<body>
 
 
-    if(menu.style.display === "block"){
-
-        menu.style.display = "none";
-
-    }
-    else{
-
-        menu.style.display = "block";
-
-    }
-
-}
+<div class="container">
 
 
 
-// ===============================
-// Open Page
-// ===============================
-
-function openPage(page){
-
-    window.location.href = page;
-
-}
+<!-- Header -->
 
 
-
-// ===============================
-// Logout
-// ===============================
-
-function logout(){
+<header>
 
 
-    localStorage.removeItem("isLogin");
-    localStorage.removeItem("username");
-    localStorage.removeItem("name");
-    localStorage.removeItem("role");
-    localStorage.removeItem("picture");
+<div class="title">
 
+<h2>Dashboard</h2>
 
-    window.location.href = "login.html";
-
-
-}
+</div>
 
 
 
-// ===============================
-// Close Menu Outside Click
-// ===============================
-
-document.addEventListener("click", function(e){
 
 
-    const profile = document.querySelector(".profile");
-    const menu = document.getElementById("profileMenu");
+<div class="profile" onclick="toggleProfileMenu()">
 
 
-    if(profile && !profile.contains(e.target)){
 
-        menu.style.display = "none";
-
-    }
+<img id="profileImg" src="profile.png">
 
 
-});
+
+<div>
+
+<h4 id="username">
+Username
+</h4>
+
+
+<p>
+Online
+</p>
+
+
+</div>
+
+
+
+
+
+<!-- Profile Menu -->
+
+
+<div class="profile-menu" id="profileMenu">
+
+
+<div onclick="openPage('my-account.html')">
+
+<i class="fa-solid fa-user"></i>
+
+My Account
+
+</div>
+
+
+
+<div onclick="logout()">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+</header>
+
+
+
+
+
+
+<!-- Welcome Section -->
+
+
+<div class="welcome">
+
+
+<h1>
+Welcome Back <h4 id="username">
+</h1>
+
+
+<p>
+Manage your support system easily
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Dashboard Cards -->
+
+
+<div class="cards">
+
+
+
+
+
+<div class="card" onclick="openPage('new-entry.html')">
+
+
+<i class="fa-solid fa-file-circle-plus"></i>
+
+
+<h3>
+New Entry
+</h3>
+
+
+<p>
+Create new support request
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card" onclick="openPage('pending-support.html')">
+
+
+<i class="fa-solid fa-headset"></i>
+
+
+<h3>
+Pending Support
+</h3>
+
+
+<p>
+Pending support list
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="card" onclick="openPage('pending-call.html')">
+
+
+<i class="fa-solid fa-phone"></i>
+
+
+<h3>
+Pending Call
+</h3>
+
+
+<p>
+Customer call list
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card" onclick="openPage('support-history.html')">
+
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+
+<h3>
+Support History
+</h3>
+
+
+<p>
+All support history
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card" onclick="openPage('offline-entry.html')">
+
+
+<i class="fa-solid fa-desktop"></i>
+
+
+<h3>
+Offline Entry
+</h3>
+
+
+<p>
+Add offline customer
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card" onclick="openPage('offline-list.html')">
+
+
+<i class="fa-solid fa-users"></i>
+
+
+<h3>
+Offline List
+</h3>
+
+
+<p>
+Offline customer list
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card" onclick="openPage('offline-history.html')">
+
+
+<i class="fa-solid fa-book"></i>
+
+
+<h3>
+Offline History
+</h3>
+
+
+<p>
+Offline records
+</p>
+
+
+</div>
+
+<div class="card" onclick="openPage('usercontrol.html')">
+
+
+<i class="fa-solid fa-user-gear"></i>
+
+
+<h3>
+User Control
+</h3>
+
+
+<p>
+Manage users
+</p>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+<script src="dashboard.js"></script>
+
+
+
+</body>
+
+</html>
