@@ -8,25 +8,19 @@
 }
 
 
-
 body{
 
     background:#4d7094;
-
     min-height:100vh;
-
     padding:20px;
 
 }
 
 
 
-
-
 .container{
 
     width:95%;
-
     margin:auto;
 
 }
@@ -40,7 +34,6 @@ body{
 
 
 header{
-
 
     background:white;
 
@@ -65,13 +58,7 @@ header{
 
 
 
-
-
-/* BACK BUTTON */
-
-
 .back-btn{
-
 
     width:42px;
 
@@ -92,9 +79,7 @@ header{
 }
 
 
-
 .back-btn:hover{
-
 
     background:#1d4ed8;
 
@@ -104,12 +89,7 @@ header{
 
 
 
-
-/* TITLE */
-
-
 .title h2{
-
 
     color:#1e3a8a;
 
@@ -123,12 +103,10 @@ header{
 
 
 
-
 /* ================= PROFILE ================= */
 
 
 .profile{
-
 
     position:relative;
 
@@ -142,13 +120,9 @@ header{
 
     padding:8px 15px 8px 8px;
 
-    background:white;
-
     border-radius:15px;
 
 }
-
-
 
 
 
@@ -167,8 +141,6 @@ header{
 
 
 }
-
-
 
 
 
@@ -199,9 +171,7 @@ header{
 
 
 
-
-
-/* PROFILE MENU */
+/* ================= PROFILE MENU ================= */
 
 
 .profile-menu{
@@ -213,18 +183,25 @@ header{
 
     top:60px;
 
-    width:160px;
+
+    width:170px;
+
 
     background:white;
 
+
     border-radius:12px;
 
+
     box-shadow:
-    0 10px 25px rgba(0,0,0,.30);
+    0 10px 30px rgba(0,0,0,.3);
+
 
     display:none;
 
+
     overflow:hidden;
+
 
     z-index:9999;
 
@@ -233,28 +210,31 @@ header{
 
 
 
-
 .profile-menu div{
 
 
     padding:14px;
 
+
     display:flex;
+
 
     align-items:center;
 
+
     gap:10px;
+
 
     cursor:pointer;
 
-    font-size:14px;
 
     color:#374151;
 
 
+    font-size:14px;
+
+
 }
-
-
 
 
 
@@ -292,8 +272,6 @@ header{
     box-shadow:
     0 8px 25px rgba(0,0,0,.20);
 
-    overflow-x:auto;
-
 
 }
 
@@ -318,8 +296,6 @@ header{
 
 
 
-
-
 .top h3{
 
 
@@ -334,8 +310,6 @@ header{
 
 
 
-
-
 .top button{
 
 
@@ -345,15 +319,16 @@ header{
 
     border:none;
 
-    padding:10px 18px;
+    padding:11px 18px;
 
     border-radius:10px;
 
     cursor:pointer;
 
+    font-size:14px;
+
+
 }
-
-
 
 
 
@@ -371,8 +346,14 @@ header{
 
 
 
-
 /* ================= TABLE ================= */
+
+
+.table-area{
+
+    overflow-x:auto;
+
+}
 
 
 
@@ -391,8 +372,7 @@ table{
 
 
 
-
-thead th{
+th{
 
 
     background:#2563eb;
@@ -410,7 +390,7 @@ thead th{
 
 
 
-tbody td{
+td{
 
 
     padding:12px;
@@ -426,17 +406,13 @@ tbody td{
 
 
 
-
-
-
 tbody tr:hover{
 
 
-    background:#f1f5f9;
+    background:#f8fafc;
 
 
 }
-
 
 
 
@@ -449,22 +425,18 @@ tbody tr:hover{
 .user-photo{
 
 
-    width:45px !important;
+    width:45px;
 
-    height:45px !important;
+    height:45px;
 
     border-radius:50%;
 
     object-fit:cover;
 
-    display:block;
-
-    margin:auto;
-
     border:2px solid #2563eb;
 
-
 }
+
 
 
 
@@ -483,9 +455,9 @@ tbody tr:hover{
 
     border-radius:8px;
 
-    cursor:pointer;
-
     color:white;
+
+    cursor:pointer;
 
     margin:2px;
 
@@ -499,7 +471,6 @@ tbody tr:hover{
 
     background:#2563eb;
 
-
 }
 
 
@@ -509,6 +480,41 @@ tbody tr:hover{
 
     background:#dc2626;
 
+}
+
+
+
+
+
+/* ================= MODAL ================= */
+
+
+.modal{
+
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:100%;
+
+
+    background:rgba(0,0,0,.55);
+
+
+    z-index:99999;
+
+
+    align-items:center;
+
+    justify-content:center;
+
 
 }
 
@@ -516,10 +522,27 @@ tbody tr:hover{
 
 
 
-.edit:hover{
+
+.modal-box{
 
 
-    background:#1d4ed8;
+    background:white;
+
+
+    width:380px;
+
+
+    padding:25px;
+
+
+    border-radius:20px;
+
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.35);
+
+
+    animation:popup .3s ease;
 
 
 }
@@ -527,10 +550,158 @@ tbody tr:hover{
 
 
 
-.delete:hover{
 
 
-    background:#b91c1c;
+@keyframes popup{
+
+
+from{
+
+
+transform:scale(.7);
+
+opacity:0;
+
+
+}
+
+
+to{
+
+
+transform:scale(1);
+
+opacity:1;
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+.modal-box h2{
+
+
+    text-align:center;
+
+    color:#1e3a8a;
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+
+
+
+
+.modal-box input,
+.modal-box select{
+
+
+    width:100%;
+
+
+    padding:12px;
+
+
+    margin-bottom:12px;
+
+
+    border:1px solid #d1d5db;
+
+
+    border-radius:10px;
+
+
+    outline:none;
+
+
+    font-size:14px;
+
+
+}
+
+
+
+
+.modal-box input:focus,
+.modal-box select:focus{
+
+
+    border-color:#2563eb;
+
+
+}
+
+
+
+
+
+
+.form-buttons{
+
+
+    display:flex;
+
+    gap:10px;
+
+
+}
+
+
+
+
+.form-buttons button{
+
+
+    flex:1;
+
+
+    padding:12px;
+
+
+    border:none;
+
+
+    border-radius:10px;
+
+
+    cursor:pointer;
+
+
+    color:white;
+
+
+    font-size:14px;
+
+
+}
+
+
+
+#saveUser{
+
+
+    background:#16a34a;
+
+
+}
+
+
+
+#cancelUser{
+
+
+    background:#dc2626;
 
 
 }
@@ -551,7 +722,7 @@ tbody tr:hover{
 
 body{
 
-padding:10px;
+    padding:10px;
 
 }
 
@@ -559,9 +730,7 @@ padding:10px;
 
 .container{
 
-
-width:100%;
-
+    width:100%;
 
 }
 
@@ -569,21 +738,7 @@ width:100%;
 
 header{
 
-
-height:auto;
-
-padding:12px;
-
-
-}
-
-
-
-.title h2{
-
-
-font-size:18px;
-
+    padding:10px;
 
 }
 
@@ -591,19 +746,23 @@ font-size:18px;
 
 .profile-info{
 
-
-display:none;
-
+    display:none;
 
 }
 
 
 
-.user-box{
+.title h2{
+
+    font-size:18px;
+
+}
 
 
-padding:15px;
 
+.modal-box{
+
+    width:90%;
 
 }
 
