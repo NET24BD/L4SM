@@ -12,7 +12,9 @@ if (localStorage.getItem("isLogin") !== "true") {
 
 }
 
-// Prevent Back Button Cache
+// ===============================
+// PREVENT BACK AFTER LOGOUT
+// ===============================
 window.history.pushState(null, "", window.location.href);
 
 window.addEventListener("popstate", function () {
@@ -96,17 +98,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             e.stopPropagation();
 
-            if (!confirm("Are you sure you want to logout?")) {
-
-                return;
-
-            }
-
-            // Clear Session
+            // Clear All Storage
             localStorage.clear();
             sessionStorage.clear();
 
-            // Redirect
+            // Redirect Login
             window.location.replace("login.html");
 
         });
@@ -127,7 +123,9 @@ function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
 
     if (sidebar) {
+
         sidebar.classList.toggle("small");
+
     }
 
 }
@@ -136,6 +134,8 @@ function toggleSidebar() {
 // OPEN PAGE
 // ===============================
 function openPage(page) {
+
+    if (!page) return;
 
     window.location.href = page;
 
@@ -150,8 +150,15 @@ function toggleProfileMenu() {
 
     if (!menu) return;
 
-    menu.style.display =
-        (menu.style.display === "block") ? "none" : "block";
+    if (menu.style.display === "block") {
+
+        menu.style.display = "none";
+
+    } else {
+
+        menu.style.display = "block";
+
+    }
 
 }
 
@@ -165,7 +172,7 @@ function openMyAccount() {
 }
 
 // ===============================
-// CLOSE PROFILE MENU (OUTSIDE CLICK)
+// CLOSE PROFILE MENU
 // ===============================
 document.addEventListener("click", function (e) {
 
@@ -175,7 +182,9 @@ document.addEventListener("click", function (e) {
     if (!profile || !menu) return;
 
     if (!profile.contains(e.target)) {
+
         menu.style.display = "none";
+
     }
 
 });
@@ -198,3 +207,14 @@ window.addEventListener("pageshow", function (event) {
     }
 
 });
+
+// ===============================
+// DISABLE RIGHT CLICK (OPTIONAL)
+// ===============================
+// document.addEventListener("contextmenu", function(e){
+//     e.preventDefault();
+// });
+
+// ===============================
+// END OF FILE
+// ===============================
