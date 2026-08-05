@@ -3,12 +3,29 @@
 
 <head>
 
+
 <meta charset="UTF-8">
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 
 <title>My Account</title>
 
+
+
 <link rel="stylesheet" href="my-account.css">
+
+
+<link rel="stylesheet" href="loading.css">
+
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
 
 </head>
 
@@ -16,143 +33,332 @@
 <body>
 
 
-<div class="account-box">
 
+<div class="container">
 
-<div class="top">
 
-<a href="1d.html">← Dashboard</a>
 
-<h2>My Account</h2>
 
-</div>
 
 
 
+<!-- HEADER -->
 
-<div class="profile-section">
 
+<header>
 
-<img id="photo" src="profile.png">
 
 
-<h3 id="name">User Name</h3>
+<button class="back-btn" id="backBtn">
 
-<p id="role">Role</p>
 
+<i class="fa-solid fa-arrow-left"></i>
 
-</div>
-
-
-
-
-
-
-<div class="info-card">
-
-
-<div class="info">
-
-<label>Username</label>
-
-<span id="username">---</span>
-
-</div>
-
-
-
-<div class="info">
-
-<label>Name</label>
-
-<span id="fullname">---</span>
-
-</div>
-
-
-
-<div class="info">
-
-<label>Role</label>
-
-<span id="userRole">---</span>
-
-</div>
-
-
-
-<div class="info">
-
-<label>Department</label>
-
-<span id="department">---</span>
-
-</div>
-
-
-
-<div class="info">
-
-<label>Email</label>
-
-<span id="email">---</span>
-
-</div>
-
-
-
-<div class="info">
-
-<label>Phone</label>
-
-<span id="phone">---</span>
-
-</div>
-
-
-
-<div class="info">
-
-<label>Address</label>
-
-<span id="address">---</span>
-
-</div>
-
-
-
-<div class="info">
-
-<label>Join Date</label>
-
-<span id="joinDate">---</span>
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<button onclick="logout()">
-
-Logout
 
 </button>
 
 
 
+
+
+
+<h2>
+
+My Account
+
+</h2>
+
+
+
+
+
+
+
+<div></div>
+
+
+
+
+</header>
+
+
+
+
+
+
+
+
+
+<!-- PROFILE CARD -->
+
+
+<div class="account-card">
+
+
+
+
+
+<img id="profileImg" src="profile.png">
+
+
+
+
+
+<h2 id="userName">
+
+Username
+
+</h2>
+
+
+
+
+
+<p id="userRole">
+
+Role
+
+</p>
+
+
+
+
+
 </div>
 
 
 
 
+
+
+
+
+
+
+
+
+<!-- CHANGE PASSWORD -->
+
+
+<div class="password-card">
+
+
+
+
+
+<h3>
+
+<i class="fa-solid fa-lock"></i>
+
+Change Password
+
+</h3>
+
+
+
+
+
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-key"></i>
+
+
+<input
+
+type="password"
+
+id="oldPassword"
+
+placeholder="Old Password">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-lock"></i>
+
+
+<input
+
+type="password"
+
+id="newPassword"
+
+placeholder="New Password">
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-check"></i>
+
+
+<input
+
+type="password"
+
+id="confirmPassword"
+
+placeholder="Confirm New Password">
+
+
+</div>
+
+
+
+
+
+
+
+
+<button id="changePasswordBtn">
+
+
+<i class="fa-solid fa-save"></i>
+
+
+Update Password
+
+
+</button>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- LOADING AREA -->
+
+
+<div id="loadingArea"></div>
+
+
+
+
+
+
+
+
+
+<!-- POPUP -->
+
+
+<div class="popup" id="popupBox">
+
+
+
+
+
+<div class="popup-content">
+
+
+
+
+
+<i class="fa-solid fa-circle-check"></i>
+
+
+
+
+
+<h3 id="popupTitle">
+
+Success
+
+</h3>
+
+
+
+
+
+<p id="popupMessage">
+
+Done
+
+</p>
+
+
+
+
+
+<button onclick="closePopup()">
+
+
+OK
+
+
+</button>
+
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script src="loading.js"></script>
+
+
 <script src="my-account.js"></script>
 
 
+
+
+
 </body>
+
 
 </html>
