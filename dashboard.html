@@ -7,13 +7,16 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Link4 Support Dashboard</title>
+
+<title>L4SM Dashboard</title>
+
 
 
 <link rel="stylesheet" href="dashboard.css">
 
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
 </head>
@@ -23,45 +26,20 @@
 <body>
 
 
-<div class="container">
+
+<!-- =========================
+HEADER
+========================= -->
 
 
-
-<!-- Header -->
-
-
-<header>
+<header class="topbar">
 
 
-<div class="title">
+<div class="logo">
 
-<h2>Dashboard</h2>
+<i class="fa-solid fa-chart-line"></i>
 
-</div>
-
-
-
-
-
-<div class="profile" onclick="toggleProfileMenu()">
-
-
-
-<img id="profileImg" src="profile.png">
-
-
-
-<div>
-
-<h4 id="username">
-Username
-</h4>
-
-
-<p>
-Online
-</p>
-
+L4SM
 
 </div>
 
@@ -69,34 +47,70 @@ Online
 
 
 
-<!-- Profile Menu -->
+<div class="profile">
 
 
-<div class="profile-menu" id="profileMenu">
+
+<div class="profile-box"
+onclick="toggleProfileMenu()">
 
 
-<div onclick="openPage('my-account.html')">
+
+<img 
+id="profileImg"
+src="assets/profile.png"
+alt="Profile">
+
+
+
+<span id="username">
+User
+</span>
+
+
+
+<i class="fa-solid fa-chevron-down"></i>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- PROFILE MENU -->
+
+
+<div id="profileMenu"
+class="profile-menu">
+
+
+
+<button onclick="openMyAccount()">
 
 <i class="fa-solid fa-user"></i>
 
 My Account
 
-</div>
+</button>
 
 
 
-<div onclick="logout()">
+
+
+<button onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
 Logout
 
-</div>
+</button>
 
 
 
 </div>
-
 
 
 
@@ -111,20 +125,88 @@ Logout
 
 
 
-<!-- Welcome Section -->
 
 
-<div class="welcome">
+
+<!-- =========================
+SIDEBAR
+========================= -->
 
 
-<h1>
-Welcome Back 
-</h1>
+<div class="sidebar">
 
 
-<p>
-Manage your support system easily
-</p>
+
+<h3>
+MENU
+</h3>
+
+
+
+
+
+<button onclick="openPage('dashboard.html')">
+
+<i class="fa-solid fa-house"></i>
+
+Dashboard
+
+</button>
+
+
+
+
+
+
+<button onclick="openPage('usercontrol.html')">
+
+<i class="fa-solid fa-users"></i>
+
+User Control
+
+</button>
+
+
+
+
+
+
+<button onclick="openPage('support.html')">
+
+<i class="fa-solid fa-headset"></i>
+
+Support
+
+</button>
+
+
+
+
+
+
+<button onclick="openPage('call.html')">
+
+<i class="fa-solid fa-phone"></i>
+
+Caller
+
+</button>
+
+
+
+
+
+
+<button onclick="openPage('manager.html')">
+
+<i class="fa-solid fa-user-tie"></i>
+
+Manager
+
+</button>
+
+
+
 
 
 </div>
@@ -135,7 +217,28 @@ Manage your support system easily
 
 
 
-<!-- Dashboard Cards -->
+
+
+<!-- =========================
+MAIN CONTENT
+========================= -->
+
+
+<div class="main">
+
+
+
+
+
+<h1>
+Welcome,
+<span id="username">
+User
+</span>
+</h1>
+
+
+
 
 
 <div class="cards">
@@ -144,140 +247,19 @@ Manage your support system easily
 
 
 
-<div class="card" onclick="openPage('new-entry.html')">
-
-
-<i class="fa-solid fa-file-circle-plus"></i>
-
-
-<h3>
-New Entry
-</h3>
-
-
-<p>
-Create new support request
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="card" onclick="openPage('pending-support.html')">
-
-
-<i class="fa-solid fa-headset"></i>
-
-
-<h3>
-Pending Support
-</h3>
-
-
-<p>
-Pending support list
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="card" onclick="openPage('pending-call.html')">
-
-
-<i class="fa-solid fa-phone"></i>
-
-
-<h3>
-Pending Call
-</h3>
-
-
-<p>
-Customer call list
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="card" onclick="openPage('support-history.html')">
-
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-
-<h3>
-Support History
-</h3>
-
-
-<p>
-All support history
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="card" onclick="openPage('offline-entry.html')">
-
-
-<i class="fa-solid fa-desktop"></i>
-
-
-<h3>
-Offline Entry
-</h3>
-
-
-<p>
-Add offline customer
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="card" onclick="openPage('offline-list.html')">
+<div class="card">
 
 
 <i class="fa-solid fa-users"></i>
 
 
-<h3>
-Offline List
-</h3>
+<h2>
+Users
+</h2>
 
 
 <p>
-Offline customer list
+Manage Users
 </p>
 
 
@@ -289,37 +271,20 @@ Offline customer list
 
 
 
-<div class="card" onclick="openPage('offline-history.html')">
+
+<div class="card">
 
 
-<i class="fa-solid fa-book"></i>
+<i class="fa-solid fa-headset"></i>
 
 
-<h3>
-Offline History
-</h3>
-
-
-<p>
-Offline records
-</p>
-
-
-</div>
-
-<div class="card" onclick="openPage('usercontrol.html')">
-
-
-<i class="fa-solid fa-user-gear"></i>
-
-
-<h3>
-User Control
-</h3>
+<h2>
+Support
+</h2>
 
 
 <p>
-Manage users
+Support Panel
 </p>
 
 
@@ -330,17 +295,47 @@ Manage users
 
 
 
+
+
+<div class="card">
+
+
+<i class="fa-solid fa-phone"></i>
+
+
+<h2>
+Caller
+</h2>
+
+
+<p>
+Call Management
+</p>
+
+
 </div>
 
 
 
 
 
+
+
 </div>
 
 
 
 
+
+
+
+
+</div>
+
+
+
+
+<script src="session.js"></script>
 
 <script src="dashboard.js"></script>
 
