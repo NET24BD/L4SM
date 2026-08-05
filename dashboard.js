@@ -1,17 +1,34 @@
 // =====================================
-// L4SM SESSION MANAGEMENT
+// DASHBOARD LOAD
 // =====================================
 
 
-// ================================
-// LOGIN CHECK
-// ================================
-
-if(localStorage.getItem("isLogin") !== "true"){
+document.addEventListener("DOMContentLoaded",function(){
 
 
-window.location.href="login.html";
 
+let name =
+localStorage.getItem("name");
+
+
+
+let picture =
+localStorage.getItem("picture");
+
+
+
+
+
+// HEADER NAME
+
+let headerName =
+document.getElementById("headerName");
+
+
+if(headerName){
+
+headerName.innerHTML =
+name || "User";
 
 }
 
@@ -19,43 +36,16 @@ window.location.href="login.html";
 
 
 
-// ================================
-// SESSION TIME
-// 10 MINUTES
-// ================================
+// WELCOME NAME
+
+let welcomeName =
+document.getElementById("welcomeName");
 
 
-const SESSION_TIME = 10 * 60 * 1000;
+if(welcomeName){
 
-
-let sessionTimer;
-
-
-
-
-
-// ================================
-// RESET TIMER
-// ================================
-
-function resetSessionTimer(){
-
-
-clearTimeout(sessionTimer);
-
-
-
-sessionTimer = setTimeout(function(){
-
-
-
-logoutUser();
-
-
-
-}, SESSION_TIME);
-
-
+welcomeName.innerHTML =
+name || "User";
 
 }
 
@@ -64,40 +54,18 @@ logoutUser();
 
 
 
+// PROFILE IMAGE
+
+
+let img =
+document.getElementById("profileImg");
 
 
 
-// ================================
-// AUTO LOGOUT
-// ================================
-
-function logoutUser(){
+if(img && picture){
 
 
-
-localStorage.removeItem("isLogin");
-
-localStorage.removeItem("username");
-
-localStorage.removeItem("name");
-
-localStorage.removeItem("role");
-
-localStorage.removeItem("picture");
-
-
-
-
-
-alert(
-"Session Expired. Please Login Again"
-);
-
-
-
-
-window.location.href="login.html";
-
+img.src = picture;
 
 
 }
@@ -105,55 +73,7 @@ window.location.href="login.html";
 
 
 
-
-
-
-
-
-// ================================
-// USER ACTIVITY
-// ================================
-
-
-window.addEventListener(
-"load",
-resetSessionTimer
-);
-
-
-
-window.addEventListener(
-"mousemove",
-resetSessionTimer
-);
-
-
-
-window.addEventListener(
-"click",
-resetSessionTimer
-);
-
-
-
-window.addEventListener(
-"keypress",
-resetSessionTimer
-);
-
-
-
-window.addEventListener(
-"scroll",
-resetSessionTimer
-);
-
-
-
-window.addEventListener(
-"touchstart",
-resetSessionTimer
-);
+});
 
 
 
@@ -163,42 +83,17 @@ resetSessionTimer
 
 
 
-// ================================
-// ROLE PAGE PROTECTION
-// ================================
+// SIDEBAR
 
 
-
-let role =
-localStorage.getItem("role");
+function toggleSidebar(){
 
 
-
-let page =
-window.location.pathname
-.split("/")
-.pop();
+let sidebar =
+document.getElementById("sidebar");
 
 
-
-
-
-
-// ADMIN ONLY
-
-
-if(
-page==="usercontrol.html" &&
-role!=="Admin"
-){
-
-
-alert(
-"Access Denied"
-);
-
-
-window.location.href="dashboard.html";
+sidebar.classList.toggle("small");
 
 
 }
@@ -209,23 +104,13 @@ window.location.href="dashboard.html";
 
 
 
-// SUPPORT ONLY
+// PAGE OPEN
 
 
-if(
-page==="support.html" &&
-role!=="Admin" &&
-role!=="Support"
-
-){
+function openPage(page){
 
 
-alert(
-"Access Denied"
-);
-
-
-window.location.href="dashboard.html";
+window.location.href=page;
 
 
 }
@@ -236,24 +121,33 @@ window.location.href="dashboard.html";
 
 
 
-
-// CALLER ONLY
-
-
-if(
-page==="call.html" &&
-role!=="Admin" &&
-role!=="Caller"
-
-){
+// PROFILE MENU
 
 
-alert(
-"Access Denied"
-);
+function toggleProfileMenu(){
 
 
-window.location.href="dashboard.html";
+
+let menu =
+document.getElementById("profileMenu");
+
+
+
+if(menu.style.display==="block"){
+
+
+menu.style.display="none";
+
+
+}
+else{
+
+
+menu.style.display="block";
+
+
+}
+
 
 
 }
@@ -263,47 +157,10 @@ window.location.href="dashboard.html";
 
 
 
+function openMyAccount(){
 
 
-
-// MANAGER ONLY
-
-
-if(
-page==="manager.html" &&
-role!=="Admin" &&
-role!=="Manager"
-
-){
-
-
-alert(
-"Access Denied"
-);
-
-
-window.location.href="dashboard.html";
-
-
-}
-
-
-
-
-
-
-
-
-
-// ================================
-// LOGOUT BUTTON
-// ================================
-
-
-function logout(){
-
-
-logoutUser();
+window.location.href="my-account.html";
 
 
 }
