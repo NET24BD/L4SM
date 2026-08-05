@@ -4,14 +4,19 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 <title>User Control</title>
 
+
 <link rel="stylesheet" href="usercontrol.css">
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 </head>
 
@@ -23,10 +28,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+<!-- HEADER -->
+
 <header>
 
 
-<!-- BACK BUTTON -->
 
 <button class="back-btn" id="backBtn">
 
@@ -36,8 +42,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-
-<!-- TITLE -->
 
 <div class="title">
 
@@ -58,10 +62,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <img id="profileImg" src="profile.png">
 
 
+
 <div class="profile-info">
 
+
 <h4 id="userName">
-Username
+User
 </h4>
 
 
@@ -76,8 +82,6 @@ Online
 
 
 
-<!-- MENU -->
-
 <div class="profile-menu" id="profileMenu">
 
 
@@ -85,7 +89,7 @@ Online
 
 <i class="fa-solid fa-user"></i>
 
-<span>My Account</span>
+My Account
 
 </div>
 
@@ -95,14 +99,13 @@ Online
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
-<span>Logout</span>
+Logout
 
 </div>
 
 
 
 </div>
-
 
 
 
@@ -119,10 +122,12 @@ Online
 
 
 
-<!-- USER LIST -->
+
+<!-- ADD USER BOX -->
 
 
 <div class="user-box">
+
 
 
 <div class="top">
@@ -138,11 +143,14 @@ Users List
 
 
 
+
 <button id="addUserBtn">
+
 
 <i class="fa-solid fa-user-plus"></i>
 
 Add User
+
 
 </button>
 
@@ -154,29 +162,159 @@ Add User
 
 
 
+
+<!-- ADD FORM -->
+
+
+<div class="add-form" id="addForm">
+
+
+
+<input id="username"
+placeholder="Username">
+
+
+
+<input id="password"
+placeholder="Password">
+
+
+
+<input id="name"
+placeholder="Name">
+
+
+
+<select id="role">
+
+
+<option value="Admin">
+Admin
+</option>
+
+
+<option value="Support">
+Support
+</option>
+
+
+<option value="Caller">
+Caller
+</option>
+
+
+<option value="Guest">
+Guest
+</option>
+
+
+</select>
+
+
+
+
+<select id="status">
+
+
+<option value="Active">
+Active
+</option>
+
+
+<option value="Block">
+Block
+</option>
+
+
+</select>
+
+
+
+
+<input id="picture"
+placeholder="Picture URL">
+
+
+
+
+
+<button id="saveUser">
+
+
+Save User
+
+</button>
+
+
+
+<button id="cancelUser">
+
+
+Cancel
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- TABLE -->
+
+
 <table>
 
 
 <thead>
 
+
 <tr>
 
-<th>Picture</th>
 
-<th>Username</th>
+<th>
+Picture
+</th>
 
-<th>Name</th>
 
-<th>Role</th>
+<th>
+Username
+</th>
 
-<th>Status</th>
 
-<th>Action</th>
+<th>
+Name
+</th>
+
+
+<th>
+Role
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
+
+
 
 </tr>
 
 
+
 </thead>
+
 
 
 
@@ -197,7 +335,12 @@ Loading...
 </tbody>
 
 
+
+
 </table>
+
+
+
 
 
 </div>
@@ -216,5 +359,6 @@ Loading...
 
 
 </body>
+
 
 </html>
