@@ -23,19 +23,30 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
-
 <!-- SIDEBAR -->
 
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
+
+
+<div class="menu-btn" onclick="toggleSidebar()">
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
 
 
 <div class="logo">
 
 <i class="fa-solid fa-layer-group"></i>
 
+<span>
 L4SM
+</span>
 
 </div>
+
+
 
 
 
@@ -47,9 +58,13 @@ onclick="openPage('dashboard.html')">
 
 <i class="fa-solid fa-house"></i>
 
+<span>
 Dashboard
+</span>
 
 </li>
+
+
 
 
 
@@ -57,9 +72,13 @@ Dashboard
 
 <i class="fa-solid fa-users"></i>
 
+<span>
 User Control
+</span>
 
 </li>
+
+
 
 
 
@@ -67,9 +86,13 @@ User Control
 
 <i class="fa-solid fa-headset"></i>
 
+<span>
 Support
+</span>
 
 </li>
+
+
 
 
 
@@ -77,9 +100,13 @@ Support
 
 <i class="fa-solid fa-phone"></i>
 
+<span>
 Call
+</span>
 
 </li>
+
+
 
 
 
@@ -87,13 +114,17 @@ Call
 
 <i class="fa-solid fa-user-tie"></i>
 
+<span>
 Manager
+</span>
 
 </li>
 
 
 
+
 </ul>
+
 
 
 </div>
@@ -108,12 +139,12 @@ Manager
 
 <!-- MAIN -->
 
-
 <div class="main">
 
 
 
 <header>
+
 
 
 <h2>
@@ -161,6 +192,8 @@ My Account
 
 
 
+
+
 <button onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
@@ -174,7 +207,10 @@ Logout
 </div>
 
 
+
+
 </div>
+
 
 
 </header>
@@ -187,15 +223,13 @@ Logout
 
 
 
-<!-- WELCOME -->
-
-
 <div class="welcome">
 
 
 <h1>
 
-Welcome Back 
+Welcome Back
+
 <span id="username">
 User
 </span>
@@ -204,7 +238,7 @@ User
 
 
 <p>
-L4SM Management Dashboard
+L4SM Management System
 </p>
 
 
@@ -218,8 +252,7 @@ L4SM Management Dashboard
 
 
 
-<!-- 8 CARDS -->
-
+<!-- CARDS -->
 
 <div class="cards">
 
@@ -227,9 +260,12 @@ L4SM Management Dashboard
 
 
 
-<div class="card blue">
+<div class="card blue"
+onclick="openPage('new-entry.html')">
+
 
 <i class="fa-solid fa-plus-circle"></i>
+
 
 <div>
 
@@ -241,20 +277,24 @@ New Entry
 Create Entry
 </p>
 
-</div>
 
 </div>
 
 
+</div>
 
 
 
 
 
 
-<div class="card green">
+
+<div class="card green"
+onclick="openPage('support.html')">
+
 
 <i class="fa-solid fa-headset"></i>
+
 
 <div>
 
@@ -266,20 +306,25 @@ Pending Support
 Support Pending
 </p>
 
-</div>
 
 </div>
 
 
+</div>
 
 
 
 
 
 
-<div class="card orange">
+
+
+<div class="card orange"
+onclick="openPage('call.html')">
+
 
 <i class="fa-solid fa-phone-volume"></i>
+
 
 <div>
 
@@ -291,20 +336,25 @@ Pending Call
 Call Pending
 </p>
 
-</div>
 
 </div>
 
 
+</div>
 
 
 
 
 
 
-<div class="card purple">
+
+
+<div class="card purple"
+onclick="openPage('history.html')">
+
 
 <i class="fa-solid fa-clock-rotate-left"></i>
+
 
 <div>
 
@@ -316,20 +366,25 @@ History
 All History
 </p>
 
-</div>
 
 </div>
 
 
+</div>
 
 
 
 
 
 
-<div class="card red">
+
+
+<div class="card red"
+onclick="openPage('offline-entry.html')">
+
 
 <i class="fa-solid fa-file-circle-plus"></i>
+
 
 <div>
 
@@ -338,23 +393,28 @@ Offline Entry
 </h3>
 
 <p>
-Offline Add
+Add Offline
 </p>
 
-</div>
 
 </div>
 
 
+</div>
 
 
 
 
 
 
-<div class="card dark">
+
+
+<div class="card dark"
+onclick="openPage('offline.html')">
+
 
 <i class="fa-solid fa-power-off"></i>
+
 
 <div>
 
@@ -366,20 +426,25 @@ Offline
 Offline List
 </p>
 
-</div>
 
 </div>
 
 
+</div>
 
 
 
 
 
 
-<div class="card cyan">
+
+
+<div class="card cyan"
+onclick="openPage('offline-history.html')">
+
 
 <i class="fa-solid fa-box-archive"></i>
+
 
 <div>
 
@@ -388,23 +453,28 @@ Offline History
 </h3>
 
 <p>
-Offline Records
+Records
 </p>
 
-</div>
 
 </div>
 
 
+</div>
 
 
 
 
 
 
-<div class="card indigo">
+
+
+<div class="card indigo"
+onclick="openPage('usercontrol.html')">
+
 
 <i class="fa-solid fa-users"></i>
+
 
 <div>
 
@@ -416,12 +486,8 @@ Total Users
 System Users
 </p>
 
-</div>
 
 </div>
-
-
-
 
 
 </div>
@@ -429,6 +495,16 @@ System Users
 
 
 
+
+</div>
+
+
+
+
+
+
+
+</div>
 
 
 
