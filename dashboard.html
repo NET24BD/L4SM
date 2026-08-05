@@ -53,8 +53,7 @@ L4SM
 <ul>
 
 
-<li class="active"
-onclick="openPage('dashboard.html')">
+<li class="active" onclick="openPage('dashboard.html')">
 
 <i class="fa-solid fa-house"></i>
 
@@ -63,7 +62,6 @@ Dashboard
 </span>
 
 </li>
-
 
 
 
@@ -121,10 +119,7 @@ Manager
 </li>
 
 
-
-
 </ul>
-
 
 
 </div>
@@ -146,7 +141,6 @@ Manager
 <header>
 
 
-
 <h2>
 Dashboard
 </h2>
@@ -165,7 +159,7 @@ src="assets/profile.png">
 
 
 
-<span id="username">
+<span id="headerName">
 User
 </span>
 
@@ -178,7 +172,8 @@ User
 
 
 <div id="profileMenu"
-class="profile-menu">
+class="profile-menu"
+onclick="event.stopPropagation()">
 
 
 
@@ -194,7 +189,7 @@ My Account
 
 
 
-<button onclick="logout()">
+<button type="button" id="logoutBtn">
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
@@ -223,16 +218,19 @@ Logout
 
 
 
+<!-- WELCOME -->
+
 <div class="welcome">
 
 
 <h1>
 
-Welcome Back
+Welcome Back 
 
-<span id="username">
+<span id="welcomeName">
 User
 </span>
+
 
 </h1>
 
@@ -252,7 +250,7 @@ L4SM Management System
 
 
 
-<!-- CARDS -->
+<!-- DASHBOARD CARDS -->
 
 <div class="cards">
 
@@ -263,9 +261,7 @@ L4SM Management System
 <div class="card blue"
 onclick="openPage('new-entry.html')">
 
-
 <i class="fa-solid fa-plus-circle"></i>
-
 
 <div>
 
@@ -277,9 +273,7 @@ New Entry
 Create Entry
 </p>
 
-
 </div>
-
 
 </div>
 
@@ -292,9 +286,7 @@ Create Entry
 <div class="card green"
 onclick="openPage('support.html')">
 
-
 <i class="fa-solid fa-headset"></i>
-
 
 <div>
 
@@ -306,12 +298,9 @@ Pending Support
 Support Pending
 </p>
 
-
 </div>
 
-
 </div>
-
 
 
 
@@ -322,9 +311,7 @@ Support Pending
 <div class="card orange"
 onclick="openPage('call.html')">
 
-
 <i class="fa-solid fa-phone-volume"></i>
-
 
 <div>
 
@@ -336,12 +323,9 @@ Pending Call
 Call Pending
 </p>
 
-
 </div>
 
-
 </div>
-
 
 
 
@@ -352,9 +336,7 @@ Call Pending
 <div class="card purple"
 onclick="openPage('history.html')">
 
-
 <i class="fa-solid fa-clock-rotate-left"></i>
-
 
 <div>
 
@@ -366,12 +348,9 @@ History
 All History
 </p>
 
-
 </div>
 
-
 </div>
-
 
 
 
@@ -382,9 +361,7 @@ All History
 <div class="card red"
 onclick="openPage('offline-entry.html')">
 
-
 <i class="fa-solid fa-file-circle-plus"></i>
-
 
 <div>
 
@@ -396,12 +373,9 @@ Offline Entry
 Add Offline
 </p>
 
-
 </div>
 
-
 </div>
-
 
 
 
@@ -412,9 +386,7 @@ Add Offline
 <div class="card dark"
 onclick="openPage('offline.html')">
 
-
 <i class="fa-solid fa-power-off"></i>
-
 
 <div>
 
@@ -426,12 +398,9 @@ Offline
 Offline List
 </p>
 
-
 </div>
 
-
 </div>
-
 
 
 
@@ -442,9 +411,7 @@ Offline List
 <div class="card cyan"
 onclick="openPage('offline-history.html')">
 
-
 <i class="fa-solid fa-box-archive"></i>
-
 
 <div>
 
@@ -453,15 +420,12 @@ Offline History
 </h3>
 
 <p>
-Records
+Offline Records
 </p>
 
-
 </div>
 
-
 </div>
-
 
 
 
@@ -472,9 +436,7 @@ Records
 <div class="card indigo"
 onclick="openPage('usercontrol.html')">
 
-
 <i class="fa-solid fa-users"></i>
-
 
 <div>
 
@@ -486,15 +448,7 @@ Total Users
 System Users
 </p>
 
-
 </div>
-
-
-</div>
-
-
-
-
 
 </div>
 
@@ -502,9 +456,19 @@ System Users
 
 
 
+</div>
+
+
+
+
+
+
 
 
 </div>
+
+
+
 
 
 
