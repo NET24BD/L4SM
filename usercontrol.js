@@ -1,7 +1,6 @@
 // =====================================
-// API URL
+// GOOGLE APPS SCRIPT URL
 // =====================================
-
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
@@ -13,8 +12,7 @@ const API_URL =
 // PAGE LOAD
 // =====================================
 
-
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded", function(){
 
 
     loadProfile();
@@ -27,55 +25,42 @@ document.addEventListener("DOMContentLoaded",function(){
 
 
 
-
 // =====================================
-// LOAD PROFILE
+// LOAD ADMIN PROFILE
 // =====================================
-
 
 function loadProfile(){
 
 
+    let name = localStorage.getItem("name");
 
-let name =
-localStorage.getItem("name");
-
-
-let picture =
-localStorage.getItem("picture");
+    let picture = localStorage.getItem("picture");
 
 
 
-let userName =
-document.getElementById("userName");
+    let nameBox = document.getElementById("userName");
 
-
-let profileImg =
-document.getElementById("profileImg");
+    let imgBox = document.getElementById("profileImg");
 
 
 
+    if(nameBox){
 
-if(userName){
+        nameBox.innerHTML = name || "User";
 
-userName.innerHTML =
-name || "User";
-
-}
+    }
 
 
 
-if(profileImg && picture){
+    if(imgBox && picture){
 
-profileImg.src = picture;
+        imgBox.src = picture;
 
-}
-
+    }
 
 
 
 }
-
 
 
 
@@ -83,18 +68,13 @@ profileImg.src = picture;
 
 
 // =====================================
-// PROFILE MENU
+// PROFILE DROPDOWN
 // =====================================
 
 
-const profileBtn =
-document.getElementById("profileBtn");
+const profileBtn = document.getElementById("profileBtn");
 
-
-const profileMenu =
-document.getElementById("profileMenu");
-
-
+const profileMenu = document.getElementById("profileMenu");
 
 
 
@@ -104,34 +84,30 @@ if(profileBtn){
 profileBtn.addEventListener("click",function(e){
 
 
-e.stopPropagation();
+    e.stopPropagation();
 
 
-
-if(profileMenu.style.display=="block"){
-
-
-profileMenu.style.display="none";
+    if(profileMenu.style.display === "block"){
 
 
-}
-
-else{
+        profileMenu.style.display="none";
 
 
-profileMenu.style.display="block";
+    }
+
+    else{
 
 
-}
+        profileMenu.style.display="block";
 
+
+    }
 
 
 });
 
 
-
 }
-
 
 
 
@@ -139,15 +115,14 @@ profileMenu.style.display="block";
 document.addEventListener("click",function(){
 
 
-if(profileMenu){
+    if(profileMenu){
 
-profileMenu.style.display="none";
+        profileMenu.style.display="none";
 
-}
+    }
 
 
 });
-
 
 
 
@@ -159,8 +134,7 @@ profileMenu.style.display="none";
 // =====================================
 
 
-const backBtn =
-document.getElementById("backBtn");
+const backBtn = document.getElementById("backBtn");
 
 
 
@@ -170,7 +144,7 @@ if(backBtn){
 backBtn.onclick=function(){
 
 
-window.location.href="dashboard.html";
+    window.location.href="dashboard.html";
 
 
 };
@@ -199,10 +173,9 @@ if(accountBtn){
 accountBtn.onclick=function(e){
 
 
-e.stopPropagation();
+    e.stopPropagation();
 
-
-window.location.href="my-account.html";
+    window.location.href="my-account.html";
 
 
 };
@@ -231,21 +204,9 @@ if(logoutBtn){
 logoutBtn.onclick=function(){
 
 
+    localStorage.clear();
 
-localStorage.removeItem("isLogin");
-
-localStorage.removeItem("username");
-
-localStorage.removeItem("name");
-
-localStorage.removeItem("role");
-
-localStorage.removeItem("picture");
-
-
-
-window.location.href="login.html";
-
+    window.location.href="login.html";
 
 
 };
@@ -259,9 +220,8 @@ window.location.href="login.html";
 
 
 
-
 // =====================================
-// LOAD USERS FROM GOOGLE SHEET
+// LOAD USERS FROM SHEET
 // =====================================
 
 
@@ -269,22 +229,28 @@ function loadUsers(){
 
 
 
-fetch(API_URL+"?action=users")
+fetch(API_URL + "?action=users")
 
 
-.then(response=>response.json())
+.then(response => response.json())
 
 
-.then(users=>{
+.then(users => {
 
 
 
-let table =
+console.log("USER DATA:",users);
+
+
+
+const table =
 document.getElementById("userTable");
 
 
 
 if(!table){
+
+console.log("userTable missing");
 
 return;
 
@@ -297,15 +263,42 @@ table.innerHTML="";
 
 
 
+
+if(users.length === 0){
+
+
+table.innerHTML = `
+
+<tr>
+
+<td colspan="6">
+
+No User Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+
+}
+
+
+
+
+
+
+
 users.forEach(function(user){
 
 
 
 table.innerHTML += `
 
-
 <tr>
-
 
 
 <td>
@@ -313,7 +306,6 @@ table.innerHTML += `
 <img src="${user.picture || 'profile.png'}">
 
 </td>
-
 
 
 
@@ -325,13 +317,11 @@ ${user.username}
 
 
 
-
 <td>
 
 ${user.name}
 
 </td>
-
 
 
 
@@ -343,7 +333,6 @@ ${user.role}
 
 
 
-
 <td>
 
 ${user.status}
@@ -352,9 +341,7 @@ ${user.status}
 
 
 
-
 <td>
-
 
 
 <button class="action-btn edit">
@@ -362,7 +349,6 @@ ${user.status}
 Edit
 
 </button>
-
 
 
 <button class="action-btn delete">
@@ -376,10 +362,7 @@ Delete
 </td>
 
 
-
 </tr>
-
-
 
 `;
 
@@ -394,15 +377,14 @@ Delete
 })
 
 
-
 .catch(error=>{
 
 
-console.log(error);
+console.log("API ERROR:",error);
 
 
 
-let table =
+const table =
 document.getElementById("userTable");
 
 
@@ -410,13 +392,13 @@ document.getElementById("userTable");
 if(table){
 
 
-table.innerHTML = `
+table.innerHTML=`
 
 <tr>
 
 <td colspan="6">
 
-Server Connection Error
+Connection Error
 
 </td>
 
@@ -425,6 +407,7 @@ Server Connection Error
 `;
 
 }
+
 
 
 });
@@ -438,9 +421,8 @@ Server Connection Error
 
 
 
-
 // =====================================
-// ADD USER
+// ADD USER BUTTON
 // =====================================
 
 
@@ -455,7 +437,7 @@ if(addUserBtn){
 addUserBtn.onclick=function(){
 
 
-alert("Add User System Coming Soon");
+alert("Add User Coming Soon");
 
 
 };
