@@ -1,284 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Control</title>
 
-    <title>User Control - L4SM</title>
-
-    <link rel="stylesheet" href="usercontrol.css">
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-    <!-- Sidebar -->
 
-    <div class="sidebar" id="sidebar">
+<div class="container">
 
-        <div class="menu-btn" onclick="toggleSidebar()">
-            <i class="fa-solid fa-bars"></i>
-        </div>
+<h2>User Control Panel</h2>
 
-        <div class="logo">
-            <i class="fa-solid fa-layer-group"></i>
-            <span>L4SM</span>
-        </div>
 
-        <ul>
+<div class="form">
 
-            <li onclick="openPage('dashboard.html')">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </li>
+<input id="username" placeholder="Username">
 
-            <li class="active">
-                <i class="fa-solid fa-users"></i>
-                <span>User Control</span>
-            </li>
+<input id="password" placeholder="Password">
 
-            <li onclick="openPage('support.html')">
-                <i class="fa-solid fa-headset"></i>
-                <span>Support</span>
-            </li>
+<input id="name" placeholder="Name">
 
-            <li onclick="openPage('call.html')">
-                <i class="fa-solid fa-phone"></i>
-                <span>Call</span>
-            </li>
 
-            <li onclick="openPage('manager.html')">
-                <i class="fa-solid fa-user-tie"></i>
-                <span>Manager</span>
-            </li>
+<select id="role">
+<option value="Admin">Admin</option>
+<option value="User">User</option>
+</select>
 
-        </ul>
 
-    </div>
+<select id="status">
+<option value="Active">Active</option>
+<option value="Inactive">Inactive</option>
+</select>
 
-    <!-- Main -->
 
-    <div class="main">
+<input id="picture" placeholder="Picture URL">
 
-        <header>
 
-            <h2>User Control</h2>
+<button onclick="addUser()">
+Add User
+</button>
 
-            <div class="profile" onclick="toggleProfileMenu()">
 
-                <img id="profileImg" src="assets/profile.png">
+</div>
 
-                <span id="headerName">User</span>
 
-                <i class="fa-solid fa-angle-down"></i>
 
-                <div class="profile-menu" id="profileMenu" onclick="event.stopPropagation()">
+<hr>
 
-                    <button onclick="openPage('my-account.html')">
-                        <i class="fa-solid fa-user"></i>
-                        My Account
-                    </button>
 
-                    <button id="logoutBtn">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        Logout
-                    </button>
+<h3>User List</h3>
 
-                </div>
 
-            </div>
+<table>
 
-        </header>
+<thead>
 
-        <!-- Top Bar -->
+<tr>
 
-        <div class="top-bar">
+<th>Username</th>
+<th>Name</th>
+<th>Role</th>
+<th>Status</th>
+<th>Picture</th>
+<th>Action</th>
 
-            <div class="left">
+</tr>
 
-                <h3>User Management</h3>
+</thead>
 
-                <p>Manage all system users.</p>
 
-            </div>
+<tbody id="userList">
 
-            <div class="right">
+</tbody>
 
-                <input type="text"
-                    id="searchInput"
-                    placeholder="Search user...">
 
-                <button id="addUserBtn">
-                    <i class="fa-solid fa-user-plus"></i>
-                    Add User
-                </button>
+</table>
 
-            </div>
 
-        </div>
+</div>
 
-        <!-- Table -->
 
-        <div class="table-box">
 
-            <table>
+<script src="script.js"></script>
 
-                <thead>
-
-                    <tr>
-
-                        <th>Picture</th>
-
-                        <th>Username</th>
-
-                        <th>Name</th>
-
-                        <th>Role</th>
-
-                        <th>Status</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="userTable">
-
-                    <!-- JS Load -->
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-    <!-- Add / Edit User Modal -->
-
-    <div class="modal" id="userModal">
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-                <h2 id="modalTitle">
-
-                    Add User
-
-                </h2>
-
-                <span class="close" id="closeModal">
-
-                    &times;
-
-                </span>
-
-            </div>
-
-            <div class="modal-body">
-
-                <input type="hidden" id="oldUsername">
-
-                <div class="form-group">
-
-                    <label>Username</label>
-
-                    <input type="text" id="username">
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Password</label>
-
-                    <input type="text" id="password">
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Name</label>
-
-                    <input type="text" id="name">
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Role</label>
-
-                    <select id="role">
-
-                        <option>Admin</option>
-
-                        <option>Support</option>
-
-                        <option>Caller</option>
-
-                        <option>Manager</option>
-
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Status</label>
-
-                    <select id="status">
-
-                        <option>Active</option>
-
-                        <option>Inactive</option>
-
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Picture URL</label>
-
-                    <input type="text" id="picture">
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <button class="save-btn" id="saveUser">
-
-                    Save User
-
-                </button>
-
-                <button class="cancel-btn" id="cancelUser">
-
-                    Cancel
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Loading -->
-
-    <div id="loadingContainer"></div>
-
-    <script src="session.js"></script>
-    <script src="loading.js"></script>
-    <script src="usercontrol.js"></script>
 
 </body>
-
 </html>
