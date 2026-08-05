@@ -2,10 +2,8 @@ const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
-
 let editMode = false;
 let oldUsername = "";
-
 
 
 
@@ -13,14 +11,11 @@ let oldUsername = "";
 // PAGE LOAD
 // ===============================
 
-
 document.addEventListener("DOMContentLoaded",()=>{
 
+    loadProfile();
 
-loadProfile();
-
-loadUsers();
-
+    loadUsers();
 
 });
 
@@ -28,10 +23,8 @@ loadUsers();
 
 
 
-
-
 // ===============================
-// PROFILE
+// PROFILE LOAD
 // ===============================
 
 
@@ -60,8 +53,8 @@ picture;
 }
 
 
-}
 
+}
 
 
 
@@ -84,7 +77,6 @@ document.getElementById("profileMenu");
 
 
 profileBtn.onclick=function(e){
-
 
 e.stopPropagation();
 
@@ -114,20 +106,16 @@ profileMenu.style.display="none";
 
 
 
-
 // ===============================
-// BACK
+// BACK BUTTON
 // ===============================
 
 
 document.getElementById("backBtn").onclick=function(){
 
-
 window.location.href="dashboard.html";
 
-
 };
-
 
 
 
@@ -142,12 +130,9 @@ window.location.href="dashboard.html";
 
 document.getElementById("accountBtn").onclick=function(){
 
-
 window.location.href="my-account.html";
 
-
 };
-
 
 
 
@@ -187,7 +172,6 @@ window.location.href="login.html";
 function loadUsers(){
 
 
-
 showLoading("Loading Users...");
 
 
@@ -218,16 +202,12 @@ table.innerHTML += `
 
 <tr>
 
-
 <td>
-
 
 <img class="user-photo"
 src="${user.picture || 'profile.png'}">
 
-
 </td>
-
 
 
 <td>${user.username}</td>
@@ -242,12 +222,10 @@ src="${user.picture || 'profile.png'}">
 <td>${user.status}</td>
 
 
-
 <td>
 
 
-<button class="action-btn edit"
-onclick="editUser(
+<button onclick="editUser(
 '${user.username}',
 '${user.password}',
 '${user.name}',
@@ -262,9 +240,7 @@ Edit
 
 
 
-
-<button class="action-btn delete"
-onclick="deleteUser('${user.username}')">
+<button onclick="deleteUser('${user.username}')">
 
 Delete
 
@@ -275,17 +251,13 @@ Delete
 </td>
 
 
-
 </tr>
-
 
 
 `;
 
 
-
 });
-
 
 
 })
@@ -296,7 +268,7 @@ Delete
 
 showPopup(
 "Error",
-"Cannot load users"
+"User Load Failed"
 );
 
 
@@ -312,7 +284,6 @@ hideLoading();
 });
 
 
-
 }
 
 
@@ -322,13 +293,13 @@ hideLoading();
 
 
 
+
 // ===============================
-// ADD BUTTON
+// ADD USER OPEN
 // ===============================
 
 
 document.getElementById("addUserBtn").onclick=function(){
-
 
 
 editMode=false;
@@ -337,14 +308,11 @@ editMode=false;
 clearForm();
 
 
-
 document.getElementById("formTitle").innerHTML=
 "Add User";
 
 
-
-document.getElementById("userModal").style.display=
-"flex";
+document.getElementById("userModal").style.display="flex";
 
 
 };
@@ -355,24 +323,18 @@ document.getElementById("userModal").style.display=
 
 
 
-
-
 // ===============================
-// CANCEL
+// CANCEL FORM
 // ===============================
 
 
 document.getElementById("cancelUser").onclick=function(){
 
 
-
-document.getElementById("userModal").style.display=
-"none";
+document.getElementById("userModal").style.display="none";
 
 
 };
-
-
 
 
 
@@ -394,39 +356,31 @@ document.getElementById("saveUser").onclick=function(){
 let data={
 
 
-
 username:
 document.getElementById("username").value.trim(),
-
 
 
 password:
 document.getElementById("password").value.trim(),
 
 
-
 name:
 document.getElementById("name").value.trim(),
-
 
 
 role:
 document.getElementById("role").value,
 
 
-
 status:
 document.getElementById("status").value,
-
 
 
 picture:
 document.getElementById("picture").value.trim()
 
 
-
 };
-
 
 
 
@@ -442,21 +396,7 @@ showPopup(
 
 return;
 
-
 }
-
-
-
-
-
-
-showLoading(
-editMode ?
-"Updating User..." :
-"Creating User..."
-);
-
-
 
 
 
@@ -466,12 +406,10 @@ if(editMode){
 
 data.action="update";
 
-
 data.oldUsername=oldUsername;
 
 
 }
-
 else{
 
 
@@ -484,27 +422,38 @@ data.action="add";
 
 
 
+showLoading(
+editMode?
+"Updating User..."
+:
+"Creating User..."
+);
+
+
+
+
 
 fetch(API_URL,{
 
-
 method:"POST",
+
+headers:{
+
+"Content-Type":"text/plain;charset=utf-8"
+
+},
 
 
 body:JSON.stringify(data)
 
 
-
 })
-
 
 
 .then(res=>res.json())
 
 
-
 .then(result=>{
-
 
 
 hideLoading();
@@ -512,7 +461,7 @@ hideLoading();
 
 
 showPopup(
-result.success ? "Success" : "Error",
+result.success ? "Success":"Error",
 result.message
 );
 
@@ -521,8 +470,7 @@ result.message
 if(result.success){
 
 
-document.getElementById("userModal").style.display=
-"none";
+document.getElementById("userModal").style.display="none";
 
 
 loadUsers();
@@ -536,7 +484,6 @@ clearForm();
 
 
 })
-
 
 
 .catch(()=>{
@@ -613,8 +560,7 @@ document.getElementById("picture").value=picture;
 
 
 
-document.getElementById("userModal").style.display=
-"flex";
+document.getElementById("userModal").style.display="flex";
 
 
 }
@@ -636,10 +582,11 @@ function deleteUser(username){
 
 
 
-if(!confirm("Delete this user?"))
+if(!confirm("Delete this user?")){
 
 return;
 
+}
 
 
 
@@ -648,11 +595,16 @@ showLoading("Deleting User...");
 
 
 
-
-
 fetch(API_URL,{
 
 method:"POST",
+
+headers:{
+
+"Content-Type":"text/plain;charset=utf-8"
+
+},
+
 
 body:JSON.stringify({
 
@@ -663,12 +615,11 @@ username:username
 
 })
 
+
 })
 
 
-
 .then(res=>res.json())
-
 
 
 .then(result=>{
@@ -679,7 +630,7 @@ hideLoading();
 
 
 showPopup(
-result.success ? "Deleted" : "Error",
+result.success?"Deleted":"Error",
 result.message
 );
 
@@ -687,14 +638,15 @@ result.message
 
 if(result.success){
 
+
 loadUsers();
+
 
 }
 
 
 
 })
-
 
 
 .catch(()=>{
@@ -710,7 +662,6 @@ showPopup(
 
 
 });
-
 
 
 }
@@ -758,8 +709,9 @@ document.getElementById("picture").value="";
 
 
 
+
 // ===============================
-// LOADING
+// CENTER LOADING
 // ===============================
 
 
@@ -769,8 +721,7 @@ function showLoading(text){
 document.getElementById("loadingText").innerHTML=text;
 
 
-document.getElementById("loadingBox").style.display=
-"block";
+document.getElementById("loadingBox").style.display="flex";
 
 
 }
@@ -780,8 +731,7 @@ document.getElementById("loadingBox").style.display=
 function hideLoading(){
 
 
-document.getElementById("loadingBox").style.display=
-"none";
+document.getElementById("loadingBox").style.display="none";
 
 
 }
@@ -795,24 +745,21 @@ document.getElementById("loadingBox").style.display=
 
 
 // ===============================
-// POPUP
+// CENTER POPUP
 // ===============================
 
 
 function showPopup(title,message){
 
 
-document.getElementById("popupTitle").innerHTML=
-title;
+document.getElementById("popupTitle").innerHTML=title;
 
 
-document.getElementById("popupMessage").innerHTML=
-message;
+document.getElementById("popupMessage").innerHTML=message;
 
 
 
-document.getElementById("popupBox").style.display=
-"flex";
+document.getElementById("popupBox").style.display="flex";
 
 
 }
@@ -822,8 +769,7 @@ document.getElementById("popupBox").style.display=
 function closePopup(){
 
 
-document.getElementById("popupBox").style.display=
-"none";
+document.getElementById("popupBox").style.display="none";
 
 
 }
