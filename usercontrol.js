@@ -1,278 +1,69 @@
-// =====================================
-// L4SM USER CONTROL JS
-// =====================================
 
+// Google Apps Script Web App URL
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
+"https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
 
 
 
-let users = [];
 
-let editMode = false;
-
-let oldUsername = "";
-
-
-
-
-
-// =====================================
-// PAGE LOAD
-// =====================================
-
-
-document.addEventListener("DOMContentLoaded",function(){
-
-
-loadUsers();
-
-
-loadProfile();
-
-
-
-});
-
-
-
-
-
-
-
-
-
-// =====================================
-// PROFILE LOAD
-// =====================================
-
-
-function loadProfile(){
-
-
-
-let name =
-localStorage.getItem("name");
-
-
-let picture =
-localStorage.getItem("picture");
-
-
-
-
-
-document.querySelectorAll("#username")
-.forEach(function(el){
-
-
-el.innerHTML =
-name || "User";
-
-
-});
-
-
-
-
-
-let img =
-document.getElementById("profileImg");
-
-
-
-if(img){
-
-
-if(picture){
-
-img.src=picture;
-
-
-}
-
-
-
-img.onerror=function(){
-
-this.src="assets/profile.png";
-
-
-};
-
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================================
-// LOAD USERS
-// =====================================
-
+// Load Users
 
 function loadUsers(){
 
 
-
-showLoading();
-
-
-
 fetch(API_URL+"?action=users")
+
 
 .then(res=>res.json())
 
-.then(data=>{
+
+.then(users=>{
 
 
-
-users=data;
-
-
-displayUsers(users);
+let html="";
 
 
-
-})
-
-.catch(err=>{
+users.forEach(user=>{
 
 
-showPopup(
-"Failed to load users",
-"red"
-);
-
-
-})
-
-.finally(()=>{
-
-
-hideLoading();
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================================
-// DISPLAY USERS
-// =====================================
-
-
-function displayUsers(data){
-
-
-
-const table =
-document.getElementById("userTable");
-
-
-
-table.innerHTML="";
-
-
-
-
-
-
-if(data.length===0){
-
-
-table.innerHTML=
-`
-<tr>
-<td colspan="6">
-No User Found
-</td>
-</tr>
-`;
-
-return;
-
-
-}
-
-
-
-
-
-
-
-
-data.forEach(function(user){
-
-
-
-
-
-table.innerHTML +=
-`
+html += `
 
 <tr>
 
 
 <td>
 
-<img src="${user.picture || 'assets/profile.png'}"
-onerror="this.src='assets/profile.png'">
+<img src="${user.picture || ''}">
 
 </td>
-
 
 
 <td>${user.username}</td>
 
-
 <td>${user.name}</td>
-
 
 <td>${user.role}</td>
 
-
 <td>${user.status}</td>
-
 
 
 <td>
 
 
+<button class="edit-btn"
+onclick='editUser(${JSON.stringify(user)})'>
 
-<button onclick="editUser('${user.username}')">
-
-<i class="fa-solid fa-pen"></i>
+Edit
 
 </button>
 
 
 
+<button class="delete-btn"
+onclick="deleteUser('${user.username}')">
 
-<button onclick="deleteUser('${user.username}')">
-
-<i class="fa-solid fa-trash"></i>
+Delete
 
 </button>
 
@@ -281,16 +72,21 @@ onerror="this.src='assets/profile.png'">
 </td>
 
 
-
 </tr>
 
 `;
 
 
 
-
 });
 
+
+
+document.getElementById("userList").innerHTML=html;
+
+
+
+});
 
 
 }
@@ -301,240 +97,38 @@ onerror="this.src='assets/profile.png'">
 
 
 
+// Add User
 
-
-// =====================================
-// SEARCH
-// =====================================
-
-
-document
-.getElementById("searchInput")
-.addEventListener("keyup",function(){
-
-
-
-let value =
-this.value.toLowerCase();
-
-
-
-
-
-let filter =
-users.filter(function(user){
-
-
-
-return (
-
-user.username.toLowerCase()
-.includes(value)
-
-||
-
-user.name.toLowerCase()
-.includes(value)
-
-||
-
-user.role.toLowerCase()
-.includes(value)
-
-
-);
-
-
-
-});
-
-
-
-
-displayUsers(filter);
-
-
-
-});
-
-
-
-
-
-
-
-
-
-// =====================================
-// OPEN ADD USER
-// =====================================
-
-
-function openAddUser(){
-
-
-
-editMode=false;
-
-
-oldUsername="";
-
-
-
-document.getElementById("formTitle")
-.innerHTML="Add User";
-
-
-
-clearForm();
-
-
-
-document.getElementById("userModal")
-.style.display="flex";
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================================
-// EDIT USER
-// =====================================
-
-
-function editUser(username){
-
-
-
-let user =
-users.find(u=>u.username===username);
-
-
-
-if(!user)
-return;
-
-
-
-
-editMode=true;
-
-
-oldUsername=user.username;
-
-
-
-
-
-document.getElementById("formTitle")
-.innerHTML="Edit User";
-
-
-
-
-
-document.getElementById("formUsername")
-.value=user.username;
-
-
-document.getElementById("formPassword")
-.value=user.password;
-
-
-document.getElementById("formName")
-.value=user.name;
-
-
-document.getElementById("formRole")
-.value=user.role;
-
-
-document.getElementById("formStatus")
-.value=user.status;
-
-
-document.getElementById("formPicture")
-.value=user.picture;
-
-
-
-
-
-document.getElementById("userModal")
-.style.display="flex";
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================================
-// SAVE USER
-// =====================================
-
-
-function saveUser(){
-
+function addUser(){
 
 
 let data={
 
 
-
-action:
-editMode ? "update":"add",
-
-
-
+action:"add",
 
 username:
-document.getElementById("formUsername").value.trim(),
-
-
+document.getElementById("username").value,
 
 
 password:
-document.getElementById("formPassword").value.trim(),
-
-
+document.getElementById("password").value,
 
 
 name:
-document.getElementById("formName").value.trim(),
-
-
+document.getElementById("name").value,
 
 
 role:
-document.getElementById("formRole").value,
-
-
+document.getElementById("role").value,
 
 
 status:
-document.getElementById("formStatus").value,
-
-
+document.getElementById("status").value,
 
 
 picture:
-document.getElementById("formPicture").value.trim()
-
+document.getElementById("picture").value
 
 
 };
@@ -542,109 +136,30 @@ document.getElementById("formPicture").value.trim()
 
 
 
-
-if(editMode){
-
-
-data.oldUsername =
-oldUsername;
-
-
-}
-
-
-
-
-
-
-
-showLoading();
-
-
-
-
-
 fetch(API_URL,{
 
 method:"POST",
 
-headers:{
-
-"Content-Type":
-"text/plain;charset=utf-8"
-
-},
-
-
 body:JSON.stringify(data)
-
 
 })
 
 
-
 .then(res=>res.json())
+
 
 .then(result=>{
 
 
-
-if(result.success){
-
-
-
-showPopup(
-result.message,
-"green"
-);
-
-
-
-closeModal();
+alert(result.message);
 
 
 loadUsers();
 
 
-}
-
-else{
-
-
-showPopup(
-result.message,
-"red"
-);
-
-
-
-}
-
-
-
-})
-
-.catch(()=>{
-
-
-showPopup(
-"Server Error",
-"red"
-);
-
-
-})
-
-.finally(()=>{
-
-
-hideLoading();
-
-
 });
 
 
-
 }
 
 
@@ -653,43 +168,20 @@ hideLoading();
 
 
 
-
-
-// =====================================
-// DELETE USER
-// =====================================
+// Delete User
 
 
 function deleteUser(username){
 
 
-
-if(!confirm(
-"Delete this user?"
-))
-
+if(!confirm("Delete this user?"))
 return;
-
-
-
-
-
-showLoading();
-
 
 
 
 fetch(API_URL,{
 
 method:"POST",
-
-headers:{
-
-"Content-Type":
-"text/plain;charset=utf-8"
-
-},
-
 
 body:JSON.stringify({
 
@@ -697,43 +189,25 @@ action:"delete",
 
 username:username
 
-
 })
 
-
 })
-
 
 
 .then(res=>res.json())
 
-.then(data=>{
+
+.then(result=>{
 
 
-
-showPopup(
-data.message,
-data.success ? "green":"red"
-);
-
-
+alert(result.message);
 
 loadUsers();
-
-
-
-})
-
-.finally(()=>{
-
-
-hideLoading();
 
 
 });
 
 
-
 }
 
 
@@ -743,48 +217,23 @@ hideLoading();
 
 
 
+// Edit User
 
-// =====================================
-// MODAL
-// =====================================
-
-
-function closeModal(){
+function editUser(user){
 
 
+document.getElementById("username").value=user.username;
 
-document.getElementById("userModal")
-.style.display="none";
+document.getElementById("name").value=user.name;
 
+document.getElementById("role").value=user.role;
 
-clearForm();
+document.getElementById("status").value=user.status;
 
-
-
-}
-
+document.getElementById("picture").value=user.picture;
 
 
-
-
-
-
-function clearForm(){
-
-
-
-document.getElementById("formUsername").value="";
-
-document.getElementById("formPassword").value="";
-
-document.getElementById("formName").value="";
-
-document.getElementById("formRole").value="Admin";
-
-document.getElementById("formStatus").value="Active";
-
-document.getElementById("formPicture").value="";
-
+document.getElementById("password").value="";
 
 
 }
@@ -792,152 +241,8 @@ document.getElementById("formPicture").value="";
 
 
 
+window.onload=function(){
 
+loadUsers();
 
-
-
-
-// =====================================
-// LOADING
-// =====================================
-
-
-function showLoading(){
-
-
-document.getElementById("loadingBox")
-.style.display="flex";
-
-
-}
-
-
-
-function hideLoading(){
-
-
-document.getElementById("loadingBox")
-.style.display="none";
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================================
-// POPUP
-// =====================================
-
-
-function showPopup(message,color="green"){
-
-
-
-let popup =
-document.getElementById("popup");
-
-
-
-popup.innerHTML=message;
-
-
-popup.style.background=color;
-
-
-popup.style.display="block";
-
-
-
-
-setTimeout(()=>{
-
-
-popup.style.display="none";
-
-
-},2500);
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================================
-// PROFILE MENU
-// =====================================
-
-
-function toggleProfileMenu(){
-
-
-let menu =
-document.getElementById("profileMenu");
-
-
-
-if(menu.style.display==="block"){
-
-
-menu.style.display="none";
-
-
-}
-else{
-
-
-menu.style.display="block";
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-function openMyAccount(){
-
-
-window.location.href="my-account.html";
-
-
-}
-
-
-
-
-
-
-
-
-
-function logout(){
-
-
-localStorage.clear();
-
-
-window.location.href="login.html";
-
-
-}
+};
