@@ -15,6 +15,7 @@ body{
 }
 
 
+
 .container{
 
     width:95%;
@@ -24,13 +25,16 @@ body{
 
 
 
-/* Header */
+
+
+/* ================= HEADER ================= */
+
 
 header{
 
     background:white;
 
-    padding:15px 20px;
+    padding:12px 20px;
 
     border-radius:15px;
 
@@ -40,41 +44,44 @@ header{
 
     align-items:center;
 
-    box-shadow:0 8px 25px rgba(0,0,0,.20);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.20);
 
 }
 
 
 
-header h2{
 
-    color:#1e3a8a;
-
-    font-size:22px;
-
-}
+/* Back Button */
 
 
+.back-btn{
 
-header button{
+    width:42px;
+
+    height:42px;
 
     background:#2563eb;
 
     color:white;
 
-    border:none;
-
-    padding:10px 18px;
-
     border-radius:10px;
 
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
     cursor:pointer;
+
+    transition:.3s;
 
 }
 
 
 
-header button:hover{
+.back-btn:hover{
 
     background:#1d4ed8;
 
@@ -84,7 +91,142 @@ header button:hover{
 
 
 
-/* User Box */
+/* Title */
+
+
+.title h2{
+
+    color:#1e3a8a;
+
+    font-size:21px;
+
+}
+
+
+
+
+
+/* Profile */
+
+
+.profile{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+}
+
+
+
+
+.profile img{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #2563eb;
+
+}
+
+
+
+
+.profile h4{
+
+    font-size:14px;
+
+    color:#111827;
+
+}
+
+
+
+.profile p{
+
+    font-size:11px;
+
+    color:#16a34a;
+
+}
+
+
+
+
+
+/* Profile Dropdown */
+
+
+.profile-menu{
+
+    position:absolute;
+
+    right:0;
+
+    top:55px;
+
+    width:170px;
+
+    background:white;
+
+    border-radius:12px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.25);
+
+    display:none;
+
+    overflow:hidden;
+
+    z-index:100;
+
+}
+
+
+
+.profile-menu div{
+
+    padding:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#374151;
+
+    font-size:14px;
+
+}
+
+
+
+.profile-menu div:hover{
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+}
+
+
+
+
+
+/* ================= USER BOX ================= */
+
 
 .user-box{
 
@@ -96,9 +238,12 @@ header button:hover{
 
     border-radius:18px;
 
-    box-shadow:0 8px 25px rgba(0,0,0,.20);
+    box-shadow:
+
+    0 8px 25px rgba(0,0,0,.20);
 
 }
+
 
 
 
@@ -116,11 +261,16 @@ header button:hover{
 
 
 
+
 .top h3{
 
     color:#111827;
 
+    font-size:18px;
+
 }
+
+
 
 
 
@@ -138,6 +288,8 @@ header button:hover{
 
     cursor:pointer;
 
+    font-size:14px;
+
 }
 
 
@@ -152,7 +304,7 @@ header button:hover{
 
 
 
-/* Table */
+/* ================= TABLE ================= */
 
 
 table{
@@ -175,13 +327,27 @@ thead{
 
 
 
-th,td{
+th{
+
+    padding:12px;
+
+    font-size:14px;
+
+}
+
+
+
+td{
 
     padding:12px;
 
     text-align:center;
 
-    border-bottom:1px solid #ddd;
+    border-bottom:1px solid #e5e7eb;
+
+    color:#374151;
+
+    font-size:14px;
 
 }
 
@@ -197,7 +363,7 @@ tbody tr:hover{
 
 
 
-/* Profile Image */
+/* User Picture */
 
 
 td img{
@@ -218,7 +384,7 @@ td img{
 
 
 
-/* Buttons */
+/* Action Buttons */
 
 
 .action-btn{
@@ -229,11 +395,13 @@ td img{
 
     border-radius:8px;
 
-    cursor:pointer;
-
     color:white;
 
-    margin:3px;
+    cursor:pointer;
+
+    margin:2px;
+
+    font-size:12px;
 
 }
 
@@ -255,7 +423,7 @@ td img{
 
 
 
-.status{
+.active{
 
     background:#16a34a;
 
@@ -265,9 +433,18 @@ td img{
 
 
 
-/* Mobile */
+/* ================= MOBILE ================= */
+
 
 @media(max-width:700px){
+
+
+body{
+
+    padding:10px;
+
+}
+
 
 
 .container{
@@ -277,17 +454,54 @@ td img{
 }
 
 
-table{
 
-    font-size:12px;
+header{
+
+    padding:12px;
 
 }
 
 
 
-th,td{
+.title h2{
 
-    padding:8px;
+    font-size:17px;
+
+}
+
+
+
+.profile img{
+
+    width:40px;
+
+    height:40px;
+
+}
+
+
+
+.profile div h4{
+
+    display:none;
+
+}
+
+
+
+.user-box{
+
+    padding:12px;
+
+    overflow-x:auto;
+
+}
+
+
+
+table{
+
+    min-width:700px;
 
 }
 
@@ -300,6 +514,7 @@ th,td{
     gap:15px;
 
 }
+
 
 
 }
