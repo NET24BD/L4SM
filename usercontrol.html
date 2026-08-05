@@ -21,15 +21,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </head>
 
 
-
 <body>
 
 
 <div class="container">
 
-
-
-<!-- ================= HEADER ================= -->
 
 
 <header>
@@ -55,14 +51,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- PROFILE -->
-
 <div class="profile" id="profileBtn">
 
 
-
 <img id="profileImg" src="profile.png">
-
 
 
 <div class="profile-info">
@@ -70,7 +62,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <h4 id="userName">
 Username
 </h4>
-
 
 <p>
 Online
@@ -80,10 +71,6 @@ Online
 
 
 
-
-
-
-<!-- PROFILE MENU -->
 
 
 <div class="profile-menu" id="profileMenu">
@@ -96,7 +83,6 @@ Online
 My Account
 
 </div>
-
 
 
 
@@ -128,15 +114,12 @@ Logout
 
 
 
-<!-- ================= USER AREA ================= -->
-
 
 <div class="user-box">
 
 
 
 <div class="top">
-
 
 
 <h3>
@@ -150,9 +133,6 @@ Users List
 
 
 
-
-
-
 <div class="search-box">
 
 
@@ -162,7 +142,7 @@ Users List
 <input 
 type="text"
 id="searchUser"
-placeholder="Search user...">
+placeholder="Search User...">
 
 
 </div>
@@ -172,18 +152,13 @@ placeholder="Search user...">
 
 
 
-
 <button id="addUserBtn">
-
 
 <i class="fa-solid fa-user-plus"></i>
 
 Add User
 
-
 </button>
-
-
 
 
 
@@ -207,43 +182,22 @@ Add User
 
 <tr>
 
+<th>Picture</th>
 
-<th>
-Picture
-</th>
+<th>Username</th>
 
+<th>Name</th>
 
-<th>
-Username
-</th>
+<th>Role</th>
 
+<th>Status</th>
 
-<th>
-Name
-</th>
-
-
-<th>
-Role
-</th>
-
-
-<th>
-Status
-</th>
-
-
-<th>
-Action
-</th>
+<th>Action</th>
 
 
 </tr>
 
-
 </thead>
-
-
 
 
 
@@ -253,20 +207,16 @@ Action
 
 <tr>
 
-
 <td colspan="6">
 
 Loading...
 
 </td>
 
-
 </tr>
 
 
 </tbody>
-
-
 
 
 
@@ -277,8 +227,6 @@ Loading...
 
 
 
-
-
 </div>
 
 
@@ -289,15 +237,10 @@ Loading...
 
 
 
-
-
-
-
-<!-- ================= ADD EDIT MODAL ================= -->
+<!-- ADD EDIT FORM -->
 
 
 <div class="modal" id="userModal">
-
 
 
 <div class="modal-box">
@@ -313,7 +256,6 @@ Loading...
 
 
 
-
 <h2 id="formTitle">
 
 Add User
@@ -323,14 +265,10 @@ Add User
 
 
 
-
-
-<input
+<input 
 type="text"
 id="username"
 placeholder="Username">
-
-
 
 
 
@@ -338,8 +276,6 @@ placeholder="Username">
 type="password"
 id="password"
 placeholder="Password">
-
-
 
 
 
@@ -352,40 +288,21 @@ placeholder="Full Name">
 
 
 
-
-
 <select id="role">
 
 
-<option value="Admin">
-Admin
-</option>
+<option>Admin</option>
 
+<option>Support</option>
 
-<option value="Support">
-Support
-</option>
+<option>Caller</option>
 
+<option>Manager</option>
 
-<option value="Caller">
-Caller
-</option>
-
-
-<option value="Manager">
-Manager
-</option>
-
-
-<option value="Guest">
-Guest
-</option>
+<option>Guest</option>
 
 
 </select>
-
-
-
 
 
 
@@ -393,25 +310,11 @@ Guest
 
 <select id="status">
 
+<option>Active</option>
 
-<option value="Active">
-
-Active
-
-</option>
-
-
-<option value="Block">
-
-Block
-
-</option>
-
+<option>Block</option>
 
 </select>
-
-
-
 
 
 
@@ -427,43 +330,25 @@ placeholder="Picture URL">
 
 
 
-
 <div class="form-buttons">
-
 
 
 <button id="saveUser">
 
-
-<i class="fa-solid fa-save"></i>
-
 Save
 
-
 </button>
-
-
-
 
 
 
 <button id="cancelUser">
 
-
-<i class="fa-solid fa-xmark"></i>
-
 Cancel
-
 
 </button>
 
 
-
-
 </div>
-
-
-
 
 
 
@@ -481,17 +366,27 @@ Cancel
 
 
 
-
-
-
-<!-- ================= LOADING ================= -->
+<!-- SMALL LOADING -->
 
 
 <div class="loading-box" id="loadingBox">
 
 
 
-<div class="loader"></div>
+<div class="loader">
+
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+
+</div>
 
 
 
@@ -513,26 +408,16 @@ Loading...
 
 
 
-
-
-
-
-<!-- ================= POPUP ================= -->
+<!-- POPUP -->
 
 
 <div class="popup" id="popupBox">
 
 
-
 <div class="popup-content">
 
 
-
-<i id="popupIcon"
-class="fa-solid fa-circle-check">
-</i>
-
-
+<i class="fa-solid fa-circle-check"></i>
 
 
 
@@ -541,7 +426,6 @@ class="fa-solid fa-circle-check">
 Success
 
 </h3>
-
 
 
 
@@ -554,8 +438,6 @@ Done
 
 
 
-
-
 <button onclick="closePopup()">
 
 OK
@@ -564,13 +446,10 @@ OK
 
 
 
-
 </div>
 
 
-
 </div>
-
 
 
 
@@ -582,8 +461,6 @@ OK
 <script src="usercontrol.js"></script>
 
 
-
 </body>
-
 
 </html>
