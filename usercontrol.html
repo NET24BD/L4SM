@@ -9,10 +9,13 @@
 
 <title>User Control</title>
 
+
 <link rel="stylesheet" href="usercontrol.css">
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 </head>
 
@@ -23,42 +26,145 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <div class="container">
 
 
+
+<!-- Header -->
+
 <header>
 
-<h2>
-<i class="fa-solid fa-user-gear"></i>
-User Control
-</h2>
 
 
-<button onclick="goBack()">
+<!-- Back Button -->
+
+<div class="back-btn" onclick="goBack()">
+
 <i class="fa-solid fa-arrow-left"></i>
-Back
-</button>
+
+</div>
+
+
+
+
+<!-- Title -->
+
+<div class="title">
+
+<h2>User Control</h2>
+
+</div>
+
+
+
+
+
+<!-- Profile -->
+
+
+<div class="profile" onclick="toggleProfileMenu()">
+
+
+
+<img id="profileImg" src="profile.png">
+
+
+
+<div>
+
+<h4 id="userName">
+Username
+</h4>
+
+
+<p>
+Online
+</p>
+
+
+</div>
+
+
+
+
+
+<!-- Profile Menu -->
+
+
+<div class="profile-menu" id="profileMenu">
+
+
+
+<div onclick="openPage('my-account.html')">
+
+<i class="fa-solid fa-user"></i>
+
+My Account
+
+</div>
+
+
+
+
+<div onclick="logout()">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
 
 
 </header>
 
 
 
+
+
+
+
+<!-- User List Section -->
+
+
 <div class="user-box">
+
 
 
 <div class="top">
 
 
-<h3>Users List</h3>
+<h3>
+
+<i class="fa-solid fa-users"></i>
+
+Users List
+
+</h3>
+
 
 
 <button onclick="addUser()">
 
+
 <i class="fa-solid fa-user-plus"></i>
+
 Add User
+
 
 </button>
 
 
+
 </div>
+
+
+
 
 
 
@@ -68,7 +174,9 @@ Add User
 
 <thead>
 
+
 <tr>
+
 
 <th>Picture</th>
 
@@ -82,9 +190,13 @@ Add User
 
 <th>Action</th>
 
+
 </tr>
 
+
 </thead>
+
+
 
 
 
@@ -94,31 +206,45 @@ Add User
 <tr>
 
 <td colspan="6">
+
 Loading Users...
+
 </td>
 
 
 </tr>
 
 
+
 </tbody>
+
+
 
 
 </table>
 
 
 
+
+</div>
+
+
+
+
+
+
 </div>
 
 
 
-</div>
 
 
 
 <script src="usercontrol.js"></script>
 
 
+
 </body>
+
 
 </html>
