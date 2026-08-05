@@ -1,9 +1,6 @@
-// ===============================
-// Load Profile
-// ===============================
+// Load User Profile
 
-
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded",function(){
 
 
 let name = localStorage.getItem("name");
@@ -12,14 +9,88 @@ let picture = localStorage.getItem("picture");
 
 
 
-document.getElementById("userName").innerHTML =
-name || "User";
+let userName = document.getElementById("userName");
+
+let profileImg = document.getElementById("profileImg");
 
 
 
-if(picture){
+if(userName){
 
-document.getElementById("profileImg").src = picture;
+userName.innerHTML = name || "User";
+
+}
+
+
+
+if(profileImg && picture){
+
+profileImg.src = picture;
+
+}
+
+
+
+});
+
+
+
+
+
+// Profile Menu Open Close
+
+
+document.addEventListener("DOMContentLoaded",function(){
+
+
+const profile = document.getElementById("profile");
+
+const menu = document.getElementById("profileMenu");
+
+
+
+if(profile && menu){
+
+
+
+profile.addEventListener("click",function(e){
+
+
+e.stopPropagation();
+
+
+if(menu.style.display === "block"){
+
+
+menu.style.display="none";
+
+
+}
+
+else{
+
+
+menu.style.display="block";
+
+
+}
+
+
+
+});
+
+
+
+
+document.addEventListener("click",function(){
+
+
+menu.style.display="none";
+
+
+});
+
+
 
 }
 
@@ -33,45 +104,7 @@ document.getElementById("profileImg").src = picture;
 
 
 
-// ===============================
-// Profile Menu
-// ===============================
-
-
-const profile =
-document.getElementById("profile");
-
-
-const menu =
-document.getElementById("profileMenu");
-
-
-
-profile.onclick=function(e){
-
-e.stopPropagation();
-
-menu.classList.toggle("show");
-
-};
-
-
-
-document.onclick=function(){
-
-menu.classList.remove("show");
-
-};
-
-
-
-
-
-
-
-// ===============================
-// Navigation
-// ===============================
+// Back Button
 
 
 function goBack(){
@@ -82,6 +115,13 @@ window.location.href="dashboard.html";
 
 
 
+
+
+
+
+// Open Page
+
+
 function openPage(page){
 
 window.location.href=page;
@@ -90,24 +130,19 @@ window.location.href=page;
 
 
 
+
+
+
+// Logout
+
+
 function logout(){
+
 
 localStorage.clear();
 
+
 window.location.href="login.html";
 
-}
-
-
-
-
-// ===============================
-// Add User
-// ===============================
-
-
-function addUser(){
-
-alert("Add User Page Coming Soon");
 
 }
