@@ -27,13 +27,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- Header -->
+<!-- HEADER -->
 
 <header>
 
 
 
-<!-- Back Button -->
+<!-- BACK BUTTON -->
 
 <div class="back-btn" onclick="goBack()">
 
@@ -44,7 +44,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- Title -->
+<!-- TITLE -->
 
 <div class="title">
 
@@ -56,26 +56,30 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- Profile -->
+<!-- USER PROFILE -->
 
 
-<div class="profile" onclick="toggleProfileMenu()">
-
+<div class="profile" id="profile">
 
 
 <img id="profileImg" src="profile.png">
 
 
 
-<div>
+<div class="profile-info">
+
 
 <h4 id="userName">
+
 Username
+
 </h4>
 
 
 <p>
+
 Online
+
 </p>
 
 
@@ -85,18 +89,22 @@ Online
 
 
 
-<!-- Profile Menu -->
+
+<!-- PROFILE MENU -->
 
 
 <div class="profile-menu" id="profileMenu">
-
 
 
 <div onclick="openPage('my-account.html')">
 
 <i class="fa-solid fa-user"></i>
 
+<span>
+
 My Account
+
+</span>
 
 </div>
 
@@ -107,17 +115,23 @@ My Account
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
+<span>
+
 Logout
 
-</div>
-
-
+</span>
 
 </div>
 
 
 
 </div>
+
+
+
+</div>
+
+
 
 
 
@@ -129,7 +143,8 @@ Logout
 
 
 
-<!-- User List Section -->
+
+<!-- USER CONTROL AREA -->
 
 
 <div class="user-box">
@@ -146,6 +161,8 @@ Logout
 Users List
 
 </h3>
+
+
 
 
 
@@ -169,6 +186,7 @@ Add User
 
 
 
+
 <table>
 
 
@@ -178,24 +196,52 @@ Add User
 <tr>
 
 
-<th>Picture</th>
+<th>
 
-<th>Username</th>
+Picture
 
-<th>Name</th>
+</th>
 
-<th>Role</th>
 
-<th>Status</th>
+<th>
 
-<th>Action</th>
+Username
+
+</th>
+
+
+<th>
+
+Name
+
+</th>
+
+
+<th>
+
+Role
+
+</th>
+
+
+<th>
+
+Status
+
+</th>
+
+
+<th>
+
+Action
+
+</th>
 
 
 </tr>
 
 
 </thead>
-
 
 
 
@@ -220,13 +266,14 @@ Loading Users...
 
 
 
-
 </table>
 
 
 
 
+
 </div>
+
 
 
 
