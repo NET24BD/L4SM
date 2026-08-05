@@ -17,9 +17,10 @@ document.getElementById("loginBtn");
 
 
 
-// ===============================
+
+// =================================
 // LOGIN
-// ===============================
+// =================================
 
 
 loginForm.addEventListener("submit",function(e){
@@ -37,6 +38,7 @@ document.getElementById("username")
 
 
 
+
 let password =
 document.getElementById("password")
 .value
@@ -49,7 +51,9 @@ document.getElementById("password")
 if(username==="" || password===""){
 
 
+
 message.style.color="red";
+
 
 message.innerHTML =
 "Enter Username and Password";
@@ -64,9 +68,16 @@ return;
 
 
 
+
 loginBtn.disabled=true;
 
-loginBtn.innerHTML="CHECKING...";
+
+loginBtn.innerHTML =
+"CHECKING...";
+
+
+
+
 
 
 
@@ -92,6 +103,7 @@ headers:{
 body:JSON.stringify({
 
 
+
 action:"login",
 
 
@@ -112,7 +124,12 @@ password:String(password)
 
 
 
+
+
+
+
 .then(response=>response.json())
+
 
 
 
@@ -122,15 +139,25 @@ password:String(password)
 
 
 
-console.log("LOGIN RESPONSE:",data);
+console.log(
+"LOGIN RESPONSE:",
+data
+);
 
 
 
 
 
 
-if(data.success===true){
+if(data.success === true){
 
+
+
+
+
+// ===============================
+// SAVE LOGIN DATA
+// ===============================
 
 
 localStorage.setItem(
@@ -168,6 +195,18 @@ data.picture || ""
 
 
 
+// Session Timer Start
+
+localStorage.setItem(
+"lastActivity",
+Date.now()
+);
+
+
+
+
+
+
 
 
 
@@ -182,7 +221,13 @@ message.innerHTML =
 
 
 
-setTimeout(()=>{
+
+// ===============================
+// ROLE REDIRECT
+// ===============================
+
+
+setTimeout(function(){
 
 
 
@@ -191,63 +236,65 @@ data.role;
 
 
 
-switch(role){
 
 
-
-case "Admin":
-
-window.location.href="dashboard.html";
-
-break;
+if(role==="Admin"){
 
 
+window.location.href =
+"dashboard.html";
 
 
-case "Support":
-
-window.location.href="support.html";
-
-break;
+}
 
 
 
 
 
-case "Caller":
-
-window.location.href="call.html";
-
-break;
+else if(role==="Support"){
 
 
+window.location.href =
+"support.html";
 
 
-
-case "Manager":
-
-window.location.href="manager.html";
-
-break;
+}
 
 
 
 
 
-case "Guest":
-
-window.location.href="guest.html";
-
-break;
+else if(role==="Caller"){
 
 
+window.location.href =
+"call.html";
+
+
+}
 
 
 
-default:
 
-window.location.href="guest.html";
 
+else if(role==="Manager"){
+
+
+window.location.href =
+"manager.html";
+
+
+}
+
+
+
+
+
+else{
+
+
+window.location.href =
+"guest.html";
 
 
 }
@@ -262,9 +309,12 @@ window.location.href="guest.html";
 
 
 
+
+
 }
 
 else{
+
 
 
 message.style.color="red";
@@ -282,6 +332,10 @@ data.message || "Login Failed";
 
 
 })
+
+
+
+
 
 
 
@@ -308,13 +362,20 @@ message.innerHTML =
 
 
 
+
+
+
+
 .finally(()=>{
+
 
 
 loginBtn.disabled=false;
 
 
-loginBtn.innerHTML="LOGIN";
+loginBtn.innerHTML =
+"LOGIN";
+
 
 
 });
@@ -331,9 +392,9 @@ loginBtn.innerHTML="LOGIN";
 
 
 
-// ===============================
-// SHOW / HIDE PASSWORD
-// ===============================
+// =================================
+// PASSWORD SHOW / HIDE
+// =================================
 
 
 const togglePassword =
@@ -357,6 +418,7 @@ document.getElementById("password");
 
 
 
+
 if(password.type==="password"){
 
 
@@ -374,6 +436,7 @@ togglePassword.innerHTML =
 else{
 
 
+
 password.type="password";
 
 
@@ -383,6 +446,7 @@ togglePassword.innerHTML =
 
 
 }
+
 
 
 
