@@ -24,7 +24,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
+
 <div class="container">
+
+
 
 
 
@@ -43,6 +46,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
 <div class="title">
 
 <h2>User Control</h2>
@@ -54,12 +58,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
 <!-- PROFILE -->
 
 <div class="profile" id="profileBtn">
 
 
+
 <img id="profileImg" src="profile.png">
+
+
 
 
 
@@ -67,12 +75,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 <h4 id="userName">
-User
+
+Username
+
 </h4>
 
 
+
 <p>
+
 Online
+
 </p>
 
 
@@ -82,7 +95,13 @@ Online
 
 
 
+
+
+<!-- PROFILE MENU -->
+
+
 <div class="profile-menu" id="profileMenu">
+
 
 
 <div id="accountBtn">
@@ -92,6 +111,8 @@ Online
 My Account
 
 </div>
+
+
 
 
 
@@ -109,6 +130,8 @@ Logout
 
 
 
+
+
 </div>
 
 
@@ -123,14 +146,18 @@ Logout
 
 
 
-<!-- ADD USER BOX -->
+<!-- USER LIST -->
+
 
 
 <div class="user-box">
 
 
 
+
+
 <div class="top">
+
 
 
 <h3>
@@ -140,6 +167,7 @@ Logout
 Users List
 
 </h3>
+
 
 
 
@@ -156,105 +184,6 @@ Add User
 
 
 
-</div>
-
-
-
-
-
-
-<!-- ADD FORM -->
-
-
-<div class="add-form" id="addForm">
-
-
-
-<input id="username"
-placeholder="Username">
-
-
-
-<input id="password"
-placeholder="Password">
-
-
-
-<input id="name"
-placeholder="Name">
-
-
-
-<select id="role">
-
-
-<option value="Admin">
-Admin
-</option>
-
-
-<option value="Support">
-Support
-</option>
-
-
-<option value="Caller">
-Caller
-</option>
-
-
-<option value="Guest">
-Guest
-</option>
-
-
-</select>
-
-
-
-
-<select id="status">
-
-
-<option value="Active">
-Active
-</option>
-
-
-<option value="Block">
-Block
-</option>
-
-
-</select>
-
-
-
-
-<input id="picture"
-placeholder="Picture URL">
-
-
-
-
-
-<button id="saveUser">
-
-
-Save User
-
-</button>
-
-
-
-<button id="cancelUser">
-
-
-Cancel
-
-</button>
-
-
 
 </div>
 
@@ -269,7 +198,12 @@ Cancel
 <!-- TABLE -->
 
 
+
+<div class="table-area">
+
+
 <table>
+
 
 
 <thead>
@@ -279,32 +213,48 @@ Cancel
 
 
 <th>
+
 Picture
+
 </th>
 
 
 <th>
+
 Username
+
 </th>
 
 
+
 <th>
+
 Name
+
 </th>
 
 
+
 <th>
+
 Role
+
 </th>
 
 
+
 <th>
+
 Status
+
 </th>
 
 
+
 <th>
+
 Action
+
 </th>
 
 
@@ -318,10 +268,12 @@ Action
 
 
 
+
 <tbody id="userTable">
 
 
 <tr>
+
 
 <td colspan="6">
 
@@ -329,10 +281,13 @@ Loading...
 
 </td>
 
+
 </tr>
 
 
+
 </tbody>
+
 
 
 
@@ -341,6 +296,11 @@ Loading...
 
 
 
+</div>
+
+
+
+
 
 
 </div>
@@ -349,13 +309,215 @@ Loading...
 
 
 
+
+
+
+
+<!-- USER FORM MODAL -->
+
+
+
+<div class="modal" id="userModal">
+
+
+
+
+
+<div class="modal-box">
+
+
+
+
+
+<h2 id="formTitle">
+
+Add User
+
+</h2>
+
+
+
+
+
+
+
+<input 
+type="text"
+id="username"
+placeholder="Username">
+
+
+
+
+
+
+<input 
+type="password"
+id="password"
+placeholder="Password">
+
+
+
+
+
+
+
+<input 
+type="text"
+id="name"
+placeholder="Full Name">
+
+
+
+
+
+
+
+<select id="role">
+
+
+
+<option value="Admin">
+
+Admin
+
+</option>
+
+
+<option value="Support">
+
+Support
+
+</option>
+
+
+<option value="Caller">
+
+Caller
+
+</option>
+
+
+<option value="Guest">
+
+Guest
+
+</option>
+
+
+
+</select>
+
+
+
+
+
+
+
+
+
+<select id="status">
+
+
+
+<option value="Active">
+
+Active
+
+</option>
+
+
+<option value="Block">
+
+Block
+
+</option>
+
+
+
+</select>
+
+
+
+
+
+
+
+
+<input 
+type="text"
+id="picture"
+placeholder="Picture URL">
+
+
+
+
+
+
+
+<div class="form-buttons">
+
+
+
+
+
+<button id="saveUser">
+
+
+<i class="fa-solid fa-save"></i>
+
+Save
+
+
+</button>
+
+
+
+
+
+
+<button id="cancelUser">
+
+
+<i class="fa-solid fa-xmark"></i>
+
+Cancel
+
+
+</button>
+
+
+
+
+
 </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
 
 
 
 
 
 <script src="usercontrol.js"></script>
+
 
 
 </body>
