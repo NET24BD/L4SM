@@ -1,62 +1,25 @@
-// =====================================
-// L4SM DASHBOARD JS
-// =====================================
+// USER DATA LOAD
+
+
+document.addEventListener("DOMContentLoaded",function(){
 
 
 
-// =====================================
-// LOAD USER INFORMATION
-// =====================================
-
-
-document.addEventListener("DOMContentLoaded", function(){
-
-
-
-// Dashboard access mark
-
-localStorage.setItem(
-    "dashboardAccess",
-    "true"
-);
-
-
-
-
-
-
-// Get User Data
-
-
-const name =
+let name =
 localStorage.getItem("name");
 
 
-const username =
-localStorage.getItem("username");
-
-
-const picture =
+let picture =
 localStorage.getItem("picture");
 
 
 
 
+document.querySelectorAll("#username")
+.forEach(function(el){
 
-
-
-// ===============================
-// SHOW USER NAME
-// ===============================
-
-
-document
-.querySelectorAll("#username")
-.forEach(function(element){
-
-
-    element.innerHTML =
-    name || username || "User";
+el.innerHTML =
+name || "User";
 
 
 });
@@ -65,60 +28,15 @@ document
 
 
 
-
-
-
-// ===============================
-// SHOW PROFILE IMAGE
-// ===============================
-
-
-const profileImg =
+let img =
 document.getElementById("profileImg");
 
 
 
-
-if(profileImg){
-
+if(img && picture){
 
 
-    if(
-        picture &&
-        picture.trim() !== ""
-    ){
-
-
-        profileImg.src =
-        picture;
-
-
-    }
-    else{
-
-
-        profileImg.src =
-        "assets/profile.png";
-
-
-    }
-
-
-
-
-
-
-    // If image not load
-
-    profileImg.onerror=function(){
-
-
-        this.src =
-        "assets/profile.png";
-
-
-    };
-
+img.src=picture;
 
 
 }
@@ -133,46 +51,15 @@ if(profileImg){
 
 
 
+// SIDEBAR
 
 
-// =====================================
-// PROFILE MENU
-// =====================================
+function toggleSidebar(){
 
 
-function toggleProfileMenu(){
-
-
-
-const menu =
-document.getElementById("profileMenu");
-
-
-
-if(!menu){
-
-return;
-
-}
-
-
-
-
-if(menu.style.display === "block"){
-
-
-    menu.style.display="none";
-
-
-}
-else{
-
-
-    menu.style.display="block";
-
-
-}
-
+document
+.getElementById("sidebar")
+.classList.toggle("small");
 
 
 }
@@ -183,20 +70,13 @@ else{
 
 
 
-
-
-// =====================================
 // OPEN PAGE
-// =====================================
 
 
 function openPage(page){
 
 
-
-window.location.href =
-page;
-
+window.location.href=page;
 
 
 }
@@ -207,20 +87,41 @@ page;
 
 
 
+// PROFILE MENU
 
 
-// =====================================
-// MY ACCOUNT
-// =====================================
+function toggleProfileMenu(){
+
+
+let menu =
+document.getElementById("profileMenu");
+
+
+if(menu.style.display==="block"){
+
+menu.style.display="none";
+
+}
+
+else{
+
+menu.style.display="block";
+
+}
+
+
+}
+
+
+
+
+
 
 
 function openMyAccount(){
 
 
-
-window.location.href =
-"my-account.html";
-
+window.location.href="my-account.html";
 
 
 }
@@ -232,72 +133,16 @@ window.location.href =
 
 
 
-
-// =====================================
 // LOGOUT
-// =====================================
 
 
 function logout(){
 
 
-
 localStorage.clear();
 
 
-
-window.location.href =
-"login.html";
-
+window.location.href="login.html";
 
 
 }
-
-
-
-
-
-
-
-
-
-// =====================================
-// CLOSE MENU OUTSIDE CLICK
-// =====================================
-
-
-document.addEventListener(
-"click",
-function(event){
-
-
-
-const profile =
-document.querySelector(".profile");
-
-
-
-const menu =
-document.getElementById("profileMenu");
-
-
-
-
-
-
-if(
-profile &&
-menu &&
-!profile.contains(event.target)
-
-){
-
-
-menu.style.display="none";
-
-
-}
-
-
-
-});
