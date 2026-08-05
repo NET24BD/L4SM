@@ -1,104 +1,85 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+
 }
 
 
 body{
 
-    background:#4d7094;
-    min-height:100vh;
-    padding:20px;
+background:#4d7094;
+min-height:100vh;
+padding:20px;
 
 }
-
 
 
 .container{
 
-    width:95%;
-    margin:auto;
+width:95%;
+margin:auto;
 
 }
 
 
 
 
-
-/* ================= HEADER ================= */
+/* HEADER */
 
 
 header{
 
-    background:white;
+background:white;
 
-    padding:12px 20px;
+padding:12px 20px;
 
-    border-radius:15px;
+border-radius:15px;
 
-    display:flex;
+display:flex;
 
-    justify-content:space-between;
+justify-content:space-between;
 
-    align-items:center;
+align-items:center;
 
-    box-shadow:
-    0 8px 25px rgba(0,0,0,0.20);
+box-shadow:0 8px 25px rgba(0,0,0,.20);
 
 }
 
 
-
-
-/* Back Button */
 
 
 .back-btn{
 
-    width:42px;
+width:42px;
 
-    height:42px;
+height:42px;
 
-    background:#2563eb;
+background:#2563eb;
 
-    color:white;
+color:white;
 
-    border-radius:10px;
+border-radius:10px;
 
-    display:flex;
+display:flex;
 
-    align-items:center;
+justify-content:center;
 
-    justify-content:center;
+align-items:center;
 
-    cursor:pointer;
-
-    transition:.3s;
+cursor:pointer;
 
 }
 
-
-
-.back-btn:hover{
-
-    background:#1d4ed8;
-
-}
-
-
-
-
-
-/* Title */
 
 
 .title h2{
 
-    color:#1e3a8a;
+color:#1e3a8a;
 
-    font-size:21px;
+font-size:20px;
 
 }
 
@@ -106,90 +87,105 @@ header{
 
 
 
-/* Profile */
+/* PROFILE */
 
 
 .profile{
 
-    position:relative;
+position:relative;
 
-    display:flex;
+display:flex;
 
-    align-items:center;
+align-items:center;
 
-    gap:10px;
+gap:12px;
 
-    cursor:pointer;
+background:white;
+
+padding:8px 18px 8px 8px;
+
+border-radius:15px;
+
+cursor:pointer;
+
+box-shadow:0 5px 15px rgba(0,0,0,.15);
 
 }
-
 
 
 
 .profile img{
 
-    width:45px;
+width:45px;
 
-    height:45px;
+height:45px;
 
-    border-radius:50%;
+border-radius:50%;
 
-    object-fit:cover;
+object-fit:cover;
 
-    border:3px solid #2563eb;
+border:3px solid #2563eb;
+
+}
+
+
+
+.profile-info h4{
+
+font-size:14px;
+
+color:#111827;
+
+}
+
+
+
+.profile-info p{
+
+font-size:11px;
+
+color:#16a34a;
+
+margin-top:3px;
 
 }
 
 
 
 
-.profile h4{
 
-    font-size:14px;
-
-    color:#111827;
-
-}
-
-
-
-.profile p{
-
-    font-size:11px;
-
-    color:#16a34a;
-
-}
-
-
-
-
-
-/* Profile Dropdown */
+/* MENU */
 
 
 .profile-menu{
 
-    position:absolute;
+position:absolute;
 
-    right:0;
+right:0;
 
-    top:55px;
+top:60px;
 
-    width:170px;
+width:160px;
 
-    background:white;
+background:white;
 
-    border-radius:12px;
+border-radius:12px;
 
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.25);
+box-shadow:0 10px 25px rgba(0,0,0,.25);
 
-    display:none;
+overflow:hidden;
 
-    overflow:hidden;
+display:none;
 
-    z-index:100;
+z-index:999;
+
+}
+
+
+
+.profile-menu.show{
+
+display:block;
 
 }
 
@@ -197,17 +193,19 @@ header{
 
 .profile-menu div{
 
-    padding:12px;
+padding:14px;
 
-    display:flex;
+display:flex;
 
-    align-items:center;
+gap:12px;
 
-    gap:10px;
+align-items:center;
 
-    color:#374151;
+font-size:14px;
 
-    font-size:14px;
+cursor:pointer;
+
+color:#374151;
 
 }
 
@@ -215,9 +213,9 @@ header{
 
 .profile-menu div:hover{
 
-    background:#eff6ff;
+background:#eff6ff;
 
-    color:#2563eb;
+color:#2563eb;
 
 }
 
@@ -225,22 +223,20 @@ header{
 
 
 
-/* ================= USER BOX ================= */
+/* USER BOX */
 
 
 .user-box{
 
-    margin-top:25px;
+margin-top:25px;
 
-    background:white;
+background:white;
 
-    padding:20px;
+padding:20px;
 
-    border-radius:18px;
+border-radius:18px;
 
-    box-shadow:
-
-    0 8px 25px rgba(0,0,0,.20);
+box-shadow:0 8px 25px rgba(0,0,0,.20);
 
 }
 
@@ -249,69 +245,50 @@ header{
 
 .top{
 
-    display:flex;
+display:flex;
 
-    justify-content:space-between;
+justify-content:space-between;
 
-    align-items:center;
+align-items:center;
 
-    margin-bottom:20px;
+margin-bottom:20px;
 
 }
-
 
 
 
 .top h3{
 
-    color:#111827;
-
-    font-size:18px;
+color:#111827;
 
 }
-
-
 
 
 
 .top button{
 
-    background:#16a34a;
+background:#16a34a;
 
-    color:white;
+border:none;
 
-    border:none;
+color:white;
 
-    padding:10px 18px;
+padding:10px 18px;
 
-    border-radius:10px;
+border-radius:10px;
 
-    cursor:pointer;
-
-    font-size:14px;
+cursor:pointer;
 
 }
 
 
-
-.top button:hover{
-
-    background:#15803d;
-
-}
-
-
-
-
-
-/* ================= TABLE ================= */
 
 
 table{
 
-    width:100%;
+width:100%;
 
-    border-collapse:collapse;
+border-collapse:collapse;
 
 }
 
@@ -319,202 +296,64 @@ table{
 
 thead{
 
-    background:#2563eb;
+background:#2563eb;
 
-    color:white;
-
-}
-
-
-
-th{
-
-    padding:12px;
-
-    font-size:14px;
+color:white;
 
 }
 
 
 
-td{
+th,td{
 
-    padding:12px;
+padding:12px;
 
-    text-align:center;
+text-align:center;
 
-    border-bottom:1px solid #e5e7eb;
-
-    color:#374151;
-
-    font-size:14px;
+border-bottom:1px solid #ddd;
 
 }
 
-
-
-tbody tr:hover{
-
-    background:#eff6ff;
-
-}
-
-
-
-
-
-/* User Picture */
 
 
 td img{
 
-    width:45px;
+width:45px;
 
-    height:45px;
+height:45px;
 
-    border-radius:50%;
+border-radius:50%;
 
-    object-fit:cover;
-
-    border:2px solid #2563eb;
+object-fit:cover;
 
 }
 
 
 
-
-
-/* Action Buttons */
-
-
-.action-btn{
-
-    padding:7px 12px;
-
-    border:none;
-
-    border-radius:8px;
-
-    color:white;
-
-    cursor:pointer;
-
-    margin:2px;
-
-    font-size:12px;
-
-}
-
-
-
-.edit{
-
-    background:#f59e0b;
-
-}
-
-
-
-.delete{
-
-    background:#dc2626;
-
-}
-
-
-
-.active{
-
-    background:#16a34a;
-
-}
-
-
-
-
-
-/* ================= MOBILE ================= */
 
 
 @media(max-width:700px){
 
 
-body{
-
-    padding:10px;
-
-}
-
-
-
 .container{
 
-    width:100%;
+width:100%;
 
 }
-
-
-
-header{
-
-    padding:12px;
-
-}
-
-
-
-.title h2{
-
-    font-size:17px;
-
-}
-
-
-
-.profile img{
-
-    width:40px;
-
-    height:40px;
-
-}
-
-
-
-.profile div h4{
-
-    display:none;
-
-}
-
-
-
-.user-box{
-
-    padding:12px;
-
-    overflow-x:auto;
-
-}
-
 
 
 table{
 
-    min-width:700px;
+min-width:700px;
 
 }
 
 
+.user-box{
 
-.top{
-
-    flex-direction:column;
-
-    gap:15px;
+overflow-x:auto;
 
 }
-
 
 
 }
