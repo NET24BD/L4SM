@@ -1,221 +1,329 @@
-const API_URL = 
+const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
-const loginForm = document.getElementById("loginForm");
-const message = document.getElementById("message");
-const loginBtn = document.getElementById("loginBtn");
 
+const loginForm =
+document.getElementById("loginForm");
 
 
-loginForm.addEventListener("submit", function(e){
+const message =
+document.getElementById("message");
 
-    e.preventDefault();
 
+const loginBtn =
+document.getElementById("loginBtn");
 
-    const username = document
-    .getElementById("username")
-    .value
-    .trim();
 
 
-    const password = document
-    .getElementById("password")
-    .value
-    .trim();
 
 
 
-    if(username === "" || password === ""){
+// ================================
+// LOGIN
+// ================================
 
-        message.style.color = "red";
-        message.innerHTML = "Enter Username and Password";
 
-        return;
+loginForm.addEventListener("submit",function(e){
 
-    }
 
+e.preventDefault();
 
 
-    loginBtn.disabled = true;
-    loginBtn.innerHTML = "CHECKING...";
 
+let username =
+document.getElementById("username")
+.value
+.trim();
 
 
-    fetch(API_URL,{
 
-        method:"POST",
+let password =
+document.getElementById("password")
+.value
+.trim();
 
-        headers:{
-            "Content-Type":"text/plain;charset=utf-8"
-        },
 
 
-        body:JSON.stringify({
 
-            username:username,
 
-            password:password
+if(username==="" || password===""){
 
-        })
 
+message.style.color="red";
 
-    })
+message.innerHTML=
+"Enter Username and Password";
 
 
-    .then(response=>response.json())
+return;
 
 
-    .then(data=>{
+}
 
 
-        console.log(data);
 
 
 
-        if(data.success === true){
 
+loginBtn.disabled=true;
 
+loginBtn.innerHTML="CHECKING...";
 
-            // Save User Data
 
-            localStorage.setItem(
-                "isLogin",
-                "true"
-            );
 
 
-            localStorage.setItem(
-                "username",
-                data.username
-            );
 
 
-            localStorage.setItem(
-                "name",
-                data.name
-            );
+fetch(API_URL,{
 
+method:"POST",
 
-            localStorage.setItem(
-                "role",
-                data.role
-            );
+headers:{
 
 
-            localStorage.setItem(
-                "picture",
-                data.picture || ""
-            );
+"Content-Type":
+"text/plain;charset=utf-8"
 
 
+},
 
 
-            message.style.color="green";
 
-            message.innerHTML="Login Successful";
+body:JSON.stringify({
 
 
+action:"login",
 
 
-            // Role Based Redirect
+username:username,
 
-            setTimeout(()=>{
 
+password:password
 
-                let role = data.role;
 
 
-                if(role === "Admin"){
+})
 
-                    window.location.href="dashboard.html";
 
-                }
 
+})
 
-                else if(role === "Support"){
 
-                    window.location.href="support.html";
 
-                }
 
+.then(response=>response.json())
 
-                else if(role === "Caller"){
 
-                    window.location.href="call.html";
 
-                }
 
+.then(data=>{
 
-                else if(role === "Manager"){
 
-                    window.location.href="manager.html";
 
-                }
+console.log(data);
 
 
-                else if(role === "Guest"){
 
-                    window.location.href="guest.html";
 
-                }
 
+if(data.success===true){
 
-                else{
 
-                    window.location.href="guest.html";
 
-                }
 
 
+localStorage.setItem(
+"isLogin",
+"true"
+);
 
-            },1000);
 
 
+localStorage.setItem(
+"username",
+data.username
+);
 
-        }
 
 
+localStorage.setItem(
+"name",
+data.name
+);
 
-        else{
 
 
-            message.style.color="red";
+localStorage.setItem(
+"role",
+data.role
+);
 
-            message.innerHTML=data.message;
 
 
+localStorage.setItem(
+"picture",
+data.picture || ""
+);
 
-        }
 
 
 
-    })
 
 
-    .catch(error=>{
 
+message.style.color="green";
 
-        console.log(error);
+message.innerHTML=
+"Login Successful";
 
 
-        message.style.color="red";
 
-        message.innerHTML="Server Connection Error";
 
 
-    })
 
 
-    .finally(()=>{
+setTimeout(function(){
 
 
-        loginBtn.disabled=false;
 
-        loginBtn.innerHTML="LOGIN";
+let role =
+data.role;
 
 
-    });
+
+if(role==="Admin"){
+
+
+window.location.href=
+"dashboard.html";
+
+
+}
+
+
+
+else if(role==="Support"){
+
+
+window.location.href=
+"support.html";
+
+
+}
+
+
+
+else if(role==="Caller"){
+
+
+window.location.href=
+"call.html";
+
+
+}
+
+
+
+else if(role==="Manager"){
+
+
+window.location.href=
+"manager.html";
+
+
+}
+
+
+
+else if(role==="Guest"){
+
+
+window.location.href=
+"guest.html";
+
+
+}
+
+
+
+else{
+
+
+window.location.href=
+"guest.html";
+
+
+}
+
+
+
+},800);
+
+
+
+
+
+
+
+}
+
+else{
+
+
+
+message.style.color="red";
+
+
+message.innerHTML =
+data.message || 
+"Login Failed";
+
+
+
+}
+
+
+
+
+
+})
+
+
+
+
+.catch(error=>{
+
+
+console.log(error);
+
+
+
+message.style.color="red";
+
+
+message.innerHTML=
+"Server Connection Error";
+
+
+
+})
+
+
+
+
+.finally(()=>{
+
+
+loginBtn.disabled=false;
+
+
+loginBtn.innerHTML="LOGIN";
+
+
+});
+
+
 
 
 
@@ -225,15 +333,26 @@ loginForm.addEventListener("submit", function(e){
 
 
 
-// Password Show / Hide
 
-const togglePassword = document.getElementById("togglePassword");
+
+
+
+// ================================
+// PASSWORD SHOW / HIDE
+// ================================
+
+
+const togglePassword =
+document.getElementById("togglePassword");
+
 
 
 if(togglePassword){
 
 
+
 togglePassword.onclick=function(){
+
 
 
 const password =
@@ -241,7 +360,10 @@ document.getElementById("password");
 
 
 
+
+
 if(password.type==="password"){
+
 
 
 password.type="text";
@@ -249,6 +371,7 @@ password.type="text";
 
 togglePassword.innerHTML =
 '<i class="fa-solid fa-eye-slash"></i>';
+
 
 
 }
@@ -263,11 +386,13 @@ togglePassword.innerHTML =
 '<i class="fa-solid fa-eye"></i>';
 
 
+
 }
 
 
 
 };
+
 
 
 }
