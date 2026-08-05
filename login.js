@@ -1,78 +1,122 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
-const form = document.getElementById("loginForm");
-const username = document.getElementById("username");
-const password = document.getElementById("password");
+
+const loginForm = document.getElementById("loginForm");
 const message = document.getElementById("message");
 const loginBtn = document.getElementById("loginBtn");
 
-// যদি আগে থেকেই Login করা থাকে
-if (localStorage.getItem("isLogin") === "true") {
-    window.location.href = "dashboard.html";
-}
 
-form.addEventListener("submit", async (e) => {
+loginForm.addEventListener("submit", function(e){
 
     e.preventDefault();
 
-    message.innerHTML = "";
-    message.style.color = "#ff4444";
 
-    if (username.value.trim() === "" || password.value.trim() === "") {
-        message.innerHTML = "Please enter Username & Password";
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+
+    if(username === "" || password === ""){
+
+        message.style.color = "red";
+        message.innerHTML = "Enter username and password";
         return;
+
     }
 
+
     loginBtn.disabled = true;
-    loginBtn.innerHTML = "Please Wait...";
+    loginBtn.innerHTML = "CHECKING...";
 
-    try {
 
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "text/plain;charset=utf-8"
-            },
-            body: JSON.stringify({
-                username: username.value.trim(),
-                password: password.value.trim()
-            })
-        });
+    fetch(API_URL, {
 
-        const data = await response.json();
+        method: "POST",
 
-        if (data.success) {
+        headers:{
+            "Content-Type":"text/plain;charset=utf-8"
+        },
 
-            localStorage.setItem("isLogin", "true");
-            localStorage.setItem("username", data.username);
-            localStorage.setItem("name", data.name);
-            localStorage.setItem("role", data.role);
-            localStorage.setItem("picture", data.picture);
+        body: JSON.stringify({
 
-            message.style.color = "#00c853";
-            message.innerHTML = "Login Successful...";
+            username: username,
+            password: password
 
-            setTimeout(() => {
-                window.location.href = "1d.html";
-            }, 1000);
+        })
 
-        } else {
+    })
 
-            message.style.color = "#ff1744";
-            message.innerHTML = data.message;
+
+    .then(response => response.json())
+
+
+    .then(data => {
+
+
+        console.log(data);
+
+
+        if(data.success === true){
+
+
+            localStorage.setItem("isLogin","true");
+
+            localStorage.setItem("username",data.username);
+
+            localStorage.setItem("name",data.name);
+
+            localStorage.setItem("role",data.role);
+
+            localStorage.setItem("picture",data.picture);
+
+
+
+            message.style.color="green";
+            message.innerHTML="Login Successful";
+
+
+            setTimeout(function(){
+
+                window.location.href="dashboard.html";
+
+            },1000);
+
+
 
         }
 
-    } catch (error) {
+        else{
 
-        console.error(error);
 
-        message.style.color = "#ff1744";
-        message.innerHTML = "Server Connection Failed";
+            message.style.color="red";
+            message.innerHTML=data.message;
 
-    }
 
-    loginBtn.disabled = false;
-    loginBtn.innerHTML = "LOGIN";
+        }
+
+
+    })
+
+
+    .catch(error=>{
+
+
+        console.log(error);
+
+
+        message.style.color="red";
+        message.innerHTML="Server Error";
+
+
+    })
+
+
+    .finally(()=>{
+
+        loginBtn.disabled=false;
+        loginBtn.innerHTML="LOGIN";
+
+    });
+
+
 
 });
