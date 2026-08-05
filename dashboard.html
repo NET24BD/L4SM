@@ -7,7 +7,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>L4SM Dashboard</title>
 
 
@@ -40,7 +39,6 @@ L4SM
 
 
 
-
 <ul>
 
 
@@ -65,7 +63,6 @@ User Control
 
 
 
-
 <li onclick="openPage('support.html')">
 
 <i class="fa-solid fa-headset"></i>
@@ -76,15 +73,13 @@ Support
 
 
 
-
 <li onclick="openPage('call.html')">
 
 <i class="fa-solid fa-phone"></i>
 
-Caller
+Call
 
 </li>
-
 
 
 
@@ -111,8 +106,8 @@ Manager
 
 
 
+<!-- MAIN -->
 
-<!-- MAIN AREA -->
 
 <div class="main">
 
@@ -124,6 +119,7 @@ Manager
 <h2>
 Dashboard
 </h2>
+
 
 
 
@@ -165,8 +161,6 @@ My Account
 
 
 
-
-
 <button onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
@@ -180,9 +174,7 @@ Logout
 </div>
 
 
-
 </div>
-
 
 
 </header>
@@ -203,7 +195,7 @@ Logout
 
 <h1>
 
-Welcome Back,
+Welcome Back 
 <span id="username">
 User
 </span>
@@ -211,11 +203,9 @@ User
 </h1>
 
 
-
 <p>
-Manage your L4SM system easily
+L4SM Management Dashboard
 </p>
-
 
 
 </div>
@@ -228,35 +218,34 @@ Manage your L4SM system easily
 
 
 
-
-<!-- CARDS -->
+<!-- 8 CARDS -->
 
 
 <div class="cards">
 
 
 
+
+
 <div class="card blue">
 
-
-<i class="fa-solid fa-users"></i>
-
+<i class="fa-solid fa-plus-circle"></i>
 
 <div>
 
 <h3>
-Users
+New Entry
 </h3>
 
 <p>
-Manage Users
+Create Entry
 </p>
 
+</div>
 
 </div>
 
 
-</div>
 
 
 
@@ -265,25 +254,22 @@ Manage Users
 
 <div class="card green">
 
-
 <i class="fa-solid fa-headset"></i>
-
 
 <div>
 
 <h3>
-Support
+Pending Support
 </h3>
 
 <p>
-Support Panel
+Support Pending
 </p>
 
+</div>
 
 </div>
 
-
-</div>
 
 
 
@@ -293,25 +279,22 @@ Support Panel
 
 <div class="card orange">
 
-
-<i class="fa-solid fa-phone"></i>
-
+<i class="fa-solid fa-phone-volume"></i>
 
 <div>
 
 <h3>
-Calls
+Pending Call
 </h3>
 
 <p>
-Call Management
+Call Pending
 </p>
 
+</div>
 
 </div>
 
-
-</div>
 
 
 
@@ -321,27 +304,19 @@ Call Management
 
 <div class="card purple">
 
-
-<i class="fa-solid fa-chart-line"></i>
-
+<i class="fa-solid fa-clock-rotate-left"></i>
 
 <div>
 
 <h3>
-Reports
+History
 </h3>
 
 <p>
-System Reports
+All History
 </p>
 
-
 </div>
-
-
-</div>
-
-
 
 </div>
 
@@ -352,46 +327,21 @@ System Reports
 
 
 
+<div class="card red">
 
-<!-- QUICK ACTION -->
+<i class="fa-solid fa-file-circle-plus"></i>
 
+<div>
 
-<div class="quick">
+<h3>
+Offline Entry
+</h3>
 
-
-<h2>
-Quick Access
-</h2>
-
-
-
-<div class="quick-buttons">
-
-
-<button onclick="openPage('usercontrol.html')">
-
-<i class="fa-solid fa-user-plus"></i>
-
-Add User
-
-</button>
-
-
-
-
-
-<button onclick="openMyAccount()">
-
-<i class="fa-solid fa-key"></i>
-
-Change Password
-
-</button>
-
+<p>
+Offline Add
+</p>
 
 </div>
-
-
 
 </div>
 
@@ -402,7 +352,80 @@ Change Password
 
 
 
+<div class="card dark">
+
+<i class="fa-solid fa-power-off"></i>
+
+<div>
+
+<h3>
+Offline
+</h3>
+
+<p>
+Offline List
+</p>
+
 </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="card cyan">
+
+<i class="fa-solid fa-box-archive"></i>
+
+<div>
+
+<h3>
+Offline History
+</h3>
+
+<p>
+Offline Records
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="card indigo">
+
+<i class="fa-solid fa-users"></i>
+
+<div>
+
+<h3>
+Total Users
+</h3>
+
+<p>
+System Users
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
 
 
 
