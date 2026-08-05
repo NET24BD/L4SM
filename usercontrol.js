@@ -1,7 +1,3 @@
-// =====================================
-// GOOGLE SCRIPT URL
-// =====================================
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
@@ -13,17 +9,17 @@ let oldUsername = "";
 
 
 
-
-// =====================================
+// ===============================
 // PAGE LOAD
-// =====================================
-
-document.addEventListener("DOMContentLoaded",function(){
+// ===============================
 
 
-    loadProfile();
+document.addEventListener("DOMContentLoaded",()=>{
 
-    loadUsers();
+
+loadProfile();
+
+loadUsers();
 
 
 });
@@ -34,9 +30,9 @@ document.addEventListener("DOMContentLoaded",function(){
 
 
 
-// =====================================
-// PROFILE LOAD
-// =====================================
+// ===============================
+// PROFILE
+// ===============================
 
 
 function loadProfile(){
@@ -51,18 +47,17 @@ localStorage.getItem("picture");
 
 
 
-if(document.getElementById("userName"))
-
 document.getElementById("userName").innerHTML =
 name || "User";
 
 
 
-if(picture)
+if(picture){
 
 document.getElementById("profileImg").src =
 picture;
 
+}
 
 
 }
@@ -74,9 +69,9 @@ picture;
 
 
 
-// =====================================
+// ===============================
 // PROFILE MENU
-// =====================================
+// ===============================
 
 
 const profileBtn =
@@ -106,7 +101,7 @@ profileMenu.style.display=="block"
 
 
 
-document.addEventListener("click",function(){
+document.addEventListener("click",()=>{
 
 
 profileMenu.style.display="none";
@@ -119,9 +114,10 @@ profileMenu.style.display="none";
 
 
 
-// =====================================
-// BACK BUTTON
-// =====================================
+
+// ===============================
+// BACK
+// ===============================
 
 
 document.getElementById("backBtn").onclick=function(){
@@ -137,9 +133,11 @@ window.location.href="dashboard.html";
 
 
 
-// =====================================
-// MY ACCOUNT
-// =====================================
+
+
+// ===============================
+// ACCOUNT
+// ===============================
 
 
 document.getElementById("accountBtn").onclick=function(){
@@ -155,9 +153,11 @@ window.location.href="my-account.html";
 
 
 
-// =====================================
+
+
+// ===============================
 // LOGOUT
-// =====================================
+// ===============================
 
 
 document.getElementById("logoutBtn").onclick=function(){
@@ -179,17 +179,20 @@ window.location.href="login.html";
 
 
 
-// =====================================
+// ===============================
 // LOAD USERS
-// =====================================
+// ===============================
 
 
 function loadUsers(){
 
 
 
-fetch(API_URL+"?action=users")
+showLoading("Loading Users...");
 
+
+
+fetch(API_URL+"?action=users")
 
 .then(res=>res.json())
 
@@ -207,14 +210,10 @@ table.innerHTML="";
 
 
 
-
-
 users.forEach(user=>{
 
 
-
 table.innerHTML += `
-
 
 
 <tr>
@@ -247,7 +246,6 @@ src="${user.picture || 'profile.png'}">
 <td>
 
 
-
 <button class="action-btn edit"
 onclick="editUser(
 '${user.username}',
@@ -261,7 +259,6 @@ onclick="editUser(
 Edit
 
 </button>
-
 
 
 
@@ -293,10 +290,23 @@ Delete
 
 })
 
-.catch(error=>{
+
+.catch(()=>{
 
 
-console.log(error);
+showPopup(
+"Error",
+"Cannot load users"
+);
+
+
+})
+
+
+.finally(()=>{
+
+
+hideLoading();
 
 
 });
@@ -312,10 +322,9 @@ console.log(error);
 
 
 
-
-// =====================================
-// OPEN ADD FORM
-// =====================================
+// ===============================
+// ADD BUTTON
+// ===============================
 
 
 document.getElementById("addUserBtn").onclick=function(){
@@ -325,14 +334,17 @@ document.getElementById("addUserBtn").onclick=function(){
 editMode=false;
 
 
-document.getElementById("formTitle").innerHTML="Add User";
-
-
 clearForm();
 
 
-document.getElementById("userModal").style.display="flex";
 
+document.getElementById("formTitle").innerHTML=
+"Add User";
+
+
+
+document.getElementById("userModal").style.display=
+"flex";
 
 
 };
@@ -345,18 +357,17 @@ document.getElementById("userModal").style.display="flex";
 
 
 
-// =====================================
-// CANCEL FORM
-// =====================================
+// ===============================
+// CANCEL
+// ===============================
 
 
 document.getElementById("cancelUser").onclick=function(){
 
 
-document.getElementById("userModal").style.display="none";
 
-
-clearForm();
+document.getElementById("userModal").style.display=
+"none";
 
 
 };
@@ -369,9 +380,11 @@ clearForm();
 
 
 
-// =====================================
+
+
+// ===============================
 // SAVE USER
-// =====================================
+// ===============================
 
 
 document.getElementById("saveUser").onclick=function(){
@@ -383,17 +396,17 @@ let data={
 
 
 username:
-document.getElementById("username").value,
+document.getElementById("username").value.trim(),
 
 
 
 password:
-document.getElementById("password").value,
+document.getElementById("password").value.trim(),
 
 
 
 name:
-document.getElementById("name").value,
+document.getElementById("name").value.trim(),
 
 
 
@@ -408,11 +421,41 @@ document.getElementById("status").value,
 
 
 picture:
-document.getElementById("picture").value
+document.getElementById("picture").value.trim()
 
 
 
 };
+
+
+
+
+
+if(data.username=="" || data.password==""){
+
+
+showPopup(
+"Warning",
+"Username and Password Required"
+);
+
+
+return;
+
+
+}
+
+
+
+
+
+
+showLoading(
+editMode ?
+"Updating User..." :
+"Creating User..."
+);
+
 
 
 
@@ -424,7 +467,7 @@ if(editMode){
 data.action="update";
 
 
-data.username=oldUsername;
+data.oldUsername=oldUsername;
 
 
 }
@@ -444,9 +487,13 @@ data.action="add";
 
 fetch(API_URL,{
 
+
 method:"POST",
 
+
 body:JSON.stringify(data)
+
+
 
 })
 
@@ -459,10 +506,23 @@ body:JSON.stringify(data)
 .then(result=>{
 
 
-alert(result.message);
+
+hideLoading();
 
 
-document.getElementById("userModal").style.display="none";
+
+showPopup(
+result.success ? "Success" : "Error",
+result.message
+);
+
+
+
+if(result.success){
+
+
+document.getElementById("userModal").style.display=
+"none";
 
 
 loadUsers();
@@ -471,8 +531,28 @@ loadUsers();
 clearForm();
 
 
+}
+
+
+
+})
+
+
+
+.catch(()=>{
+
+
+hideLoading();
+
+
+showPopup(
+"Error",
+"Server Error"
+);
+
 
 });
+
 
 
 
@@ -486,12 +566,19 @@ clearForm();
 
 
 
-// =====================================
+// ===============================
 // EDIT USER
-// =====================================
+// ===============================
 
 
-function editUser(username,password,name,role,status,picture){
+function editUser(
+username,
+password,
+name,
+role,
+status,
+picture
+){
 
 
 
@@ -502,7 +589,8 @@ oldUsername=username;
 
 
 
-document.getElementById("formTitle").innerHTML="Edit User";
+document.getElementById("formTitle").innerHTML=
+"Edit User";
 
 
 
@@ -525,8 +613,8 @@ document.getElementById("picture").value=picture;
 
 
 
-document.getElementById("userModal").style.display="flex";
-
+document.getElementById("userModal").style.display=
+"flex";
 
 
 }
@@ -539,9 +627,9 @@ document.getElementById("userModal").style.display="flex";
 
 
 
-// =====================================
+// ===============================
 // DELETE USER
-// =====================================
+// ===============================
 
 
 function deleteUser(username){
@@ -551,6 +639,13 @@ function deleteUser(username){
 if(!confirm("Delete this user?"))
 
 return;
+
+
+
+
+showLoading("Deleting User...");
+
+
 
 
 
@@ -579,11 +674,39 @@ username:username
 .then(result=>{
 
 
-alert(result.message);
+hideLoading();
 
+
+
+showPopup(
+result.success ? "Deleted" : "Error",
+result.message
+);
+
+
+
+if(result.success){
 
 loadUsers();
 
+}
+
+
+
+})
+
+
+
+.catch(()=>{
+
+
+hideLoading();
+
+
+showPopup(
+"Error",
+"Delete Failed"
+);
 
 
 });
@@ -599,9 +722,10 @@ loadUsers();
 
 
 
-// =====================================
+
+// ===============================
 // CLEAR FORM
-// =====================================
+// ===============================
 
 
 function clearForm(){
@@ -623,6 +747,83 @@ document.getElementById("status").value="Active";
 
 
 document.getElementById("picture").value="";
+
+
+}
+
+
+
+
+
+
+
+
+// ===============================
+// LOADING
+// ===============================
+
+
+function showLoading(text){
+
+
+document.getElementById("loadingText").innerHTML=text;
+
+
+document.getElementById("loadingBox").style.display=
+"block";
+
+
+}
+
+
+
+function hideLoading(){
+
+
+document.getElementById("loadingBox").style.display=
+"none";
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// POPUP
+// ===============================
+
+
+function showPopup(title,message){
+
+
+document.getElementById("popupTitle").innerHTML=
+title;
+
+
+document.getElementById("popupMessage").innerHTML=
+message;
+
+
+
+document.getElementById("popupBox").style.display=
+"flex";
+
+
+}
+
+
+
+function closePopup(){
+
+
+document.getElementById("popupBox").style.display=
+"none";
 
 
 }
