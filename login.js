@@ -17,17 +17,16 @@ document.getElementById("loginBtn");
 
 
 
-
-
-// ================================
+// ===============================
 // LOGIN
-// ================================
+// ===============================
 
 
 loginForm.addEventListener("submit",function(e){
 
 
 e.preventDefault();
+
 
 
 
@@ -52,7 +51,7 @@ if(username==="" || password===""){
 
 message.style.color="red";
 
-message.innerHTML=
+message.innerHTML =
 "Enter Username and Password";
 
 
@@ -60,7 +59,6 @@ return;
 
 
 }
-
 
 
 
@@ -74,10 +72,11 @@ loginBtn.innerHTML="CHECKING...";
 
 
 
-
 fetch(API_URL,{
 
+
 method:"POST",
+
 
 headers:{
 
@@ -99,7 +98,7 @@ action:"login",
 username:username,
 
 
-password:password
+password:String(password)
 
 
 
@@ -108,6 +107,7 @@ password:password
 
 
 })
+
 
 
 
@@ -117,19 +117,19 @@ password:password
 
 
 
+
 .then(data=>{
 
 
 
-console.log(data);
+console.log("LOGIN RESPONSE:",data);
+
 
 
 
 
 
 if(data.success===true){
-
-
 
 
 
@@ -171,10 +171,10 @@ data.picture || ""
 
 
 
-
 message.style.color="green";
 
-message.innerHTML=
+
+message.innerHTML =
 "Login Successful";
 
 
@@ -182,8 +182,7 @@ message.innerHTML=
 
 
 
-
-setTimeout(function(){
+setTimeout(()=>{
 
 
 
@@ -192,69 +191,68 @@ data.role;
 
 
 
-if(role==="Admin"){
-
-
-window.location.href=
-"dashboard.html";
-
-
-}
+switch(role){
 
 
 
-else if(role==="Support"){
+case "Admin":
 
+window.location.href="dashboard.html";
 
-window.location.href=
-"support.html";
-
-
-}
+break;
 
 
 
-else if(role==="Caller"){
 
+case "Support":
 
-window.location.href=
-"call.html";
+window.location.href="support.html";
 
-
-}
-
-
-
-else if(role==="Manager"){
-
-
-window.location.href=
-"manager.html";
-
-
-}
+break;
 
 
 
-else if(role==="Guest"){
 
 
-window.location.href=
-"guest.html";
+case "Caller":
+
+window.location.href="call.html";
+
+break;
 
 
-}
 
 
 
-else{
+case "Manager":
+
+window.location.href="manager.html";
+
+break;
 
 
-window.location.href=
-"guest.html";
+
+
+
+case "Guest":
+
+window.location.href="guest.html";
+
+break;
+
+
+
+
+
+default:
+
+window.location.href="guest.html";
+
 
 
 }
+
+
 
 
 
@@ -264,20 +262,16 @@ window.location.href=
 
 
 
-
-
 }
 
 else{
-
 
 
 message.style.color="red";
 
 
 message.innerHTML =
-data.message || 
-"Login Failed";
+data.message || "Login Failed";
 
 
 
@@ -288,6 +282,7 @@ data.message ||
 
 
 })
+
 
 
 
@@ -302,12 +297,13 @@ console.log(error);
 message.style.color="red";
 
 
-message.innerHTML=
+message.innerHTML =
 "Server Connection Error";
 
 
 
 })
+
 
 
 
@@ -325,8 +321,6 @@ loginBtn.innerHTML="LOGIN";
 
 
 
-
-
 });
 
 
@@ -337,13 +331,14 @@ loginBtn.innerHTML="LOGIN";
 
 
 
-// ================================
-// PASSWORD SHOW / HIDE
-// ================================
+// ===============================
+// SHOW / HIDE PASSWORD
+// ===============================
 
 
 const togglePassword =
 document.getElementById("togglePassword");
+
 
 
 
