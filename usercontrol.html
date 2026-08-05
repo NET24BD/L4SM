@@ -10,10 +10,8 @@
 
 <link rel="stylesheet" href="usercontrol.css">
 
-
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 
 </head>
 
@@ -28,20 +26,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <header>
 
 
+<!-- BACK BUTTON -->
 
-<!-- Back Button -->
-
-<div class="back-btn" onclick="goBack()">
+<button class="back-btn" id="backBtn">
 
 <i class="fa-solid fa-arrow-left"></i>
 
-</div>
+</button>
 
 
 
 
-
-<!-- Title -->
+<!-- TITLE -->
 
 <div class="title">
 
@@ -54,14 +50,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- Profile -->
+<!-- PROFILE -->
 
-
-<div class="profile" id="profile">
+<div class="profile" id="profileBtn">
 
 
 <img id="profileImg" src="profile.png">
-
 
 
 <div class="profile-info">
@@ -82,14 +76,12 @@ Online
 
 
 
-
-<!-- Dropdown -->
-
+<!-- MENU -->
 
 <div class="profile-menu" id="profileMenu">
 
 
-<div onclick="openPage('my-account.html')">
+<div id="accountBtn">
 
 <i class="fa-solid fa-user"></i>
 
@@ -99,7 +91,7 @@ Online
 
 
 
-<div onclick="logout()">
+<div id="logoutBtn">
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
@@ -113,10 +105,8 @@ Online
 
 
 
+
 </div>
-
-
-
 
 
 
@@ -129,8 +119,10 @@ Online
 
 
 
-<div class="user-box">
+<!-- USER LIST -->
 
+
+<div class="user-box">
 
 
 <div class="top">
@@ -146,7 +138,7 @@ Users List
 
 
 
-<button onclick="addUser()">
+<button id="addUserBtn">
 
 <i class="fa-solid fa-user-plus"></i>
 
@@ -157,8 +149,6 @@ Add User
 
 
 </div>
-
-
 
 
 
@@ -197,32 +187,26 @@ Add User
 
 <td colspan="6">
 
-Loading Users...
+Loading...
 
 </td>
 
 </tr>
 
 
-
 </tbody>
-
 
 
 </table>
 
 
-
 </div>
 
 
 
 
 
-
-
 </div>
-
 
 
 
