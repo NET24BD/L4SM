@@ -4,11 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>User Control</title>
-
 
 <link rel="stylesheet" href="usercontrol.css">
 
@@ -27,13 +25,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- HEADER -->
-
 <header>
 
 
 
-<!-- BACK BUTTON -->
+<!-- Back Button -->
 
 <div class="back-btn" onclick="goBack()">
 
@@ -44,7 +40,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- TITLE -->
+
+<!-- Title -->
 
 <div class="title">
 
@@ -56,7 +53,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- USER PROFILE -->
+
+<!-- Profile -->
 
 
 <div class="profile" id="profile">
@@ -68,18 +66,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <div class="profile-info">
 
-
 <h4 id="userName">
-
 Username
-
 </h4>
 
 
 <p>
-
 Online
-
 </p>
 
 
@@ -90,7 +83,7 @@ Online
 
 
 
-<!-- PROFILE MENU -->
+<!-- Dropdown -->
 
 
 <div class="profile-menu" id="profileMenu">
@@ -100,14 +93,9 @@ Online
 
 <i class="fa-solid fa-user"></i>
 
-<span>
-
-My Account
-
-</span>
+<span>My Account</span>
 
 </div>
-
 
 
 
@@ -115,11 +103,7 @@ My Account
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
-<span>
-
-Logout
-
-</span>
+<span>Logout</span>
 
 </div>
 
@@ -130,6 +114,7 @@ Logout
 
 
 </div>
+
 
 
 
@@ -142,9 +127,6 @@ Logout
 
 
 
-
-
-<!-- USER CONTROL AREA -->
 
 
 <div class="user-box">
@@ -164,15 +146,11 @@ Users List
 
 
 
-
-
 <button onclick="addUser()">
-
 
 <i class="fa-solid fa-user-plus"></i>
 
 Add User
-
 
 </button>
 
@@ -186,63 +164,29 @@ Add User
 
 
 
-
 <table>
 
 
 <thead>
 
-
 <tr>
 
+<th>Picture</th>
 
-<th>
+<th>Username</th>
 
-Picture
+<th>Name</th>
 
-</th>
+<th>Role</th>
 
+<th>Status</th>
 
-<th>
-
-Username
-
-</th>
-
-
-<th>
-
-Name
-
-</th>
-
-
-<th>
-
-Role
-
-</th>
-
-
-<th>
-
-Status
-
-</th>
-
-
-<th>
-
-Action
-
-</th>
-
+<th>Action</th>
 
 </tr>
 
 
 </thead>
-
 
 
 
@@ -257,7 +201,6 @@ Loading Users...
 
 </td>
 
-
 </tr>
 
 
@@ -267,8 +210,6 @@ Loading Users...
 
 
 </table>
-
-
 
 
 
@@ -290,8 +231,6 @@ Loading Users...
 <script src="usercontrol.js"></script>
 
 
-
 </body>
-
 
 </html>
