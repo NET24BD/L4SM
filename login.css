@@ -1,144 +1,178 @@
-/* ===================================
-eSupport Login CSS
-=================================== */
-
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+font-family:Arial,sans-serif;
+
 }
+
 
 body{
+
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
-background:#698D94;
+background:#4d7094;
+
 }
 
+
+
 .login-box{
-width:380px;
-background:#fff;
-border-radius:12px;
+
+width:350px;
+background:white;
 padding:35px;
-box-shadow:0 10px 25px rgba(0,0,0,.15);
+border-radius:20px;
 text-align:center;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.25);
+
 }
+
+
 
 .logo{
+
 width:70px;
 height:70px;
-margin:0 auto 20px;
+background:#2563eb;
+color:white;
+
 border-radius:50%;
-background:#698D94;
+
 display:flex;
-justify-content:center;
 align-items:center;
-color:#fff;
-font-size:30px;
+justify-content:center;
+
+margin:auto;
+
+font-size:35px;
+
 }
+
+
 
 h2{
-color:#333;
-margin-bottom:5px;
+
+margin-top:20px;
+color:#1e3a8a;
+
 }
+
+
 
 p{
+
 color:#777;
-margin-bottom:25px;
+margin:10px;
+
 }
+
+
+
 
 .input-group{
+
 position:relative;
-margin-bottom:18px;
+margin:20px 0;
+
 }
+
+
 
 .input-group input{
+
 width:100%;
-height:50px;
-border:1px solid #d5d5d5;
-border-radius:8px;
-outline:none;
+padding:14px 45px;
+
+border-radius:10px;
+
+border:1px solid #ddd;
+
 font-size:15px;
-padding-left:45px;
-padding-right:45px;
-transition:.3s;
+
 }
 
-.input-group input:focus{
-border-color:#698D94;
-}
 
-/* Left Icon */
 
 .icon{
+
 position:absolute;
 left:15px;
-top:50%;
-transform:translateY(-50%);
-color:#777;
+top:15px;
+color:#2563eb;
+
 }
 
-/* Eye Icon */
+
 
 #togglePassword{
+
 position:absolute;
+
 right:15px;
-top:50%;
-transform:translateY(-50%);
-color:#777;
+top:14px;
+
 cursor:pointer;
-display:flex;
-align-items:center;
-justify-content:center;
-width:20px;
-height:20px;
+
+color:#555;
+
 }
 
-/* Message */
+
 
 #message{
-min-height:20px;
+
+min-height:25px;
+
 font-size:14px;
-margin-bottom:10px;
-font-weight:600;
+
 }
 
-/* Button */
+
 
 button{
+
+
 width:100%;
-height:50px;
+
+padding:14px;
+
 border:none;
-border-radius:8px;
-background:#698D94;
-color:#fff;
+
+border-radius:10px;
+
+background:#2563eb;
+
+color:white;
+
 font-size:16px;
-font-weight:bold;
+
 cursor:pointer;
-transition:.3s;
+
+
 }
+
+
 
 button:hover{
-background:#56767d;
+
+background:#1d4ed8;
+
 }
 
-/* Footer */
+
 
 .footer{
-margin-top:20px;
-font-size:13px;
-color:#777;
-}
 
-/* Responsive */
+margin-top:25px;
 
-@media(max-width:450px){
+font-size:12px;
 
-.login-box{
-width:95%;
-padding:25px;
-}
+color:#888;
 
 }
