@@ -1,5 +1,5 @@
 // =====================================
-// API URL
+// GOOGLE SCRIPT URL
 // =====================================
 
 const API_URL =
@@ -8,7 +8,8 @@ const API_URL =
 
 
 let editMode = false;
-let editUsername = "";
+let oldUsername = "";
+
 
 
 
@@ -17,13 +18,12 @@ let editUsername = "";
 // PAGE LOAD
 // =====================================
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded",function(){
 
 
-loadProfile();
+    loadProfile();
 
-loadUsers();
-
+    loadUsers();
 
 
 });
@@ -32,16 +32,22 @@ loadUsers();
 
 
 
+
+
 // =====================================
-// PROFILE
+// PROFILE LOAD
 // =====================================
+
 
 function loadProfile(){
 
 
-let name = localStorage.getItem("name");
+let name =
+localStorage.getItem("name");
 
-let picture = localStorage.getItem("picture");
+
+let picture =
+localStorage.getItem("picture");
 
 
 
@@ -58,7 +64,9 @@ document.getElementById("profileImg").src =
 picture;
 
 
+
 }
+
 
 
 
@@ -80,9 +88,6 @@ document.getElementById("profileMenu");
 
 
 
-if(profileBtn){
-
-
 profileBtn.onclick=function(e){
 
 
@@ -97,19 +102,12 @@ profileMenu.style.display=="block"
 "block";
 
 
-}
+};
 
 
 
-}
+document.addEventListener("click",function(){
 
-
-
-
-document.addEventListener("click",()=>{
-
-
-if(profileMenu)
 
 profileMenu.style.display="none";
 
@@ -122,7 +120,7 @@ profileMenu.style.display="none";
 
 
 // =====================================
-// BACK
+// BACK BUTTON
 // =====================================
 
 
@@ -138,8 +136,9 @@ window.location.href="dashboard.html";
 
 
 
+
 // =====================================
-// ACCOUNT
+// MY ACCOUNT
 // =====================================
 
 
@@ -150,7 +149,6 @@ window.location.href="my-account.html";
 
 
 };
-
 
 
 
@@ -180,12 +178,14 @@ window.location.href="login.html";
 
 
 
+
 // =====================================
 // LOAD USERS
 // =====================================
 
 
 function loadUsers(){
+
 
 
 fetch(API_URL+"?action=users")
@@ -197,12 +197,15 @@ fetch(API_URL+"?action=users")
 .then(users=>{
 
 
+
 let table =
 document.getElementById("userTable");
 
 
 
 table.innerHTML="";
+
+
 
 
 
@@ -213,13 +216,16 @@ users.forEach(user=>{
 table.innerHTML += `
 
 
+
 <tr>
 
 
 <td>
 
+
 <img class="user-photo"
 src="${user.picture || 'profile.png'}">
+
 
 </td>
 
@@ -241,12 +247,16 @@ src="${user.picture || 'profile.png'}">
 <td>
 
 
-<button onclick="editUser('${user.username}',
+
+<button class="action-btn edit"
+onclick="editUser(
+'${user.username}',
 '${user.password}',
 '${user.name}',
 '${user.role}',
 '${user.status}',
-'${user.picture}')">
+'${user.picture}'
+)">
 
 Edit
 
@@ -254,11 +264,15 @@ Edit
 
 
 
-<button onclick="deleteUser('${user.username}')">
+
+
+<button class="action-btn delete"
+onclick="deleteUser('${user.username}')">
 
 Delete
 
 </button>
+
 
 
 </td>
@@ -266,6 +280,7 @@ Delete
 
 
 </tr>
+
 
 
 `;
@@ -278,13 +293,14 @@ Delete
 
 })
 
-.catch(err=>{
+.catch(error=>{
 
 
-console.log(err);
+console.log(error);
 
 
 });
+
 
 
 }
@@ -295,18 +311,28 @@ console.log(err);
 
 
 
+
+
 // =====================================
-// SHOW ADD FORM
+// OPEN ADD FORM
 // =====================================
 
 
 document.getElementById("addUserBtn").onclick=function(){
 
 
-document.getElementById("addForm").style.display="block";
-
 
 editMode=false;
+
+
+document.getElementById("formTitle").innerHTML="Add User";
+
+
+clearForm();
+
+
+document.getElementById("userModal").style.display="flex";
+
 
 
 };
@@ -316,16 +342,25 @@ editMode=false;
 
 
 
+
+
+
+// =====================================
+// CANCEL FORM
+// =====================================
+
+
 document.getElementById("cancelUser").onclick=function(){
 
 
-document.getElementById("addForm").style.display="none";
+document.getElementById("userModal").style.display="none";
 
 
 clearForm();
 
 
 };
+
 
 
 
@@ -346,24 +381,30 @@ document.getElementById("saveUser").onclick=function(){
 let data={
 
 
+
 username:
 document.getElementById("username").value,
+
 
 
 password:
 document.getElementById("password").value,
 
 
+
 name:
 document.getElementById("name").value,
+
 
 
 role:
 document.getElementById("role").value,
 
 
+
 status:
 document.getElementById("status").value,
+
 
 
 picture:
@@ -382,8 +423,8 @@ if(editMode){
 
 data.action="update";
 
-data.username=editUsername;
 
+data.username=oldUsername;
 
 
 }
@@ -401,7 +442,6 @@ data.action="add";
 
 
 
-
 fetch(API_URL,{
 
 method:"POST",
@@ -411,7 +451,9 @@ body:JSON.stringify(data)
 })
 
 
+
 .then(res=>res.json())
+
 
 
 .then(result=>{
@@ -420,13 +462,14 @@ body:JSON.stringify(data)
 alert(result.message);
 
 
+document.getElementById("userModal").style.display="none";
+
+
 loadUsers();
 
 
 clearForm();
 
-
-document.getElementById("addForm").style.display="none";
 
 
 });
@@ -434,7 +477,6 @@ document.getElementById("addForm").style.display="none";
 
 
 };
-
 
 
 
@@ -456,11 +498,11 @@ function editUser(username,password,name,role,status,picture){
 editMode=true;
 
 
-editUsername=username;
+oldUsername=username;
 
 
 
-document.getElementById("addForm").style.display="block";
+document.getElementById("formTitle").innerHTML="Edit User";
 
 
 
@@ -483,7 +525,13 @@ document.getElementById("picture").value=picture;
 
 
 
+document.getElementById("userModal").style.display="flex";
+
+
+
 }
+
+
 
 
 
@@ -506,6 +554,7 @@ return;
 
 
 
+
 fetch(API_URL,{
 
 method:"POST",
@@ -521,7 +570,10 @@ username:username
 
 })
 
+
+
 .then(res=>res.json())
+
 
 
 .then(result=>{
@@ -533,10 +585,13 @@ alert(result.message);
 loadUsers();
 
 
+
 });
 
 
+
 }
+
 
 
 
@@ -554,14 +609,20 @@ function clearForm(){
 
 document.getElementById("username").value="";
 
+
 document.getElementById("password").value="";
+
 
 document.getElementById("name").value="";
 
+
+document.getElementById("role").value="Admin";
+
+
+document.getElementById("status").value="Active";
+
+
 document.getElementById("picture").value="";
-
-
-editMode=false;
 
 
 }
