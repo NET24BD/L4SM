@@ -7,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>L4SM Dashboard</title>
 
 
@@ -29,7 +30,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <div class="sidebar">
 
 
-<div class="brand">
+<div class="logo">
 
 <i class="fa-solid fa-layer-group"></i>
 
@@ -39,10 +40,12 @@ L4SM
 
 
 
+
 <ul>
 
 
-<li onclick="openPage('dashboard.html')">
+<li class="active"
+onclick="openPage('dashboard.html')">
 
 <i class="fa-solid fa-house"></i>
 
@@ -56,9 +59,10 @@ Dashboard
 
 <i class="fa-solid fa-users"></i>
 
-Users
+User Control
 
 </li>
+
 
 
 
@@ -72,6 +76,7 @@ Support
 
 
 
+
 <li onclick="openPage('call.html')">
 
 <i class="fa-solid fa-phone"></i>
@@ -79,6 +84,7 @@ Support
 Caller
 
 </li>
+
 
 
 
@@ -105,15 +111,14 @@ Manager
 
 
 
-<!-- MAIN -->
 
+<!-- MAIN AREA -->
 
 <div class="main">
 
 
 
 <header>
-
 
 
 <h2>
@@ -139,7 +144,6 @@ User
 
 
 
-
 <i class="fa-solid fa-angle-down"></i>
 
 
@@ -148,6 +152,7 @@ User
 
 <div id="profileMenu"
 class="profile-menu">
+
 
 
 <button onclick="openMyAccount()">
@@ -160,6 +165,8 @@ My Account
 
 
 
+
+
 <button onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
@@ -167,6 +174,7 @@ My Account
 Logout
 
 </button>
+
 
 
 </div>
@@ -186,7 +194,11 @@ Logout
 
 
 
-<section class="welcome">
+
+<!-- WELCOME -->
+
+
+<div class="welcome">
 
 
 <h1>
@@ -199,12 +211,14 @@ User
 </h1>
 
 
+
 <p>
-Manage your L4SM system from here
+Manage your L4SM system easily
 </p>
 
 
-</section>
+
+</div>
 
 
 
@@ -214,7 +228,11 @@ Manage your L4SM system from here
 
 
 
-<section class="cards">
+
+<!-- CARDS -->
+
+
+<div class="cards">
 
 
 
@@ -223,6 +241,7 @@ Manage your L4SM system from here
 
 <i class="fa-solid fa-users"></i>
 
+
 <div>
 
 <h3>
@@ -230,8 +249,9 @@ Users
 </h3>
 
 <p>
-Manage All Users
+Manage Users
 </p>
+
 
 </div>
 
@@ -248,6 +268,7 @@ Manage All Users
 
 <i class="fa-solid fa-headset"></i>
 
+
 <div>
 
 <h3>
@@ -257,6 +278,7 @@ Support
 <p>
 Support Panel
 </p>
+
 
 </div>
 
@@ -282,8 +304,9 @@ Calls
 </h3>
 
 <p>
-Caller Management
+Call Management
 </p>
+
 
 </div>
 
@@ -309,27 +332,31 @@ Reports
 </h3>
 
 <p>
-System Overview
+System Reports
 </p>
 
-</div>
-
 
 </div>
 
 
-
-</section>
-
+</div>
 
 
 
-
+</div>
 
 
 
 
-<section class="quick">
+
+
+
+
+
+<!-- QUICK ACTION -->
+
+
+<div class="quick">
 
 
 <h2>
@@ -338,7 +365,7 @@ Quick Access
 
 
 
-<div class="buttons">
+<div class="quick-buttons">
 
 
 <button onclick="openPage('usercontrol.html')">
@@ -348,6 +375,8 @@ Quick Access
 Add User
 
 </button>
+
+
 
 
 
@@ -363,7 +392,8 @@ Change Password
 </div>
 
 
-</section>
+
+</div>
 
 
 
@@ -373,6 +403,8 @@ Change Password
 
 
 </div>
+
+
 
 
 
