@@ -1,9 +1,14 @@
 // =====================================
-// GOOGLE SCRIPT API URL
+// API URL
 // =====================================
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
+
+
+
+let editMode = false;
+let editUsername = "";
 
 
 
@@ -12,12 +17,13 @@ const API_URL =
 // PAGE LOAD
 // =====================================
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded",()=>{
 
 
-    loadProfile();
+loadProfile();
 
-    loadUsers();
+loadUsers();
+
 
 
 });
@@ -26,47 +32,30 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-
 // =====================================
-// LOAD PROFILE
+// PROFILE
 // =====================================
 
 function loadProfile(){
 
 
-    const name =
-    localStorage.getItem("name");
+let name = localStorage.getItem("name");
 
-
-    const picture =
-    localStorage.getItem("picture");
+let picture = localStorage.getItem("picture");
 
 
 
-    const userName =
-    document.getElementById("userName");
+if(document.getElementById("userName"))
 
-
-    const profileImg =
-    document.getElementById("profileImg");
-
-
-
-    if(userName){
-
-        userName.innerHTML =
-        name || "User";
-
-    }
+document.getElementById("userName").innerHTML =
+name || "User";
 
 
 
-    if(profileImg && picture){
+if(picture)
 
-        profileImg.src = picture;
-
-    }
-
+document.getElementById("profileImg").src =
+picture;
 
 
 }
@@ -94,29 +83,22 @@ document.getElementById("profileMenu");
 if(profileBtn){
 
 
-profileBtn.addEventListener("click",function(e){
+profileBtn.onclick=function(e){
 
 
-    e.stopPropagation();
+e.stopPropagation();
 
 
-    if(profileMenu.style.display==="block"){
+profileMenu.style.display =
+profileMenu.style.display=="block"
+?
+"none"
+:
+"block";
 
 
-        profileMenu.style.display="none";
+}
 
-
-    }
-    else{
-
-
-        profileMenu.style.display="block";
-
-
-    }
-
-
-});
 
 
 }
@@ -124,15 +106,12 @@ profileBtn.addEventListener("click",function(e){
 
 
 
+document.addEventListener("click",()=>{
 
-document.addEventListener("click",function(){
 
+if(profileMenu)
 
-    if(profileMenu){
-
-        profileMenu.style.display="none";
-
-    }
+profileMenu.style.display="none";
 
 
 });
@@ -142,66 +121,35 @@ document.addEventListener("click",function(){
 
 
 
-
-
 // =====================================
-// BACK BUTTON
+// BACK
 // =====================================
 
 
-const backBtn =
-document.getElementById("backBtn");
+document.getElementById("backBtn").onclick=function(){
 
 
-
-if(backBtn){
-
-
-backBtn.onclick=function(){
-
-
-    window.location.href="dashboard.html";
+window.location.href="dashboard.html";
 
 
 };
 
 
-}
-
-
-
-
-
 
 
 
 // =====================================
-// MY ACCOUNT
+// ACCOUNT
 // =====================================
 
 
-const accountBtn =
-document.getElementById("accountBtn");
+document.getElementById("accountBtn").onclick=function(){
 
 
-
-if(accountBtn){
-
-
-accountBtn.onclick=function(e){
-
-
-    e.stopPropagation();
-
-
-    window.location.href="my-account.html";
+window.location.href="my-account.html";
 
 
 };
-
-
-}
-
 
 
 
@@ -214,28 +162,16 @@ accountBtn.onclick=function(e){
 // =====================================
 
 
-const logoutBtn =
-document.getElementById("logoutBtn");
+document.getElementById("logoutBtn").onclick=function(){
 
 
-
-if(logoutBtn){
-
-
-logoutBtn.onclick=function(){
+localStorage.clear();
 
 
-    localStorage.clear();
-
-
-    window.location.href="login.html";
+window.location.href="login.html";
 
 
 };
-
-
-}
-
 
 
 
@@ -245,39 +181,24 @@ logoutBtn.onclick=function(){
 
 
 // =====================================
-// LOAD USERS FROM GOOGLE SHEET
+// LOAD USERS
 // =====================================
 
 
 function loadUsers(){
 
 
-
-fetch(API_URL + "?action=users")
-
+fetch(API_URL+"?action=users")
 
 
-.then(response=>response.json())
-
+.then(res=>res.json())
 
 
 .then(users=>{
 
 
-console.log("USERS:",users);
-
-
-
-const table =
+let table =
 document.getElementById("userTable");
-
-
-
-if(!table){
-
-return;
-
-}
 
 
 
@@ -285,82 +206,47 @@ table.innerHTML="";
 
 
 
-
-
-users.forEach(function(user){
-
-
-
-let img =
-user.picture && user.picture !== ""
-?
-user.picture
-:
-"profile.png";
-
-
+users.forEach(user=>{
 
 
 
 table.innerHTML += `
 
 
-
 <tr>
 
 
-
 <td>
 
-
-<img class="user-photo" src="${img}">
-
+<img class="user-photo"
+src="${user.picture || 'profile.png'}">
 
 </td>
 
 
 
-
-<td>
-
-${user.username}
-
-</td>
+<td>${user.username}</td>
 
 
+<td>${user.name}</td>
 
 
-<td>
-
-${user.name}
-
-</td>
+<td>${user.role}</td>
 
 
-
-
-<td>
-
-${user.role}
-
-</td>
-
-
-
-
-<td>
-
-${user.status}
-
-</td>
-
+<td>${user.status}</td>
 
 
 
 <td>
 
 
-<button class="action-btn edit">
+<button onclick="editUser('${user.username}',
+'${user.password}',
+'${user.name}',
+'${user.role}',
+'${user.status}',
+'${user.picture}')">
 
 Edit
 
@@ -368,14 +254,13 @@ Edit
 
 
 
-<button class="action-btn delete">
+<button onclick="deleteUser('${user.username}')">
 
 Delete
 
 </button>
 
 
-
 </td>
 
 
@@ -383,57 +268,221 @@ Delete
 </tr>
 
 
-
 `;
 
 
 
 });
-
 
 
 
 })
 
+.catch(err=>{
 
 
-.catch(error=>{
+console.log(err);
 
 
-console.log("ERROR:",error);
+});
 
-
-
-const table =
-document.getElementById("userTable");
-
-
-
-if(table){
-
-
-table.innerHTML=`
-
-<tr>
-
-<td colspan="6">
-
-Connection Error
-
-</td>
-
-</tr>
-
-`;
 
 }
 
+
+
+
+
+
+
+// =====================================
+// SHOW ADD FORM
+// =====================================
+
+
+document.getElementById("addUserBtn").onclick=function(){
+
+
+document.getElementById("addForm").style.display="block";
+
+
+editMode=false;
+
+
+};
+
+
+
+
+
+
+document.getElementById("cancelUser").onclick=function(){
+
+
+document.getElementById("addForm").style.display="none";
+
+
+clearForm();
+
+
+};
+
+
+
+
+
+
+
+
+// =====================================
+// SAVE USER
+// =====================================
+
+
+document.getElementById("saveUser").onclick=function(){
+
+
+
+let data={
+
+
+username:
+document.getElementById("username").value,
+
+
+password:
+document.getElementById("password").value,
+
+
+name:
+document.getElementById("name").value,
+
+
+role:
+document.getElementById("role").value,
+
+
+status:
+document.getElementById("status").value,
+
+
+picture:
+document.getElementById("picture").value
+
+
+
+};
+
+
+
+
+
+if(editMode){
+
+
+data.action="update";
+
+data.username=editUsername;
+
+
+
+}
+
+else{
+
+
+data.action="add";
+
+
+}
+
+
+
+
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+})
+
+
+.then(res=>res.json())
+
+
+.then(result=>{
+
+
+alert(result.message);
+
+
+loadUsers();
+
+
+clearForm();
+
+
+document.getElementById("addForm").style.display="none";
 
 
 });
 
 
 
+};
+
+
+
+
+
+
+
+
+
+
+// =====================================
+// EDIT USER
+// =====================================
+
+
+function editUser(username,password,name,role,status,picture){
+
+
+
+editMode=true;
+
+
+editUsername=username;
+
+
+
+document.getElementById("addForm").style.display="block";
+
+
+
+document.getElementById("username").value=username;
+
+
+document.getElementById("password").value=password;
+
+
+document.getElementById("name").value=name;
+
+
+document.getElementById("role").value=role;
+
+
+document.getElementById("status").value=status;
+
+
+document.getElementById("picture").value=picture;
+
+
+
 }
 
 
@@ -442,28 +491,77 @@ Connection Error
 
 
 
-
-
 // =====================================
-// ADD USER
+// DELETE USER
 // =====================================
 
 
-const addUserBtn =
-document.getElementById("addUserBtn");
+function deleteUser(username){
 
 
 
-if(addUserBtn){
+if(!confirm("Delete this user?"))
+
+return;
 
 
-addUserBtn.onclick=function(){
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"delete",
+
+username:username
 
 
-alert("Add User System Coming Soon");
+})
+
+})
+
+.then(res=>res.json())
 
 
-};
+.then(result=>{
+
+
+alert(result.message);
+
+
+loadUsers();
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+// =====================================
+// CLEAR FORM
+// =====================================
+
+
+function clearForm(){
+
+
+document.getElementById("username").value="";
+
+document.getElementById("password").value="";
+
+document.getElementById("name").value="";
+
+document.getElementById("picture").value="";
+
+
+editMode=false;
 
 
 }
