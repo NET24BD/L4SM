@@ -1,313 +1,200 @@
 // =====================================
 // L4SM DASHBOARD JS
+// FINAL PART 1
 // =====================================
 
-
-
-document.addEventListener("DOMContentLoaded", function(){
-
-
-
 // ===============================
-// LOAD USER DATA
+// LOGIN PROTECTION
 // ===============================
+if (localStorage.getItem("isLogin") !== "true") {
 
-
-let name = localStorage.getItem("name");
-
-let username = localStorage.getItem("username");
-
-let picture = localStorage.getItem("picture");
-
-
-
-
-
-// যদি name না থাকে username দেখাবে
-
-let displayName = name || username || "User";
-
-
-
-
-
-
-// Header Name
-
-let headerName =
-document.getElementById("headerName");
-
-
-if(headerName){
-
-headerName.innerText = displayName;
+    window.location.replace("login.html");
 
 }
 
+// Prevent Back Button Cache
+window.history.pushState(null, "", window.location.href);
 
+window.addEventListener("popstate", function () {
 
+    if (localStorage.getItem("isLogin") !== "true") {
 
+        window.location.replace("login.html");
 
-
-// Welcome Name
-
-let welcomeName =
-document.getElementById("welcomeName");
-
-
-if(welcomeName){
-
-welcomeName.innerText = displayName;
-
-}
-
-
-
-
-
-
-
-// Profile Image
-
-let profileImg =
-document.getElementById("profileImg");
-
-
-
-if(profileImg && picture){
-
-
-profileImg.src = picture;
-
-
-}
-
-
-
-
-
-
-
-
-// ===============================
-// LOGOUT BUTTON
-// ===============================
-
-
-let logoutBtn =
-document.getElementById("logoutBtn");
-
-
-
-if(logoutBtn){
-
-
-
-logoutBtn.addEventListener("click",function(e){
-
-
-
-e.stopPropagation();
-
-
-
-
-localStorage.removeItem("isLogin");
-
-localStorage.removeItem("username");
-
-localStorage.removeItem("name");
-
-localStorage.removeItem("role");
-
-localStorage.removeItem("picture");
-
-
-
-
-window.location.href="login.html";
-
-
+    }
 
 });
 
+// ===============================
+// DOM READY
+// ===============================
+document.addEventListener("DOMContentLoaded", function () {
 
+    // ===============================
+    // LOAD USER DATA
+    // ===============================
 
-}
+    const name = localStorage.getItem("name");
+    const username = localStorage.getItem("username");
+    const picture = localStorage.getItem("picture");
 
+    const displayName = name || username || "User";
 
+    // ===============================
+    // HEADER NAME
+    // ===============================
+
+    const headerName = document.getElementById("headerName");
+
+    if (headerName) {
+
+        headerName.textContent = displayName;
+
+    }
+
+    // ===============================
+    // WELCOME NAME
+    // ===============================
+
+    const welcomeName = document.getElementById("welcomeName");
+
+    if (welcomeName) {
+
+        welcomeName.textContent = displayName;
+
+    }
+
+    // ===============================
+    // PROFILE IMAGE
+    // ===============================
+
+    const profileImg = document.getElementById("profileImg");
+
+    if (profileImg) {
+
+        if (picture && picture.trim() !== "") {
+
+            profileImg.src = picture;
+
+        } else {
+
+            profileImg.src = "assets/profile.png";
+
+        }
+
+    }
+
+    // ===============================
+    // LOGOUT BUTTON
+    // ===============================
+
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener("click", function (e) {
+
+            e.stopPropagation();
+
+            if (!confirm("Are you sure you want to logout?")) {
+
+                return;
+
+            }
+
+            // Clear Session
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // Redirect
+            window.location.replace("login.html");
+
+        });
+
+    }
 
 });
-
-
-
-
-
-
-
-
+// =====================================
+// L4SM DASHBOARD JS
+// FINAL PART 2
+// =====================================
 
 // ===============================
 // SIDEBAR TOGGLE
 // ===============================
+function toggleSidebar() {
 
+    const sidebar = document.getElementById("sidebar");
 
-function toggleSidebar(){
-
-
-
-let sidebar =
-document.getElementById("sidebar");
-
-
-
-if(sidebar){
-
-
-sidebar.classList.toggle("small");
-
+    if (sidebar) {
+        sidebar.classList.toggle("small");
+    }
 
 }
-
-
-
-}
-
-
-
-
-
-
-
-
 
 // ===============================
-// PAGE OPEN
+// OPEN PAGE
 // ===============================
+function openPage(page) {
 
-
-function openPage(page){
-
-
-window.location.href = page;
-
+    window.location.href = page;
 
 }
-
-
-
-
-
-
-
-
 
 // ===============================
 // PROFILE MENU
 // ===============================
+function toggleProfileMenu() {
 
+    const menu = document.getElementById("profileMenu");
 
-function toggleProfileMenu(){
+    if (!menu) return;
 
-
-
-let menu =
-document.getElementById("profileMenu");
-
-
-
-if(!menu){
-
-return;
+    menu.style.display =
+        (menu.style.display === "block") ? "none" : "block";
 
 }
-
-
-
-
-if(menu.style.display==="block"){
-
-
-menu.style.display="none";
-
-
-}
-else{
-
-
-menu.style.display="block";
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
 
 // ===============================
 // MY ACCOUNT
 // ===============================
+function openMyAccount() {
 
-
-function openMyAccount(){
-
-
-window.location.href="my-account.html";
-
+    window.location.href = "my-account.html";
 
 }
-
-
-
-
-
-
-
 
 // ===============================
-// CLOSE PROFILE MENU OUTSIDE
+// CLOSE PROFILE MENU (OUTSIDE CLICK)
 // ===============================
+document.addEventListener("click", function (e) {
 
+    const profile = document.querySelector(".profile");
+    const menu = document.getElementById("profileMenu");
 
-document.addEventListener("click",function(e){
+    if (!profile || !menu) return;
 
+    if (!profile.contains(e.target)) {
+        menu.style.display = "none";
+    }
 
+});
 
-let profile =
-document.querySelector(".profile");
+// ===============================
+// PREVENT CACHE AFTER LOGOUT
+// ===============================
+window.addEventListener("pageshow", function (event) {
 
+    if (event.persisted ||
+        (window.performance &&
+         performance.navigation.type === 2)) {
 
+        if (localStorage.getItem("isLogin") !== "true") {
 
-let menu =
-document.getElementById("profileMenu");
+            window.location.replace("login.html");
 
+        }
 
-
-
-if(profile && menu){
-
-
-
-if(!profile.contains(e.target)){
-
-
-menu.style.display="none";
-
-
-}
-
-
-
-}
-
-
+    }
 
 });
