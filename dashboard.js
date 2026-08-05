@@ -1,65 +1,16 @@
-// USER DATA LOAD
+// =====================================
+// L4SM SESSION MANAGEMENT
+// =====================================
 
 
-document.addEventListener("DOMContentLoaded",function(){
+// ================================
+// LOGIN CHECK
+// ================================
+
+if(localStorage.getItem("isLogin") !== "true"){
 
 
-
-let name =
-localStorage.getItem("name");
-
-
-let picture =
-localStorage.getItem("picture");
-
-
-
-
-document.querySelectorAll("#username")
-.forEach(function(el){
-
-el.innerHTML =
-name || "User";
-
-
-});
-
-
-
-
-
-let img =
-document.getElementById("profileImg");
-
-
-
-if(img && picture){
-
-
-img.src=picture;
-
-
-}
-
-
-
-});
-
-
-
-
-
-
-
-// SIDEBAR
-
-
-function toggleSidebar(){
-
-
-document
-.getElementById("sidebar")
-.classList.toggle("small");
+window.location.href="login.html";
 
 
 }
@@ -68,60 +19,42 @@ document
 
 
 
+// ================================
+// SESSION TIME
+// 10 MINUTES
+// ================================
 
 
-// OPEN PAGE
+const SESSION_TIME = 10 * 60 * 1000;
 
 
-function openPage(page){
-
-
-window.location.href=page;
-
-
-}
-
+let sessionTimer;
 
 
 
 
 
+// ================================
+// RESET TIMER
+// ================================
 
-// PROFILE MENU
-
-
-function toggleProfileMenu(){
-
-
-let menu =
-document.getElementById("profileMenu");
+function resetSessionTimer(){
 
 
-if(menu.style.display==="block"){
-
-menu.style.display="none";
-
-}
-
-else{
-
-menu.style.display="block";
-
-}
-
-
-}
+clearTimeout(sessionTimer);
 
 
 
+sessionTimer = setTimeout(function(){
 
 
 
+logoutUser();
 
-function openMyAccount(){
 
 
-window.location.href="my-account.html";
+}, SESSION_TIME);
+
 
 
 }
@@ -133,16 +66,244 @@ window.location.href="my-account.html";
 
 
 
-// LOGOUT
+
+// ================================
+// AUTO LOGOUT
+// ================================
+
+function logoutUser(){
+
+
+
+localStorage.removeItem("isLogin");
+
+localStorage.removeItem("username");
+
+localStorage.removeItem("name");
+
+localStorage.removeItem("role");
+
+localStorage.removeItem("picture");
+
+
+
+
+
+alert(
+"Session Expired. Please Login Again"
+);
+
+
+
+
+window.location.href="login.html";
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ================================
+// USER ACTIVITY
+// ================================
+
+
+window.addEventListener(
+"load",
+resetSessionTimer
+);
+
+
+
+window.addEventListener(
+"mousemove",
+resetSessionTimer
+);
+
+
+
+window.addEventListener(
+"click",
+resetSessionTimer
+);
+
+
+
+window.addEventListener(
+"keypress",
+resetSessionTimer
+);
+
+
+
+window.addEventListener(
+"scroll",
+resetSessionTimer
+);
+
+
+
+window.addEventListener(
+"touchstart",
+resetSessionTimer
+);
+
+
+
+
+
+
+
+
+
+// ================================
+// ROLE PAGE PROTECTION
+// ================================
+
+
+
+let role =
+localStorage.getItem("role");
+
+
+
+let page =
+window.location.pathname
+.split("/")
+.pop();
+
+
+
+
+
+
+// ADMIN ONLY
+
+
+if(
+page==="usercontrol.html" &&
+role!=="Admin"
+){
+
+
+alert(
+"Access Denied"
+);
+
+
+window.location.href="dashboard.html";
+
+
+}
+
+
+
+
+
+
+
+// SUPPORT ONLY
+
+
+if(
+page==="support.html" &&
+role!=="Admin" &&
+role!=="Support"
+
+){
+
+
+alert(
+"Access Denied"
+);
+
+
+window.location.href="dashboard.html";
+
+
+}
+
+
+
+
+
+
+
+
+// CALLER ONLY
+
+
+if(
+page==="call.html" &&
+role!=="Admin" &&
+role!=="Caller"
+
+){
+
+
+alert(
+"Access Denied"
+);
+
+
+window.location.href="dashboard.html";
+
+
+}
+
+
+
+
+
+
+
+
+
+// MANAGER ONLY
+
+
+if(
+page==="manager.html" &&
+role!=="Admin" &&
+role!=="Manager"
+
+){
+
+
+alert(
+"Access Denied"
+);
+
+
+window.location.href="dashboard.html";
+
+
+}
+
+
+
+
+
+
+
+
+
+// ================================
+// LOGOUT BUTTON
+// ================================
 
 
 function logout(){
 
 
-localStorage.clear();
-
-
-window.location.href="login.html";
+logoutUser();
 
 
 }
