@@ -1,5 +1,5 @@
 // =====================================
-// GOOGLE APPS SCRIPT URL
+// GOOGLE SCRIPT API URL
 // =====================================
 
 const API_URL =
@@ -25,36 +25,45 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
+
+
 // =====================================
-// LOAD ADMIN PROFILE
+// LOAD PROFILE
 // =====================================
 
 function loadProfile(){
 
 
-    let name = localStorage.getItem("name");
-
-    let picture = localStorage.getItem("picture");
-
+    const name =
+    localStorage.getItem("name");
 
 
-    let nameBox = document.getElementById("userName");
-
-    let imgBox = document.getElementById("profileImg");
+    const picture =
+    localStorage.getItem("picture");
 
 
 
-    if(nameBox){
+    const userName =
+    document.getElementById("userName");
 
-        nameBox.innerHTML = name || "User";
+
+    const profileImg =
+    document.getElementById("profileImg");
+
+
+
+    if(userName){
+
+        userName.innerHTML =
+        name || "User";
 
     }
 
 
 
-    if(imgBox && picture){
+    if(profileImg && picture){
 
-        imgBox.src = picture;
+        profileImg.src = picture;
 
     }
 
@@ -67,14 +76,18 @@ function loadProfile(){
 
 
 
+
 // =====================================
-// PROFILE DROPDOWN
+// PROFILE MENU
 // =====================================
 
 
-const profileBtn = document.getElementById("profileBtn");
+const profileBtn =
+document.getElementById("profileBtn");
 
-const profileMenu = document.getElementById("profileMenu");
+
+const profileMenu =
+document.getElementById("profileMenu");
 
 
 
@@ -87,14 +100,13 @@ profileBtn.addEventListener("click",function(e){
     e.stopPropagation();
 
 
-    if(profileMenu.style.display === "block"){
+    if(profileMenu.style.display==="block"){
 
 
         profileMenu.style.display="none";
 
 
     }
-
     else{
 
 
@@ -108,6 +120,7 @@ profileBtn.addEventListener("click",function(e){
 
 
 }
+
 
 
 
@@ -129,12 +142,15 @@ document.addEventListener("click",function(){
 
 
 
+
+
 // =====================================
 // BACK BUTTON
 // =====================================
 
 
-const backBtn = document.getElementById("backBtn");
+const backBtn =
+document.getElementById("backBtn");
 
 
 
@@ -151,6 +167,8 @@ backBtn.onclick=function(){
 
 
 }
+
+
 
 
 
@@ -175,6 +193,7 @@ accountBtn.onclick=function(e){
 
     e.stopPropagation();
 
+
     window.location.href="my-account.html";
 
 
@@ -182,6 +201,8 @@ accountBtn.onclick=function(e){
 
 
 }
+
+
 
 
 
@@ -206,6 +227,7 @@ logoutBtn.onclick=function(){
 
     localStorage.clear();
 
+
     window.location.href="login.html";
 
 
@@ -220,8 +242,10 @@ logoutBtn.onclick=function(){
 
 
 
+
+
 // =====================================
-// LOAD USERS FROM SHEET
+// LOAD USERS FROM GOOGLE SHEET
 // =====================================
 
 
@@ -232,14 +256,15 @@ function loadUsers(){
 fetch(API_URL + "?action=users")
 
 
-.then(response => response.json())
 
-
-.then(users => {
+.then(response=>response.json())
 
 
 
-console.log("USER DATA:",users);
+.then(users=>{
+
+
+console.log("USERS:",users);
 
 
 
@@ -249,8 +274,6 @@ document.getElementById("userTable");
 
 
 if(!table){
-
-console.log("userTable missing");
 
 return;
 
@@ -264,48 +287,37 @@ table.innerHTML="";
 
 
 
-if(users.length === 0){
-
-
-table.innerHTML = `
-
-<tr>
-
-<td colspan="6">
-
-No User Found
-
-</td>
-
-</tr>
-
-`;
-
-return;
-
-
-}
-
-
-
-
-
-
-
 users.forEach(function(user){
+
+
+
+let img =
+user.picture && user.picture !== ""
+?
+user.picture
+:
+"profile.png";
+
+
 
 
 
 table.innerHTML += `
 
+
+
 <tr>
+
 
 
 <td>
 
-<img src="${user.picture || 'profile.png'}">
+
+<img class="user-photo" src="${img}">
+
 
 </td>
+
 
 
 
@@ -317,11 +329,13 @@ ${user.username}
 
 
 
+
 <td>
 
 ${user.name}
 
 </td>
+
 
 
 
@@ -333,11 +347,13 @@ ${user.role}
 
 
 
+
 <td>
 
 ${user.status}
 
 </td>
+
 
 
 
@@ -351,6 +367,7 @@ Edit
 </button>
 
 
+
 <button class="action-btn delete">
 
 Delete
@@ -362,7 +379,10 @@ Delete
 </td>
 
 
+
 </tr>
+
+
 
 `;
 
@@ -373,14 +393,14 @@ Delete
 
 
 
-
 })
+
 
 
 .catch(error=>{
 
 
-console.log("API ERROR:",error);
+console.log("ERROR:",error);
 
 
 
@@ -421,8 +441,11 @@ Connection Error
 
 
 
+
+
+
 // =====================================
-// ADD USER BUTTON
+// ADD USER
 // =====================================
 
 
@@ -437,7 +460,7 @@ if(addUserBtn){
 addUserBtn.onclick=function(){
 
 
-alert("Add User Coming Soon");
+alert("Add User System Coming Soon");
 
 
 };
