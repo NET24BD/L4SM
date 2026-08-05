@@ -21,17 +21,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </head>
 
 
-<body>
 
+<body>
 
 
 <div class="container">
 
 
 
+<!-- ================= HEADER ================= -->
 
-
-<!-- HEADER -->
 
 <header>
 
@@ -59,15 +58,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
 <!-- PROFILE -->
+
 
 <div class="profile" id="profileBtn">
 
 
-
 <img id="profileImg" src="profile.png">
-
-
 
 
 
@@ -79,7 +77,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 Username
 
 </h4>
-
 
 
 <p>
@@ -136,6 +133,7 @@ Logout
 
 
 
+
 </header>
 
 
@@ -146,7 +144,8 @@ Logout
 
 
 
-<!-- USER LIST -->
+
+<!-- ================= USER LIST ================= -->
 
 
 
@@ -167,6 +166,7 @@ Logout
 Users List
 
 </h3>
+
 
 
 
@@ -195,11 +195,8 @@ Add User
 
 
 
-<!-- TABLE -->
-
-
-
 <div class="table-area">
+
 
 
 <table>
@@ -208,53 +205,36 @@ Add User
 
 <thead>
 
-
 <tr>
 
 
 <th>
-
 Picture
-
 </th>
 
 
 <th>
-
 Username
-
 </th>
 
 
-
 <th>
-
 Name
-
 </th>
 
 
-
 <th>
-
 Role
-
 </th>
 
 
-
 <th>
-
 Status
-
 </th>
 
 
-
 <th>
-
 Action
-
 </th>
 
 
@@ -264,6 +244,8 @@ Action
 
 
 </thead>
+
+
 
 
 
@@ -285,8 +267,9 @@ Loading...
 </tr>
 
 
-
 </tbody>
+
+
 
 
 
@@ -302,7 +285,6 @@ Loading...
 
 
 
-
 </div>
 
 
@@ -313,13 +295,15 @@ Loading...
 
 
 
-<!-- USER FORM MODAL -->
+
+
+
+
+<!-- ================= USER FORM MODAL ================= -->
 
 
 
 <div class="modal" id="userModal">
-
-
 
 
 
@@ -340,7 +324,6 @@ Add User
 
 
 
-
 <input 
 type="text"
 id="username"
@@ -350,13 +333,10 @@ placeholder="Username">
 
 
 
-
 <input 
 type="password"
 id="password"
 placeholder="Password">
-
-
 
 
 
@@ -376,38 +356,33 @@ placeholder="Full Name">
 <select id="role">
 
 
-
 <option value="Admin">
-
 Admin
-
 </option>
 
 
 <option value="Support">
-
 Support
-
 </option>
 
 
 <option value="Caller">
-
 Caller
+</option>
 
+
+<option value="Manager">
+Manager
 </option>
 
 
 <option value="Guest">
-
 Guest
-
 </option>
 
 
 
 </select>
-
 
 
 
@@ -419,23 +394,18 @@ Guest
 <select id="status">
 
 
-
 <option value="Active">
-
 Active
-
 </option>
 
 
 <option value="Block">
-
 Block
-
 </option>
 
 
-
 </select>
+
 
 
 
@@ -448,6 +418,8 @@ Block
 type="text"
 id="picture"
 placeholder="Picture URL">
+
+
 
 
 
@@ -476,6 +448,7 @@ Save
 
 
 
+
 <button id="cancelUser">
 
 
@@ -490,6 +463,20 @@ Cancel
 
 
 
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
 </div>
 
 
@@ -498,11 +485,99 @@ Cancel
 
 
 
+
+
+
+
+
+<!-- ================= LOADING ================= -->
+
+
+
+<div class="loading-box" id="loadingBox">
+
+
+
+<div class="loader"></div>
+
+
+
+<h3 id="loadingText">
+
+Loading...
+
+</h3>
+
+
+
 </div>
 
 
 
 
+
+
+
+
+
+
+
+
+
+<!-- ================= POPUP MESSAGE ================= -->
+
+
+
+<div class="popup" id="popupBox">
+
+
+
+<div class="popup-content">
+
+
+
+
+
+<i id="popupIcon"
+class="fa-solid fa-circle-check">
+</i>
+
+
+
+
+
+<h3 id="popupTitle">
+
+Success
+
+</h3>
+
+
+
+
+
+<p id="popupMessage">
+
+Done
+
+</p>
+
+
+
+
+
+
+<button onclick="closePopup()">
+
+OK
+
+</button>
+
+
+
+
+
+</div>
 
 
 
