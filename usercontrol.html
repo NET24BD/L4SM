@@ -14,6 +14,10 @@
 <link rel="stylesheet" href="usercontrol.css">
 
 
+<link rel="stylesheet" href="loading.css">
+
+
+
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -21,14 +25,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </head>
 
 
+
 <body>
+
 
 
 <div class="container">
 
 
 
+
+
+<!-- HEADER -->
+
+
 <header>
+
 
 
 <button class="back-btn" id="backBtn">
@@ -40,67 +52,112 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
 <div class="title">
 
-<h2>User Control</h2>
+<h2>
+
+User Control
+
+</h2>
 
 </div>
 
 
 
 
+
+
+
+
+<!-- PROFILE -->
 
 
 <div class="profile" id="profileBtn">
 
 
+
 <img id="profileImg" src="profile.png">
+
+
+
 
 
 <div class="profile-info">
 
+
 <h4 id="userName">
+
 Username
+
 </h4>
 
+
+
 <p>
+
 Online
+
 </p>
+
+
 
 </div>
 
 
 
+
+
+
+
+
+<!-- PROFILE MENU -->
 
 
 <div class="profile-menu" id="profileMenu">
 
 
+
 <div id="accountBtn">
+
 
 <i class="fa-solid fa-user"></i>
 
 My Account
 
+
 </div>
+
+
+
 
 
 
 <div id="logoutBtn">
 
+
 <i class="fa-solid fa-right-from-bracket"></i>
 
 Logout
 
-</div>
-
-
 
 </div>
 
 
 
+
+
 </div>
+
+
+
+
+
+
+
+</div>
+
+
 
 
 
@@ -114,21 +171,47 @@ Logout
 
 
 
+<!-- LOADING AREA -->
+
+
+<div id="loadingArea"></div>
+
+
+
+
+
+
+
+
+
+<!-- USER LIST -->
+
 
 <div class="user-box">
+
+
 
 
 
 <div class="top">
 
 
+
+
+
 <h3>
+
 
 <i class="fa-solid fa-users"></i>
 
+
 Users List
 
+
 </h3>
+
+
+
 
 
 
@@ -139,9 +222,13 @@ Users List
 <i class="fa-solid fa-search"></i>
 
 
+
 <input 
+
 type="text"
+
 id="searchUser"
+
 placeholder="Search User...">
 
 
@@ -152,13 +239,22 @@ placeholder="Search User...">
 
 
 
+
+
 <button id="addUserBtn">
+
 
 <i class="fa-solid fa-user-plus"></i>
 
+
 Add User
 
+
 </button>
+
+
+
+
 
 
 
@@ -175,29 +271,67 @@ Add User
 <div class="table-area">
 
 
+
 <table>
+
 
 
 <thead>
 
+
 <tr>
 
-<th>Picture</th>
 
-<th>Username</th>
+<th>
 
-<th>Name</th>
+Picture
 
-<th>Role</th>
+</th>
 
-<th>Status</th>
 
-<th>Action</th>
+<th>
+
+Username
+
+</th>
+
+
+<th>
+
+Name
+
+</th>
+
+
+<th>
+
+Role
+
+</th>
+
+
+<th>
+
+Status
+
+</th>
+
+
+<th>
+
+Action
+
+</th>
 
 
 </tr>
 
+
+
 </thead>
+
+
+
 
 
 
@@ -213,19 +347,22 @@ Loading...
 
 </td>
 
+
 </tr>
+
 
 
 </tbody>
 
 
 
+
+
+
+
 </table>
 
 
-</div>
-
-
 
 </div>
 
@@ -235,54 +372,101 @@ Loading...
 
 
 
+</div>
 
 
-<!-- ADD EDIT FORM -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- USER FORM MODAL -->
 
 
 <div class="modal" id="userModal">
+
+
+
 
 
 <div class="modal-box">
 
 
 
+
+
 <button class="close-modal" id="closeModal">
 
+
 <i class="fa-solid fa-xmark"></i>
+
 
 </button>
 
 
 
 
+
+
+
 <h2 id="formTitle">
 
+
 Add User
+
 
 </h2>
 
 
 
 
-<input 
+
+
+
+
+<input
+
 type="text"
+
 id="username"
+
 placeholder="Username">
 
 
 
+
+
+
 <input
+
 type="password"
+
 id="password"
+
 placeholder="Password">
 
 
 
+
+
+
 <input
+
 type="text"
+
 id="name"
+
 placeholder="Full Name">
+
+
 
 
 
@@ -291,18 +475,46 @@ placeholder="Full Name">
 <select id="role">
 
 
-<option>Admin</option>
+<option>
 
-<option>Support</option>
+Admin
 
-<option>Caller</option>
+</option>
 
-<option>Manager</option>
 
-<option>Guest</option>
+<option>
+
+Support
+
+</option>
+
+
+<option>
+
+Caller
+
+</option>
+
+
+<option>
+
+Manager
+
+</option>
+
+
+<option>
+
+Guest
+
+</option>
+
 
 
 </select>
+
+
+
 
 
 
@@ -310,9 +522,21 @@ placeholder="Full Name">
 
 <select id="status">
 
-<option>Active</option>
 
-<option>Block</option>
+<option>
+
+Active
+
+</option>
+
+
+<option>
+
+Block
+
+</option>
+
+
 
 </select>
 
@@ -320,10 +544,17 @@ placeholder="Full Name">
 
 
 
+
+
+
 <input
+
 type="text"
+
 id="picture"
+
 placeholder="Picture URL">
+
 
 
 
@@ -333,11 +564,17 @@ placeholder="Picture URL">
 <div class="form-buttons">
 
 
+
 <button id="saveUser">
+
+<i class="fa-solid fa-save"></i>
 
 Save
 
 </button>
+
+
+
 
 
 
@@ -348,53 +585,19 @@ Cancel
 </button>
 
 
-</div>
 
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- SMALL LOADING -->
-
-
-<div class="loading-box" id="loadingBox">
-
-
-
-<div class="loader">
-
-
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
 
 
 </div>
 
 
 
-<h3 id="loadingText">
 
-Loading...
 
-</h3>
+
+</div>
+
+
 
 
 
@@ -408,16 +611,27 @@ Loading...
 
 
 
-<!-- POPUP -->
+
+
+
+<!-- SUCCESS POPUP -->
 
 
 <div class="popup" id="popupBox">
 
 
+
+
+
 <div class="popup-content">
 
 
+
+
+
 <i class="fa-solid fa-circle-check"></i>
+
+
 
 
 
@@ -426,6 +640,9 @@ Loading...
 Success
 
 </h3>
+
+
+
 
 
 
@@ -438,6 +655,8 @@ Done
 
 
 
+
+
 <button onclick="closePopup()">
 
 OK
@@ -446,9 +665,13 @@ OK
 
 
 
+
+
+
 </div>
 
 
+
 </div>
 
 
@@ -456,11 +679,21 @@ OK
 
 
 
+
+
+
+
+
+
+<script src="loading.js"></script>
 
 
 <script src="usercontrol.js"></script>
 
 
+
+
 </body>
+
 
 </html>
