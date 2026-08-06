@@ -1,14 +1,35 @@
-// =================================
-// ADMIN ACCESS CHECK
-// =================================
-
 const isLogin = localStorage.getItem("isLogin");
 const role = localStorage.getItem("role");
 
 if (isLogin !== "true" || role !== "Admin") {
-    alert("Access Denied!");
-    window.location.replace("login.html");
-}const API_URL =
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelector(".container").style.display = "none";
+
+        showPopup(
+            "Access Denied",
+            "Please login with an Admin account.",
+            "login"
+        );
+
+        const btn = document.getElementById("popupBtn");
+
+        btn.innerHTML = "Login";
+
+        btn.onclick = function () {
+
+            localStorage.clear();
+
+            window.location.replace("login.html");
+
+        };
+
+    });
+
+    throw new Error("Access Denied");
+}
+const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
@@ -998,24 +1019,35 @@ document.getElementById("picture").value="";
 // ===============================
 
 
-function showPopup(title,msg){
 
+function showPopup(title, msg, type = "success") {
 
+    const icon = document.getElementById("popupIcon");
 
-document.getElementById("popupTitle").innerHTML=
-title;
+    document.getElementById("popupTitle").innerHTML = title;
+    document.getElementById("popupMessage").innerHTML = msg;
 
+    if (type === "success") {
+        icon.className = "fa-solid fa-circle-check";
+        icon.style.color = "#16a34a";
+    }
 
-document.getElementById("popupMessage").innerHTML=
-msg;
+    if (type === "error") {
+        icon.className = "fa-solid fa-circle-xmark";
+        icon.style.color = "#dc2626";
+    }
 
+    if (type === "warning") {
+        icon.className = "fa-solid fa-triangle-exclamation";
+        icon.style.color = "#f59e0b";
+    }
 
+    if (type === "login") {
+        icon.className = "fa-solid fa-lock";
+        icon.style.color = "#2563eb";
+    }
 
-document.getElementById("popupBox").style.display=
-"flex";
-
-
-
+    document.getElementById("popupBox").style.display = "flex";
 }
 
 
