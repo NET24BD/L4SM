@@ -7,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>User Control</title>
 
 
@@ -27,24 +28,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- Header -->
-
 <header>
 
 
-
-<!-- Back Button -->
-
-<div class="back-btn" onclick="goBack()">
+<button class="back-btn" id="backBtn">
 
 <i class="fa-solid fa-arrow-left"></i>
 
-</div>
+</button>
 
 
 
-
-<!-- Title -->
 
 <div class="title">
 
@@ -56,28 +50,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- Profile -->
 
-
-<div class="profile" onclick="toggleProfileMenu()">
-
+<div class="profile" id="profileBtn">
 
 
 <img id="profileImg" src="profile.png">
 
 
-
-<div>
+<div class="profile-info">
 
 <h4 id="userName">
 Username
 </h4>
 
-
 <p>
 Online
 </p>
-
 
 </div>
 
@@ -85,14 +73,10 @@ Online
 
 
 
-<!-- Profile Menu -->
-
-
 <div class="profile-menu" id="profileMenu">
 
 
-
-<div onclick="openPage('my-account.html')">
+<div id="accountBtn">
 
 <i class="fa-solid fa-user"></i>
 
@@ -102,8 +86,7 @@ My Account
 
 
 
-
-<div onclick="logout()">
+<div id="logoutBtn">
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
@@ -129,7 +112,7 @@ Logout
 
 
 
-<!-- User List Section -->
+
 
 
 <div class="user-box">
@@ -149,13 +132,31 @@ Users List
 
 
 
-<button onclick="addUser()">
 
+<div class="search-box">
+
+
+<i class="fa-solid fa-search"></i>
+
+
+<input 
+type="text"
+id="searchUser"
+placeholder="Search User...">
+
+
+</div>
+
+
+
+
+
+
+<button id="addUserBtn">
 
 <i class="fa-solid fa-user-plus"></i>
 
 Add User
-
 
 </button>
 
@@ -169,14 +170,17 @@ Add User
 
 
 
+
+
+<div class="table-area">
+
+
 <table>
 
 
 <thead>
 
-
 <tr>
-
 
 <th>Picture</th>
 
@@ -193,9 +197,7 @@ Add User
 
 </tr>
 
-
 </thead>
-
 
 
 
@@ -207,23 +209,22 @@ Add User
 
 <td colspan="6">
 
-Loading Users...
+Loading...
 
 </td>
 
-
 </tr>
-
 
 
 </tbody>
 
 
 
-
 </table>
 
 
+</div>
+
 
 
 </div>
@@ -233,7 +234,224 @@ Loading Users...
 
 
 
+
+
+
+<!-- ADD EDIT FORM -->
+
+
+<div class="modal" id="userModal">
+
+
+<div class="modal-box">
+
+
+
+<button class="close-modal" id="closeModal">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+
+
+
+<h2 id="formTitle">
+
+Add User
+
+</h2>
+
+
+
+
+<input 
+type="text"
+id="username"
+placeholder="Username">
+
+
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+
+
+<input
+type="text"
+id="name"
+placeholder="Full Name">
+
+
+
+
+
+<select id="role">
+
+
+<option>Admin</option>
+
+<option>Support</option>
+
+<option>Caller</option>
+
+<option>Manager</option>
+
+<option>Guest</option>
+
+
+</select>
+
+
+
+
+
+<select id="status">
+
+<option>Active</option>
+
+<option>Block</option>
+
+</select>
+
+
+
+
+
+<input
+type="text"
+id="picture"
+placeholder="Picture URL">
+
+
+
+
+
+
+<div class="form-buttons">
+
+
+<button id="saveUser">
+
+Save
+
+</button>
+
+
+
+<button id="cancelUser">
+
+Cancel
+
+</button>
+
+
 </div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- SMALL LOADING -->
+
+
+<div class="loading-box" id="loadingBox">
+
+
+
+<div class="loader">
+
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+
+</div>
+
+
+
+<h3 id="loadingText">
+
+Loading...
+
+</h3>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- POPUP -->
+
+
+<div class="popup" id="popupBox">
+
+
+<div class="popup-content">
+
+
+<i class="fa-solid fa-circle-check"></i>
+
+
+
+<h3 id="popupTitle">
+
+Success
+
+</h3>
+
+
+
+<p id="popupMessage">
+
+Done
+
+</p>
+
+
+
+
+<button onclick="closePopup()">
+
+OK
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
 
 
 
@@ -243,8 +461,6 @@ Loading Users...
 <script src="usercontrol.js"></script>
 
 
-
 </body>
-
 
 </html>
