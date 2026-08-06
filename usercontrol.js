@@ -1,33 +1,14 @@
+// ===============================
+// LOGIN CHECK
+// ===============================
+
 const isLogin = localStorage.getItem("isLogin");
 const role = localStorage.getItem("role");
 
 if (isLogin !== "true" || role !== "Admin") {
 
-    document.addEventListener("DOMContentLoaded", function () {
+    window.location.replace("login.html");
 
-        document.querySelector(".container").style.display = "none";
-
-        showPopup(
-            "Access Denied",
-            "Please login with an Admin account.",
-            "login"
-        );
-
-        const btn = document.getElementById("popupBtn");
-
-        btn.innerHTML = "Login";
-
-        btn.onclick = function () {
-
-            localStorage.clear();
-
-            window.location.replace("login.html");
-
-        };
-
-    });
-
-    throw new Error("Access Denied");
 }
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
@@ -199,14 +180,11 @@ window.location.href="my-account.html";
 // ===============================
 
 
-document.getElementById("logoutBtn").onclick=function(){
+document.getElementById("logoutBtn").onclick = function () {
 
+    localStorage.clear();
 
-localStorage.clear();
-
-
-window.location.href="login.html";
-
+    window.location.replace("login.html");
 
 };
 
@@ -1062,3 +1040,17 @@ document.getElementById("popupBox").style.display=
 
 
 }
+
+// ===============================
+// BLOCK BACK BUTTON AFTER LOGOUT
+// ===============================
+
+window.addEventListener("pageshow", function () {
+
+    if (localStorage.getItem("isLogin") !== "true") {
+
+        window.location.replace("login.html");
+
+    }
+
+});
