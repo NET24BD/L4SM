@@ -1,7 +1,7 @@
 const role = localStorage.getItem("role");
 const allow = sessionStorage.getItem("allowUserControl");
 
-if (role !== "Admin") {
+if (role !== "admin") {
     window.location.replace("login.html");
 }
 
