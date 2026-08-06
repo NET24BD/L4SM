@@ -1,4 +1,14 @@
-const API_URL =
+// =================================
+// ADMIN ACCESS CHECK
+// =================================
+
+const isLogin = localStorage.getItem("isLogin");
+const role = localStorage.getItem("role");
+
+if (isLogin !== "true" || role !== "Admin") {
+    alert("Access Denied!");
+    window.location.replace("login.html");
+}const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
