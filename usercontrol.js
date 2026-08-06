@@ -1,3 +1,15 @@
+const role = localStorage.getItem("role");
+const allow = sessionStorage.getItem("allowUserControl");
+
+if (role !== "Admin") {
+    window.location.replace("login.html");
+}
+
+if (allow !== "yes") {
+    window.location.replace("dashboard.html");
+}
+
+sessionStorage.removeItem("allowUserControl");
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
