@@ -290,14 +290,7 @@ window.location.href =
 
 
 
-else{
 
-
-window.location.href =
-"guest.html";
-
-
-}
 
 
 
