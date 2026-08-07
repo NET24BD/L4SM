@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>eSS Dashboard</title>
+<title>L4SM Dashboard</title>
 
 
 <link rel="stylesheet" href="dashboard.css">
@@ -36,13 +36,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
 <div class="logo">
 
 <i class="fa-solid fa-layer-group"></i>
 
-<span>
-L4SM
-</span>
+<span>L4SM</span>
 
 </div>
 
@@ -57,9 +56,7 @@ L4SM
 
 <i class="fa-solid fa-house"></i>
 
-<span>
-Dashboard
-</span>
+<span>Dashboard</span>
 
 </li>
 
@@ -70,9 +67,7 @@ Dashboard
 
 <i class="fa-solid fa-users"></i>
 
-<span>
-User Control
-</span>
+<span>User Control</span>
 
 </li>
 
@@ -84,9 +79,7 @@ User Control
 
 <i class="fa-solid fa-headset"></i>
 
-<span>
-Support
-</span>
+<span>Support</span>
 
 </li>
 
@@ -98,9 +91,7 @@ Support
 
 <i class="fa-solid fa-phone"></i>
 
-<span>
-Call
-</span>
+<span>Call</span>
 
 </li>
 
@@ -112,14 +103,14 @@ Call
 
 <i class="fa-solid fa-user-tie"></i>
 
-<span>
-Manager
-</span>
+<span>Manager</span>
 
 </li>
 
 
+
 </ul>
+
 
 
 </div>
@@ -203,12 +194,14 @@ Logout
 
 
 
-
 </div>
 
 
 
 </header>
+
+
+
 
 
 
@@ -235,16 +228,26 @@ L4SM Management System
 </div>
 
 
+
+
+
+
+
 <div class="cards">
 
 
 
 
 
+<!-- ENTRY CARD -->
+
 <div class="card blue"
-onclick="openPage('entry.html')">
+onclick="openEntry()">
+
+
 
 <i class="fa-solid fa-plus-circle"></i>
+
 
 <div>
 
@@ -258,13 +261,21 @@ Create Entry
 
 </div>
 
+
 </div>
+
+
+
+
+
 
 
 <div class="card green"
 onclick="openPage('support.html')">
 
+
 <i class="fa-solid fa-headset"></i>
+
 
 <div>
 
@@ -278,13 +289,22 @@ Support Pending
 
 </div>
 
+
 </div>
+
+
+
+
+
+
 
 
 <div class="card orange"
 onclick="openPage('call.html')">
 
+
 <i class="fa-solid fa-phone-volume"></i>
+
 
 <div>
 
@@ -296,16 +316,25 @@ Pending Call
 Call Pending
 </p>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
+
 
 
 
 <div class="card purple"
 onclick="openPage('history.html')">
 
+
 <i class="fa-solid fa-clock-rotate-left"></i>
+
 
 <div>
 
@@ -317,15 +346,25 @@ History
 All History
 </p>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
+
+
 
 
 <div class="card red"
 onclick="openPage('offline-entry.html')">
 
+
 <i class="fa-solid fa-file-circle-plus"></i>
+
 
 <div>
 
@@ -337,15 +376,24 @@ Offline Entry
 Add Offline
 </p>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
+
 
 
 <div class="card dark"
 onclick="openPage('offline.html')">
 
+
 <i class="fa-solid fa-power-off"></i>
+
 
 <div>
 
@@ -357,15 +405,24 @@ Offline
 Offline List
 </p>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
+
 
 
 <div class="card cyan"
 onclick="openPage('offline-history.html')">
 
+
 <i class="fa-solid fa-box-archive"></i>
+
 
 <div>
 
@@ -377,15 +434,24 @@ Offline History
 Offline Records
 </p>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
+
 
 
 <div class="card indigo"
 onclick="openPage('usercontrol.html')">
 
+
 <i class="fa-solid fa-users"></i>
+
 
 <div>
 
@@ -397,19 +463,75 @@ Total Users
 System Users
 </p>
 
-</div>
 
 </div>
 
+
 </div>
 
 
+
+
+
+
 </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+// ENTRY PROTECTION
+
+function openEntry(){
+
+
+    sessionStorage.setItem(
+        "entryAccess",
+        "true"
+    );
+
+
+    window.location.href="entry.html";
+
+
+}
+
+
+
+
+
+function openPage(page){
+
+
+    window.location.href=page;
+
+
+}
+
+
+
+</script>
+
+
+
 
 
 <script src="session.js"></script>
+
 <script src="dashboard.js"></script>
+
 <script src="autologout.js"></script>
+
+
 
 </body>
 
