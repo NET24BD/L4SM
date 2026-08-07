@@ -15,12 +15,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <style>
 
+
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial;
+
 }
+
 
 
 body{
@@ -32,14 +36,21 @@ padding:20px;
 
 
 
+
+/* HEADER */
+
 .header{
 
 background:white;
+
 padding:18px 25px;
+
 border-radius:15px;
 
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
 
 box-shadow:0 5px 20px rgba(0,0,0,.1);
@@ -51,7 +62,9 @@ box-shadow:0 5px 20px rgba(0,0,0,.1);
 .left{
 
 display:flex;
+
 align-items:center;
+
 gap:15px;
 
 }
@@ -61,10 +74,15 @@ gap:15px;
 .back{
 
 background:#03543f;
+
 color:white;
-border:0;
+
+border:none;
+
 padding:10px 15px;
+
 border-radius:8px;
+
 cursor:pointer;
 
 }
@@ -75,25 +93,35 @@ cursor:pointer;
 
 /* PROFILE */
 
+
 .profile{
 
-position:relative;
 display:flex;
+
 align-items:center;
+
 gap:10px;
+
+position:relative;
+
 cursor:pointer;
 
 }
 
 
+
 .profile img{
 
 width:45px;
+
 height:45px;
+
 border-radius:50%;
+
 object-fit:cover;
 
 }
+
 
 
 
@@ -105,7 +133,7 @@ position:absolute;
 
 right:0;
 
-top:55px;
+top:60px;
 
 background:white;
 
@@ -117,7 +145,7 @@ border-radius:10px;
 
 box-shadow:0 5px 20px #999;
 
-z-index:10;
+z-index:20;
 
 }
 
@@ -137,7 +165,7 @@ width:100%;
 
 padding:12px;
 
-border:0;
+border:none;
 
 background:white;
 
@@ -145,7 +173,18 @@ cursor:pointer;
 
 text-align:left;
 
+border-radius:8px;
+
 }
+
+
+
+.profile-menu button:hover{
+
+background:#eee;
+
+}
+
 
 
 
@@ -204,13 +243,13 @@ border-bottom:1px solid #ddd;
 
 
 
-.edit{
+.edit-btn{
 
 background:#03543f;
 
 color:white;
 
-border:0;
+border:none;
 
 padding:8px 15px;
 
@@ -219,7 +258,6 @@ border-radius:8px;
 cursor:pointer;
 
 }
-
 
 
 
@@ -234,15 +272,17 @@ display:none;
 
 position:fixed;
 
-left:0;
-
 top:0;
+
+left:0;
 
 width:100%;
 
 height:100%;
 
+
 background:rgba(0,0,0,.5);
+
 
 justify-content:center;
 
@@ -257,6 +297,7 @@ align-items:center;
 display:flex;
 
 }
+
 
 
 
@@ -278,6 +319,7 @@ overflow:auto;
 
 
 
+
 .box h2{
 
 color:#03543f;
@@ -288,11 +330,14 @@ margin-bottom:15px;
 
 
 
+
 label{
 
 display:block;
 
 margin-top:10px;
+
+font-weight:bold;
 
 }
 
@@ -300,6 +345,7 @@ margin-top:10px;
 
 input,
 textarea{
+
 
 width:100%;
 
@@ -311,6 +357,7 @@ border:1px solid #ccc;
 
 border-radius:8px;
 
+
 }
 
 
@@ -319,27 +366,35 @@ textarea{
 
 height:80px;
 
+resize:none;
+
 }
+
+
 
 
 
 .btns{
 
-margin-top:15px;
+margin-top:20px;
+
+display:flex;
+
+gap:10px;
 
 }
 
 
 
-.save{
+.submit{
 
 background:#03543f;
 
 color:white;
 
-border:0;
+border:none;
 
-padding:10px 20px;
+padding:10px 18px;
 
 border-radius:8px;
 
@@ -349,15 +404,15 @@ cursor:pointer;
 
 
 
-.close{
+.cancel{
 
-background:red;
+background:#64748b;
 
 color:white;
 
-border:0;
+border:none;
 
-padding:10px 20px;
+padding:10px 18px;
 
 border-radius:8px;
 
@@ -366,7 +421,27 @@ cursor:pointer;
 }
 
 
+
+.delete{
+
+background:#dc2626;
+
+color:white;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
 </style>
+
 
 </head>
 
@@ -375,7 +450,11 @@ cursor:pointer;
 
 
 
+<!-- HEADER -->
+
+
 <div class="header">
+
 
 
 <div class="left">
@@ -384,15 +463,20 @@ cursor:pointer;
 <button class="back"
 onclick="location.href='dashboard.html'">
 
-<i class="fa fa-arrow-left"></i>
+<i class="fa-solid fa-arrow-left"></i>
+
 Back
 
 </button>
 
 
+
 <h2>
-<i class="fa fa-headset"></i>
+
+<i class="fa-solid fa-headset"></i>
+
 Pending Support
+
 </h2>
 
 
@@ -402,8 +486,11 @@ Pending Support
 
 
 
+<!-- PROFILE -->
+
+
 <div class="profile"
-onclick="profileMenu()">
+onclick="toggleProfile()">
 
 
 
@@ -411,7 +498,8 @@ onclick="profileMenu()">
 src="assets/profile.png">
 
 
-<span id="userName">
+
+<span id="username">
 
 User
 
@@ -419,27 +507,32 @@ User
 
 
 
-<i class="fa fa-angle-down"></i>
+<i class="fa-solid fa-angle-down"></i>
+
 
 
 
 <div class="profile-menu"
-id="menu"
+id="profileMenu"
 onclick="event.stopPropagation()">
 
 
 
-<button onclick="location.href='myaccount.html'">
+<button onclick="myAccount()">
 
-<i class="fa fa-user"></i>
+<i class="fa-solid fa-user"></i>
+
 My Account
 
 </button>
 
 
+
+
 <button onclick="logout()">
 
-<i class="fa fa-right-from-bracket"></i>
+<i class="fa-solid fa-right-from-bracket"></i>
+
 Logout
 
 </button>
@@ -453,6 +546,7 @@ Logout
 </div>
 
 
+
 </div>
 
 
@@ -460,6 +554,10 @@ Logout
 
 
 
+
+
+
+<!-- TABLE -->
 
 
 <div class="table-box">
@@ -482,20 +580,21 @@ Logout
 
 <th>Action</th>
 
+
 </tr>
 
 
 </thead>
 
 
-
-<tbody id="list">
+<tbody id="supportList">
 
 
 </tbody>
 
 
 </table>
+
 
 
 </div>
@@ -507,22 +606,32 @@ Logout
 
 
 
-<!-- EDIT BOX -->
+
+
+<!-- EDIT POPUP -->
 
 
 <div class="modal"
-id="modal">
+id="editModal">
+
 
 
 <div class="box">
 
 
+
 <h2>
+
 Edit Support
+
 </h2>
 
 
-<input type="hidden" id="row">
+
+
+<input type="hidden" id="editRow">
+
+
 
 
 
@@ -534,11 +643,15 @@ Customer ID
 
 
 
+
+
 <label>
 Problem
 </label>
 
 <textarea id="problem"></textarea>
+
+
 
 
 
@@ -550,6 +663,8 @@ Reference
 
 
 
+
+
 <label>
 Date
 </label>
@@ -558,11 +673,15 @@ Date
 
 
 
+
+
 <label>
 Support
 </label>
 
 <input id="support">
+
+
 
 
 
@@ -575,40 +694,48 @@ Support Work
 
 
 
+
+
 <div class="btns">
 
-<button class="save"
-onclick="update()">
 
-Save
+<button class="submit"
+onclick="updateSupport()">
 
-</button>
-
-
-<button class="close"
-onclick="closeBox()">
-
-Close
+Submit
 
 </button>
 
 
+
+<button class="cancel"
+onclick="closeEdit()">
+
+Cancel
+
+</button>
+
+
+
+<button class="delete"
+onclick="deleteSupport()">
+
+Delete
+
+</button>
+
+
+
 </div>
 
 
-</div>
 
 
 </div>
 
 
 
-
-
-
-
-
-
+</div>
 <script>
 
 
@@ -617,11 +744,17 @@ const API_URL =
 
 
 
+let currentRow = "";
 
-// LOAD
 
 
-function load(){
+
+// =========================
+// LOAD SUPPORT LIST
+// =========================
+
+
+function loadSupport(){
 
 
 fetch(API_URL,{
@@ -637,7 +770,8 @@ action:"getPendingSupport"
 })
 
 
-.then(r=>r.json())
+.then(res=>res.json())
+
 
 .then(data=>{
 
@@ -645,26 +779,31 @@ action:"getPendingSupport"
 let html="";
 
 
-data.data.forEach(x=>{
+if(data.data){
 
 
-html+=`
+data.data.forEach(item=>{
+
+
+html += `
+
 
 <tr>
 
-<td>${x.customerId}</td>
 
-<td>${x.problem}</td>
+<td>${item.customerId}</td>
 
-<td>${x.reference}</td>
+<td>${item.problem}</td>
 
-<td>${x.date}</td>
+<td>${item.reference}</td>
+
+<td>${item.date}</td>
 
 
 <td>
 
-<button class="edit"
-onclick="edit(${x.row})">
+<button class="edit-btn"
+onclick="editSupport(${item.row})">
 
 Edit
 
@@ -676,6 +815,7 @@ Edit
 
 </tr>
 
+
 `;
 
 
@@ -683,9 +823,20 @@ Edit
 });
 
 
-document.getElementById("list").innerHTML=html;
+}
 
 
+
+document.getElementById("supportList").innerHTML=html;
+
+
+
+})
+
+
+.catch(err=>{
+
+console.log(err);
 
 });
 
@@ -699,7 +850,16 @@ document.getElementById("list").innerHTML=html;
 
 
 
-function edit(row){
+
+// =========================
+// OPEN EDIT POPUP
+// =========================
+
+
+function editSupport(row){
+
+
+currentRow=row;
 
 
 
@@ -718,29 +878,51 @@ row:row
 })
 
 
-.then(r=>r.json())
-
-.then(d=>{
+.then(res=>res.json())
 
 
-document.getElementById("row").value=row;
+.then(data=>{
 
-customerId.value=d.customerId;
 
-problem.value=d.problem;
-
-reference.value=d.reference;
-
-date.value=d.date;
-
-support.value=d.support;
-
-supportWork.value=d.supportWork;
+document.getElementById("editRow").value=row;
 
 
 
-document.getElementById("modal")
+document.getElementById("customerId").value =
+data.customerId || "";
+
+
+
+document.getElementById("problem").value =
+data.problem || "";
+
+
+
+document.getElementById("reference").value =
+data.reference || "";
+
+
+
+document.getElementById("date").value =
+data.date || "";
+
+
+
+document.getElementById("support").value =
+data.support || "";
+
+
+
+document.getElementById("supportWork").value =
+data.supportWork || "";
+
+
+
+
+document
+.getElementById("editModal")
 .classList.add("show");
+
 
 
 });
@@ -754,7 +936,15 @@ document.getElementById("modal")
 
 
 
-function update(){
+
+
+// =========================
+// UPDATE SUPPORT
+// =========================
+
+
+function updateSupport(){
+
 
 
 fetch(API_URL,{
@@ -765,19 +955,33 @@ body:JSON.stringify({
 
 action:"updateSupport",
 
-row:row.value,
 
-customerId:customerId.value,
+row:currentRow,
 
-problem:problem.value,
 
-reference:reference.value,
+customerId:
+document.getElementById("customerId").value,
 
-date:date.value,
 
-support:support.value,
+problem:
+document.getElementById("problem").value,
 
-supportWork:supportWork.value
+
+reference:
+document.getElementById("reference").value,
+
+
+date:
+document.getElementById("date").value,
+
+
+support:
+document.getElementById("support").value,
+
+
+supportWork:
+document.getElementById("supportWork").value
+
 
 
 })
@@ -785,17 +989,31 @@ supportWork:supportWork.value
 })
 
 
-.then(r=>r.json())
 
-.then(()=>{
+.then(res=>res.json())
 
 
-alert("Updated");
+.then(data=>{
 
-closeBox();
 
-load();
+alert("Updated Successfully");
 
+
+closeEdit();
+
+
+loadSupport();
+
+
+})
+
+
+
+.catch(err=>{
+
+alert("Update Error");
+
+console.log(err);
 
 });
 
@@ -808,54 +1026,183 @@ load();
 
 
 
-function closeBox(){
 
-document.getElementById("modal")
+
+// =========================
+// DELETE SUPPORT
+// =========================
+
+
+function deleteSupport(){
+
+
+
+let ok =
+confirm("Delete this support?");
+
+
+
+if(!ok){
+
+return;
+
+}
+
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"deleteSupport",
+
+row:currentRow
+
+
+})
+
+})
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+alert("Deleted Successfully");
+
+
+closeEdit();
+
+
+loadSupport();
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// =========================
+// CLOSE POPUP
+// =========================
+
+
+function closeEdit(){
+
+
+document
+.getElementById("editModal")
 .classList.remove("show");
 
+
 }
 
 
 
 
 
+
+
+
+
+// =========================
 // PROFILE
+// =========================
 
 
-function profileMenu(){
 
-document.getElementById("menu")
+function toggleProfile(){
+
+
+document
+.getElementById("profileMenu")
 .classList.toggle("show");
 
+
 }
 
 
 
-userName.innerText =
+
+document.getElementById("username").innerText =
+
 localStorage.getItem("username") || "User";
 
 
-if(localStorage.getItem("picture")){
 
-profileImg.src =
+
+let picture =
 localStorage.getItem("picture");
 
+
+
+if(picture){
+
+
+document.getElementById("profileImg").src=picture;
+
+
 }
+
+
+
+
+
+
+
+
+function myAccount(){
+
+
+location.href="myaccount.html";
+
+
+}
+
+
+
+
 
 
 
 function logout(){
 
+
 localStorage.clear();
 
+
 location.href="index.html";
+
 
 }
 
 
 
 
-load();
+
+
+
+
+
+// START LOAD
+
+
+loadSupport();
+
 
 
 </script>
