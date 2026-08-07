@@ -1,370 +1,252 @@
 /* ==========================
-   ENTRY POPUP BACKGROUND
-========================== */
-
-.entry-modal {
-
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background: rgba(0,0,0,0.45);
-
-    display: none;
-
-    justify-content: center;
-    align-items: center;
-
-    z-index: 99999;
-
-}
-
-
-
-/* SHOW POPUP */
-
-.entry-modal.show {
-
-    display: flex;
-
-}
-
-
-
-
-
-/* ==========================
-   ENTRY BOX
+   ENTRY PAGE STYLE
 ========================== */
 
 
-.entry-box {
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-    width: 450px;
 
-    max-width: 95%;
 
-    background: #ffffff;
+body{
 
-    border-radius: 15px;
+    min-height:100vh;
 
-    overflow: hidden;
+    display:flex;
 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    justify-content:center;
 
-    animation: entryPopup .25s ease;
+    align-items:center;
+
+    background:linear-gradient(135deg,#03543f,#01261d);
 
 }
 
 
 
-
-
-@keyframes entryPopup {
-
-
-    from {
-
-        transform: scale(.85);
-
-        opacity: 0;
-
-    }
-
-
-    to {
-
-        transform: scale(1);
-
-        opacity: 1;
-
-    }
-
-
-}
-
-
-
-
-
-
-/* ==========================
-   HEADER
-========================== */
-
-
-.entry-header {
-
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-
-    padding: 18px 20px;
-
-
-    background: #1976d2;
-
-    color: white;
-
-
-}
-
-
-
-.entry-header h2 {
-
-    margin: 0;
-
-    font-size: 20px;
-
-}
-
-
-
-.close-entry {
-
-
-    border: none;
-
-    background: transparent;
-
-    color: white;
-
-    font-size: 22px;
-
-    cursor: pointer;
-
-
-}
-
-
-
-
-
-
-/* ==========================
-   BODY
-========================== */
-
-
-.entry-body {
-
-
-    padding: 20px;
-
-
-}
-
-
-
-
-.input-group {
-
-
-    margin-bottom: 18px;
-
-
-}
-
-
-
-
-.input-group label {
-
-
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-weight: 600;
-
-    color: #333;
-
-
-}
-
-
-
-
-.input-group input,
-.input-group textarea {
-
-
-    width: 100%;
-
-
-    padding: 11px;
-
-
-    border: 1px solid #ddd;
-
-
-    border-radius: 8px;
-
-
-    font-size: 15px;
-
-
-    outline: none;
-
-
-}
-
-
-
-
-.input-group input:focus,
-.input-group textarea:focus {
-
-
-    border-color: #1976d2;
-
-
-}
-
-
-
-
-
-
-/* ==========================
-   FOOTER
-========================== */
-
-
-.entry-footer {
-
-
-    display: flex;
-
-
-    justify-content: flex-end;
-
-
-    gap: 10px;
-
-
-    padding: 15px 20px;
-
-
-    border-top: 1px solid #eee;
-
-
-}
-
-
-
-
-
-.cancel-btn,
-.submit-btn {
-
-
-    padding: 10px 22px;
-
-
-    border: none;
-
-
-    border-radius: 8px;
-
-
-    cursor: pointer;
-
-
-    font-size: 14px;
-
-
-}
-
-
-
-
-.cancel-btn {
-
-
-    background: #777;
-
-
-    color: white;
-
-
-}
-
-
-
-
-.submit-btn {
-
-
-    background: #1976d2;
-
-
-    color: white;
-
-
-}
-
-
-
-
-
-.cancel-btn:hover {
-
-
-    background: #555;
-
-
-}
-
-
-
-
-.submit-btn:hover {
-
-
-    background: #1258a5;
-
-
-}
-
-
-
-
-
-
-
-/* ==========================
-   MOBILE RESPONSIVE
-========================== */
-
-
-@media(max-width:500px){
 
 
 .entry-box{
 
 
-    width: 95%;
+    width:420px;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
 
 
 }
 
 
 
-.entry-header h2{
 
 
-    font-size:17px;
 
+
+/* HEADER */
+
+
+.entry-box h2{
+
+
+    text-align:center;
+
+    color:#03543f;
+
+    margin-bottom:25px;
+
+    font-size:24px;
+
+
+}
+
+
+
+
+
+
+
+/* INPUT GROUP */
+
+
+.input-group{
+
+
+    margin-bottom:18px;
+
+
+}
+
+
+
+
+.input-group label{
+
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+    color:#333;
+
+
+}
+
+
+
+
+
+.input-group input,
+.input-group textarea{
+
+
+    width:100%;
+
+    padding:12px;
+
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+
+    outline:none;
+
+    font-size:15px;
+
+
+}
+
+
+
+
+
+.input-group input:focus,
+.input-group textarea:focus{
+
+
+    border-color:#03543f;
+
+    box-shadow:0 0 8px rgba(3,84,63,.3);
+
+
+}
+
+
+
+
+
+
+/* READ ONLY REFERENCE */
+
+
+#reference{
+
+
+    background:#f1f1f1;
+
+    cursor:not-allowed;
+
+
+}
+
+
+
+
+
+
+
+/* BUTTON */
+
+
+button{
+
+
+    width:100%;
+
+    padding:13px;
+
+
+    border:none;
+
+    border-radius:10px;
+
+
+    background:#ff2d3f;
+
+
+    color:white;
+
+
+    font-size:16px;
+
+
+    font-weight:bold;
+
+
+    cursor:pointer;
+
+
+}
+
+
+
+
+
+button:hover{
+
+
+    background:#d91f2f;
+
+
+}
+
+
+
+
+
+
+
+#msg{
+
+
+    text-align:center;
+
+    margin-top:15px;
+
+    font-size:14px;
+
+    color:#03543f;
+
+
+}
+
+
+
+
+
+
+
+/* MOBILE */
+
+
+@media(max-width:480px){
+
+
+.entry-box{
+
+    width:90%;
 
 }
 
