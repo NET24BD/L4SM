@@ -1,40 +1,41 @@
-// =====================================
-// LOAD ENTRY POPUP HTML
-// =====================================
+// ================================
+// LOAD ENTRY POPUP
+// ================================
 
-document.addEventListener("DOMContentLoaded", function () {
+fetch("entry.html")
+.then(function(response){
 
-    fetch("entry.html")
-        .then(response => response.text())
-        .then(data => {
+    return response.text();
 
-            document.getElementById("entryContainer").innerHTML = data;
+})
+.then(function(html){
 
-        })
-        .catch(error => {
+    document.getElementById("entryContainer").innerHTML = html;
 
-            console.log("Entry Load Error:", error);
 
-        });
+})
+.catch(function(error){
+
+    console.log("Entry Error:", error);
 
 });
 
 
 
 
-// =====================================
-// OPEN ENTRY POPUP
-// =====================================
+// ================================
+// OPEN ENTRY
+// ================================
 
-function openEntry() {
+function openEntry(){
 
 
     let modal = document.getElementById("entryModal");
 
 
-    if (!modal) {
+    if(!modal){
 
-        console.log("Entry popup not loaded yet");
+        alert("Entry popup not loaded");
 
         return;
 
@@ -42,16 +43,14 @@ function openEntry() {
 
 
 
-    let user =
-    document.getElementById("headerName").innerText;
-
+    let user = document.getElementById("headerName").innerText;
 
 
     document.getElementById("reference").value = user;
 
 
 
-    modal.classList.add("show");
+    modal.style.display = "flex";
 
 
 }
@@ -61,21 +60,19 @@ function openEntry() {
 
 
 
-// =====================================
-// CLOSE ENTRY POPUP
-// =====================================
+// ================================
+// CLOSE ENTRY
+// ================================
 
-function closeEntry() {
-
-
-    let modal =
-    document.getElementById("entryModal");
+function closeEntry(){
 
 
+    let modal = document.getElementById("entryModal");
 
-    if (modal) {
 
-        modal.classList.remove("show");
+    if(modal){
+
+        modal.style.display = "none";
 
     }
 
@@ -87,20 +84,37 @@ function closeEntry() {
 
 
 
+// ================================
+// OUTSIDE CLICK CLOSE
+// ================================
 
-// =====================================
-// CLOSE WHEN CLICK OUTSIDE
-// =====================================
-
-document.addEventListener("click", function (e) {
-
-
-    let modal =
-    document.getElementById("entryModal");
+window.addEventListener("click",function(e){
 
 
+    let modal = document.getElementById("entryModal");
 
-    if (modal && e.target === modal) {
+
+    if(e.target === modal){
+
+        closeEntry();
+
+    }
+
+
+});
+
+
+
+
+
+// ================================
+// ESC CLOSE
+// ================================
+
+document.addEventListener("keydown",function(e){
+
+
+    if(e.key==="Escape"){
 
         closeEntry();
 
@@ -114,128 +128,46 @@ document.addEventListener("click", function (e) {
 
 
 
+// ================================
+// SUBMIT
+// ================================
 
-// =====================================
-// ESC KEY CLOSE
-// =====================================
+document.addEventListener("click",function(e){
 
-document.addEventListener("keydown", function (e) {
 
+if(e.target.id==="submitEntry"){
 
-    if (e.key === "Escape") {
 
-        closeEntry();
+let customerId =
+document.getElementById("customerId").value;
 
-    }
 
+let problem =
+document.getElementById("problem").value;
 
-});
 
 
+if(customerId==="" || problem===""){
 
 
+alert("Please fill all fields");
 
+return;
 
 
-// =====================================
-// SUBMIT ENTRY
-// =====================================
+}
 
-document.addEventListener("click", function (e) {
 
 
-    if (e.target.id === "submitEntry") {
+alert("Entry Saved Successfully");
 
 
 
-        let customerId =
-        document.getElementById("customerId").value.trim();
+closeEntry();
 
 
+}
 
-        let problem =
-        document.getElementById("problem").value.trim();
-
-
-
-        let reference =
-        document.getElementById("reference").value;
-
-
-
-
-
-
-        if (customerId === "" || problem === "") {
-
-
-            alert("Please fill all required fields");
-
-            return;
-
-
-        }
-
-
-
-
-
-
-
-        let entryData = {
-
-
-            customerId: customerId,
-
-            problem: problem,
-
-            reference: reference,
-
-
-            date: new Date().toLocaleString()
-
-
-        };
-
-
-
-
-
-
-        console.log("New Entry:", entryData);
-
-
-
-
-
-
-        alert("Entry Created Successfully");
-
-
-
-
-
-
-
-        // CLEAR FORM
-
-
-        document.getElementById("customerId").value = "";
-
-        document.getElementById("problem").value = "";
-
-
-
-
-
-
-
-        closeEntry();
-
-
-
-
-    }
 
 
 });
