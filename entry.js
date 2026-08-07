@@ -1,22 +1,30 @@
-const scriptURL = "YOUR_WEB_APP_URL";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
 
-// Load User ID Automatically
+// ============================
+// LOGIN CHECK
+// ============================
 
-window.onload=function(){
-
-
-let user =
-localStorage.getItem("userId");
+let userId = localStorage.getItem("userId");
 
 
+if(!userId){
 
-if(user){
-
-document.getElementById("reference").value=user;
+    window.location.href = "login.html";
 
 }
+
+
+
+// ============================
+// AUTO REFERENCE
+// ============================
+
+window.onload = function(){
+
+
+    document.getElementById("reference").value = userId;
 
 
 };
@@ -25,9 +33,14 @@ document.getElementById("reference").value=user;
 
 
 
+// ============================
+// SUBMIT DATA
+// ============================
+
+
 document
 .getElementById("entryForm")
-.addEventListener("submit",function(e){
+.addEventListener("submit", function(e){
 
 
 e.preventDefault();
@@ -50,15 +63,14 @@ document.getElementById("reference").value;
 
 
 
+let data = {
 
-let data={
 
+customerId: customerId,
 
-customerId:customerId,
+problem: problem,
 
-problem:problem,
-
-reference:reference
+reference: reference
 
 
 };
@@ -73,10 +85,14 @@ fetch(scriptURL,{
 method:"POST",
 
 
+mode:"no-cors",
+
+
 headers:{
 
 
 "Content-Type":"application/json"
+
 
 },
 
@@ -88,14 +104,11 @@ body:JSON.stringify(data)
 
 
 
-.then(response=>response.text())
+.then(()=>{
 
 
+alert("✅ Entry Saved Successfully");
 
-.then(result=>{
-
-
-alert("Entry Saved Successfully");
 
 
 document
@@ -106,15 +119,7 @@ document
 
 // Reference আবার বসানো
 
-let user =
-localStorage.getItem("userId");
-
-
-if(user){
-
-document.getElementById("reference").value=user;
-
-}
+document.getElementById("reference").value = userId;
 
 
 
@@ -125,13 +130,13 @@ document.getElementById("reference").value=user;
 .catch(error=>{
 
 
-alert("Error Saving Data");
-
-
 console.log(error);
+
+alert("❌ Error Saving");
 
 
 });
+
 
 
 });
