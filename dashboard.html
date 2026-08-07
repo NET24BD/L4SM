@@ -1,130 +1,131 @@
-\<!DOCTYPE html>
-\<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-\<head>
+<head>
 
-\<meta charset="UTF-8">
+<meta charset="UTF-8">
 
-\<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-\<title>eSS Dashboard\</title>
-
-
-\<link rel="stylesheet" href="dashboard.css">
+<title>eSS Dashboard</title>
 
 
-\<link rel="stylesheet"
-href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css)">
+<link rel="stylesheet" href="dashboard.css">
 
 
-\</head>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-\<body>
+</head>
 
 
-\<!-- SIDEBAR -->
-
-\<div class="sidebar" id="sidebar">
-
-
-\<div class="menu-btn" onclick="toggleSidebar()">
-
-\<i class="fa-solid fa-bars">\</i>
-
-\</div>
+<body>
 
 
 
-\<div class="logo">
+<!-- SIDEBAR -->
 
-\<i class="fa-solid fa-layer-group">\</i>
+<div class="sidebar" id="sidebar">
 
-\<span>
+
+<div class="menu-btn" onclick="toggleSidebar()">
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
+
+
+
+<div class="logo">
+
+<i class="fa-solid fa-layer-group"></i>
+
+<span>
 L4SM
-\</span>
+</span>
 
-\</div>
-
-
+</div>
 
 
 
-\<ul>
 
 
-\<li class="active" onclick="openPage('dashboard.html')">
+<ul>
 
-\<i class="fa-solid fa-house">\</i>
 
-\<span>
+<li class="active" onclick="openPage('dashboard.html')">
+
+<i class="fa-solid fa-house"></i>
+
+<span>
 Dashboard
-\</span>
+</span>
 
-\</li>
-
-
+</li>
 
 
-\<li onclick="openPage('usercontrol.html')">
 
-\<i class="fa-solid fa-users">\</i>
 
-\<span>
+
+<li onclick="openPage('usercontrol.html')">
+
+<i class="fa-solid fa-users"></i>
+
+<span>
 User Control
-\</span>
+</span>
 
-\</li>
-
-
+</li>
 
 
 
-\<li onclick="openPage('support.html')">
 
-\<i class="fa-solid fa-headset">\</i>
 
-\<span>
+<li onclick="openPage('support.html')">
+
+<i class="fa-solid fa-headset"></i>
+
+<span>
 Support
-\</span>
+</span>
 
-\</li>
-
-
+</li>
 
 
 
-\<li onclick="openPage('call.html')">
 
-\<i class="fa-solid fa-phone">\</i>
 
-\<span>
+<li onclick="openPage('call.html')">
+
+<i class="fa-solid fa-phone"></i>
+
+<span>
 Call
-\</span>
+</span>
 
-\</li>
-
-
+</li>
 
 
 
-\<li onclick="openPage('manager.html')">
 
-\<i class="fa-solid fa-user-tie">\</i>
 
-\<span>
+<li onclick="openPage('manager.html')">
+
+<i class="fa-solid fa-user-tie"></i>
+
+<span>
 Manager
-\</span>
+</span>
 
-\</li>
-
-
-\</ul>
+</li>
 
 
-\</div>
+</ul>
 
 
+</div>
 
 
 
@@ -132,285 +133,382 @@ Manager
 
 
 
-\<!-- MAIN -->
-
-\<div class="main">
 
 
+<!-- MAIN -->
 
-\<header>
+
+<div class="main">
 
 
-\<h2>
+
+<header>
+
+
+<h2>
 Dashboard
-\</h2>
+</h2>
 
 
 
 
-
-\<div class="profile"
+<div class="profile"
 onclick="toggleProfileMenu()">
 
 
 
-\<img id="profileImg"
+<img id="profileImg"
 src="assets/profile.png">
 
 
 
-\<span id="headerName">
+<span id="headerName">
 User
-\</span>
+</span>
 
 
 
-\<i class="fa-solid fa-angle-down">\</i>
+<i class="fa-solid fa-angle-down"></i>
 
 
 
 
 
-\<div id="profileMenu"
+
+<div id="profileMenu"
 class="profile-menu"
 onclick="event.stopPropagation()">
 
 
 
-\<button onclick="openMyAccount()">
+<button onclick="openMyAccount()">
 
-\<i class="fa-solid fa-user">\</i>
+<i class="fa-solid fa-user"></i>
 
 My Account
 
-\</button>
+</button>
 
 
 
 
 
-\<button type="button" id="logoutBtn">
+<button type="button"
+id="logoutBtn">
 
-\<i class="fa-solid fa-right-from-bracket">\</i>
+<i class="fa-solid fa-right-from-bracket"></i>
 
 Logout
 
-\</button>
+</button>
 
 
 
-\</div>
+</div>
+
+
+
+</div>
+
+
+</header>
 
 
 
 
-\</div>
 
 
-
-\</header>
-
+<div class="welcome">
 
 
-\<div class="welcome">
+<h1>
 
+Welcome Back
 
-\<h1>
-
-Welcome Back&#x20;
-
-\<span id="welcomeName">
+<span id="welcomeName">
 User
-\</span>
+</span>
 
 
-\</h1>
+</h1>
 
 
-\<p>
+<p>
 L4SM Management System
-\</p>
+</p>
 
 
-\</div>
-
-
-\<div class="cards">
+</div>
 
 
 
 
 
-\<div class="card blue"
+
+
+
+<div class="cards">
+
+
+
+<!-- NEW ENTRY -->
+
+<div class="card blue"
 onclick="openPage('entry.html')">
 
-\<i class="fa-solid fa-plus-circle">\</i>
 
-\<div>
+<i class="fa-solid fa-plus-circle"></i>
 
-\<h3>
+
+<div>
+
+<h3>
 New Entry
-\</h3>
+</h3>
 
-\<p>
+
+<p>
 Create Entry
-\</p>
-
-\</div>
-
-\</div>
+</p>
 
 
-\<div class="card green"
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card green"
 onclick="openPage('support.html')">
 
-\<i class="fa-solid fa-headset">\</i>
 
-\<div>
+<i class="fa-solid fa-headset"></i>
 
-\<h3>
+
+<div>
+
+<h3>
 Pending Support
-\</h3>
+</h3>
 
-\<p>
+
+<p>
 Support Pending
-\</p>
-
-\</div>
-
-\</div>
+</p>
 
 
-\<div class="card orange"
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card orange"
 onclick="openPage('call.html')">
 
-\<i class="fa-solid fa-phone-volume">\</i>
 
-\<div>
+<i class="fa-solid fa-phone-volume"></i>
 
-\<h3>
+
+<div>
+
+<h3>
 Pending Call
-\</h3>
+</h3>
 
-\<p>
+
+<p>
 Call Pending
-\</p>
-
-\</div>
-
-\</div>
+</p>
 
 
+</div>
 
-\<div class="card purple"
+
+</div>
+
+
+
+
+
+
+
+<div class="card purple"
 onclick="openPage('history.html')">
 
-\<i class="fa-solid fa-clock-rotate-left">\</i>
 
-\<div>
+<i class="fa-solid fa-clock-rotate-left"></i>
 
-\<h3>
+
+<div>
+
+<h3>
 History
-\</h3>
+</h3>
 
-\<p>
+
+<p>
 All History
-\</p>
-
-\</div>
-
-\</div>
+</p>
 
 
-\<div class="card red"
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card red"
 onclick="openPage('offline-entry.html')">
 
-\<i class="fa-solid fa-file-circle-plus">\</i>
 
-\<div>
+<i class="fa-solid fa-file-circle-plus"></i>
 
-\<h3>
+
+<div>
+
+<h3>
 Offline Entry
-\</h3>
+</h3>
 
-\<p>
+
+<p>
 Add Offline
-\</p>
-
-\</div>
-
-\</div>
+</p>
 
 
-\<div class="card dark"
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card dark"
 onclick="openPage('offline.html')">
 
-\<i class="fa-solid fa-power-off">\</i>
 
-\<div>
+<i class="fa-solid fa-power-off"></i>
 
-\<h3>
+
+<div>
+
+<h3>
 Offline
-\</h3>
+</h3>
 
-\<p>
+
+<p>
 Offline List
-\</p>
-
-\</div>
-
-\</div>
+</p>
 
 
-\<div class="card cyan"
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card cyan"
 onclick="openPage('offline-history.html')">
 
-\<i class="fa-solid fa-box-archive">\</i>
 
-\<div>
+<i class="fa-solid fa-box-archive"></i>
 
-\<h3>
+
+<div>
+
+<h3>
 Offline History
-\</h3>
+</h3>
 
-\<p>
+
+<p>
 Offline Records
-\</p>
-
-\</div>
-
-\</div>
+</p>
 
 
-\<div class="card indigo"
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card indigo"
 onclick="openPage('usercontrol.html')">
 
-\<i class="fa-solid fa-users">\</i>
 
-\<div>
+<i class="fa-solid fa-users"></i>
 
-\<h3>
+
+<div>
+
+<h3>
 Total Users
-\</h3>
+</h3>
 
-\<p>
+
+<p>
 System Users
-\</p>
-
-\</div>
-
-\</div>
-
-\</div>
+</p>
 
 
-\</div>
+</div>
 
 
-\<script src="session.js">\</script>
-\<script src="dashboard.js">\</script>
-\<script src="autologout.js">\</script>
+</div>
 
-\</body>
 
-\</html>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="session.js"></script>
+
+<script src="dashboard.js"></script>
+
+<script src="autologout.js"></script>
+
+
+</body>
+
+</html>
