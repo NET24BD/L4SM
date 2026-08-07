@@ -35,15 +35,11 @@ padding:20px;
 .header{
 
 background:white;
-
 padding:18px 25px;
-
 border-radius:15px;
 
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
 
 box-shadow:0 5px 20px rgba(0,0,0,.1);
@@ -55,60 +51,46 @@ box-shadow:0 5px 20px rgba(0,0,0,.1);
 .left{
 
 display:flex;
-
 align-items:center;
-
 gap:15px;
 
 }
 
 
+
 .back{
 
 background:#03543f;
-
 color:white;
-
-border:none;
-
+border:0;
 padding:10px 15px;
-
 border-radius:8px;
-
 cursor:pointer;
 
 }
+
 
 
 
 
 /* PROFILE */
 
-
 .profile{
 
 position:relative;
-
 display:flex;
-
 align-items:center;
-
 gap:10px;
-
 cursor:pointer;
 
 }
 
 
-
 .profile img{
 
 width:45px;
-
 height:45px;
-
 border-radius:50%;
-
 object-fit:cover;
 
 }
@@ -135,7 +117,7 @@ border-radius:10px;
 
 box-shadow:0 5px 20px #999;
 
-z-index:20;
+z-index:10;
 
 }
 
@@ -155,7 +137,7 @@ width:100%;
 
 padding:12px;
 
-border:none;
+border:0;
 
 background:white;
 
@@ -163,22 +145,12 @@ cursor:pointer;
 
 text-align:left;
 
-border-radius:8px;
-
-}
-
-
-
-.profile-menu button:hover{
-
-background:#eee;
-
 }
 
 
 
 
-
+/* TABLE */
 
 
 .table-box{
@@ -232,13 +204,13 @@ border-bottom:1px solid #ddd;
 
 
 
-.edit-btn{
+.edit{
 
 background:#03543f;
 
 color:white;
 
-border:none;
+border:0;
 
 padding:8px 15px;
 
@@ -247,6 +219,7 @@ border-radius:8px;
 cursor:pointer;
 
 }
+
 
 
 
@@ -261,9 +234,9 @@ display:none;
 
 position:fixed;
 
-top:0;
-
 left:0;
+
+top:0;
 
 width:100%;
 
@@ -291,11 +264,15 @@ display:flex;
 
 background:white;
 
-width:400px;
+width:420px;
 
 padding:25px;
 
 border-radius:15px;
+
+max-height:90vh;
+
+overflow:auto;
 
 }
 
@@ -303,9 +280,9 @@ border-radius:15px;
 
 .box h2{
 
-margin-bottom:15px;
-
 color:#03543f;
+
+margin-bottom:15px;
 
 }
 
@@ -340,31 +317,27 @@ border-radius:8px;
 
 textarea{
 
-resize:none;
+height:80px;
 
 }
 
 
 
-.btn{
+.btns{
 
 margin-top:15px;
 
-display:flex;
-
-gap:10px;
-
 }
 
 
 
-.submit{
+.save{
 
 background:#03543f;
 
 color:white;
 
-border:none;
+border:0;
 
 padding:10px 20px;
 
@@ -376,13 +349,13 @@ cursor:pointer;
 
 
 
-.cancel{
+.close{
 
 background:red;
 
 color:white;
 
-border:none;
+border:0;
 
 padding:10px 20px;
 
@@ -395,7 +368,6 @@ cursor:pointer;
 
 </style>
 
-
 </head>
 
 
@@ -406,26 +378,21 @@ cursor:pointer;
 <div class="header">
 
 
-
 <div class="left">
 
 
 <button class="back"
-onclick="backDashboard()">
+onclick="location.href='dashboard.html'">
 
-<i class="fa-solid fa-arrow-left"></i>
-
+<i class="fa fa-arrow-left"></i>
 Back
 
 </button>
 
 
 <h2>
-
-<i class="fa-solid fa-headset"></i>
-
+<i class="fa fa-headset"></i>
 Pending Support
-
 </h2>
 
 
@@ -435,9 +402,8 @@ Pending Support
 
 
 
-
 <div class="profile"
-onclick="toggleProfile()">
+onclick="profileMenu()">
 
 
 
@@ -445,38 +411,35 @@ onclick="toggleProfile()">
 src="assets/profile.png">
 
 
-
-<span id="username">
+<span id="userName">
 
 User
 
 </span>
 
-<i class="fa-solid fa-angle-down"></i>
 
+
+<i class="fa fa-angle-down"></i>
 
 
 
 <div class="profile-menu"
-id="profileMenu"
+id="menu"
 onclick="event.stopPropagation()">
 
 
 
-<button onclick="myAccount()">
+<button onclick="location.href='myaccount.html'">
 
-<i class="fa-solid fa-user"></i>
-
+<i class="fa fa-user"></i>
 My Account
 
 </button>
 
 
-
 <button onclick="logout()">
 
-<i class="fa-solid fa-right-from-bracket"></i>
-
+<i class="fa fa-right-from-bracket"></i>
 Logout
 
 </button>
@@ -484,6 +447,7 @@ Logout
 
 
 </div>
+
 
 
 </div>
@@ -520,15 +484,15 @@ Logout
 
 </tr>
 
+
 </thead>
 
 
 
-<tbody id="supportList">
+<tbody id="list">
 
 
 </tbody>
-
 
 
 </table>
@@ -543,23 +507,22 @@ Logout
 
 
 
+<!-- EDIT BOX -->
 
-<!-- EDIT POPUP -->
 
-
-<div class="modal" id="editModal">
+<div class="modal"
+id="modal">
 
 
 <div class="box">
 
 
 <h2>
-Update Support
+Edit Support
 </h2>
 
 
-
-<input type="hidden" id="editRow">
+<input type="hidden" id="row">
 
 
 
@@ -567,8 +530,7 @@ Update Support
 Customer ID
 </label>
 
-<input id="customerId" readonly>
-
+<input id="customerId">
 
 
 
@@ -576,8 +538,7 @@ Customer ID
 Problem
 </label>
 
-<textarea id="problem" readonly></textarea>
-
+<textarea id="problem"></textarea>
 
 
 
@@ -585,8 +546,7 @@ Problem
 Reference
 </label>
 
-<input id="reference" readonly>
-
+<input id="reference">
 
 
 
@@ -594,9 +554,7 @@ Reference
 Date
 </label>
 
-<input id="date" readonly>
-
-
+<input type="date" id="date">
 
 
 
@@ -608,35 +566,29 @@ Support
 
 
 
-
-
 <label>
 Support Work
 </label>
 
-<textarea id="supportWork"
-rows="4"></textarea>
+<textarea id="supportWork"></textarea>
 
 
 
 
+<div class="btns">
 
-<div class="btn">
+<button class="save"
+onclick="update()">
 
-
-<button class="submit"
-onclick="saveSupport()">
-
-Submit
+Save
 
 </button>
 
 
+<button class="close"
+onclick="closeBox()">
 
-<button class="cancel"
-onclick="closeEdit()">
-
-Cancel
+Close
 
 </button>
 
@@ -648,7 +600,6 @@ Cancel
 
 
 </div>
-
 
 
 
@@ -661,22 +612,16 @@ Cancel
 <script>
 
 
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
 
-let currentRow="";
+
+// LOAD
 
 
-
-
-
-// LOAD PENDING SUPPORT
-
-
-function loadSupport(){
+function load(){
 
 
 fetch(API_URL,{
@@ -692,7 +637,7 @@ action:"getPendingSupport"
 })
 
 
-.then(res=>res.json())
+.then(r=>r.json())
 
 .then(data=>{
 
@@ -700,26 +645,26 @@ action:"getPendingSupport"
 let html="";
 
 
-data.data.forEach(row=>{
+data.data.forEach(x=>{
 
 
 html+=`
 
 <tr>
 
-<td>${row.customerId}</td>
+<td>${x.customerId}</td>
 
-<td>${row.problem}</td>
+<td>${x.problem}</td>
 
-<td>${row.reference}</td>
+<td>${x.reference}</td>
 
-<td>${row.date}</td>
+<td>${x.date}</td>
 
 
 <td>
 
-<button class="edit-btn"
-onclick="editSupport(${row.row})">
+<button class="edit"
+onclick="edit(${x.row})">
 
 Edit
 
@@ -734,10 +679,12 @@ Edit
 `;
 
 
+
 });
 
 
-document.getElementById("supportList").innerHTML=html;
+document.getElementById("list").innerHTML=html;
+
 
 
 });
@@ -752,14 +699,7 @@ document.getElementById("supportList").innerHTML=html;
 
 
 
-
-// OPEN EDIT
-
-
-function editSupport(row){
-
-
-currentRow=row;
+function edit(row){
 
 
 
@@ -778,35 +718,32 @@ row:row
 })
 
 
-.then(res=>res.json())
+.then(r=>r.json())
 
-.then(data=>{
-
-
-
-document.getElementById("customerId").value=data.customerId;
-
-document.getElementById("problem").value=data.problem;
-
-document.getElementById("reference").value=data.reference;
-
-document.getElementById("date").value=data.date;
+.then(d=>{
 
 
-document.getElementById("support").value=data.support || "";
+document.getElementById("row").value=row;
+
+customerId.value=d.customerId;
+
+problem.value=d.problem;
+
+reference.value=d.reference;
+
+date.value=d.date;
+
+support.value=d.support;
+
+supportWork.value=d.supportWork;
 
 
-document.getElementById("supportWork").value=data.supportWork || "";
 
-
-
-document.getElementById("editModal")
+document.getElementById("modal")
 .classList.add("show");
 
 
-
 });
-
 
 
 }
@@ -817,12 +754,7 @@ document.getElementById("editModal")
 
 
 
-
-
-// SAVE
-
-
-function saveSupport(){
+function update(){
 
 
 fetch(API_URL,{
@@ -833,14 +765,19 @@ body:JSON.stringify({
 
 action:"updateSupport",
 
-row:currentRow,
+row:row.value,
 
-support:
-document.getElementById("support").value,
+customerId:customerId.value,
 
+problem:problem.value,
 
-supportWork:
-document.getElementById("supportWork").value
+reference:reference.value,
+
+date:date.value,
+
+support:support.value,
+
+supportWork:supportWork.value
 
 
 })
@@ -848,18 +785,16 @@ document.getElementById("supportWork").value
 })
 
 
-.then(res=>res.json())
+.then(r=>r.json())
 
-.then(data=>{
-
-
-alert("Updated Successfully");
+.then(()=>{
 
 
-closeEdit();
+alert("Updated");
 
+closeBox();
 
-loadSupport();
+load();
 
 
 });
@@ -873,10 +808,9 @@ loadSupport();
 
 
 
+function closeBox(){
 
-function closeEdit(){
-
-document.getElementById("editModal")
+document.getElementById("modal")
 .classList.remove("show");
 
 }
@@ -885,48 +819,28 @@ document.getElementById("editModal")
 
 
 
-
-
-
 // PROFILE
 
 
-function toggleProfile(){
+function profileMenu(){
 
-document
-.getElementById("profileMenu")
+document.getElementById("menu")
 .classList.toggle("show");
 
 }
 
 
 
-let user =
-localStorage.getItem("username");
+userName.innerText =
+localStorage.getItem("username") || "User";
 
 
-if(user){
+if(localStorage.getItem("picture")){
 
-document.getElementById("username").innerText=user;
-
-}
-
-
-
-
-let pic =
+profileImg.src =
 localStorage.getItem("picture");
 
-
-if(pic){
-
-document.getElementById("profileImg").src=pic;
-
 }
-
-
-
-
 
 
 
@@ -940,24 +854,8 @@ location.href="index.html";
 
 
 
-function myAccount(){
 
-location.href="myaccount.html";
-
-}
-
-
-
-function backDashboard(){
-
-location.href="dashboard.html";
-
-}
-
-
-
-
-loadSupport();
+load();
 
 
 </script>
