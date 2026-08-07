@@ -1,137 +1,159 @@
-const scriptURL = "YOUR_GOOGLE_APPS_SCRIPT_URL";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
 
-// Auto Reference Load
+// ===============================
+// AUTO LOAD USER REFERENCE
+// ===============================
 
-window.onload = function(){
-
+window.addEventListener("load", function(){
 
     let userId = localStorage.getItem("userId");
 
 
-    if(userId){
+    if(userId && userId !== ""){
 
         document.getElementById("reference").value = userId;
 
     }
-
     else{
 
-        document.getElementById("reference").value = "Unknown";
+        document.getElementById("reference").value = "";
+
+    }
+
+});
+
+
+
+
+// ===============================
+// FORM SUBMIT
+// ===============================
+
+document
+.getElementById("entryForm")
+.addEventListener("submit", function(e){
+
+
+    e.preventDefault();
+
+
+
+    let customerId =
+    document.getElementById("customerId").value.trim();
+
+
+
+    let problem =
+    document.getElementById("problem").value.trim();
+
+
+
+    let reference =
+    document.getElementById("reference").value.trim();
+
+
+
+
+    if(customerId === "" || problem === ""){
+
+
+        alert("Please Fill All Required Fields");
+
+        return;
 
     }
 
 
-};
 
 
 
+    let formData = {
 
 
+        customerId: customerId,
 
-// Form Submit
+        problem: problem,
 
+        reference: reference
 
-document
-.getElementById("entryForm")
-.addEventListener("submit",function(e){
 
+    };
 
-e.preventDefault();
 
 
 
-let customerId =
-document.getElementById("customerId").value;
 
 
+    fetch(scriptURL, {
 
-let problem =
-document.getElementById("problem").value;
 
+        method:"POST",
 
 
-let reference =
-document.getElementById("reference").value;
+        mode:"no-cors",
 
 
+        headers:{
 
 
-let data={
+            "Content-Type":"application/json"
 
+        },
 
-customerId:customerId,
 
-problem:problem,
+        body:JSON.stringify(formData)
 
-reference:reference
 
+    })
 
-};
 
 
+    .then(()=>{
 
 
+        alert("✅ Entry Successfully Added");
 
 
-fetch(scriptURL,{
 
+        document
+        .getElementById("entryForm")
+        .reset();
 
-method:"POST",
 
 
-mode:"no-cors",
 
 
-headers:{
+        // Reference আবার বসানো
 
+        let userId =
+        localStorage.getItem("userId");
 
-"Content-Type":"application/json"
 
 
-},
+        if(userId){
 
+            document.getElementById("reference").value = userId;
 
-body:JSON.stringify(data)
+        }
 
 
 
-})
+    })
 
 
 
-.then(()=>{
+    .catch(error=>{
 
 
-alert("✅ Entry Added Successfully");
+        console.log(error);
 
 
-document
-.getElementById("entryForm")
-.reset();
+        alert("❌ Data Save Failed");
 
 
-// Reference আবার বসাবে
-
-document.getElementById("reference").value =
-localStorage.getItem("userId");
-
-
-
-})
-
-
-
-.catch(error=>{
-
-
-alert(
-"❌ Error : "+error
-);
-
-
-});
+    });
 
 
 
