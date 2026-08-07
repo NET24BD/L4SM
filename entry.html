@@ -15,166 +15,651 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.c
 rel="stylesheet">
 
 
-<!-- Entry CSS -->
-<link rel="stylesheet" href="css/entry.css">
+
+<style>
+
+/* ==========================
+   RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+
+body{
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1d4ed8,
+        #06b6d4
+    );
+
+    font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+}
+
+
+
+
+/* ==========================
+   MAIN AREA
+========================== */
+
+
+.entry-wrapper{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+}
+
+
+
+
+
+/* ==========================
+   CARD
+========================== */
+
+
+.entry-card{
+
+    width:430px;
+
+    background:white;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:
+
+    0 25px 60px rgba(0,0,0,.35);
+
+    animation:
+    showCard .6s ease;
+
+}
+
+
+
+
+
+
+/* ==========================
+   HEADER
+========================== */
+
+
+.entry-header{
+
+    padding:40px 20px;
+
+    text-align:center;
+
+    color:white;
+
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #2563eb,
+
+        #06b6d4
+
+    );
+
+}
+
+
+
+
+
+.logo{
+
+
+    width:85px;
+
+    height:85px;
+
+
+    margin:auto;
+
+
+    background:white;
+
+
+    color:#2563eb;
+
+
+    border-radius:50%;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    font-size:42px;
+
+
+    box-shadow:
+
+    0 10px 25px rgba(0,0,0,.25);
+
+
+}
+
+
+
+
+.entry-header h2{
+
+
+    margin-top:18px;
+
+
+    font-size:28px;
+
+
+    font-weight:700;
+
+
+}
+
+
+
+
+.entry-header p{
+
+
+    margin-top:8px;
+
+
+    opacity:.9;
+
+
+    font-size:15px;
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   FORM BODY
+========================== */
+
+
+.entry-body{
+
+
+    padding:35px;
+
+
+}
+
+
+
+
+
+
+/* INPUT */
+
+
+.input-box{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    background:#f1f5f9;
+
+
+    border-radius:16px;
+
+
+    padding:15px;
+
+
+    margin-bottom:22px;
+
+
+    border:2px solid transparent;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+.input-box:focus-within{
+
+
+    background:white;
+
+
+    border-color:#2563eb;
+
+
+    box-shadow:
+
+    0 0 15px rgba(37,99,235,.25);
+
+
+}
+
+
+
+
+
+.input-box i{
+
+
+    font-size:22px;
+
+
+    color:#2563eb;
+
+
+    margin-right:12px;
+
+
+}
+
+
+
+
+
+.input-box input,
+
+
+.input-box textarea{
+
+
+    width:100%;
+
+
+    border:none;
+
+
+    outline:none;
+
+
+    background:transparent;
+
+
+    font-size:16px;
+
+
+}
+
+
+
+
+
+.input-box textarea{
+
+
+    resize:none;
+
+
+}
+
+
+
+
+
+/* ==========================
+   BUTTON
+========================== */
+
+
+.submit-btn{
+
+
+    width:100%;
+
+
+    padding:16px;
+
+
+    border:none;
+
+
+    border-radius:16px;
+
+
+    background:
+
+
+    linear-gradient(
+
+        135deg,
+
+        #2563eb,
+
+        #06b6d4
+
+    );
+
+
+    color:white;
+
+
+    font-size:18px;
+
+
+    font-weight:700;
+
+
+    cursor:pointer;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+.submit-btn i{
+
+
+    margin-right:8px;
+
+
+}
+
+
+
+
+
+.submit-btn:hover{
+
+
+    transform:translateY(-3px);
+
+
+    box-shadow:
+
+    0 12px 30px rgba(37,99,235,.4);
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   ANIMATION
+========================== */
+
+
+@keyframes showCard{
+
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(40px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+
+
+
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+
+@media(max-width:500px){
+
+
+    .entry-card{
+
+        width:100%;
+
+    }
+
+
+    .entry-body{
+
+        padding:25px;
+
+    }
+
+
+    .entry-header h2{
+
+        font-size:24px;
+
+    }
+
+}
+
+
+
+</style>
 
 
 </head>
 
 
+
+
 <body>
+
+
 
 
 <div class="entry-wrapper">
 
 
-    <div class="entry-card">
 
+<div class="entry-card">
 
-        <!-- Header -->
 
-        <div class="entry-header">
 
+<!-- HEADER -->
 
-            <div class="logo">
+<div class="entry-header">
 
-                <i class="bi bi-headset"></i>
 
-            </div>
+<div class="logo">
 
+<i class="bi bi-headset"></i>
 
-            <h2>
-                Support System
-            </h2>
+</div>
 
 
-            <p>
-                Create New Customer Entry
-            </p>
 
+<h2>
+Support System
+</h2>
 
-        </div>
 
+<p>
+Create New Customer Entry
+</p>
 
 
+</div>
 
 
-        <!-- Form -->
 
-        <div class="entry-body">
 
 
-            <form id="entryForm">
 
+<!-- FORM -->
 
+<div class="entry-body">
 
-                <!-- Customer ID -->
 
-                <div class="input-box">
+<form id="entryForm">
 
-                    <i class="bi bi-person-circle"></i>
 
 
-                    <input 
-                    type="text"
-                    id="customerId"
-                    placeholder="Customer ID"
-                    required>
+<div class="input-box">
 
+<i class="bi bi-person-circle"></i>
 
-                </div>
 
+<input
 
+type="text"
 
+id="customerId"
 
+placeholder="Customer ID"
 
-                <!-- Problem -->
+required>
 
 
-                <div class="input-box textarea-box">
+</div>
 
 
-                    <i class="bi bi-exclamation-triangle"></i>
 
 
-                    <textarea
 
-                    id="problem"
 
-                    rows="4"
+<div class="input-box">
 
-                    placeholder="Customer Problem"
 
-                    required></textarea>
+<i class="bi bi-exclamation-triangle"></i>
 
 
-                </div>
+<textarea
 
+id="problem"
 
+rows="4"
 
+placeholder="Customer Problem"
 
+required></textarea>
 
 
+</div>
 
-                <!-- Reference -->
 
 
-                <div class="input-box">
 
 
-                    <i class="bi bi-bookmark-star"></i>
 
 
-                    <input
+<div class="input-box">
 
-                    type="text"
 
-                    id="reference"
+<i class="bi bi-bookmark-star"></i>
 
-                    placeholder="Reference"
 
-                    required>
+<input
 
+type="text"
 
-                </div>
+id="reference"
 
+placeholder="Reference"
 
+required>
 
 
+</div>
 
 
 
-                <!-- Submit Button -->
 
 
-                <button 
-                type="submit"
-                class="submit-btn">
 
 
-                    <i class="bi bi-send-fill"></i>
+<button
 
-                    Submit Entry
+type="submit"
 
+class="submit-btn">
 
-                </button>
 
+<i class="bi bi-send-fill"></i>
 
 
+Submit Entry
 
-            </form>
 
+</button>
 
-        </div>
 
 
 
-    </div>
+
+</form>
+
+
+</div>
+
+
 
 
 
 </div>
 
+
+
+</div>
 
 
 
