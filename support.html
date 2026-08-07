@@ -32,14 +32,18 @@ padding:20px;
 
 
 
-header{
+.header{
 
 background:white;
+
 padding:18px 25px;
+
 border-radius:15px;
 
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
 
 box-shadow:0 5px 20px rgba(0,0,0,.1);
@@ -51,32 +55,46 @@ box-shadow:0 5px 20px rgba(0,0,0,.1);
 .left{
 
 display:flex;
+
 align-items:center;
-gap:20px;
+
+gap:15px;
 
 }
-
 
 
 .back{
 
 background:#03543f;
+
 color:white;
+
 border:none;
+
 padding:10px 15px;
+
 border-radius:8px;
+
 cursor:pointer;
 
 }
 
 
 
+
+/* PROFILE */
+
+
 .profile{
 
 position:relative;
+
 display:flex;
+
 align-items:center;
+
 gap:10px;
+
 cursor:pointer;
 
 }
@@ -86,8 +104,11 @@ cursor:pointer;
 .profile img{
 
 width:45px;
+
 height:45px;
+
 border-radius:50%;
+
 object-fit:cover;
 
 }
@@ -96,9 +117,13 @@ object-fit:cover;
 
 .profile-menu{
 
+display:none;
+
 position:absolute;
+
 right:0;
-top:60px;
+
+top:55px;
 
 background:white;
 
@@ -108,9 +133,7 @@ padding:10px;
 
 border-radius:10px;
 
-box-shadow:0 5px 20px #aaa;
-
-display:none;
+box-shadow:0 5px 20px #999;
 
 z-index:20;
 
@@ -129,11 +152,12 @@ display:block;
 .profile-menu button{
 
 width:100%;
+
 padding:12px;
 
-background:white;
-
 border:none;
+
+background:white;
 
 cursor:pointer;
 
@@ -154,6 +178,9 @@ background:#eee;
 
 
 
+
+
+
 .table-box{
 
 margin-top:25px;
@@ -170,10 +197,10 @@ overflow:auto;
 
 
 
-
 table{
 
 width:100%;
+
 border-collapse:collapse;
 
 }
@@ -183,9 +210,10 @@ border-collapse:collapse;
 th{
 
 background:#03543f;
+
 color:white;
 
-padding:13px;
+padding:12px;
 
 }
 
@@ -200,6 +228,7 @@ text-align:center;
 border-bottom:1px solid #ddd;
 
 }
+
 
 
 
@@ -233,9 +262,11 @@ display:none;
 position:fixed;
 
 top:0;
+
 left:0;
 
 width:100%;
+
 height:100%;
 
 background:rgba(0,0,0,.5);
@@ -256,12 +287,11 @@ display:flex;
 
 
 
-
 .box{
 
 background:white;
 
-width:380px;
+width:400px;
 
 padding:25px;
 
@@ -271,15 +301,17 @@ border-radius:15px;
 
 
 
-.box h3{
+.box h2{
 
 margin-bottom:15px;
+
+color:#03543f;
 
 }
 
 
 
-.box label{
+label{
 
 display:block;
 
@@ -289,8 +321,8 @@ margin-top:10px;
 
 
 
-.box input,
-.box textarea{
+input,
+textarea{
 
 width:100%;
 
@@ -306,7 +338,7 @@ border-radius:8px;
 
 
 
-.box textarea{
+textarea{
 
 resize:none;
 
@@ -314,9 +346,13 @@ resize:none;
 
 
 
-.btns{
+.btn{
 
 margin-top:15px;
+
+display:flex;
+
+gap:10px;
 
 }
 
@@ -330,7 +366,7 @@ color:white;
 
 border:none;
 
-padding:10px 18px;
+padding:10px 20px;
 
 border-radius:8px;
 
@@ -348,7 +384,7 @@ color:white;
 
 border:none;
 
-padding:10px 18px;
+padding:10px 20px;
 
 border-radius:8px;
 
@@ -357,8 +393,8 @@ cursor:pointer;
 }
 
 
-
 </style>
+
 
 </head>
 
@@ -367,7 +403,7 @@ cursor:pointer;
 
 
 
-<header>
+<div class="header">
 
 
 
@@ -401,12 +437,13 @@ Pending Support
 
 
 <div class="profile"
-onclick="profileToggle()">
+onclick="toggleProfile()">
 
 
 
 <img id="profileImg"
 src="assets/profile.png">
+
 
 
 <span id="username">
@@ -415,10 +452,7 @@ User
 
 </span>
 
-
-
 <i class="fa-solid fa-angle-down"></i>
-
 
 
 
@@ -452,11 +486,11 @@ Logout
 </div>
 
 
-
 </div>
 
 
-</header>
+</div>
+
 
 
 
@@ -486,7 +520,6 @@ Logout
 
 </tr>
 
-
 </thead>
 
 
@@ -510,6 +543,7 @@ Logout
 
 
 
+
 <!-- EDIT POPUP -->
 
 
@@ -519,9 +553,9 @@ Logout
 <div class="box">
 
 
-<h3>
+<h2>
 Update Support
-</h3>
+</h2>
 
 
 
@@ -565,11 +599,13 @@ Date
 
 
 
+
 <label>
 Support
 </label>
 
-<input id="support" readonly>
+<input id="support">
+
 
 
 
@@ -579,13 +615,13 @@ Support Work
 </label>
 
 <textarea id="supportWork"
-placeholder="Write work"></textarea>
+rows="4"></textarea>
 
 
 
 
 
-<div class="btns">
+<div class="btn">
 
 
 <button class="submit"
@@ -596,6 +632,7 @@ Submit
 </button>
 
 
+
 <button class="cancel"
 onclick="closeEdit()">
 
@@ -604,7 +641,6 @@ Cancel
 </button>
 
 
-
 </div>
 
 
@@ -612,6 +648,8 @@ Cancel
 
 
 </div>
+
+
 
 
 
@@ -634,11 +672,11 @@ let currentRow="";
 
 
 
-// LOAD DATA
+
+// LOAD PENDING SUPPORT
 
 
 function loadSupport(){
-
 
 
 fetch(API_URL,{
@@ -654,8 +692,7 @@ action:"getPendingSupport"
 })
 
 
-.then(r=>r.json())
-
+.then(res=>res.json())
 
 .then(data=>{
 
@@ -694,16 +731,13 @@ Edit
 
 </tr>
 
-
 `;
-
 
 
 });
 
 
 document.getElementById("supportList").innerHTML=html;
-
 
 
 });
@@ -717,13 +751,16 @@ document.getElementById("supportList").innerHTML=html;
 
 
 
-// EDIT
+
+
+// OPEN EDIT
 
 
 function editSupport(row){
 
 
 currentRow=row;
+
 
 
 fetch(API_URL,{
@@ -738,38 +775,38 @@ row:row
 
 })
 
-
 })
 
 
-.then(r=>r.json())
-
+.then(res=>res.json())
 
 .then(data=>{
 
 
-customerId.value=data.customerId;
 
-problem.value=data.problem;
+document.getElementById("customerId").value=data.customerId;
 
-reference.value=data.reference;
+document.getElementById("problem").value=data.problem;
 
-date.value=data.date;
+document.getElementById("reference").value=data.reference;
 
-support.value=data.support || localStorage.getItem("username");
-
-supportWork.value=data.supportWork || "";
-
-editRow.value=row;
+document.getElementById("date").value=data.date;
 
 
+document.getElementById("support").value=data.support || "";
 
-document
-.getElementById("editModal")
+
+document.getElementById("supportWork").value=data.supportWork || "";
+
+
+
+document.getElementById("editModal")
 .classList.add("show");
 
 
+
 });
+
 
 
 }
@@ -777,6 +814,12 @@ document
 
 
 
+
+
+
+
+
+// SAVE
 
 
 function saveSupport(){
@@ -792,25 +835,29 @@ action:"updateSupport",
 
 row:currentRow,
 
-support:support.value,
+support:
+document.getElementById("support").value,
 
-supportWork:supportWork.value
+
+supportWork:
+document.getElementById("supportWork").value
 
 
 })
 
-
 })
 
 
-.then(r=>r.json())
+.then(res=>res.json())
 
-.then(()=>{
+.then(data=>{
 
 
 alert("Updated Successfully");
 
+
 closeEdit();
+
 
 loadSupport();
 
@@ -826,10 +873,10 @@ loadSupport();
 
 
 
+
 function closeEdit(){
 
-document
-.getElementById("editModal")
+document.getElementById("editModal")
 .classList.remove("show");
 
 }
@@ -837,10 +884,14 @@ document
 
 
 
+
+
+
+
 // PROFILE
 
 
-function profileToggle(){
+function toggleProfile(){
 
 document
 .getElementById("profileMenu")
@@ -850,13 +901,15 @@ document
 
 
 
-let name =
+let user =
 localStorage.getItem("username");
 
 
-if(name)
+if(user){
 
-username.innerText=name;
+document.getElementById("username").innerText=user;
+
+}
 
 
 
@@ -865,9 +918,12 @@ let pic =
 localStorage.getItem("picture");
 
 
-if(pic)
+if(pic){
 
-profileImg.src=pic;
+document.getElementById("profileImg").src=pic;
+
+}
+
 
 
 
@@ -881,7 +937,6 @@ localStorage.clear();
 location.href="index.html";
 
 }
-
 
 
 
@@ -905,9 +960,7 @@ location.href="dashboard.html";
 loadSupport();
 
 
-
 </script>
-
 
 
 </body>
