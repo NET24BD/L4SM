@@ -10,22 +10,35 @@
 
 <link rel="stylesheet" href="entry.css">
 
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 
 <body>
 
 
-<div class="entry-container">
+<div class="entry-box">
 
+
+<div class="entry-header">
 
 <h2>
 <i class="fa-solid fa-circle-plus"></i>
 New Entry
 </h2>
 
+</div>
 
 
+
+
+<div class="entry-body">
+
+
+
+<!-- CUSTOMER ID -->
 
 <div class="input-group">
 
@@ -39,6 +52,7 @@ type="text"
 id="customerId"
 placeholder="Enter Customer ID">
 
+
 </div>
 
 
@@ -47,7 +61,10 @@ placeholder="Enter Customer ID">
 
 
 
+<!-- PROBLEM -->
+
 <div class="input-group">
+
 
 <label>
 Problem
@@ -68,7 +85,10 @@ placeholder="Write customer problem"></textarea>
 
 
 
+<!-- REFERENCE AUTO -->
+
 <div class="input-group">
+
 
 <label>
 Reference
@@ -78,7 +98,14 @@ Reference
 <input 
 type="text"
 id="reference"
-placeholder="Enter Reference">
+readonly
+placeholder="Auto Login User">
+
+
+</div>
+
+
+
 
 
 </div>
@@ -89,11 +116,22 @@ placeholder="Enter Reference">
 
 
 
-<button onclick="submitEntry()">
+<div class="entry-footer">
+
+
+<button 
+class="submit-btn"
+onclick="submitEntry()">
+
 
 Submit
 
+
 </button>
+
+
+</div>
+
 
 
 
@@ -103,6 +141,7 @@ Submit
 
 
 </div>
+
 
 
 
