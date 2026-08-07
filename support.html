@@ -14,6 +14,7 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
+
 <style>
 
 
@@ -25,7 +26,6 @@ font-family:Arial,sans-serif;
 }
 
 
-
 body{
 
 background:linear-gradient(135deg,#ecfdf5,#eff6ff);
@@ -33,7 +33,6 @@ background:linear-gradient(135deg,#ecfdf5,#eff6ff);
 padding:20px;
 
 }
-
 
 
 
@@ -58,8 +57,7 @@ box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
 
-
-.header-left{
+.left{
 
 display:flex;
 
@@ -68,7 +66,6 @@ align-items:center;
 gap:15px;
 
 }
-
 
 
 .back-btn{
@@ -86,7 +83,6 @@ border-radius:10px;
 cursor:pointer;
 
 }
-
 
 
 
@@ -151,7 +147,6 @@ z-index:1000;
 }
 
 
-
 .profile-menu.show{
 
 display:block;
@@ -190,6 +185,7 @@ background:#ecfdf5;
 
 
 
+
 /* LOADING */
 
 #loadingArea{
@@ -207,7 +203,6 @@ height:100%;
 z-index:9999;
 
 }
-
 
 
 
@@ -318,7 +313,6 @@ z-index:2000;
 }
 
 
-
 .modal.show{
 
 display:flex;
@@ -327,9 +321,7 @@ display:flex;
 
 
 
-.popup-box{
-
-position:relative;
+.popup{
 
 background:white;
 
@@ -339,23 +331,15 @@ max-width:95%;
 
 padding:30px;
 
-border-radius:25px;
+border-radius:20px;
 
-box-shadow:0 20px 50px rgba(0,0,0,.3);
+position:relative;
 
 }
 
 
 
-
-
-
-
-/* CROSS BUTTON */
-
-
-.popup-close{
-
+.close-btn{
 
 position:absolute;
 
@@ -363,56 +347,37 @@ right:15px;
 
 top:15px;
 
-
 width:35px;
 
 height:35px;
 
-
 border:none;
-
 
 border-radius:50%;
 
-
 background:#ef4444;
-
 
 color:white;
 
-
-font-size:25px;
-
+font-size:22px;
 
 cursor:pointer;
 
-
 }
 
 
 
-
-.popup-close:hover{
-
+.close-btn:hover{
 
 background:#dc2626;
 
-
-transform:rotate(90deg);
-
-
-transition:.3s;
-
-
 }
 
 
 
 
-
-
-.popup-box input,
-.popup-box textarea{
+.popup input,
+.popup textarea{
 
 
 width:100%;
@@ -429,7 +394,7 @@ border-radius:10px;
 
 
 
-.popup-box textarea{
+.popup textarea{
 
 height:80px;
 
@@ -437,7 +402,7 @@ height:80px;
 
 
 
-.popup-box label{
+.popup label{
 
 display:block;
 
@@ -449,7 +414,7 @@ font-weight:bold;
 
 
 
-.popup-buttons{
+.buttons{
 
 margin-top:20px;
 
@@ -461,7 +426,7 @@ gap:10px;
 
 
 
-.popup-buttons button{
+.buttons button{
 
 padding:10px 18px;
 
@@ -475,7 +440,7 @@ cursor:pointer;
 
 
 
-.save-btn{
+.submit{
 
 background:#10b981;
 
@@ -484,8 +449,7 @@ color:white;
 }
 
 
-
-.cancel-btn{
+.cancel{
 
 background:#64748b;
 
@@ -495,7 +459,7 @@ color:white;
 
 
 
-.delete-btn{
+.delete{
 
 background:#ef4444;
 
@@ -511,6 +475,7 @@ color:white;
 </head>
 
 
+
 <body>
 
 
@@ -523,6 +488,7 @@ color:white;
 
 
 
+
 <!-- HEADER -->
 
 
@@ -530,7 +496,8 @@ color:white;
 
 
 
-<div class="header-left">
+<div class="left">
+
 
 
 <button class="back-btn"
@@ -564,7 +531,6 @@ Pending Support
 
 
 
-<!-- PROFILE -->
 
 
 <div class="profile"
@@ -585,9 +551,7 @@ User
 
 
 
-
 <i class="fa fa-angle-down"></i>
-
 
 
 
@@ -609,7 +573,6 @@ My Account
 
 
 
-
 <button onclick="logout()">
 
 <i class="fa fa-sign-out"></i>
@@ -625,12 +588,12 @@ Logout
 
 
 
-
 </div>
 
 
 
 </div>
+
 
 
 
@@ -649,7 +612,6 @@ Logout
 
 
 <thead>
-
 
 <tr>
 
@@ -690,6 +652,7 @@ Logout
 
 
 
+
 <!-- EDIT POPUP -->
 
 
@@ -698,17 +661,16 @@ id="editModal">
 
 
 
-<div class="popup-box">
+<div class="popup">
 
 
 
-<button class="popup-close"
+<button class="close-btn"
 onclick="closeEdit()">
 
 ×
 
 </button>
-
 
 
 
@@ -720,13 +682,6 @@ onclick="closeEdit()">
 Edit Support
 
 </h2>
-
-
-
-
-
-<input type="hidden"
-id="editRow">
 
 
 
@@ -748,6 +703,7 @@ id="editRow">
 
 
 
+
 <label>Reference</label>
 
 <input id="reference">
@@ -756,10 +712,11 @@ id="editRow">
 
 
 
+
 <label>Date</label>
 
-<input type="date"
-id="date">
+<input type="date" id="date">
+
 
 
 
@@ -779,10 +736,14 @@ id="date">
 
 
 
-<div class="popup-buttons">
 
 
-<button class="save-btn"
+
+
+<div class="buttons">
+
+
+<button class="submit"
 onclick="updateSupport()">
 
 Submit
@@ -790,7 +751,8 @@ Submit
 </button>
 
 
-<button class="cancel-btn"
+
+<button class="cancel"
 onclick="closeEdit()">
 
 Cancel
@@ -799,7 +761,7 @@ Cancel
 
 
 
-<button class="delete-btn"
+<button class="delete"
 onclick="openDelete()">
 
 Delete
@@ -812,44 +774,21 @@ Delete
 
 
 
-
 </div>
+
 
 
 </div>
 <script>
 
 
-// ===============================
-// API URL
-// ===============================
-
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
-
 
 
 let currentRow="";
 
 let loadingTimer;
-
-
-
-
-
-// ===============================
-// LOGIN CHECK
-// ===============================
-
-
-if(localStorage.getItem("isLogin")!="true"){
-
-window.location.href="index.html";
-
-}
-
-
 
 
 
@@ -862,7 +801,7 @@ window.location.href="index.html";
 
 fetch("loading.html")
 
-.then(response=>response.text())
+.then(res=>res.text())
 
 .then(data=>{
 
@@ -872,12 +811,11 @@ document.getElementById("loadingArea").innerHTML=data;
 
 })
 
-.catch(error=>{
+.catch(err=>{
 
-console.log("Loading Error",error);
+console.log("Loading Error",err);
 
 });
-
 
 
 
@@ -903,6 +841,7 @@ document
 
 
 
+
 function myAccount(){
 
 
@@ -910,7 +849,6 @@ location.href="myaccount.html";
 
 
 }
-
 
 
 
@@ -924,7 +862,6 @@ location.href="index.html";
 
 
 }
-
 
 
 
@@ -942,12 +879,11 @@ location.href="dashboard.html";
 
 
 
+
 window.onload=function(){
 
 
-
-let user=
-localStorage.getItem("username");
+let user=localStorage.getItem("username");
 
 
 if(user){
@@ -958,13 +894,12 @@ document.getElementById("username").innerHTML=user;
 
 
 
-let pic=
-localStorage.getItem("picture");
+let img=localStorage.getItem("picture");
 
 
-if(pic){
+if(img){
 
-document.getElementById("profileImg").src=pic;
+document.getElementById("profileImg").src=img;
 
 }
 
@@ -984,7 +919,7 @@ loadSupport();
 
 
 // ===============================
-// LOAD SUPPORT
+// LOAD SUPPORT DATA
 // ===============================
 
 
@@ -1001,12 +936,9 @@ method:"POST",
 
 headers:{
 
-"Content-Type":
-
-"text/plain;charset=utf-8"
+"Content-Type":"text/plain;charset=utf-8"
 
 },
-
 
 body:JSON.stringify({
 
@@ -1029,22 +961,25 @@ let html="";
 if(data.data){
 
 
-
 data.data.forEach(item=>{
-
 
 
 html+=`
 
 <tr>
 
+
 <td>${item.customerId || ""}</td>
+
 
 <td>${item.problem || ""}</td>
 
+
 <td>${item.reference || ""}</td>
 
+
 <td>${item.date || ""}</td>
+
 
 
 <td>
@@ -1063,17 +998,18 @@ Edit
 </button>
 
 
+
 </td>
+
 
 
 </tr>
 
+
 `;
 
 
-
 });
-
 
 
 }
@@ -1083,8 +1019,8 @@ Edit
 document.getElementById("supportList").innerHTML=html;
 
 
-
 hideLoading();
+
 
 
 })
@@ -1098,8 +1034,7 @@ console.log(error);
 hideLoading();
 
 
-
-showSuccess(
+successPopup(
 "Error",
 "Server Error"
 );
@@ -1107,7 +1042,6 @@ showSuccess(
 
 
 });
-
 
 
 }
@@ -1121,16 +1055,14 @@ showSuccess(
 
 
 // ===============================
-// EDIT LOAD
+// EDIT OPEN
 // ===============================
 
 
 function editSupport(row){
 
 
-
 currentRow=row;
-
 
 
 showLoading("Loading Data...");
@@ -1143,9 +1075,7 @@ method:"POST",
 
 headers:{
 
-"Content-Type":
-
-"text/plain;charset=utf-8"
+"Content-Type":"text/plain;charset=utf-8"
 
 },
 
@@ -1156,12 +1086,10 @@ action:"getSingleSupport",
 
 row:row
 
-
 })
 
 
 })
-
 
 .then(res=>res.json())
 
@@ -1169,41 +1097,21 @@ row:row
 .then(data=>{
 
 
+document.getElementById("customerId").value=data.customerId || "";
 
-document.getElementById("customerId").value=
-data.customerId || "";
+document.getElementById("problem").value=data.problem || "";
 
+document.getElementById("reference").value=data.reference || "";
 
+document.getElementById("date").value=data.date || "";
 
-document.getElementById("problem").value=
-data.problem || "";
+document.getElementById("support").value=data.support || "";
 
-
-
-document.getElementById("reference").value=
-data.reference || "";
-
-
-
-document.getElementById("date").value=
-data.date || "";
-
-
-
-document.getElementById("support").value=
-data.support || "";
-
-
-
-document.getElementById("supportWork").value=
-data.supportWork || "";
-
-
+document.getElementById("supportWork").value=data.supportWork || "";
 
 
 
 hideLoading();
-
 
 
 document
@@ -1212,20 +1120,7 @@ document
 
 
 
-})
-
-
-.catch(error=>{
-
-
-console.log(error);
-
-
-hideLoading();
-
-
 });
-
 
 
 }
@@ -1236,11 +1131,6 @@ hideLoading();
 
 
 
-
-
-// ===============================
-// CLOSE EDIT
-// ===============================
 
 
 function closeEdit(){
@@ -1269,7 +1159,6 @@ document
 function updateSupport(){
 
 
-
 showLoading("Updating...");
 
 
@@ -1280,9 +1169,7 @@ method:"POST",
 
 headers:{
 
-"Content-Type":
-
-"text/plain;charset=utf-8"
+"Content-Type":"text/plain;charset=utf-8"
 
 },
 
@@ -1326,10 +1213,7 @@ document.getElementById("supportWork").value
 
 })
 
-
-
 .then(res=>res.json())
-
 
 .then(data=>{
 
@@ -1337,12 +1221,10 @@ document.getElementById("supportWork").value
 hideLoading();
 
 
-
 closeEdit();
 
 
-
-showSuccess(
+successPopup(
 "Success",
 "Updated Successfully"
 );
@@ -1355,16 +1237,17 @@ loadSupport();
 
 })
 
-.catch(error=>{
+.catch(err=>{
 
 
 hideLoading();
 
 
-showSuccess(
+successPopup(
 "Error",
 "Update Failed"
 );
+
 
 
 });
@@ -1379,40 +1262,24 @@ showSuccess(
 
 
 
-
 // ===============================
-// DELETE POPUP
+// DELETE
 // ===============================
 
 
 function openDelete(){
 
 
-if(!document.getElementById("deleteBox")){
+let ok=confirm("Delete this support?");
 
 
-createDeleteBox();
+if(ok){
 
 
-}
-
-
-document.getElementById("deleteBox")
-.style.display="flex";
+deleteSupport();
 
 
 }
-
-
-
-
-
-
-function closeDelete(){
-
-
-document.getElementById("deleteBox")
-.style.display="none";
 
 
 }
@@ -1426,7 +1293,6 @@ document.getElementById("deleteBox")
 function deleteSupport(){
 
 
-
 showLoading("Deleting...");
 
 
@@ -1437,9 +1303,7 @@ method:"POST",
 
 headers:{
 
-"Content-Type":
-
-"text/plain;charset=utf-8"
+"Content-Type":"text/plain;charset=utf-8"
 
 },
 
@@ -1450,10 +1314,12 @@ action:"deleteSupport",
 
 row:currentRow
 
+
 })
 
 
 })
+
 
 .then(res=>res.json())
 
@@ -1464,13 +1330,10 @@ row:currentRow
 hideLoading();
 
 
-closeDelete();
-
-
 closeEdit();
 
 
-showSuccess(
+successPopup(
 "Deleted",
 "Deleted Successfully"
 );
@@ -1480,132 +1343,26 @@ showSuccess(
 loadSupport();
 
 
+
 })
 
-.catch(error=>{
+.catch(err=>{
 
 
 hideLoading();
 
 
+successPopup(
+"Error",
+"Delete Failed"
+);
+
+
+
 });
 
 
-
 }
-  <script>
-
-
-// ===============================
-// CREATE DELETE POPUP
-// ===============================
-
-
-function createDeleteBox(){
-
-
-let div=document.createElement("div");
-
-
-div.id="deleteBox";
-
-
-div.style.position="fixed";
-
-div.style.top="0";
-
-div.style.left="0";
-
-div.style.width="100%";
-
-div.style.height="100%";
-
-div.style.background="rgba(0,0,0,.45)";
-
-div.style.display="flex";
-
-div.style.alignItems="center";
-
-div.style.justifyContent="center";
-
-div.style.zIndex="3000";
-
-
-
-
-div.innerHTML=`
-
-<div style="
-background:white;
-padding:30px;
-border-radius:20px;
-text-align:center;
-width:320px;
-box-shadow:0 20px 50px rgba(0,0,0,.3);
-">
-
-
-<h2>
-<i class="fa fa-trash"
-style="color:#ef4444"></i>
-
-Delete Support?
-</h2>
-
-
-<p style="margin:15px 0">
-
-Are you sure you want to delete?
-
-</p>
-
-
-<button onclick="deleteSupport()"
-
-style="
-background:#ef4444;
-color:white;
-border:none;
-padding:10px 20px;
-border-radius:10px;
-cursor:pointer;
-margin:5px;
-">
-
-Yes Delete
-
-</button>
-
-
-
-<button onclick="closeDelete()"
-
-style="
-background:#64748b;
-color:white;
-border:none;
-padding:10px 20px;
-border-radius:10px;
-cursor:pointer;
-margin:5px;
-">
-
-Cancel
-
-</button>
-
-
-</div>
-
-`;
-
-
-
-document.body.appendChild(div);
-
-
-}
-
 
 
 
@@ -1619,26 +1376,10 @@ document.body.appendChild(div);
 // ===============================
 
 
-function showSuccess(title,msg){
-
-
-
-let old=document.getElementById("successBox");
-
-
-if(old){
-
-old.remove();
-
-}
-
+function successPopup(title,msg){
 
 
 let box=document.createElement("div");
-
-
-box.id="successBox";
-
 
 
 box.style.position="fixed";
@@ -1651,7 +1392,7 @@ box.style.width="100%";
 
 box.style.height="100%";
 
-box.style.background="rgba(0,0,0,.45)";
+box.style.background="rgba(0,0,0,.4)";
 
 box.style.display="flex";
 
@@ -1659,9 +1400,7 @@ box.style.alignItems="center";
 
 box.style.justifyContent="center";
 
-box.style.zIndex="4000";
-
-
+box.style.zIndex="5000";
 
 
 
@@ -1669,54 +1408,36 @@ box.innerHTML=`
 
 <div style="
 background:white;
-padding:35px;
-border-radius:25px;
+padding:30px;
+border-radius:20px;
 text-align:center;
-width:330px;
 ">
 
 
-<i class="fa fa-circle-check"
+<h2 style="color:#10b981">
 
-style="
-font-size:55px;
-color:#10b981;
-"></i>
-
-
-
-<h2 style="margin-top:15px">
-
-${title}
+✓ ${title}
 
 </h2>
 
 
-
-<p style="margin:15px 0">
-
-${msg}
-
-</p>
+<p>${msg}</p>
 
 
-
-
-<button onclick="closeSuccess()"
+<button onclick="this.parentElement.parentElement.remove()"
 
 style="
+margin-top:15px;
+padding:10px 25px;
+border:none;
+border-radius:10px;
 background:#10b981;
 color:white;
-border:none;
-padding:10px 30px;
-border-radius:10px;
-cursor:pointer;
 ">
 
 OK
 
 </button>
-
 
 
 </div>
@@ -1738,50 +1459,19 @@ document.body.appendChild(box);
 
 
 
-
-function closeSuccess(){
-
-
-let box=document.getElementById("successBox");
-
-
-if(box){
-
-box.remove();
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-
 // ===============================
 // LOADING CONTROL
 // ===============================
 
 
-function showLoading(text="Loading..."){
+function showLoading(text){
 
 
 
 let box=document.getElementById("loadingBox");
 
 
-
-if(!box){
-
-console.log("loading.html not loaded");
-
-return;
-
-}
+if(!box)return;
 
 
 
@@ -1797,13 +1487,6 @@ if(txt){
 txt.innerHTML=text;
 
 }
-
-
-
-let percent=document.getElementById("percent");
-
-
-let bar=document.getElementById("progressBar");
 
 
 
@@ -1824,24 +1507,30 @@ if(count<100){
 count++;
 
 
+let p=document.getElementById("percent");
 
-if(percent){
-
-percent.innerHTML=count+"%";
-
-}
+let b=document.getElementById("progressBar");
 
 
 
-if(bar){
+if(p){
 
-bar.style.width=count+"%";
+p.innerHTML=count+"%";
 
 }
 
 
 
+if(b){
+
+b.style.width=count+"%";
+
 }
+
+
+
+}
+
 
 
 },25);
@@ -1857,9 +1546,7 @@ bar.style.width=count+"%";
 
 
 
-
 function hideLoading(){
-
 
 
 clearInterval(loadingTimer);
@@ -1869,51 +1556,17 @@ clearInterval(loadingTimer);
 let box=document.getElementById("loadingBox");
 
 
-
-let percent=document.getElementById("percent");
-
-
-let bar=document.getElementById("progressBar");
-
-
-
-if(percent){
-
-percent.innerHTML="100%";
-
-}
-
-
-
-if(bar){
-
-bar.style.width="100%";
-
-}
-
-
-
-
-
-setTimeout(()=>{
-
-
 if(box){
+
 
 box.style.display="none";
 
-}
-
-
-
-},400);
-
-
 
 }
 
 
 
+}
 
 
 
