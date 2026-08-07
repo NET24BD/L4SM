@@ -14,6 +14,7 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
+
 <style>
 
 
@@ -21,16 +22,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:"Segoe UI",Arial,sans-serif;
+font-family:Arial,sans-serif;
 }
-
 
 
 body{
 
-background:linear-gradient(135deg,#ecfdf5,#eff6ff);
-
-min-height:100vh;
+background:linear-gradient(135deg,#ecfdf5,#f1f5f9);
 
 padding:20px;
 
@@ -38,17 +36,15 @@ padding:20px;
 
 
 
-
-/* ================= HEADER ================= */
-
+/* HEADER */
 
 .header{
 
 background:white;
 
-border-radius:20px;
+padding:18px 25px;
 
-padding:15px 20px;
+border-radius:18px;
 
 display:flex;
 
@@ -56,13 +52,13 @@ justify-content:space-between;
 
 align-items:center;
 
-box-shadow:0 10px 30px rgba(0,0,0,.15);
+box-shadow:0 10px 30px rgba(0,0,0,.12);
 
 }
 
 
 
-.header-left{
+.left{
 
 display:flex;
 
@@ -73,10 +69,9 @@ gap:15px;
 }
 
 
+.back{
 
-.back-btn{
-
-background:#065f46;
+background:linear-gradient(135deg,#065f46,#10b981);
 
 color:white;
 
@@ -94,9 +89,9 @@ font-weight:bold;
 
 
 
-.back-btn:hover{
+.back:hover{
 
-background:#10b981;
+transform:scale(1.05);
 
 }
 
@@ -105,19 +100,18 @@ background:#10b981;
 
 
 
-/* ================= PROFILE ================= */
-
+/* PROFILE */
 
 
 .profile{
-
-position:relative;
 
 display:flex;
 
 align-items:center;
 
 gap:10px;
+
+position:relative;
 
 cursor:pointer;
 
@@ -127,25 +121,18 @@ cursor:pointer;
 
 .profile img{
 
-width:50px;
+width:48px;
 
-height:50px;
+height:48px;
 
 border-radius:50%;
 
-border:3px solid #10b981;
-
 object-fit:cover;
 
-}
-
-
-
-.username{
-
-font-weight:700;
+border:3px solid #10b981;
 
 }
+
 
 
 
@@ -161,7 +148,7 @@ top:60px;
 
 background:white;
 
-width:200px;
+width:190px;
 
 padding:10px;
 
@@ -169,7 +156,7 @@ border-radius:15px;
 
 box-shadow:0 10px 30px rgba(0,0,0,.2);
 
-z-index:1000;
+z-index:100;
 
 }
 
@@ -215,12 +202,10 @@ background:#ecfdf5;
 
 
 
-
-/* ================= TABLE ================= */
-
+/* TABLE */
 
 
-.table-card{
+.table-box{
 
 margin-top:25px;
 
@@ -228,9 +213,9 @@ background:white;
 
 padding:20px;
 
-border-radius:20px;
+border-radius:18px;
 
-box-shadow:0 10px 30px rgba(0,0,0,.12);
+box-shadow:0 10px 30px rgba(0,0,0,.1);
 
 overflow:auto;
 
@@ -250,7 +235,7 @@ border-collapse:collapse;
 
 th{
 
-background:#065f46;
+background:linear-gradient(135deg,#065f46,#10b981);
 
 color:white;
 
@@ -272,12 +257,11 @@ border-bottom:1px solid #ddd;
 
 
 
-tr:hover{
+tr:hover td{
 
 background:#ecfdf5;
 
 }
-
 
 
 
@@ -289,9 +273,9 @@ color:white;
 
 border:none;
 
-padding:8px 16px;
+padding:8px 18px;
 
-border-radius:10px;
+border-radius:8px;
 
 cursor:pointer;
 
@@ -299,23 +283,13 @@ cursor:pointer;
 
 
 
-.edit-btn:hover{
-
-background:#1d4ed8;
-
-}
 
 
+/* LOADING */
 
+#loadingPage{
 
-
-
-
-
-/* ================= LOADING AREA ================= */
-
-
-#loadingArea{
+display:none;
 
 position:fixed;
 
@@ -327,7 +301,21 @@ width:100%;
 
 height:100%;
 
-z-index:9999;
+background:rgba(0,0,0,.35);
+
+z-index:5000;
+
+}
+
+
+
+#loadingPage iframe{
+
+width:100%;
+
+height:100%;
+
+border:none;
 
 }
 
@@ -338,7 +326,8 @@ z-index:9999;
 
 
 
-/* ================= POPUP COMMON ================= */
+
+/* EDIT POPUP */
 
 
 .modal{
@@ -357,9 +346,9 @@ height:100%;
 
 background:rgba(0,0,0,.45);
 
-align-items:center;
-
 justify-content:center;
+
+align-items:center;
 
 z-index:2000;
 
@@ -375,28 +364,32 @@ display:flex;
 
 
 
-.popup{
 
-background:white;
-
-width:450px;
-
-max-width:95%;
-
-padding:30px;
-
-border-radius:25px;
+.box{
 
 position:relative;
 
-box-shadow:0 20px 50px rgba(0,0,0,.3);
+background:white;
+
+width:430px;
+
+padding:30px;
+
+border-radius:22px;
+
+box-shadow:0 20px 60px rgba(0,0,0,.3);
+
+max-height:90vh;
+
+overflow:auto;
 
 }
 
 
 
 
-.close-btn{
+
+.close-icon{
 
 position:absolute;
 
@@ -416,7 +409,7 @@ background:#ef4444;
 
 color:white;
 
-font-size:18px;
+font-size:20px;
 
 cursor:pointer;
 
@@ -424,15 +417,22 @@ cursor:pointer;
 
 
 
+.close-icon:hover{
 
-.popup h2{
+transform:rotate(90deg);
+
+}
+
+
+
+
+.box h2{
 
 color:#065f46;
 
 margin-bottom:15px;
 
 }
-
 
 
 
@@ -444,6 +444,8 @@ margin-top:10px;
 
 font-weight:bold;
 
+color:#334155;
+
 }
 
 
@@ -451,16 +453,28 @@ font-weight:bold;
 input,
 textarea{
 
-
 width:100%;
 
-padding:10px;
+padding:11px;
 
 margin-top:5px;
 
 border:1px solid #cbd5e1;
 
 border-radius:10px;
+
+outline:none;
+
+}
+
+
+
+input:focus,
+textarea:focus{
+
+border-color:#10b981;
+
+box-shadow:0 0 8px #a7f3d0;
 
 }
 
@@ -478,24 +492,53 @@ resize:none;
 
 
 
+.btns{
 
-.popup-buttons{
+margin-top:20px;
 
 display:flex;
 
 gap:10px;
 
-margin-top:20px;
+}
+
+
+
+.submit{
+
+background:#10b981;
+
+color:white;
 
 }
 
 
 
-.popup-buttons button{
+.cancel{
 
-padding:11px 18px;
+background:#64748b;
+
+color:white;
+
+}
+
+
+
+.delete{
+
+background:#ef4444;
+
+color:white;
+
+}
+
+
+
+.btns button{
 
 border:none;
+
+padding:11px 18px;
 
 border-radius:10px;
 
@@ -507,44 +550,16 @@ font-weight:bold;
 
 
 
-.save-btn{
-
-background:#10b981;
-
-color:white;
-
-}
-
-
-
-.cancel-btn{
-
-background:#64748b;
-
-color:white;
-
-}
-
-
-
-.delete-btn{
-
-background:#ef4444;
-
-color:white;
-
-}
 
 
 
 
 
 
-/* ================= DELETE POPUP ================= */
+/* DELETE POPUP */
 
 
-
-.confirm-modal{
+.confirm-box{
 
 display:none;
 
@@ -560,19 +575,21 @@ height:100%;
 
 background:rgba(0,0,0,.45);
 
-align-items:center;
-
 justify-content:center;
 
-z-index:3000;
+align-items:center;
+
+z-index:6000;
 
 }
 
 
 
-.confirm-box{
+.confirm-content{
 
 background:white;
+
+width:330px;
 
 padding:30px;
 
@@ -580,19 +597,31 @@ border-radius:20px;
 
 text-align:center;
 
+box-shadow:0 20px 50px rgba(0,0,0,.3);
+
 }
 
 
 
-.confirm-box button{
+.confirm-content h3{
 
-padding:10px 20px;
+color:#dc2626;
+
+margin-bottom:10px;
+
+}
+
+
+
+.confirm-content button{
+
+margin:8px;
+
+padding:10px 18px;
 
 border:none;
 
 border-radius:10px;
-
-margin:10px;
 
 cursor:pointer;
 
@@ -600,9 +629,9 @@ cursor:pointer;
 
 
 
-.yes-btn{
+.yes-delete{
 
-background:#ef4444;
+background:#dc2626;
 
 color:white;
 
@@ -610,7 +639,7 @@ color:white;
 
 
 
-.no-btn{
+.no-delete{
 
 background:#64748b;
 
@@ -622,11 +651,13 @@ color:white;
 
 
 
-/* ================= SUCCESS ================= */
 
 
 
-.success-modal{
+/* SUCCESS POPUP */
+
+
+.success-box{
 
 display:none;
 
@@ -642,53 +673,81 @@ height:100%;
 
 background:rgba(0,0,0,.45);
 
-align-items:center;
-
 justify-content:center;
 
-z-index:4000;
+align-items:center;
+
+z-index:7000;
 
 }
 
 
 
-.success-box{
+.success-content{
 
 background:white;
 
+width:340px;
+
 padding:30px;
 
-border-radius:25px;
+border-radius:22px;
 
 text-align:center;
 
-}
-
-
-
-.success-box i{
-
-font-size:50px;
-
-color:#10b981;
+box-shadow:0 20px 60px rgba(0,0,0,.3);
 
 }
 
 
 
-.success-box button{
+.success-icon{
 
-margin-top:15px;
+width:70px;
 
-padding:10px 30px;
-
-border:none;
-
-border-radius:10px;
+height:70px;
 
 background:#10b981;
 
 color:white;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:35px;
+
+margin:auto;
+
+}
+
+
+
+.success-content h3{
+
+color:#10b981;
+
+margin:15px;
+
+}
+
+
+
+.success-content button{
+
+background:#10b981;
+
+color:white;
+
+border:none;
+
+padding:10px 35px;
+
+border-radius:10px;
 
 cursor:pointer;
 
@@ -698,45 +757,31 @@ cursor:pointer;
 
 </style>
 
-
 </head>
-
 
 
 <body>
 
 
 
-<!-- Loading -->
-
-<div id="loadingArea"></div>
+<div id="loadingPage"></div>
 
 
-
-
-
-
-<!-- HEADER -->
 
 <div class="header">
 
 
-
-<div class="header-left">
-
-
-<button class="back-btn"
-onclick="goDashboard()">
+<div class="left">
 
 
+<button class="back"
+onclick="location.href='dashboard.html'">
 
 <i class="fa fa-arrow-left"></i>
 
 Back
 
-
 </button>
-
 
 
 <h2>
@@ -748,11 +793,7 @@ Pending Support
 </h2>
 
 
-
 </div>
-
-
-
 
 
 
@@ -768,11 +809,8 @@ src="assets/profile.png">
 
 
 
-<span class="username"
-id="username">
-
+<span id="username">
 User
-
 </span>
 
 
@@ -801,7 +839,7 @@ My Account
 
 <button onclick="logout()">
 
-<i class="fa fa-sign-out"></i>
+<i class="fa fa-right-from-bracket"></i>
 
 Logout
 
@@ -812,84 +850,46 @@ Logout
 </div>
 
 
-
-</div>
-
-
 </div>
 
 
 
-
-
-
-
-
-<!-- TABLE -->
-
-<div class="table-card">
-
-
-<table>
-
-
-<thead>
-
-<tr>
-
-<th>Customer ID</th>
-
-<th>Problem</th>
-
-<th>Reference</th>
-
-<th>Date</th>
-
-<th>Action</th>
-
-
-</tr>
-
-
-</thead>
-
-
+</div>
+<!-- SUPPORT TABLE BODY -->
 
 <tbody id="supportList">
 
-
 </tbody>
-
-
 
 </table>
 
-
 </div>
-<!-- ================= EDIT POPUP ================= -->
+
+
+
+
+
+<!-- EDIT POPUP -->
 
 
 <div class="modal" id="editModal">
 
 
-<div class="popup">
+<div class="box">
 
 
-
-<button class="close-btn"
+<button class="close-icon"
 onclick="closeEdit()">
 
-<i class="fa fa-xmark"></i>
+<i class="fa-solid fa-xmark"></i>
 
 </button>
 
 
 
-
-
 <h2>
 
-<i class="fa fa-pen"></i>
+<i class="fa-solid fa-pen-to-square"></i>
 
 Edit Support
 
@@ -898,10 +898,7 @@ Edit Support
 
 
 
-
 <input type="hidden" id="editRow">
-
-
 
 
 
@@ -911,14 +908,9 @@ Edit Support
 
 
 
-
-
 <label>Problem</label>
 
 <textarea id="problem"></textarea>
-
-
-
 
 
 
@@ -930,22 +922,15 @@ Edit Support
 
 
 
-
-
 <label>Date</label>
 
-<input type="date" id="supportDate">
-
-
+<input type="date" id="date">
 
 
 
 <label>Support</label>
 
 <input id="support">
-
-
-
 
 
 
@@ -957,62 +942,42 @@ Edit Support
 
 
 
-
-<label>Support Time</label>
-
-<input id="supportTime">
+<div class="btns">
 
 
-
-
-
-
-
-<div class="popup-buttons">
-
-
-<button class="save-btn"
+<button class="submit"
 onclick="updateSupport()">
-
-
-<i class="fa fa-check"></i>
 
 Submit
 
-
 </button>
 
 
 
-
-
-<button class="cancel-btn"
+<button class="cancel"
 onclick="closeEdit()">
-
 
 Cancel
 
-
 </button>
 
 
 
-
-
-<button class="delete-btn"
+<button class="delete"
 onclick="openDelete()">
-
-
-
-<i class="fa fa-trash"></i>
 
 Delete
 
-
 </button>
 
 
 
+</div>
+
+
+
+</div>
+
 
 </div>
 
@@ -1020,28 +985,19 @@ Delete
 
 
 
-</div>
-
-
-</div>
 
 
 
 
 
+<!-- DELETE CONFIRM -->
 
 
+<div class="confirm-box"
+id="confirmBox">
 
 
-
-<!-- ================= DELETE ================= -->
-
-
-<div class="confirm-modal"
-id="deleteBox">
-
-
-<div class="confirm-box">
+<div class="confirm-content">
 
 
 <h3>
@@ -1053,58 +1009,56 @@ Delete Support?
 
 <p>
 
-Are you sure?
+Are you sure you want to delete this entry?
 
 </p>
 
 
 
-<button class="yes-btn"
-onclick="deleteSupport()">
-
+<button class="yes-delete"
+onclick="confirmDelete()">
 
 Yes Delete
 
-
 </button>
 
 
-
-<button class="no-btn"
+<button class="no-delete"
 onclick="closeDelete()">
-
 
 Cancel
 
-
 </button>
 
 
+</div>
 
 </div>
 
 
-</div>
 
 
 
 
 
 
+<!-- SUCCESS POPUP -->
 
 
-
-<!-- ================= SUCCESS ================= -->
-
-
-<div class="success-modal"
+<div class="success-box"
 id="successBox">
 
 
-<div class="success-box">
+<div class="success-content">
 
 
-<i class="fa fa-circle-check"></i>
+
+<div class="success-icon">
+
+<i class="fa-solid fa-check"></i>
+
+</div>
+
 
 
 <h3 id="successTitle">
@@ -1116,9 +1070,10 @@ Success
 
 <p id="successMessage">
 
-Done
+Completed Successfully
 
 </p>
+
 
 
 
@@ -1146,33 +1101,52 @@ OK
 <script>
 
 
-// ===============================
-// API
-// ===============================
-
-
 const API_URL =
-
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
 
-let currentRow=null;
+let currentRow="";
 
 
 
 
 
 
-// ===============================
-// LOGIN CHECK
-// ===============================
 
 
-if(localStorage.getItem("isLogin")!="true"){
+// ==========================
+// LOADING
+// ==========================
 
 
-window.location.href="index.html";
+function showLoading(){
+
+
+document.getElementById("loadingPage").style.display="block";
+
+
+document.getElementById("loadingPage").innerHTML=
+
+`
+
+<iframe src="loading.html"></iframe>
+
+`;
+
+
+}
+
+
+
+
+function hideLoading(){
+
+
+document.getElementById("loadingPage").style.display="none";
+
+
+document.getElementById("loadingPage").innerHTML="";
 
 
 }
@@ -1185,144 +1159,16 @@ window.location.href="index.html";
 
 
 
-// ===============================
-// LOADING LOAD
-// ===============================
 
-
-fetch("loading.html")
-
-.then(res=>res.text())
-
-.then(data=>{
-
-
-document.getElementById("loadingArea").innerHTML=data;
-
-
-});
-
-
-
-
-
-
-
-
-
-// ===============================
-// PROFILE
-// ===============================
-
-
-function toggleProfile(){
-
-
-document
-.getElementById("profileMenu")
-.classList.toggle("show");
-
-
-}
-
-
-
-
-
-function myAccount(){
-
-
-window.location.href="myaccount.html";
-
-
-}
-
-
-
-function logout(){
-
-
-localStorage.clear();
-
-
-window.location.href="index.html";
-
-
-}
-
-
-
-function goDashboard(){
-
-
-window.location.href="dashboard.html";
-
-
-}
-
-
-
-
-
-
-
-
-// USER INFO
-
-
-window.onload=function(){
-
-
-
-let user=
-localStorage.getItem("username");
-
-
-
-if(user){
-
-document.getElementById("username").innerHTML=user;
-
-}
-
-
-
-let pic=
-localStorage.getItem("picture");
-
-
-
-if(pic){
-
-document.getElementById("profileImg").src=pic;
-
-}
-
-
-
-loadSupport();
-
-
-
-};
-
-
-
-
-
-
-
-
-
-// ===============================
-// LOAD SUPPORT DATA
-// ===============================
+// ==========================
+// LOAD SUPPORT
+// ==========================
 
 
 function loadSupport(){
 
 
-showLoading("Loading Support...");
+showLoading();
 
 
 
@@ -1330,26 +1176,14 @@ fetch(API_URL,{
 
 method:"POST",
 
-headers:{
-
-"Content-Type":
-
-"text/plain;charset=utf-8"
-
-},
-
-
 body:JSON.stringify({
-
 
 action:"getPendingSupport"
 
-
 })
 
 
 })
-
 
 
 .then(res=>res.json())
@@ -1358,20 +1192,15 @@ action:"getPendingSupport"
 .then(data=>{
 
 
-
 let html="";
-
-
-
-if(data.success){
 
 
 
 data.data.forEach(item=>{
 
 
+html += `
 
-html+=`
 
 <tr>
 
@@ -1397,7 +1226,7 @@ html+=`
 onclick="editSupport(${item.row})">
 
 
-<i class="fa fa-edit"></i>
+<i class="fa fa-pen"></i>
 
 Edit
 
@@ -1405,11 +1234,12 @@ Edit
 </button>
 
 
-
 </td>
 
 
+
 </tr>
+
 
 `;
 
@@ -1419,22 +1249,8 @@ Edit
 
 
 
+
 document.getElementById("supportList").innerHTML=html;
-
-
-
-}
-
-else{
-
-
-showSuccess(
-"Error",
-data.message
-);
-
-
-}
 
 
 
@@ -1445,23 +1261,16 @@ hideLoading();
 })
 
 
-.catch(error=>{
-
-
-console.log(error);
+.catch(()=>{
 
 
 hideLoading();
 
 
 showSuccess(
-
-"Server Error",
-
-"Data Load Failed"
-
+"Error",
+"Server Connection Error"
 );
-
 
 
 });
@@ -1478,10 +1287,9 @@ showSuccess(
 
 
 
-
-// ===============================
-// EDIT LOAD
-// ===============================
+// ==========================
+// EDIT
+// ==========================
 
 
 function editSupport(row){
@@ -1491,8 +1299,7 @@ function editSupport(row){
 currentRow=row;
 
 
-
-showLoading("Loading Data...");
+showLoading();
 
 
 
@@ -1500,30 +1307,15 @@ fetch(API_URL,{
 
 method:"POST",
 
-
-headers:{
-
-
-"Content-Type":
-
-"text/plain;charset=utf-8"
-
-
-},
-
-
 body:JSON.stringify({
 
-
 action:"getSingleSupport",
-
 
 row:row
 
 
 })
 
-
 })
 
 
@@ -1534,20 +1326,22 @@ row:row
 .then(data=>{
 
 
+customerId.value=data.customerId || "";
 
-document.getElementById("customerId").value=data.customerId || "";
+problem.value=data.problem || "";
 
-document.getElementById("problem").value=data.problem || "";
+reference.value=data.reference || "";
 
-document.getElementById("reference").value=data.reference || "";
+date.value=data.date || "";
 
-document.getElementById("supportDate").value=data.date || "";
+support.value=data.support || "";
 
-document.getElementById("support").value=data.support || "";
+supportWork.value=data.supportWork || "";
 
-document.getElementById("supportWork").value=data.supportWork || "";
 
-document.getElementById("supportTime").value=data.supportTime || "";
+
+
+editModal.classList.add("show");
 
 
 
@@ -1555,43 +1349,30 @@ hideLoading();
 
 
 
-document
-.getElementById("editModal")
-.classList.add("show");
-
-
-
 });
 
 
-}
-
-
-
-
-
-
-function closeEdit(){
-
-
-document
-.getElementById("editModal")
-.classList.remove("show");
-
 
 }
-<script>
 
 
-// ===============================
-// UPDATE SUPPORT
-// ===============================
+
+
+
+
+
+
+
+
+// ==========================
+// UPDATE
+// ==========================
 
 
 function updateSupport(){
 
 
-showLoading("Updating...");
+showLoading();
 
 
 
@@ -1599,51 +1380,23 @@ fetch(API_URL,{
 
 method:"POST",
 
-headers:{
-
-"Content-Type":
-
-"text/plain;charset=utf-8"
-
-},
-
-
 body:JSON.stringify({
-
 
 action:"updateSupport",
 
-
 row:currentRow,
 
+customerId:customerId.value,
 
-customerId:
-document.getElementById("customerId").value,
+problem:problem.value,
 
+reference:reference.value,
 
-problem:
-document.getElementById("problem").value,
+date:date.value,
 
+support:support.value,
 
-reference:
-document.getElementById("reference").value,
-
-
-date:
-document.getElementById("supportDate").value,
-
-
-support:
-document.getElementById("support").value,
-
-
-supportWork:
-document.getElementById("supportWork").value,
-
-
-supportTime:
-document.getElementById("supportTime").value
-
+supportWork:supportWork.value
 
 
 })
@@ -1656,15 +1409,11 @@ document.getElementById("supportTime").value
 .then(res=>res.json())
 
 
-.then(data=>{
-
+.then(()=>{
 
 
 hideLoading();
 
-
-
-if(data.success){
 
 
 closeEdit();
@@ -1672,11 +1421,8 @@ closeEdit();
 
 
 showSuccess(
-
-"Success",
-
+"Updated!",
 "Support Updated Successfully"
-
 );
 
 
@@ -1685,51 +1431,9 @@ loadSupport();
 
 
 
-}
-
-else{
-
-
-showSuccess(
-
-"Error",
-
-data.message || "Update Failed"
-
-);
-
-
-}
-
-
-
-})
-
-
-
-.catch(error=>{
-
-
-console.log(error);
-
-
-hideLoading();
-
-
-showSuccess(
-
-"Error",
-
-"Server Error"
-
-);
-
-
-
 });
 
 
-
 }
 
 
@@ -1740,38 +1444,25 @@ showSuccess(
 
 
 
-// ===============================
-// DELETE OPEN
-// ===============================
+// ==========================
+// DELETE
+// ==========================
 
 
 function openDelete(){
 
 
-document
-.getElementById("deleteBox")
-.style.display="flex";
+confirmBox.style.display="flex";
 
 
 }
 
-
-
-
-
-
-
-// ===============================
-// DELETE CLOSE
-// ===============================
 
 
 function closeDelete(){
 
 
-document
-.getElementById("deleteBox")
-.style.display="none";
+confirmBox.style.display="none";
 
 
 }
@@ -1782,18 +1473,10 @@ document
 
 
 
+function confirmDelete(){
 
 
-// ===============================
-// DELETE SUPPORT
-// ===============================
-
-
-function deleteSupport(){
-
-
-
-showLoading("Deleting...");
+showLoading();
 
 
 
@@ -1801,49 +1484,29 @@ fetch(API_URL,{
 
 method:"POST",
 
-headers:{
-
-"Content-Type":
-
-"text/plain;charset=utf-8"
-
-},
-
-
 body:JSON.stringify({
 
-
 action:"deleteSupport",
-
 
 row:currentRow
 
 
-
 })
 
 
 })
-
 
 
 .then(res=>res.json())
 
 
-.then(data=>{
-
+.then(()=>{
 
 
 hideLoading();
 
 
-
 closeDelete();
-
-
-
-if(data.success){
-
 
 
 closeEdit();
@@ -1851,11 +1514,8 @@ closeEdit();
 
 
 showSuccess(
-
-"Deleted",
-
+"Deleted!",
 "Support Deleted Successfully"
-
 );
 
 
@@ -1864,52 +1524,29 @@ loadSupport();
 
 
 
-}
-
-else{
-
-
-showSuccess(
-
-"Error",
-
-data.message || "Delete Failed"
-
-);
-
-
-
-}
-
-
-
-})
-
-
-
-.catch(error=>{
-
-
-console.log(error);
-
-
-hideLoading();
-
-
-
-showSuccess(
-
-"Error",
-
-"Delete Server Error"
-
-);
-
-
-
 });
 
 
+}
+
+
+
+
+
+
+
+
+
+// ==========================
+// POPUP CLOSE
+// ==========================
+
+
+function closeEdit(){
+
+
+editModal.classList.remove("show");
+
 
 }
 
@@ -1921,42 +1558,31 @@ showSuccess(
 
 
 
-// ===============================
-// SUCCESS POPUP
-// ===============================
+// ==========================
+// SUCCESS
+// ==========================
 
 
 function showSuccess(title,msg){
 
 
-
-document.getElementById("successTitle")
-.innerHTML=title;
+successTitle.innerHTML=title;
 
 
-
-document.getElementById("successMessage")
-.innerHTML=msg;
+successMessage.innerHTML=msg;
 
 
-
-document
-.getElementById("successBox")
-.style.display="flex";
-
+successBox.style.display="flex";
 
 
 }
-
 
 
 
 function closeSuccess(){
 
 
-document
-.getElementById("successBox")
-.style.display="none";
+successBox.style.display="none";
 
 
 }
@@ -1969,115 +1595,59 @@ document
 
 
 
-// ===============================
-// LOADING SYSTEM
-// ===============================
+// ==========================
+// PROFILE
+// ==========================
 
 
-let loadingTimer;
+function toggleProfile(){
 
 
-
-function showLoading(text="Loading..."){
-
-
-
-let box=document.getElementById("loadingBox");
-
-
-
-if(!box){
-
-console.log("Loading box missing");
-
-return;
-
-}
-
-
-
-box.style.display="block";
-
-
-
-let loadingText=
-document.getElementById("loadingText");
-
-
-
-let percent=
-document.getElementById("percent");
-
-
-
-let bar=
-document.getElementById("progressBar");
-
-
-
-if(loadingText){
-
-loadingText.innerHTML=text;
-
-}
-
-
-
-let count=0;
-
-
-
-clearInterval(loadingTimer);
-
-
-
-if(percent){
-
-percent.innerHTML="0%";
-
-}
-
-
-
-if(bar){
-
-bar.style.width="0%";
-
-}
-
-
-
-loadingTimer=setInterval(()=>{
-
-
-if(count<100){
-
-
-count++;
-
-
-if(percent){
-
-percent.innerHTML=count+"%";
-
-}
-
-
-
-if(bar){
-
-bar.style.width=count+"%";
-
-}
-
+profileMenu.classList.toggle("show");
 
 
 }
 
 
 
-},25);
 
+
+username.innerHTML =
+localStorage.getItem("username") || "User";
+
+
+
+if(localStorage.getItem("picture")){
+
+
+profileImg.src=
+localStorage.getItem("picture");
+
+
+}
+
+
+
+
+
+
+function myAccount(){
+
+
+location.href="myaccount.html";
+
+
+}
+
+
+
+function logout(){
+
+
+localStorage.clear();
+
+
+location.href="index.html";
 
 
 }
@@ -2089,60 +1659,10 @@ bar.style.width=count+"%";
 
 
 
-function hideLoading(){
+// START
 
 
-
-clearInterval(loadingTimer);
-
-
-
-let box=document.getElementById("loadingBox");
-
-
-let percent=document.getElementById("percent");
-
-
-let bar=document.getElementById("progressBar");
-
-
-
-if(percent){
-
-percent.innerHTML="100%";
-
-}
-
-
-
-if(bar){
-
-bar.style.width="100%";
-
-}
-
-
-
-setTimeout(()=>{
-
-
-if(box){
-
-box.style.display="none";
-
-}
-
-
-
-},400);
-
-
-
-}
-
-
-
-
+loadSupport();
 
 
 
@@ -2150,6 +1670,5 @@ box.style.display="none";
 
 
 </body>
-
 
 </html>
