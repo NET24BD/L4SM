@@ -7,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Pending Support</title>
 
 
@@ -20,6 +21,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </head>
 
 
+
 <body>
 
 
@@ -28,15 +30,25 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
+
+<!-- HEADER -->
+
 <header>
 
 
-<button onclick="goBack()" class="back-btn">
+
+<div class="title">
+
+
+<button class="back-btn" onclick="goBack()">
 
 <i class="fa-solid fa-arrow-left"></i>
+
 Back
 
 </button>
+
 
 
 
@@ -49,6 +61,83 @@ Pending Support
 </h2>
 
 
+</div>
+
+
+
+
+
+
+
+<!-- PROFILE -->
+
+<div class="profile"
+onclick="toggleProfileMenu()">
+
+
+
+<img id="profileImg"
+src="assets/profile.png">
+
+
+
+<span id="headerName">
+User
+</span>
+
+
+
+<i class="fa-solid fa-angle-down"></i>
+
+
+
+
+
+
+<div id="profileMenu"
+class="profile-menu"
+onclick="event.stopPropagation()">
+
+
+
+
+
+<button onclick="openMyAccount()">
+
+<i class="fa-solid fa-user"></i>
+
+My Account
+
+</button>
+
+
+
+
+
+
+
+<button id="logoutBtn">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</button>
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
 
 </header>
 
@@ -59,15 +148,24 @@ Pending Support
 
 
 
+
+
+<!-- SUPPORT TABLE -->
+
+
 <div class="table-box">
+
 
 
 <table>
 
 
+
 <thead>
 
+
 <tr>
+
 
 <th>
 Customer ID
@@ -112,10 +210,20 @@ Action
 
 
 
+
 <tbody id="supportList">
 
 
-<!-- Data Load হবে -->
+<tr>
+
+<td colspan="7">
+
+Loading...
+
+</td>
+
+</tr>
+
 
 
 </tbody>
@@ -125,15 +233,17 @@ Action
 </table>
 
 
+
+</div>
+
+
+
+
+
+
 </div>
 
 
-
-
-
-
-
-</div>
 
 
 
@@ -143,11 +253,16 @@ Action
 
 <script src="auth.js"></script>
 
+
 <script src="support.js"></script>
+
+
 
 
 <script>
 
+
+// BACK BUTTON
 
 function goBack(){
 
@@ -156,7 +271,130 @@ window.location.href="dashboard.html";
 }
 
 
+
+
+
+// PROFILE MENU
+
+
+function toggleProfileMenu(){
+
+
+document
+.getElementById("profileMenu")
+.classList.toggle("show");
+
+
+}
+
+
+
+
+// CLOSE OUTSIDE CLICK
+
+
+document.addEventListener("click",function(e){
+
+
+let profile =
+document.querySelector(".profile");
+
+
+
+if(!profile.contains(e.target)){
+
+
+document
+.getElementById("profileMenu")
+.classList.remove("show");
+
+
+}
+
+
+});
+
+
+
+
+
+// LOAD PROFILE DATA
+
+
+document.addEventListener("DOMContentLoaded",function(){
+
+
+
+let username =
+localStorage.getItem("username");
+
+
+let picture =
+localStorage.getItem("picture");
+
+
+
+
+
+if(username){
+
+
+document.getElementById("headerName").innerText=username;
+
+
+}
+
+
+
+
+
+if(picture){
+
+
+document.getElementById("profileImg").src=picture;
+
+
+}
+
+
+
+
+});
+
+
+
+
+
+
+
+// LOGOUT
+
+
+document.getElementById("logoutBtn").onclick=function(){
+
+
+localStorage.clear();
+
+
+window.location.href="index.html";
+
+
+};
+
+
+
+
+function openMyAccount(){
+
+
+window.location.href="myaccount.html";
+
+
+}
+
+
 </script>
+
 
 
 
