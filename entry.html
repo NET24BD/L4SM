@@ -1,589 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- ENTRY POPUP -->
 
-<head>
+<div id="entryModal" class="entry-modal">
 
-<meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="entry-box">
 
 
-<title>New Entry | L4SM</title>
+        <!-- HEADER -->
 
+        <div class="entry-header">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+            <h2>
+                <i class="fa-solid fa-circle-plus"></i>
+                New Entry
+            </h2>
 
 
-<style>
 
+            <button class="close-entry"
+                    onclick="closeEntry()">
 
-*{
+                <i class="fa-solid fa-xmark"></i>
 
-margin:0;
-padding:0;
-box-sizing:border-box;
+            </button>
 
-}
 
+        </div>
 
 
-body{
 
-min-height:100vh;
 
-font-family:"Segoe UI",Arial,sans-serif;
 
-background:
+        <!-- BODY -->
 
-linear-gradient(
-135deg,
-#2563eb,
-#06b6d4
-);
+        <div class="entry-body">
 
 
-display:flex;
 
-justify-content:center;
+            <!-- CUSTOMER ID -->
 
-align-items:center;
+            <div class="input-group">
 
-padding:20px;
 
+                <label>
+                    Customer ID
+                </label>
 
-}
 
+                <input type="text"
+                       id="customerId"
+                       placeholder="Enter Customer ID">
 
 
+            </div>
 
-.entry-card{
 
 
-width:430px;
 
 
-background:white;
 
 
-border-radius:25px;
+            <!-- PROBLEM -->
 
 
-box-shadow:
+            <div class="input-group">
 
-0 20px 50px rgba(0,0,0,.3);
 
+                <label>
+                    Problem
+                </label>
 
-overflow:hidden;
 
 
+                <textarea
+                    id="problem"
+                    rows="4"
+                    placeholder="Write customer problem..."></textarea>
 
-}
 
+            </div>
 
 
 
-.header{
 
 
-background:
 
-linear-gradient(
-135deg,
-#1d4ed8,
-#0891b2
-);
 
+            <!-- REFERENCE -->
 
-color:white;
 
+            <div class="input-group">
 
-text-align:center;
 
+                <label>
+                    Reference
+                </label>
 
-padding:35px;
 
 
-}
+                <input type="text"
+                       id="reference"
+                       placeholder="Auto Login User"
+                       readonly>
 
 
+            </div>
 
-.header .icon{
 
 
-width:80px;
 
-height:80px;
+        </div>
 
-background:white;
 
-color:#2563eb;
 
-border-radius:50%;
 
 
-display:flex;
 
-align-items:center;
 
-justify-content:center;
+        <!-- FOOTER -->
 
 
-margin:auto;
+        <div class="entry-footer">
 
 
-font-size:38px;
 
+            <button class="cancel-btn"
+                    onclick="closeEntry()">
 
-}
+                Cancel
 
+            </button>
 
 
-.header h2{
 
 
-margin-top:15px;
 
+            <button class="submit-btn"
+                    id="submitEntry">
 
-font-size:26px;
+                Submit
 
+            </button>
 
-}
 
 
 
+        </div>
 
-.header p{
 
 
-opacity:.9;
 
-
-}
-
-
-
-
-
-.form-area{
-
-
-padding:30px;
-
-
-}
-
-
-
-
-.input-box{
-
-
-display:flex;
-
-
-align-items:center;
-
-
-background:#f1f5f9;
-
-
-border-radius:15px;
-
-
-padding:14px;
-
-
-margin-bottom:20px;
-
-
-border:2px solid transparent;
-
-
-}
-
-
-
-.input-box:focus-within{
-
-
-background:white;
-
-
-border-color:#2563eb;
-
-
-}
-
-
-
-
-
-.input-box i{
-
-
-font-size:20px;
-
-
-color:#2563eb;
-
-
-margin-right:12px;
-
-
-
-}
-
-
-
-.input-box input,
-
-
-.input-box textarea{
-
-
-width:100%;
-
-
-border:none;
-
-
-outline:none;
-
-
-background:transparent;
-
-
-font-size:16px;
-
-
-font-family:inherit;
-
-
-
-}
-
-
-
-.input-box textarea{
-
-
-resize:none;
-
-
-height:100px;
-
-
-}
-
-
-
-
-
-.input-box input[readonly]{
-
-
-background:#e2e8f0;
-
-
-color:#64748b;
-
-
-cursor:not-allowed;
-
-
-}
-
-
-
-
-
-button{
-
-
-width:100%;
-
-
-padding:15px;
-
-
-border:none;
-
-
-border-radius:15px;
-
-
-background:
-
-linear-gradient(
-135deg,
-#2563eb,
-#06b6d4
-);
-
-
-
-color:white;
-
-
-font-size:18px;
-
-
-font-weight:700;
-
-
-cursor:pointer;
-
-
-
-}
-
-
-
-button:hover{
-
-
-opacity:.9;
-
-
-}
-
-
-
-
-.back-btn{
-
-
-margin-top:15px;
-
-
-text-align:center;
-
-
-}
-
-
-
-.back-btn a{
-
-
-text-decoration:none;
-
-
-color:#2563eb;
-
-
-font-weight:600;
-
-
-}
-
-
-
-</style>
-
-
-
-</head>
-
-
-
-
-<body>
-
-
-
-
-<div class="entry-card">
-
-
-
-
-
-<div class="header">
-
-
-<div class="icon">
-
-<i class="fa-solid fa-headset"></i>
-
-</div>
-
-
-
-<h2>
-
-New Entry
-
-</h2>
-
-
-
-<p>
-
-Customer Support Entry
-
-</p>
+    </div>
 
 
 
 </div>
-
-
-
-
-
-
-
-<div class="form-area">
-
-
-
-
-
-<form id="entryForm">
-
-
-
-
-
-<div class="input-box">
-
-
-<i class="fa-solid fa-user"></i>
-
-
-<input
-
-type="text"
-
-id="customerId"
-
-placeholder="Customer ID"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="input-box">
-
-
-<i class="fa-solid fa-triangle-exclamation"></i>
-
-
-
-<textarea
-
-id="problem"
-
-placeholder="Customer Problem"
-
-required></textarea>
-
-
-
-</div>
-
-
-
-
-
-
-
-<div class="input-box">
-
-
-<i class="fa-solid fa-user-check"></i>
-
-
-<input
-
-type="text"
-
-id="reference"
-
-placeholder="Reference"
-
-readonly>
-
-
-
-</div>
-
-
-
-
-
-
-
-<button type="submit">
-
-
-<i class="fa-solid fa-paper-plane"></i>
-
-
-Submit Entry
-
-
-</button>
-
-
-
-
-
-
-
-<div class="back-btn">
-
-
-<a href="dashboard.html">
-
-← Back To Dashboard
-
-</a>
-
-
-</div>
-
-
-
-
-
-</form>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-<script src="entry.js"></script>
-
-
-
-</body>
-
-
-</html>
