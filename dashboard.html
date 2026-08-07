@@ -7,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>L4SM Dashboard</title>
 
 
@@ -29,6 +30,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <div class="sidebar" id="sidebar">
 
 
+
 <div class="menu-btn" onclick="toggleSidebar()">
 
 <i class="fa-solid fa-bars"></i>
@@ -49,6 +51,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
+
 <ul>
 
 
@@ -63,6 +67,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
+
 <li onclick="openPage('usercontrol.html')">
 
 <i class="fa-solid fa-users"></i>
@@ -70,6 +75,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <span>User Control</span>
 
 </li>
+
 
 
 
@@ -111,6 +117,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </ul>
 
 
+
 </div>
 
 
@@ -120,35 +127,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- MAIN -->
+
+<!-- MAIN AREA -->
+
 
 <div class="main">
+
+
 
 
 
 <header>
 
 
+
 <h2>
+
 Dashboard
+
 </h2>
 
 
 
 
-<div class="profile"
-onclick="toggleProfileMenu()">
 
 
 
-<img id="profileImg"
-src="assets/profile.png">
+<div class="profile" onclick="toggleProfileMenu()">
+
+
+
+<img id="profileImg" src="assets/profile.png">
 
 
 
 <span id="headerName">
+
 User
+
 </span>
+
 
 
 
@@ -158,17 +176,22 @@ User
 
 
 
-<div id="profileMenu"
-class="profile-menu"
+
+
+<div id="profileMenu" class="profile-menu"
 onclick="event.stopPropagation()">
+
+
 
 
 
 <button onclick="openMyAccount()">
 
+
 <i class="fa-solid fa-user"></i>
 
 My Account
+
 
 </button>
 
@@ -176,21 +199,31 @@ My Account
 
 
 
-<button type="button" id="logoutBtn">
+
+
+<button id="logoutBtn" type="button">
+
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
 Logout
 
+
 </button>
 
 
 
+
+
 </div>
 
 
 
+
+
 </div>
+
+
 
 
 
@@ -202,6 +235,12 @@ Logout
 
 
 
+
+
+<!-- WELCOME -->
+
+
+
 <div class="welcome">
 
 
@@ -210,7 +249,9 @@ Logout
 Welcome Back
 
 <span id="welcomeName">
+
 User
+
 </span>
 
 
@@ -219,8 +260,11 @@ User
 
 
 <p>
+
 L4SM Management System
+
 </p>
+
 
 
 </div>
@@ -230,6 +274,10 @@ L4SM Management System
 
 
 
+
+
+
+<!-- CARDS -->
 
 
 <div class="cards">
@@ -240,256 +288,356 @@ L4SM Management System
 
 <!-- NEW ENTRY -->
 
-<div class="card blue"
-onclick="openEntry()">
+<div class="card blue" onclick="openEntry()">
 
 
 
 <i class="fa-solid fa-plus-circle"></i>
 
 
+
 <div>
 
+
 <h3>
+
 New Entry
+
 </h3>
 
 
 <p>
+
 Create Entry
+
 </p>
 
 
-</div>
-
 
 </div>
 
 
 
+</div>
 
 
 
+
+
+
+
+
+
+<!-- SUPPORT -->
 
 
 <div class="card green"
 onclick="openPage('support.html')">
 
 
+
 <i class="fa-solid fa-headset"></i>
+
 
 
 <div>
 
+
 <h3>
+
 Pending Support
+
 </h3>
 
 
 <p>
+
 Support Pending
+
 </p>
 
 
-</div>
-
 
 </div>
 
 
+</div>
 
 
 
 
+
+
+
+
+
+<!-- CALL -->
 
 
 <div class="card orange"
 onclick="openPage('call.html')">
 
 
+
 <i class="fa-solid fa-phone-volume"></i>
+
 
 
 <div>
 
+
 <h3>
+
 Pending Call
+
 </h3>
 
 
 <p>
+
 Call Pending
+
 </p>
 
 
-</div>
-
 
 </div>
 
 
 
+</div>
 
 
 
+
+
+
+
+
+
+<!-- HISTORY -->
 
 
 <div class="card purple"
 onclick="openPage('history.html')">
 
 
+
 <i class="fa-solid fa-clock-rotate-left"></i>
+
 
 
 <div>
 
+
 <h3>
+
 History
+
 </h3>
 
 
 <p>
+
 All History
+
 </p>
 
 
-</div>
-
 
 </div>
 
 
 
+</div>
 
 
+
+
+
+
+
+
+
+<!-- OFFLINE ENTRY -->
 
 
 <div class="card red"
 onclick="openPage('offline-entry.html')">
 
 
+
 <i class="fa-solid fa-file-circle-plus"></i>
+
 
 
 <div>
 
+
 <h3>
+
 Offline Entry
+
 </h3>
 
 
 <p>
+
 Add Offline
+
 </p>
 
 
-</div>
-
 
 </div>
 
 
+</div>
 
 
 
+
+
+
+
+
+
+<!-- OFFLINE -->
 
 
 <div class="card dark"
 onclick="openPage('offline.html')">
 
 
+
 <i class="fa-solid fa-power-off"></i>
+
 
 
 <div>
 
+
 <h3>
+
 Offline
+
 </h3>
 
 
 <p>
+
 Offline List
+
 </p>
 
 
-</div>
-
 
 </div>
 
 
 
+</div>
 
 
 
+
+
+
+
+
+
+<!-- OFFLINE HISTORY -->
 
 
 <div class="card cyan"
 onclick="openPage('offline-history.html')">
 
 
+
 <i class="fa-solid fa-box-archive"></i>
+
 
 
 <div>
 
+
 <h3>
+
 Offline History
+
 </h3>
 
 
 <p>
+
 Offline Records
+
 </p>
 
 
-</div>
-
 
 </div>
 
 
+</div>
 
 
 
 
+
+
+
+
+
+<!-- USERS -->
 
 
 <div class="card indigo"
 onclick="openPage('usercontrol.html')">
 
 
+
 <i class="fa-solid fa-users"></i>
+
 
 
 <div>
 
+
 <h3>
+
 Total Users
+
 </h3>
 
 
 <p>
+
 System Users
+
 </p>
 
 
-</div>
-
 
 </div>
-
-
-
-
 
 
 </div>
 
 
 
+
+
+
+
 </div>
+
+
+
+
+
+</div>
+
 
 
 
@@ -501,16 +649,15 @@ System Users
 <script>
 
 
-// ===========================
-// ENTRY OPEN
-// ===========================
+// =======================
+// OPEN ENTRY
+// =======================
 
 
 function openEntry(){
 
 
-window.location.href =
-"entry.html?from=dashboard";
+window.location.href="entry.html";
 
 
 }
@@ -518,18 +665,21 @@ window.location.href =
 
 
 
-// ===========================
+
+// =======================
 // PAGE OPEN
-// ===========================
+// =======================
 
 
 function openPage(page){
 
 
-window.location.href = page;
+window.location.href=page;
 
 
 }
+
+
 
 
 </script>
@@ -544,6 +694,7 @@ window.location.href = page;
 <script src="dashboard.js"></script>
 
 <script src="autologout.js"></script>
+
 
 
 
