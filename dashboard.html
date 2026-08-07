@@ -4,699 +4,479 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
 <title>L4SM Dashboard</title>
 
-
 <link rel="stylesheet" href="dashboard.css">
-
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
 </head>
-
 
 <body>
 
-
-
-<!-- SIDEBAR -->
+<!-- ===========================
+SIDEBAR
+=========================== -->
 
 <div class="sidebar" id="sidebar">
 
+    <div class="menu-btn" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 
+    <div class="logo">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>L4SM</span>
+    </div>
 
-<div class="menu-btn" onclick="toggleSidebar()">
+    <ul>
 
-<i class="fa-solid fa-bars"></i>
+        <li class="active" onclick="openPage('dashboard.html')">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+        </li>
 
-</div>
+        <li onclick="openPage('usercontrol.html')">
+            <i class="fa-solid fa-users"></i>
+            <span>User Control</span>
+        </li>
 
+        <li onclick="openPage('support.html')">
+            <i class="fa-solid fa-headset"></i>
+            <span>Support</span>
+        </li>
 
+        <li onclick="openPage('call.html')">
+            <i class="fa-solid fa-phone"></i>
+            <span>Call</span>
+        </li>
 
+        <li onclick="openPage('manager.html')">
+            <i class="fa-solid fa-user-tie"></i>
+            <span>Manager</span>
+        </li>
 
-<div class="logo">
-
-<i class="fa-solid fa-layer-group"></i>
-
-<span>L4SM</span>
-
-</div>
-
-
-
-
-
-
-<ul>
-
-
-<li class="active" onclick="openPage('dashboard.html')">
-
-<i class="fa-solid fa-house"></i>
-
-<span>Dashboard</span>
-
-</li>
-
-
-
-
-
-<li onclick="openPage('usercontrol.html')">
-
-<i class="fa-solid fa-users"></i>
-
-<span>User Control</span>
-
-</li>
-
-
-
-
-
-<li onclick="openPage('support.html')">
-
-<i class="fa-solid fa-headset"></i>
-
-<span>Support</span>
-
-</li>
-
-
-
-
-
-<li onclick="openPage('call.html')">
-
-<i class="fa-solid fa-phone"></i>
-
-<span>Call</span>
-
-</li>
-
-
-
-
-
-<li onclick="openPage('manager.html')">
-
-<i class="fa-solid fa-user-tie"></i>
-
-<span>Manager</span>
-
-</li>
-
-
-
-</ul>
-
-
+    </ul>
 
 </div>
 
-
-
-
-
-
-
-
-
-<!-- MAIN AREA -->
-
+<!-- ===========================
+MAIN AREA
+=========================== -->
 
 <div class="main">
 
-
-
-
-
 <header>
 
+    <h2>Dashboard</h2>
 
+    <div class="profile" onclick="toggleProfileMenu()">
 
-<h2>
+        <img id="profileImg" src="assets/profile.png">
 
-Dashboard
+        <span id="headerName">
+            User
+        </span>
 
-</h2>
+        <i class="fa-solid fa-angle-down"></i>
 
+        <div id="profileMenu"
+             class="profile-menu"
+             onclick="event.stopPropagation()">
 
+            <button onclick="openMyAccount()">
+                <i class="fa-solid fa-user"></i>
+                My Account
+            </button>
 
+            <button id="logoutBtn" type="button">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
 
+        </div>
 
-
-
-<div class="profile" onclick="toggleProfileMenu()">
-
-
-
-<img id="profileImg" src="assets/profile.png">
-
-
-
-<span id="headerName">
-
-User
-
-</span>
-
-
-
-
-<i class="fa-solid fa-angle-down"></i>
-
-
-
-
-
-
-
-<div id="profileMenu" class="profile-menu"
-onclick="event.stopPropagation()">
-
-
-
-
-
-<button onclick="openMyAccount()">
-
-
-<i class="fa-solid fa-user"></i>
-
-My Account
-
-
-</button>
-
-
-
-
-
-
-
-<button id="logoutBtn" type="button">
-
-
-<i class="fa-solid fa-right-from-bracket"></i>
-
-Logout
-
-
-</button>
-
-
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
+    </div>
 
 </header>
 
-
-
-
-
-
-
-
-
-<!-- WELCOME -->
-
-
+<!-- ===========================
+WELCOME
+=========================== -->
 
 <div class="welcome">
 
+    <h1>
+        Welcome Back
+        <span id="welcomeName">
+            User
+        </span>
+    </h1>
 
-<h1>
-
-Welcome Back
-
-<span id="welcomeName">
-
-User
-
-</span>
-
-
-</h1>
-
-
-
-<p>
-
-L4SM Management System
-
-</p>
-
-
+    <p>
+        L4SM Management System
+    </p>
 
 </div>
 
-
-
-
-
-
-
-
-
-<!-- CARDS -->
-
+<!-- ===========================
+CARDS
+=========================== -->
 
 <div class="cards">
 
+    <!-- NEW ENTRY -->
+
+    <div class="card blue"
+         onclick="openEntry()">
+
+        <i class="fa-solid fa-plus-circle"></i>
+
+        <div>
+
+            <h3>
+                New Entry
+            </h3>
+
+            <p>
+                Create Entry
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- SUPPORT -->
+
+    <div class="card green"
+         onclick="openPage('support.html')">
+
+        <i class="fa-solid fa-headset"></i>
+
+        <div>
+
+            <h3>
+                Pending Support
+            </h3>
+
+            <p>
+                Support Pending
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- CALL -->
+
+    <div class="card orange"
+         onclick="openPage('call.html')">
+
+        <i class="fa-solid fa-phone-volume"></i>
+
+        <div>
+
+            <h3>
+                Pending Call
+            </h3>
+
+            <p>
+                Call Pending
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- HISTORY -->
+
+    <div class="card purple"
+         onclick="openPage('history.html')">
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        <div>
+
+            <h3>
+                History
+            </h3>
+
+            <p>
+                All History
+            </p>
+
+        </div>
+
+    </div>
+        <!-- ===========================
+         OFFLINE ENTRY
+    ============================ -->
+
+    <div class="card red"
+         onclick="openPage('offline-entry.html')">
+
+        <i class="fa-solid fa-file-circle-plus"></i>
+
+        <div>
+            <h3>Offline Entry</h3>
+            <p>Add Offline</p>
+        </div>
+
+    </div>
+
+    <!-- ===========================
+         OFFLINE
+    ============================ -->
+
+    <div class="card dark"
+         onclick="openPage('offline.html')">
+
+        <i class="fa-solid fa-power-off"></i>
+
+        <div>
+            <h3>Offline</h3>
+            <p>Offline List</p>
+        </div>
+
+    </div>
+
+    <!-- ===========================
+         OFFLINE HISTORY
+    ============================ -->
+
+    <div class="card cyan"
+         onclick="openPage('offline-history.html')">
+
+        <i class="fa-solid fa-box-archive"></i>
+
+        <div>
+            <h3>Offline History</h3>
+            <p>Offline Records</p>
+        </div>
+
+    </div>
+
+    <!-- ===========================
+         TOTAL USERS
+    ============================ -->
+
+    <div class="card indigo"
+         onclick="openPage('usercontrol.html')">
+
+        <i class="fa-solid fa-users"></i>
+
+        <div>
+            <h3>Total Users</h3>
+            <p>System Users</p>
+        </div>
+
+    </div>
+
+</div>
+<!-- END CARDS -->
 
 
+<!-- =====================================
+     NEW ENTRY POPUP
+====================================== -->
 
+<div class="entry-modal" id="entryModal">
 
-<!-- NEW ENTRY -->
+    <div class="entry-box">
 
-<div class="card blue" onclick="openEntry()">
+        <div class="entry-header">
 
+            <h2>
+                <i class="fa-solid fa-circle-plus"></i>
+                New Entry
+            </h2>
 
+            <button class="close-entry"
+                    onclick="closeEntry()">
 
-<i class="fa-solid fa-plus-circle"></i>
+                <i class="fa-solid fa-xmark"></i>
 
+            </button>
 
+        </div>
 
-<div>
+        <div class="entry-body">
 
+            <!-- Customer ID -->
 
-<h3>
+            <div class="input-group">
 
-New Entry
+                <label>Customer ID</label>
 
-</h3>
+                <input
+                    type="text"
+                    id="customerId"
+                    placeholder="Enter Customer ID">
 
+            </div>
 
-<p>
+            <!-- Problem -->
 
-Create Entry
+            <div class="input-group">
 
-</p>
+                <label>Problem</label>
 
+                <textarea
+                    id="problem"
+                    rows="4"
+                    placeholder="Write customer problem..."></textarea>
 
+            </div>
+
+            <!-- Reference -->
+
+            <div class="input-group">
+
+                <label>Reference</label>
+
+                <input
+                    type="text"
+                    id="reference"
+                    placeholder="Auto Login User"
+                    readonly>
+
+            </div>
+
+        </div>
+
+        <div class="entry-footer">
+
+            <button
+                class="cancel-btn"
+                onclick="closeEntry()">
+
+                Cancel
+
+            </button>
+
+            <button
+                class="submit-btn"
+                id="submitEntry">
+
+                Submit
+
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-
-
 </div>
-
-
-
-
-
-
-
-
-
-<!-- SUPPORT -->
-
-
-<div class="card green"
-onclick="openPage('support.html')">
-
-
-
-<i class="fa-solid fa-headset"></i>
-
-
-
-<div>
-
-
-<h3>
-
-Pending Support
-
-</h3>
-
-
-<p>
-
-Support Pending
-
-</p>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- CALL -->
-
-
-<div class="card orange"
-onclick="openPage('call.html')">
-
-
-
-<i class="fa-solid fa-phone-volume"></i>
-
-
-
-<div>
-
-
-<h3>
-
-Pending Call
-
-</h3>
-
-
-<p>
-
-Call Pending
-
-</p>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- HISTORY -->
-
-
-<div class="card purple"
-onclick="openPage('history.html')">
-
-
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-
-
-<div>
-
-
-<h3>
-
-History
-
-</h3>
-
-
-<p>
-
-All History
-
-</p>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- OFFLINE ENTRY -->
-
-
-<div class="card red"
-onclick="openPage('offline-entry.html')">
-
-
-
-<i class="fa-solid fa-file-circle-plus"></i>
-
-
-
-<div>
-
-
-<h3>
-
-Offline Entry
-
-</h3>
-
-
-<p>
-
-Add Offline
-
-</p>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- OFFLINE -->
-
-
-<div class="card dark"
-onclick="openPage('offline.html')">
-
-
-
-<i class="fa-solid fa-power-off"></i>
-
-
-
-<div>
-
-
-<h3>
-
-Offline
-
-</h3>
-
-
-<p>
-
-Offline List
-
-</p>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- OFFLINE HISTORY -->
-
-
-<div class="card cyan"
-onclick="openPage('offline-history.html')">
-
-
-
-<i class="fa-solid fa-box-archive"></i>
-
-
-
-<div>
-
-
-<h3>
-
-Offline History
-
-</h3>
-
-
-<p>
-
-Offline Records
-
-</p>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- USERS -->
-
-
-<div class="card indigo"
-onclick="openPage('usercontrol.html')">
-
-
-
-<i class="fa-solid fa-users"></i>
-
-
-
-<div>
-
-
-<h3>
-
-Total Users
-
-</h3>
-
-
-<p>
-
-System Users
-
-</p>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<script>
-
+<!-- END MAIN -->
+  <script>
 
 // =======================
-// OPEN ENTRY
+// NEW ENTRY POPUP
 // =======================
 
+function openEntry() {
 
-function openEntry(){
+    document.getElementById("entryModal").classList.add("show");
 
+}
 
-window.location.href="entry.html";
+function closeEntry() {
 
+    document.getElementById("entryModal").classList.remove("show");
 
 }
 
 
+// =======================
+// CLOSE POPUP WHEN CLICK OUTSIDE
+// =======================
 
+window.addEventListener("click", function (e) {
+
+    const modal = document.getElementById("entryModal");
+
+    if (e.target === modal) {
+
+        closeEntry();
+
+    }
+
+});
+
+
+// =======================
+// ESC KEY CLOSE
+// =======================
+
+document.addEventListener("keydown", function (e) {
+
+    if (e.key === "Escape") {
+
+        closeEntry();
+
+    }
+
+});
+
+
+// =======================
+// SUBMIT (TEMP)
+// Google Sheet Connection
+// Later entry.js
+// =======================
+
+document.getElementById("submitEntry").addEventListener("click", function () {
+
+    const customerId = document.getElementById("customerId").value.trim();
+    const problem = document.getElementById("problem").value.trim();
+
+    if (customerId === "" || problem === "") {
+
+        alert("Please fill all required fields.");
+        return;
+
+    }
+
+    console.log({
+        customerId,
+        problem,
+        reference: document.getElementById("reference").value
+    });
+
+    alert("Entry Ready.\nGoogle Sheet Connection will be added later.");
+
+    document.getElementById("customerId").value = "";
+    document.getElementById("problem").value = "";
+
+    closeEntry();
+
+});
 
 
 // =======================
 // PAGE OPEN
 // =======================
 
+function openPage(page) {
 
-function openPage(page){
-
-
-window.location.href=page;
-
+    window.location.href = page;
 
 }
 
-
-
-
 </script>
 
-
-
-
-
-
 <script src="session.js"></script>
-
 <script src="dashboard.js"></script>
 
+<!-- Future Google Sheet Connection -->
+<!-- <script src="entry.js"></script> -->
+
 <script src="autologout.js"></script>
-
-
-
 
 </body>
 
