@@ -19,16 +19,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
+
 }
+
 
 
 body{
 
-background:linear-gradient(135deg,#ecfdf5,#f1f5f9);
+background:#f1f5f9;
 
 padding:20px;
 
@@ -36,7 +39,8 @@ padding:20px;
 
 
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 
 .header{
 
@@ -44,7 +48,7 @@ background:white;
 
 padding:18px 25px;
 
-border-radius:18px;
+border-radius:15px;
 
 display:flex;
 
@@ -52,7 +56,7 @@ justify-content:space-between;
 
 align-items:center;
 
-box-shadow:0 10px 30px rgba(0,0,0,.12);
+box-shadow:0 5px 20px rgba(0,0,0,.1);
 
 }
 
@@ -69,21 +73,20 @@ gap:15px;
 }
 
 
+
 .back{
 
-background:linear-gradient(135deg,#065f46,#10b981);
+background:#03543f;
 
 color:white;
 
 border:none;
 
-padding:10px 18px;
+padding:10px 15px;
 
-border-radius:10px;
+border-radius:8px;
 
 cursor:pointer;
-
-font-weight:bold;
 
 }
 
@@ -91,7 +94,7 @@ font-weight:bold;
 
 .back:hover{
 
-transform:scale(1.05);
+opacity:.8;
 
 }
 
@@ -99,8 +102,7 @@ transform:scale(1.05);
 
 
 
-
-/* PROFILE */
+/* ================= PROFILE ================= */
 
 
 .profile{
@@ -121,18 +123,15 @@ cursor:pointer;
 
 .profile img{
 
-width:48px;
+width:45px;
 
-height:48px;
+height:45px;
 
 border-radius:50%;
 
 object-fit:cover;
 
-border:3px solid #10b981;
-
 }
-
 
 
 
@@ -148,13 +147,13 @@ top:60px;
 
 background:white;
 
-width:190px;
+width:180px;
 
 padding:10px;
 
-border-radius:15px;
+border-radius:12px;
 
-box-shadow:0 10px 30px rgba(0,0,0,.2);
+box-shadow:0 5px 20px #999;
 
 z-index:100;
 
@@ -182,9 +181,9 @@ background:white;
 
 cursor:pointer;
 
-border-radius:10px;
-
 text-align:left;
+
+border-radius:8px;
 
 }
 
@@ -192,7 +191,7 @@ text-align:left;
 
 .profile-menu button:hover{
 
-background:#ecfdf5;
+background:#eee;
 
 }
 
@@ -200,9 +199,7 @@ background:#ecfdf5;
 
 
 
-
-
-/* TABLE */
+/* ================= TABLE ================= */
 
 
 .table-box{
@@ -213,9 +210,7 @@ background:white;
 
 padding:20px;
 
-border-radius:18px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.1);
+border-radius:15px;
 
 overflow:auto;
 
@@ -235,11 +230,11 @@ border-collapse:collapse;
 
 th{
 
-background:linear-gradient(135deg,#065f46,#10b981);
+background:#03543f;
 
 color:white;
 
-padding:14px;
+padding:12px;
 
 }
 
@@ -257,23 +252,15 @@ border-bottom:1px solid #ddd;
 
 
 
-tr:hover td{
-
-background:#ecfdf5;
-
-}
-
-
-
 .edit-btn{
 
-background:#2563eb;
+background:#03543f;
 
 color:white;
 
 border:none;
 
-padding:8px 18px;
+padding:8px 15px;
 
 border-radius:8px;
 
@@ -285,49 +272,7 @@ cursor:pointer;
 
 
 
-/* LOADING */
-
-#loadingPage{
-
-display:none;
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:100%;
-
-background:rgba(0,0,0,.35);
-
-z-index:5000;
-
-}
-
-
-
-#loadingPage iframe{
-
-width:100%;
-
-height:100%;
-
-border:none;
-
-}
-
-
-
-
-
-
-
-
-
-/* EDIT POPUP */
+/* ================= EDIT POPUP ================= */
 
 
 .modal{
@@ -344,13 +289,16 @@ width:100%;
 
 height:100%;
 
-background:rgba(0,0,0,.45);
+
+background:rgba(0,0,0,.5);
+
 
 justify-content:center;
 
 align-items:center;
 
-z-index:2000;
+z-index:500;
+
 
 }
 
@@ -364,20 +312,15 @@ display:flex;
 
 
 
-
 .box{
-
-position:relative;
 
 background:white;
 
-width:430px;
+width:420px;
 
-padding:30px;
+padding:25px;
 
-border-radius:22px;
-
-box-shadow:0 20px 60px rgba(0,0,0,.3);
+border-radius:15px;
 
 max-height:90vh;
 
@@ -387,48 +330,9 @@ overflow:auto;
 
 
 
-
-
-.close-icon{
-
-position:absolute;
-
-right:15px;
-
-top:15px;
-
-width:35px;
-
-height:35px;
-
-border:none;
-
-border-radius:50%;
-
-background:#ef4444;
-
-color:white;
-
-font-size:20px;
-
-cursor:pointer;
-
-}
-
-
-
-.close-icon:hover{
-
-transform:rotate(90deg);
-
-}
-
-
-
-
 .box h2{
 
-color:#065f46;
+color:#03543f;
 
 margin-bottom:15px;
 
@@ -444,8 +348,6 @@ margin-top:10px;
 
 font-weight:bold;
 
-color:#334155;
-
 }
 
 
@@ -455,26 +357,13 @@ textarea{
 
 width:100%;
 
-padding:11px;
+padding:10px;
 
 margin-top:5px;
 
-border:1px solid #cbd5e1;
+border:1px solid #ccc;
 
-border-radius:10px;
-
-outline:none;
-
-}
-
-
-
-input:focus,
-textarea:focus{
-
-border-color:#10b981;
-
-box-shadow:0 0 8px #a7f3d0;
+border-radius:8px;
 
 }
 
@@ -487,7 +376,6 @@ height:80px;
 resize:none;
 
 }
-
 
 
 
@@ -506,9 +394,17 @@ gap:10px;
 
 .submit{
 
-background:#10b981;
+background:#03543f;
 
 color:white;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
 
 }
 
@@ -520,32 +416,32 @@ background:#64748b;
 
 color:white;
 
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
 }
 
 
 
 .delete{
 
-background:#ef4444;
+background:#dc2626;
 
 color:white;
 
-}
-
-
-
-.btns button{
-
 border:none;
 
-padding:11px 18px;
+padding:10px 18px;
 
-border-radius:10px;
+border-radius:8px;
 
 cursor:pointer;
 
-font-weight:bold;
-
 }
 
 
@@ -555,8 +451,7 @@ font-weight:bold;
 
 
 
-
-/* DELETE POPUP */
+/* ================= CUSTOM DELETE POPUP ================= */
 
 
 .confirm-box{
@@ -573,13 +468,17 @@ width:100%;
 
 height:100%;
 
-background:rgba(0,0,0,.45);
+
+background:rgba(0,0,0,.5);
+
 
 justify-content:center;
 
 align-items:center;
 
-z-index:6000;
+
+z-index:1000;
+
 
 }
 
@@ -589,15 +488,13 @@ z-index:6000;
 
 background:white;
 
-width:330px;
+width:320px;
 
-padding:30px;
+padding:25px;
 
-border-radius:20px;
+border-radius:15px;
 
 text-align:center;
-
-box-shadow:0 20px 50px rgba(0,0,0,.3);
 
 }
 
@@ -613,17 +510,26 @@ margin-bottom:10px;
 
 
 
-.confirm-content button{
+.confirm-content p{
 
-margin:8px;
+margin-bottom:20px;
+
+}
+
+
+
+
+.confirm-content button{
 
 padding:10px 18px;
 
 border:none;
 
-border-radius:10px;
+border-radius:8px;
 
 cursor:pointer;
+
+margin:5px;
 
 }
 
@@ -651,15 +557,10 @@ color:white;
 
 
 
+/* ================= LOADING ================= */
 
 
-
-/* SUCCESS POPUP */
-
-
-.success-box{
-
-display:none;
+#loadingPage{
 
 position:fixed;
 
@@ -671,85 +572,21 @@ width:100%;
 
 height:100%;
 
-background:rgba(0,0,0,.45);
+z-index:2000;
 
-justify-content:center;
-
-align-items:center;
-
-z-index:7000;
+display:none;
 
 }
 
 
 
-.success-content{
+#loadingPage iframe{
 
-background:white;
+width:100%;
 
-width:340px;
-
-padding:30px;
-
-border-radius:22px;
-
-text-align:center;
-
-box-shadow:0 20px 60px rgba(0,0,0,.3);
-
-}
-
-
-
-.success-icon{
-
-width:70px;
-
-height:70px;
-
-background:#10b981;
-
-color:white;
-
-border-radius:50%;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:35px;
-
-margin:auto;
-
-}
-
-
-
-.success-content h3{
-
-color:#10b981;
-
-margin:15px;
-
-}
-
-
-
-.success-content button{
-
-background:#10b981;
-
-color:white;
+height:100%;
 
 border:none;
-
-padding:10px 35px;
-
-border-radius:10px;
-
-cursor:pointer;
 
 }
 
@@ -757,18 +594,28 @@ cursor:pointer;
 
 </style>
 
+
 </head>
+
 
 
 <body>
 
 
 
+<!-- LOADING -->
+
 <div id="loadingPage"></div>
 
 
 
+
+
+<!-- HEADER -->
+
+
 <div class="header">
+
 
 
 <div class="left">
@@ -777,16 +624,19 @@ cursor:pointer;
 <button class="back"
 onclick="location.href='dashboard.html'">
 
-<i class="fa fa-arrow-left"></i>
+
+<i class="fa-solid fa-arrow-left"></i>
 
 Back
+
 
 </button>
 
 
+
 <h2>
 
-<i class="fa fa-headset"></i>
+<i class="fa-solid fa-headset"></i>
 
 Pending Support
 
@@ -797,6 +647,11 @@ Pending Support
 
 
 
+
+
+
+
+<!-- PROFILE -->
 
 
 <div class="profile"
@@ -810,13 +665,13 @@ src="assets/profile.png">
 
 
 <span id="username">
+
 User
+
 </span>
 
 
-
-<i class="fa fa-angle-down"></i>
-
+<i class="fa-solid fa-angle-down"></i>
 
 
 
@@ -829,7 +684,7 @@ onclick="event.stopPropagation()">
 
 <button onclick="myAccount()">
 
-<i class="fa fa-user"></i>
+<i class="fa-solid fa-user"></i>
 
 My Account
 
@@ -839,7 +694,7 @@ My Account
 
 <button onclick="logout()">
 
-<i class="fa fa-right-from-bracket"></i>
+<i class="fa-solid fa-right-from-bracket"></i>
 
 Logout
 
@@ -850,20 +705,65 @@ Logout
 </div>
 
 
+
+</div>
+
+
+
 </div>
 
 
 
-</div>
-<!-- SUPPORT TABLE BODY -->
+
+
+
+
+
+
+<!-- SUPPORT TABLE -->
+
+
+<div class="table-box">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Customer ID</th>
+
+<th>Problem</th>
+
+<th>Reference</th>
+
+<th>Date</th>
+
+<th>Action</th>
+
+
+</tr>
+
+
+</thead>
+
 
 <tbody id="supportList">
 
+
 </tbody>
+
 
 </table>
 
+
 </div>
+
+
+
+
 
 
 
@@ -872,29 +772,16 @@ Logout
 <!-- EDIT POPUP -->
 
 
-<div class="modal" id="editModal">
+<div class="modal"
+id="editModal">
 
 
 <div class="box">
 
 
-<button class="close-icon"
-onclick="closeEdit()">
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-
-
 <h2>
-
-<i class="fa-solid fa-pen-to-square"></i>
-
 Edit Support
-
 </h2>
-
 
 
 
@@ -902,41 +789,62 @@ Edit Support
 
 
 
-<label>Customer ID</label>
+<label>
+Customer ID
+</label>
 
 <input id="customerId">
 
 
 
-<label>Problem</label>
+
+
+<label>
+Problem
+</label>
 
 <textarea id="problem"></textarea>
 
 
 
 
-<label>Reference</label>
+
+<label>
+Reference
+</label>
 
 <input id="reference">
 
 
 
 
-<label>Date</label>
+
+<label>
+Date
+</label>
 
 <input type="date" id="date">
 
 
 
-<label>Support</label>
+
+
+<label>
+Support
+</label>
 
 <input id="support">
 
 
 
-<label>Support Work</label>
+
+
+<label>
+Support Work
+</label>
 
 <textarea id="supportWork"></textarea>
+
 
 
 
@@ -953,14 +861,12 @@ Submit
 </button>
 
 
-
 <button class="cancel"
 onclick="closeEdit()">
 
 Cancel
 
 </button>
-
 
 
 <button class="delete"
@@ -975,7 +881,6 @@ Delete
 </div>
 
 
-
 </div>
 
 
@@ -989,8 +894,7 @@ Delete
 
 
 
-
-<!-- DELETE CONFIRM -->
+<!-- DELETE CONFIRM POPUP -->
 
 
 <div class="confirm-box"
@@ -1001,18 +905,13 @@ id="confirmBox">
 
 
 <h3>
-
 Delete Support?
-
 </h3>
 
 
 <p>
-
 Are you sure you want to delete this entry?
-
 </p>
-
 
 
 <button class="yes-delete"
@@ -1031,73 +930,11 @@ Cancel
 </button>
 
 
-</div>
-
-</div>
-
-
-
-
-
-
-
-
-<!-- SUCCESS POPUP -->
-
-
-<div class="success-box"
-id="successBox">
-
-
-<div class="success-content">
-
-
-
-<div class="success-icon">
-
-<i class="fa-solid fa-check"></i>
-
-</div>
-
-
-
-<h3 id="successTitle">
-
-Success
-
-</h3>
-
-
-<p id="successMessage">
-
-Completed Successfully
-
-</p>
-
-
-
-
-<button onclick="closeSuccess()">
-
-OK
-
-</button>
-
-
 
 </div>
 
 
 </div>
-
-
-
-
-
-
-
-
-
 <script>
 
 
@@ -1106,18 +943,14 @@ const API_URL =
 
 
 
-let currentRow="";
+let currentRow = "";
 
 
 
 
-
-
-
-
-// ==========================
+// ===============================
 // LOADING
-// ==========================
+// ===============================
 
 
 function showLoading(){
@@ -1126,9 +959,7 @@ function showLoading(){
 document.getElementById("loadingPage").style.display="block";
 
 
-document.getElementById("loadingPage").innerHTML=
-
-`
+document.getElementById("loadingPage").innerHTML = `
 
 <iframe src="loading.html"></iframe>
 
@@ -1136,7 +967,6 @@ document.getElementById("loadingPage").innerHTML=
 
 
 }
-
 
 
 
@@ -1158,11 +988,9 @@ document.getElementById("loadingPage").innerHTML="";
 
 
 
-
-
-// ==========================
+// ===============================
 // LOAD SUPPORT
-// ==========================
+// ===============================
 
 
 function loadSupport(){
@@ -1182,7 +1010,6 @@ action:"getPendingSupport"
 
 })
 
-
 })
 
 
@@ -1196,11 +1023,13 @@ let html="";
 
 
 
+if(data.data){
+
+
 data.data.forEach(item=>{
 
 
 html += `
-
 
 <tr>
 
@@ -1217,25 +1046,18 @@ html += `
 <td>${item.date}</td>
 
 
-
 <td>
-
 
 <button class="edit-btn"
 
 onclick="editSupport(${item.row})">
 
-
-<i class="fa fa-pen"></i>
-
 Edit
-
 
 </button>
 
 
 </td>
-
 
 
 </tr>
@@ -1244,8 +1066,10 @@ Edit
 `;
 
 
-
 });
+
+
+}
 
 
 
@@ -1261,20 +1085,19 @@ hideLoading();
 })
 
 
-.catch(()=>{
+.catch(error=>{
+
+
+console.log(error);
 
 
 hideLoading();
 
 
-showSuccess(
-"Error",
-"Server Connection Error"
-);
+alert("Server Error");
 
 
 });
-
 
 
 }
@@ -1287,13 +1110,12 @@ showSuccess(
 
 
 
-// ==========================
-// EDIT
-// ==========================
+// ===============================
+// EDIT OPEN
+// ===============================
 
 
 function editSupport(row){
-
 
 
 currentRow=row;
@@ -1313,11 +1135,9 @@ action:"getSingleSupport",
 
 row:row
 
-
 })
 
 })
-
 
 
 .then(res=>res.json())
@@ -1326,22 +1146,46 @@ row:row
 .then(data=>{
 
 
-customerId.value=data.customerId || "";
 
-problem.value=data.problem || "";
-
-reference.value=data.reference || "";
-
-date.value=data.date || "";
-
-support.value=data.support || "";
-
-supportWork.value=data.supportWork || "";
+document.getElementById("editRow").value=row;
 
 
 
+document.getElementById("customerId").value =
+data.customerId || "";
 
-editModal.classList.add("show");
+
+
+document.getElementById("problem").value =
+data.problem || "";
+
+
+
+document.getElementById("reference").value =
+data.reference || "";
+
+
+
+document.getElementById("date").value =
+data.date || "";
+
+
+
+document.getElementById("support").value =
+data.support || "";
+
+
+
+document.getElementById("supportWork").value =
+data.supportWork || "";
+
+
+
+
+
+document
+.getElementById("editModal")
+.classList.add("show");
 
 
 
@@ -1350,7 +1194,6 @@ hideLoading();
 
 
 });
-
 
 
 }
@@ -1363,10 +1206,9 @@ hideLoading();
 
 
 
-
-// ==========================
+// ===============================
 // UPDATE
-// ==========================
+// ===============================
 
 
 function updateSupport(){
@@ -1384,51 +1226,70 @@ body:JSON.stringify({
 
 action:"updateSupport",
 
+
 row:currentRow,
 
-customerId:customerId.value,
 
-problem:problem.value,
+customerId:
+document.getElementById("customerId").value,
 
-reference:reference.value,
 
-date:date.value,
+problem:
+document.getElementById("problem").value,
 
-support:support.value,
 
-supportWork:supportWork.value
+reference:
+document.getElementById("reference").value,
+
+
+date:
+document.getElementById("date").value,
+
+
+support:
+document.getElementById("support").value,
+
+
+supportWork:
+document.getElementById("supportWork").value
+
 
 
 })
 
-
 })
-
 
 
 .then(res=>res.json())
 
 
-.then(()=>{
+.then(data=>{
 
 
 hideLoading();
 
 
 
+alert("Updated Successfully");
+
+
 closeEdit();
-
-
-
-showSuccess(
-"Updated!",
-"Support Updated Successfully"
-);
-
 
 
 loadSupport();
 
+
+
+})
+
+
+.catch(error=>{
+
+
+hideLoading();
+
+
+alert("Update Error");
 
 
 });
@@ -1444,15 +1305,40 @@ loadSupport();
 
 
 
-// ==========================
-// DELETE
-// ==========================
+// ===============================
+// CLOSE EDIT
+// ===============================
+
+
+function closeEdit(){
+
+
+document
+.getElementById("editModal")
+.classList.remove("show");
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// DELETE POPUP
+// ===============================
 
 
 function openDelete(){
 
 
-confirmBox.style.display="flex";
+document
+.getElementById("confirmBox")
+.style.display="flex";
 
 
 }
@@ -1462,7 +1348,9 @@ confirmBox.style.display="flex";
 function closeDelete(){
 
 
-confirmBox.style.display="none";
+document
+.getElementById("confirmBox")
+.style.display="none";
 
 
 }
@@ -1473,7 +1361,14 @@ confirmBox.style.display="none";
 
 
 
+
+// ===============================
+// DELETE CONFIRM
+// ===============================
+
+
 function confirmDelete(){
+
 
 
 showLoading();
@@ -1493,14 +1388,13 @@ row:currentRow
 
 })
 
-
 })
 
 
 .then(res=>res.json())
 
 
-.then(()=>{
+.then(data=>{
 
 
 hideLoading();
@@ -1513,15 +1407,23 @@ closeEdit();
 
 
 
-showSuccess(
-"Deleted!",
-"Support Deleted Successfully"
-);
-
+alert("Deleted Successfully");
 
 
 loadSupport();
 
+
+
+})
+
+
+.catch(error=>{
+
+
+hideLoading();
+
+
+alert("Delete Error");
 
 
 });
@@ -1537,73 +1439,18 @@ loadSupport();
 
 
 
-// ==========================
-// POPUP CLOSE
-// ==========================
-
-
-function closeEdit(){
-
-
-editModal.classList.remove("show");
-
-
-}
-
-
-
-
-
-
-
-
-
-// ==========================
-// SUCCESS
-// ==========================
-
-
-function showSuccess(title,msg){
-
-
-successTitle.innerHTML=title;
-
-
-successMessage.innerHTML=msg;
-
-
-successBox.style.display="flex";
-
-
-}
-
-
-
-function closeSuccess(){
-
-
-successBox.style.display="none";
-
-
-}
-
-
-
-
-
-
-
-
-
-// ==========================
+// ===============================
 // PROFILE
-// ==========================
+// ===============================
+
 
 
 function toggleProfile(){
 
 
-profileMenu.classList.toggle("show");
+document
+.getElementById("profileMenu")
+.classList.toggle("show");
 
 
 }
@@ -1611,20 +1458,26 @@ profileMenu.classList.toggle("show");
 
 
 
+document.getElementById("username").innerText =
 
-username.innerHTML =
 localStorage.getItem("username") || "User";
 
 
 
-if(localStorage.getItem("picture")){
 
-
-profileImg.src=
+let img =
 localStorage.getItem("picture");
 
 
+
+if(img){
+
+
+document.getElementById("profileImg").src=img;
+
+
 }
+
 
 
 
@@ -1641,6 +1494,8 @@ location.href="myaccount.html";
 
 
 
+
+
 function logout(){
 
 
@@ -1651,6 +1506,7 @@ location.href="index.html";
 
 
 }
+
 
 
 
