@@ -1,254 +1,44 @@
-/* ==========================
-   ENTRY PAGE STYLE
-========================== */
-
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-
-
-body{
-
-    min-height:100vh;
+.entry-header{
 
     display:flex;
-
-    justify-content:center;
-
     align-items:center;
-
-    background:linear-gradient(135deg,#03543f,#01261d);
-
-}
-
-
-
-
-
-.entry-box{
-
-
-    width:420px;
-
-    background:white;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    box-shadow:0 15px 40px rgba(0,0,0,0.3);
-
+    justify-content:space-between;
+    margin-bottom:25px;
 
 }
 
 
+.entry-header h2{
 
-
-
-
-
-/* HEADER */
-
-
-.entry-box h2{
-
-
-    text-align:center;
+    margin:0;
 
     color:#03543f;
 
-    margin-bottom:25px;
-
-    font-size:24px;
-
-
 }
 
 
 
+.back-btn{
 
+    width:auto;
 
+    padding:8px 15px;
 
-
-/* INPUT GROUP */
-
-
-.input-group{
-
-
-    margin-bottom:18px;
-
-
-}
-
-
-
-
-.input-group label{
-
-
-    display:block;
-
-    margin-bottom:8px;
-
-    font-weight:bold;
-
-    color:#333;
-
-
-}
-
-
-
-
-
-.input-group input,
-.input-group textarea{
-
-
-    width:100%;
-
-    padding:12px;
-
-
-    border:1px solid #ddd;
-
-    border-radius:10px;
-
-
-    outline:none;
-
-    font-size:15px;
-
-
-}
-
-
-
-
-
-.input-group input:focus,
-.input-group textarea:focus{
-
-
-    border-color:#03543f;
-
-    box-shadow:0 0 8px rgba(3,84,63,.3);
-
-
-}
-
-
-
-
-
-
-/* READ ONLY REFERENCE */
-
-
-#reference{
-
-
-    background:#f1f1f1;
-
-    cursor:not-allowed;
-
-
-}
-
-
-
-
-
-
-
-/* BUTTON */
-
-
-button{
-
-
-    width:100%;
-
-    padding:13px;
-
-
-    border:none;
-
-    border-radius:10px;
-
-
-    background:#ff2d3f;
-
+    background:#03543f;
 
     color:white;
 
+    border:none;
 
-    font-size:16px;
-
-
-    font-weight:bold;
-
+    border-radius:8px;
 
     cursor:pointer;
 
-
 }
 
 
+.back-btn:hover{
 
-
-
-button:hover{
-
-
-    background:#d91f2f;
-
-
-}
-
-
-
-
-
-
-
-#msg{
-
-
-    text-align:center;
-
-    margin-top:15px;
-
-    font-size:14px;
-
-    color:#03543f;
-
-
-}
-
-
-
-
-
-
-
-/* MOBILE */
-
-
-@media(max-width:480px){
-
-
-.entry-box{
-
-    width:90%;
-
-}
-
+    background:#01261d;
 
 }
