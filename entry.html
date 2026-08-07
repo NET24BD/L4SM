@@ -1,59 +1,66 @@
-<!-- ENTRY POPUP -->
+<!DOCTYPE html>
+<html lang="en">
 
-<div id="entryModal" class="entry-modal">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <div class="entry-box">
+<title>New Entry</title>
 
+<link rel="stylesheet" href="entry.css">
 
-        <!-- HEADER -->
+</head>
 
-        <div class="entry-header">
 
+<body>
 
-            <h2>
-                <i class="fa-solid fa-circle-plus"></i>
-                New Entry
-            </h2>
 
+<div class="entry-container">
 
 
-            <button class="close-entry"
-                    onclick="closeEntry()">
+<h2>
+<i class="fa-solid fa-circle-plus"></i>
+New Entry
+</h2>
 
-                <i class="fa-solid fa-xmark"></i>
 
-            </button>
 
 
-        </div>
+<div class="input-group">
 
+<label>
+Customer ID
+</label>
 
 
+<input 
+type="text"
+id="customerId"
+placeholder="Enter Customer ID">
 
+</div>
 
-        <!-- BODY -->
 
-        <div class="entry-body">
 
 
 
-            <!-- CUSTOMER ID -->
 
-            <div class="input-group">
 
+<div class="input-group">
 
-                <label>
-                    Customer ID
-                </label>
+<label>
+Problem
+</label>
 
 
-                <input type="text"
-                       id="customerId"
-                       placeholder="Enter Customer ID">
+<textarea
+id="problem"
+rows="5"
+placeholder="Write customer problem"></textarea>
 
 
-            </div>
+</div>
 
 
 
@@ -61,98 +68,49 @@
 
 
 
-            <!-- PROBLEM -->
+<div class="input-group">
 
+<label>
+Reference
+</label>
 
-            <div class="input-group">
 
+<input 
+type="text"
+id="reference"
+placeholder="Enter Reference">
 
-                <label>
-                    Problem
-                </label>
 
+</div>
 
 
-                <textarea
-                    id="problem"
-                    rows="4"
-                    placeholder="Write customer problem..."></textarea>
 
 
-            </div>
 
 
 
+<button onclick="submitEntry()">
 
+Submit
 
+</button>
 
 
-            <!-- REFERENCE -->
 
 
-            <div class="input-group">
-
-
-                <label>
-                    Reference
-                </label>
-
-
-
-                <input type="text"
-                       id="reference"
-                       placeholder="Auto Login User"
-                       readonly>
-
-
-            </div>
-
-
-
-
-        </div>
-
-
-
-
-
-
-
-        <!-- FOOTER -->
-
-
-        <div class="entry-footer">
-
-
-
-            <button class="cancel-btn"
-                    onclick="closeEntry()">
-
-                Cancel
-
-            </button>
-
-
-
-
-
-            <button class="submit-btn"
-                    id="submitEntry">
-
-                Submit
-
-            </button>
-
-
-
-
-        </div>
-
-
-
-
-    </div>
+<p id="msg"></p>
 
 
 
 </div>
+
+
+
+
+
+<script src="entry.js"></script>
+
+
+</body>
+
+</html>
