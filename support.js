@@ -1,28 +1,24 @@
 // ===============================
-// API
+// API URL
 // ===============================
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
-let currentRow = "";
-
-let loadingTimer;
+let currentRow="";
 
 
 
 
 
 // ===============================
-// LOAD PAGE
+// START
 // ===============================
 
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded",function(){
 
-
-loadLoading();
 
 
 let user =
@@ -52,45 +48,7 @@ document.getElementById("profileImg").src=img;
 loadSupport();
 
 
-
 });
-
-
-
-
-
-
-
-
-// ===============================
-// LOADING HTML
-// ===============================
-
-
-function loadLoading(){
-
-
-fetch("loading.html")
-
-.then(res=>res.text())
-
-.then(data=>{
-
-
-document.getElementById("loadingArea").innerHTML=data;
-
-
-})
-
-
-.catch(err=>{
-
-console.log(err);
-
-});
-
-
-}
 
 
 
@@ -108,11 +66,9 @@ console.log(err);
 function toggleProfile(){
 
 
-let menu =
-document.getElementById("profileMenu");
-
-
-menu.classList.toggle("show");
+document
+.getElementById("profileMenu")
+.classList.toggle("show");
 
 
 }
@@ -123,11 +79,10 @@ menu.classList.toggle("show");
 function myAccount(){
 
 
-window.location.href="myaccount.html";
+location.href="myaccount.html";
 
 
 }
-
 
 
 
@@ -138,18 +93,17 @@ function logout(){
 localStorage.clear();
 
 
-window.location.href="index.html";
+location.href="index.html";
 
 
 }
 
 
 
-
 function goBack(){
 
 
-window.location.href="dashboard.html";
+location.href="dashboard.html";
 
 
 }
@@ -168,9 +122,6 @@ window.location.href="dashboard.html";
 
 
 function loadSupport(){
-
-
-showLoading("Loading Support...");
 
 
 
@@ -193,14 +144,9 @@ action:"getPendingSupport"
 
 })
 
-
 .then(res=>res.json())
 
-
 .then(data=>{
-
-
-console.log(data);
 
 
 let html="";
@@ -208,6 +154,7 @@ let html="";
 
 
 if(data.data){
+
 
 
 data.data.forEach(item=>{
@@ -218,24 +165,37 @@ html+=`
 
 <tr>
 
+
 <td>
+
 ${item.customerId || ""}
+
 </td>
 
 
+
 <td>
+
 ${item.problem || ""}
+
 </td>
 
 
+
 <td>
+
 ${item.reference || ""}
+
 </td>
+
 
 
 <td>
-${item.date || ""}
+
+${formatDate(item.date)}
+
 </td>
+
 
 
 <td>
@@ -243,7 +203,7 @@ ${item.date || ""}
 
 <button class="edit-btn"
 
-onclick="editSupport(${item.row})">
+onclick="editSupport('${item.row}')">
 
 
 <i class="fa fa-edit"></i>
@@ -266,38 +226,94 @@ Edit
 });
 
 
+
 }
 
 
 
-document.getElementById("supportList").innerHTML=html;
-
-
-
-hideLoading();
+document
+.getElementById("supportList")
+.innerHTML=html;
 
 
 
 })
 
-
-.catch(err=>{
-
-
-console.log(err);
+.catch(error=>{
 
 
-hideLoading();
-
-
-showSuccess(
-"Error",
-"Server Error"
-);
+console.log("Server Error",error);
 
 
 });
 
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// DATE FORMAT
+// ===============================
+
+
+function formatDate(date){
+
+
+if(!date){
+
+return "";
+
+}
+
+
+
+let d=new Date(date);
+
+
+
+let day=
+String(d.getDate())
+.padStart(2,"0");
+
+
+
+let monthList=[
+
+"Jan",
+"Feb",
+"Mar",
+"Apr",
+"May",
+"Jun",
+"Jul",
+"Aug",
+"Sep",
+"Oct",
+"Nov",
+"Dec"
+
+];
+
+
+
+let month=
+monthList[d.getMonth()];
+
+
+
+let year=
+d.getFullYear();
+
+
+
+return `${day} ${month} ${year}`;
 
 
 }
@@ -318,19 +334,11 @@ showSuccess(
 function editSupport(row){
 
 
-console.log("Edit Row:",row);
-
-
-
 currentRow=row;
-
-
-showLoading("Loading Data...");
 
 
 
 fetch(API_URL,{
-
 
 method:"POST",
 
@@ -340,14 +348,11 @@ headers:{
 
 },
 
-
 body:JSON.stringify({
-
 
 action:"getSingleSupport",
 
 row:row
-
 
 })
 
@@ -359,10 +364,6 @@ row:row
 
 
 .then(data=>{
-
-
-
-console.log(data);
 
 
 
@@ -382,7 +383,7 @@ data.reference || "";
 
 
 document.getElementById("date").value =
-data.date || "";
+convertDate(data.date);
 
 
 
@@ -397,9 +398,6 @@ data.supportWork || "";
 
 
 
-hideLoading();
-
-
 
 document
 .getElementById("editModal")
@@ -409,18 +407,45 @@ document
 
 })
 
-
 .catch(err=>{
 
 
 console.log(err);
 
 
-hideLoading();
-
-
 });
 
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// DATE FOR INPUT
+// ===============================
+
+
+function convertDate(date){
+
+
+if(!date){
+
+return "";
+
+}
+
+
+let d=new Date(date);
+
+
+
+return d.toISOString().split("T")[0];
 
 
 }
@@ -464,12 +489,8 @@ document
 function updateSupport(){
 
 
-showLoading("Updating...");
-
-
 
 fetch(API_URL,{
-
 
 method:"POST",
 
@@ -482,8 +503,8 @@ headers:{
 
 body:JSON.stringify({
 
-
 action:"updateSupport",
+
 
 row:currentRow,
 
@@ -524,38 +545,27 @@ document.getElementById("supportWork").value
 .then(data=>{
 
 
-hideLoading();
+alert("Updated Successfully");
 
 
 closeEdit();
 
 
-showSuccess(
-"Success",
-"Updated Successfully"
-);
-
-
-
 loadSupport();
+
 
 
 })
 
+
 .catch(err=>{
 
 
-hideLoading();
-
-
-showSuccess(
-"Error",
-"Update Failed"
-);
-
+alert("Update Failed");
 
 
 });
+
 
 
 }
@@ -573,53 +583,32 @@ showSuccess(
 // ===============================
 
 
-function openDelete(){
-
-
-document
-.getElementById("deleteModal")
-.classList.add("show");
-
-
-}
-
-
-
-
-function closeDelete(){
-
-
-document
-.getElementById("deleteModal")
-.classList.remove("show");
-
-
-}
-
-
-
-
-
-
 function deleteSupport(){
 
 
-showLoading("Deleting...");
+
+let confirmDelete =
+confirm("Are you sure you want to delete?");
+
+
+
+if(!confirmDelete){
+
+return;
+
+}
 
 
 
 fetch(API_URL,{
 
-
 method:"POST",
-
 
 headers:{
 
 "Content-Type":"text/plain;charset=utf-8"
 
 },
-
 
 body:JSON.stringify({
 
@@ -640,24 +629,14 @@ row:currentRow
 .then(data=>{
 
 
-hideLoading();
-
-
-closeDelete();
+alert("Deleted Successfully");
 
 
 closeEdit();
 
 
-
-showSuccess(
-"Deleted",
-"Deleted Successfully"
-);
-
-
-
 loadSupport();
+
 
 
 })
@@ -666,123 +645,11 @@ loadSupport();
 .catch(err=>{
 
 
-hideLoading();
-
-
-showSuccess(
-"Error",
-"Delete Failed"
-);
+alert("Delete Failed");
 
 
 });
 
-
-
-}
-
-
-
-
-
-
-
-
-
-// ===============================
-// SUCCESS POPUP
-// ===============================
-
-
-function showSuccess(title,msg){
-
-
-document.getElementById("successTitle").innerHTML=title;
-
-
-document.getElementById("successMessage").innerHTML=msg;
-
-
-
-document
-.getElementById("successModal")
-.classList.add("show");
-
-
-}
-
-
-
-
-
-function closeSuccess(){
-
-
-document
-.getElementById("successModal")
-.classList.remove("show");
-
-
-}
-
-
-
-
-
-
-
-
-
-// ===============================
-// LOADING
-// ===============================
-
-
-function showLoading(text){
-
-
-let box =
-document.getElementById("loadingBox");
-
-
-if(!box)return;
-
-
-
-box.style.display="block";
-
-
-
-let txt =
-document.getElementById("loadingText");
-
-
-if(txt){
-
-txt.innerHTML=text;
-
-}
-
-
-
-}
-
-
-
-function hideLoading(){
-
-
-
-let box =
-document.getElementById("loadingBox");
-
-
-
-if(box){
-
-box.style.display="none";
-
-}
 
 
 }
