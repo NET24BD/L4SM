@@ -4,19 +4,29 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>L4SM Dashboard</title>
 
+
 <link rel="stylesheet" href="dashboard.css">
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<!-- ENTRY POPUP CSS -->
+
+<link rel="stylesheet" href="entry.css">
+
 
 </head>
 
 
 <body>
+
 
 
 <!-- SIDEBAR -->
@@ -29,6 +39,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <i class="fa-solid fa-bars"></i>
 
 </div>
+
 
 
 
@@ -60,6 +71,8 @@ Dashboard
 
 
 
+
+
 <li onclick="openPage('usercontrol.html')">
 
 <i class="fa-solid fa-users"></i>
@@ -72,6 +85,8 @@ User Control
 
 
 
+
+
 <li onclick="openPage('support.html')">
 
 <i class="fa-solid fa-headset"></i>
@@ -81,6 +96,8 @@ Support
 </span>
 
 </li>
+
+
 
 
 
@@ -97,6 +114,7 @@ Call
 
 
 
+
 <li onclick="openPage('manager.html')">
 
 <i class="fa-solid fa-user-tie"></i>
@@ -108,10 +126,13 @@ Manager
 </li>
 
 
+
 </ul>
 
 
 </div>
+
+
 
 
 
@@ -123,12 +144,15 @@ Manager
 
 
 
+
+
 <header>
 
 
 <h2>
 Dashboard
 </h2>
+
 
 
 
@@ -143,13 +167,18 @@ src="assets/profile.png">
 
 
 
+
+
 <span id="headerName">
 User
 </span>
 
 
 
+
 <i class="fa-solid fa-angle-down"></i>
+
+
 
 
 
@@ -160,13 +189,20 @@ onclick="event.stopPropagation()">
 
 
 
+
+
 <button onclick="openMyAccount()">
+
 
 <i class="fa-solid fa-user"></i>
 
 My Account
 
+
 </button>
+
+
+
 
 
 
@@ -184,15 +220,23 @@ Logout
 
 
 
-</div>
 
 
 
 </div>
+
+
+
+
+
+</div>
+
 
 
 
 </header>
+
+
 
 
 
@@ -225,7 +269,6 @@ L4SM Management System
 </p>
 
 
-
 </div>
 
 
@@ -242,13 +285,17 @@ L4SM Management System
 
 
 
+
+
 <!-- NEW ENTRY -->
 
 <div class="card blue"
-onclick="openPage('entry.html')">
+onclick="openEntry()">
+
 
 
 <i class="fa-solid fa-plus-circle"></i>
+
 
 
 <div>
@@ -256,6 +303,7 @@ onclick="openPage('entry.html')">
 <h3>
 New Entry
 </h3>
+
 
 
 <p>
@@ -274,6 +322,12 @@ Create Entry
 
 
 
+
+
+
+<!-- SUPPORT -->
+
+
 <div class="card green"
 onclick="openPage('support.html')">
 
@@ -281,7 +335,9 @@ onclick="openPage('support.html')">
 <i class="fa-solid fa-headset"></i>
 
 
+
 <div>
+
 
 <h3>
 Pending Support
@@ -304,6 +360,11 @@ Support Pending
 
 
 
+
+
+<!-- CALL -->
+
+
 <div class="card orange"
 onclick="openPage('call.html')">
 
@@ -311,11 +372,14 @@ onclick="openPage('call.html')">
 <i class="fa-solid fa-phone-volume"></i>
 
 
+
 <div>
+
 
 <h3>
 Pending Call
 </h3>
+
 
 
 <p>
@@ -323,15 +387,21 @@ Call Pending
 </p>
 
 
-</div>
-
 
 </div>
 
 
+</div>
 
 
 
+
+
+
+
+
+
+<!-- HISTORY -->
 
 
 <div class="card purple"
@@ -341,7 +411,9 @@ onclick="openPage('history.html')">
 <i class="fa-solid fa-clock-rotate-left"></i>
 
 
+
 <div>
+
 
 <h3>
 History
@@ -353,16 +425,21 @@ All History
 </p>
 
 
-</div>
-
 
 </div>
 
 
+</div>
 
 
 
 
+
+
+
+
+
+<!-- OFFLINE ENTRY -->
 
 
 <div class="card red"
@@ -372,11 +449,14 @@ onclick="openPage('offline-entry.html')">
 <i class="fa-solid fa-file-circle-plus"></i>
 
 
+
 <div>
+
 
 <h3>
 Offline Entry
 </h3>
+
 
 
 <p>
@@ -384,16 +464,21 @@ Add Offline
 </p>
 
 
-</div>
-
 
 </div>
 
 
+</div>
 
 
 
 
+
+
+
+
+
+<!-- OFFLINE -->
 
 
 <div class="card dark"
@@ -403,11 +488,14 @@ onclick="openPage('offline.html')">
 <i class="fa-solid fa-power-off"></i>
 
 
+
 <div>
+
 
 <h3>
 Offline
 </h3>
+
 
 
 <p>
@@ -415,16 +503,21 @@ Offline List
 </p>
 
 
-</div>
-
 
 </div>
 
 
+</div>
 
 
 
 
+
+
+
+
+
+<!-- OFFLINE HISTORY -->
 
 
 <div class="card cyan"
@@ -434,11 +527,14 @@ onclick="openPage('offline-history.html')">
 <i class="fa-solid fa-box-archive"></i>
 
 
+
 <div>
+
 
 <h3>
 Offline History
 </h3>
+
 
 
 <p>
@@ -446,16 +542,21 @@ Offline Records
 </p>
 
 
-</div>
-
 
 </div>
 
 
+</div>
 
 
 
 
+
+
+
+
+
+<!-- TOTAL USERS -->
 
 
 <div class="card indigo"
@@ -465,11 +566,14 @@ onclick="openPage('usercontrol.html')">
 <i class="fa-solid fa-users"></i>
 
 
+
 <div>
+
 
 <h3>
 Total Users
 </h3>
+
 
 
 <p>
@@ -477,6 +581,18 @@ System Users
 </p>
 
 
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
 </div>
 
 
@@ -486,10 +602,15 @@ System Users
 
 
 
-</div>
 
 
-</div>
+
+
+<!-- ENTRY POPUP LOAD AREA -->
+
+
+<div id="entryContainer"></div>
+
 
 
 
@@ -503,6 +624,12 @@ System Users
 <script src="dashboard.js"></script>
 
 <script src="autologout.js"></script>
+
+
+<!-- ENTRY SCRIPT -->
+
+<script src="entry.js"></script>
+
 
 
 </body>
