@@ -10,360 +10,39 @@
 <title>Pending Support</title>
 
 
+<link rel="stylesheet" href="support.css">
+
+
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-<style>
-
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-
-body{
-
-background:#f1f5f9;
-padding:20px;
-
-}
-
-
-
-
-.container{
-
-width:100%;
-
-}
-
-
-
-
-header{
-
-background:white;
-
-padding:18px 25px;
-
-border-radius:15px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-
-margin-bottom:25px;
-
-}
-
-
-
-
-.title{
-
-display:flex;
-
-align-items:center;
-
-gap:20px;
-
-}
-
-
-
-.title h2{
-
-color:#03543f;
-
-}
-
-
-
-
-
-.back-btn{
-
-background:#03543f;
-
-color:white;
-
-border:none;
-
-padding:10px 18px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-
-
-
-
-/* PROFILE */
-
-
-.profile{
-
-position:relative;
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-cursor:pointer;
-
-font-weight:bold;
-
-}
-
-
-
-.profile img{
-
-width:45px;
-
-height:45px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-border:2px solid #03543f;
-
-}
-
-
-
-
-.profile-menu{
-
-
-position:absolute;
-
-right:0;
-
-top:60px;
-
-width:180px;
-
-background:white;
-
-border-radius:12px;
-
-padding:10px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.2);
-
-display:none;
-
-z-index:99;
-
-}
-
-
-
-
-.profile-menu.show{
-
-display:block;
-
-}
-
-
-
-
-.profile-menu button{
-
-
-width:100%;
-
-padding:12px;
-
-border:none;
-
-background:white;
-
-text-align:left;
-
-cursor:pointer;
-
-border-radius:8px;
-
-
-}
-
-
-
-.profile-menu button:hover{
-
-background:#f1f5f9;
-
-}
-
-
-
-
-
-
-/* TABLE */
-
-
-.table-box{
-
-background:white;
-
-padding:20px;
-
-border-radius:15px;
-
-overflow:auto;
-
-}
-
-
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-min-width:1000px;
-
-}
-
-
-
-
-thead{
-
-background:#03543f;
-
-color:white;
-
-}
-
-
-
-th{
-
-padding:14px;
-
-}
-
-
-
-td{
-
-padding:12px;
-
-text-align:center;
-
-border-bottom:1px solid #ddd;
-
-}
-
-
-
-
-input,
-textarea{
-
-width:150px;
-
-padding:8px;
-
-border:1px solid #ccc;
-
-border-radius:7px;
-
-}
-
-
-
-textarea{
-
-height:60px;
-
-resize:none;
-
-}
-
-
-
-
-
-.save-btn{
-
-background:#ff2d3f;
-
-color:white;
-
-border:none;
-
-padding:9px 15px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-
-
-
-.save-btn:hover{
-
-background:#d91f2f;
-
-}
-
-
-
-
-
-</style>
-
 </head>
 
 
-
 <body>
-
 
 
 <div class="container">
 
 
 
-<header>
+<!-- HEADER -->
 
+<header>
 
 
 <div class="title">
 
 
-<button class="back-btn"
-onclick="goBack()">
+<button class="back-btn" onclick="goBack()">
 
 <i class="fa-solid fa-arrow-left"></i>
 
 Back
 
 </button>
+
 
 
 <h2>
@@ -375,14 +54,18 @@ Pending Support
 </h2>
 
 
+
 </div>
 
 
 
 
 
-<div class="profile"
-onclick="toggleProfile()">
+
+<!-- PROFILE -->
+
+
+<div class="profile" onclick="toggleProfile()">
 
 
 
@@ -391,12 +74,14 @@ src="assets/profile.png">
 
 
 
-<span id="username">
+<span id="headerName">
 User
 </span>
 
 
+
 <i class="fa-solid fa-angle-down"></i>
+
 
 
 
@@ -408,7 +93,7 @@ onclick="event.stopPropagation()">
 
 
 
-<button onclick="myAccount()">
+<button onclick="openMyAccount()">
 
 <i class="fa-solid fa-user"></i>
 
@@ -432,7 +117,6 @@ Logout
 
 
 
-
 </div>
 
 
@@ -446,7 +130,13 @@ Logout
 
 
 
+
+
+<!-- TABLE -->
+
+
 <div class="table-box">
+
 
 
 <table>
@@ -456,25 +146,35 @@ Logout
 
 <tr>
 
-<th>Customer ID</th>
+<th>
+Customer ID
+</th>
 
-<th>Problem</th>
 
-<th>Reference</th>
+<th>
+Problem
+</th>
 
-<th>Date</th>
 
-<th>Support</th>
+<th>
+Reference
+</th>
 
-<th>Support Work</th>
 
-<th>Action</th>
+<th>
+Date
+</th>
+
+
+<th>
+Action
+</th>
 
 
 </tr>
 
-</thead>
 
+</thead>
 
 
 
@@ -483,14 +183,13 @@ Logout
 
 <tr>
 
-<td colspan="7">
+<td colspan="5">
 
 Loading...
 
 </td>
 
 </tr>
-
 
 
 </tbody>
@@ -505,6 +204,11 @@ Loading...
 
 
 
+
+
+
+
+
 </div>
 
 
@@ -513,6 +217,104 @@ Loading...
 
 
 
+
+
+<!-- EDIT POPUP -->
+
+
+<div class="edit-modal"
+id="editModal">
+
+
+<div class="edit-box">
+
+
+
+<h3>
+
+Update Support
+
+</h3>
+
+
+
+<input type="hidden"
+id="editRow">
+
+
+
+
+
+<label>
+Support
+</label>
+
+
+<input 
+type="text"
+id="supportName"
+readonly>
+
+
+
+
+
+
+<label>
+Support Work
+</label>
+
+
+<textarea
+id="supportWork"
+rows="5"
+placeholder="Write support work"></textarea>
+
+
+
+
+
+
+<div class="popup-btn">
+
+
+<button onclick="saveEdit()"
+class="save-btn">
+
+Submit
+
+</button>
+
+
+
+
+<button onclick="closeEdit()"
+class="cancel-btn">
+
+Cancel
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script src="auth.js"></script>
 
 
 <script>
@@ -525,11 +327,184 @@ const API_URL =
 
 
 
-// BACK
+let editRow = "";
 
-function goBack(){
 
-window.location.href="dashboard.html";
+
+
+
+
+// ======================
+// LOAD SUPPORT
+// ======================
+
+
+function loadSupport(){
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"getPendingSupport"
+
+})
+
+
+})
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+
+let html="";
+
+
+
+if(data.status=="success"){
+
+
+
+if(data.data.length==0){
+
+
+html=`
+
+<tr>
+
+<td colspan="5">
+
+No Pending Support
+
+</td>
+
+</tr>
+
+`;
+
+
+
+}
+
+else{
+
+
+
+data.data.forEach(row=>{
+
+
+html+=`
+
+<tr>
+
+
+<td>
+${row.customerId}
+</td>
+
+
+<td>
+${row.problem}
+</td>
+
+
+<td>
+${row.reference}
+</td>
+
+
+<td>
+${row.date}
+</td>
+
+
+
+<td>
+
+
+<button class="edit-btn"
+onclick="openEdit(${row.row})">
+
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+
+</button>
+
+
+
+</td>
+
+
+</tr>
+
+`;
+
+
+});
+
+
+}
+
+
+
+
+}
+
+
+else{
+
+
+html=`
+
+<tr>
+
+<td colspan="5">
+
+${data.message}
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+
+
+document.getElementById("supportList").innerHTML=html;
+
+
+
+})
+
+.catch(()=>{
+
+
+document.getElementById("supportList").innerHTML=
+
+`
+<tr>
+<td colspan="5">
+Server Error
+</td>
+</tr>
+`;
+
+
+});
+
+
 
 }
 
@@ -538,7 +513,151 @@ window.location.href="dashboard.html";
 
 
 
+
+
+
+
+// ======================
+// OPEN EDIT
+// ======================
+
+
+function openEdit(row){
+
+
+editRow=row;
+
+
+
+document.getElementById("editRow").value=row;
+
+
+
+document.getElementById("supportName").value=
+
+localStorage.getItem("username") || "User";
+
+
+
+document.getElementById("supportWork").value="";
+
+
+
+document.getElementById("editModal")
+.classList.add("show");
+
+
+
+}
+
+
+
+
+
+
+
+
+// ======================
+// SAVE EDIT
+// ======================
+
+
+function saveEdit(){
+
+
+
+let support =
+document.getElementById("supportName").value;
+
+
+
+let work =
+document.getElementById("supportWork").value.trim();
+
+
+
+
+if(work==""){
+
+alert("Write Support Work");
+
+return;
+
+}
+
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"updateSupport",
+
+row:editRow,
+
+support:support,
+
+supportWork:work
+
+})
+
+
+})
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+alert("Support Updated");
+
+
+closeEdit();
+
+
+loadSupport();
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function closeEdit(){
+
+
+document.getElementById("editModal")
+.classList.remove("show");
+
+
+}
+
+
+
+
+
+
+
+
+
+
+// ======================
 // PROFILE
+// ======================
 
 
 function toggleProfile(){
@@ -570,6 +689,40 @@ document
 }
 
 
+});
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+let username =
+localStorage.getItem("username");
+
+
+let picture =
+localStorage.getItem("picture");
+
+
+
+if(username)
+
+document.getElementById("headerName").innerText=username;
+
+
+
+if(picture)
+
+document.getElementById("profileImg").src=picture;
+
+
+
+loadSupport();
+
+
 
 });
 
@@ -579,43 +732,11 @@ document
 
 
 
-// USER DATA
-
-
-let user =
-localStorage.getItem("username");
-
-
-let pic =
-localStorage.getItem("picture");
-
-
-
-if(user){
-
-document.getElementById("username").innerText=user;
-
-}
-
-
-
-if(pic){
-
-document.getElementById("profileImg").src=pic;
-
-}
-
-
-
-
-
-
-function myAccount(){
+function openMyAccount(){
 
 window.location.href="myaccount.html";
 
 }
-
 
 
 
@@ -629,161 +750,340 @@ window.location.href="index.html";
 
 
 
+function goBack(){
 
-
-
-// LOAD SUPPORT DATA
-
-
-function loadSupport(){
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-body:JSON.stringify({
-
-action:"getPendingSupport"
-
-})
-
-})
-
-.then(r=>r.json())
-
-.then(data=>{
-
-
-let html="";
-
-
-data.data.forEach(row=>{
-
-
-html+=`
-
-<tr>
-
-<td>${row.customerId}</td>
-
-<td>${row.problem}</td>
-
-<td>${row.reference}</td>
-
-<td>${row.date}</td>
-
-
-<td>
-
-<input value="${user}" readonly>
-
-</td>
-
-
-
-<td>
-
-<textarea id="work${row.row}"></textarea>
-
-</td>
-
-
-
-<td>
-
-
-<button class="save-btn"
-onclick="saveSupport(${row.row})">
-
-Save
-
-</button>
-
-
-</td>
-
-
-</tr>
-
-`;
-
-
-
-});
-
-
-
-document.getElementById("supportList").innerHTML=html;
-
-
-});
-
+window.location.href="dashboard.html";
 
 }
-
-
-
-
-
-
-
-
-function saveSupport(row){
-
-
-let work =
-document.getElementById("work"+row).value;
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-body:JSON.stringify({
-
-action:"updateSupport",
-
-row:row,
-
-support:user,
-
-supportWork:work
-
-
-})
-
-})
-
-.then(r=>r.json())
-
-.then(data=>{
-
-
-alert("Saved Successfully");
-
-
-loadSupport();
-
-
-});
-
-
-
-}
-
-
-
-
-
-loadSupport();
-
-
 
 
 
 </script>
+
+
+
+<style>
+
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:Arial;
+
+}
+
+
+
+body{
+
+background:#f1f5f9;
+
+padding:20px;
+
+}
+
+
+
+
+header{
+
+background:white;
+
+padding:18px;
+
+border-radius:15px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+box-shadow:0 5px 20px #ddd;
+
+}
+
+
+
+.title{
+
+display:flex;
+
+gap:20px;
+
+align-items:center;
+
+}
+
+
+
+.back-btn{
+
+background:#03543f;
+
+color:white;
+
+border:0;
+
+padding:10px 15px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
+.profile{
+
+position:relative;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+cursor:pointer;
+
+}
+
+
+
+.profile img{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+}
+
+
+
+.profile-menu{
+
+position:absolute;
+
+right:0;
+
+top:55px;
+
+background:white;
+
+width:180px;
+
+padding:10px;
+
+border-radius:10px;
+
+box-shadow:0 5px 20px #aaa;
+
+display:none;
+
+z-index:10;
+
+}
+
+
+
+.profile-menu.show{
+
+display:block;
+
+}
+
+
+
+.profile-menu button{
+
+width:100%;
+
+padding:10px;
+
+border:0;
+
+background:white;
+
+text-align:left;
+
+cursor:pointer;
+
+}
+
+
+
+
+.table-box{
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+overflow:auto;
+
+}
+
+
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+
+
+th{
+
+background:#03543f;
+
+color:white;
+
+padding:12px;
+
+}
+
+
+
+td{
+
+padding:12px;
+
+text-align:center;
+
+border-bottom:1px solid #ddd;
+
+}
+
+
+
+.edit-btn{
+
+background:#03543f;
+
+color:white;
+
+border:0;
+
+padding:8px 15px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
+
+.edit-modal{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.5);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+
+
+.edit-modal.show{
+
+display:flex;
+
+}
+
+
+
+.edit-box{
+
+background:white;
+
+width:350px;
+
+padding:25px;
+
+border-radius:15px;
+
+}
+
+
+
+.edit-box input,
+.edit-box textarea{
+
+width:100%;
+
+padding:10px;
+
+margin:10px 0;
+
+}
+
+
+
+.save-btn,
+.cancel-btn{
+
+padding:10px 15px;
+
+border:0;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
+.save-btn{
+
+background:#03543f;
+
+color:white;
+
+}
+
+
+
+.cancel-btn{
+
+background:red;
+
+color:white;
+
+}
+
+
+</style>
 
 
 </body>
