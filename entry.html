@@ -23,82 +23,83 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
+
 <div class="entry-box">
 
 
 
-<!-- HEADER -->
+    <!-- HEADER -->
 
-<div class="entry-header">
+    <div class="entry-header">
 
 
-<button class="back-btn"
-onclick="goBack()">
+        <button class="back-btn" onclick="goBack()">
 
-<i class="fa-solid fa-arrow-left"></i>
-Back
+            <i class="fa-solid fa-arrow-left"></i>
+            Back
 
-</button>
+        </button>
 
 
 
-<h2>
+        <h2>
 
-<i class="fa-solid fa-circle-plus"></i>
+            <i class="fa-solid fa-circle-plus"></i>
 
-New Entry
+            New Entry
 
-</h2>
+        </h2>
 
 
-</div>
+    </div>
 
 
 
 
 
 
+    <!-- CUSTOMER ID -->
 
-<!-- FORM -->
+    <div class="input-group">
 
 
-<div class="input-group">
+        <label>
+            Customer ID
+        </label>
 
 
-<label>
-Customer ID
-</label>
+        <input 
+        type="text"
+        id="customerId"
+        placeholder="Enter Customer ID">
 
 
-<input 
-type="text"
-id="customerId"
-placeholder="Enter Customer ID">
+    </div>
 
 
-</div>
 
 
 
 
 
+    <!-- PROBLEM -->
 
 
-<div class="input-group">
+    <div class="input-group">
 
 
-<label>
-Problem
-</label>
+        <label>
+            Problem
+        </label>
 
 
-<textarea
-id="problem"
-rows="5"
-placeholder="Write customer problem"></textarea>
+        <textarea
+        id="problem"
+        rows="5"
+        placeholder="Write customer problem"></textarea>
 
 
-</div>
+    </div>
 
 
 
@@ -106,44 +107,51 @@ placeholder="Write customer problem"></textarea>
 
 
 
-<div class="input-group">
+    <!-- REFERENCE -->
 
 
-<label>
-Reference
-</label>
+    <div class="input-group">
 
 
-<input
-type="text"
-id="reference"
-readonly
-placeholder="Auto Login User">
+        <label>
+            Reference
+        </label>
 
 
-</div>
+        <input
+        type="text"
+        id="reference"
+        placeholder="Auto Login User"
+        readonly>
 
 
+    </div>
 
 
 
 
 
-<button class="submit-btn"
-onclick="submitEntry()">
 
 
-Submit
+    <!-- SUBMIT -->
 
 
-</button>
+    <button class="submit-btn"
+    onclick="submitEntry()">
 
 
+        <i class="fa-solid fa-paper-plane"></i>
 
+        Submit
 
 
+    </button>
 
-<p id="msg"></p>
+
+
+
+
+    <p id="msg"></p>
 
 
 
