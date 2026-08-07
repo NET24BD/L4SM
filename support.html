@@ -7,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Pending Support</title>
 
 
@@ -14,21 +15,23 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-
 <style>
 
 
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
+
 }
+
 
 
 body{
 
-background:linear-gradient(135deg,#ecfdf5,#f1f5f9);
+background:linear-gradient(135deg,#ecfdf5,#eff6ff);
 
 padding:20px;
 
@@ -36,7 +39,9 @@ padding:20px;
 
 
 
-/* HEADER */
+
+/* ================= HEADER ================= */
+
 
 .header{
 
@@ -44,7 +49,7 @@ background:white;
 
 padding:18px 25px;
 
-border-radius:18px;
+border-radius:20px;
 
 display:flex;
 
@@ -52,7 +57,7 @@ justify-content:space-between;
 
 align-items:center;
 
-box-shadow:0 10px 30px rgba(0,0,0,.12);
+box-shadow:0 10px 30px rgba(0,0,0,.15);
 
 }
 
@@ -67,6 +72,7 @@ align-items:center;
 gap:15px;
 
 }
+
 
 
 .back{
@@ -100,7 +106,8 @@ transform:scale(1.05);
 
 
 
-/* PROFILE */
+/* ================= PROFILE ================= */
+
 
 
 .profile{
@@ -111,9 +118,9 @@ align-items:center;
 
 gap:10px;
 
-position:relative;
-
 cursor:pointer;
+
+position:relative;
 
 }
 
@@ -121,9 +128,9 @@ cursor:pointer;
 
 .profile img{
 
-width:48px;
+width:50px;
 
-height:48px;
+height:50px;
 
 border-radius:50%;
 
@@ -144,11 +151,11 @@ position:absolute;
 
 right:0;
 
-top:60px;
-
-background:white;
+top:65px;
 
 width:190px;
+
+background:white;
 
 padding:10px;
 
@@ -201,8 +208,7 @@ background:#ecfdf5;
 
 
 
-
-/* TABLE */
+/* ================= TABLE ================= */
 
 
 .table-box{
@@ -213,13 +219,14 @@ background:white;
 
 padding:20px;
 
-border-radius:18px;
+border-radius:20px;
 
-box-shadow:0 10px 30px rgba(0,0,0,.1);
+box-shadow:0 10px 30px rgba(0,0,0,.12);
 
 overflow:auto;
 
 }
+
 
 
 
@@ -233,6 +240,7 @@ border-collapse:collapse;
 
 
 
+
 th{
 
 background:linear-gradient(135deg,#065f46,#10b981);
@@ -242,6 +250,7 @@ color:white;
 padding:14px;
 
 }
+
 
 
 
@@ -265,6 +274,7 @@ background:#ecfdf5;
 
 
 
+
 .edit-btn{
 
 background:#2563eb;
@@ -275,7 +285,7 @@ border:none;
 
 padding:8px 18px;
 
-border-radius:8px;
+border-radius:10px;
 
 cursor:pointer;
 
@@ -285,11 +295,12 @@ cursor:pointer;
 
 
 
-/* LOADING */
 
-#loadingPage{
 
-display:none;
+/* ================= LOADING ================= */
+
+
+#loadingArea{
 
 position:fixed;
 
@@ -301,21 +312,7 @@ width:100%;
 
 height:100%;
 
-background:rgba(0,0,0,.35);
-
-z-index:5000;
-
-}
-
-
-
-#loadingPage iframe{
-
-width:100%;
-
-height:100%;
-
-border:none;
+z-index:9999;
 
 }
 
@@ -327,7 +324,7 @@ border:none;
 
 
 
-/* EDIT POPUP */
+/* ================= POPUP ================= */
 
 
 .modal{
@@ -344,13 +341,17 @@ width:100%;
 
 height:100%;
 
+
 background:rgba(0,0,0,.45);
+
 
 justify-content:center;
 
 align-items:center;
 
+
 z-index:2000;
+
 
 }
 
@@ -371,7 +372,7 @@ position:relative;
 
 background:white;
 
-width:430px;
+width:450px;
 
 padding:30px;
 
@@ -384,7 +385,6 @@ max-height:90vh;
 overflow:auto;
 
 }
-
 
 
 
@@ -426,6 +426,8 @@ transform:rotate(90deg);
 
 
 
+
+
 .box h2{
 
 color:#065f46;
@@ -433,6 +435,8 @@ color:#065f46;
 margin-bottom:15px;
 
 }
+
+
 
 
 
@@ -450,31 +454,28 @@ color:#334155;
 
 
 
+
 input,
 textarea{
 
+
 width:100%;
+
 
 padding:11px;
 
+
 margin-top:5px;
+
 
 border:1px solid #cbd5e1;
 
+
 border-radius:10px;
+
 
 outline:none;
 
-}
-
-
-
-input:focus,
-textarea:focus{
-
-border-color:#10b981;
-
-box-shadow:0 0 8px #a7f3d0;
 
 }
 
@@ -494,13 +495,30 @@ resize:none;
 
 .btns{
 
-margin-top:20px;
-
 display:flex;
 
 gap:10px;
 
+margin-top:20px;
+
 }
+
+
+
+.btns button{
+
+padding:11px 18px;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
 
 
 
@@ -534,52 +552,48 @@ color:white;
 
 
 
-.btns button{
-
-border:none;
-
-padding:11px 18px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-font-weight:bold;
-
-}
 
 
 
 
 
 
+/* ================= DELETE POPUP ================= */
 
-
-
-/* DELETE POPUP */
 
 
 .confirm-box{
 
+
 display:none;
+
 
 position:fixed;
 
+
 top:0;
+
 
 left:0;
 
+
 width:100%;
+
 
 height:100%;
 
+
 background:rgba(0,0,0,.45);
+
 
 justify-content:center;
 
+
 align-items:center;
 
-z-index:6000;
+
+z-index:3000;
+
 
 }
 
@@ -587,17 +601,21 @@ z-index:6000;
 
 .confirm-content{
 
+
 background:white;
+
 
 width:330px;
 
+
 padding:30px;
+
 
 border-radius:20px;
 
+
 text-align:center;
 
-box-shadow:0 20px 50px rgba(0,0,0,.3);
 
 }
 
@@ -607,25 +625,32 @@ box-shadow:0 20px 50px rgba(0,0,0,.3);
 
 color:#dc2626;
 
-margin-bottom:10px;
-
 }
+
+
 
 
 
 .confirm-content button{
 
+
+padding:10px 20px;
+
+
 margin:8px;
 
-padding:10px 18px;
 
 border:none;
 
+
 border-radius:10px;
+
 
 cursor:pointer;
 
+
 }
+
 
 
 
@@ -654,76 +679,106 @@ color:white;
 
 
 
-/* SUCCESS POPUP */
+/* ================= SUCCESS POPUP ================= */
+
 
 
 .success-box{
 
+
 display:none;
+
 
 position:fixed;
 
+
 top:0;
+
 
 left:0;
 
+
 width:100%;
+
 
 height:100%;
 
+
 background:rgba(0,0,0,.45);
+
 
 justify-content:center;
 
+
 align-items:center;
 
-z-index:7000;
+
+z-index:4000;
+
 
 }
+
 
 
 
 .success-content{
 
+
 background:white;
+
 
 width:340px;
 
+
 padding:30px;
+
 
 border-radius:22px;
 
+
 text-align:center;
 
-box-shadow:0 20px 60px rgba(0,0,0,.3);
 
 }
+
 
 
 
 .success-icon{
 
+
 width:70px;
+
 
 height:70px;
 
-background:#10b981;
-
-color:white;
-
-border-radius:50%;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:35px;
 
 margin:auto;
 
+
+background:#10b981;
+
+
+color:white;
+
+
+border-radius:50%;
+
+
+display:flex;
+
+
+align-items:center;
+
+
+justify-content:center;
+
+
+font-size:35px;
+
+
 }
+
 
 
 
@@ -739,49 +794,68 @@ margin:15px;
 
 .success-content button{
 
+
 background:#10b981;
+
 
 color:white;
 
+
 border:none;
+
 
 padding:10px 35px;
 
+
 border-radius:10px;
 
+
 cursor:pointer;
+
 
 }
 
 
-
 </style>
 
+
 </head>
+
 
 
 <body>
 
 
 
-<div id="loadingPage"></div>
+<!-- Loading -->
+
+<div id="loadingArea"></div>
 
 
+
+
+
+<!-- Header -->
 
 <div class="header">
+
 
 
 <div class="left">
 
 
+
 <button class="back"
 onclick="location.href='dashboard.html'">
+
 
 <i class="fa fa-arrow-left"></i>
 
 Back
 
+
 </button>
+
 
 
 <h2>
@@ -791,6 +865,7 @@ Back
 Pending Support
 
 </h2>
+
 
 
 </div>
@@ -810,7 +885,9 @@ src="assets/profile.png">
 
 
 <span id="username">
+
 User
+
 </span>
 
 
@@ -853,15 +930,46 @@ Logout
 </div>
 
 
-
 </div>
-<!-- SUPPORT TABLE BODY -->
+<!-- ================= SUPPORT TABLE ================= -->
+
+
+<div class="table-box">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Customer ID</th>
+
+<th>Problem</th>
+
+<th>Reference</th>
+
+<th>Date</th>
+
+<th>Action</th>
+
+
+</tr>
+
+
+</thead>
+
+
 
 <tbody id="supportList">
 
+
 </tbody>
 
+
 </table>
+
 
 </div>
 
@@ -869,10 +977,16 @@ Logout
 
 
 
-<!-- EDIT POPUP -->
+
+
+
+
+
+<!-- ================= EDIT POPUP ================= -->
 
 
 <div class="modal" id="editModal">
+
 
 
 <div class="box">
@@ -881,15 +995,18 @@ Logout
 <button class="close-icon"
 onclick="closeEdit()">
 
+
 <i class="fa-solid fa-xmark"></i>
+
 
 </button>
 
 
 
+
 <h2>
 
-<i class="fa-solid fa-pen-to-square"></i>
+<i class="fa-solid fa-pen"></i>
 
 Edit Support
 
@@ -898,45 +1015,117 @@ Edit Support
 
 
 
+
 <input type="hidden" id="editRow">
 
 
 
-<label>Customer ID</label>
+
+
+
+<label>
+
+Customer ID
+
+</label>
+
 
 <input id="customerId">
 
 
 
-<label>Problem</label>
+
+
+
+<label>
+
+Problem
+
+</label>
+
 
 <textarea id="problem"></textarea>
 
 
 
 
-<label>Reference</label>
+
+
+
+<label>
+
+Reference
+
+</label>
+
 
 <input id="reference">
 
 
 
 
-<label>Date</label>
-
-<input type="date" id="date">
 
 
 
-<label>Support</label>
+<label>
+
+Date
+
+</label>
+
+
+<input type="date" id="supportDate">
+
+
+
+
+
+
+
+
+<label>
+
+Support
+
+</label>
+
 
 <input id="support">
 
 
 
-<label>Support Work</label>
+
+
+
+
+
+<label>
+
+Support Work
+
+</label>
+
 
 <textarea id="supportWork"></textarea>
+
+
+
+
+
+
+
+
+<label>
+
+Support Time
+
+</label>
+
+
+<input id="supportTime">
+
+
+
 
 
 
@@ -945,33 +1134,59 @@ Edit Support
 <div class="btns">
 
 
+
 <button class="submit"
 onclick="updateSupport()">
 
+
+
+<i class="fa fa-check"></i>
+
 Submit
 
+
 </button>
+
+
+
 
 
 
 <button class="cancel"
 onclick="closeEdit()">
 
+
+
 Cancel
 
+
 </button>
+
+
+
 
 
 
 <button class="delete"
 onclick="openDelete()">
 
+
+
+<i class="fa fa-trash"></i>
+
 Delete
+
 
 </button>
 
 
 
+
+</div>
+
+
+
+
 </div>
 
 
@@ -979,7 +1194,6 @@ Delete
 </div>
 
 
-</div>
 
 
 
@@ -987,17 +1201,16 @@ Delete
 
 
 
-
-
-
-<!-- DELETE CONFIRM -->
+<!-- ================= DELETE POPUP ================= -->
 
 
 <div class="confirm-box"
-id="confirmBox">
+id="deleteBox">
+
 
 
 <div class="confirm-content">
+
 
 
 <h3>
@@ -1007,32 +1220,48 @@ Delete Support?
 </h3>
 
 
+
 <p>
 
-Are you sure you want to delete this entry?
+Are you sure?
 
 </p>
 
 
 
+
+
 <button class="yes-delete"
-onclick="confirmDelete()">
+onclick="deleteSupport()">
+
+
 
 Yes Delete
 
+
 </button>
+
+
+
+
 
 
 <button class="no-delete"
 onclick="closeDelete()">
 
+
+
 Cancel
+
 
 </button>
 
 
+
+
 </div>
 
+
 </div>
 
 
@@ -1042,11 +1271,13 @@ Cancel
 
 
 
-<!-- SUCCESS POPUP -->
+
+<!-- ================= SUCCESS POPUP ================= -->
 
 
 <div class="success-box"
 id="successBox">
+
 
 
 <div class="success-content">
@@ -1055,9 +1286,12 @@ id="successBox">
 
 <div class="success-icon">
 
-<i class="fa-solid fa-check"></i>
+
+<i class="fa fa-check"></i>
+
 
 </div>
+
 
 
 
@@ -1066,6 +1300,8 @@ id="successBox">
 Success
 
 </h3>
+
+
 
 
 <p id="successMessage">
@@ -1079,7 +1315,9 @@ Completed Successfully
 
 <button onclick="closeSuccess()">
 
+
 OK
+
 
 </button>
 
@@ -1101,8 +1339,36 @@ OK
 <script>
 
 
+
+// ===============================
+// LOGIN CHECK
+// ===============================
+
+
+if(localStorage.getItem("isLogin")!="true"){
+
+
+location.href="index.html";
+
+
+}
+
+
+
+
+
+
+// ===============================
+// API
+// ===============================
+
+
 const API_URL =
+
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
+
+
+
 
 
 
@@ -1114,42 +1380,22 @@ let currentRow="";
 
 
 
-
-// ==========================
-// LOADING
-// ==========================
-
-
-function showLoading(){
+// ===============================
+// LOAD LOADING FILE
+// ===============================
 
 
-document.getElementById("loadingPage").style.display="block";
+fetch("loading.html")
+
+.then(res=>res.text())
+
+.then(data=>{
 
 
-document.getElementById("loadingPage").innerHTML=
-
-`
-
-<iframe src="loading.html"></iframe>
-
-`;
+document.getElementById("loadingArea").innerHTML=data;
 
 
-}
-
-
-
-
-function hideLoading(){
-
-
-document.getElementById("loadingPage").style.display="none";
-
-
-document.getElementById("loadingPage").innerHTML="";
-
-
-}
+});
 
 
 
@@ -1159,16 +1405,16 @@ document.getElementById("loadingPage").innerHTML="";
 
 
 
-
-// ==========================
-// LOAD SUPPORT
-// ==========================
+// ===============================
+// LOAD SUPPORT DATA
+// ===============================
 
 
 function loadSupport(){
 
 
-showLoading();
+
+showLoading("Loading Support...");
 
 
 
@@ -1180,42 +1426,44 @@ body:JSON.stringify({
 
 action:"getPendingSupport"
 
-})
-
 
 })
+
+})
+
 
 
 .then(res=>res.json())
 
 
+
 .then(data=>{
+
 
 
 let html="";
 
 
 
-data.data.forEach(item=>{
+data.data.forEach(row=>{
 
 
-html += `
+html +=`
 
 
 <tr>
 
 
-<td>${item.customerId}</td>
+<td>${row.customerId}</td>
 
 
-<td>${item.problem}</td>
+<td>${row.problem}</td>
 
 
-<td>${item.reference}</td>
+<td>${row.reference}</td>
 
 
-<td>${item.date}</td>
-
+<td>${row.date}</td>
 
 
 <td>
@@ -1223,10 +1471,10 @@ html += `
 
 <button class="edit-btn"
 
-onclick="editSupport(${item.row})">
+onclick="editSupport(${row.row})">
 
 
-<i class="fa fa-pen"></i>
+<i class="fa fa-edit"></i>
 
 Edit
 
@@ -1235,7 +1483,6 @@ Edit
 
 
 </td>
-
 
 
 </tr>
@@ -1260,8 +1507,7 @@ hideLoading();
 
 })
 
-
-.catch(()=>{
+.catch(err=>{
 
 
 hideLoading();
@@ -1269,7 +1515,7 @@ hideLoading();
 
 showSuccess(
 "Error",
-"Server Connection Error"
+"Server Error"
 );
 
 
@@ -1287,9 +1533,11 @@ showSuccess(
 
 
 
-// ==========================
-// EDIT
-// ==========================
+
+
+// ===============================
+// EDIT LOAD
+// ===============================
 
 
 function editSupport(row){
@@ -1299,7 +1547,8 @@ function editSupport(row){
 currentRow=row;
 
 
-showLoading();
+
+showLoading("Loading Data...");
 
 
 
@@ -1322,22 +1571,35 @@ row:row
 
 .then(res=>res.json())
 
-
 .then(data=>{
+
 
 
 customerId.value=data.customerId || "";
 
+
 problem.value=data.problem || "";
+
 
 reference.value=data.reference || "";
 
-date.value=data.date || "";
+
+supportDate.value=data.date || "";
+
 
 support.value=data.support || "";
 
+
 supportWork.value=data.supportWork || "";
 
+
+supportTime.value=data.supportTime || "";
+
+
+
+
+
+hideLoading();
 
 
 
@@ -1345,10 +1607,6 @@ editModal.classList.add("show");
 
 
 
-hideLoading();
-
-
-
 });
 
 
@@ -1363,183 +1621,9 @@ hideLoading();
 
 
 
-
-// ==========================
-// UPDATE
-// ==========================
-
-
-function updateSupport(){
-
-
-showLoading();
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-body:JSON.stringify({
-
-action:"updateSupport",
-
-row:currentRow,
-
-customerId:customerId.value,
-
-problem:problem.value,
-
-reference:reference.value,
-
-date:date.value,
-
-support:support.value,
-
-supportWork:supportWork.value
-
-
-})
-
-
-})
-
-
-
-.then(res=>res.json())
-
-
-.then(()=>{
-
-
-hideLoading();
-
-
-
-closeEdit();
-
-
-
-showSuccess(
-"Updated!",
-"Support Updated Successfully"
-);
-
-
-
-loadSupport();
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-
-// ==========================
-// DELETE
-// ==========================
-
-
-function openDelete(){
-
-
-confirmBox.style.display="flex";
-
-
-}
-
-
-
-function closeDelete(){
-
-
-confirmBox.style.display="none";
-
-
-}
-
-
-
-
-
-
-
-function confirmDelete(){
-
-
-showLoading();
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-body:JSON.stringify({
-
-action:"deleteSupport",
-
-row:currentRow
-
-
-})
-
-
-})
-
-
-.then(res=>res.json())
-
-
-.then(()=>{
-
-
-hideLoading();
-
-
-closeDelete();
-
-
-closeEdit();
-
-
-
-showSuccess(
-"Deleted!",
-"Support Deleted Successfully"
-);
-
-
-
-loadSupport();
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-
-// ==========================
-// POPUP CLOSE
-// ==========================
+// ===============================
+// CLOSE EDIT
+// ===============================
 
 
 function closeEdit(){
@@ -1558,46 +1642,9 @@ editModal.classList.remove("show");
 
 
 
-// ==========================
-// SUCCESS
-// ==========================
-
-
-function showSuccess(title,msg){
-
-
-successTitle.innerHTML=title;
-
-
-successMessage.innerHTML=msg;
-
-
-successBox.style.display="flex";
-
-
-}
-
-
-
-function closeSuccess(){
-
-
-successBox.style.display="none";
-
-
-}
-
-
-
-
-
-
-
-
-
-// ==========================
+// ===============================
 // PROFILE
-// ==========================
+// ===============================
 
 
 function toggleProfile(){
@@ -1607,8 +1654,6 @@ profileMenu.classList.toggle("show");
 
 
 }
-
-
 
 
 
@@ -1625,8 +1670,6 @@ localStorage.getItem("picture");
 
 
 }
-
-
 
 
 
@@ -1652,23 +1695,530 @@ location.href="index.html";
 
 }
 
+<script>
+
+
+// ===============================
+// UPDATE SUPPORT
+// ===============================
+
+
+function updateSupport(){
+
+
+showLoading("Updating Support...");
 
 
 
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+
+action:"updateSupport",
+
+
+row:currentRow,
+
+
+customerId:
+document.getElementById("customerId").value,
+
+
+problem:
+document.getElementById("problem").value,
+
+
+reference:
+document.getElementById("reference").value,
+
+
+date:
+document.getElementById("supportDate").value,
+
+
+support:
+document.getElementById("support").value,
+
+
+supportWork:
+document.getElementById("supportWork").value,
+
+
+supportTime:
+document.getElementById("supportTime").value
 
 
 
+})
 
-// START
+})
+
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+hideLoading();
+
+
+
+closeEdit();
+
+
+
+showSuccess(
+
+"Updated",
+
+"Support Updated Successfully"
+
+);
+
 
 
 loadSupport();
 
 
 
+})
+
+.catch(()=>{
+
+
+hideLoading();
+
+
+showSuccess(
+
+"Error",
+
+"Update Failed"
+
+);
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// OPEN DELETE
+// ===============================
+
+
+function openDelete(){
+
+
+document.getElementById("deleteBox").style.display="flex";
+
+
+}
+
+
+
+
+
+
+
+// ===============================
+// CLOSE DELETE
+// ===============================
+
+
+function closeDelete(){
+
+
+document.getElementById("deleteBox").style.display="none";
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// DELETE SUPPORT
+// ===============================
+
+
+function deleteSupport(){
+
+
+
+showLoading("Deleting Support...");
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+
+action:"deleteSupport",
+
+
+row:currentRow
+
+
+
+})
+
+
+})
+
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+hideLoading();
+
+
+
+closeDelete();
+
+
+closeEdit();
+
+
+
+showSuccess(
+
+"Deleted",
+
+"Support Deleted Successfully"
+
+);
+
+
+
+loadSupport();
+
+
+
+})
+
+
+
+.catch(()=>{
+
+
+hideLoading();
+
+
+
+showSuccess(
+
+"Error",
+
+"Delete Failed"
+
+);
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// SUCCESS POPUP
+// ===============================
+
+
+function showSuccess(title,message){
+
+
+
+document.getElementById("successTitle").innerHTML=title;
+
+
+document.getElementById("successMessage").innerHTML=message;
+
+
+
+document.getElementById("successBox").style.display="flex";
+
+
+
+}
+
+
+
+
+
+
+function closeSuccess(){
+
+
+
+document.getElementById("successBox").style.display="none";
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// LOADING CONTROL
+// ===============================
+
+
+function showLoading(text="Loading..."){
+
+
+
+let box=document.getElementById("loadingBox");
+
+
+
+if(!box){
+
+
+console.log("Loading not ready");
+
+
+return;
+
+
+}
+
+
+
+
+box.style.display="block";
+
+
+
+let txt=document.getElementById("loadingText");
+
+
+if(txt){
+
+txt.innerHTML=text;
+
+}
+
+
+
+
+
+let percent=
+document.getElementById("percent");
+
+
+let bar=
+document.getElementById("progressBar");
+
+
+
+if(percent){
+
+percent.innerHTML="0%";
+
+}
+
+
+
+if(bar){
+
+bar.style.width="0%";
+
+}
+
+
+
+
+
+let count=0;
+
+
+
+let timer=setInterval(()=>{
+
+
+
+if(count<100){
+
+
+count++;
+
+
+
+if(percent){
+
+percent.innerHTML=count+"%";
+
+}
+
+
+
+if(bar){
+
+bar.style.width=count+"%";
+
+}
+
+
+}
+
+
+else{
+
+
+clearInterval(timer);
+
+
+}
+
+
+
+},25);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function hideLoading(){
+
+
+
+let box=document.getElementById("loadingBox");
+
+
+
+if(!box){
+
+return;
+
+}
+
+
+
+let percent=
+document.getElementById("percent");
+
+
+let bar=
+document.getElementById("progressBar");
+
+
+
+
+if(percent){
+
+percent.innerHTML="100%";
+
+}
+
+
+
+if(bar){
+
+bar.style.width="100%";
+
+}
+
+
+
+
+
+setTimeout(()=>{
+
+
+box.style.display="none";
+
+
+},400);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+// ===============================
+// START SYSTEM
+// ===============================
+
+
+
+setTimeout(()=>{
+
+
+loadSupport();
+
+
+},500);
+
+
+
 </script>
+
 
 
 </body>
 
+
 </html>
+
+
+
+
+</script>
