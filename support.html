@@ -4,18 +4,361 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Pending Support</title>
 
 
-<link rel="stylesheet" href="support.css">
-
-
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+
+body{
+
+background:#f1f5f9;
+padding:20px;
+
+}
+
+
+
+header{
+
+background:white;
+padding:18px 25px;
+border-radius:15px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+
+}
+
+
+
+.left{
+
+display:flex;
+align-items:center;
+gap:20px;
+
+}
+
+
+
+.back{
+
+background:#03543f;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+
+
+.profile{
+
+position:relative;
+display:flex;
+align-items:center;
+gap:10px;
+cursor:pointer;
+
+}
+
+
+
+.profile img{
+
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+
+}
+
+
+
+.profile-menu{
+
+position:absolute;
+right:0;
+top:60px;
+
+background:white;
+
+width:180px;
+
+padding:10px;
+
+border-radius:10px;
+
+box-shadow:0 5px 20px #aaa;
+
+display:none;
+
+z-index:20;
+
+}
+
+
+
+.profile-menu.show{
+
+display:block;
+
+}
+
+
+
+.profile-menu button{
+
+width:100%;
+padding:12px;
+
+background:white;
+
+border:none;
+
+cursor:pointer;
+
+text-align:left;
+
+border-radius:8px;
+
+}
+
+
+
+.profile-menu button:hover{
+
+background:#eee;
+
+}
+
+
+
+
+.table-box{
+
+margin-top:25px;
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+overflow:auto;
+
+}
+
+
+
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+
+
+th{
+
+background:#03543f;
+color:white;
+
+padding:13px;
+
+}
+
+
+
+td{
+
+padding:12px;
+
+text-align:center;
+
+border-bottom:1px solid #ddd;
+
+}
+
+
+
+.edit-btn{
+
+background:#03543f;
+
+color:white;
+
+border:none;
+
+padding:8px 15px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* POPUP */
+
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.5);
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+
+
+.modal.show{
+
+display:flex;
+
+}
+
+
+
+
+.box{
+
+background:white;
+
+width:380px;
+
+padding:25px;
+
+border-radius:15px;
+
+}
+
+
+
+.box h3{
+
+margin-bottom:15px;
+
+}
+
+
+
+.box label{
+
+display:block;
+
+margin-top:10px;
+
+}
+
+
+
+.box input,
+.box textarea{
+
+width:100%;
+
+padding:10px;
+
+margin-top:5px;
+
+border:1px solid #ccc;
+
+border-radius:8px;
+
+}
+
+
+
+.box textarea{
+
+resize:none;
+
+}
+
+
+
+.btns{
+
+margin-top:15px;
+
+}
+
+
+
+.submit{
+
+background:#03543f;
+
+color:white;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
+.cancel{
+
+background:red;
+
+color:white;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
+</style>
 
 </head>
 
@@ -23,26 +366,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
-<div class="container">
-
-
-
-<!-- HEADER -->
 
 <header>
 
 
-<div class="title">
+
+<div class="left">
 
 
-<button class="back-btn" onclick="goBack()">
+<button class="back"
+onclick="backDashboard()">
 
 <i class="fa-solid fa-arrow-left"></i>
 
 Back
 
 </button>
-
 
 
 <h2>
@@ -54,7 +393,6 @@ Pending Support
 </h2>
 
 
-
 </div>
 
 
@@ -62,10 +400,8 @@ Pending Support
 
 
 
-<!-- PROFILE -->
-
-
-<div class="profile" onclick="toggleProfile()">
+<div class="profile"
+onclick="profileToggle()">
 
 
 
@@ -73,15 +409,15 @@ Pending Support
 src="assets/profile.png">
 
 
+<span id="username">
 
-<span id="headerName">
 User
+
 </span>
 
 
 
 <i class="fa-solid fa-angle-down"></i>
-
 
 
 
@@ -93,7 +429,7 @@ onclick="event.stopPropagation()">
 
 
 
-<button onclick="openMyAccount()">
+<button onclick="myAccount()">
 
 <i class="fa-solid fa-user"></i>
 
@@ -120,7 +456,6 @@ Logout
 </div>
 
 
-
 </header>
 
 
@@ -129,14 +464,7 @@ Logout
 
 
 
-
-
-
-<!-- TABLE -->
-
-
 <div class="table-box">
-
 
 
 <table>
@@ -146,30 +474,15 @@ Logout
 
 <tr>
 
-<th>
-Customer ID
-</th>
+<th>Customer ID</th>
 
+<th>Problem</th>
 
-<th>
-Problem
-</th>
+<th>Reference</th>
 
+<th>Date</th>
 
-<th>
-Reference
-</th>
-
-
-<th>
-Date
-</th>
-
-
-<th>
-Action
-</th>
-
+<th>Action</th>
 
 </tr>
 
@@ -181,17 +494,6 @@ Action
 <tbody id="supportList">
 
 
-<tr>
-
-<td colspan="5">
-
-Loading...
-
-</td>
-
-</tr>
-
-
 </tbody>
 
 
@@ -199,18 +501,7 @@ Loading...
 </table>
 
 
-
 </div>
-
-
-
-
-
-
-
-
-</div>
-
 
 
 
@@ -222,25 +513,54 @@ Loading...
 <!-- EDIT POPUP -->
 
 
-<div class="edit-modal"
-id="editModal">
+<div class="modal" id="editModal">
 
 
-<div class="edit-box">
-
+<div class="box">
 
 
 <h3>
-
 Update Support
-
 </h3>
 
 
 
-<input type="hidden"
-id="editRow">
+<input type="hidden" id="editRow">
 
+
+
+<label>
+Customer ID
+</label>
+
+<input id="customerId" readonly>
+
+
+
+
+<label>
+Problem
+</label>
+
+<textarea id="problem" readonly></textarea>
+
+
+
+
+<label>
+Reference
+</label>
+
+<input id="reference" readonly>
+
+
+
+
+<label>
+Date
+</label>
+
+<input id="date" readonly>
 
 
 
@@ -249,13 +569,7 @@ id="editRow">
 Support
 </label>
 
-
-<input 
-type="text"
-id="supportName"
-readonly>
-
-
+<input id="support" readonly>
 
 
 
@@ -264,60 +578,50 @@ readonly>
 Support Work
 </label>
 
-
-<textarea
-id="supportWork"
-rows="5"
-placeholder="Write support work"></textarea>
+<textarea id="supportWork"
+placeholder="Write work"></textarea>
 
 
 
 
 
+<div class="btns">
 
-<div class="popup-btn">
 
-
-<button onclick="saveEdit()"
-class="save-btn">
+<button class="submit"
+onclick="saveSupport()">
 
 Submit
 
 </button>
 
 
-
-
-<button onclick="closeEdit()"
-class="cancel-btn">
+<button class="cancel"
+onclick="closeEdit()">
 
 Cancel
 
 </button>
 
 
-</div>
-
-
 
 </div>
-
 
 
 </div>
 
 
+</div>
 
 
 
 
 
 
-
-<script src="auth.js"></script>
 
 
 <script>
+
 
 
 const API_URL =
@@ -325,18 +629,12 @@ const API_URL =
 
 
 
-
-
-let editRow = "";
-
+let currentRow="";
 
 
 
 
-
-// ======================
-// LOAD SUPPORT
-// ======================
+// LOAD DATA
 
 
 function loadSupport(){
@@ -353,48 +651,16 @@ action:"getPendingSupport"
 
 })
 
-
 })
 
 
-.then(res=>res.json())
+.then(r=>r.json())
 
 
 .then(data=>{
 
 
-
 let html="";
-
-
-
-if(data.status=="success"){
-
-
-
-if(data.data.length==0){
-
-
-html=`
-
-<tr>
-
-<td colspan="5">
-
-No Pending Support
-
-</td>
-
-</tr>
-
-`;
-
-
-
-}
-
-else{
-
 
 
 data.data.forEach(row=>{
@@ -404,108 +670,108 @@ html+=`
 
 <tr>
 
+<td>${row.customerId}</td>
 
-<td>
-${row.customerId}
-</td>
+<td>${row.problem}</td>
 
+<td>${row.reference}</td>
 
-<td>
-${row.problem}
-</td>
+<td>${row.date}</td>
 
 
 <td>
-${row.reference}
-</td>
-
-
-<td>
-${row.date}
-</td>
-
-
-
-<td>
-
 
 <button class="edit-btn"
-onclick="openEdit(${row.row})">
-
-
-<i class="fa-solid fa-pen"></i>
+onclick="editSupport(${row.row})">
 
 Edit
-
 
 </button>
 
 
-
 </td>
 
 
 </tr>
 
+
 `;
+
 
 
 });
-
-
-}
-
-
-
-
-}
-
-
-else{
-
-
-html=`
-
-<tr>
-
-<td colspan="5">
-
-${data.message}
-
-</td>
-
-</tr>
-
-`;
-
-}
-
 
 
 document.getElementById("supportList").innerHTML=html;
 
 
 
+});
+
+
+}
+
+
+
+
+
+
+
+// EDIT
+
+
+function editSupport(row){
+
+
+currentRow=row;
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"getSingleSupport",
+
+row:row
+
 })
 
-.catch(()=>{
+
+})
 
 
-document.getElementById("supportList").innerHTML=
+.then(r=>r.json())
 
-`
-<tr>
-<td colspan="5">
-Server Error
-</td>
-</tr>
-`;
+
+.then(data=>{
+
+
+customerId.value=data.customerId;
+
+problem.value=data.problem;
+
+reference.value=data.reference;
+
+date.value=data.date;
+
+support.value=data.support || localStorage.getItem("username");
+
+supportWork.value=data.supportWork || "";
+
+editRow.value=row;
+
+
+
+document
+.getElementById("editModal")
+.classList.add("show");
 
 
 });
 
 
-
 }
 
 
@@ -513,79 +779,7 @@ Server Error
 
 
 
-
-
-
-
-// ======================
-// OPEN EDIT
-// ======================
-
-
-function openEdit(row){
-
-
-editRow=row;
-
-
-
-document.getElementById("editRow").value=row;
-
-
-
-document.getElementById("supportName").value=
-
-localStorage.getItem("username") || "User";
-
-
-
-document.getElementById("supportWork").value="";
-
-
-
-document.getElementById("editModal")
-.classList.add("show");
-
-
-
-}
-
-
-
-
-
-
-
-
-// ======================
-// SAVE EDIT
-// ======================
-
-
-function saveEdit(){
-
-
-
-let support =
-document.getElementById("supportName").value;
-
-
-
-let work =
-document.getElementById("supportWork").value.trim();
-
-
-
-
-if(work==""){
-
-alert("Write Support Work");
-
-return;
-
-}
-
-
+function saveSupport(){
 
 
 fetch(API_URL,{
@@ -596,29 +790,27 @@ body:JSON.stringify({
 
 action:"updateSupport",
 
-row:editRow,
+row:currentRow,
 
-support:support,
+support:support.value,
 
-supportWork:work
-
-})
+supportWork:supportWork.value
 
 
 })
 
 
-.then(res=>res.json())
+})
 
 
-.then(data=>{
+.then(r=>r.json())
+
+.then(()=>{
 
 
-alert("Support Updated");
-
+alert("Updated Successfully");
 
 closeEdit();
-
 
 loadSupport();
 
@@ -626,10 +818,7 @@ loadSupport();
 });
 
 
-
 }
-
-
 
 
 
@@ -639,104 +828,49 @@ loadSupport();
 
 function closeEdit(){
 
-
-document.getElementById("editModal")
+document
+.getElementById("editModal")
 .classList.remove("show");
-
 
 }
 
 
 
 
-
-
-
-
-
-
-// ======================
 // PROFILE
-// ======================
 
 
-function toggleProfile(){
-
+function profileToggle(){
 
 document
 .getElementById("profileMenu")
 .classList.toggle("show");
 
-
 }
 
 
 
-document.addEventListener("click",function(e){
-
-
-let profile=document.querySelector(".profile");
-
-
-if(!profile.contains(e.target)){
-
-
-document
-.getElementById("profileMenu")
-.classList.remove("show");
-
-
-}
-
-
-});
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-let username =
+let name =
 localStorage.getItem("username");
 
 
-let picture =
+if(name)
+
+username.innerText=name;
+
+
+
+
+let pic =
 localStorage.getItem("picture");
 
 
+if(pic)
 
-if(username)
-
-document.getElementById("headerName").innerText=username;
-
-
-
-if(picture)
-
-document.getElementById("profileImg").src=picture;
+profileImg.src=pic;
 
 
 
-loadSupport();
-
-
-
-});
-
-
-
-
-
-
-
-function openMyAccount(){
-
-window.location.href="myaccount.html";
-
-}
 
 
 
@@ -744,346 +878,36 @@ function logout(){
 
 localStorage.clear();
 
-window.location.href="index.html";
+location.href="index.html";
 
 }
 
 
 
-function goBack(){
 
-window.location.href="dashboard.html";
+function myAccount(){
+
+location.href="myaccount.html";
 
 }
+
+
+
+function backDashboard(){
+
+location.href="dashboard.html";
+
+}
+
+
+
+
+loadSupport();
 
 
 
 </script>
 
-
-
-<style>
-
-
-*{
-
-margin:0;
-
-padding:0;
-
-box-sizing:border-box;
-
-font-family:Arial;
-
-}
-
-
-
-body{
-
-background:#f1f5f9;
-
-padding:20px;
-
-}
-
-
-
-
-header{
-
-background:white;
-
-padding:18px;
-
-border-radius:15px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:20px;
-
-box-shadow:0 5px 20px #ddd;
-
-}
-
-
-
-.title{
-
-display:flex;
-
-gap:20px;
-
-align-items:center;
-
-}
-
-
-
-.back-btn{
-
-background:#03543f;
-
-color:white;
-
-border:0;
-
-padding:10px 15px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-
-
-.profile{
-
-position:relative;
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-cursor:pointer;
-
-}
-
-
-
-.profile img{
-
-width:45px;
-
-height:45px;
-
-border-radius:50%;
-
-}
-
-
-
-.profile-menu{
-
-position:absolute;
-
-right:0;
-
-top:55px;
-
-background:white;
-
-width:180px;
-
-padding:10px;
-
-border-radius:10px;
-
-box-shadow:0 5px 20px #aaa;
-
-display:none;
-
-z-index:10;
-
-}
-
-
-
-.profile-menu.show{
-
-display:block;
-
-}
-
-
-
-.profile-menu button{
-
-width:100%;
-
-padding:10px;
-
-border:0;
-
-background:white;
-
-text-align:left;
-
-cursor:pointer;
-
-}
-
-
-
-
-.table-box{
-
-background:white;
-
-padding:20px;
-
-border-radius:15px;
-
-overflow:auto;
-
-}
-
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-
-
-th{
-
-background:#03543f;
-
-color:white;
-
-padding:12px;
-
-}
-
-
-
-td{
-
-padding:12px;
-
-text-align:center;
-
-border-bottom:1px solid #ddd;
-
-}
-
-
-
-.edit-btn{
-
-background:#03543f;
-
-color:white;
-
-border:0;
-
-padding:8px 15px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-
-
-
-.edit-modal{
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:100%;
-
-background:rgba(0,0,0,.5);
-
-display:none;
-
-justify-content:center;
-
-align-items:center;
-
-}
-
-
-
-.edit-modal.show{
-
-display:flex;
-
-}
-
-
-
-.edit-box{
-
-background:white;
-
-width:350px;
-
-padding:25px;
-
-border-radius:15px;
-
-}
-
-
-
-.edit-box input,
-.edit-box textarea{
-
-width:100%;
-
-padding:10px;
-
-margin:10px 0;
-
-}
-
-
-
-.save-btn,
-.cancel-btn{
-
-padding:10px 15px;
-
-border:0;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-
-
-.save-btn{
-
-background:#03543f;
-
-color:white;
-
-}
-
-
-
-.cancel-btn{
-
-background:red;
-
-color:white;
-
-}
-
-
-</style>
 
 
 </body>
