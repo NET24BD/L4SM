@@ -161,6 +161,11 @@ if(data.success === true){
 
 
 localStorage.setItem(
+"auth",
+"true"
+);
+
+localStorage.setItem(
 "isLogin",
 "true"
 );
