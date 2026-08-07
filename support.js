@@ -1,11 +1,9 @@
 // ===============================
-// API URL
+// API
 // ===============================
-
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
-
 
 
 let currentRow = "";
@@ -16,10 +14,60 @@ let loadingTimer;
 
 
 
+// ===============================
+// LOAD PAGE
+// ===============================
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+loadLoading();
+
+
+let user =
+localStorage.getItem("username");
+
+
+if(user){
+
+document.getElementById("username").innerHTML=user;
+
+}
+
+
+
+let img =
+localStorage.getItem("picture");
+
+
+if(img){
+
+document.getElementById("profileImg").src=img;
+
+}
+
+
+
+loadSupport();
+
+
+
+});
+
+
+
+
+
+
+
 
 // ===============================
-// LOAD LOADING.HTML
+// LOADING HTML
 // ===============================
+
+
+function loadLoading(){
 
 
 fetch("loading.html")
@@ -34,59 +82,15 @@ document.getElementById("loadingArea").innerHTML=data;
 
 })
 
+
 .catch(err=>{
 
-console.log("Loading Error:",err);
+console.log(err);
 
 });
 
 
-
-
-
-
-
-
-// ===============================
-// START
-// ===============================
-
-
-window.onload=function(){
-
-
-let username =
-localStorage.getItem("username");
-
-
-if(username){
-
-document.getElementById("username").innerHTML=username;
-
 }
-
-
-
-
-let picture =
-localStorage.getItem("picture");
-
-
-
-if(picture){
-
-document.getElementById("profileImg").src=picture;
-
-}
-
-
-
-
-loadSupport();
-
-
-
-};
 
 
 
@@ -101,17 +105,17 @@ loadSupport();
 // ===============================
 
 
-
 function toggleProfile(){
 
 
-document
-.getElementById("profileMenu")
-.classList.toggle("show");
+let menu =
+document.getElementById("profileMenu");
+
+
+menu.classList.toggle("show");
 
 
 }
-
 
 
 
@@ -142,7 +146,6 @@ window.location.href="index.html";
 
 
 
-
 function goBack(){
 
 
@@ -160,12 +163,11 @@ window.location.href="dashboard.html";
 
 
 // ===============================
-// LOAD SUPPORT DATA
+// LOAD SUPPORT
 // ===============================
 
 
 function loadSupport(){
-
 
 
 showLoading("Loading Support...");
@@ -174,32 +176,22 @@ showLoading("Loading Support...");
 
 fetch(API_URL,{
 
-
 method:"POST",
-
 
 headers:{
 
-
-"Content-Type":
-
-"text/plain;charset=utf-8"
-
+"Content-Type":"text/plain;charset=utf-8"
 
 },
 
-
 body:JSON.stringify({
-
 
 action:"getPendingSupport"
 
-
 })
 
 
 })
-
 
 
 .then(res=>res.json())
@@ -208,14 +200,14 @@ action:"getPendingSupport"
 .then(data=>{
 
 
+console.log(data);
+
 
 let html="";
 
 
 
-
 if(data.data){
-
 
 
 data.data.forEach(item=>{
@@ -226,16 +218,24 @@ html+=`
 
 <tr>
 
-<td>${item.customerId || ""}</td>
+<td>
+${item.customerId || ""}
+</td>
 
 
-<td>${item.problem || ""}</td>
+<td>
+${item.problem || ""}
+</td>
 
 
-<td>${item.reference || ""}</td>
+<td>
+${item.reference || ""}
+</td>
 
 
-<td>${item.date || ""}</td>
+<td>
+${item.date || ""}
+</td>
 
 
 <td>
@@ -243,7 +243,7 @@ html+=`
 
 <button class="edit-btn"
 
-onclick="editSupport('${item.row}')">
+onclick="editSupport(${item.row})">
 
 
 <i class="fa fa-edit"></i>
@@ -259,7 +259,6 @@ Edit
 
 </tr>
 
-
 `;
 
 
@@ -267,14 +266,11 @@ Edit
 });
 
 
-
 }
 
 
 
-document
-.getElementById("supportList")
-.innerHTML=html;
+document.getElementById("supportList").innerHTML=html;
 
 
 
@@ -285,11 +281,10 @@ hideLoading();
 })
 
 
+.catch(err=>{
 
-.catch(error=>{
 
-
-console.log(error);
+console.log(err);
 
 
 hideLoading();
@@ -301,7 +296,6 @@ showSuccess(
 );
 
 
-
 });
 
 
@@ -317,11 +311,15 @@ showSuccess(
 
 
 // ===============================
-// OPEN EDIT
+// EDIT OPEN
 // ===============================
 
 
 function editSupport(row){
+
+
+console.log("Edit Row:",row);
+
 
 
 currentRow=row;
@@ -336,14 +334,9 @@ fetch(API_URL,{
 
 method:"POST",
 
-
 headers:{
 
-
-"Content-Type":
-
-"text/plain;charset=utf-8"
-
+"Content-Type":"text/plain;charset=utf-8"
 
 },
 
@@ -352,7 +345,6 @@ body:JSON.stringify({
 
 
 action:"getSingleSupport",
-
 
 row:row
 
@@ -363,11 +355,14 @@ row:row
 })
 
 
-
 .then(res=>res.json())
 
 
 .then(data=>{
+
+
+
+console.log(data);
 
 
 
@@ -402,7 +397,6 @@ data.supportWork || "";
 
 
 
-
 hideLoading();
 
 
@@ -416,7 +410,6 @@ document
 })
 
 
-
 .catch(err=>{
 
 
@@ -424,7 +417,6 @@ console.log(err);
 
 
 hideLoading();
-
 
 
 });
@@ -465,7 +457,7 @@ document
 
 
 // ===============================
-// UPDATE SUPPORT
+// UPDATE
 // ===============================
 
 
@@ -481,14 +473,9 @@ fetch(API_URL,{
 
 method:"POST",
 
-
 headers:{
 
-
-"Content-Type":
-
-"text/plain;charset=utf-8"
-
+"Content-Type":"text/plain;charset=utf-8"
 
 },
 
@@ -497,7 +484,6 @@ body:JSON.stringify({
 
 
 action:"updateSupport",
-
 
 row:currentRow,
 
@@ -526,12 +512,10 @@ supportWork:
 document.getElementById("supportWork").value
 
 
-
 })
 
 
 })
-
 
 
 .then(res=>res.json())
@@ -540,21 +524,15 @@ document.getElementById("supportWork").value
 .then(data=>{
 
 
-
 hideLoading();
-
 
 
 closeEdit();
 
 
-
 showSuccess(
-
 "Success",
-
-"Support Updated Successfully"
-
+"Updated Successfully"
 );
 
 
@@ -562,23 +540,17 @@ showSuccess(
 loadSupport();
 
 
-
 })
 
-
-
-.catch(error=>{
+.catch(err=>{
 
 
 hideLoading();
 
 
 showSuccess(
-
 "Error",
-
 "Update Failed"
-
 );
 
 
@@ -586,7 +558,6 @@ showSuccess(
 });
 
 
-
 }
 
 
@@ -598,12 +569,11 @@ showSuccess(
 
 
 // ===============================
-// DELETE OPEN
+// DELETE
 // ===============================
 
 
 function openDelete(){
-
 
 
 document
@@ -611,11 +581,7 @@ document
 .classList.add("show");
 
 
-
 }
-
-
-
 
 
 
@@ -623,11 +589,9 @@ document
 function closeDelete(){
 
 
-
 document
 .getElementById("deleteModal")
 .classList.remove("show");
-
 
 
 }
@@ -637,15 +601,7 @@ document
 
 
 
-
-
-// ===============================
-// DELETE SUPPORT
-// ===============================
-
-
 function deleteSupport(){
-
 
 
 showLoading("Deleting...");
@@ -660,20 +616,14 @@ method:"POST",
 
 headers:{
 
-
-"Content-Type":
-
-"text/plain;charset=utf-8"
-
+"Content-Type":"text/plain;charset=utf-8"
 
 },
 
 
 body:JSON.stringify({
 
-
 action:"deleteSupport",
-
 
 row:currentRow
 
@@ -684,12 +634,10 @@ row:currentRow
 })
 
 
-
 .then(res=>res.json())
 
 
 .then(data=>{
-
 
 
 hideLoading();
@@ -703,11 +651,8 @@ closeEdit();
 
 
 showSuccess(
-
 "Deleted",
-
-"Support Deleted Successfully"
-
+"Deleted Successfully"
 );
 
 
@@ -715,26 +660,19 @@ showSuccess(
 loadSupport();
 
 
-
 })
 
 
-
-.catch(error=>{
+.catch(err=>{
 
 
 hideLoading();
 
 
-
 showSuccess(
-
 "Error",
-
 "Delete Failed"
-
 );
-
 
 
 });
@@ -756,19 +694,13 @@ showSuccess(
 // ===============================
 
 
-function showSuccess(title,message){
+function showSuccess(title,msg){
 
 
-
-document
-.getElementById("successTitle")
-.innerHTML=title;
+document.getElementById("successTitle").innerHTML=title;
 
 
-
-document
-.getElementById("successMessage")
-.innerHTML=message;
+document.getElementById("successMessage").innerHTML=msg;
 
 
 
@@ -777,8 +709,8 @@ document
 .classList.add("show");
 
 
-
 }
+
 
 
 
@@ -802,24 +734,18 @@ document
 
 
 // ===============================
-// LOADING CONTROL
+// LOADING
 // ===============================
 
 
 function showLoading(text){
 
 
-
 let box =
 document.getElementById("loadingBox");
 
 
-
-if(!box){
-
-return;
-
-}
+if(!box)return;
 
 
 
@@ -831,7 +757,6 @@ let txt =
 document.getElementById("loadingText");
 
 
-
 if(txt){
 
 txt.innerHTML=text;
@@ -840,73 +765,11 @@ txt.innerHTML=text;
 
 
 
-let count=0;
-
-
-
-clearInterval(loadingTimer);
-
-
-
-loadingTimer=setInterval(()=>{
-
-
-
-if(count<100){
-
-
-count++;
-
-
-
-let p =
-document.getElementById("percent");
-
-
-
-let bar =
-document.getElementById("progressBar");
-
-
-
-if(p){
-
-p.innerHTML=count+"%";
-
 }
-
-
-
-if(bar){
-
-bar.style.width=count+"%";
-
-}
-
-
-
-}
-
-
-
-},25);
-
-
-
-}
-
-
-
-
-
 
 
 
 function hideLoading(){
-
-
-
-clearInterval(loadingTimer);
 
 
 
@@ -920,7 +783,6 @@ if(box){
 box.style.display="none";
 
 }
-
 
 
 }
