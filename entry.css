@@ -1,196 +1,379 @@
-/* =========================
-   Global Style
-========================= */
+/* ==========================
+   ENTRY PAGE CSS
+========================== */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
 
-    min-height: 100vh;
+body{
 
-    background: linear-gradient(
+    min-height:100vh;
+
+    background:
+    linear-gradient(
         135deg,
-        #667eea,
-        #764ba2
+        #0f172a,
+        #1e3a8a,
+        #06b6d4
     );
 
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
 
 }
 
 
-/* =========================
-   Card Design
-========================= */
 
-.card {
+/* Main Center */
 
-    border-radius: 20px;
+.entry-wrapper{
 
-    overflow: hidden;
+    min-height:100vh;
 
-    background: rgba(255,255,255,0.95);
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
 
 }
+
+
+
+/* Card */
+
+.entry-card{
+
+    width:430px;
+
+    background:#ffffff;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,0.35);
+
+    animation:
+    fadeIn .6s ease;
+
+}
+
+
+
 
 
 /* Header */
 
-.card-header {
+.entry-header{
 
-    padding: 20px;
+    background:
 
-    background: linear-gradient(
+    linear-gradient(
         135deg,
-        #0062ff,
-        #00c6ff
-    ) !important;
-
-}
-
-
-.card-header h3 {
-
-    margin: 0;
-
-    font-weight: 700;
-
-    letter-spacing: 1px;
-
-}
-
-
-/* =========================
-   Form Style
-========================= */
-
-
-.form-label {
-
-    font-weight: 600;
-
-    color: #333;
-
-}
-
-
-.form-control {
-
-    border-radius: 12px;
-
-    padding: 12px;
-
-    border: 1px solid #ddd;
-
-    transition: 0.3s;
-
-}
-
-
-.form-control:focus {
-
-    border-color: #0062ff;
-
-    box-shadow: 
-    0 0 0 0.2rem rgba(0,98,255,.25);
-
-}
-
-
-/* =========================
-   Button Style
-========================= */
-
-
-.btn-primary {
-
-    border-radius: 12px;
-
-    padding: 12px;
-
-    font-size: 18px;
-
-    font-weight: 600;
-
-    background: linear-gradient(
-        135deg,
-        #0062ff,
-        #00c6ff
+        #2563eb,
+        #06b6d4
     );
 
-    border: none;
+    padding:35px 20px;
 
-    transition: 0.3s;
+    text-align:center;
+
+    color:white;
 
 }
 
 
-.btn-primary:hover {
 
-    transform: translateY(-2px);
+
+.logo{
+
+    width:80px;
+
+    height:80px;
+
+    background:white;
+
+    color:#2563eb;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:auto;
+
+    font-size:40px;
 
     box-shadow:
-    0 8px 20px rgba(0,98,255,.3);
+    0 8px 20px rgba(0,0,0,.2);
 
 }
 
 
-/* =========================
-   Animation
-========================= */
 
 
-.card {
+.entry-header h2{
 
-    animation: slideUp .5s ease;
+    margin-top:15px;
+
+    font-size:28px;
+
+    font-weight:700;
 
 }
 
 
-@keyframes slideUp {
 
-    from {
+.entry-header p{
+
+    margin-top:8px;
+
+    font-size:15px;
+
+    opacity:.9;
+
+}
+
+
+
+
+/* Form Area */
+
+.entry-body{
+
+    padding:35px;
+
+}
+
+
+
+
+
+/* Input Box */
+
+.input-box{
+
+
+    display:flex;
+
+    align-items:center;
+
+    background:#f1f5f9;
+
+    border-radius:15px;
+
+    padding:14px 16px;
+
+    margin-bottom:20px;
+
+    border:2px solid transparent;
+
+    transition:.3s;
+
+}
+
+
+
+
+.input-box:hover{
+
+    background:#ffffff;
+
+}
+
+
+
+
+
+.input-box:focus-within{
+
+
+    border-color:#2563eb;
+
+    background:white;
+
+    box-shadow:
+
+    0 0 12px rgba(37,99,235,.25);
+
+}
+
+
+
+
+
+.input-box i{
+
+    color:#2563eb;
+
+    font-size:22px;
+
+    margin-right:12px;
+
+}
+
+
+
+
+.input-box input,
+
+
+.input-box textarea{
+
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    font-size:16px;
+
+    color:#333;
+
+}
+
+
+
+
+
+.input-box textarea{
+
+    resize:none;
+
+}
+
+
+
+
+/* Button */
+
+
+.submit-btn{
+
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:15px;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #06b6d4
+    );
+
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:600;
+
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+
+.submit-btn:hover{
+
+
+    transform:
+    translateY(-3px);
+
+
+    box-shadow:
+
+    0 12px 25px rgba(37,99,235,.35);
+
+}
+
+
+
+
+
+/* Animation */
+
+
+@keyframes fadeIn{
+
+
+    from{
 
         opacity:0;
 
-        transform: translateY(30px);
+        transform:
+        translateY(40px);
 
     }
 
 
-    to {
+    to{
 
         opacity:1;
 
-        transform: translateY(0);
+        transform:
+        translateY(0);
 
     }
+
 
 }
 
 
-/* =========================
-   Mobile Responsive
-========================= */
 
 
-@media(max-width:576px){
+
+/* Mobile */
 
 
-    .container {
+@media(max-width:500px){
 
-        padding:20px;
+
+    .entry-card{
+
+        width:100%;
 
     }
 
 
-    .card-header h3 {
+    .entry-body{
 
-        font-size:22px;
+        padding:25px;
+
+    }
+
+
+    .entry-header h2{
+
+        font-size:23px;
 
     }
 
