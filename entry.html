@@ -14,16 +14,15 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-
 <style>
+
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
 }
-
 
 
 body{
@@ -42,9 +41,8 @@ body{
 
 
 
-
-
 .entry-box{
+
 
     width:420px;
 
@@ -54,22 +52,21 @@ body{
 
     border-radius:18px;
 
-    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+
 
 }
 
 
 
+.header{
 
-
-
-.entry-header{
 
     display:flex;
 
-    align-items:center;
-
     justify-content:space-between;
+
+    align-items:center;
 
     margin-bottom:25px;
 
@@ -77,8 +74,7 @@ body{
 
 
 
-
-.entry-header h2{
+.header h2{
 
     color:#03543f;
 
@@ -89,8 +85,8 @@ body{
 
 
 
-
 .back-btn{
+
 
     background:#03543f;
 
@@ -98,31 +94,19 @@ body{
 
     border:none;
 
-    padding:8px 14px;
+    padding:8px 15px;
 
     border-radius:8px;
 
     cursor:pointer;
 
-}
-
-
-
-
-
-.back-btn:hover{
-
-    background:#01261d;
 
 }
-
-
-
-
 
 
 
 .input-group{
+
 
     margin-bottom:18px;
 
@@ -130,8 +114,8 @@ body{
 
 
 
+label{
 
-.input-group label{
 
     display:block;
 
@@ -141,14 +125,13 @@ body{
 
     color:#333;
 
+
 }
 
 
 
-
-
-.input-group input,
-.input-group textarea{
+input,
+textarea{
 
 
     width:100%;
@@ -168,30 +151,26 @@ body{
 
 
 
+input:focus,
+textarea:focus{
 
-
-.input-group input:focus,
-.input-group textarea:focus{
 
     border-color:#03543f;
 
+
 }
-
-
-
 
 
 
 #reference{
 
+
     background:#eee;
 
     cursor:not-allowed;
 
+
 }
-
-
-
 
 
 
@@ -221,18 +200,18 @@ body{
 
 
 
-
 .submit-btn:hover{
 
+
     background:#d91f2f;
+
 
 }
 
 
 
-
-
 #msg{
+
 
     text-align:center;
 
@@ -240,7 +219,9 @@ body{
 
     font-size:14px;
 
+
 }
+
 
 
 
@@ -248,7 +229,6 @@ body{
 
 
 </head>
-
 
 
 
@@ -261,9 +241,7 @@ body{
 
 
 
-
-
-<div class="entry-header">
+<div class="header">
 
 
 <button class="back-btn" onclick="goBack()">
@@ -281,10 +259,9 @@ Back
 
 <i class="fa-solid fa-circle-plus"></i>
 
-New Entry
+Entry
 
 </h2>
-
 
 
 </div>
@@ -294,9 +271,7 @@ New Entry
 
 
 
-
 <div class="input-group">
-
 
 <label>
 Customer ID
@@ -316,9 +291,7 @@ placeholder="Enter Customer ID">
 
 
 
-
 <div class="input-group">
-
 
 <label>
 Problem
@@ -341,7 +314,6 @@ placeholder="Write customer problem"></textarea>
 
 <div class="input-group">
 
-
 <label>
 Reference
 </label>
@@ -351,7 +323,7 @@ Reference
 type="text"
 id="reference"
 readonly
-placeholder="Auto Login User">
+placeholder="Auto User">
 
 
 </div>
@@ -361,18 +333,13 @@ placeholder="Auto Login User">
 
 
 
-
-<button class="submit-btn"
-onclick="submitEntry()">
-
+<button class="submit-btn" onclick="submitEntry()">
 
 <i class="fa-solid fa-paper-plane"></i>
 
 Submit
 
-
 </button>
-
 
 
 
@@ -381,10 +348,7 @@ Submit
 
 
 
-
-
 </div>
-
 
 
 
@@ -396,11 +360,19 @@ Submit
 <script>
 
 
-// BACK BUTTON
+// GOOGLE SCRIPT URL
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
+
+
+
+
+// BACK
 
 function goBack(){
 
-    window.location.href="dashboard.html";
+window.location.href="dashboard.html";
 
 }
 
@@ -410,6 +382,7 @@ function goBack(){
 
 
 // AUTO REFERENCE
+
 
 document.addEventListener("DOMContentLoaded",()=>{
 
@@ -428,9 +401,11 @@ document.getElementById("reference").value = user || "Unknown";
 
 
 
-// SUBMIT
+// SUBMIT DATA
+
 
 function submitEntry(){
+
 
 
 let customerId =
@@ -448,20 +423,18 @@ document.getElementById("reference").value;
 
 
 
-
 let msg =
 document.getElementById("msg");
 
 
 
 
-if(customerId==="" || problem===""){
+if(customerId=="" || problem==""){
 
 
 msg.style.color="red";
 
 msg.innerText="Please fill all fields";
-
 
 return;
 
@@ -471,23 +444,86 @@ return;
 
 
 
-console.log({
+msg.style.color="black";
 
-customerId,
-
-problem,
-
-reference
-
-});
+msg.innerText="Saving...";
 
 
 
+
+
+fetch(API_URL,{
+
+
+method:"POST",
+
+
+body:JSON.stringify({
+
+
+action:"newEntry",
+
+customerId:customerId,
+
+problem:problem,
+
+reference:reference
+
+
+})
+
+
+})
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+if(data.status=="success"){
 
 
 msg.style.color="green";
 
-msg.innerText="Entry Ready";
+msg.innerText="Entry Saved Successfully ✔";
+
+
+
+document.getElementById("customerId").value="";
+
+document.getElementById("problem").value="";
+
+
+}
+else{
+
+
+msg.style.color="red";
+
+msg.innerText=data.message;
+
+
+}
+
+
+
+})
+
+
+.catch(err=>{
+
+
+console.log(err);
+
+
+msg.style.color="red";
+
+msg.innerText="Server Error";
+
+
+});
+
 
 
 
@@ -496,7 +532,6 @@ msg.innerText="Entry Ready";
 
 
 </script>
-
 
 
 
