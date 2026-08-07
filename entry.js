@@ -1,160 +1,137 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
+const scriptURL = "YOUR_WEB_APP_URL";
 
 
 
-// ===============================
-// AUTO LOAD USER REFERENCE
-// ===============================
+// Load User ID Automatically
 
-window.addEventListener("load", function(){
-
-    let userId = localStorage.getItem("userId");
+window.onload=function(){
 
 
-    if(userId && userId !== ""){
+let user =
+localStorage.getItem("userId");
 
-        document.getElementById("reference").value = userId;
 
-    }
-    else{
 
-        document.getElementById("reference").value = "";
+if(user){
 
-    }
+document.getElementById("reference").value=user;
 
-});
+}
+
+
+};
 
 
 
 
-// ===============================
-// FORM SUBMIT
-// ===============================
 
 document
 .getElementById("entryForm")
-.addEventListener("submit", function(e){
+.addEventListener("submit",function(e){
 
 
-    e.preventDefault();
+e.preventDefault();
 
 
 
-    let customerId =
-    document.getElementById("customerId").value.trim();
+let customerId =
+document.getElementById("customerId").value;
 
 
 
-    let problem =
-    document.getElementById("problem").value.trim();
+let problem =
+document.getElementById("problem").value;
 
 
 
-    let reference =
-    document.getElementById("reference").value.trim();
+let reference =
+document.getElementById("reference").value;
 
 
 
 
-    if(customerId === "" || problem === ""){
 
+let data={
 
-        alert("Please Fill All Required Fields");
 
-        return;
+customerId:customerId,
 
-    }
+problem:problem,
 
+reference:reference
 
 
+};
 
 
-    let formData = {
 
 
-        customerId: customerId,
 
-        problem: problem,
+fetch(scriptURL,{
 
-        reference: reference
 
+method:"POST",
 
-    };
 
+headers:{
 
 
+"Content-Type":"application/json"
 
+},
 
 
-    fetch(scriptURL, {
+body:JSON.stringify(data)
 
 
-        method:"POST",
+})
 
 
-        mode:"no-cors",
 
+.then(response=>response.text())
 
-        headers:{
 
 
-            "Content-Type":"application/json"
+.then(result=>{
 
-        },
 
+alert("Entry Saved Successfully");
 
-        body:JSON.stringify(formData)
 
+document
+.getElementById("entryForm")
+.reset();
 
-    })
 
 
+// Reference আবার বসানো
 
-    .then(()=>{
+let user =
+localStorage.getItem("userId");
 
 
-        alert("✅ Entry Successfully Added");
+if(user){
 
+document.getElementById("reference").value=user;
 
+}
 
-        document
-        .getElementById("entryForm")
-        .reset();
 
 
+})
 
 
 
-        // Reference আবার বসানো
+.catch(error=>{
 
-        let userId =
-        localStorage.getItem("userId");
 
+alert("Error Saving Data");
 
 
-        if(userId){
+console.log(error);
 
-            document.getElementById("reference").value = userId;
 
-        }
-
-
-
-    })
-
-
-
-    .catch(error=>{
-
-
-        console.log(error);
-
-
-        alert("❌ Data Save Failed");
-
-
-    });
-
+});
 
 
 });
