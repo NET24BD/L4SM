@@ -19,14 +19,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
-
 }
-
 
 
 body{
@@ -38,10 +35,7 @@ padding:20px;
 }
 
 
-
-
-/* ================= HEADER ================= */
-
+/* HEADER */
 
 .header{
 
@@ -62,7 +56,6 @@ box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
 
-
 .left{
 
 display:flex;
@@ -77,7 +70,7 @@ gap:15px;
 
 .back{
 
-background:linear-gradient(135deg,#065f46,#10b981);
+background:#065f46;
 
 color:white;
 
@@ -89,15 +82,13 @@ border-radius:10px;
 
 cursor:pointer;
 
-font-weight:bold;
-
 }
 
 
 
 .back:hover{
 
-transform:scale(1.05);
+background:#10b981;
 
 }
 
@@ -106,8 +97,7 @@ transform:scale(1.05);
 
 
 
-/* ================= PROFILE ================= */
-
+/* PROFILE */
 
 
 .profile{
@@ -118,9 +108,9 @@ align-items:center;
 
 gap:10px;
 
-cursor:pointer;
-
 position:relative;
+
+cursor:pointer;
 
 }
 
@@ -134,12 +124,11 @@ height:50px;
 
 border-radius:50%;
 
-object-fit:cover;
-
 border:3px solid #10b981;
 
-}
+object-fit:cover;
 
+}
 
 
 
@@ -151,11 +140,11 @@ position:absolute;
 
 right:0;
 
-top:65px;
-
-width:190px;
+top:60px;
 
 background:white;
+
+width:190px;
 
 padding:10px;
 
@@ -208,7 +197,8 @@ background:#ecfdf5;
 
 
 
-/* ================= TABLE ================= */
+
+/* TABLE */
 
 
 .table-box{
@@ -240,17 +230,15 @@ border-collapse:collapse;
 
 
 
-
 th{
 
-background:linear-gradient(135deg,#065f46,#10b981);
+background:#065f46;
 
 color:white;
 
 padding:14px;
 
 }
-
 
 
 
@@ -283,9 +271,9 @@ color:white;
 
 border:none;
 
-padding:8px 18px;
+padding:8px 16px;
 
-border-radius:10px;
+border-radius:8px;
 
 cursor:pointer;
 
@@ -297,8 +285,8 @@ cursor:pointer;
 
 
 
-/* ================= LOADING ================= */
 
+/* LOADING */
 
 #loadingArea{
 
@@ -324,7 +312,7 @@ z-index:9999;
 
 
 
-/* ================= POPUP ================= */
+/* MODAL */
 
 
 .modal{
@@ -341,17 +329,13 @@ width:100%;
 
 height:100%;
 
-
 background:rgba(0,0,0,.45);
-
 
 justify-content:center;
 
 align-items:center;
 
-
 z-index:2000;
-
 
 }
 
@@ -365,10 +349,7 @@ display:flex;
 
 
 
-
-.box{
-
-position:relative;
+.modal-box{
 
 background:white;
 
@@ -376,20 +357,15 @@ width:450px;
 
 padding:30px;
 
-border-radius:22px;
+border-radius:20px;
 
-box-shadow:0 20px 60px rgba(0,0,0,.3);
-
-max-height:90vh;
-
-overflow:auto;
+position:relative;
 
 }
 
 
 
-
-.close-icon{
+.close{
 
 position:absolute;
 
@@ -417,30 +393,33 @@ cursor:pointer;
 
 
 
-.close-icon:hover{
+.modal-box input,
+.modal-box textarea{
 
-transform:rotate(90deg);
+width:100%;
+
+padding:11px;
+
+margin-top:5px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+}
+
+
+
+.modal-box textarea{
+
+height:80px;
 
 }
 
 
 
 
-
-
-.box h2{
-
-color:#065f46;
-
-margin-bottom:15px;
-
-}
-
-
-
-
-
-label{
+.modal-box label{
 
 display:block;
 
@@ -448,66 +427,27 @@ margin-top:10px;
 
 font-weight:bold;
 
-color:#334155;
-
-}
-
-
-
-
-input,
-textarea{
-
-
-width:100%;
-
-
-padding:11px;
-
-
-margin-top:5px;
-
-
-border:1px solid #cbd5e1;
-
-
-border-radius:10px;
-
-
-outline:none;
-
-
-}
-
-
-
-textarea{
-
-height:80px;
-
-resize:none;
-
 }
 
 
 
 
 
-.btns{
+.buttons{
+
+margin-top:20px;
 
 display:flex;
 
 gap:10px;
 
-margin-top:20px;
-
 }
 
 
 
-.btns button{
+.buttons button{
 
-padding:11px 18px;
+padding:10px 18px;
 
 border:none;
 
@@ -515,14 +455,11 @@ border-radius:10px;
 
 cursor:pointer;
 
-font-weight:bold;
-
 }
 
 
 
-
-.submit{
+.save{
 
 background:#10b981;
 
@@ -558,105 +495,70 @@ color:white;
 
 
 
-/* ================= DELETE POPUP ================= */
+/* DELETE POPUP */
+
+
+.confirm{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.45);
+
+justify-content:center;
+
+align-items:center;
+
+z-index:3000;
+
+}
 
 
 
 .confirm-box{
 
-
-display:none;
-
-
-position:fixed;
-
-
-top:0;
-
-
-left:0;
-
-
-width:100%;
-
-
-height:100%;
-
-
-background:rgba(0,0,0,.45);
-
-
-justify-content:center;
-
-
-align-items:center;
-
-
-z-index:3000;
-
-
-}
-
-
-
-.confirm-content{
-
-
 background:white;
-
-
-width:330px;
-
 
 padding:30px;
 
-
 border-radius:20px;
-
 
 text-align:center;
 
-
-}
-
-
-
-.confirm-content h3{
-
-color:#dc2626;
-
 }
 
 
 
 
 
-.confirm-content button{
-
+.confirm-box button{
 
 padding:10px 20px;
 
-
-margin:8px;
-
+margin:10px;
 
 border:none;
 
-
 border-radius:10px;
 
-
 cursor:pointer;
-
 
 }
 
 
 
+.yes{
 
-.yes-delete{
-
-background:#dc2626;
+background:#ef4444;
 
 color:white;
 
@@ -664,7 +566,7 @@ color:white;
 
 
 
-.no-delete{
+.no{
 
 background:#64748b;
 
@@ -679,139 +581,74 @@ color:white;
 
 
 
-/* ================= SUCCESS POPUP ================= */
+/* SUCCESS */
+
+
+.success{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.45);
+
+justify-content:center;
+
+align-items:center;
+
+z-index:4000;
+
+}
 
 
 
 .success-box{
 
-
-display:none;
-
-
-position:fixed;
-
-
-top:0;
-
-
-left:0;
-
-
-width:100%;
-
-
-height:100%;
-
-
-background:rgba(0,0,0,.45);
-
-
-justify-content:center;
-
-
-align-items:center;
-
-
-z-index:4000;
-
-
-}
-
-
-
-
-.success-content{
-
-
 background:white;
-
-
-width:340px;
-
 
 padding:30px;
 
-
-border-radius:22px;
-
+border-radius:20px;
 
 text-align:center;
 
-
 }
 
 
 
+.success-box i{
 
-.success-icon{
-
-
-width:70px;
-
-
-height:70px;
-
-
-margin:auto;
-
-
-background:#10b981;
-
-
-color:white;
-
-
-border-radius:50%;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-justify-content:center;
-
-
-font-size:35px;
-
-
-}
-
-
-
-
-.success-content h3{
+font-size:50px;
 
 color:#10b981;
 
-margin:15px;
-
 }
 
 
 
-.success-content button{
+.success-box button{
 
+margin-top:15px;
+
+padding:10px 30px;
 
 background:#10b981;
 
-
 color:white;
-
 
 border:none;
 
-
-padding:10px 35px;
-
-
 border-radius:10px;
 
-
 cursor:pointer;
-
 
 }
 
@@ -822,37 +659,25 @@ cursor:pointer;
 </head>
 
 
-
 <body>
 
-
-
-<!-- Loading -->
 
 <div id="loadingArea"></div>
 
 
 
-
-
-<!-- Header -->
-
 <div class="header">
-
 
 
 <div class="left">
 
 
-
 <button class="back"
 onclick="location.href='dashboard.html'">
-
 
 <i class="fa fa-arrow-left"></i>
 
 Back
-
 
 </button>
 
@@ -865,7 +690,6 @@ Back
 Pending Support
 
 </h2>
-
 
 
 </div>
@@ -892,8 +716,8 @@ User
 
 
 
-<i class="fa fa-angle-down"></i>
 
+<i class="fa fa-angle-down"></i>
 
 
 
@@ -928,6 +752,7 @@ Logout
 
 
 </div>
+
 
 
 </div>
@@ -968,11 +793,11 @@ Logout
 </tbody>
 
 
+
 </table>
 
 
 </div>
-
 
 
 
@@ -989,24 +814,22 @@ Logout
 
 
 
-<div class="box">
+<div class="modal-box">
 
 
-<button class="close-icon"
+
+<button class="close"
 onclick="closeEdit()">
 
-
-<i class="fa-solid fa-xmark"></i>
-
+×
 
 </button>
 
 
 
-
 <h2>
 
-<i class="fa-solid fa-pen"></i>
+<i class="fa fa-edit"></i>
 
 Edit Support
 
@@ -1022,13 +845,7 @@ Edit Support
 
 
 
-
-<label>
-
-Customer ID
-
-</label>
-
+<label>Customer ID</label>
 
 <input id="customerId">
 
@@ -1036,13 +853,7 @@ Customer ID
 
 
 
-
-<label>
-
-Problem
-
-</label>
-
+<label>Problem</label>
 
 <textarea id="problem"></textarea>
 
@@ -1051,13 +862,7 @@ Problem
 
 
 
-
-<label>
-
-Reference
-
-</label>
-
+<label>Reference</label>
 
 <input id="reference">
 
@@ -1065,14 +870,7 @@ Reference
 
 
 
-
-
-<label>
-
-Date
-
-</label>
-
+<label>Date</label>
 
 <input type="date" id="supportDate">
 
@@ -1081,14 +879,7 @@ Date
 
 
 
-
-
-<label>
-
-Support
-
-</label>
-
+<label>Support</label>
 
 <input id="support">
 
@@ -1097,14 +888,7 @@ Support
 
 
 
-
-
-<label>
-
-Support Work
-
-</label>
-
+<label>Support Work</label>
 
 <textarea id="supportWork"></textarea>
 
@@ -1114,13 +898,7 @@ Support Work
 
 
 
-
-<label>
-
-Support Time
-
-</label>
-
+<label>Support Time</label>
 
 <input id="supportTime">
 
@@ -1130,14 +908,11 @@ Support Time
 
 
 
-
-<div class="btns">
-
+<div class="buttons">
 
 
-<button class="submit"
+<button class="save"
 onclick="updateSupport()">
-
 
 
 <i class="fa fa-check"></i>
@@ -1151,10 +926,8 @@ Submit
 
 
 
-
 <button class="cancel"
 onclick="closeEdit()">
-
 
 
 Cancel
@@ -1181,7 +954,6 @@ Delete
 
 
 
-
 </div>
 
 
@@ -1190,7 +962,6 @@ Delete
 </div>
 
 
-
 </div>
 
 
@@ -1201,16 +972,14 @@ Delete
 
 
 
-<!-- ================= DELETE POPUP ================= -->
+
+<!-- ================= DELETE CONFIRM ================= -->
 
 
-<div class="confirm-box"
-id="deleteBox">
+<div class="confirm" id="deleteBox">
 
 
-
-<div class="confirm-content">
-
+<div class="confirm-box">
 
 
 <h3>
@@ -1220,45 +989,31 @@ Delete Support?
 </h3>
 
 
-
 <p>
 
-Are you sure?
+Are you sure you want to delete?
 
 </p>
 
 
 
-
-
-<button class="yes-delete"
+<button class="yes"
 onclick="deleteSupport()">
-
-
 
 Yes Delete
 
-
 </button>
 
 
 
-
-
-
-<button class="no-delete"
+<button class="no"
 onclick="closeDelete()">
-
-
 
 Cancel
 
-
 </button>
 
 
-
-
 </div>
 
 
@@ -1272,26 +1027,16 @@ Cancel
 
 
 
-<!-- ================= SUCCESS POPUP ================= -->
+<!-- ================= SUCCESS ================= -->
 
 
-<div class="success-box"
-id="successBox">
+<div class="success" id="successBox">
 
 
-
-<div class="success-content">
-
+<div class="success-box">
 
 
-<div class="success-icon">
-
-
-<i class="fa fa-check"></i>
-
-
-</div>
-
+<i class="fa fa-circle-check"></i>
 
 
 
@@ -1303,10 +1048,9 @@ Success
 
 
 
-
 <p id="successMessage">
 
-Completed Successfully
+Completed
 
 </p>
 
@@ -1315,9 +1059,7 @@ Completed Successfully
 
 <button onclick="closeSuccess()">
 
-
 OK
-
 
 </button>
 
@@ -1339,7 +1081,6 @@ OK
 <script>
 
 
-
 // ===============================
 // LOGIN CHECK
 // ===============================
@@ -1359,14 +1100,13 @@ location.href="index.html";
 
 
 // ===============================
-// API
+// API URL
 // ===============================
 
 
 const API_URL =
 
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
-
 
 
 
@@ -1380,8 +1120,10 @@ let currentRow="";
 
 
 
+
+
 // ===============================
-// LOAD LOADING FILE
+// LOAD LOADING HTML
 // ===============================
 
 
@@ -1413,7 +1155,6 @@ document.getElementById("loadingArea").innerHTML=data;
 function loadSupport(){
 
 
-
 showLoading("Loading Support...");
 
 
@@ -1422,22 +1163,31 @@ fetch(API_URL,{
 
 method:"POST",
 
+headers:{
+
+"Content-Type":
+
+"text/plain;charset=utf-8"
+
+},
+
 body:JSON.stringify({
 
 action:"getPendingSupport"
 
-
 })
 
-})
 
+})
 
 
 .then(res=>res.json())
 
 
-
 .then(data=>{
+
+
+console.log(data);
 
 
 
@@ -1445,7 +1195,11 @@ let html="";
 
 
 
-data.data.forEach(row=>{
+if(data.success==true){
+
+
+
+data.data.forEach(item=>{
 
 
 html +=`
@@ -1454,16 +1208,17 @@ html +=`
 <tr>
 
 
-<td>${row.customerId}</td>
+<td>${item.customerId}</td>
 
 
-<td>${row.problem}</td>
+<td>${item.problem}</td>
 
 
-<td>${row.reference}</td>
+<td>${item.reference}</td>
 
 
-<td>${row.date}</td>
+<td>${item.date}</td>
+
 
 
 <td>
@@ -1471,10 +1226,10 @@ html +=`
 
 <button class="edit-btn"
 
-onclick="editSupport(${row.row})">
+onclick="editSupport(${item.row})">
 
 
-<i class="fa fa-edit"></i>
+<i class="fa fa-pen"></i>
 
 Edit
 
@@ -1501,22 +1256,48 @@ document.getElementById("supportList").innerHTML=html;
 
 
 
+}
+
+else{
+
+
+showSuccess(
+
+"Error",
+
+data.message
+
+);
+
+
+}
+
+
+
 hideLoading();
 
 
 
 })
 
-.catch(err=>{
+
+.catch(error=>{
+
+
+console.log(error);
 
 
 hideLoading();
 
 
 showSuccess(
-"Error",
-"Server Error"
+
+"Server Error",
+
+"Connection Failed"
+
 );
+
 
 
 });
@@ -1533,10 +1314,8 @@ showSuccess(
 
 
 
-
-
 // ===============================
-// EDIT LOAD
+// EDIT SUPPORT
 // ===============================
 
 
@@ -1556,6 +1335,14 @@ fetch(API_URL,{
 
 method:"POST",
 
+headers:{
+
+"Content-Type":
+
+"text/plain;charset=utf-8"
+
+},
+
 body:JSON.stringify({
 
 action:"getSingleSupport",
@@ -1565,36 +1352,30 @@ row:row
 
 })
 
+
 })
 
 
-
 .then(res=>res.json())
+
 
 .then(data=>{
 
 
 
-customerId.value=data.customerId || "";
+document.getElementById("customerId").value=data.customerId || "";
 
+document.getElementById("problem").value=data.problem || "";
 
-problem.value=data.problem || "";
+document.getElementById("reference").value=data.reference || "";
 
+document.getElementById("supportDate").value=data.date || "";
 
-reference.value=data.reference || "";
+document.getElementById("support").value=data.support || "";
 
+document.getElementById("supportWork").value=data.supportWork || "";
 
-supportDate.value=data.date || "";
-
-
-support.value=data.support || "";
-
-
-supportWork.value=data.supportWork || "";
-
-
-supportTime.value=data.supportTime || "";
-
+document.getElementById("supportTime").value=data.supportTime || "";
 
 
 
@@ -1603,7 +1384,8 @@ hideLoading();
 
 
 
-editModal.classList.add("show");
+document.getElementById("editModal")
+.classList.add("show");
 
 
 
@@ -1616,11 +1398,6 @@ editModal.classList.add("show");
 
 
 
-
-
-
-
-
 // ===============================
 // CLOSE EDIT
 // ===============================
@@ -1629,14 +1406,11 @@ editModal.classList.add("show");
 function closeEdit(){
 
 
-editModal.classList.remove("show");
+document.getElementById("editModal")
+.classList.remove("show");
 
 
 }
-
-
-
-
 
 
 
@@ -1650,14 +1424,16 @@ editModal.classList.remove("show");
 function toggleProfile(){
 
 
-profileMenu.classList.toggle("show");
+document.getElementById("profileMenu")
+.classList.toggle("show");
 
 
 }
 
 
 
-username.innerHTML =
+document.getElementById("username").innerHTML=
+
 localStorage.getItem("username") || "User";
 
 
@@ -1665,12 +1441,12 @@ localStorage.getItem("username") || "User";
 if(localStorage.getItem("picture")){
 
 
-profileImg.src=
+document.getElementById("profileImg").src=
+
 localStorage.getItem("picture");
 
 
 }
-
 
 
 
@@ -1695,12 +1471,26 @@ location.href="index.html";
 
 }
 
+
+
+
+// START
+
+setTimeout(()=>{
+
+loadSupport();
+
+},500);
+
+
+
+</script>
 <script>
 
 
-// ===============================
+// =================================
 // UPDATE SUPPORT
-// ===============================
+// =================================
 
 
 function updateSupport(){
@@ -1713,6 +1503,15 @@ showLoading("Updating Support...");
 fetch(API_URL,{
 
 method:"POST",
+
+headers:{
+
+"Content-Type":
+
+"text/plain;charset=utf-8"
+
+},
+
 
 body:JSON.stringify({
 
@@ -1754,6 +1553,7 @@ document.getElementById("supportTime").value
 
 })
 
+
 })
 
 
@@ -1768,13 +1568,17 @@ hideLoading();
 
 
 
+if(data.success){
+
+
+
 closeEdit();
 
 
 
 showSuccess(
 
-"Updated",
+"Success",
 
 "Support Updated Successfully"
 
@@ -1786,9 +1590,30 @@ loadSupport();
 
 
 
+}
+
+else{
+
+
+showSuccess(
+
+"Error",
+
+data.message
+
+);
+
+
+
+}
+
+
+
 })
 
-.catch(()=>{
+
+
+.catch(err=>{
 
 
 hideLoading();
@@ -1817,15 +1642,16 @@ showSuccess(
 
 
 
-// ===============================
-// OPEN DELETE
-// ===============================
+// =================================
+// DELETE OPEN
+// =================================
 
 
 function openDelete(){
 
 
-document.getElementById("deleteBox").style.display="flex";
+document.getElementById("deleteBox")
+.style.display="flex";
 
 
 }
@@ -1836,15 +1662,16 @@ document.getElementById("deleteBox").style.display="flex";
 
 
 
-// ===============================
-// CLOSE DELETE
-// ===============================
+// =================================
+// DELETE CLOSE
+// =================================
 
 
 function closeDelete(){
 
 
-document.getElementById("deleteBox").style.display="none";
+document.getElementById("deleteBox")
+.style.display="none";
 
 
 }
@@ -1856,10 +1683,9 @@ document.getElementById("deleteBox").style.display="none";
 
 
 
-
-// ===============================
+// =================================
 // DELETE SUPPORT
-// ===============================
+// =================================
 
 
 function deleteSupport(){
@@ -1873,6 +1699,15 @@ showLoading("Deleting Support...");
 fetch(API_URL,{
 
 method:"POST",
+
+headers:{
+
+"Content-Type":
+
+"text/plain;charset=utf-8"
+
+},
+
 
 body:JSON.stringify({
 
@@ -1897,11 +1732,17 @@ row:currentRow
 .then(data=>{
 
 
+
 hideLoading();
 
 
 
 closeDelete();
+
+
+
+if(data.success){
+
 
 
 closeEdit();
@@ -1919,6 +1760,25 @@ showSuccess(
 
 
 loadSupport();
+
+
+
+}
+
+else{
+
+
+showSuccess(
+
+"Error",
+
+data.message
+
+);
+
+
+
+}
 
 
 
@@ -1942,6 +1802,7 @@ showSuccess(
 );
 
 
+
 });
 
 
@@ -1956,29 +1817,31 @@ showSuccess(
 
 
 
-// ===============================
+// =================================
 // SUCCESS POPUP
-// ===============================
+// =================================
 
 
-function showSuccess(title,message){
-
-
-
-document.getElementById("successTitle").innerHTML=title;
-
-
-document.getElementById("successMessage").innerHTML=message;
+function showSuccess(title,msg){
 
 
 
-document.getElementById("successBox").style.display="flex";
+document.getElementById("successTitle")
+.innerHTML=title;
+
+
+
+document.getElementById("successMessage")
+.innerHTML=msg;
+
+
+
+document.getElementById("successBox")
+.style.display="flex";
 
 
 
 }
-
-
 
 
 
@@ -1986,8 +1849,8 @@ document.getElementById("successBox").style.display="flex";
 function closeSuccess(){
 
 
-
-document.getElementById("successBox").style.display="none";
+document.getElementById("successBox")
+.style.display="none";
 
 
 }
@@ -2000,27 +1863,25 @@ document.getElementById("successBox").style.display="none";
 
 
 
-// ===============================
+// =================================
 // LOADING CONTROL
-// ===============================
+// =================================
 
 
 function showLoading(text="Loading..."){
 
 
 
-let box=document.getElementById("loadingBox");
+let box=
+document.getElementById("loadingBox");
 
 
 
 if(!box){
 
-
-console.log("Loading not ready");
-
+console.log("Loading not loaded");
 
 return;
-
 
 }
 
@@ -2031,7 +1892,9 @@ box.style.display="block";
 
 
 
-let txt=document.getElementById("loadingText");
+let txt=
+document.getElementById("loadingText");
+
 
 
 if(txt){
@@ -2039,7 +1902,6 @@ if(txt){
 txt.innerHTML=text;
 
 }
-
 
 
 
@@ -2069,14 +1931,11 @@ bar.style.width="0%";
 
 
 
-
-
 let count=0;
 
 
 
-let timer=setInterval(()=>{
-
+window.loadingTimer=setInterval(()=>{
 
 
 if(count<100){
@@ -2101,14 +1960,6 @@ bar.style.width=count+"%";
 }
 
 
-}
-
-
-else{
-
-
-clearInterval(timer);
-
 
 }
 
@@ -2132,15 +1983,12 @@ function hideLoading(){
 
 
 
-let box=document.getElementById("loadingBox");
+clearInterval(window.loadingTimer);
 
 
 
-if(!box){
-
-return;
-
-}
+let box=
+document.getElementById("loadingBox");
 
 
 
@@ -2150,7 +1998,6 @@ document.getElementById("percent");
 
 let bar=
 document.getElementById("progressBar");
-
 
 
 
@@ -2171,11 +2018,14 @@ bar.style.width="100%";
 
 
 
-
 setTimeout(()=>{
 
 
+if(box){
+
 box.style.display="none";
+
+}
 
 
 },400);
@@ -2186,39 +2036,10 @@ box.style.display="none";
 
 
 
-
-
-
-
-
-
-
-// ===============================
-// START SYSTEM
-// ===============================
-
-
-
-setTimeout(()=>{
-
-
-loadSupport();
-
-
-},500);
-
-
-
 </script>
-
 
 
 </body>
 
 
 </html>
-
-
-
-
-</script>
