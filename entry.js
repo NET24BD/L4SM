@@ -1,41 +1,75 @@
-// ================================
-// LOAD ENTRY POPUP
-// ================================
+// ==============================
+// AUTO REFERENCE USER
+// ==============================
 
-fetch("entry.html")
-.then(function(response){
-
-    return response.text();
-
-})
-.then(function(html){
-
-    document.getElementById("entryContainer").innerHTML = html;
+document.addEventListener("DOMContentLoaded", function(){
 
 
-})
-.catch(function(error){
+    let username = localStorage.getItem("username");
 
-    console.log("Entry Error:", error);
+
+    if(username){
+
+        document.getElementById("reference").value = username;
+
+    }
+    else{
+
+        document.getElementById("reference").value = "Unknown";
+
+    }
+
 
 });
 
 
 
 
-// ================================
-// OPEN ENTRY
-// ================================
-
-function openEntry(){
 
 
-    let modal = document.getElementById("entryModal");
+
+// ==============================
+// SUBMIT ENTRY
+// ==============================
+
+function submitEntry(){
 
 
-    if(!modal){
 
-        alert("Entry popup not loaded");
+    let customerId =
+    document.getElementById("customerId").value.trim();
+
+
+
+    let problem =
+    document.getElementById("problem").value.trim();
+
+
+
+    let reference =
+    document.getElementById("reference").value;
+
+
+
+
+
+
+    let msg =
+    document.getElementById("msg");
+
+
+
+
+
+
+
+    if(customerId === "" || problem === ""){
+
+
+        msg.style.color="red";
+
+        msg.innerText="Please fill all required fields";
+
 
         return;
 
@@ -43,131 +77,84 @@ function openEntry(){
 
 
 
-    let user = document.getElementById("headerName").innerText;
-
-
-    document.getElementById("reference").value = user;
 
 
 
-    modal.style.display = "flex";
+
+    let entryData = {
+
+
+        customerId: customerId,
+
+        problem: problem,
+
+        reference: reference,
+
+        date: new Date().toLocaleString()
+
+
+    };
+
+
+
+
+
+
+
+    console.log(entryData);
+
+
+
+
+
+
+    // ==========================
+    // GOOGLE SHEET API HERE
+    // ==========================
+
+
+    /*
+    
+    fetch("YOUR_GOOGLE_SCRIPT_URL",{
+
+        method:"POST",
+
+        body:JSON.stringify(entryData)
+
+    })
+    .then(res=>res.json())
+    .then(data=>{
+
+        console.log(data);
+
+    });
+
+    */
+
+
+
+
+
+
+
+
+    msg.style.color="green";
+
+    msg.innerText="Entry Saved Successfully";
+
+
+
+
+
+
+
+    // CLEAR FORM
+
+
+    document.getElementById("customerId").value="";
+
+    document.getElementById("problem").value="";
+
 
 
 }
-
-
-
-
-
-
-// ================================
-// CLOSE ENTRY
-// ================================
-
-function closeEntry(){
-
-
-    let modal = document.getElementById("entryModal");
-
-
-    if(modal){
-
-        modal.style.display = "none";
-
-    }
-
-
-}
-
-
-
-
-
-
-// ================================
-// OUTSIDE CLICK CLOSE
-// ================================
-
-window.addEventListener("click",function(e){
-
-
-    let modal = document.getElementById("entryModal");
-
-
-    if(e.target === modal){
-
-        closeEntry();
-
-    }
-
-
-});
-
-
-
-
-
-// ================================
-// ESC CLOSE
-// ================================
-
-document.addEventListener("keydown",function(e){
-
-
-    if(e.key==="Escape"){
-
-        closeEntry();
-
-    }
-
-
-});
-
-
-
-
-
-
-// ================================
-// SUBMIT
-// ================================
-
-document.addEventListener("click",function(e){
-
-
-if(e.target.id==="submitEntry"){
-
-
-let customerId =
-document.getElementById("customerId").value;
-
-
-let problem =
-document.getElementById("problem").value;
-
-
-
-if(customerId==="" || problem===""){
-
-
-alert("Please fill all fields");
-
-return;
-
-
-}
-
-
-
-alert("Entry Saved Successfully");
-
-
-
-closeEntry();
-
-
-}
-
-
-
-});
