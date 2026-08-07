@@ -14,24 +14,21 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-
 <style>
 
 
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
-
 }
 
 
 
 body{
 
-background:#f1f5f9;
+background:linear-gradient(135deg,#ecfdf5,#eff6ff);
 
 padding:20px;
 
@@ -39,16 +36,16 @@ padding:20px;
 
 
 
-/* ================= HEADER ================= */
 
+/* HEADER */
 
 .header{
 
 background:white;
 
-padding:18px 25px;
+padding:15px 20px;
 
-border-radius:15px;
+border-radius:20px;
 
 display:flex;
 
@@ -56,13 +53,13 @@ justify-content:space-between;
 
 align-items:center;
 
-box-shadow:0 5px 20px rgba(0,0,0,.1);
+box-shadow:0 10px 30px rgba(0,0,0,.15);
 
 }
 
 
 
-.left{
+.header-left{
 
 display:flex;
 
@@ -74,17 +71,17 @@ gap:15px;
 
 
 
-.back{
+.back-btn{
 
-background:#03543f;
+background:#065f46;
 
 color:white;
 
 border:none;
 
-padding:10px 15px;
+padding:10px 18px;
 
-border-radius:8px;
+border-radius:10px;
 
 cursor:pointer;
 
@@ -92,28 +89,20 @@ cursor:pointer;
 
 
 
-.back:hover{
-
-opacity:.8;
-
-}
 
 
-
-
-
-/* ================= PROFILE ================= */
+/* PROFILE */
 
 
 .profile{
+
+position:relative;
 
 display:flex;
 
 align-items:center;
 
 gap:10px;
-
-position:relative;
 
 cursor:pointer;
 
@@ -123,11 +112,13 @@ cursor:pointer;
 
 .profile img{
 
-width:45px;
+width:50px;
 
-height:45px;
+height:50px;
 
 border-radius:50%;
+
+border:3px solid #10b981;
 
 object-fit:cover;
 
@@ -147,15 +138,15 @@ top:60px;
 
 background:white;
 
-width:180px;
+width:200px;
 
 padding:10px;
 
-border-radius:12px;
+border-radius:15px;
 
-box-shadow:0 5px 20px #999;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
 
-z-index:100;
+z-index:1000;
 
 }
 
@@ -181,9 +172,9 @@ background:white;
 
 cursor:pointer;
 
-text-align:left;
+border-radius:10px;
 
-border-radius:8px;
+text-align:left;
 
 }
 
@@ -191,7 +182,7 @@ border-radius:8px;
 
 .profile-menu button:hover{
 
-background:#eee;
+background:#ecfdf5;
 
 }
 
@@ -199,7 +190,31 @@ background:#eee;
 
 
 
-/* ================= TABLE ================= */
+/* LOADING */
+
+#loadingArea{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+z-index:9999;
+
+}
+
+
+
+
+
+
+
+/* TABLE */
 
 
 .table-box{
@@ -210,7 +225,9 @@ background:white;
 
 padding:20px;
 
-border-radius:15px;
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.12);
 
 overflow:auto;
 
@@ -230,11 +247,11 @@ border-collapse:collapse;
 
 th{
 
-background:#03543f;
+background:#065f46;
 
 color:white;
 
-padding:12px;
+padding:14px;
 
 }
 
@@ -254,7 +271,7 @@ border-bottom:1px solid #ddd;
 
 .edit-btn{
 
-background:#03543f;
+background:#2563eb;
 
 color:white;
 
@@ -262,7 +279,7 @@ border:none;
 
 padding:8px 15px;
 
-border-radius:8px;
+border-radius:10px;
 
 cursor:pointer;
 
@@ -272,7 +289,8 @@ cursor:pointer;
 
 
 
-/* ================= EDIT POPUP ================= */
+
+/* EDIT POPUP */
 
 
 .modal{
@@ -289,16 +307,13 @@ width:100%;
 
 height:100%;
 
-
-background:rgba(0,0,0,.5);
-
-
-justify-content:center;
+background:rgba(0,0,0,.45);
 
 align-items:center;
 
-z-index:500;
+justify-content:center;
 
+z-index:2000;
 
 }
 
@@ -312,35 +327,117 @@ display:flex;
 
 
 
-.box{
+.popup-box{
+
+position:relative;
 
 background:white;
 
-width:420px;
+width:450px;
 
-padding:25px;
+max-width:95%;
 
-border-radius:15px;
+padding:30px;
 
-max-height:90vh;
+border-radius:25px;
 
-overflow:auto;
-
-}
-
-
-
-.box h2{
-
-color:#03543f;
-
-margin-bottom:15px;
+box-shadow:0 20px 50px rgba(0,0,0,.3);
 
 }
 
 
 
-label{
+
+
+
+
+/* CROSS BUTTON */
+
+
+.popup-close{
+
+
+position:absolute;
+
+right:15px;
+
+top:15px;
+
+
+width:35px;
+
+height:35px;
+
+
+border:none;
+
+
+border-radius:50%;
+
+
+background:#ef4444;
+
+
+color:white;
+
+
+font-size:25px;
+
+
+cursor:pointer;
+
+
+}
+
+
+
+
+.popup-close:hover{
+
+
+background:#dc2626;
+
+
+transform:rotate(90deg);
+
+
+transition:.3s;
+
+
+}
+
+
+
+
+
+
+.popup-box input,
+.popup-box textarea{
+
+
+width:100%;
+
+padding:10px;
+
+margin-top:5px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+}
+
+
+
+.popup-box textarea{
+
+height:80px;
+
+}
+
+
+
+.popup-box label{
 
 display:block;
 
@@ -352,35 +449,7 @@ font-weight:bold;
 
 
 
-input,
-textarea{
-
-width:100%;
-
-padding:10px;
-
-margin-top:5px;
-
-border:1px solid #ccc;
-
-border-radius:8px;
-
-}
-
-
-
-textarea{
-
-height:80px;
-
-resize:none;
-
-}
-
-
-
-
-.btns{
+.popup-buttons{
 
 margin-top:20px;
 
@@ -392,17 +461,13 @@ gap:10px;
 
 
 
-.submit{
-
-background:#03543f;
-
-color:white;
-
-border:none;
+.popup-buttons button{
 
 padding:10px 18px;
 
-border-radius:8px;
+border:none;
+
+border-radius:10px;
 
 cursor:pointer;
 
@@ -410,142 +475,17 @@ cursor:pointer;
 
 
 
-.cancel{
+.save-btn{
 
-background:#64748b;
-
-color:white;
-
-border:none;
-
-padding:10px 18px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-
-
-.delete{
-
-background:#dc2626;
+background:#10b981;
 
 color:white;
 
-border:none;
-
-padding:10px 18px;
-
-border-radius:8px;
-
-cursor:pointer;
-
 }
 
 
 
-
-
-
-
-
-/* ================= CUSTOM DELETE POPUP ================= */
-
-
-.confirm-box{
-
-display:none;
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:100%;
-
-
-background:rgba(0,0,0,.5);
-
-
-justify-content:center;
-
-align-items:center;
-
-
-z-index:1000;
-
-
-}
-
-
-
-.confirm-content{
-
-background:white;
-
-width:320px;
-
-padding:25px;
-
-border-radius:15px;
-
-text-align:center;
-
-}
-
-
-
-.confirm-content h3{
-
-color:#dc2626;
-
-margin-bottom:10px;
-
-}
-
-
-
-.confirm-content p{
-
-margin-bottom:20px;
-
-}
-
-
-
-
-.confirm-content button{
-
-padding:10px 18px;
-
-border:none;
-
-border-radius:8px;
-
-cursor:pointer;
-
-margin:5px;
-
-}
-
-
-
-.yes-delete{
-
-background:#dc2626;
-
-color:white;
-
-}
-
-
-
-.no-delete{
+.cancel-btn{
 
 background:#64748b;
 
@@ -555,38 +495,11 @@ color:white;
 
 
 
+.delete-btn{
 
+background:#ef4444;
 
-/* ================= LOADING ================= */
-
-
-#loadingPage{
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:100%;
-
-z-index:2000;
-
-display:none;
-
-}
-
-
-
-#loadingPage iframe{
-
-width:100%;
-
-height:100%;
-
-border:none;
+color:white;
 
 }
 
@@ -598,14 +511,13 @@ border:none;
 </head>
 
 
-
 <body>
 
 
 
 <!-- LOADING -->
 
-<div id="loadingPage"></div>
+<div id="loadingArea"></div>
 
 
 
@@ -618,14 +530,14 @@ border:none;
 
 
 
-<div class="left">
+<div class="header-left">
 
 
-<button class="back"
-onclick="location.href='dashboard.html'">
+<button class="back-btn"
+onclick="goBack()">
 
 
-<i class="fa-solid fa-arrow-left"></i>
+<i class="fa fa-arrow-left"></i>
 
 Back
 
@@ -636,11 +548,12 @@ Back
 
 <h2>
 
-<i class="fa-solid fa-headset"></i>
+<i class="fa fa-headset"></i>
 
 Pending Support
 
 </h2>
+
 
 
 </div>
@@ -671,7 +584,11 @@ User
 </span>
 
 
-<i class="fa-solid fa-angle-down"></i>
+
+
+<i class="fa fa-angle-down"></i>
+
+
 
 
 
@@ -684,7 +601,7 @@ onclick="event.stopPropagation()">
 
 <button onclick="myAccount()">
 
-<i class="fa-solid fa-user"></i>
+<i class="fa fa-user"></i>
 
 My Account
 
@@ -692,9 +609,10 @@ My Account
 
 
 
+
 <button onclick="logout()">
 
-<i class="fa-solid fa-right-from-bracket"></i>
+<i class="fa fa-sign-out"></i>
 
 Logout
 
@@ -706,6 +624,8 @@ Logout
 
 
 
+
+
 </div>
 
 
@@ -719,8 +639,7 @@ Logout
 
 
 
-
-<!-- SUPPORT TABLE -->
+<!-- TABLE -->
 
 
 <div class="table-box">
@@ -730,6 +649,7 @@ Logout
 
 
 <thead>
+
 
 <tr>
 
@@ -750,17 +670,18 @@ Logout
 </thead>
 
 
+
 <tbody id="supportList">
 
 
 </tbody>
 
 
+
 </table>
 
 
 </div>
-
 
 
 
@@ -776,22 +697,42 @@ Logout
 id="editModal">
 
 
-<div class="box">
+
+<div class="popup-box">
+
+
+
+<button class="popup-close"
+onclick="closeEdit()">
+
+×
+
+</button>
+
+
+
 
 
 <h2>
+
+<i class="fa fa-edit"></i>
+
 Edit Support
+
 </h2>
 
 
 
-<input type="hidden" id="editRow">
+
+
+<input type="hidden"
+id="editRow">
 
 
 
-<label>
-Customer ID
-</label>
+
+
+<label>Customer ID</label>
 
 <input id="customerId">
 
@@ -799,9 +740,7 @@ Customer ID
 
 
 
-<label>
-Problem
-</label>
+<label>Problem</label>
 
 <textarea id="problem"></textarea>
 
@@ -809,9 +748,7 @@ Problem
 
 
 
-<label>
-Reference
-</label>
+<label>Reference</label>
 
 <input id="reference">
 
@@ -819,19 +756,16 @@ Reference
 
 
 
-<label>
-Date
-</label>
+<label>Date</label>
 
-<input type="date" id="date">
-
+<input type="date"
+id="date">
 
 
 
 
-<label>
-Support
-</label>
+
+<label>Support</label>
 
 <input id="support">
 
@@ -839,21 +773,16 @@ Support
 
 
 
-<label>
-Support Work
-</label>
+<label>Support Work</label>
 
 <textarea id="supportWork"></textarea>
 
 
 
+<div class="popup-buttons">
 
 
-
-<div class="btns">
-
-
-<button class="submit"
+<button class="save-btn"
 onclick="updateSupport()">
 
 Submit
@@ -861,7 +790,7 @@ Submit
 </button>
 
 
-<button class="cancel"
+<button class="cancel-btn"
 onclick="closeEdit()">
 
 Cancel
@@ -869,7 +798,8 @@ Cancel
 </button>
 
 
-<button class="delete"
+
+<button class="delete-btn"
 onclick="openDelete()">
 
 Delete
@@ -881,54 +811,6 @@ Delete
 </div>
 
 
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- DELETE CONFIRM POPUP -->
-
-
-<div class="confirm-box"
-id="confirmBox">
-
-
-<div class="confirm-content">
-
-
-<h3>
-Delete Support?
-</h3>
-
-
-<p>
-Are you sure you want to delete this entry?
-</p>
-
-
-<button class="yes-delete"
-onclick="confirmDelete()">
-
-Yes Delete
-
-</button>
-
-
-<button class="no-delete"
-onclick="closeDelete()">
-
-Cancel
-
-</button>
-
 
 
 </div>
@@ -938,48 +820,161 @@ Cancel
 <script>
 
 
+// ===============================
+// API URL
+// ===============================
+
+
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
 
-let currentRow = "";
+let currentRow="";
+
+let loadingTimer;
+
 
 
 
 
 // ===============================
-// LOADING
+// LOGIN CHECK
 // ===============================
 
 
-function showLoading(){
+if(localStorage.getItem("isLogin")!="true"){
+
+window.location.href="index.html";
+
+}
 
 
-document.getElementById("loadingPage").style.display="block";
 
 
-document.getElementById("loadingPage").innerHTML = `
 
-<iframe src="loading.html"></iframe>
 
-`;
+
+// ===============================
+// LOAD LOADING HTML
+// ===============================
+
+
+fetch("loading.html")
+
+.then(response=>response.text())
+
+.then(data=>{
+
+
+document.getElementById("loadingArea").innerHTML=data;
+
+
+})
+
+.catch(error=>{
+
+console.log("Loading Error",error);
+
+});
+
+
+
+
+
+
+
+
+
+// ===============================
+// PROFILE
+// ===============================
+
+
+function toggleProfile(){
+
+
+document
+.getElementById("profileMenu")
+.classList.toggle("show");
 
 
 }
 
 
 
-function hideLoading(){
+function myAccount(){
 
 
-document.getElementById("loadingPage").style.display="none";
-
-
-document.getElementById("loadingPage").innerHTML="";
+location.href="myaccount.html";
 
 
 }
+
+
+
+
+function logout(){
+
+
+localStorage.clear();
+
+
+location.href="index.html";
+
+
+}
+
+
+
+
+function goBack(){
+
+
+location.href="dashboard.html";
+
+
+}
+
+
+
+
+
+
+
+window.onload=function(){
+
+
+
+let user=
+localStorage.getItem("username");
+
+
+if(user){
+
+document.getElementById("username").innerHTML=user;
+
+}
+
+
+
+let pic=
+localStorage.getItem("picture");
+
+
+if(pic){
+
+document.getElementById("profileImg").src=pic;
+
+}
+
+
+
+loadSupport();
+
+
+};
+
 
 
 
@@ -996,7 +991,7 @@ document.getElementById("loadingPage").innerHTML="";
 function loadSupport(){
 
 
-showLoading();
+showLoading("Loading Support...");
 
 
 
@@ -1004,17 +999,25 @@ fetch(API_URL,{
 
 method:"POST",
 
+headers:{
+
+"Content-Type":
+
+"text/plain;charset=utf-8"
+
+},
+
+
 body:JSON.stringify({
 
 action:"getPendingSupport"
 
 })
 
+
 })
 
-
 .then(res=>res.json())
-
 
 .then(data=>{
 
@@ -1026,33 +1029,36 @@ let html="";
 if(data.data){
 
 
+
 data.data.forEach(item=>{
 
 
-html += `
+
+html+=`
 
 <tr>
 
+<td>${item.customerId || ""}</td>
 
-<td>${item.customerId}</td>
+<td>${item.problem || ""}</td>
 
+<td>${item.reference || ""}</td>
 
-<td>${item.problem}</td>
-
-
-<td>${item.reference}</td>
-
-
-<td>${item.date}</td>
+<td>${item.date || ""}</td>
 
 
 <td>
+
 
 <button class="edit-btn"
 
 onclick="editSupport(${item.row})">
 
+
+<i class="fa fa-edit"></i>
+
 Edit
+
 
 </button>
 
@@ -1062,15 +1068,15 @@ Edit
 
 </tr>
 
-
 `;
+
 
 
 });
 
 
-}
 
+}
 
 
 
@@ -1079,6 +1085,130 @@ document.getElementById("supportList").innerHTML=html;
 
 
 hideLoading();
+
+
+})
+
+.catch(error=>{
+
+
+console.log(error);
+
+
+hideLoading();
+
+
+
+showSuccess(
+"Error",
+"Server Error"
+);
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// EDIT LOAD
+// ===============================
+
+
+function editSupport(row){
+
+
+
+currentRow=row;
+
+
+
+showLoading("Loading Data...");
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":
+
+"text/plain;charset=utf-8"
+
+},
+
+
+body:JSON.stringify({
+
+action:"getSingleSupport",
+
+row:row
+
+
+})
+
+
+})
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+
+document.getElementById("customerId").value=
+data.customerId || "";
+
+
+
+document.getElementById("problem").value=
+data.problem || "";
+
+
+
+document.getElementById("reference").value=
+data.reference || "";
+
+
+
+document.getElementById("date").value=
+data.date || "";
+
+
+
+document.getElementById("support").value=
+data.support || "";
+
+
+
+document.getElementById("supportWork").value=
+data.supportWork || "";
+
+
+
+
+
+hideLoading();
+
+
+
+document
+.getElementById("editModal")
+.classList.add("show");
 
 
 
@@ -1094,205 +1224,8 @@ console.log(error);
 hideLoading();
 
 
-alert("Server Error");
-
-
 });
 
-
-}
-
-
-
-
-
-
-
-
-
-// ===============================
-// EDIT OPEN
-// ===============================
-
-
-function editSupport(row){
-
-
-currentRow=row;
-
-
-showLoading();
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-body:JSON.stringify({
-
-action:"getSingleSupport",
-
-row:row
-
-})
-
-})
-
-
-.then(res=>res.json())
-
-
-.then(data=>{
-
-
-
-document.getElementById("editRow").value=row;
-
-
-
-document.getElementById("customerId").value =
-data.customerId || "";
-
-
-
-document.getElementById("problem").value =
-data.problem || "";
-
-
-
-document.getElementById("reference").value =
-data.reference || "";
-
-
-
-document.getElementById("date").value =
-data.date || "";
-
-
-
-document.getElementById("support").value =
-data.support || "";
-
-
-
-document.getElementById("supportWork").value =
-data.supportWork || "";
-
-
-
-
-
-document
-.getElementById("editModal")
-.classList.add("show");
-
-
-
-hideLoading();
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-
-// ===============================
-// UPDATE
-// ===============================
-
-
-function updateSupport(){
-
-
-showLoading();
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-body:JSON.stringify({
-
-action:"updateSupport",
-
-
-row:currentRow,
-
-
-customerId:
-document.getElementById("customerId").value,
-
-
-problem:
-document.getElementById("problem").value,
-
-
-reference:
-document.getElementById("reference").value,
-
-
-date:
-document.getElementById("date").value,
-
-
-support:
-document.getElementById("support").value,
-
-
-supportWork:
-document.getElementById("supportWork").value
-
-
-
-})
-
-})
-
-
-.then(res=>res.json())
-
-
-.then(data=>{
-
-
-hideLoading();
-
-
-
-alert("Updated Successfully");
-
-
-closeEdit();
-
-
-loadSupport();
-
-
-
-})
-
-
-.catch(error=>{
-
-
-hideLoading();
-
-
-alert("Update Error");
-
-
-});
 
 
 }
@@ -1329,49 +1262,15 @@ document
 
 
 // ===============================
-// DELETE POPUP
+// UPDATE
 // ===============================
 
 
-function openDelete(){
-
-
-document
-.getElementById("confirmBox")
-.style.display="flex";
-
-
-}
+function updateSupport(){
 
 
 
-function closeDelete(){
-
-
-document
-.getElementById("confirmBox")
-.style.display="none";
-
-
-}
-
-
-
-
-
-
-
-
-// ===============================
-// DELETE CONFIRM
-// ===============================
-
-
-function confirmDelete(){
-
-
-
-showLoading();
+showLoading("Updating...");
 
 
 
@@ -1379,16 +1278,54 @@ fetch(API_URL,{
 
 method:"POST",
 
+headers:{
+
+"Content-Type":
+
+"text/plain;charset=utf-8"
+
+},
+
+
 body:JSON.stringify({
 
-action:"deleteSupport",
 
-row:currentRow
+action:"updateSupport",
+
+
+row:currentRow,
+
+
+customerId:
+document.getElementById("customerId").value,
+
+
+problem:
+document.getElementById("problem").value,
+
+
+reference:
+document.getElementById("reference").value,
+
+
+date:
+document.getElementById("date").value,
+
+
+support:
+document.getElementById("support").value,
+
+
+supportWork:
+document.getElementById("supportWork").value
+
 
 
 })
 
+
 })
+
 
 
 .then(res=>res.json())
@@ -1400,14 +1337,16 @@ row:currentRow
 hideLoading();
 
 
-closeDelete();
-
 
 closeEdit();
 
 
 
-alert("Deleted Successfully");
+showSuccess(
+"Success",
+"Updated Successfully"
+);
+
 
 
 loadSupport();
@@ -1416,14 +1355,16 @@ loadSupport();
 
 })
 
-
 .catch(error=>{
 
 
 hideLoading();
 
 
-alert("Delete Error");
+showSuccess(
+"Error",
+"Update Failed"
+);
 
 
 });
@@ -1440,40 +1381,24 @@ alert("Delete Error");
 
 
 // ===============================
-// PROFILE
+// DELETE POPUP
 // ===============================
 
 
+function openDelete(){
 
-function toggleProfile(){
+
+if(!document.getElementById("deleteBox")){
 
 
-document
-.getElementById("profileMenu")
-.classList.toggle("show");
+createDeleteBox();
 
 
 }
 
 
-
-
-document.getElementById("username").innerText =
-
-localStorage.getItem("username") || "User";
-
-
-
-
-let img =
-localStorage.getItem("picture");
-
-
-
-if(img){
-
-
-document.getElementById("profileImg").src=img;
+document.getElementById("deleteBox")
+.style.display="flex";
 
 
 }
@@ -1483,26 +1408,11 @@ document.getElementById("profileImg").src=img;
 
 
 
-
-function myAccount(){
-
-
-location.href="myaccount.html";
+function closeDelete(){
 
 
-}
-
-
-
-
-
-function logout(){
-
-
-localStorage.clear();
-
-
-location.href="index.html";
+document.getElementById("deleteBox")
+.style.display="none";
 
 
 }
@@ -1513,12 +1423,497 @@ location.href="index.html";
 
 
 
+function deleteSupport(){
 
 
-// START
+
+showLoading("Deleting...");
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":
+
+"text/plain;charset=utf-8"
+
+},
+
+
+body:JSON.stringify({
+
+action:"deleteSupport",
+
+row:currentRow
+
+})
+
+
+})
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+hideLoading();
+
+
+closeDelete();
+
+
+closeEdit();
+
+
+showSuccess(
+"Deleted",
+"Deleted Successfully"
+);
+
 
 
 loadSupport();
+
+
+})
+
+.catch(error=>{
+
+
+hideLoading();
+
+
+});
+
+
+
+}
+  <script>
+
+
+// ===============================
+// CREATE DELETE POPUP
+// ===============================
+
+
+function createDeleteBox(){
+
+
+let div=document.createElement("div");
+
+
+div.id="deleteBox";
+
+
+div.style.position="fixed";
+
+div.style.top="0";
+
+div.style.left="0";
+
+div.style.width="100%";
+
+div.style.height="100%";
+
+div.style.background="rgba(0,0,0,.45)";
+
+div.style.display="flex";
+
+div.style.alignItems="center";
+
+div.style.justifyContent="center";
+
+div.style.zIndex="3000";
+
+
+
+
+div.innerHTML=`
+
+<div style="
+background:white;
+padding:30px;
+border-radius:20px;
+text-align:center;
+width:320px;
+box-shadow:0 20px 50px rgba(0,0,0,.3);
+">
+
+
+<h2>
+<i class="fa fa-trash"
+style="color:#ef4444"></i>
+
+Delete Support?
+</h2>
+
+
+<p style="margin:15px 0">
+
+Are you sure you want to delete?
+
+</p>
+
+
+<button onclick="deleteSupport()"
+
+style="
+background:#ef4444;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:10px;
+cursor:pointer;
+margin:5px;
+">
+
+Yes Delete
+
+</button>
+
+
+
+<button onclick="closeDelete()"
+
+style="
+background:#64748b;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:10px;
+cursor:pointer;
+margin:5px;
+">
+
+Cancel
+
+</button>
+
+
+</div>
+
+`;
+
+
+
+document.body.appendChild(div);
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// SUCCESS POPUP
+// ===============================
+
+
+function showSuccess(title,msg){
+
+
+
+let old=document.getElementById("successBox");
+
+
+if(old){
+
+old.remove();
+
+}
+
+
+
+let box=document.createElement("div");
+
+
+box.id="successBox";
+
+
+
+box.style.position="fixed";
+
+box.style.top="0";
+
+box.style.left="0";
+
+box.style.width="100%";
+
+box.style.height="100%";
+
+box.style.background="rgba(0,0,0,.45)";
+
+box.style.display="flex";
+
+box.style.alignItems="center";
+
+box.style.justifyContent="center";
+
+box.style.zIndex="4000";
+
+
+
+
+
+box.innerHTML=`
+
+<div style="
+background:white;
+padding:35px;
+border-radius:25px;
+text-align:center;
+width:330px;
+">
+
+
+<i class="fa fa-circle-check"
+
+style="
+font-size:55px;
+color:#10b981;
+"></i>
+
+
+
+<h2 style="margin-top:15px">
+
+${title}
+
+</h2>
+
+
+
+<p style="margin:15px 0">
+
+${msg}
+
+</p>
+
+
+
+
+<button onclick="closeSuccess()"
+
+style="
+background:#10b981;
+color:white;
+border:none;
+padding:10px 30px;
+border-radius:10px;
+cursor:pointer;
+">
+
+OK
+
+</button>
+
+
+
+</div>
+
+`;
+
+
+
+document.body.appendChild(box);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function closeSuccess(){
+
+
+let box=document.getElementById("successBox");
+
+
+if(box){
+
+box.remove();
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// LOADING CONTROL
+// ===============================
+
+
+function showLoading(text="Loading..."){
+
+
+
+let box=document.getElementById("loadingBox");
+
+
+
+if(!box){
+
+console.log("loading.html not loaded");
+
+return;
+
+}
+
+
+
+box.style.display="block";
+
+
+
+let txt=document.getElementById("loadingText");
+
+
+if(txt){
+
+txt.innerHTML=text;
+
+}
+
+
+
+let percent=document.getElementById("percent");
+
+
+let bar=document.getElementById("progressBar");
+
+
+
+let count=0;
+
+
+
+clearInterval(loadingTimer);
+
+
+
+loadingTimer=setInterval(()=>{
+
+
+if(count<100){
+
+
+count++;
+
+
+
+if(percent){
+
+percent.innerHTML=count+"%";
+
+}
+
+
+
+if(bar){
+
+bar.style.width=count+"%";
+
+}
+
+
+
+}
+
+
+},25);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function hideLoading(){
+
+
+
+clearInterval(loadingTimer);
+
+
+
+let box=document.getElementById("loadingBox");
+
+
+
+let percent=document.getElementById("percent");
+
+
+let bar=document.getElementById("progressBar");
+
+
+
+if(percent){
+
+percent.innerHTML="100%";
+
+}
+
+
+
+if(bar){
+
+bar.style.width="100%";
+
+}
+
+
+
+
+
+setTimeout(()=>{
+
+
+if(box){
+
+box.style.display="none";
+
+}
+
+
+
+},400);
+
+
+
+}
+
+
+
 
 
 
