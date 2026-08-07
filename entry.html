@@ -10,17 +10,250 @@
 <title>New Entry</title>
 
 
-<link rel="stylesheet" href="entry.css">
-
-
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(135deg,#03543f,#01261d);
+
+}
+
+
+
+
+
+.entry-box{
+
+    width:420px;
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+
+}
+
+
+
+
+
+
+.entry-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+.entry-header h2{
+
+    color:#03543f;
+
+    font-size:22px;
+
+}
+
+
+
+
+
+.back-btn{
+
+    background:#03543f;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+.back-btn:hover{
+
+    background:#01261d;
+
+}
+
+
+
+
+
+
+
+.input-group{
+
+    margin-bottom:18px;
+
+}
+
+
+
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    font-weight:bold;
+
+    color:#333;
+
+}
+
+
+
+
+
+.input-group input,
+.input-group textarea{
+
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+
+
+}
+
+
+
+
+
+.input-group input:focus,
+.input-group textarea:focus{
+
+    border-color:#03543f;
+
+}
+
+
+
+
+
+
+#reference{
+
+    background:#eee;
+
+    cursor:not-allowed;
+
+}
+
+
+
+
+
+
+.submit-btn{
+
+
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#ff2d3f;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+
+}
+
+
+
+
+.submit-btn:hover{
+
+    background:#d91f2f;
+
+}
+
+
+
+
+
+#msg{
+
+    text-align:center;
+
+    margin-top:15px;
+
+    font-size:14px;
+
+}
+
+
+
+</style>
 
 
 </head>
 
 
+
+
 <body>
+
 
 
 
@@ -28,104 +261,100 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-    <!-- HEADER -->
 
-    <div class="entry-header">
 
+<div class="entry-header">
 
-        <button class="back-btn" onclick="goBack()">
 
-            <i class="fa-solid fa-arrow-left"></i>
-            Back
+<button class="back-btn" onclick="goBack()">
 
-        </button>
+<i class="fa-solid fa-arrow-left"></i>
 
+Back
 
+</button>
 
-        <h2>
 
-            <i class="fa-solid fa-circle-plus"></i>
 
-            New Entry
 
-        </h2>
+<h2>
 
+<i class="fa-solid fa-circle-plus"></i>
 
-    </div>
+New Entry
 
+</h2>
 
 
 
+</div>
 
 
-    <!-- CUSTOMER ID -->
 
-    <div class="input-group">
 
 
-        <label>
-            Customer ID
-        </label>
 
 
-        <input 
-        type="text"
-        id="customerId"
-        placeholder="Enter Customer ID">
+<div class="input-group">
 
 
-    </div>
+<label>
+Customer ID
+</label>
 
 
+<input 
+type="text"
+id="customerId"
+placeholder="Enter Customer ID">
 
 
+</div>
 
 
 
-    <!-- PROBLEM -->
 
 
-    <div class="input-group">
 
 
-        <label>
-            Problem
-        </label>
+<div class="input-group">
 
 
-        <textarea
-        id="problem"
-        rows="5"
-        placeholder="Write customer problem"></textarea>
+<label>
+Problem
+</label>
 
 
-    </div>
+<textarea
+id="problem"
+rows="5"
+placeholder="Write customer problem"></textarea>
 
 
+</div>
 
 
 
 
 
-    <!-- REFERENCE -->
 
 
-    <div class="input-group">
+<div class="input-group">
 
 
-        <label>
-            Reference
-        </label>
+<label>
+Reference
+</label>
 
 
-        <input
-        type="text"
-        id="reference"
-        placeholder="Auto Login User"
-        readonly>
+<input
+type="text"
+id="reference"
+readonly
+placeholder="Auto Login User">
 
 
-    </div>
+</div>
 
 
 
@@ -133,25 +362,23 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-    <!-- SUBMIT -->
+<button class="submit-btn"
+onclick="submitEntry()">
 
 
-    <button class="submit-btn"
-    onclick="submitEntry()">
+<i class="fa-solid fa-paper-plane"></i>
 
+Submit
 
-        <i class="fa-solid fa-paper-plane"></i>
 
-        Submit
+</button>
 
 
-    </button>
 
 
 
+<p id="msg"></p>
 
-
-    <p id="msg"></p>
 
 
 
@@ -163,12 +390,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<script src="entry.css"></script>
-<script src="entry.js"></script>
+
 
 
 <script>
 
+
+// BACK BUTTON
 
 function goBack(){
 
@@ -177,7 +405,98 @@ function goBack(){
 }
 
 
+
+
+
+
+// AUTO REFERENCE
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+let user = localStorage.getItem("username");
+
+
+document.getElementById("reference").value = user || "Unknown";
+
+
+});
+
+
+
+
+
+
+
+// SUBMIT
+
+function submitEntry(){
+
+
+let customerId =
+document.getElementById("customerId").value.trim();
+
+
+
+let problem =
+document.getElementById("problem").value.trim();
+
+
+
+let reference =
+document.getElementById("reference").value;
+
+
+
+
+let msg =
+document.getElementById("msg");
+
+
+
+
+if(customerId==="" || problem===""){
+
+
+msg.style.color="red";
+
+msg.innerText="Please fill all fields";
+
+
+return;
+
+
+}
+
+
+
+
+console.log({
+
+customerId,
+
+problem,
+
+reference
+
+});
+
+
+
+
+
+msg.style.color="green";
+
+msg.innerText="Entry Ready";
+
+
+
+}
+
+
+
 </script>
+
 
 
 
