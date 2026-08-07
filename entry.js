@@ -1,31 +1,38 @@
-const scriptURL = "আপনার_APPS_SCRIPT_URL";
+const scriptURL = "YOUR_GOOGLE_APPS_SCRIPT_URL";
 
 
 
-// Login Check
+// ============================
+// DASHBOARD CHECK
+// ============================
 
-let loginStatus = localStorage.getItem("loginStatus");
+let access = sessionStorage.getItem("fromDashboard");
 
 
-if(loginStatus !== "true"){
+if(access !== "yes"){
 
-    window.location.href="login.html";
+    window.location.href = "dashboard.html";
 
 }
 
 
 
-
-// User ID
-
-let userId = localStorage.getItem("userId");
-
+// ============================
+// AUTO REFERENCE
+// ============================
 
 
 window.onload=function(){
 
 
+let userId = localStorage.getItem("userId");
+
+
+if(userId){
+
 document.getElementById("reference").value = userId;
+
+}
 
 
 };
@@ -34,7 +41,11 @@ document.getElementById("reference").value = userId;
 
 
 
-// Submit
+
+// ============================
+// SUBMIT DATA
+// ============================
+
 
 document
 .getElementById("entryForm")
@@ -57,10 +68,12 @@ document.getElementById("problem").value,
 
 
 reference:
-userId
+document.getElementById("reference").value
+
 
 
 };
+
 
 
 
@@ -76,7 +89,9 @@ mode:"no-cors",
 
 headers:{
 
+
 "Content-Type":"application/json"
+
 
 },
 
@@ -86,10 +101,12 @@ body:JSON.stringify(data)
 
 })
 
+
+
 .then(()=>{
 
 
-alert("Entry Saved");
+alert("✅ Entry Saved Successfully");
 
 
 document
@@ -97,7 +114,25 @@ document
 .reset();
 
 
+
+let userId =
+localStorage.getItem("userId");
+
+
 document.getElementById("reference").value=userId;
+
+
+
+})
+
+
+
+.catch(error=>{
+
+
+console.log(error);
+
+alert("❌ Save Failed");
 
 
 });
