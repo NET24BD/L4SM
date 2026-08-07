@@ -7,7 +7,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>Pending Support</title>
 
 
@@ -37,12 +36,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <div class="header">
 
 
-
 <div class="left-section">
 
 
-<button class="back-btn"
-onclick="goBack()">
+<button class="back-btn" onclick="goBack()">
 
 <i class="fa fa-arrow-left"></i>
 
@@ -61,11 +58,7 @@ Pending Support
 </h2>
 
 
-
 </div>
-
-
-
 
 
 
@@ -74,33 +67,32 @@ Pending Support
 <!-- PROFILE -->
 
 
-<div class="profile"
-onclick="toggleProfile()">
+<div class="profile">
 
+
+<div class="profile-head" onclick="toggleProfile()">
 
 
 <img id="profileImg"
 src="assets/profile.png">
 
 
-
 <span id="username">
-
 User
-
 </span>
-
 
 
 <i class="fa fa-angle-down"></i>
 
 
+</div>
+
+
+
 
 
 <div class="profile-menu"
-id="profileMenu"
-onclick="event.stopPropagation()">
-
+id="profileMenu">
 
 
 <button onclick="myAccount()">
@@ -110,8 +102,6 @@ onclick="event.stopPropagation()">
 My Account
 
 </button>
-
-
 
 
 
@@ -125,12 +115,6 @@ Logout
 
 
 
-
-</div>
-
-
-
-
 </div>
 
 
@@ -139,13 +123,17 @@ Logout
 
 
 
+</div>
 
 
 
 
 
 
-<!-- TABLE -->
+
+
+
+<!-- SUPPORT TABLE -->
 
 
 <div class="table-box">
@@ -158,21 +146,36 @@ Logout
 
 <tr>
 
-<th>Customer ID</th>
+<th>
+Customer ID
+</th>
 
-<th>Problem</th>
 
-<th>Reference</th>
+<th>
+Problem
+</th>
 
-<th>Date</th>
 
-<th>Action</th>
+<th>
+Reference
+</th>
+
+
+<th>
+Date
+</th>
+
+
+<th>
+Action
+</th>
 
 
 </tr>
 
 
 </thead>
+
 
 
 
@@ -196,16 +199,14 @@ Logout
 
 
 
-<!-- EDIT POPUP -->
+<!-- EDIT MODAL -->
 
 
 <div class="modal"
 id="editModal">
 
 
-
 <div class="popup">
-
 
 
 <button class="close-btn"
@@ -217,8 +218,6 @@ onclick="closeEdit()">
 
 
 
-
-
 <h2>
 
 <i class="fa fa-edit"></i>
@@ -226,8 +225,6 @@ onclick="closeEdit()">
 Edit Support
 
 </h2>
-
-
 
 
 
@@ -301,8 +298,8 @@ Support Work
 
 
 
-<div class="popup-buttons">
 
+<div class="popup-buttons">
 
 
 <button class="submit-btn"
@@ -314,15 +311,12 @@ Submit
 
 
 
-
 <button class="cancel-btn"
 onclick="closeEdit()">
 
 Cancel
 
 </button>
-
-
 
 
 
@@ -339,7 +333,6 @@ Delete
 
 
 
-
 </div>
 
 
@@ -353,30 +346,26 @@ Delete
 
 
 
-<!-- DELETE POPUP -->
+<!-- DELETE MODAL -->
 
 
 <div class="modal"
 id="deleteModal">
 
 
-
 <div class="popup small">
 
 
-
-<h3>
+<h2>
 
 Delete Support?
 
-</h3>
-
+</h2>
 
 
 <p>
-Are you sure?
+Are you sure you want to delete?
 </p>
-
 
 
 
@@ -404,27 +393,24 @@ Cancel
 </div>
 
 
+</div>
+
 
 </div>
 
 
 
-</div>
 
 
 
 
 
 
-
-
-
-<!-- SUCCESS POPUP -->
+<!-- SUCCESS MODAL -->
 
 
 <div class="modal"
 id="successModal">
-
 
 
 <div class="popup small">
@@ -437,13 +423,11 @@ Success
 </h2>
 
 
-
 <p id="successMessage">
 
 Done
 
 </p>
-
 
 
 
@@ -459,7 +443,6 @@ OK
 </div>
 
 
-
 </div>
 
 
@@ -473,6 +456,5 @@ OK
 
 
 </body>
-
 
 </html>
