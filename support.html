@@ -1,35 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
-<title>Support Dashboard</title>
+<meta charset="UTF-8">
 
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#4d7094;
-    font-family:Arial;
-}
+<title>Pending Support</title>
 
-.box{
 
-background:white;
-padding:40px;
-border-radius:20px;
-text-align:center;
-box-shadow:0 10px 30px #0003;
+<link rel="stylesheet" href="support.css">
 
-}
 
-h1{
-color:#2563eb;
-}
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-</style>
 
 </head>
 
@@ -37,14 +23,144 @@ color:#2563eb;
 <body>
 
 
-<div class="box">
 
-<h1>Hello Supporter</h1>
+<div class="container">
 
-<p>Welcome to Support Dashboard</p>
+
+
+<header>
+
+
+<button onclick="goBack()" class="back-btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+Back
+
+</button>
+
+
+
+<h2>
+
+<i class="fa-solid fa-headset"></i>
+
+Pending Support
+
+</h2>
+
+
+
+</header>
+
+
+
+
+
+
+
+
+<div class="table-box">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Customer ID
+</th>
+
+
+<th>
+Problem
+</th>
+
+
+<th>
+Reference
+</th>
+
+
+<th>
+Date
+</th>
+
+
+<th>
+Support
+</th>
+
+
+<th>
+Support Work
+</th>
+
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody id="supportList">
+
+
+<!-- Data Load হবে -->
+
+
+</tbody>
+
+
+
+</table>
+
 
 </div>
 
 
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<script src="auth.js"></script>
+
+<script src="support.js"></script>
+
+
+<script>
+
+
+function goBack(){
+
+window.location.href="dashboard.html";
+
+}
+
+
+</script>
+
+
+
+
 </body>
+
 </html>
