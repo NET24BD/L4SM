@@ -7,477 +7,21 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Pending Support</title>
+
+
+<link rel="stylesheet" href="support.css">
 
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-
-<style>
-
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-
-body{
-
-background:linear-gradient(135deg,#ecfdf5,#eff6ff);
-
-padding:20px;
-
-}
-
-
-
-/* HEADER */
-
-.header{
-
-background:white;
-
-padding:15px 20px;
-
-border-radius:20px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-box-shadow:0 10px 30px rgba(0,0,0,.15);
-
-}
-
-
-.left{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
-}
-
-
-.back-btn{
-
-background:#065f46;
-
-color:white;
-
-border:none;
-
-padding:10px 18px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-}
-
-
-
-
-/* PROFILE */
-
-
-.profile{
-
-position:relative;
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-cursor:pointer;
-
-}
-
-
-
-.profile img{
-
-width:50px;
-
-height:50px;
-
-border-radius:50%;
-
-border:3px solid #10b981;
-
-object-fit:cover;
-
-}
-
-
-
-.profile-menu{
-
-display:none;
-
-position:absolute;
-
-right:0;
-
-top:60px;
-
-background:white;
-
-width:200px;
-
-padding:10px;
-
-border-radius:15px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-
-z-index:1000;
-
-}
-
-
-.profile-menu.show{
-
-display:block;
-
-}
-
-
-
-.profile-menu button{
-
-width:100%;
-
-padding:12px;
-
-border:none;
-
-background:white;
-
-cursor:pointer;
-
-border-radius:10px;
-
-text-align:left;
-
-}
-
-
-
-.profile-menu button:hover{
-
-background:#ecfdf5;
-
-}
-
-
-
-
-
-
-/* LOADING */
-
-#loadingArea{
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:100%;
-
-z-index:9999;
-
-}
-
-
-
-
-
-
-/* TABLE */
-
-
-.table-box{
-
-margin-top:25px;
-
-background:white;
-
-padding:20px;
-
-border-radius:20px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.12);
-
-overflow:auto;
-
-}
-
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-
-
-th{
-
-background:#065f46;
-
-color:white;
-
-padding:14px;
-
-}
-
-
-
-td{
-
-padding:12px;
-
-text-align:center;
-
-border-bottom:1px solid #ddd;
-
-}
-
-
-
-.edit-btn{
-
-background:#2563eb;
-
-color:white;
-
-border:none;
-
-padding:8px 15px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-}
-
-
-
-
-
-
-/* EDIT POPUP */
-
-
-.modal{
-
-display:none;
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:100%;
-
-background:rgba(0,0,0,.45);
-
-align-items:center;
-
-justify-content:center;
-
-z-index:2000;
-
-}
-
-
-.modal.show{
-
-display:flex;
-
-}
-
-
-
-.popup{
-
-background:white;
-
-width:450px;
-
-max-width:95%;
-
-padding:30px;
-
-border-radius:20px;
-
-position:relative;
-
-}
-
-
-
-.close-btn{
-
-position:absolute;
-
-right:15px;
-
-top:15px;
-
-width:35px;
-
-height:35px;
-
-border:none;
-
-border-radius:50%;
-
-background:#ef4444;
-
-color:white;
-
-font-size:22px;
-
-cursor:pointer;
-
-}
-
-
-
-.close-btn:hover{
-
-background:#dc2626;
-
-}
-
-
-
-
-.popup input,
-.popup textarea{
-
-
-width:100%;
-
-padding:10px;
-
-margin-top:5px;
-
-border:1px solid #ddd;
-
-border-radius:10px;
-
-}
-
-
-
-.popup textarea{
-
-height:80px;
-
-}
-
-
-
-.popup label{
-
-display:block;
-
-margin-top:10px;
-
-font-weight:bold;
-
-}
-
-
-
-.buttons{
-
-margin-top:20px;
-
-display:flex;
-
-gap:10px;
-
-}
-
-
-
-.buttons button{
-
-padding:10px 18px;
-
-border:none;
-
-border-radius:10px;
-
-cursor:pointer;
-
-}
-
-
-
-.submit{
-
-background:#10b981;
-
-color:white;
-
-}
-
-
-.cancel{
-
-background:#64748b;
-
-color:white;
-
-}
-
-
-
-.delete{
-
-background:#ef4444;
-
-color:white;
-
-}
-
-
-
-</style>
-
-
 </head>
 
 
-
 <body>
-
 
 
 <!-- LOADING -->
@@ -488,26 +32,21 @@ color:white;
 
 
 
-
 <!-- HEADER -->
-
 
 <div class="header">
 
 
 
-<div class="left">
-
+<div class="left-section">
 
 
 <button class="back-btn"
 onclick="goBack()">
 
-
 <i class="fa fa-arrow-left"></i>
 
 Back
-
 
 </button>
 
@@ -531,6 +70,8 @@ Pending Support
 
 
 
+
+<!-- PROFILE -->
 
 
 <div class="profile"
@@ -556,7 +97,6 @@ User
 
 
 
-
 <div class="profile-menu"
 id="profileMenu"
 onclick="event.stopPropagation()">
@@ -573,6 +113,8 @@ My Account
 
 
 
+
+
 <button onclick="logout()">
 
 <i class="fa fa-sign-out"></i>
@@ -580,6 +122,7 @@ My Account
 Logout
 
 </button>
+
 
 
 
@@ -675,6 +218,7 @@ onclick="closeEdit()">
 
 
 
+
 <h2>
 
 <i class="fa fa-edit"></i>
@@ -687,7 +231,12 @@ Edit Support
 
 
 
-<label>Customer ID</label>
+
+
+<label>
+Customer ID
+</label>
+
 
 <input id="customerId">
 
@@ -695,7 +244,10 @@ Edit Support
 
 
 
-<label>Problem</label>
+<label>
+Problem
+</label>
+
 
 <textarea id="problem"></textarea>
 
@@ -703,8 +255,10 @@ Edit Support
 
 
 
+<label>
+Reference
+</label>
 
-<label>Reference</label>
 
 <input id="reference">
 
@@ -712,17 +266,22 @@ Edit Support
 
 
 
-
-<label>Date</label>
-
-<input type="date" id="date">
-
+<label>
+Date
+</label>
 
 
+<input type="date"
+id="date">
 
 
 
-<label>Support</label>
+
+
+<label>
+Support
+</label>
+
 
 <input id="support">
 
@@ -730,7 +289,10 @@ Edit Support
 
 
 
-<label>Support Work</label>
+<label>
+Support Work
+</label>
+
 
 <textarea id="supportWork"></textarea>
 
@@ -739,11 +301,11 @@ Edit Support
 
 
 
+<div class="popup-buttons">
 
-<div class="buttons">
 
 
-<button class="submit"
+<button class="submit-btn"
 onclick="updateSupport()">
 
 Submit
@@ -752,7 +314,8 @@ Submit
 
 
 
-<button class="cancel"
+
+<button class="cancel-btn"
 onclick="closeEdit()">
 
 Cancel
@@ -761,7 +324,9 @@ Cancel
 
 
 
-<button class="delete"
+
+
+<button class="delete-btn"
 onclick="openDelete()">
 
 Delete
@@ -774,805 +339,140 @@ Delete
 
 
 
+
+</div>
+
+
 </div>
 
 
 
-</div>
-<script>
 
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
-let currentRow="";
 
-let loadingTimer;
 
+<!-- DELETE POPUP -->
 
 
+<div class="modal"
+id="deleteModal">
 
 
-// ===============================
-// LOAD LOADING HTML
-// ===============================
 
+<div class="popup small">
 
-fetch("loading.html")
 
-.then(res=>res.text())
 
-.then(data=>{
+<h3>
 
+Delete Support?
 
-document.getElementById("loadingArea").innerHTML=data;
+</h3>
 
 
-})
 
-.catch(err=>{
+<p>
+Are you sure?
+</p>
 
-console.log("Loading Error",err);
 
-});
 
 
+<div class="popup-buttons">
 
 
+<button class="delete-btn"
+onclick="deleteSupport()">
 
-
-
-
-// ===============================
-// PROFILE
-// ===============================
-
-
-function toggleProfile(){
-
-
-document
-.getElementById("profileMenu")
-.classList.toggle("show");
-
-
-}
-
-
-
-
-function myAccount(){
-
-
-location.href="myaccount.html";
-
-
-}
-
-
-
-function logout(){
-
-
-localStorage.clear();
-
-
-location.href="index.html";
-
-
-}
-
-
-
-function goBack(){
-
-
-location.href="dashboard.html";
-
-
-}
-
-
-
-
-
-
-
-
-window.onload=function(){
-
-
-let user=localStorage.getItem("username");
-
-
-if(user){
-
-document.getElementById("username").innerHTML=user;
-
-}
-
-
-
-let img=localStorage.getItem("picture");
-
-
-if(img){
-
-document.getElementById("profileImg").src=img;
-
-}
-
-
-
-loadSupport();
-
-
-};
-
-
-
-
-
-
-
-
-
-// ===============================
-// LOAD SUPPORT DATA
-// ===============================
-
-
-function loadSupport(){
-
-
-showLoading("Loading Support...");
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"text/plain;charset=utf-8"
-
-},
-
-body:JSON.stringify({
-
-action:"getPendingSupport"
-
-})
-
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-
-let html="";
-
-
-
-if(data.data){
-
-
-data.data.forEach(item=>{
-
-
-html+=`
-
-<tr>
-
-
-<td>${item.customerId || ""}</td>
-
-
-<td>${item.problem || ""}</td>
-
-
-<td>${item.reference || ""}</td>
-
-
-<td>${item.date || ""}</td>
-
-
-
-<td>
-
-
-<button class="edit-btn"
-
-onclick="editSupport(${item.row})">
-
-
-<i class="fa fa-edit"></i>
-
-Edit
-
+Yes Delete
 
 </button>
 
 
 
-</td>
+<button class="cancel-btn"
+onclick="closeDelete()">
 
+Cancel
 
+</button>
 
-</tr>
 
 
-`;
+</div>
 
 
-});
 
+</div>
 
-}
 
 
+</div>
 
-document.getElementById("supportList").innerHTML=html;
 
 
-hideLoading();
 
 
 
-})
 
-.catch(error=>{
 
 
-console.log(error);
+<!-- SUCCESS POPUP -->
 
 
-hideLoading();
+<div class="modal"
+id="successModal">
 
 
-successPopup(
-"Error",
-"Server Error"
-);
 
+<div class="popup small">
 
 
-});
+<h2 id="successTitle">
 
-
-}
-
-
-
-
-
-
-
-
-
-// ===============================
-// EDIT OPEN
-// ===============================
-
-
-function editSupport(row){
-
-
-currentRow=row;
-
-
-showLoading("Loading Data...");
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"text/plain;charset=utf-8"
-
-},
-
-
-body:JSON.stringify({
-
-action:"getSingleSupport",
-
-row:row
-
-})
-
-
-})
-
-.then(res=>res.json())
-
-
-.then(data=>{
-
-
-document.getElementById("customerId").value=data.customerId || "";
-
-document.getElementById("problem").value=data.problem || "";
-
-document.getElementById("reference").value=data.reference || "";
-
-document.getElementById("date").value=data.date || "";
-
-document.getElementById("support").value=data.support || "";
-
-document.getElementById("supportWork").value=data.supportWork || "";
-
-
-
-hideLoading();
-
-
-document
-.getElementById("editModal")
-.classList.add("show");
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-
-function closeEdit(){
-
-
-document
-.getElementById("editModal")
-.classList.remove("show");
-
-
-}
-
-
-
-
-
-
-
-
-
-// ===============================
-// UPDATE
-// ===============================
-
-
-function updateSupport(){
-
-
-showLoading("Updating...");
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"text/plain;charset=utf-8"
-
-},
-
-
-body:JSON.stringify({
-
-
-action:"updateSupport",
-
-
-row:currentRow,
-
-
-customerId:
-document.getElementById("customerId").value,
-
-
-problem:
-document.getElementById("problem").value,
-
-
-reference:
-document.getElementById("reference").value,
-
-
-date:
-document.getElementById("date").value,
-
-
-support:
-document.getElementById("support").value,
-
-
-supportWork:
-document.getElementById("supportWork").value
-
-
-
-})
-
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-
-hideLoading();
-
-
-closeEdit();
-
-
-successPopup(
-"Success",
-"Updated Successfully"
-);
-
-
-
-loadSupport();
-
-
-
-})
-
-.catch(err=>{
-
-
-hideLoading();
-
-
-successPopup(
-"Error",
-"Update Failed"
-);
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-// ===============================
-// DELETE
-// ===============================
-
-
-function openDelete(){
-
-
-let ok=confirm("Delete this support?");
-
-
-if(ok){
-
-
-deleteSupport();
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-function deleteSupport(){
-
-
-showLoading("Deleting...");
-
-
-
-fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"text/plain;charset=utf-8"
-
-},
-
-
-body:JSON.stringify({
-
-action:"deleteSupport",
-
-row:currentRow
-
-
-})
-
-
-})
-
-
-.then(res=>res.json())
-
-
-.then(data=>{
-
-
-hideLoading();
-
-
-closeEdit();
-
-
-successPopup(
-"Deleted",
-"Deleted Successfully"
-);
-
-
-
-loadSupport();
-
-
-
-})
-
-.catch(err=>{
-
-
-hideLoading();
-
-
-successPopup(
-"Error",
-"Delete Failed"
-);
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-// ===============================
-// SUCCESS POPUP
-// ===============================
-
-
-function successPopup(title,msg){
-
-
-let box=document.createElement("div");
-
-
-box.style.position="fixed";
-
-box.style.top="0";
-
-box.style.left="0";
-
-box.style.width="100%";
-
-box.style.height="100%";
-
-box.style.background="rgba(0,0,0,.4)";
-
-box.style.display="flex";
-
-box.style.alignItems="center";
-
-box.style.justifyContent="center";
-
-box.style.zIndex="5000";
-
-
-
-box.innerHTML=`
-
-<div style="
-background:white;
-padding:30px;
-border-radius:20px;
-text-align:center;
-">
-
-
-<h2 style="color:#10b981">
-
-✓ ${title}
+Success
 
 </h2>
 
 
-<p>${msg}</p>
+
+<p id="successMessage">
+
+Done
+
+</p>
 
 
-<button onclick="this.parentElement.parentElement.remove()"
 
-style="
-margin-top:15px;
-padding:10px 25px;
-border:none;
-border-radius:10px;
-background:#10b981;
-color:white;
-">
+
+<button class="submit-btn"
+onclick="closeSuccess()">
 
 OK
 
 </button>
 
 
+
 </div>
 
-`;
 
 
+</div>
 
-document.body.appendChild(box);
 
 
 
-}
 
 
 
 
-
-
-
-
-// ===============================
-// LOADING CONTROL
-// ===============================
-
-
-function showLoading(text){
-
-
-
-let box=document.getElementById("loadingBox");
-
-
-if(!box)return;
-
-
-
-box.style.display="block";
-
-
-
-let txt=document.getElementById("loadingText");
-
-
-if(txt){
-
-txt.innerHTML=text;
-
-}
-
-
-
-let count=0;
-
-
-
-clearInterval(loadingTimer);
-
-
-
-loadingTimer=setInterval(()=>{
-
-
-if(count<100){
-
-
-count++;
-
-
-let p=document.getElementById("percent");
-
-let b=document.getElementById("progressBar");
-
-
-
-if(p){
-
-p.innerHTML=count+"%";
-
-}
-
-
-
-if(b){
-
-b.style.width=count+"%";
-
-}
-
-
-
-}
-
-
-
-},25);
-
-
-
-}
-
-
-
-
-
-
-
-
-function hideLoading(){
-
-
-clearInterval(loadingTimer);
-
-
-
-let box=document.getElementById("loadingBox");
-
-
-if(box){
-
-
-box.style.display="none";
-
-
-}
-
-
-
-}
-
-
-
-</script>
+<script src="support.js"></script>
 
 
 </body>
+
 
 </html>
