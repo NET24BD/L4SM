@@ -1,65 +1,138 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzNw_d6tW3L3cFHtusSqUujnFSKC4gRYvIplxcNy2h9pUAO8AU1-K2XcBzeRNNelVtXog/exec";
+const scriptURL = "YOUR_GOOGLE_APPS_SCRIPT_URL";
 
-document.addEventListener("DOMContentLoaded", () => {
-    const referenceInput = document.getElementById("reference");
-    const loggedUser = localStorage.getItem("username");
 
-    if (loggedUser) {
-        referenceInput.value = loggedUser;
-    } else {
-        window.location.href = "index.html"; 
+
+// Auto Reference Load
+
+window.onload = function(){
+
+
+    let userId = localStorage.getItem("userId");
+
+
+    if(userId){
+
+        document.getElementById("reference").value = userId;
+
     }
+
+    else{
+
+        document.getElementById("reference").value = "Unknown";
+
+    }
+
+
+};
+
+
+
+
+
+
+// Form Submit
+
+
+document
+.getElementById("entryForm")
+.addEventListener("submit",function(e){
+
+
+e.preventDefault();
+
+
+
+let customerId =
+document.getElementById("customerId").value;
+
+
+
+let problem =
+document.getElementById("problem").value;
+
+
+
+let reference =
+document.getElementById("reference").value;
+
+
+
+
+let data={
+
+
+customerId:customerId,
+
+problem:problem,
+
+reference:reference
+
+
+};
+
+
+
+
+
+
+fetch(scriptURL,{
+
+
+method:"POST",
+
+
+mode:"no-cors",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify(data)
+
+
+
+})
+
+
+
+.then(()=>{
+
+
+alert("✅ Entry Added Successfully");
+
+
+document
+.getElementById("entryForm")
+.reset();
+
+
+// Reference আবার বসাবে
+
+document.getElementById("reference").value =
+localStorage.getItem("userId");
+
+
+
+})
+
+
+
+.catch(error=>{
+
+
+alert(
+"❌ Error : "+error
+);
+
+
 });
 
-document.getElementById("entryForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
 
-    const customerId = document.getElementById("customerId").value.trim();
-    const problem = document.getElementById("problem").value.trim();
-    const reference = document.getElementById("reference").value;
-    const message = document.getElementById("message");
-    const btn = document.getElementById("submitBtn");
 
-    if (!customerId || !problem) {
-        message.innerHTML = "Please fill in all required fields.";
-        message.style.color = "#dc2626";
-        return;
-    }
-
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
-    btn.disabled = true;
-
-    try {
-        const response = await fetch(WEB_APP_URL, {
-            method: "POST",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify({
-                action: "addEntry",
-                customerId: customerId,
-                problem: problem,
-                reference: reference
-            })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            message.innerHTML = "Entry Created Successfully!";
-            message.style.color = "#16a34a";
-            
-            document.getElementById("customerId").value = "";
-            document.getElementById("problem").value = "";
-        } else {
-            message.innerHTML = data.message || "Failed to submit entry.";
-            message.style.color = "#dc2626";
-        }
-
-    } catch (error) {
-        console.error("Error:", error);
-        message.innerHTML = "Server Connection Failed!";
-        message.style.color = "#dc2626";
-    } finally {
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> SUBMIT ENTRY';
-        btn.disabled = false;
-    }
 });
