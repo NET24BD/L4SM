@@ -1,33 +1,17 @@
+// ===============================
+// GOOGLE APPS SCRIPT URL
+// ===============================
+
 const scriptURL = "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
 
-// ===============================
-// DASHBOARD CHECK
-// ===============================
-
-let urlParams = new URLSearchParams(window.location.search);
-
-let from = urlParams.get("from");
-
-
-if(from !== "dashboard"){
-
-    window.location.href = "dashboard.html";
-
-}
-
-
-
-
-
 
 // ===============================
-// AUTO REFERENCE
+// AUTO REFERENCE LOAD
 // ===============================
 
-
-window.onload=function(){
+window.addEventListener("load", function(){
 
 
     let userId = localStorage.getItem("userId");
@@ -35,112 +19,160 @@ window.onload=function(){
 
     if(userId){
 
+        document.getElementById("reference").value = userId;
 
-        document.getElementById("reference").value=userId;
+    }
+    else{
 
+        document.getElementById("reference").value = "";
 
     }
 
 
-};
-
-
-
-
-
-
-// ===============================
-// SUBMIT
-// ===============================
-
-
-document
-.getElementById("entryForm")
-.addEventListener("submit",function(e){
-
-
-e.preventDefault();
-
-
-
-let data={
-
-
-customerId:
-document.getElementById("customerId").value,
-
-
-problem:
-document.getElementById("problem").value,
-
-
-reference:
-document.getElementById("reference").value
-
-
-};
-
-
-
-
-
-fetch(scriptURL,{
-
-
-method:"POST",
-
-
-mode:"no-cors",
-
-
-headers:{
-
-
-"Content-Type":"application/json"
-
-
-},
-
-
-body:JSON.stringify(data)
-
-
-})
-
-
-
-.then(()=>{
-
-
-alert("Entry Saved Successfully");
-
-
-
-document
-.getElementById("entryForm")
-.reset();
-
-
-
-document.getElementById("reference").value =
-localStorage.getItem("userId");
-
-
-
-})
-
-
-
-.catch(error=>{
-
-
-console.log(error);
-
-
-alert("Save Error");
-
-
 });
+
+
+
+
+
+
+
+// ===============================
+// FORM SUBMIT
+// ===============================
+
+document
+.getElementById("entryForm")
+.addEventListener("submit", function(e){
+
+
+    e.preventDefault();
+
+
+
+
+    let customerId =
+    document.getElementById("customerId").value.trim();
+
+
+
+
+    let problem =
+    document.getElementById("problem").value.trim();
+
+
+
+
+    let reference =
+    document.getElementById("reference").value.trim();
+
+
+
+
+
+    if(customerId === "" || problem === ""){
+
+
+        alert("Please fill Customer ID and Problem");
+
+        return;
+
+    }
+
+
+
+
+
+
+
+    let data = {
+
+
+        customerId: customerId,
+
+        problem: problem,
+
+        reference: reference
+
+
+    };
+
+
+
+
+
+
+
+    fetch(scriptURL, {
+
+
+        method:"POST",
+
+
+        mode:"no-cors",
+
+
+        headers:{
+
+
+            "Content-Type":"application/json"
+
+
+        },
+
+
+        body:JSON.stringify(data)
+
+
+
+    })
+
+
+
+    .then(()=>{
+
+
+        alert("✅ Entry Saved Successfully");
+
+
+
+        document
+        .getElementById("entryForm")
+        .reset();
+
+
+
+
+
+        // Reference আবার বসানো
+
+        let userId =
+        localStorage.getItem("userId");
+
+
+
+        if(userId){
+
+            document.getElementById("reference").value = userId;
+
+        }
+
+
+
+    })
+
+
+
+    .catch(error=>{
+
+
+        console.log(error);
+
+
+        alert("❌ Entry Save Failed");
+
+
+    });
 
 
 
