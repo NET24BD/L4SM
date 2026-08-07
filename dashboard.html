@@ -23,6 +23,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
+
 <!-- SIDEBAR -->
 
 <div class="sidebar" id="sidebar">
@@ -48,7 +49,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-
 <ul>
 
 
@@ -70,7 +70,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <span>User Control</span>
 
 </li>
-
 
 
 
@@ -112,9 +111,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </ul>
 
 
-
 </div>
-
 
 
 
@@ -135,7 +132,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <h2>
 Dashboard
 </h2>
-
 
 
 
@@ -205,12 +201,13 @@ Logout
 
 
 
+
 <div class="welcome">
 
 
 <h1>
 
-Welcome Back 
+Welcome Back
 
 <span id="welcomeName">
 User
@@ -218,6 +215,7 @@ User
 
 
 </h1>
+
 
 
 <p>
@@ -233,13 +231,14 @@ L4SM Management System
 
 
 
+
 <div class="cards">
 
 
 
 
 
-<!-- ENTRY CARD -->
+<!-- NEW ENTRY -->
 
 <div class="card blue"
 onclick="openEntry()">
@@ -255,14 +254,17 @@ onclick="openEntry()">
 New Entry
 </h3>
 
+
 <p>
 Create Entry
 </p>
 
+
 </div>
 
 
 </div>
+
 
 
 
@@ -283,9 +285,11 @@ onclick="openPage('support.html')">
 Pending Support
 </h3>
 
+
 <p>
 Support Pending
 </p>
+
 
 </div>
 
@@ -311,6 +315,7 @@ onclick="openPage('call.html')">
 <h3>
 Pending Call
 </h3>
+
 
 <p>
 Call Pending
@@ -342,6 +347,7 @@ onclick="openPage('history.html')">
 History
 </h3>
 
+
 <p>
 All History
 </p>
@@ -351,7 +357,6 @@ All History
 
 
 </div>
-
 
 
 
@@ -371,6 +376,7 @@ onclick="openPage('offline-entry.html')">
 <h3>
 Offline Entry
 </h3>
+
 
 <p>
 Add Offline
@@ -401,6 +407,7 @@ onclick="openPage('offline.html')">
 Offline
 </h3>
 
+
 <p>
 Offline List
 </p>
@@ -410,6 +417,7 @@ Offline List
 
 
 </div>
+
 
 
 
@@ -430,6 +438,7 @@ onclick="openPage('offline-history.html')">
 Offline History
 </h3>
 
+
 <p>
 Offline Records
 </p>
@@ -439,6 +448,7 @@ Offline Records
 
 
 </div>
+
 
 
 
@@ -458,6 +468,7 @@ onclick="openPage('usercontrol.html')">
 <h3>
 Total Users
 </h3>
+
 
 <p>
 System Users
@@ -486,40 +497,43 @@ System Users
 
 
 
+
 <script>
 
 
-// ENTRY PROTECTION
+// ===========================
+// ENTRY OPEN
+// ===========================
+
 
 function openEntry(){
 
 
-    sessionStorage.setItem(
-        "entryAccess",
-        "true"
-    );
-
-
-    window.location.href="entry.html";
+window.location.href =
+"entry.html?from=dashboard";
 
 
 }
 
 
 
+
+// ===========================
+// PAGE OPEN
+// ===========================
 
 
 function openPage(page){
 
 
-    window.location.href=page;
+window.location.href = page;
 
 
 }
 
 
-
 </script>
+
 
 
 
