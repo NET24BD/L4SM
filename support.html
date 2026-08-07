@@ -7,16 +7,335 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>Pending Support</title>
-
-
-<link rel="stylesheet" href="support.css">
 
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+
+<style>
+
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+
+body{
+
+background:#f1f5f9;
+padding:20px;
+
+}
+
+
+
+
+.container{
+
+width:100%;
+
+}
+
+
+
+
+header{
+
+background:white;
+
+padding:18px 25px;
+
+border-radius:15px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+
+margin-bottom:25px;
+
+}
+
+
+
+
+.title{
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+
+
+.title h2{
+
+color:#03543f;
+
+}
+
+
+
+
+
+.back-btn{
+
+background:#03543f;
+
+color:white;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* PROFILE */
+
+
+.profile{
+
+position:relative;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+
+
+.profile img{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:2px solid #03543f;
+
+}
+
+
+
+
+.profile-menu{
+
+
+position:absolute;
+
+right:0;
+
+top:60px;
+
+width:180px;
+
+background:white;
+
+border-radius:12px;
+
+padding:10px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+display:none;
+
+z-index:99;
+
+}
+
+
+
+
+.profile-menu.show{
+
+display:block;
+
+}
+
+
+
+
+.profile-menu button{
+
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+background:white;
+
+text-align:left;
+
+cursor:pointer;
+
+border-radius:8px;
+
+
+}
+
+
+
+.profile-menu button:hover{
+
+background:#f1f5f9;
+
+}
+
+
+
+
+
+
+/* TABLE */
+
+
+.table-box{
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+overflow:auto;
+
+}
+
+
+
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+min-width:1000px;
+
+}
+
+
+
+
+thead{
+
+background:#03543f;
+
+color:white;
+
+}
+
+
+
+th{
+
+padding:14px;
+
+}
+
+
+
+td{
+
+padding:12px;
+
+text-align:center;
+
+border-bottom:1px solid #ddd;
+
+}
+
+
+
+
+input,
+textarea{
+
+width:150px;
+
+padding:8px;
+
+border:1px solid #ccc;
+
+border-radius:7px;
+
+}
+
+
+
+textarea{
+
+height:60px;
+
+resize:none;
+
+}
+
+
+
+
+
+.save-btn{
+
+background:#ff2d3f;
+
+color:white;
+
+border:none;
+
+padding:9px 15px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+
+
+.save-btn:hover{
+
+background:#d91f2f;
+
+}
+
+
+
+
+
+</style>
 
 </head>
 
@@ -30,10 +349,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-
-
-<!-- HEADER -->
-
 <header>
 
 
@@ -41,15 +356,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <div class="title">
 
 
-<button class="back-btn" onclick="goBack()">
+<button class="back-btn"
+onclick="goBack()">
 
 <i class="fa-solid fa-arrow-left"></i>
 
 Back
 
 </button>
-
-
 
 
 <h2>
@@ -67,12 +381,8 @@ Pending Support
 
 
 
-
-
-<!-- PROFILE -->
-
 <div class="profile"
-onclick="toggleProfileMenu()">
+onclick="toggleProfile()">
 
 
 
@@ -81,10 +391,9 @@ src="assets/profile.png">
 
 
 
-<span id="headerName">
+<span id="username">
 User
 </span>
-
 
 
 <i class="fa-solid fa-angle-down"></i>
@@ -93,16 +402,13 @@ User
 
 
 
-
-<div id="profileMenu"
-class="profile-menu"
+<div class="profile-menu"
+id="profileMenu"
 onclick="event.stopPropagation()">
 
 
 
-
-
-<button onclick="openMyAccount()">
+<button onclick="myAccount()">
 
 <i class="fa-solid fa-user"></i>
 
@@ -112,11 +418,7 @@ My Account
 
 
 
-
-
-
-
-<button id="logoutBtn">
+<button onclick="logout()">
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
@@ -126,16 +428,12 @@ Logout
 
 
 
-
 </div>
 
 
 
 
-
 </div>
-
-
 
 
 
@@ -148,65 +446,34 @@ Logout
 
 
 
-
-
-<!-- SUPPORT TABLE -->
-
-
 <div class="table-box">
-
 
 
 <table>
 
 
-
 <thead>
-
 
 <tr>
 
+<th>Customer ID</th>
 
-<th>
-Customer ID
-</th>
+<th>Problem</th>
 
+<th>Reference</th>
 
-<th>
-Problem
-</th>
+<th>Date</th>
 
+<th>Support</th>
 
-<th>
-Reference
-</th>
+<th>Support Work</th>
 
-
-<th>
-Date
-</th>
-
-
-<th>
-Support
-</th>
-
-
-<th>
-Support Work
-</th>
-
-
-<th>
-Action
-</th>
+<th>Action</th>
 
 
 </tr>
 
-
 </thead>
-
 
 
 
@@ -238,9 +505,6 @@ Loading...
 
 
 
-
-
-
 </div>
 
 
@@ -251,18 +515,17 @@ Loading...
 
 
 
-<script src="auth.js"></script>
-
-
-<script src="support.js"></script>
-
-
-
-
 <script>
 
 
-// BACK BUTTON
+const API_URL =
+"YOUR_GOOGLE_SCRIPT_URL";
+
+
+
+
+
+// BACK
 
 function goBack(){
 
@@ -274,10 +537,11 @@ window.location.href="dashboard.html";
 
 
 
-// PROFILE MENU
+
+// PROFILE
 
 
-function toggleProfileMenu(){
+function toggleProfile(){
 
 
 document
@@ -289,16 +553,10 @@ document
 
 
 
-
-// CLOSE OUTSIDE CLICK
-
-
 document.addEventListener("click",function(e){
 
 
-let profile =
-document.querySelector(".profile");
-
+let profile=document.querySelector(".profile");
 
 
 if(!profile.contains(e.target)){
@@ -312,35 +570,38 @@ document
 }
 
 
+
 });
 
 
 
 
 
-// LOAD PROFILE DATA
 
 
-document.addEventListener("DOMContentLoaded",function(){
+// USER DATA
 
 
-
-let username =
+let user =
 localStorage.getItem("username");
 
 
-let picture =
+let pic =
 localStorage.getItem("picture");
 
 
 
+if(user){
+
+document.getElementById("username").innerText=user;
+
+}
 
 
-if(username){
 
+if(pic){
 
-document.getElementById("headerName").innerText=username;
-
+document.getElementById("profileImg").src=pic;
 
 }
 
@@ -348,14 +609,104 @@ document.getElementById("headerName").innerText=username;
 
 
 
-if(picture){
 
+function myAccount(){
 
-document.getElementById("profileImg").src=picture;
-
+window.location.href="myaccount.html";
 
 }
 
+
+
+
+function logout(){
+
+localStorage.clear();
+
+window.location.href="index.html";
+
+}
+
+
+
+
+
+
+// LOAD SUPPORT DATA
+
+
+function loadSupport(){
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"getPendingSupport"
+
+})
+
+})
+
+.then(r=>r.json())
+
+.then(data=>{
+
+
+let html="";
+
+
+data.data.forEach(row=>{
+
+
+html+=`
+
+<tr>
+
+<td>${row.customerId}</td>
+
+<td>${row.problem}</td>
+
+<td>${row.reference}</td>
+
+<td>${row.date}</td>
+
+
+<td>
+
+<input value="${user}" readonly>
+
+</td>
+
+
+
+<td>
+
+<textarea id="work${row.row}"></textarea>
+
+</td>
+
+
+
+<td>
+
+
+<button class="save-btn"
+onclick="saveSupport(${row.row})">
+
+Save
+
+</button>
+
+
+</td>
+
+
+</tr>
+
+`;
 
 
 
@@ -363,40 +714,76 @@ document.getElementById("profileImg").src=picture;
 
 
 
+document.getElementById("supportList").innerHTML=html;
 
 
-
-
-// LOGOUT
-
-
-document.getElementById("logoutBtn").onclick=function(){
-
-
-localStorage.clear();
-
-
-window.location.href="index.html";
-
-
-};
-
-
-
-
-function openMyAccount(){
-
-
-window.location.href="myaccount.html";
+});
 
 
 }
 
 
+
+
+
+
+
+
+function saveSupport(row){
+
+
+let work =
+document.getElementById("work"+row).value;
+
+
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"updateSupport",
+
+row:row,
+
+support:user,
+
+supportWork:work
+
+
+})
+
+})
+
+.then(r=>r.json())
+
+.then(data=>{
+
+
+alert("Saved Successfully");
+
+
+loadSupport();
+
+
+});
+
+
+
+}
+
+
+
+
+
+loadSupport();
+
+
+
+
+
 </script>
-
-
-
 
 
 </body>
