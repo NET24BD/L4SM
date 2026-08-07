@@ -2,29 +2,30 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua
 
 
 
-// ============================
-// LOGIN CHECK
-// ============================
+// Login Check
 
-let userId = localStorage.getItem("userId");
+let loginStatus = localStorage.getItem("loginStatus");
 
 
-if(!userId){
+if(loginStatus !== "true"){
 
-    window.location.href = "login.html";
+    window.location.href="login.html";
 
 }
 
 
 
-// ============================
-// AUTO REFERENCE
-// ============================
 
-window.onload = function(){
+// User ID
+
+let userId = localStorage.getItem("userId");
 
 
-    document.getElementById("reference").value = userId;
+
+window.onload=function(){
+
+
+document.getElementById("reference").value = userId;
 
 
 };
@@ -33,48 +34,33 @@ window.onload = function(){
 
 
 
-// ============================
-// SUBMIT DATA
-// ============================
-
+// Submit
 
 document
 .getElementById("entryForm")
-.addEventListener("submit", function(e){
+.addEventListener("submit",function(e){
 
 
 e.preventDefault();
 
 
 
-let customerId =
-document.getElementById("customerId").value;
+let data={
 
 
-
-let problem =
-document.getElementById("problem").value;
-
+customerId:
+document.getElementById("customerId").value,
 
 
-let reference =
-document.getElementById("reference").value;
+problem:
+document.getElementById("problem").value,
 
 
-
-
-let data = {
-
-
-customerId: customerId,
-
-problem: problem,
-
-reference: reference
+reference:
+userId
 
 
 };
-
 
 
 
@@ -90,9 +76,7 @@ mode:"no-cors",
 
 headers:{
 
-
 "Content-Type":"application/json"
-
 
 },
 
@@ -102,13 +86,10 @@ body:JSON.stringify(data)
 
 })
 
-
-
 .then(()=>{
 
 
-alert("✅ Entry Saved Successfully");
-
+alert("Entry Saved");
 
 
 document
@@ -116,23 +97,7 @@ document
 .reset();
 
 
-
-// Reference আবার বসানো
-
-document.getElementById("reference").value = userId;
-
-
-
-})
-
-
-
-.catch(error=>{
-
-
-console.log(error);
-
-alert("❌ Error Saving");
+document.getElementById("reference").value=userId;
 
 
 });
