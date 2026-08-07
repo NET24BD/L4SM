@@ -1,20 +1,17 @@
-// ===============================
-// GOOGLE APPS SCRIPT URL
-// ===============================
-
 const scriptURL = "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
 
-
 // ===============================
-// DASHBOARD ACCESS CHECK
+// DASHBOARD CHECK
 // ===============================
 
-let entryAccess = sessionStorage.getItem("entryAccess");
+let urlParams = new URLSearchParams(window.location.search);
+
+let from = urlParams.get("from");
 
 
-if(entryAccess !== "true"){
+if(from !== "dashboard"){
 
     window.location.href = "dashboard.html";
 
@@ -26,28 +23,26 @@ if(entryAccess !== "true"){
 
 
 // ===============================
-// AUTO REFERENCE LOAD
+// AUTO REFERENCE
 // ===============================
 
-window.addEventListener("load", function(){
+
+window.onload=function(){
 
 
     let userId = localStorage.getItem("userId");
 
 
-
     if(userId){
 
 
-        document.getElementById("reference").value = userId;
+        document.getElementById("reference").value=userId;
 
 
     }
 
 
-
-});
-
+};
 
 
 
@@ -55,151 +50,97 @@ window.addEventListener("load", function(){
 
 
 // ===============================
-// SUBMIT ENTRY
+// SUBMIT
 // ===============================
 
 
 document
 .getElementById("entryForm")
-.addEventListener("submit", function(e){
+.addEventListener("submit",function(e){
 
 
-    e.preventDefault();
+e.preventDefault();
 
 
 
+let data={
 
-    let customerId =
-    document.getElementById("customerId").value.trim();
 
+customerId:
+document.getElementById("customerId").value,
 
 
+problem:
+document.getElementById("problem").value,
 
-    let problem =
-    document.getElementById("problem").value.trim();
 
+reference:
+document.getElementById("reference").value
 
 
+};
 
-    let reference =
-    document.getElementById("reference").value.trim();
 
 
 
 
+fetch(scriptURL,{
 
 
+method:"POST",
 
-    if(customerId === "" || problem === ""){
 
+mode:"no-cors",
 
-        alert("Please fill required fields");
 
-        return;
+headers:{
 
-    }
 
+"Content-Type":"application/json"
 
 
+},
 
 
+body:JSON.stringify(data)
 
 
-    let data = {
+})
 
 
-        customerId: customerId,
 
-        problem: problem,
+.then(()=>{
 
-        reference: reference
 
+alert("Entry Saved Successfully");
 
-    };
 
 
+document
+.getElementById("entryForm")
+.reset();
 
 
 
+document.getElementById("reference").value =
+localStorage.getItem("userId");
 
 
 
-    fetch(scriptURL, {
+})
 
 
-        method:"POST",
 
+.catch(error=>{
 
-        mode:"no-cors",
 
+console.log(error);
 
-        headers:{
 
+alert("Save Error");
 
-            "Content-Type":"application/json"
 
-
-        },
-
-
-        body:JSON.stringify(data)
-
-
-
-    })
-
-
-
-
-    .then(()=>{
-
-
-        alert("✅ Entry Successfully Saved");
-
-
-
-        document
-        .getElementById("entryForm")
-        .reset();
-
-
-
-
-
-        // Reference আবার বসাবে
-
-        let userId =
-        localStorage.getItem("userId");
-
-
-
-        if(userId){
-
-
-            document.getElementById("reference").value = userId;
-
-
-        }
-
-
-
-    })
-
-
-
-
-
-    .catch(error=>{
-
-
-        console.log(error);
-
-
-        alert("❌ Data Save Failed");
-
-
-    });
-
+});
 
 
 
