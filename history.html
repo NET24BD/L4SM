@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>L4SM - History</title>
+
+    <link rel="stylesheet" href="history.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="history-container">
+
+    <!-- Header -->
+
+    <header class="history-header">
+
+        <div class="left">
+
+            <button id="backBtn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <h2>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                History
+            </h2>
+
+        </div>
+
+        <div class="right">
+
+            <button id="refreshBtn">
+                <i class="fa-solid fa-rotate"></i>
+                Refresh
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- Top Card -->
+
+    <div class="history-card">
+
+        <div class="card-top">
+
+            <div>
+
+                <h3>History Records</h3>
+
+                <span id="totalRecords">
+                    Total : 0
+                </span>
+
+            </div>
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-search"></i>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search...">
+
+            </div>
+
+        </div>
+
+        <!-- Table -->
+
+        <div class="table-responsive">
+
+            <table id="historyTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>IP</th>
+
+                        <th>Problem</th>
+
+                        <th>Reference</th>
+
+                        <th>Date</th>
+
+                        <th>Support</th>
+
+                        <th>Support Work</th>
+
+                        <th>Call</th>
+
+                        <th>Call Work</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="historyBody">
+
+                    <!-- Data Load হবে -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- Loading -->
+
+        <div id="loading">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            <p>Loading History...</p>
+
+        </div>
+
+        <!-- Empty -->
+
+        <div id="emptyData">
+
+            <i class="fa-regular fa-folder-open"></i>
+
+            <h3>No History Found</h3>
+
+            <p>No records available.</p>
+
+        </div>
+                <!-- Pagination -->
+
+        <div class="pagination">
+
+            <button id="prevPage">
+                <i class="fa-solid fa-angle-left"></i>
+                Previous
+            </button>
+
+            <span id="pageInfo">
+                Page 1 of 1
+            </span>
+
+            <button id="nextPage">
+                Next
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Record Details Modal -->
+
+<div class="modal" id="detailsModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3>
+                <i class="fa-solid fa-circle-info"></i>
+                History Details
+            </h3>
+
+            <button id="closeModal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="modal-body" id="modalBody">
+
+            <!-- JS Data -->
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 L4SM - Link4 Support Management
+    </p>
+
+</footer>
+
+<!-- JavaScript -->
+
+<script src="history.js"></script>
+
+</body>
+
+</html>
