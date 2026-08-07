@@ -1,30 +1,108 @@
-// ===============================
-// GOOGLE APPS SCRIPT URL
-// ===============================
+// =====================================
+// LOAD ENTRY POPUP HTML
+// =====================================
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
+document.addEventListener("DOMContentLoaded", function () {
+
+    fetch("entry.html")
+        .then(response => response.text())
+        .then(data => {
+
+            document.getElementById("entryContainer").innerHTML = data;
+
+        })
+        .catch(error => {
+
+            console.log("Entry Load Error:", error);
+
+        });
+
+});
 
 
 
 
-// ===============================
-// AUTO REFERENCE LOAD
-// ===============================
+// =====================================
+// OPEN ENTRY POPUP
+// =====================================
 
-window.addEventListener("load", function(){
-
-
-    let userId = localStorage.getItem("userId");
+function openEntry() {
 
 
-    if(userId){
+    let modal = document.getElementById("entryModal");
 
-        document.getElementById("reference").value = userId;
+
+    if (!modal) {
+
+        console.log("Entry popup not loaded yet");
+
+        return;
 
     }
-    else{
 
-        document.getElementById("reference").value = "";
+
+
+    let user =
+    document.getElementById("headerName").innerText;
+
+
+
+    document.getElementById("reference").value = user;
+
+
+
+    modal.classList.add("show");
+
+
+}
+
+
+
+
+
+
+// =====================================
+// CLOSE ENTRY POPUP
+// =====================================
+
+function closeEntry() {
+
+
+    let modal =
+    document.getElementById("entryModal");
+
+
+
+    if (modal) {
+
+        modal.classList.remove("show");
+
+    }
+
+
+}
+
+
+
+
+
+
+
+// =====================================
+// CLOSE WHEN CLICK OUTSIDE
+// =====================================
+
+document.addEventListener("click", function (e) {
+
+
+    let modal =
+    document.getElementById("entryModal");
+
+
+
+    if (modal && e.target === modal) {
+
+        closeEntry();
 
     }
 
@@ -37,65 +115,21 @@ window.addEventListener("load", function(){
 
 
 
-// ===============================
-// FORM SUBMIT
-// ===============================
+// =====================================
+// ESC KEY CLOSE
+// =====================================
 
-document
-.getElementById("entryForm")
-.addEventListener("submit", function(e){
+document.addEventListener("keydown", function (e) {
 
 
-    e.preventDefault();
+    if (e.key === "Escape") {
 
-
-
-
-    let customerId =
-    document.getElementById("customerId").value.trim();
-
-
-
-
-    let problem =
-    document.getElementById("problem").value.trim();
-
-
-
-
-    let reference =
-    document.getElementById("reference").value.trim();
-
-
-
-
-
-    if(customerId === "" || problem === ""){
-
-
-        alert("Please fill Customer ID and Problem");
-
-        return;
+        closeEntry();
 
     }
 
 
-
-
-
-
-
-    let data = {
-
-
-        customerId: customerId,
-
-        problem: problem,
-
-        reference: reference
-
-
-    };
+});
 
 
 
@@ -103,77 +137,105 @@ document
 
 
 
-    fetch(scriptURL, {
+// =====================================
+// SUBMIT ENTRY
+// =====================================
+
+document.addEventListener("click", function (e) {
 
 
-        method:"POST",
-
-
-        mode:"no-cors",
-
-
-        headers:{
-
-
-            "Content-Type":"application/json"
-
-
-        },
-
-
-        body:JSON.stringify(data)
+    if (e.target.id === "submitEntry") {
 
 
 
-    })
+        let customerId =
+        document.getElementById("customerId").value.trim();
 
 
 
-    .then(()=>{
-
-
-        alert("✅ Entry Saved Successfully");
+        let problem =
+        document.getElementById("problem").value.trim();
 
 
 
-        document
-        .getElementById("entryForm")
-        .reset();
+        let reference =
+        document.getElementById("reference").value;
 
 
 
 
 
-        // Reference আবার বসানো
 
-        let userId =
-        localStorage.getItem("userId");
+        if (customerId === "" || problem === "") {
 
 
+            alert("Please fill all required fields");
 
-        if(userId){
+            return;
 
-            document.getElementById("reference").value = userId;
 
         }
 
 
 
-    })
 
 
 
-    .catch(error=>{
+
+        let entryData = {
 
 
-        console.log(error);
+            customerId: customerId,
+
+            problem: problem,
+
+            reference: reference,
 
 
-        alert("❌ Entry Save Failed");
+            date: new Date().toLocaleString()
 
 
-    });
+        };
 
+
+
+
+
+
+        console.log("New Entry:", entryData);
+
+
+
+
+
+
+        alert("Entry Created Successfully");
+
+
+
+
+
+
+
+        // CLEAR FORM
+
+
+        document.getElementById("customerId").value = "";
+
+        document.getElementById("problem").value = "";
+
+
+
+
+
+
+
+        closeEntry();
+
+
+
+
+    }
 
 
 });
