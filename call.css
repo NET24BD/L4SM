@@ -18,32 +18,31 @@ body{
 
     min-height:100vh;
 
-    background:#f1f5f9;
+    background:#52779b;
 
     color:#334155;
 
     overflow-x:hidden;
+
+    padding:40px 3% 30px;
 
 }
 
 
 /* =====================================================
    HEADER
+   USER CONTROL STYLE
 ===================================================== */
 
 .header{
 
-    width:calc(100% - 6px);
+    width:100%;
 
-    min-height:72px;
-
-    margin:0 3px;
-
-    padding:0 22px;
+    height:70px;
 
     background:#ffffff;
 
-    border-radius:0 0 16px 16px;
+    border-radius:15px;
 
     display:flex;
 
@@ -51,8 +50,10 @@ body{
 
     justify-content:space-between;
 
+    padding:0 20px;
+
     box-shadow:
-        0 6px 20px rgba(0,0,0,.08);
+        0 5px 20px rgba(0,0,0,.08);
 
 }
 
@@ -67,7 +68,7 @@ body{
 
     align-items:center;
 
-    gap:14px;
+    gap:12px;
 
 }
 
@@ -78,25 +79,27 @@ body{
 
 .back-btn{
 
+    width:44px;
+
+    height:44px;
+
     border:none;
+
+    border-radius:50%;
 
     background:#2563eb;
 
     color:#ffffff;
 
-    padding:9px 15px;
-
-    border-radius:8px;
-
-    font-size:14px;
-
-    cursor:pointer;
-
     display:flex;
 
     align-items:center;
 
-    gap:6px;
+    justify-content:center;
+
+    font-size:18px;
+
+    cursor:pointer;
 
     transition:.2s;
 
@@ -124,11 +127,11 @@ body{
 
     gap:8px;
 
-    font-size:22px;
+    color:#0f172a;
+
+    font-size:23px;
 
     font-weight:700;
-
-    color:#0f172a;
 
     cursor:pointer;
 
@@ -143,8 +146,6 @@ body{
 
     font-size:23px;
 
-    cursor:pointer;
-
     transition:.2s;
 
 }
@@ -152,7 +153,7 @@ body{
 
 .call-title:hover i{
 
-    transform:scale(1.1);
+    transform:scale(1.08);
 
 }
 
@@ -182,8 +183,6 @@ body{
 
     cursor:pointer;
 
-    user-select:none;
-
 }
 
 
@@ -193,13 +192,13 @@ body{
 
 .profile-head img{
 
-    width:44px;
+    width:46px;
 
-    height:44px;
+    height:46px;
 
-    min-width:44px;
+    min-width:46px;
 
-    min-height:44px;
+    min-height:46px;
 
     border-radius:50%;
 
@@ -228,14 +227,35 @@ body{
 
 
 /* =====================================================
+   PROFILE ONLINE
+===================================================== */
+
+.profile-head::after{
+
+    content:"Online";
+
+    position:absolute;
+
+    right:23px;
+
+    bottom:-2px;
+
+    font-size:11px;
+
+    color:#16a34a;
+
+}
+
+
+/* =====================================================
    PROFILE ARROW
 ===================================================== */
 
 .profile-head > i{
 
-    font-size:13px;
-
     color:#64748b;
+
+    font-size:13px;
 
 }
 
@@ -250,7 +270,7 @@ body{
 
     right:0;
 
-    top:55px;
+    top:58px;
 
     width:190px;
 
@@ -259,11 +279,11 @@ body{
     border-radius:12px;
 
     box-shadow:
-        0 12px 30px rgba(0,0,0,.18);
-
-    overflow:hidden;
+        0 10px 30px rgba(0,0,0,.18);
 
     display:none;
+
+    overflow:hidden;
 
     z-index:5000;
 
@@ -293,9 +313,9 @@ body{
 
     color:#334155;
 
-    font-size:14px;
-
     text-align:left;
+
+    font-size:14px;
 
     cursor:pointer;
 
@@ -331,9 +351,9 @@ body{
 
 .filter-row{
 
-    width:calc(100% - 6px);
+    width:100%;
 
-    margin:15px 3px 0;
+    margin-top:15px;
 
     padding:14px 18px;
 
@@ -342,7 +362,7 @@ body{
     border-radius:14px;
 
     box-shadow:
-        0 6px 20px rgba(0,0,0,.07);
+        0 6px 20px rgba(0,0,0,.08);
 
     display:none;
 
@@ -352,8 +372,6 @@ body{
 
 }
 
-
-/* SHOW FILTER */
 
 .filter-row.show{
 
@@ -368,13 +386,13 @@ body{
 
 .filter-group{
 
+    flex:1;
+
     display:flex;
 
     flex-direction:column;
 
     gap:5px;
-
-    flex:1;
 
 }
 
@@ -404,11 +422,11 @@ body{
 
     outline:none;
 
-    font-size:13px;
+    background:#ffffff;
 
     color:#334155;
 
-    background:#ffffff;
+    font-size:13px;
 
 }
 
@@ -513,13 +531,11 @@ body{
 
 .table-box{
 
-    width:calc(100% - 6px);
+    width:100%;
 
-    max-width:none;
+    margin-top:25px;
 
-    margin:15px 3px 0;
-
-    padding:16px 18px;
+    padding:18px 20px;
 
     background:#ffffff;
 
@@ -545,21 +561,12 @@ body{
 
     border-collapse:collapse;
 
-    table-layout:auto;
-
 }
 
 
 /* =====================================================
    TABLE HEADER
 ===================================================== */
-
-.table-box thead{
-
-    background:#2563eb;
-
-}
-
 
 .table-box th{
 
@@ -581,7 +588,7 @@ body{
 
 
 /* =====================================================
-   TABLE BODY
+   TABLE DATA
 ===================================================== */
 
 .table-box td{
@@ -601,10 +608,6 @@ body{
 }
 
 
-/* =====================================================
-   TABLE HOVER
-===================================================== */
-
 .table-box tbody tr:hover{
 
     background:#f8fafc;
@@ -623,8 +626,6 @@ body{
     text-align:center;
 
     color:#64748b;
-
-    font-size:13px;
 
 }
 
@@ -694,7 +695,7 @@ body{
 
 
 /* =====================================================
-   MODAL
+   EDIT MODAL
 ===================================================== */
 
 .modal{
@@ -753,10 +754,6 @@ body{
 }
 
 
-/* =====================================================
-   CLOSE BUTTON
-===================================================== */
-
 .close-btn{
 
     position:absolute;
@@ -793,10 +790,6 @@ body{
 }
 
 
-/* =====================================================
-   POPUP TITLE
-===================================================== */
-
 .popup h2{
 
     margin-bottom:20px;
@@ -807,10 +800,6 @@ body{
 
 }
 
-
-/* =====================================================
-   POPUP LABEL
-===================================================== */
 
 .popup label{
 
@@ -826,10 +815,6 @@ body{
 
 }
 
-
-/* =====================================================
-   POPUP INPUT
-===================================================== */
 
 .popup input,
 .popup textarea{
@@ -1284,6 +1269,13 @@ body{
 
 @media(max-width:900px){
 
+    body{
+
+        padding:25px 2%;
+
+    }
+
+
     .filter-row{
 
         flex-wrap:wrap;
@@ -1300,11 +1292,22 @@ body{
 }
 
 
+/* =====================================================
+   MOBILE
+===================================================== */
+
 @media(max-width:700px){
+
+    body{
+
+        padding:15px 2%;
+
+    }
+
 
     .header{
 
-        min-height:65px;
+        height:65px;
 
         padding:0 12px;
 
@@ -1313,16 +1316,18 @@ body{
 
     .left-section{
 
-        gap:8px;
+        gap:9px;
 
     }
 
 
     .back-btn{
 
-        padding:8px 11px;
+        width:40px;
 
-        font-size:13px;
+        height:40px;
+
+        font-size:16px;
 
     }
 
@@ -1361,18 +1366,14 @@ body{
     }
 
 
-    .table-box{
+    .profile-head > i{
 
-        padding:12px;
-
-        margin-top:12px;
+        display:none;
 
     }
 
 
     .filter-row{
-
-        padding:12px;
 
         flex-direction:column;
 
@@ -1394,6 +1395,15 @@ body{
     .reset-btn{
 
         width:100%;
+
+    }
+
+
+    .table-box{
+
+        margin-top:15px;
+
+        padding:12px;
 
     }
 
@@ -1429,45 +1439,25 @@ body{
 
 @media(max-width:450px){
 
-    .header{
+    .call-title{
 
-        width:100%;
+        font-size:16px;
 
-        margin:0;
+    }
 
-        border-radius:0 0 14px 14px;
+
+    .call-title i{
+
+        font-size:18px;
 
     }
 
 
     .back-btn{
 
-        font-size:0;
+        width:38px;
 
-        padding:9px 11px;
-
-    }
-
-
-    .back-btn i{
-
-        font-size:15px;
-
-        margin:0;
-
-    }
-
-
-    .call-title{
-
-        font-size:17px;
-
-    }
-
-
-    .profile-head > i{
-
-        display:none;
+        height:38px;
 
     }
 
