@@ -23,491 +23,1259 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
-
-<!-- SIDEBAR -->
+<!-- =====================================
+     SIDEBAR
+===================================== -->
 
 <div class="sidebar" id="sidebar">
 
 
-<div class="menu-btn" onclick="toggleSidebar()">
+    <div class="menu-btn" onclick="toggleSidebar()">
 
-<i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-bars"></i>
 
-</div>
-
-
+    </div>
 
 
-<div class="logo">
+    <div class="logo">
 
-<i class="fa-solid fa-layer-group"></i>
+        <i class="fa-solid fa-layer-group"></i>
 
-<span>
-L4SM
-</span>
+        <span>
+            L4SM
+        </span>
 
-</div>
-
-
+    </div>
 
 
+    <ul>
 
-<ul>
 
+        <!-- DASHBOARD -->
 
-<li class="active" onclick="openPage('dashboard.html')">
+        <li class="active"
+            onclick="openPage('dashboard.html')">
 
-<i class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-house"></i>
 
-<span>
-Dashboard
-</span>
+            <span>
+                Dashboard
+            </span>
 
-</li>
+        </li>
 
 
 
+        <!-- USER CONTROL -->
 
+        <li onclick="openPage('usercontrol.html')">
 
-<li onclick="openPage('usercontrol.html')">
+            <i class="fa-solid fa-users"></i>
 
-<i class="fa-solid fa-users"></i>
+            <span>
+                User Control
+            </span>
 
-<span>
-User Control
-</span>
-
-</li>
-
-
-
-
-
-<li onclick="openPage('support.html')">
-
-<i class="fa-solid fa-headset"></i>
-
-<span>
-Support
-</span>
-
-</li>
+        </li>
 
 
 
+        <!-- SUPPORT -->
 
+        <li onclick="openPage('support.html')">
 
-<li onclick="openPage('call.html')">
+            <i class="fa-solid fa-headset"></i>
 
-<i class="fa-solid fa-phone"></i>
+            <span>
+                Support
+            </span>
 
-<span>
-Call
-</span>
-
-</li>
-
-
+        </li>
 
 
 
-<li onclick="openPage('manager.html')">
+        <!-- CALL -->
 
-<i class="fa-solid fa-user-tie"></i>
+        <li onclick="openPage('call.html')">
 
-<span>
-Manager
-</span>
+            <i class="fa-solid fa-phone"></i>
 
-</li>
+            <span>
+                Call
+            </span>
+
+        </li>
 
 
-</ul>
+
+        <!-- MANAGER -->
+
+        <li onclick="openPage('manager.html')">
+
+            <i class="fa-solid fa-user-tie"></i>
+
+            <span>
+                Manager
+            </span>
+
+        </li>
+
+
+    </ul>
 
 
 </div>
 
 
 
-
-
-
-
-
-
-<!-- MAIN -->
-
+<!-- =====================================
+     MAIN
+===================================== -->
 
 <div class="main">
 
 
+    <!-- =================================
+         HEADER
+    ================================== -->
 
-<header>
-
-
-<h2>
-Dashboard
-</h2>
+    <header>
 
 
-
-
-<div class="profile"
-onclick="toggleProfileMenu()">
+        <h2>
+            Dashboard
+        </h2>
 
 
 
-<img id="profileImg"
-src="assets/profile.png">
+        <!-- PROFILE -->
+
+        <div class="profile"
+             onclick="toggleProfileMenu()">
+
+
+            <img
+                id="profileImg"
+                src="assets/profile.png"
+                alt="Profile">
+
+
+            <span id="headerName">
+                User
+            </span>
+
+
+            <i class="fa-solid fa-angle-down"></i>
 
 
 
-<span id="headerName">
-User
-</span>
+            <!-- PROFILE MENU -->
+
+            <div
+                id="profileMenu"
+                class="profile-menu"
+                onclick="event.stopPropagation()">
+
+
+                <!-- MY ACCOUNT -->
+
+                <button
+                    type="button"
+                    onclick="openMyAccount()">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    My Account
+
+                </button>
 
 
 
-<i class="fa-solid fa-angle-down"></i>
+                <!-- LOGOUT -->
+
+                <button
+                    type="button"
+                    id="logoutBtn">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </header>
 
 
 
+    <!-- =================================
+         WELCOME
+    ================================== -->
+
+    <div class="welcome">
+
+
+        <h1>
+
+            Welcome Back
+
+            <span id="welcomeName">
+                User
+            </span>
+
+        </h1>
+
+
+        <p>
+            L4SM Management System
+        </p>
+
+
+    </div>
 
 
 
-<div id="profileMenu"
-class="profile-menu"
-onclick="event.stopPropagation()">
+    <!-- =================================
+         DASHBOARD CARDS
+    ================================= -->
+
+    <div class="cards">
 
 
 
-<button onclick="openMyAccount()">
+        <!-- =================================
+             NEW ENTRY
+        ================================= -->
 
-<i class="fa-solid fa-user"></i>
-
-My Account
-
-</button>
-
-
+        <div
+            class="card blue"
+            onclick="openEntryModal()">
 
 
+            <i class="fa-solid fa-plus-circle"></i>
 
-<button type="button"
-id="logoutBtn">
 
-<i class="fa-solid fa-right-from-bracket"></i>
+            <div>
 
-Logout
+                <h3>
+                    New Entry
+                </h3>
 
-</button>
 
+                <p>
+                    Create Entry
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             PENDING SUPPORT
+        ================================= -->
+
+        <div
+            class="card green"
+            onclick="openPage('support.html')">
+
+
+            <i class="fa-solid fa-headset"></i>
+
+
+            <div>
+
+                <h3>
+                    Pending Support
+                </h3>
+
+
+                <p>
+                    Support Pending
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             PENDING CALL
+        ================================= -->
+
+        <div
+            class="card orange"
+            onclick="openPage('call.html')">
+
+
+            <i class="fa-solid fa-phone-volume"></i>
+
+
+            <div>
+
+                <h3>
+                    Pending Call
+                </h3>
+
+
+                <p>
+                    Call Pending
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             HISTORY
+        ================================= -->
+
+        <div
+            class="card purple"
+            onclick="openPage('history.html')">
+
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+
+            <div>
+
+                <h3>
+                    History
+                </h3>
+
+
+                <p>
+                    All History
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             OFFLINE ENTRY
+        ================================= -->
+
+        <div
+            class="card red"
+            onclick="openPage('offline-entry.html')">
+
+
+            <i class="fa-solid fa-file-circle-plus"></i>
+
+
+            <div>
+
+                <h3>
+                    Offline Entry
+                </h3>
+
+
+                <p>
+                    Add Offline
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             OFFLINE
+        ================================= -->
+
+        <div
+            class="card dark"
+            onclick="openPage('offline.html')">
+
+
+            <i class="fa-solid fa-power-off"></i>
+
+
+            <div>
+
+                <h3>
+                    Offline
+                </h3>
+
+
+                <p>
+                    Offline List
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             OFFLINE HISTORY
+        ================================= -->
+
+        <div
+            class="card cyan"
+            onclick="openPage('offline-history.html')">
+
+
+            <i class="fa-solid fa-box-archive"></i>
+
+
+            <div>
+
+                <h3>
+                    Offline History
+                </h3>
+
+
+                <p>
+                    Offline Records
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             TOTAL USERS
+        ================================= -->
+
+        <div
+            class="card indigo"
+            onclick="openPage('usercontrol.html')">
+
+
+            <i class="fa-solid fa-users"></i>
+
+
+            <div>
+
+                <h3>
+                    Total Users
+                </h3>
+
+
+                <p>
+                    System Users
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
 
 
 </div>
 
 
 
-</div>
+<!-- =========================================
+     NEW ENTRY MODAL
+========================================= -->
 
+<div
+    class="entry-modal"
+    id="entryModal">
 
-</header>
 
+    <div class="entry-modal-box">
 
 
+        <!-- CLOSE BUTTON -->
 
+        <button
+            type="button"
+            class="entry-close"
+            onclick="closeEntryModal()">
 
+            <i class="fa-solid fa-xmark"></i>
 
-<div class="welcome">
+        </button>
 
 
-<h1>
 
-Welcome Back
+        <!-- TITLE -->
 
-<span id="welcomeName">
-User
-</span>
+        <div class="entry-modal-header">
 
+            <div class="entry-icon">
 
-</h1>
+                <i class="fa-solid fa-circle-plus"></i>
 
+            </div>
 
-<p>
-L4SM Management System
-</p>
 
+            <div>
 
-</div>
+                <h2>
+                    New Entry
+                </h2>
 
+                <p>
+                    Create a new customer support entry
+                </p>
 
+            </div>
 
+        </div>
 
 
 
+        <!-- =================================
+             CUSTOMER ID
+        ================================== -->
 
+        <div class="entry-input-group">
 
-<div class="cards">
 
+            <label for="entryCustomerId">
 
+                <i class="fa-solid fa-id-card"></i>
 
-<!-- NEW ENTRY -->
+                Customer ID
 
-<div class="card blue"
-onclick="openPage('entry.html')">
+            </label>
 
 
-<i class="fa-solid fa-plus-circle"></i>
+            <input
+                type="text"
+                id="entryCustomerId"
+                placeholder="Enter Customer ID"
+                autocomplete="off">
 
 
-<div>
+        </div>
 
-<h3>
-New Entry
-</h3>
 
 
-<p>
-Create Entry
-</p>
+        <!-- =================================
+             PROBLEM
+        ================================== -->
 
+        <div class="entry-input-group">
 
-</div>
 
+            <label for="entryProblem">
 
-</div>
+                <i class="fa-solid fa-circle-exclamation"></i>
 
+                Problem
 
+            </label>
 
 
+            <textarea
+                id="entryProblem"
+                rows="4"
+                placeholder="Write customer problem"></textarea>
 
 
+        </div>
 
-<div class="card green"
-onclick="openPage('support.html')">
 
 
-<i class="fa-solid fa-headset"></i>
+        <!-- =================================
+             REFERENCE
+        ================================== -->
 
+        <div class="entry-input-group">
 
-<div>
 
-<h3>
-Pending Support
-</h3>
+            <label for="entryReference">
 
+                <i class="fa-solid fa-user"></i>
 
-<p>
-Support Pending
-</p>
+                Reference
 
+            </label>
 
-</div>
 
+            <input
+                type="text"
+                id="entryReference"
+                readonly
+                placeholder="Auto User">
 
-</div>
 
+        </div>
 
 
 
+        <!-- =================================
+             FORM MESSAGE
+        ================================== -->
 
+        <div
+            id="entryMessage"
+            class="entry-message">
+        </div>
 
 
-<div class="card orange"
-onclick="openPage('call.html')">
 
+        <!-- =================================
+             BUTTONS
+        ================================= -->
 
-<i class="fa-solid fa-phone-volume"></i>
+        <div class="entry-buttons">
 
 
-<div>
+            <button
+                type="button"
+                class="entry-cancel-btn"
+                onclick="closeEntryModal()">
 
-<h3>
-Pending Call
-</h3>
+                <i class="fa-solid fa-xmark"></i>
 
+                Cancel
 
-<p>
-Call Pending
-</p>
+            </button>
 
 
-</div>
 
+            <button
+                type="button"
+                class="entry-submit-btn"
+                id="entrySubmitBtn"
+                onclick="submitNewEntry()">
 
-</div>
+                <i class="fa-solid fa-paper-plane"></i>
 
+                Submit
 
+            </button>
 
 
+        </div>
 
 
-
-<div class="card purple"
-onclick="openPage('history.html')">
-
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-
-<div>
-
-<h3>
-History
-</h3>
-
-
-<p>
-All History
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="card red"
-onclick="openPage('offline-entry.html')">
-
-
-<i class="fa-solid fa-file-circle-plus"></i>
-
-
-<div>
-
-<h3>
-Offline Entry
-</h3>
-
-
-<p>
-Add Offline
-</p>
-
-
-</div>
+    </div>
 
 
 </div>
 
 
 
+<!-- =========================================
+     CUSTOM SUCCESS / ERROR POPUP
+========================================= -->
+
+<div
+    class="entry-popup"
+    id="entryPopup">
 
 
+    <div class="entry-popup-box">
 
 
-<div class="card dark"
-onclick="openPage('offline.html')">
+        <div
+            class="entry-popup-icon"
+            id="entryPopupIcon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
 
 
-<i class="fa-solid fa-power-off"></i>
+        <h3 id="entryPopupTitle">
+            Success
+        </h3>
 
 
-<div>
-
-<h3>
-Offline
-</h3>
+        <p id="entryPopupMessage">
+            Entry Saved Successfully
+        </p>
 
 
-<p>
-Offline List
-</p>
+        <button
+            type="button"
+            onclick="closeEntryPopup()">
+
+            OK
+
+        </button>
 
 
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="card cyan"
-onclick="openPage('offline-history.html')">
-
-
-<i class="fa-solid fa-box-archive"></i>
-
-
-<div>
-
-<h3>
-Offline History
-</h3>
-
-
-<p>
-Offline Records
-</p>
-
-
-</div>
+    </div>
 
 
 </div>
 
 
 
-
-
-
-
-<div class="card indigo"
-onclick="openPage('usercontrol.html')">
-
-
-<i class="fa-solid fa-users"></i>
-
-
-<div>
-
-<h3>
-Total Users
-</h3>
-
-
-<p>
-System Users
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
+<!-- =========================================
+     EXISTING SCRIPTS
+========================================= -->
 
 <script src="auth.js"></script>
-  
+
 <script src="session.js"></script>
 
 <script src="dashboard.js"></script>
 
 <script src="autologout.js"></script>
+
+
+
+<!-- =========================================
+     NEW ENTRY SYSTEM
+========================================= -->
+
+<script>
+
+
+// =====================================
+// GOOGLE APPS SCRIPT API
+// =====================================
+
+const ENTRY_API_URL =
+"https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
+
+
+
+// =====================================
+// OPEN ENTRY MODAL
+// =====================================
+
+function openEntryModal() {
+
+
+    const modal =
+        document.getElementById("entryModal");
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+    // Load logged-in username
+
+    const username =
+        localStorage.getItem("username");
+
+
+    const reference =
+        document.getElementById("entryReference");
+
+
+    if (reference) {
+
+        reference.value =
+            username || "Unknown";
+
+    }
+
+
+    // Clear previous message
+
+    const message =
+        document.getElementById("entryMessage");
+
+
+    if (message) {
+
+        message.innerHTML = "";
+
+        message.className =
+            "entry-message";
+
+    }
+
+
+    // Show modal
+
+    modal.style.display = "flex";
+
+
+    // Focus Customer ID
+
+    setTimeout(function() {
+
+        const customerId =
+            document.getElementById("entryCustomerId");
+
+
+        if (customerId) {
+
+            customerId.focus();
+
+        }
+
+    }, 100);
+
+
+}
+
+
+
+// =====================================
+// CLOSE ENTRY MODAL
+// =====================================
+
+function closeEntryModal() {
+
+
+    const modal =
+        document.getElementById("entryModal");
+
+
+    if (modal) {
+
+        modal.style.display = "none";
+
+    }
+
+
+    // Clear form
+
+    const customerId =
+        document.getElementById("entryCustomerId");
+
+
+    const problem =
+        document.getElementById("entryProblem");
+
+
+    if (customerId) {
+
+        customerId.value = "";
+
+    }
+
+
+    if (problem) {
+
+        problem.value = "";
+
+    }
+
+
+    const message =
+        document.getElementById("entryMessage");
+
+
+    if (message) {
+
+        message.innerHTML = "";
+
+    }
+
+}
+
+
+
+// =====================================
+// CLOSE MODAL BY CLICKING OUTSIDE
+// =====================================
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+
+        const modal =
+            document.getElementById("entryModal");
+
+
+        if (!modal) {
+
+            return;
+
+        }
+
+
+        if (
+            event.target === modal
+        ) {
+
+            closeEntryModal();
+
+        }
+
+    }
+);
+
+
+
+// =====================================
+// ESC KEY
+// =====================================
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+
+        if (event.key === "Escape") {
+
+            const modal =
+                document.getElementById("entryModal");
+
+
+            if (
+                modal &&
+                modal.style.display === "flex"
+            ) {
+
+                closeEntryModal();
+
+            }
+
+        }
+
+    }
+);
+
+
+
+// =====================================
+// SUBMIT NEW ENTRY
+// =====================================
+
+function submitNewEntry() {
+
+
+    const customerId =
+        document
+            .getElementById("entryCustomerId")
+            .value
+            .trim();
+
+
+    const problem =
+        document
+            .getElementById("entryProblem")
+            .value
+            .trim();
+
+
+    const reference =
+        document
+            .getElementById("entryReference")
+            .value
+            .trim();
+
+
+    const message =
+        document.getElementById("entryMessage");
+
+
+    const button =
+        document.getElementById("entrySubmitBtn");
+
+
+
+    // =================================
+    // VALIDATION
+    // =================================
+
+    if (!customerId) {
+
+
+        message.className =
+            "entry-message error";
+
+
+        message.innerHTML =
+            "Please enter Customer ID";
+
+
+        document
+            .getElementById("entryCustomerId")
+            .focus();
+
+
+        return;
+
+    }
+
+
+
+    if (!problem) {
+
+
+        message.className =
+            "entry-message error";
+
+
+        message.innerHTML =
+            "Please enter customer problem";
+
+
+        document
+            .getElementById("entryProblem")
+            .focus();
+
+
+        return;
+
+    }
+
+
+
+    // =================================
+    // LOADING STATE
+    // =================================
+
+    button.disabled = true;
+
+
+    button.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+
+    message.className =
+        "entry-message";
+
+
+    message.innerHTML =
+        "Saving entry...";
+
+
+
+    // =================================
+    // SEND TO GOOGLE APPS SCRIPT
+    // =================================
+
+    fetch(
+        ENTRY_API_URL,
+        {
+
+            method: "POST",
+
+            body: JSON.stringify({
+
+                action: "newEntry",
+
+                customerId:
+                    customerId,
+
+                problem:
+                    problem,
+
+                reference:
+                    reference
+
+            })
+
+        }
+    )
+
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+
+    .then(function(data) {
+
+
+        // =================================
+        // SUCCESS
+        // =================================
+
+        if (
+            data.success === true ||
+            data.status === "success"
+        ) {
+
+
+            closeEntryModal();
+
+
+            showEntryPopup(
+                "Success",
+                "Entry Saved Successfully",
+                "success"
+            );
+
+
+            return;
+
+        }
+
+
+
+        // =================================
+        // ERROR
+        // =================================
+
+        message.className =
+            "entry-message error";
+
+
+        message.innerHTML =
+            data.message ||
+            "Entry Save Failed";
+
+
+    })
+
+
+    .catch(function(error) {
+
+
+        console.log(error);
+
+
+        message.className =
+            "entry-message error";
+
+
+        message.innerHTML =
+            "Server Error. Please try again.";
+
+
+    })
+
+
+    .finally(function() {
+
+
+        button.disabled = false;
+
+
+        button.innerHTML =
+            '<i class="fa-solid fa-paper-plane"></i> Submit';
+
+    });
+
+}
+
+
+
+// =====================================
+// CUSTOM POPUP
+// =====================================
+
+function showEntryPopup(
+    title,
+    text,
+    type = "success"
+) {
+
+
+    const popup =
+        document.getElementById("entryPopup");
+
+
+    const popupTitle =
+        document.getElementById("entryPopupTitle");
+
+
+    const popupMessage =
+        document.getElementById("entryPopupMessage");
+
+
+    const popupIcon =
+        document.getElementById("entryPopupIcon");
+
+
+
+    popupTitle.innerText =
+        title;
+
+
+    popupMessage.innerText =
+        text;
+
+
+
+    if (type === "success") {
+
+
+        popupIcon.innerHTML =
+            '<i class="fa-solid fa-circle-check"></i>';
+
+        popupIcon.className =
+            "entry-popup-icon success";
+
+    }
+
+
+    else if (type === "error") {
+
+
+        popupIcon.innerHTML =
+            '<i class="fa-solid fa-circle-xmark"></i>';
+
+        popupIcon.className =
+            "entry-popup-icon error";
+
+    }
+
+
+    else if (type === "warning") {
+
+
+        popupIcon.innerHTML =
+            '<i class="fa-solid fa-triangle-exclamation"></i>';
+
+        popupIcon.className =
+            "entry-popup-icon warning";
+
+    }
+
+
+
+    popup.style.display =
+        "flex";
+
+}
+
+
+
+// =====================================
+// CLOSE CUSTOM POPUP
+// =====================================
+
+function closeEntryPopup() {
+
+
+    const popup =
+        document.getElementById("entryPopup");
+
+
+    if (popup) {
+
+        popup.style.display =
+            "none";
+
+    }
+
+}
+
+</script>
 
 
 </body>
