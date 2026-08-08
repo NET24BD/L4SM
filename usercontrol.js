@@ -1,19 +1,8 @@
 /* =========================================================
-   USER CONTROL JS
-   FINAL
+   LINK 4 USER CONTROL
+   USERCONTROL.JS
+   FINAL VERSION
 ========================================================= */
-
-
-/* =========================================================
-   LOGIN CHECK
-========================================================= */
-
-const isLogin = localStorage.getItem("isLogin");
-const role = localStorage.getItem("role");
-
-if (isLogin !== "true" || role !== "Admin") {
-    window.location.replace("login.html");
-}
 
 
 /* =========================================================
@@ -29,27 +18,61 @@ const API_URL =
 ========================================================= */
 
 let users = [];
+
 let editMode = false;
+
 let oldUsername = "";
+
 let deleteUsername = "";
+
+
+/* =========================================================
+   LOGIN CHECK
+========================================================= */
+
+const isLogin =
+    localStorage.getItem("isLogin");
+
+const currentRole =
+    localStorage.getItem("role");
+
+
+if (
+    isLogin !== "true" ||
+    String(currentRole).toLowerCase() !== "admin"
+) {
+
+    window.location.replace("login.html");
+
+}
 
 
 /* =========================================================
    PAGE LOAD
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    loadProfile();
-    setupProfileMenu();
-    setupButtons();
-    setupSearch();
-    setupDeletePopup();
-    setupPicturePreview();
+        loadProfile();
 
-    loadUsers();
+        setupProfileMenu();
 
-});
+        setupNavigation();
+
+        setupSearch();
+
+        setupUserButtons();
+
+        setupModal();
+
+        createDeletePopup();
+
+        loadUsers();
+
+    }
+);
 
 
 /* =========================================================
@@ -62,7 +85,7 @@ function loadProfile() {
         localStorage.getItem("name") || "User";
 
     const picture =
-        localStorage.getItem("picture");
+        localStorage.getItem("picture") || "";
 
     const userName =
         document.getElementById("userName");
@@ -72,28 +95,41 @@ function loadProfile() {
 
 
     if (userName) {
-        userName.textContent = name;
+
+        userName.textContent =
+            name;
+
     }
 
 
     if (profileImg) {
 
-        if (picture && picture.trim() !== "") {
+        if (
+            picture &&
+            picture.trim() !== ""
+        ) {
 
-            profileImg.src = picture;
+            profileImg.src =
+                picture;
 
-        } else {
+        }
+        else {
 
-            profileImg.src = "profile.png";
+            profileImg.src =
+                "profile.png";
 
         }
 
-        profileImg.onerror = function () {
 
-            this.onerror = null;
-            this.src = "profile.png";
+        profileImg.onerror =
+            function () {
 
-        };
+                this.onerror = null;
+
+                this.src =
+                    "profile.png";
+
+            };
 
     }
 
@@ -113,494 +149,167 @@ function setupProfileMenu() {
         document.getElementById("profileMenu");
 
 
-    if (!profileBtn || !profileMenu) {
+    if (
+        !profileBtn ||
+        !profileMenu
+    ) {
+
         return;
+
     }
 
 
-    profileBtn.addEventListener("click", function (e) {
+    profileBtn.addEventListener(
+        "click",
+        function (e) {
 
-        e.stopPropagation();
-
-        profileMenu.style.display =
-            profileMenu.style.display === "block"
-                ? "none"
-                : "block";
-
-    });
+            e.stopPropagation();
 
 
-    profileMenu.addEventListener("click", function (e) {
+            profileMenu.style.display =
+                profileMenu.style.display === "block"
+                    ? "none"
+                    : "block";
 
-        e.stopPropagation();
+        }
+    );
 
-    });
+
+    profileMenu.addEventListener(
+        "click",
+        function (e) {
+
+            e.stopPropagation();
+
+        }
+    );
 
 
-    document.addEventListener("click", function () {
+    document.addEventListener(
+        "click",
+        function () {
 
-        profileMenu.style.display = "none";
+            profileMenu.style.display =
+                "none";
 
-    });
+        }
+    );
 
 }
 
 
 /* =========================================================
-   BUTTON SETUP
+   NAVIGATION
 ========================================================= */
 
-function setupButtons() {
-
-    const backBtn =
-        document.getElementById("backBtn");
-
-    const accountBtn =
-        document.getElementById("accountBtn");
-
-    const logoutBtn =
-        document.getElementById("logoutBtn");
-
-    const addUserBtn =
-        document.getElementById("addUserBtn");
-
-    const closeModalBtn =
-        document.getElementById("closeModal");
-
-    const cancelUserBtn =
-        document.getElementById("cancelUser");
-
-    const saveUserBtn =
-        document.getElementById("saveUser");
+function setupNavigation() {
 
 
     /* BACK */
 
+    const backBtn =
+        document.getElementById("backBtn");
+
+
     if (backBtn) {
 
-        backBtn.addEventListener("click", function () {
+        backBtn.addEventListener(
+            "click",
+            function () {
 
-            window.location.href =
-                "dashboard.html";
+                window.location.href =
+                    "dashboard.html";
 
-        });
+            }
+        );
 
     }
 
 
     /* ACCOUNT */
 
+    const accountBtn =
+        document.getElementById("accountBtn");
+
+
     if (accountBtn) {
 
-        accountBtn.addEventListener("click", function () {
+        accountBtn.addEventListener(
+            "click",
+            function () {
 
-            window.location.href =
-                "my-account.html";
+                window.location.href =
+                    "my-account.html";
 
-        });
+            }
+        );
 
     }
 
 
     /* LOGOUT */
 
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
+
     if (logoutBtn) {
 
-        logoutBtn.addEventListener("click", function () {
+        logoutBtn.addEventListener(
+            "click",
+            logoutUser
+        );
 
-            localStorage.clear();
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logoutUser() {
+
+    localStorage.clear();
+
+    sessionStorage.clear();
+
+    window.location.replace(
+        "login.html"
+    );
+
+}
+
+
+/* =========================================================
+   LOGIN PROTECTION
+========================================================= */
+
+window.addEventListener(
+    "pageshow",
+    function () {
+
+        const login =
+            localStorage.getItem("isLogin");
+
+        const role =
+            localStorage.getItem("role");
+
+
+        if (
+            login !== "true" ||
+            String(role).toLowerCase() !== "admin"
+        ) {
 
             window.location.replace(
                 "login.html"
             );
 
-        });
+        }
 
     }
-
-
-    /* ADD USER */
-
-    if (addUserBtn) {
-
-        addUserBtn.addEventListener("click", function () {
-
-            editMode = false;
-            oldUsername = "";
-
-            clearForm();
-
-            const title =
-                document.getElementById("formTitle");
-
-            if (title) {
-                title.textContent = "Add User";
-            }
-
-            openUserModal();
-
-        });
-
-    }
-
-
-    /* CLOSE */
-
-    if (closeModalBtn) {
-
-        closeModalBtn.addEventListener(
-            "click",
-            closeModal
-        );
-
-    }
-
-
-    /* CANCEL */
-
-    if (cancelUserBtn) {
-
-        cancelUserBtn.addEventListener(
-            "click",
-            closeModal
-        );
-
-    }
-
-
-    /* SAVE */
-
-    if (saveUserBtn) {
-
-        saveUserBtn.addEventListener(
-            "click",
-            saveUser
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   OPEN USER MODAL
-========================================================= */
-
-function openUserModal() {
-
-    const modal =
-        document.getElementById("userModal");
-
-    if (modal) {
-        modal.style.display = "flex";
-    }
-
-}
-
-
-/* =========================================================
-   CLOSE USER MODAL
-========================================================= */
-
-function closeModal() {
-
-    const modal =
-        document.getElementById("userModal");
-
-    if (modal) {
-        modal.style.display = "none";
-    }
-
-}
-
-
-/* =========================================================
-   LOAD USERS
-========================================================= */
-
-function loadUsers() {
-
-    showLoading("Loading Users...");
-
-
-    fetch(API_URL + "?action=users")
-
-        .then(function (response) {
-
-            if (!response.ok) {
-                throw new Error("Server Error");
-            }
-
-            return response.json();
-
-        })
-
-        .then(function (data) {
-
-            if (Array.isArray(data)) {
-
-                users = data;
-
-                showUsers(users);
-
-                return;
-
-            }
-
-
-            if (data && data.success === false) {
-
-                throw new Error(
-                    data.message || "User Load Failed"
-                );
-
-            }
-
-
-            throw new Error(
-                "Invalid User Data"
-            );
-
-        })
-
-        .catch(function (error) {
-
-            console.error(
-                "User Load Error:",
-                error
-            );
-
-
-            const table =
-                document.getElementById("userTable");
-
-
-            if (table) {
-
-                table.innerHTML = `
-                    <tr>
-                        <td colspan="6">
-                            User Load Failed
-                        </td>
-                    </tr>
-                `;
-
-            }
-
-
-            showPopup(
-                "Error",
-                "User Load Failed",
-                "error"
-            );
-
-        })
-
-        .finally(function () {
-
-            hideLoading();
-
-        });
-
-}
-
-
-/* =========================================================
-   SHOW USERS
-========================================================= */
-
-function showUsers(data) {
-
-    const table =
-        document.getElementById("userTable");
-
-
-    if (!table) {
-        return;
-    }
-
-
-    table.innerHTML = "";
-
-
-    if (!Array.isArray(data) || data.length === 0) {
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="6">
-                    No User Found
-                </td>
-            </tr>
-        `;
-
-        return;
-
-    }
-
-
-    data.forEach(function (user) {
-
-        const username =
-            safeValue(user.username);
-
-        const password =
-            safeValue(user.password);
-
-        const name =
-            safeValue(user.name);
-
-        const userRole =
-            safeValue(user.role);
-
-        const status =
-            safeValue(user.status);
-
-        const picture =
-            safeValue(user.picture);
-
-
-        const row =
-            document.createElement("tr");
-
-
-        /* PICTURE */
-
-        const pictureCell =
-            document.createElement("td");
-
-
-        const image =
-            document.createElement("img");
-
-
-        image.className = "user-photo";
-
-        image.alt = "User";
-
-        image.src =
-            picture || "profile.png";
-
-
-        image.onerror = function () {
-
-            this.onerror = null;
-
-            this.src = "profile.png";
-
-        };
-
-
-        pictureCell.appendChild(image);
-
-
-        /* USERNAME */
-
-        const usernameCell =
-            document.createElement("td");
-
-        usernameCell.textContent =
-            username;
-
-
-        /* NAME */
-
-        const nameCell =
-            document.createElement("td");
-
-        nameCell.textContent =
-            name;
-
-
-        /* ROLE */
-
-        const roleCell =
-            document.createElement("td");
-
-        roleCell.textContent =
-            userRole;
-
-
-        /* STATUS */
-
-        const statusCell =
-            document.createElement("td");
-
-        statusCell.textContent =
-            status;
-
-
-        /* ACTION */
-
-        const actionCell =
-            document.createElement("td");
-
-
-        /* EDIT BUTTON */
-
-        const editBtn =
-            document.createElement("button");
-
-        editBtn.type = "button";
-
-        editBtn.innerHTML =
-            '<i class="fa-solid fa-pen"></i> Edit';
-
-
-        editBtn.addEventListener(
-            "click",
-            function () {
-
-                editUser(
-                    username,
-                    password,
-                    name,
-                    userRole,
-                    status,
-                    picture
-                );
-
-            }
-        );
-
-
-        /* DELETE BUTTON */
-
-        const deleteBtn =
-            document.createElement("button");
-
-        deleteBtn.type = "button";
-
-        deleteBtn.innerHTML =
-            '<i class="fa-solid fa-trash"></i> Delete';
-
-
-        deleteBtn.addEventListener(
-            "click",
-            function () {
-
-                deleteUser(username);
-
-            }
-        );
-
-
-        actionCell.appendChild(editBtn);
-        actionCell.appendChild(deleteBtn);
-
-
-        row.appendChild(pictureCell);
-        row.appendChild(usernameCell);
-        row.appendChild(nameCell);
-        row.appendChild(roleCell);
-        row.appendChild(statusCell);
-        row.appendChild(actionCell);
-
-
-        table.appendChild(row);
-
-    });
-
-}
+);
 
 
 /* =========================================================
@@ -609,16 +318,20 @@ function showUsers(data) {
 
 function setupSearch() {
 
-    const search =
-        document.getElementById("searchUser");
+    const searchInput =
+        document.getElementById(
+            "searchUser"
+        );
 
 
-    if (!search) {
+    if (!searchInput) {
+
         return;
+
     }
 
 
-    search.addEventListener(
+    searchInput.addEventListener(
         "input",
         function () {
 
@@ -628,7 +341,7 @@ function setupSearch() {
                     .toLowerCase();
 
 
-            if (!value) {
+            if (value === "") {
 
                 showUsers(users);
 
@@ -638,35 +351,53 @@ function setupSearch() {
 
 
             const result =
-                users.filter(function (user) {
+                users.filter(
+                    function (user) {
 
-                    return (
+                        const username =
+                            String(
+                                user.username || ""
+                            ).toLowerCase();
 
-                        safeValue(user.username)
-                            .toLowerCase()
-                            .includes(value)
 
-                        ||
+                        const name =
+                            String(
+                                user.name || ""
+                            ).toLowerCase();
 
-                        safeValue(user.name)
-                            .toLowerCase()
-                            .includes(value)
 
-                        ||
+                        const role =
+                            String(
+                                user.role || ""
+                            ).toLowerCase();
 
-                        safeValue(user.role)
-                            .toLowerCase()
-                            .includes(value)
 
-                        ||
+                        const status =
+                            String(
+                                user.status || ""
+                            ).toLowerCase();
 
-                        safeValue(user.status)
-                            .toLowerCase()
-                            .includes(value)
 
-                    );
+                        return (
 
-                });
+                            username.includes(value)
+
+                            ||
+
+                            name.includes(value)
+
+                            ||
+
+                            role.includes(value)
+
+                            ||
+
+                            status.includes(value)
+
+                        );
+
+                    }
+                );
 
 
             showUsers(result);
@@ -678,166 +409,592 @@ function setupSearch() {
 
 
 /* =========================================================
-   SAVE USER
+   ADD USER BUTTON
 ========================================================= */
 
-function saveUser() {
+function setupUserButtons() {
 
-    const username =
-        getValue("username");
-
-    const password =
-        getValue("password");
-
-    const name =
-        getValue("name");
-
-    const userRole =
-        getValue("role");
-
-    const status =
-        getValue("status");
-
-    const picture =
-        getValue("picture");
-
-
-    if (
-        username === "" ||
-        password === ""
-    ) {
-
-        showPopup(
-            "Warning",
-            "Username Password Required",
-            "warning"
+    const addUserBtn =
+        document.getElementById(
+            "addUserBtn"
         );
+
+
+    if (!addUserBtn) {
 
         return;
 
     }
 
 
-    const data = {
+    addUserBtn.addEventListener(
+        "click",
+        function () {
 
-        username: username,
+            editMode = false;
 
-        password: password,
+            oldUsername = "";
 
-        name: name,
-
-        role: userRole,
-
-        status: status,
-
-        picture: picture
-
-    };
+            clearForm();
 
 
-    if (editMode) {
+            const title =
+                document.getElementById(
+                    "formTitle"
+                );
 
-        data.action = "update";
 
-        data.oldUsername =
-            oldUsername;
+            if (title) {
 
-    } else {
+                title.textContent =
+                    "Add User";
 
-        data.action = "add";
+            }
+
+
+            openModal();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   MODAL SETUP
+========================================================= */
+
+function setupModal() {
+
+    const closeBtn =
+        document.getElementById(
+            "closeModal"
+        );
+
+
+    const cancelBtn =
+        document.getElementById(
+            "cancelUser"
+        );
+
+
+    const saveBtn =
+        document.getElementById(
+            "saveUser"
+        );
+
+
+    const modal =
+        document.getElementById(
+            "userModal"
+        );
+
+
+    if (closeBtn) {
+
+        closeBtn.addEventListener(
+            "click",
+            closeModal
+        );
 
     }
 
 
+    if (cancelBtn) {
+
+        cancelBtn.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    if (saveBtn) {
+
+        saveBtn.addEventListener(
+            "click",
+            saveUser
+        );
+
+    }
+
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            function (e) {
+
+                if (
+                    e.target === modal
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN MODAL
+========================================================= */
+
+function openModal() {
+
+    const modal =
+        document.getElementById(
+            "userModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "flex";
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    const modal =
+        document.getElementById(
+            "userModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD USERS
+========================================================= */
+
+function loadUsers() {
+
     showLoading(
-        editMode
-            ? "Updating User..."
-            : "Creating User..."
+        "Loading Users..."
     );
 
 
-    fetch(API_URL, {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type":
-                "text/plain;charset=utf-8"
-        },
-
-        body:
-            JSON.stringify(data)
-
-    })
-
-    .then(function (response) {
-
-        if (!response.ok) {
-            throw new Error("Server Error");
+    fetch(
+        API_URL +
+        "?action=users&t=" +
+        Date.now(),
+        {
+            method: "GET",
+            cache: "no-store"
         }
+    )
 
-        return response.json();
+    .then(
+        function (response) {
 
-    })
+            if (!response.ok) {
 
-    .then(function (result) {
+                throw new Error(
+                    "HTTP Error " +
+                    response.status
+                );
 
-        hideLoading();
-
-
-        if (
-            result &&
-            result.success
-        ) {
-
-            closeModal();
+            }
 
 
-            showPopup(
-                "Success",
-                result.message ||
-                (
-                    editMode
-                        ? "User Updated Successfully"
-                        : "User Added Successfully"
-                ),
-                "success"
+            return response.json();
+
+        }
+    )
+
+    .then(
+        function (data) {
+
+            hideLoading();
+
+
+            /*
+             * IMPORTANT:
+             * Code.gs getUsers()
+             * directly returns ARRAY
+             */
+
+            if (
+                Array.isArray(data)
+            ) {
+
+                users =
+                    data;
+
+                showUsers(
+                    users
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * If API returns error object
+             */
+
+            if (
+                data &&
+                data.success === false
+            ) {
+
+                users = [];
+
+                showUsers([]);
+
+
+                showPopup(
+                    "Error",
+                    data.message ||
+                    "User Load Failed",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            throw new Error(
+                "Invalid API Response"
+            );
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "USER LOAD ERROR:",
+                error
             );
 
 
-            loadUsers();
+            hideLoading();
 
-        } else {
+
+            users = [];
+
+            showUsers([]);
+
 
             showPopup(
                 "Error",
-                result.message ||
-                "Operation Failed",
+                "User Load Failed",
                 "error"
             );
 
         }
+    );
 
-    })
+}
 
-    .catch(function (error) {
 
-        console.error(
-            "Save User Error:",
-            error
+/* =========================================================
+   SHOW USERS
+========================================================= */
+
+function showUsers(data) {
+
+    const table =
+        document.getElementById(
+            "userTable"
         );
 
 
-        hideLoading();
+    if (!table) {
+
+        return;
+
+    }
 
 
-        showPopup(
-            "Error",
-            "Server Error",
-            "error"
-        );
+    table.innerHTML = "";
 
-    });
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        table.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    class="no-user"
+                >
+                    <i class="fa-solid fa-users-slash"></i>
+                    No User Found
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    data.forEach(
+        function (user) {
+
+
+            const username =
+                String(
+                    user.username || ""
+                );
+
+
+            const password =
+                String(
+                    user.password || ""
+                );
+
+
+            const name =
+                String(
+                    user.name || ""
+                );
+
+
+            const userRole =
+                String(
+                    user.role || ""
+                );
+
+
+            const status =
+                String(
+                    user.status || ""
+                );
+
+
+            const picture =
+                String(
+                    user.picture || ""
+                );
+
+
+            /* =========================
+               STATUS
+            ========================= */
+
+            let statusClass =
+                "status-inactive";
+
+
+            const statusLower =
+                status
+                    .trim()
+                    .toLowerCase();
+
+
+            if (
+                statusLower ===
+                "active"
+            ) {
+
+                statusClass =
+                    "status-active";
+
+            }
+            else if (
+                statusLower === "block" ||
+                statusLower === "blocked"
+            ) {
+
+                statusClass =
+                    "status-block";
+
+            }
+
+
+            /* =========================
+               PICTURE
+            ========================= */
+
+            let pictureHTML;
+
+
+            if (
+                picture.trim() !== ""
+            ) {
+
+                pictureHTML = `
+                    <div class="user-picture">
+                        <img
+                            src="${escapeHTML(picture)}"
+                            class="user-avatar"
+                            alt="${escapeHTML(name)}"
+                            onerror="imageError(this)"
+                        >
+                    </div>
+                `;
+
+            }
+            else {
+
+                pictureHTML =
+                    createFallbackImage();
+
+            }
+
+
+            /*
+             * IMPORTANT:
+             * Use original users index.
+             * This keeps edit/delete correct
+             * after search.
+             */
+
+            const index =
+                users.indexOf(user);
+
+
+            /* =========================
+               TABLE
+            ========================= */
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td class="picture-cell">
+
+                        ${pictureHTML}
+
+                    </td>
+
+
+                    <td class="username-cell">
+
+                        ${escapeHTML(username)}
+
+                    </td>
+
+
+                    <td class="name-cell">
+
+                        ${escapeHTML(name)}
+
+                    </td>
+
+
+                    <td class="role-cell">
+
+                        ${escapeHTML(userRole)}
+
+                    </td>
+
+
+                    <td class="status-cell">
+
+                        <span
+                            class="user-status ${statusClass}"
+                        >
+                            ${escapeHTML(status)}
+                        </span>
+
+                    </td>
+
+
+                    <td class="action-cell">
+
+                        <div class="action-buttons">
+
+
+                            <button
+                                type="button"
+                                class="edit-btn"
+                                onclick="editUserByIndex(${index})"
+                            >
+
+                                <i class="fa-solid fa-pen"></i>
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="delete-btn"
+                                onclick="deleteUserByIndex(${index})"
+                            >
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Delete
+
+                            </button>
+
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   EDIT USER BY INDEX
+========================================================= */
+
+function editUserByIndex(index) {
+
+    if (
+        index < 0 ||
+        index >= users.length
+    ) {
+
+        return;
+
+    }
+
+
+    const user =
+        users[index];
+
+
+    editUser(
+        user.username || "",
+        user.password || "",
+        user.name || "",
+        user.role || "Admin",
+        user.status || "Active",
+        user.picture || ""
+    );
 
 }
 
@@ -866,25 +1023,30 @@ function editUser(
         username
     );
 
+
     setValue(
         "password",
         password
     );
+
 
     setValue(
         "name",
         name
     );
 
+
     setValue(
         "role",
-        userRole
+        userRole || "Admin"
     );
+
 
     setValue(
         "status",
-        status
+        status || "Active"
     );
+
 
     setValue(
         "picture",
@@ -899,39 +1061,657 @@ function editUser(
 
 
     if (title) {
-        title.textContent = "Edit User";
+
+        title.textContent =
+            "Edit User";
+
     }
 
 
     updatePicturePreview(
-        picture
+        picture || ""
     );
 
 
-    openUserModal();
+    openModal();
 
 }
 
 
 /* =========================================================
-   DELETE USER
+   SAVE USER
 ========================================================= */
 
-function deleteUser(username) {
+function saveUser() {
+
+    const username =
+        getValue("username");
+
+
+    const password =
+        getValue("password");
+
+
+    const name =
+        getValue("name");
+
+
+    const userRole =
+        getValue("role");
+
+
+    const status =
+        getValue("status");
+
+
+    const picture =
+        getValue("picture");
+
+
+    /* =========================
+       VALIDATION
+    ========================= */
 
     if (!username) {
+
+        showPopup(
+            "Warning",
+            "Username Required",
+            "warning"
+        );
+
         return;
+
     }
 
 
+    if (!password) {
+
+        showPopup(
+            "Warning",
+            "Password Required",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (!name) {
+
+        showPopup(
+            "Warning",
+            "Name Required",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    /* =========================
+       DATA
+    ========================= */
+
+    const data = {
+
+        username:
+            username,
+
+        password:
+            password,
+
+        name:
+            name,
+
+        role:
+            userRole,
+
+        status:
+            status,
+
+        picture:
+            picture
+
+    };
+
+
+    if (editMode) {
+
+        data.action =
+            "update";
+
+        data.oldUsername =
+            oldUsername;
+
+    }
+    else {
+
+        data.action =
+            "add";
+
+    }
+
+
+    showLoading(
+        editMode
+            ? "Updating User..."
+            : "Creating User..."
+    );
+
+
+    fetch(
+        API_URL,
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+
+            },
+
+            body:
+                JSON.stringify(data)
+
+        }
+    )
+
+    .then(
+        function (response) {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "HTTP Error"
+                );
+
+            }
+
+
+            return response.json();
+
+        }
+    )
+
+    .then(
+        function (result) {
+
+            hideLoading();
+
+
+            if (
+                result &&
+                result.success === true
+            ) {
+
+                closeModal();
+
+
+                showPopup(
+                    "Success",
+                    result.message ||
+                    "User Saved Successfully",
+                    "success"
+                );
+
+
+                loadUsers();
+
+            }
+            else {
+
+                showPopup(
+                    "Error",
+                    result.message ||
+                    "Operation Failed",
+                    "error"
+                );
+
+            }
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "SAVE USER ERROR:",
+                error
+            );
+
+
+            hideLoading();
+
+
+            showPopup(
+                "Error",
+                "Server Error",
+                "error"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   DELETE USER BY INDEX
+========================================================= */
+
+function deleteUserByIndex(index) {
+
+    if (
+        index < 0 ||
+        index >= users.length
+    ) {
+
+        return;
+
+    }
+
+
+    const user =
+        users[index];
+
+
     deleteUsername =
-        username;
+        String(
+            user.username || ""
+        );
+
+
+    if (!deleteUsername) {
+
+        return;
+
+    }
+
+
+    showDeletePopup(
+        deleteUsername
+    );
+
+}
+
+
+/* =========================================================
+   CREATE CUSTOM DELETE POPUP
+========================================================= */
+
+function createDeletePopup() {
+
+    if (
+        document.getElementById(
+            "customDeletePopup"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const popup =
+        document.createElement("div");
+
+
+    popup.id =
+        "customDeletePopup";
+
+
+    popup.innerHTML = `
+
+        <div class="custom-delete-overlay">
+
+            <div class="custom-delete-box">
+
+                <div class="custom-delete-icon">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </div>
+
+
+                <h3>
+                    Delete User?
+                </h3>
+
+
+                <p id="customDeleteMessage">
+                    Are you sure?
+                </p>
+
+
+                <div class="custom-delete-buttons">
+
+                    <button
+                        type="button"
+                        id="customDeleteCancel"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="customDeleteConfirm"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        popup
+    );
+
+
+    const cancel =
+        document.getElementById(
+            "customDeleteCancel"
+        );
+
+
+    const confirmBtn =
+        document.getElementById(
+            "customDeleteConfirm"
+        );
+
+
+    const overlay =
+        popup.querySelector(
+            ".custom-delete-overlay"
+        );
+
+
+    cancel.addEventListener(
+        "click",
+        closeDeletePopup
+    );
+
+
+    confirmBtn.addEventListener(
+        "click",
+        confirmDelete
+    );
+
+
+    overlay.addEventListener(
+        "click",
+        function (e) {
+
+            if (
+                e.target === overlay
+            ) {
+
+                closeDeletePopup();
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       POPUP CSS
+    ========================= */
+
+    const style =
+        document.createElement("style");
+
+
+    style.id =
+        "customDeletePopupStyle";
+
+
+    style.textContent = `
+
+        #customDeletePopup {
+            display: none;
+        }
+
+        .custom-delete-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,.45);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 10000;
+
+        }
+
+
+        .custom-delete-box {
+
+            width: 340px;
+
+            max-width: 90%;
+
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.30);
+
+            animation:
+                deletePopupIn
+                .2s ease;
+
+        }
+
+
+        .custom-delete-icon {
+
+            width: 65px;
+
+            height: 65px;
+
+            margin:
+                0 auto 15px;
+
+            border-radius: 50%;
+
+            background:
+                #fee2e2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .custom-delete-icon i {
+
+            font-size: 28px;
+
+            color: #dc2626;
+
+        }
+
+
+        .custom-delete-box h3 {
+
+            margin: 0 0 8px;
+
+            font-size: 20px;
+
+            color: #1f2937;
+
+        }
+
+
+        .custom-delete-box p {
+
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            word-break: break-word;
+
+        }
+
+
+        .custom-delete-buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 22px;
+
+        }
+
+
+        .custom-delete-buttons button {
+
+            flex: 1;
+
+            border: none;
+
+            padding: 11px 15px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+
+        #customDeleteCancel {
+
+            background:
+                #e5e7eb;
+
+            color:
+                #374151;
+
+        }
+
+
+        #customDeleteCancel:hover {
+
+            background:
+                #d1d5db;
+
+        }
+
+
+        #customDeleteConfirm {
+
+            background:
+                #dc2626;
+
+            color:
+                white;
+
+        }
+
+
+        #customDeleteConfirm:hover {
+
+            background:
+                #b91c1c;
+
+        }
+
+
+        @keyframes deletePopupIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    scale(.92);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    scale(1);
+
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+}
+
+
+/* =========================================================
+   SHOW DELETE POPUP
+========================================================= */
+
+function showDeletePopup(
+    username
+) {
+
+    const popup =
+        document.getElementById(
+            "customDeletePopup"
+        );
 
 
     const message =
         document.getElementById(
-            "deleteConfirmMessage"
+            "customDeleteMessage"
         );
+
+
+    if (!popup) {
+
+        return;
+
+    }
 
 
     if (message) {
@@ -944,88 +1724,8 @@ function deleteUser(username) {
     }
 
 
-    const modal =
-        document.getElementById(
-            "deleteConfirmModal"
-        );
-
-
-    if (modal) {
-
-        modal.style.display = "flex";
-
-    } else {
-
-        /* Fallback if custom popup HTML is not added */
-
-        deleteUsername =
-            username;
-
-        confirmDeleteUser();
-
-    }
-
-}
-
-
-/* =========================================================
-   DELETE POPUP SETUP
-========================================================= */
-
-function setupDeletePopup() {
-
-    const cancelBtn =
-        document.getElementById(
-            "deleteCancelBtn"
-        );
-
-    const confirmBtn =
-        document.getElementById(
-            "deleteConfirmBtn"
-        );
-
-    const modal =
-        document.getElementById(
-            "deleteConfirmModal"
-        );
-
-
-    if (cancelBtn) {
-
-        cancelBtn.addEventListener(
-            "click",
-            closeDeleteConfirm
-        );
-
-    }
-
-
-    if (confirmBtn) {
-
-        confirmBtn.addEventListener(
-            "click",
-            confirmDeleteUser
-        );
-
-    }
-
-
-    if (modal) {
-
-        modal.addEventListener(
-            "click",
-            function (e) {
-
-                if (e.target === modal) {
-
-                    closeDeleteConfirm();
-
-                }
-
-            }
-        );
-
-    }
+    popup.style.display =
+        "block";
 
 }
 
@@ -1034,17 +1734,18 @@ function setupDeletePopup() {
    CLOSE DELETE POPUP
 ========================================================= */
 
-function closeDeleteConfirm() {
+function closeDeletePopup() {
 
-    const modal =
+    const popup =
         document.getElementById(
-            "deleteConfirmModal"
+            "customDeletePopup"
         );
 
 
-    if (modal) {
+    if (popup) {
 
-        modal.style.display = "none";
+        popup.style.display =
+            "none";
 
     }
 
@@ -1058,10 +1759,12 @@ function closeDeleteConfirm() {
    CONFIRM DELETE
 ========================================================= */
 
-function confirmDeleteUser() {
+function confirmDelete() {
 
     if (!deleteUsername) {
+
         return;
+
     }
 
 
@@ -1069,7 +1772,7 @@ function confirmDeleteUser() {
         deleteUsername;
 
 
-    closeDeleteConfirm();
+    closeDeletePopup();
 
 
     showLoading(
@@ -1077,87 +1780,106 @@ function confirmDeleteUser() {
     );
 
 
-    fetch(API_URL, {
+    fetch(
+        API_URL,
+        {
 
-        method: "POST",
+            method: "POST",
 
-        headers: {
-            "Content-Type":
-                "text/plain;charset=utf-8"
-        },
+            headers: {
 
-        body:
-            JSON.stringify({
+                "Content-Type":
+                    "text/plain;charset=utf-8"
 
-                action: "delete",
+            },
 
-                username: username
+            body:
+                JSON.stringify({
 
-            })
+                    action:
+                        "delete",
 
-    })
+                    username:
+                        username
 
-    .then(function (response) {
+                })
 
-        if (!response.ok) {
-            throw new Error("Server Error");
         }
+    )
 
-        return response.json();
+    .then(
+        function (response) {
 
-    })
+            if (!response.ok) {
 
-    .then(function (result) {
+                throw new Error(
+                    "HTTP Error"
+                );
 
-        hideLoading();
+            }
 
 
-        if (
-            result &&
-            result.success
-        ) {
+            return response.json();
 
-            showPopup(
-                "Success",
-                result.message ||
-                "User Deleted Successfully",
-                "success"
+        }
+    )
+
+    .then(
+        function (result) {
+
+            hideLoading();
+
+
+            if (
+                result &&
+                result.success === true
+            ) {
+
+                showPopup(
+                    "Success",
+                    result.message ||
+                    "User Deleted Successfully",
+                    "success"
+                );
+
+
+                loadUsers();
+
+            }
+            else {
+
+                showPopup(
+                    "Error",
+                    result.message ||
+                    "Delete Failed",
+                    "error"
+                );
+
+            }
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "DELETE ERROR:",
+                error
             );
 
 
-            loadUsers();
+            hideLoading();
 
-        } else {
 
             showPopup(
                 "Error",
-                result.message ||
                 "Delete Failed",
                 "error"
             );
 
         }
-
-    })
-
-    .catch(function (error) {
-
-        console.error(
-            "Delete Error:",
-            error
-        );
-
-
-        hideLoading();
-
-
-        showPopup(
-            "Error",
-            "Delete Failed",
-            "error"
-        );
-
-    });
+    );
 
 }
 
@@ -1168,15 +1890,45 @@ function confirmDeleteUser() {
 
 function clearForm() {
 
-    setValue("username", "");
-    setValue("password", "");
-    setValue("name", "");
-    setValue("role", "Admin");
-    setValue("status", "Active");
-    setValue("picture", "");
+    setValue(
+        "username",
+        ""
+    );
 
 
-    updatePicturePreview("");
+    setValue(
+        "password",
+        ""
+    );
+
+
+    setValue(
+        "name",
+        ""
+    );
+
+
+    setValue(
+        "role",
+        "Admin"
+    );
+
+
+    setValue(
+        "status",
+        "Active"
+    );
+
+
+    setValue(
+        "picture",
+        ""
+    );
+
+
+    updatePicturePreview(
+        ""
+    );
 
 }
 
@@ -1185,72 +1937,61 @@ function clearForm() {
    PICTURE PREVIEW
 ========================================================= */
 
-function setupPicturePreview() {
-
-    const input =
-        document.getElementById("picture");
-
-
-    if (!input) {
-        return;
-    }
-
-
-    input.addEventListener(
-        "input",
-        function () {
-
-            updatePicturePreview(
-                this.value.trim()
-            );
-
-        }
-    );
-
-}
-
-
-function updatePicturePreview(url) {
+function updatePicturePreview(
+    picture
+) {
 
     const preview =
         document.getElementById(
             "picturePreview"
         );
 
-    const image =
+
+    const previewImg =
         document.getElementById(
             "picturePreviewImg"
         );
 
 
-    if (!preview || !image) {
+    if (
+        !preview ||
+        !previewImg
+    ) {
+
         return;
+
     }
 
 
     if (
-        url &&
-        url.trim() !== ""
+        picture &&
+        picture.trim() !== ""
     ) {
 
-        image.src = url;
+        previewImg.src =
+            picture;
 
-        preview.style.display = "flex";
+
+        preview.style.display =
+            "flex";
 
 
-        image.onerror = function () {
+        previewImg.onerror =
+            function () {
 
-            preview.style.display =
-                "none";
+                preview.style.display =
+                    "none";
 
-        };
+            };
 
-    } else {
+    }
+    else {
 
         preview.style.display =
             "none";
 
-        image.src = "";
+        previewImg.src =
+            "";
 
     }
 
@@ -1258,7 +1999,7 @@ function updatePicturePreview(url) {
 
 
 /* =========================================================
-   SUCCESS / ERROR POPUP
+   POPUP
 ========================================================= */
 
 function showPopup(
@@ -1272,15 +2013,18 @@ function showPopup(
             "popupBox"
         );
 
+
     const icon =
         document.getElementById(
             "popupIcon"
         );
 
+
     const popupTitle =
         document.getElementById(
             "popupTitle"
         );
+
 
     const popupMessage =
         document.getElementById(
@@ -1289,25 +2033,33 @@ function showPopup(
 
 
     if (!popup) {
+
         return;
+
     }
 
 
     if (popupTitle) {
+
         popupTitle.textContent =
             title;
+
     }
 
 
     if (popupMessage) {
+
         popupMessage.textContent =
             message;
+
     }
 
 
     if (icon) {
 
-        if (type === "success") {
+        if (
+            type === "success"
+        ) {
 
             icon.className =
                 "fa-solid fa-circle-check";
@@ -1317,7 +2069,10 @@ function showPopup(
 
         }
 
-        else if (type === "error") {
+
+        else if (
+            type === "error"
+        ) {
 
             icon.className =
                 "fa-solid fa-circle-xmark";
@@ -1327,23 +2082,16 @@ function showPopup(
 
         }
 
-        else if (type === "warning") {
+
+        else if (
+            type === "warning"
+        ) {
 
             icon.className =
                 "fa-solid fa-triangle-exclamation";
 
             icon.style.color =
                 "#f59e0b";
-
-        }
-
-        else if (type === "login") {
-
-            icon.className =
-                "fa-solid fa-lock";
-
-            icon.style.color =
-                "#2563eb";
 
         }
 
@@ -1379,16 +2127,22 @@ function closePopup() {
 
 
 /* =========================================================
-   LOADING SYSTEM
+   LOADING
 ========================================================= */
 
 function showLoading(
     text = "Loading..."
 ) {
 
+    /*
+     * তোমার loading.js থাকলে
+     * সেটার function ব্যবহার করবে।
+     */
+
     if (
         typeof window.showLoading ===
-        "function"
+        "function" &&
+        window.showLoading !== showLoading
     ) {
 
         window.showLoading(text);
@@ -1398,7 +2152,9 @@ function showLoading(
     }
 
 
-    /* Fallback loading */
+    /*
+     * Fallback
+     */
 
     let loading =
         document.getElementById(
@@ -1409,54 +2165,82 @@ function showLoading(
     if (!loading) {
 
         loading =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         loading.id =
             "simpleLoading";
 
 
-        loading.style.position =
-            "fixed";
+        loading.style.cssText = `
 
-        loading.style.top = "0";
-        loading.style.left = "0";
+            position:fixed;
 
-        loading.style.width = "100%";
-        loading.style.height = "100%";
+            inset:0;
 
-        loading.style.background =
-            "rgba(0,0,0,.35)";
+            background:
+                rgba(0,0,0,.35);
 
-        loading.style.display =
-            "flex";
+            display:flex;
 
-        loading.style.alignItems =
-            "center";
+            align-items:center;
 
-        loading.style.justifyContent =
-            "center";
+            justify-content:center;
 
-        loading.style.zIndex =
-            "99999";
+            z-index:99999;
+
+        `;
 
 
         loading.innerHTML = `
+
             <div style="
                 background:white;
                 padding:25px 35px;
-                border-radius:15px;
+                border-radius:16px;
+                box-shadow:0 15px 40px rgba(0,0,0,.25);
                 font-family:Arial,sans-serif;
-                font-weight:600;
                 color:#1e3a8a;
+                font-weight:600;
             ">
-                ${text}
+
+                <i
+                    class="fa-solid fa-spinner fa-spin"
+                    style="
+                        margin-right:8px;
+                    "
+                ></i>
+
+                <span id="simpleLoadingText">
+                    ${escapeHTML(text)}
+                </span>
+
             </div>
+
         `;
 
 
         document.body.appendChild(
             loading
         );
+
+    }
+    else {
+
+        const textElement =
+            document.getElementById(
+                "simpleLoadingText"
+            );
+
+
+        if (textElement) {
+
+            textElement.textContent =
+                text;
+
+        }
 
     }
 
@@ -1473,12 +2257,22 @@ function showLoading(
 
 function hideLoading() {
 
+    /*
+     * loading.js-এর function থাকলে
+     * সেটাই ব্যবহার করবে।
+     */
+
+    const externalLoading =
+        window.hideLoading;
+
+
     if (
-        typeof window.hideLoading ===
-        "function"
+        typeof externalLoading ===
+        "function" &&
+        externalLoading !== hideLoading
     ) {
 
-        window.hideLoading();
+        externalLoading();
 
         return;
 
@@ -1512,7 +2306,9 @@ function getValue(id) {
 
 
     if (!element) {
+
         return "";
+
     }
 
 
@@ -1547,63 +2343,107 @@ function setValue(
 
 
 /* =========================================================
-   SAFE VALUE
+   ESCAPE HTML
 ========================================================= */
 
-function safeValue(value) {
+function escapeHTML(value) {
 
-    if (
-        value === null ||
-        value === undefined
-    ) {
+    return String(
+        value || ""
+    )
 
-        return "";
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-    }
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-    return String(value);
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
 
 /* =========================================================
-   BLOCK BACK AFTER LOGOUT
+   IMAGE ERROR
 ========================================================= */
 
-window.addEventListener(
-    "pageshow",
-    function () {
+function imageError(
+    img
+) {
 
-        if (
-            localStorage.getItem(
-                "isLogin"
-            ) !== "true"
-        ) {
+    if (!img) {
 
-            window.location.replace(
-                "login.html"
-            );
-
-        }
+        return;
 
     }
-);
+
+
+    img.onerror = null;
+
+    img.src =
+        "profile.png";
+
+}
 
 
 /* =========================================================
-   ESC KEY
+   FALLBACK IMAGE
+========================================================= */
+
+function createFallbackImage() {
+
+    return `
+
+        <div class="user-picture">
+
+            <img
+                src="profile.png"
+                class="user-avatar"
+                alt="User"
+                onerror="this.style.display='none'"
+            >
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ESCAPE KEY
 ========================================================= */
 
 document.addEventListener(
     "keydown",
     function (e) {
 
-        if (e.key === "Escape") {
-
-            closeDeleteConfirm();
+        if (
+            e.key === "Escape"
+        ) {
 
             closeModal();
+
+            closePopup();
+
+            closeDeletePopup();
 
         }
 
