@@ -3,17 +3,24 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>Pending Call</title>
+    <title>Pending Call</title>
 
-<link rel="stylesheet" href="call.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- CALL CSS -->
+
+    <link rel="stylesheet"
+          href="call.css">
+
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
@@ -21,15 +28,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
-<!-- =========================
-HEADER
-========================= -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <div class="header">
 
 
+    <!-- LEFT -->
+
     <div class="left-section">
 
+
+        <!-- BACK -->
 
         <button class="back-btn"
                 onclick="goBack()">
@@ -41,7 +52,11 @@ HEADER
         </button>
 
 
-        <h2>
+
+        <!-- PENDING CALL -->
+
+        <h2 class="call-title"
+            onclick="toggleFilter()">
 
             <i class="fa fa-phone-volume"></i>
 
@@ -50,26 +65,13 @@ HEADER
         </h2>
 
 
-        <!-- FILTER BUTTON -->
-
-        <button class="filter-toggle"
-                id="filterToggle"
-                onclick="toggleFilter()">
-
-            <i class="fa-solid fa-filter"></i>
-
-            Filter
-
-        </button>
-
-
     </div>
 
 
 
-    <!-- =========================
-    PROFILE
-    ========================= -->
+    <!-- =================================================
+         PROFILE
+    ================================================= -->
 
     <div class="profile">
 
@@ -79,7 +81,8 @@ HEADER
 
 
             <img id="profileImg"
-                 src="assets/profile.png">
+                 src="assets/profile.png"
+                 alt="Profile">
 
 
             <span id="username">
@@ -109,6 +112,7 @@ HEADER
             </button>
 
 
+
             <button onclick="logout()">
 
                 <i class="fa fa-sign-out"></i>
@@ -129,16 +133,17 @@ HEADER
 
 
 
-<!-- =========================
-FILTER BAR
-HIDDEN BY DEFAULT
-========================= -->
+
+<!-- =====================================================
+     FILTER BAR
+     DEFAULT HIDDEN
+===================================================== -->
 
 <div class="filter-row"
      id="filterRow">
 
 
-    <!-- FROM DATE -->
+    <!-- FROM -->
 
     <div class="filter-group">
 
@@ -154,7 +159,7 @@ HIDDEN BY DEFAULT
 
 
 
-    <!-- TO DATE -->
+    <!-- TO -->
 
     <div class="filter-group">
 
@@ -175,14 +180,14 @@ HIDDEN BY DEFAULT
     <div class="filter-group">
 
         <label>
-            Last
+            Last Days
         </label>
 
         <input
             type="number"
             id="lastDays"
             min="1"
-            placeholder="Days">
+            placeholder="7">
 
     </div>
 
@@ -190,7 +195,7 @@ HIDDEN BY DEFAULT
 
     <!-- SEARCH -->
 
-    <div class="filter-group search-filter">
+    <div class="filter-group">
 
         <label>
             Search
@@ -198,8 +203,8 @@ HIDDEN BY DEFAULT
 
         <input
             type="text"
-            id="searchFilter"
-            placeholder="Customer ID / Problem">
+            id="searchCall"
+            placeholder="Search...">
 
     </div>
 
@@ -211,7 +216,7 @@ HIDDEN BY DEFAULT
         class="filter-btn"
         onclick="applyFilter()">
 
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <i class="fa-solid fa-filter"></i>
 
         Apply
 
@@ -238,80 +243,84 @@ HIDDEN BY DEFAULT
 
 
 
-<!-- =========================
-TABLE
-========================= -->
+<!-- =====================================================
+     TABLE
+===================================================== -->
 
 <div class="table-box">
 
 
-<table>
+    <table>
 
 
-    <thead>
-
-        <tr>
+        <thead>
 
 
-            <th>
-                Customer ID
-            </th>
+            <tr>
 
 
-            <th>
-                Problem
-            </th>
+                <th>
+                    Customer ID
+                </th>
 
 
-            <th>
-                Reference
-            </th>
+                <th>
+                    Problem
+                </th>
 
 
-            <th>
-                Date
-            </th>
+                <th>
+                    Reference
+                </th>
 
 
-            <th>
-                Support
-            </th>
+                <th>
+                    Date
+                </th>
 
 
-            <th>
-                Support Work
-            </th>
+                <th>
+                    Support
+                </th>
 
 
-            <th>
-                Action
-            </th>
+                <th>
+                    Support Work
+                </th>
 
 
-        </tr>
-
-    </thead>
-
-
-
-    <tbody id="callList">
+                <th>
+                    Action
+                </th>
 
 
-        <tr>
-
-            <td colspan="7">
-
-                Loading...
-
-            </td>
-
-        </tr>
+            </tr>
 
 
-    </tbody>
+        </thead>
 
 
-</table>
+
+        <tbody id="callList">
+
+
+            <tr>
+
+
+                <td colspan="7">
+
+                    Loading...
+
+                </td>
+
+
+            </tr>
+
+
+        </tbody>
+
+
+    </table>
 
 
 </div>
@@ -320,10 +329,9 @@ TABLE
 
 
 
-
-<!-- =========================
-EDIT MODAL
-========================= -->
+<!-- =====================================================
+     EDIT MODAL
+===================================================== -->
 
 <div class="modal"
      id="editModal">
@@ -331,6 +339,8 @@ EDIT MODAL
 
     <div class="popup">
 
+
+        <!-- CLOSE -->
 
         <button class="close-btn"
                 onclick="closeEdit()">
@@ -342,12 +352,12 @@ EDIT MODAL
 
 
         <h2>
-
             Edit Call
-
         </h2>
 
 
+
+        <!-- CUSTOMER ID -->
 
         <label>
             Customer ID
@@ -359,6 +369,8 @@ EDIT MODAL
 
 
 
+        <!-- PROBLEM -->
+
         <label>
             Problem
         </label>
@@ -368,6 +380,8 @@ EDIT MODAL
             rows="4"></textarea>
 
 
+
+        <!-- REFERENCE -->
 
         <label>
             Reference
@@ -379,6 +393,8 @@ EDIT MODAL
 
 
 
+        <!-- DATE -->
+
         <label>
             Date
         </label>
@@ -388,6 +404,8 @@ EDIT MODAL
             type="date">
 
 
+
+        <!-- SUPPORT -->
 
         <label>
             Support
@@ -399,6 +417,8 @@ EDIT MODAL
 
 
 
+        <!-- SUPPORT WORK -->
+
         <label>
             Support Work
         </label>
@@ -408,6 +428,8 @@ EDIT MODAL
             rows="3"></textarea>
 
 
+
+        <!-- CALL -->
 
         <label>
             Call
@@ -419,6 +441,8 @@ EDIT MODAL
 
 
 
+        <!-- CALL WORK -->
+
         <label>
             Call Work
         </label>
@@ -429,8 +453,12 @@ EDIT MODAL
 
 
 
+        <!-- BUTTONS -->
+
         <div class="popup-buttons">
 
+
+            <!-- UPDATE -->
 
             <button
                 class="submit-btn"
@@ -444,6 +472,8 @@ EDIT MODAL
 
 
 
+            <!-- CANCEL -->
+
             <button
                 class="cancel-btn"
                 onclick="closeEdit()">
@@ -453,6 +483,8 @@ EDIT MODAL
             </button>
 
 
+
+            <!-- DELETE -->
 
             <button
                 class="delete-btn"
@@ -477,10 +509,9 @@ EDIT MODAL
 
 
 
-
-<!-- =========================
-SUCCESS / MESSAGE POPUP
-========================= -->
+<!-- =====================================================
+     SUCCESS / ERROR MESSAGE MODAL
+===================================================== -->
 
 <div class="message-modal"
      id="messageModal">
@@ -497,11 +528,13 @@ SUCCESS / MESSAGE POPUP
         </div>
 
 
+
         <h3 id="messageTitle">
 
             Success
 
         </h3>
+
 
 
         <p id="messageText">
@@ -511,7 +544,9 @@ SUCCESS / MESSAGE POPUP
         </p>
 
 
-        <button onclick="closeMessage()">
+
+        <button
+            onclick="closeMessage()">
 
             OK
 
@@ -527,10 +562,9 @@ SUCCESS / MESSAGE POPUP
 
 
 
-
-<!-- =========================
-DELETE CONFIRM POPUP
-========================= -->
+<!-- =====================================================
+     DELETE CONFIRM MODAL
+===================================================== -->
 
 <div class="confirm-modal"
      id="confirmModal">
@@ -546,6 +580,7 @@ DELETE CONFIRM POPUP
         </div>
 
 
+
         <h3>
 
             Delete Call?
@@ -553,10 +588,10 @@ DELETE CONFIRM POPUP
         </h3>
 
 
+
         <p>
 
-            Are you sure you want to delete
-            this record?
+            Are you sure you want to delete this record?
 
         </p>
 
@@ -565,14 +600,21 @@ DELETE CONFIRM POPUP
         <div class="confirm-buttons">
 
 
+            <!-- CONFIRM DELETE -->
+
             <button
                 class="confirm-delete"
                 onclick="confirmDelete()">
+
+                <i class="fa-solid fa-trash"></i>
 
                 Delete
 
             </button>
 
+
+
+            <!-- CANCEL -->
 
             <button
                 class="confirm-cancel"
@@ -595,10 +637,9 @@ DELETE CONFIRM POPUP
 
 
 
-
-<!-- =========================
-JAVASCRIPT
-========================= -->
+<!-- =====================================================
+     CALL JS
+===================================================== -->
 
 <script src="call.js"></script>
 
