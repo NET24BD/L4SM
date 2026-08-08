@@ -5,30 +5,35 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Pending Call</title>
-
-<link rel="stylesheet" href="call.css">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<link rel="stylesheet"
+      href="call.css">
+
 </head>
+
 
 <body>
 
 
-<!-- =========================
+<!-- ===============================
 HEADER
-========================= -->
+=============================== -->
 
 <div class="header">
 
 
     <div class="left-section">
 
-        <button class="back-btn" onclick="goBack()">
+
+        <button class="back-btn"
+                onclick="goBack()">
 
             <i class="fa fa-arrow-left"></i>
 
@@ -45,20 +50,25 @@ HEADER
 
         </h2>
 
+
     </div>
 
 
 
-    <!-- PROFILE -->
+    <!-- ===============================
+    PROFILE
+    =============================== -->
 
     <div class="profile">
+
 
         <div class="profile-head"
              onclick="toggleProfile()">
 
 
             <img id="profileImg"
-                 src="assets/profile.png">
+                 src="assets/profile.png"
+                 alt="Profile">
 
 
             <span id="username">
@@ -99,80 +109,295 @@ HEADER
 
         </div>
 
+
     </div>
+
 
 </div>
 
 
 
-<!-- =========================
-CALL TABLE
-========================= -->
+
+
+<!-- ===============================
+FILTER AREA
+=============================== -->
+
+<div class="filter-box">
+
+
+    <!-- SEARCH -->
+
+    <div class="filter-item search-item">
+
+        <label>
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            Search
+
+        </label>
+
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Customer ID, Problem, Reference...">
+
+    </div>
+
+
+
+
+    <!-- FROM DATE -->
+
+    <div class="filter-item">
+
+        <label>
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            From Date
+
+        </label>
+
+
+        <input
+            type="date"
+            id="fromDate">
+
+    </div>
+
+
+
+
+    <!-- TO DATE -->
+
+    <div class="filter-item">
+
+        <label>
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            To Date
+
+        </label>
+
+
+        <input
+            type="date"
+            id="toDate">
+
+    </div>
+
+
+
+
+    <!-- LAST DAYS -->
+
+    <div class="filter-item">
+
+        <label>
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            Last Days
+
+        </label>
+
+
+        <select id="lastDays">
+
+            <option value="">
+                All
+            </option>
+
+            <option value="1">
+                Last 1 Day
+            </option>
+
+            <option value="3">
+                Last 3 Days
+            </option>
+
+            <option value="7">
+                Last 7 Days
+            </option>
+
+            <option value="15">
+                Last 15 Days
+            </option>
+
+            <option value="30">
+                Last 30 Days
+            </option>
+
+            <option value="60">
+                Last 60 Days
+            </option>
+
+            <option value="90">
+                Last 90 Days
+            </option>
+
+        </select>
+
+    </div>
+
+
+
+
+    <!-- FILTER BUTTON -->
+
+    <div class="filter-buttons">
+
+
+        <button
+            class="filter-btn"
+            onclick="applyFilter()">
+
+            <i class="fa-solid fa-filter"></i>
+
+            Filter
+
+        </button>
+
+
+
+        <button
+            class="clear-btn"
+            onclick="clearFilter()">
+
+            <i class="fa-solid fa-rotate-left"></i>
+
+            Clear
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<!-- ===============================
+TABLE
+=============================== -->
 
 <div class="table-box">
 
-    <table>
 
-        <thead>
-
-            <tr>
-
-                <th>
-                    Customer ID
-                </th>
-
-                <th>
-                    Problem
-                </th>
-
-                <th>
-                    Reference
-                </th>
-
-                <th>
-                    Date
-                </th>
-
-                <th>
-                    Support
-                </th>
-
-                <th>
-                    Support Work
-                </th>
-
-                <th>
-                    Action
-                </th>
-
-            </tr>
-
-        </thead>
+    <div class="table-header">
 
 
-        <tbody id="callList">
+        <h3>
 
-            <tr>
+            <i class="fa-solid fa-list"></i>
 
-                <td colspan="7">
+            Pending Call List
 
-                    Loading...
+        </h3>
 
-                </td>
 
-            </tr>
+        <span id="resultCount">
 
-        </tbody>
+            0 Records
 
-    </table>
+        </span>
+
+
+    </div>
+
+
+
+    <div class="table-scroll">
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Customer ID
+                    </th>
+
+                    <th>
+                        Problem
+                    </th>
+
+                    <th>
+                        Reference
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Support
+                    </th>
+
+                    <th>
+                        Support Work
+                    </th>
+
+                    <th>
+                        Call
+                    </th>
+
+                    <th>
+                        Call Work
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody id="callList">
+
+
+                <tr>
+
+                    <td colspan="9">
+
+                        Loading...
+
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
 
 </div>
 
 
 
-<!-- =========================
-EDIT CALL MODAL
-========================= -->
+
+
+<!-- ===============================
+EDIT MODAL
+=============================== -->
 
 <div class="modal"
      id="editModal">
@@ -181,19 +406,27 @@ EDIT CALL MODAL
     <div class="popup">
 
 
-        <button class="close-btn"
-                onclick="closeEdit()">
+        <button
+            class="close-btn"
+            onclick="closeEdit()">
 
             ×
 
         </button>
 
 
+
         <h2>
+
+            <i class="fa-solid fa-pen-to-square"></i>
+
             Edit Call
+
         </h2>
 
 
+
+        <!-- CUSTOMER ID -->
 
         <label>
             Customer ID
@@ -205,6 +438,8 @@ EDIT CALL MODAL
 
 
 
+        <!-- PROBLEM -->
+
         <label>
             Problem
         </label>
@@ -214,6 +449,8 @@ EDIT CALL MODAL
             rows="4"></textarea>
 
 
+
+        <!-- REFERENCE -->
 
         <label>
             Reference
@@ -225,6 +462,8 @@ EDIT CALL MODAL
 
 
 
+        <!-- DATE -->
+
         <label>
             Date
         </label>
@@ -234,6 +473,8 @@ EDIT CALL MODAL
             type="date">
 
 
+
+        <!-- SUPPORT -->
 
         <label>
             Support
@@ -245,6 +486,8 @@ EDIT CALL MODAL
 
 
 
+        <!-- SUPPORT WORK -->
+
         <label>
             Support Work
         </label>
@@ -254,6 +497,8 @@ EDIT CALL MODAL
             rows="3"></textarea>
 
 
+
+        <!-- CALL -->
 
         <label>
             Call
@@ -265,6 +510,8 @@ EDIT CALL MODAL
 
 
 
+        <!-- CALL WORK -->
+
         <label>
             Call Work
         </label>
@@ -274,6 +521,8 @@ EDIT CALL MODAL
             rows="3"></textarea>
 
 
+
+        <!-- BUTTONS -->
 
         <div class="popup-buttons">
 
@@ -316,13 +565,16 @@ EDIT CALL MODAL
 
     </div>
 
+
 </div>
 
 
 
-<!-- =========================
-CUSTOM MESSAGE POPUP
-========================= -->
+
+
+<!-- ===============================
+MESSAGE POPUP
+=============================== -->
 
 <div class="message-modal"
      id="messageModal">
@@ -339,14 +591,21 @@ CUSTOM MESSAGE POPUP
         </div>
 
 
+
         <h3 id="messageTitle">
+
             Success
+
         </h3>
 
 
+
         <p id="messageText">
+
             Done
+
         </p>
+
 
 
         <button onclick="closeMessage()">
@@ -358,13 +617,16 @@ CUSTOM MESSAGE POPUP
 
     </div>
 
+
 </div>
 
 
 
-<!-- =========================
-DELETE CONFIRM POPUP
-========================= -->
+
+
+<!-- ===============================
+DELETE CONFIRMATION
+=============================== -->
 
 <div class="confirm-modal"
      id="confirmModal">
@@ -380,14 +642,21 @@ DELETE CONFIRM POPUP
         </div>
 
 
+
         <h3>
+
             Delete Call?
+
         </h3>
 
 
+
         <p>
+
             Are you sure you want to delete this record?
+
         </p>
+
 
 
         <div class="confirm-buttons">
@@ -397,9 +666,12 @@ DELETE CONFIRM POPUP
                 class="confirm-delete"
                 onclick="confirmDelete()">
 
+                <i class="fa-solid fa-trash"></i>
+
                 Delete
 
             </button>
+
 
 
             <button
@@ -416,11 +688,19 @@ DELETE CONFIRM POPUP
 
     </div>
 
+
 </div>
 
 
 
+
+
+<!-- ===============================
+JAVASCRIPT
+=============================== -->
+
 <script src="call.js"></script>
+
 
 </body>
 
