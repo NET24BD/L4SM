@@ -32,7 +32,6 @@ margin:auto;
 HEADER
 ===================== */
 
-
 header{
 
 margin-top:20px;
@@ -97,7 +96,6 @@ font-size:22px;
 PROFILE
 ===================== */
 
-
 .profile{
 
 position:relative;
@@ -115,13 +113,23 @@ cursor:pointer;
 
 .profile img{
 
-width:45px;
+width:45px !important;
 
-height:45px;
+height:45px !important;
+
+min-width:45px !important;
+
+min-height:45px !important;
+
+max-width:45px !important;
+
+max-height:45px !important;
 
 border-radius:50%;
 
 object-fit:cover;
+
+display:block;
 
 border:3px solid #2563eb;
 
@@ -148,7 +156,6 @@ color:#16a34a;
 
 
 /* PROFILE MENU */
-
 
 .profile-menu{
 
@@ -207,7 +214,6 @@ color:#2563eb;
 USER BOX
 ===================== */
 
-
 .user-box{
 
 margin-top:25px;
@@ -219,7 +225,6 @@ padding:20px;
 border-radius:18px;
 
 box-shadow:
-
 0 8px 25px rgba(0,0,0,.20);
 
 }
@@ -253,7 +258,6 @@ font-size:18px;
 
 /* SEARCH */
 
-
 .search-box{
 
 display:flex;
@@ -285,8 +289,7 @@ width:200px;
 
 
 
-/* BUTTON */
-
+/* ADD BUTTON */
 
 .top button{
 
@@ -318,7 +321,6 @@ background:#1d4ed8;
 /* =====================
 TABLE
 ===================== */
-
 
 .table-area{
 
@@ -370,22 +372,40 @@ background:#f8fafc;
 }
 
 
+
+/* =====================
+USER TABLE PICTURE
+===================== */
+
 .user-photo{
 
-width:45px;
+width:45px !important;
 
-height:45px;
+height:45px !important;
+
+min-width:45px !important;
+
+min-height:45px !important;
+
+max-width:45px !important;
+
+max-height:45px !important;
 
 border-radius:50%;
 
 object-fit:cover;
+
+display:block;
+
+margin:0 auto;
+
+border:2px solid #2563eb;
 
 }
 
 
 
 /* ACTION BUTTONS */
-
 
 td button{
 
@@ -430,7 +450,6 @@ opacity:.85;
 MODAL
 ===================== */
 
-
 .modal{
 
 display:none;
@@ -469,7 +488,6 @@ padding:30px;
 border-radius:20px;
 
 box-shadow:
-
 0 15px 40px rgba(0,0,0,.3);
 
 }
@@ -531,6 +549,7 @@ outline:none;
 }
 
 
+
 .form-buttons{
 
 display:flex;
@@ -568,9 +587,51 @@ background:#6b7280;
 
 
 /* =====================
-POPUP
+PICTURE PREVIEW
 ===================== */
 
+.picture-preview{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+margin-bottom:12px;
+
+}
+
+
+.picture-preview img{
+
+width:60px !important;
+
+height:60px !important;
+
+min-width:60px !important;
+
+min-height:60px !important;
+
+max-width:60px !important;
+
+max-height:60px !important;
+
+border-radius:50%;
+
+object-fit:cover;
+
+display:block;
+
+border:3px solid #2563eb;
+
+}
+
+
+
+/* =====================
+SUCCESS / ERROR POPUP
+===================== */
 
 .popup{
 
@@ -610,7 +671,6 @@ border-radius:20px;
 text-align:center;
 
 box-shadow:
-
 0 15px 40px rgba(0,0,0,.3);
 
 }
@@ -650,7 +710,6 @@ cursor:pointer;
 /* =====================================================
 CUSTOM DELETE CONFIRMATION POPUP
 ===================================================== */
-
 
 .delete-confirm-modal{
 
@@ -726,7 +785,6 @@ transform:scale(1);
 
 /* DELETE ICON */
 
-
 .delete-confirm-icon{
 
 width:65px;
@@ -760,7 +818,6 @@ color:#dc2626;
 
 /* DELETE TITLE */
 
-
 .delete-confirm-box h2{
 
 margin:0 0 8px;
@@ -774,7 +831,6 @@ color:#1f2937;
 
 
 /* DELETE MESSAGE */
-
 
 .delete-confirm-box p{
 
@@ -792,7 +848,6 @@ line-height:1.5;
 
 /* DELETE BUTTON AREA */
 
-
 .delete-confirm-buttons{
 
 display:flex;
@@ -802,9 +857,7 @@ gap:10px;
 }
 
 
-
 /* DELETE BUTTONS */
-
 
 .delete-confirm-buttons button{
 
@@ -827,9 +880,7 @@ transition:.2s ease;
 }
 
 
-
 /* CANCEL */
-
 
 #deleteCancelBtn{
 
@@ -847,9 +898,7 @@ background:#d1d5db;
 }
 
 
-
 /* DELETE */
-
 
 #deleteConfirmBtn{
 
@@ -876,46 +925,10 @@ margin-right:6px;
 
 
 /* =====================
-PICTURE PREVIEW
-===================== */
-
-
-.picture-preview{
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-margin-bottom:12px;
-
-}
-
-
-.picture-preview img{
-
-width:60px;
-
-height:60px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-border:3px solid #2563eb;
-
-}
-
-
-
-/* =====================
 MOBILE
 ===================== */
 
-
 @media(max-width:700px){
-
 
 .container{
 
