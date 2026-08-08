@@ -1,7 +1,7 @@
 /* =========================================================
    LINK 4 USER CONTROL
    USERCONTROL.JS
-   DIRECT PROFILE PICTURE UPLOAD VERSION
+   FULL FINAL VERSION
 ========================================================= */
 
 
@@ -10,11 +10,11 @@
 ========================================================= */
 
 const API_URL =
-    "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
+"https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
 /* =========================================================
-   GLOBAL
+   GLOBAL VARIABLES
 ========================================================= */
 
 let users = [];
@@ -23,26 +23,234 @@ let editMode = false;
 
 let oldUsername = "";
 
-let selectedPicture = null;
-
-let existingPicture = "";
-
 
 /* =========================================================
    LOGIN CHECK
 ========================================================= */
 
 const isLogin =
-    localStorage.getItem("isLogin");
+localStorage.getItem("isLogin");
 
 const role =
-    localStorage.getItem("role");
+localStorage.getItem("role");
 
 
 if (
     isLogin !== "true" ||
-    role !== "Admin"
+    String(role).toLowerCase() !== "admin"
 ) {
+
+    window.location.replace("login.html");
+
+}
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    loadProfile();
+
+    setupProfileMenu();
+
+    setupNavigation();
+
+    setupSearch();
+
+    setupUserButtons();
+
+    setupModal();
+
+    loadUsers();
+
+});
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+function loadProfile() {
+
+    const name =
+        localStorage.getItem("name") || "User";
+
+
+    const picture =
+        localStorage.getItem("picture") || "";
+
+
+    const userName =
+        document.getElementById("userName");
+
+
+    const profileImg =
+        document.getElementById("profileImg");
+
+
+    if (userName) {
+
+        userName.textContent = name;
+
+    }
+
+
+    if (profileImg) {
+
+        if (picture.trim() !== "") {
+
+            profileImg.src = picture;
+
+        }
+        else {
+
+            profileImg.src =
+                "https://via.placeholder.com/100?text=User";
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   PROFILE MENU
+========================================================= */
+
+function setupProfileMenu() {
+
+    const profileBtn =
+        document.getElementById("profileBtn");
+
+
+    const profileMenu =
+        document.getElementById("profileMenu");
+
+
+    if (!profileBtn || !profileMenu) {
+
+        return;
+
+    }
+
+
+    profileBtn.addEventListener("click", function (e) {
+
+        e.stopPropagation();
+
+
+        if (
+            profileMenu.style.display === "block"
+        ) {
+
+            profileMenu.style.display = "none";
+
+        }
+        else {
+
+            profileMenu.style.display = "block";
+
+        }
+
+    });
+
+
+    document.addEventListener("click", function () {
+
+        profileMenu.style.display = "none";
+
+    });
+
+
+    profileMenu.addEventListener("click", function (e) {
+
+        e.stopPropagation();
+
+    });
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function setupNavigation() {
+
+    /* =========================
+       BACK BUTTON
+    ========================= */
+
+    const backBtn =
+        document.getElementById("backBtn");
+
+
+    if (backBtn) {
+
+        backBtn.addEventListener("click", function () {
+
+            window.location.href =
+                "dashboard.html";
+
+        });
+
+    }
+
+
+    /* =========================
+       ACCOUNT
+    ========================= */
+
+    const accountBtn =
+        document.getElementById("accountBtn");
+
+
+    if (accountBtn) {
+
+        accountBtn.addEventListener("click", function () {
+
+            window.location.href =
+                "my-account.html";
+
+        });
+
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener("click", function () {
+
+            logoutUser();
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logoutUser() {
+
+    localStorage.clear();
+
+    sessionStorage.clear();
+
 
     window.location.replace(
         "login.html"
@@ -52,251 +260,123 @@ if (
 
 
 /* =========================================================
-   PAGE LOAD
+   PAGE BACK / LOGOUT PROTECTION
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+window.addEventListener("pageshow", function () {
 
-        loadProfile();
+    const login =
+        localStorage.getItem("isLogin");
 
-        loadUsers();
 
-        setupEvents();
+    const currentRole =
+        localStorage.getItem("role");
 
-        setupPictureUpload();
+
+    if (
+        login !== "true" ||
+        String(currentRole).toLowerCase() !== "admin"
+    ) {
+
+        window.location.replace(
+            "login.html"
+        );
 
     }
-);
+
+});
 
 
 /* =========================================================
-   SETUP ALL EVENTS
+   SEARCH
 ========================================================= */
 
-function setupEvents() {
+function setupSearch() {
+
+    const searchInput =
+        document.getElementById("searchUser");
 
 
-    /* ======================================
-       PROFILE BUTTON
-    ====================================== */
+    if (!searchInput) {
 
-    const profileBtn =
-        document.getElementById(
-            "profileBtn"
-        );
-
-
-    if (profileBtn) {
-
-        profileBtn.addEventListener(
-            "click",
-            function (e) {
-
-                e.stopPropagation();
-
-                const menu =
-                    document.getElementById(
-                        "profileMenu"
-                    );
-
-                if (!menu) return;
-
-
-                menu.style.display =
-                    menu.style.display === "block"
-                        ? "none"
-                        : "block";
-
-            }
-        );
+        return;
 
     }
 
 
-    /* ======================================
-       CLOSE PROFILE MENU
-    ====================================== */
-
-    document.addEventListener(
-        "click",
+    searchInput.addEventListener(
+        "input",
         function () {
 
-            const menu =
-                document.getElementById(
-                    "profileMenu"
-                );
+            const value =
+                this.value
+                    .trim()
+                    .toLowerCase();
 
-            if (menu) {
 
-                menu.style.display =
-                    "none";
+            if (value === "") {
+
+                showUsers(users);
+
+                return;
 
             }
+
+
+            const result =
+                users.filter(function (user) {
+
+                    const username =
+                        String(user.username || "")
+                            .toLowerCase();
+
+
+                    const name =
+                        String(user.name || "")
+                            .toLowerCase();
+
+
+                    const role =
+                        String(user.role || "")
+                            .toLowerCase();
+
+
+                    const status =
+                        String(user.status || "")
+                            .toLowerCase();
+
+
+                    return (
+
+                        username.includes(value) ||
+
+                        name.includes(value) ||
+
+                        role.includes(value) ||
+
+                        status.includes(value)
+
+                    );
+
+                });
+
+
+            showUsers(result);
 
         }
     );
 
-
-    /* ======================================
-       BACK BUTTON
-    ====================================== */
-
-    const backBtn =
-        document.getElementById(
-            "backBtn"
-        );
+}
 
 
-    if (backBtn) {
+/* =========================================================
+   USER BUTTONS
+========================================================= */
 
-        backBtn.addEventListener(
-            "click",
-            function () {
-
-                window.location.href =
-                    "dashboard.html";
-
-            }
-        );
-
-    }
-
-
-    /* ======================================
-       ACCOUNT BUTTON
-    ====================================== */
-
-    const accountBtn =
-        document.getElementById(
-            "accountBtn"
-        );
-
-
-    if (accountBtn) {
-
-        accountBtn.addEventListener(
-            "click",
-            function () {
-
-                window.location.href =
-                    "my-account.html";
-
-            }
-        );
-
-    }
-
-
-    /* ======================================
-       LOGOUT
-    ====================================== */
-
-    const logoutBtn =
-        document.getElementById(
-            "logoutBtn"
-        );
-
-
-    if (logoutBtn) {
-
-        logoutBtn.addEventListener(
-            "click",
-            function () {
-
-                localStorage.clear();
-
-                window.location.replace(
-                    "login.html"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* ======================================
-       SEARCH
-    ====================================== */
-
-    const searchUser =
-        document.getElementById(
-            "searchUser"
-        );
-
-
-    if (searchUser) {
-
-        searchUser.addEventListener(
-            "input",
-            function () {
-
-                const value =
-                    this.value
-                        .toLowerCase()
-                        .trim();
-
-
-                const result =
-                    users.filter(
-                        function (user) {
-
-                            return (
-
-                                String(
-                                    user.username || ""
-                                )
-                                .toLowerCase()
-                                .includes(value)
-
-                                ||
-
-                                String(
-                                    user.name || ""
-                                )
-                                .toLowerCase()
-                                .includes(value)
-
-                                ||
-
-                                String(
-                                    user.role || ""
-                                )
-                                .toLowerCase()
-                                .includes(value)
-
-                                ||
-
-                                String(
-                                    user.status || ""
-                                )
-                                .toLowerCase()
-                                .includes(value)
-
-                            );
-
-                        }
-                    );
-
-
-                showUsers(result);
-
-            }
-        );
-
-    }
-
-
-    /* ======================================
-       ADD USER
-    ====================================== */
+function setupUserButtons() {
 
     const addUserBtn =
-        document.getElementById(
-            "addUserBtn"
-        );
+        document.getElementById("addUserBtn");
 
 
     if (addUserBtn) {
@@ -309,17 +389,21 @@ function setupEvents() {
 
                 oldUsername = "";
 
-                selectedPicture = null;
-
-                existingPicture = "";
 
                 clearForm();
 
-                setFormTitle(
-                    "Add User"
-                );
 
-                resetPicturePreview();
+                const title =
+                    document.getElementById("formTitle");
+
+
+                if (title) {
+
+                    title.textContent =
+                        "Add User";
+
+                }
+
 
                 openModal();
 
@@ -328,20 +412,26 @@ function setupEvents() {
 
     }
 
-
-    /* ======================================
-       CLOSE MODAL
-    ====================================== */
-
-    const closeModalBtn =
-        document.getElementById(
-            "closeModal"
-        );
+}
 
 
-    if (closeModalBtn) {
+/* =========================================================
+   MODAL
+========================================================= */
 
-        closeModalBtn.addEventListener(
+function setupModal() {
+
+    const closeBtn =
+        document.getElementById("closeModal");
+
+
+    const cancelBtn =
+        document.getElementById("cancelUser");
+
+
+    if (closeBtn) {
+
+        closeBtn.addEventListener(
             "click",
             closeModal
         );
@@ -349,19 +439,9 @@ function setupEvents() {
     }
 
 
-    /* ======================================
-       CANCEL USER
-    ====================================== */
+    if (cancelBtn) {
 
-    const cancelUser =
-        document.getElementById(
-            "cancelUser"
-        );
-
-
-    if (cancelUser) {
-
-        cancelUser.addEventListener(
+        cancelBtn.addEventListener(
             "click",
             closeModal
         );
@@ -369,19 +449,17 @@ function setupEvents() {
     }
 
 
-    /* ======================================
+    /* =========================
        SAVE USER
-    ====================================== */
+    ========================= */
 
-    const saveUserBtn =
-        document.getElementById(
-            "saveUser"
-        );
+    const saveBtn =
+        document.getElementById("saveUser");
 
 
-    if (saveUserBtn) {
+    if (saveBtn) {
 
-        saveUserBtn.addEventListener(
+        saveBtn.addEventListener(
             "click",
             saveUser
         );
@@ -389,193 +467,47 @@ function setupEvents() {
     }
 
 
-    /* ======================================
-       POPUP CLOSE
-    ====================================== */
+    /* =========================
+       CLOSE WHEN CLICK OUTSIDE
+    ========================= */
 
-    const popupClose =
-        document.getElementById(
-            "popupClose"
-        );
+    const modal =
+        document.getElementById("userModal");
 
 
-    if (popupClose) {
+    if (modal) {
 
-        popupClose.addEventListener(
+        modal.addEventListener(
             "click",
-            closePopup
-        );
+            function (e) {
 
-    }
+                if (e.target === modal) {
 
-}
+                    closeModal();
 
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-function loadProfile() {
-
-    const name =
-        localStorage.getItem(
-            "name"
-        );
-
-
-    const picture =
-        localStorage.getItem(
-            "picture"
-        );
-
-
-    const userName =
-        document.getElementById(
-            "userName"
-        );
-
-
-    if (userName) {
-
-        userName.textContent =
-            name || "User";
-
-    }
-
-
-    const profileImg =
-        document.getElementById(
-            "profileImg"
-        );
-
-
-    if (
-        profileImg &&
-        picture
-    ) {
-
-        profileImg.src =
-            picture;
-
-    }
-
-}
-
-
-/* =========================================================
-   PICTURE UPLOAD SETUP
-========================================================= */
-
-function setupPictureUpload() {
-
-    const pictureFile =
-        document.getElementById(
-            "pictureFile"
-        );
-
-
-    if (!pictureFile) {
-
-        return;
-
-    }
-
-
-    pictureFile.addEventListener(
-        "change",
-        function (event) {
-
-            const file =
-                event.target.files[0];
-
-
-            if (!file) {
-
-                selectedPicture =
-                    null;
-
-                return;
+                }
 
             }
+        );
+
+    }
 
 
-            /* ==================================
-               CHECK IMAGE
-            ================================== */
+    /* =========================
+       ESCAPE
+    ========================= */
 
-            if (
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
+    document.addEventListener(
+        "keydown",
+        function (e) {
 
-                showPopup(
-                    "Warning",
-                    "Please select an image file.",
-                    "warning"
-                );
+            if (e.key === "Escape") {
 
-                pictureFile.value = "";
+                closeModal();
 
-                selectedPicture =
-                    null;
-
-                return;
+                closePopup();
 
             }
-
-
-            /* ==================================
-               MAX SIZE
-               5 MB
-            ================================== */
-
-            if (
-                file.size >
-                5 * 1024 * 1024
-            ) {
-
-                showPopup(
-                    "Warning",
-                    "Picture size must be less than 5 MB.",
-                    "warning"
-                );
-
-                pictureFile.value = "";
-
-                selectedPicture =
-                    null;
-
-                return;
-
-            }
-
-
-            selectedPicture =
-                file;
-
-
-            /* ==================================
-               PREVIEW
-            ================================== */
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function (e) {
-
-                    showPicturePreview(
-                        e.target.result
-                    );
-
-                };
-
-
-            reader.readAsDataURL(
-                file
-            );
 
         }
     );
@@ -584,67 +516,18 @@ function setupPictureUpload() {
 
 
 /* =========================================================
-   SHOW PICTURE PREVIEW
+   OPEN MODAL
 ========================================================= */
 
-function showPicturePreview(
-    src
-) {
+function openModal() {
 
-    const preview =
-        document.getElementById(
-            "picturePreview"
-        );
+    const modal =
+        document.getElementById("userModal");
 
 
-    const previewImg =
-        document.getElementById(
-            "picturePreviewImg"
-        );
+    if (modal) {
 
-
-    if (
-        preview &&
-        previewImg
-    ) {
-
-        previewImg.src =
-            src;
-
-        preview.style.display =
-            "flex";
-
-        return;
-
-    }
-
-
-    /* ======================================
-       FALLBACK
-    ====================================== */
-
-    const profilePreview =
-        document.querySelector(
-            ".picture-preview"
-        );
-
-
-    const image =
-        document.querySelector(
-            ".picture-preview img"
-        );
-
-
-    if (
-        profilePreview &&
-        image
-    ) {
-
-        image.src =
-            src;
-
-        profilePreview.style.display =
-            "flex";
+        modal.style.display = "flex";
 
     }
 
@@ -652,81 +535,20 @@ function showPicturePreview(
 
 
 /* =========================================================
-   RESET PICTURE PREVIEW
+   CLOSE MODAL
 ========================================================= */
 
-function resetPicturePreview() {
+function closeModal() {
 
-    const pictureFile =
-        document.getElementById(
-            "pictureFile"
-        );
+    const modal =
+        document.getElementById("userModal");
 
 
-    if (pictureFile) {
+    if (modal) {
 
-        pictureFile.value = "";
+        modal.style.display = "none";
 
     }
-
-
-    const preview =
-        document.getElementById(
-            "picturePreview"
-        );
-
-
-    const previewImg =
-        document.getElementById(
-            "picturePreviewImg"
-        );
-
-
-    if (preview) {
-
-        preview.style.display =
-            "none";
-
-    }
-
-
-    if (previewImg) {
-
-        previewImg.src = "";
-
-    }
-
-
-    selectedPicture =
-        null;
-
-}
-
-
-/* =========================================================
-   SHOW EXISTING PICTURE
-========================================================= */
-
-function showExistingPicture(
-    picture
-) {
-
-    existingPicture =
-        picture || "";
-
-
-    if (!picture) {
-
-        resetPicturePreview();
-
-        return;
-
-    }
-
-
-    showPicturePreview(
-        picture
-    );
 
 }
 
@@ -743,75 +565,99 @@ function loadUsers() {
 
 
     fetch(
-        API_URL +
-        "?action=users"
-    )
-
-    .then(
-        function (res) {
-
-            if (!res.ok) {
-
-                throw new Error(
-                    "HTTP " +
-                    res.status
-                );
-
-            }
-
-            return res.json();
-
+        API_URL + "?action=users",
+        {
+            method: "GET",
+            cache: "no-cache"
         }
     )
 
-    .then(
-        function (data) {
 
-            if (!Array.isArray(data)) {
+    .then(function (response) {
 
-                throw new Error(
-                    "Invalid API Response"
-                );
+        if (!response.ok) {
 
-            }
-
-
-            users =
-                data;
-
-
-            showUsers(
-                users
+            throw new Error(
+                "HTTP Error: " +
+                response.status
             );
 
         }
-    )
 
-    .catch(
-        function (error) {
 
-            console.error(
-                "User Load Error:",
-                error
-            );
+        return response.json();
 
+    })
+
+
+    .then(function (data) {
+
+        hideLoading();
+
+
+        /* =========================
+           API ARRAY RESPONSE
+        ========================= */
+
+        if (Array.isArray(data)) {
+
+            users = data;
+
+            showUsers(users);
+
+            return;
+
+        }
+
+
+        /* =========================
+           OBJECT RESPONSE
+        ========================= */
+
+        if (
+            data &&
+            data.success === false
+        ) {
+
+            showUsers([]);
 
             showPopup(
                 "Error",
+                data.message ||
                 "User Load Failed",
                 "error"
             );
 
-        }
-    )
-
-    .finally(
-        function () {
-
-            hideLoading();
+            return;
 
         }
-    );
+
+
+        throw new Error(
+            "Invalid API Response"
+        );
+
+    })
+
+
+    .catch(function (error) {
+
+        console.error(
+            "User Load Error:",
+            error
+        );
+
+
+        hideLoading();
+
+
+        showPopup(
+            "Error",
+            "User Load Failed",
+            "error"
+        );
+
+    });
 
 }
 
@@ -823,19 +669,25 @@ function loadUsers() {
 function showUsers(data) {
 
     const table =
-        document.getElementById(
-            "userTable"
-        );
+        document.getElementById("userTable");
 
 
-    if (!table) return;
+    if (!table) {
+
+        return;
+
+    }
 
 
     table.innerHTML = "";
 
 
+    /* =========================
+       NO USER
+    ========================= */
+
     if (
-        !Array.isArray(data) ||
+        !data ||
         data.length === 0
     ) {
 
@@ -863,144 +715,167 @@ function showUsers(data) {
     }
 
 
-    data.forEach(
-        function (user) {
+    /* =========================
+       USERS
+    ========================= */
 
-            const row =
-                document.createElement(
-                    "tr"
-                );
+    data.forEach(function (user) {
 
 
-            const picture =
-                user.picture || "";
+        const username =
+            String(
+                user.username || ""
+            );
 
 
-            let profileHTML = "";
+        const password =
+            String(
+                user.password || ""
+            );
 
 
-            if (
-                picture &&
-                picture.trim() !== ""
-            ) {
-
-                profileHTML = `
-
-                    <img
-                        src="${escapeHTML(picture)}"
-                        class="user-avatar"
-                        alt="Profile"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                    >
-
-                    <div
-                        class="user-avatar-fallback"
-                        style="display:none;"
-                    >
-
-                        <i class="fa-solid fa-user"></i>
-
-                    </div>
-
-                `;
-
-            }
-
-            else {
-
-                profileHTML = `
-
-                    <div class="user-avatar-fallback">
-
-                        <i class="fa-solid fa-user"></i>
-
-                    </div>
-
-                `;
-
-            }
+        const name =
+            String(
+                user.name || ""
+            );
 
 
-            /* ==================================
-               STATUS CLASS
-            ================================== */
+        const role =
+            String(
+                user.role || ""
+            );
 
-            let statusClass =
+
+        const status =
+            String(
+                user.status || ""
+            );
+
+
+        const picture =
+            String(
+                user.picture || ""
+            );
+
+
+        /* =========================
+           STATUS CLASS
+        ========================= */
+
+        let statusClass =
+            "status-inactive";
+
+
+        const statusLower =
+            status
+                .trim()
+                .toLowerCase();
+
+
+        if (
+            statusLower === "active"
+        ) {
+
+            statusClass =
                 "status-active";
 
+        }
+        else if (
+            statusLower === "block" ||
+            statusLower === "blocked"
+        ) {
 
-            if (
-                String(
-                    user.status || ""
-                )
-                .toLowerCase()
-                ===
-                "block"
-            ) {
+            statusClass =
+                "status-block";
 
-                statusClass =
-                    "status-block";
-
-            }
-
-            else if (
-                String(
-                    user.status || ""
-                )
-                .toLowerCase()
-                ===
-                "inactive"
-            ) {
-
-                statusClass =
-                    "status-inactive";
-
-            }
+        }
 
 
-            /* ==================================
-               CREATE CELLS
-            ================================== */
+        /* =========================
+           PICTURE HTML
+        ========================= */
 
-            row.innerHTML = `
+        let pictureHTML = "";
+
+
+        if (
+            picture.trim() !== ""
+        ) {
+
+            pictureHTML = `
+
+                <div class="user-picture">
+
+                    <img
+
+                        src="${escapeHTML(picture)}"
+
+                        class="user-avatar"
+
+                        alt="${escapeHTML(name)}"
+
+                        onerror="imageError(this)"
+
+                    >
+
+                </div>
+
+            `;
+
+        }
+        else {
+
+            pictureHTML = createFallbackImage();
+
+        }
+
+
+        /* =========================
+           TABLE ROW
+        ========================= */
+
+        table.innerHTML += `
+
+            <tr>
+
+
+                <!-- PICTURE -->
 
                 <td class="picture-cell">
 
-                    <div class="user-picture">
-
-                        ${profileHTML}
-
-                    </div>
+                    ${pictureHTML}
 
                 </td>
 
+
+                <!-- USERNAME -->
 
                 <td class="username-cell">
 
-                    ${escapeHTML(
-                        user.username || ""
-                    )}
+                    ${escapeHTML(username)}
 
                 </td>
 
+
+                <!-- NAME -->
 
                 <td class="name-cell">
 
-                    ${escapeHTML(
-                        user.name || ""
-                    )}
+                    ${escapeHTML(name)}
 
                 </td>
 
+
+                <!-- ROLE -->
 
                 <td class="role-cell">
 
-                    ${escapeHTML(
-                        user.role || ""
-                    )}
+                    ${escapeHTML(role)}
 
                 </td>
 
+
+                <!-- STATUS -->
 
                 <td class="status-cell">
 
@@ -1008,22 +883,28 @@ function showUsers(data) {
                         class="user-status ${statusClass}"
                     >
 
-                        ${escapeHTML(
-                            user.status || ""
-                        )}
+                        ${escapeHTML(status)}
 
                     </span>
 
                 </td>
 
 
+                <!-- ACTION -->
+
                 <td class="action-cell">
 
                     <div class="action-buttons">
 
+
                         <button
+
                             type="button"
+
                             class="edit-btn"
+
+                            onclick="editUserByIndex(${getUserIndex(user)})"
+
                         >
 
                             <i class="fa-solid fa-pen"></i>
@@ -1034,8 +915,13 @@ function showUsers(data) {
 
 
                         <button
+
                             type="button"
+
                             class="delete-btn"
+
+                            onclick="deleteUserByIndex(${getUserIndex(user)})"
+
                         >
 
                             <i class="fa-solid fa-trash"></i>
@@ -1044,67 +930,66 @@ function showUsers(data) {
 
                         </button>
 
+
                     </div>
 
                 </td>
 
-            `;
+
+            </tr>
+
+        `;
+
+    });
+
+}
 
 
-            /* ==================================
-               EDIT BUTTON
-            ================================== */
+/* =========================================================
+   USER INDEX
+========================================================= */
 
-            const editBtn =
-                row.querySelector(
-                    ".edit-btn"
-                );
+function getUserIndex(user) {
 
+    return users.indexOf(user);
 
-            editBtn.addEventListener(
-                "click",
-                function () {
-
-                    editUser(
-                        user.username || "",
-                        user.password || "",
-                        user.name || "",
-                        user.role || "",
-                        user.status || "",
-                        user.picture || ""
-                    );
-
-                }
-            );
+}
 
 
-            /* ==================================
-               DELETE BUTTON
-            ================================== */
+/* =========================================================
+   EDIT USER BY INDEX
+========================================================= */
 
-            const deleteBtn =
-                row.querySelector(
-                    ".delete-btn"
-                );
+function editUserByIndex(index) {
 
+    if (
+        index < 0 ||
+        index >= users.length
+    ) {
 
-            deleteBtn.addEventListener(
-                "click",
-                function () {
+        return;
 
-                    deleteUser(
-                        user.username || ""
-                    );
-
-                }
-            );
+    }
 
 
-            table.appendChild(
-                row
-            );
+    const user =
+        users[index];
 
-        }
+
+    editUser(
+
+        user.username || "",
+
+        user.password || "",
+
+        user.name || "",
+
+        user.role || "Admin",
+
+        user.status || "Active",
+
+        user.picture || ""
+
     );
 
 }
@@ -1123,117 +1008,99 @@ function editUser(
     picture
 ) {
 
-    editMode =
-        true;
+    editMode = true;
+
+    oldUsername = username;
 
 
-    oldUsername =
-        username;
+    /* =========================
+       USERNAME
+    ========================= */
 
-
-    existingPicture =
-        picture || "";
-
-
-    const usernameInput =
-        document.getElementById(
-            "username"
-        );
-
-
-    const passwordInput =
-        document.getElementById(
-            "password"
-        );
-
-
-    const nameInput =
-        document.getElementById(
-            "name"
-        );
-
-
-    const roleInput =
-        document.getElementById(
-            "role"
-        );
-
-
-    const statusInput =
-        document.getElementById(
-            "status"
-        );
-
-
-    if (usernameInput)
-        usernameInput.value =
-            username;
-
-
-    if (passwordInput)
-        passwordInput.value =
-            password;
-
-
-    if (nameInput)
-        nameInput.value =
-            name;
-
-
-    if (roleInput)
-        roleInput.value =
-            role;
-
-
-    if (statusInput)
-        statusInput.value =
-            status;
-
-
-    /* ==================================
-       RESET NEW FILE
-    ================================== */
-
-    selectedPicture =
-        null;
-
-
-    const pictureFile =
-        document.getElementById(
-            "pictureFile"
-        );
-
-
-    if (pictureFile) {
-
-        pictureFile.value = "";
-
-    }
-
-
-    /* ==================================
-       SHOW EXISTING PICTURE
-    ================================== */
-
-    if (picture) {
-
-        showExistingPicture(
-            picture
-        );
-
-    }
-
-    else {
-
-        resetPicturePreview();
-
-    }
-
-
-    setFormTitle(
-        "Edit User"
+    setValue(
+        "username",
+        username
     );
 
+
+    /* =========================
+       PASSWORD
+    ========================= */
+
+    setValue(
+        "password",
+        password
+    );
+
+
+    /* =========================
+       NAME
+    ========================= */
+
+    setValue(
+        "name",
+        name
+    );
+
+
+    /* =========================
+       ROLE
+    ========================= */
+
+    setValue(
+        "role",
+        role || "Admin"
+    );
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    setValue(
+        "status",
+        status || "Active"
+    );
+
+
+    /* =========================
+       PICTURE
+    ========================= */
+
+    setValue(
+        "picture",
+        picture || ""
+    );
+
+
+    /* =========================
+       TITLE
+    ========================= */
+
+    const title =
+        document.getElementById("formTitle");
+
+
+    if (title) {
+
+        title.textContent =
+            "Edit User";
+
+    }
+
+
+    /* =========================
+       PREVIEW
+    ========================= */
+
+    updatePicturePreview(
+        picture || ""
+    );
+
+
+    /* =========================
+       OPEN
+    ========================= */
 
     openModal();
 
@@ -1244,7 +1111,12 @@ function editUser(
    SAVE USER
 ========================================================= */
 
-async function saveUser() {
+function saveUser() {
+
+
+    /* =========================
+       GET VALUES
+    ========================= */
 
     const username =
         getValue("username");
@@ -1266,11 +1138,17 @@ async function saveUser() {
         getValue("status");
 
 
-    /* ==================================
-       VALIDATION
-    ================================== */
+    const picture =
+        getValue("picture");
 
-    if (!username) {
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
+    if (
+        username === ""
+    ) {
 
         showPopup(
             "Warning",
@@ -1283,7 +1161,9 @@ async function saveUser() {
     }
 
 
-    if (!password) {
+    if (
+        password === ""
+    ) {
 
         showPopup(
             "Warning",
@@ -1296,7 +1176,9 @@ async function saveUser() {
     }
 
 
-    if (!name) {
+    if (
+        name === ""
+    ) {
 
         showPopup(
             "Warning",
@@ -1309,9 +1191,9 @@ async function saveUser() {
     }
 
 
-    /* ==================================
-       BASE DATA
-    ================================== */
+    /* =========================
+       DATA
+    ========================= */
 
     const data = {
 
@@ -1328,25 +1210,33 @@ async function saveUser() {
             role,
 
         status:
-            status
+            status,
+
+        picture:
+            picture
 
     };
 
 
-    /* ==================================
+    /* =========================
        EDIT
-    ================================== */
+    ========================= */
 
     if (editMode) {
 
         data.action =
             "update";
 
+
         data.oldUsername =
             oldUsername;
 
-
     }
+
+
+    /* =========================
+       ADD
+    ========================= */
 
     else {
 
@@ -1356,134 +1246,111 @@ async function saveUser() {
     }
 
 
-    /* ==================================
-       PICTURE
-    ================================== */
+    /* =========================
+       LOADING
+    ========================= */
 
     showLoading(
+
         editMode
-            ? "Updating User..."
-            : "Creating User..."
+            ?
+            "Updating User..."
+            :
+            "Creating User..."
+
     );
 
 
-    try {
+    /* =========================
+       API
+    ========================= */
 
-        if (selectedPicture) {
+    fetch(
 
-            const pictureData =
-                await fileToBase64(
-                    selectedPicture
-                );
+        API_URL,
 
+        {
 
-            data.pictureData =
-                pictureData;
+            method:
+                "POST",
 
+            headers: {
 
-            data.pictureName =
-                selectedPicture.name;
+                "Content-Type":
+                    "text/plain;charset=utf-8"
 
+            },
 
-            data.pictureType =
-                selectedPicture.type;
-
-        }
-
-        else if (
-            editMode &&
-            existingPicture
-        ) {
-
-            data.picture =
-                existingPicture;
+            body:
+                JSON.stringify(data)
 
         }
 
-        else {
-
-            data.picture =
-                "";
-
-        }
+    )
 
 
-        /* ==================================
-           SEND TO GOOGLE APPS SCRIPT
-        ================================== */
+    .then(function (response) {
 
-        const response =
-            await fetch(
-                API_URL,
-                {
+        if (!response.ok) {
 
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-
-                    },
-
-                    body:
-                        JSON.stringify(
-                            data
-                        )
-
-                }
+            throw new Error(
+                "HTTP Error"
             );
 
+        }
 
-        const result =
-            await response.json();
 
+        return response.json();
+
+    })
+
+
+    .then(function (result) {
 
         hideLoading();
 
 
-        /* ==================================
-           RESULT
-        ================================== */
-
         if (
+            result &&
             result.success
         ) {
-
-            showPopup(
-                "Success",
-                result.message ||
-                    (
-                        editMode
-                            ? "User Updated Successfully"
-                            : "User Created Successfully"
-                    ),
-                "success"
-            );
-
 
             closeModal();
 
 
+            showPopup(
+                "Success",
+                result.message ||
+                (
+                    editMode
+                        ?
+                        "User Updated Successfully"
+                        :
+                        "User Added Successfully"
+                ),
+                "success"
+            );
+
+
             loadUsers();
 
-        }
 
+        }
         else {
 
             showPopup(
                 "Error",
                 result.message ||
-                    "Operation Failed",
+                "Operation Failed",
                 "error"
             );
 
         }
 
-    }
+    })
 
-    catch (error) {
+
+    .catch(function (error) {
 
         console.error(
             "Save User Error:",
@@ -1500,7 +1367,32 @@ async function saveUser() {
             "error"
         );
 
+    });
+
+}
+
+
+/* =========================================================
+   DELETE USER BY INDEX
+========================================================= */
+
+function deleteUserByIndex(index) {
+
+    if (
+        index < 0 ||
+        index >= users.length
+    ) {
+
+        return;
+
     }
+
+
+    const username =
+        users[index].username || "";
+
+
+    deleteUser(username);
 
 }
 
@@ -1509,15 +1401,23 @@ async function saveUser() {
    DELETE USER
 ========================================================= */
 
-function deleteUser(
-    username
-) {
+function deleteUser(username) {
 
-    if (
-        !confirm(
+
+    if (!username) {
+
+        return;
+
+    }
+
+
+    const confirmDelete =
+        window.confirm(
             "Delete this user?"
-        )
-    ) {
+        );
+
+
+    if (!confirmDelete) {
 
         return;
 
@@ -1530,7 +1430,9 @@ function deleteUser(
 
 
     fetch(
+
         API_URL,
+
         {
 
             method:
@@ -1555,72 +1457,79 @@ function deleteUser(
                 })
 
         }
+
     )
 
-    .then(
-        function (res) {
 
-            return res.json();
+    .then(function (response) {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP Error"
+            );
 
         }
-    )
-
-    .then(
-        function (result) {
-
-            hideLoading();
 
 
-            if (
-                result.success
-            ) {
+        return response.json();
 
-                showPopup(
-                    "Success",
-                    result.message ||
-                        "User Deleted Successfully",
-                    "success"
-                );
+    })
 
 
-                loadUsers();
+    .then(function (result) {
 
-            }
+        hideLoading();
 
-            else {
 
-                showPopup(
-                    "Error",
-                    result.message ||
-                        "Delete Failed",
-                    "error"
-                );
+        if (
+            result &&
+            result.success
+        ) {
 
-            }
-
-        }
-    )
-
-    .catch(
-        function (error) {
-
-            console.error(
-                "Delete Error:",
-                error
+            showPopup(
+                "Success",
+                result.message ||
+                "User Deleted Successfully",
+                "success"
             );
 
 
-            hideLoading();
+            loadUsers();
 
+        }
+        else {
 
             showPopup(
                 "Error",
+                result.message ||
                 "Delete Failed",
                 "error"
             );
 
         }
-    );
+
+    })
+
+
+    .catch(function (error) {
+
+        console.error(
+            "Delete User Error:",
+            error
+        );
+
+
+        hideLoading();
+
+
+        showPopup(
+            "Error",
+            "Delete Failed",
+            "error"
+        );
+
+    });
 
 }
 
@@ -1631,135 +1540,193 @@ function deleteUser(
 
 function clearForm() {
 
-    const username =
-        document.getElementById(
-            "username"
-        );
+    setValue(
+        "username",
+        ""
+    );
 
 
-    const password =
-        document.getElementById(
-            "password"
-        );
+    setValue(
+        "password",
+        ""
+    );
 
 
-    const name =
-        document.getElementById(
-            "name"
-        );
+    setValue(
+        "name",
+        ""
+    );
 
 
-    const role =
-        document.getElementById(
-            "role"
-        );
+    setValue(
+        "role",
+        "Admin"
+    );
 
 
-    const status =
-        document.getElementById(
-            "status"
-        );
+    setValue(
+        "status",
+        "Active"
+    );
 
 
-    if (username)
-        username.value = "";
+    setValue(
+        "picture",
+        ""
+    );
 
 
-    if (password)
-        password.value = "";
-
-
-    if (name)
-        name.value = "";
-
-
-    if (role)
-        role.value =
-            "Admin";
-
-
-    if (status)
-        status.value =
-            "Active";
-
-
-    resetPicturePreview();
+    updatePicturePreview("");
 
 }
 
 
 /* =========================================================
-   OPEN MODAL
+   PICTURE PREVIEW
 ========================================================= */
 
-function openModal() {
-
-    const modal =
-        document.getElementById(
-            "userModal"
-        );
-
-
-    if (modal) {
-
-        modal.style.display =
-            "flex";
-
-    }
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-function closeModal() {
-
-    const modal =
-        document.getElementById(
-            "userModal"
-        );
-
-
-    if (modal) {
-
-        modal.style.display =
-            "none";
-
-    }
-
-
-    selectedPicture =
-        null;
-
-
-    existingPicture =
-        "";
-
-}
-
-
-/* =========================================================
-   FORM TITLE
-========================================================= */
-
-function setFormTitle(
-    title
+function updatePicturePreview(
+    picture
 ) {
 
-    const formTitle =
+    const preview =
         document.getElementById(
-            "formTitle"
+            "picturePreview"
         );
 
 
-    if (formTitle) {
+    const previewImg =
+        document.getElementById(
+            "picturePreviewImg"
+        );
 
-        formTitle.textContent =
-            title;
+
+    if (
+        !preview ||
+        !previewImg
+    ) {
+
+        return;
 
     }
+
+
+    if (
+        picture &&
+        picture.trim() !== ""
+    ) {
+
+        preview.style.display =
+            "flex";
+
+
+        previewImg.src =
+            picture;
+
+
+        previewImg.onerror =
+            function () {
+
+                preview.style.display =
+                    "none";
+
+            };
+
+    }
+    else {
+
+        preview.style.display =
+            "none";
+
+
+        previewImg.removeAttribute(
+            "src"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PICTURE INPUT
+========================================================= */
+
+document.addEventListener(
+    "change",
+    function (e) {
+
+        if (
+            e.target &&
+            e.target.id === "picture"
+        ) {
+
+            updatePicturePreview(
+                e.target.value.trim()
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   IMAGE ERROR
+========================================================= */
+
+function imageError(img) {
+
+    if (!img) {
+
+        return;
+
+    }
+
+
+    const parent =
+        img.parentElement;
+
+
+    if (!parent) {
+
+        return;
+
+    }
+
+
+    parent.innerHTML = `
+
+        <div class="user-avatar-fallback">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   FALLBACK IMAGE
+========================================================= */
+
+function createFallbackImage() {
+
+    return `
+
+        <div class="user-picture">
+
+            <div class="user-avatar-fallback">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+        </div>
+
+    `;
 
 }
 
@@ -1768,14 +1735,10 @@ function setFormTitle(
    GET INPUT VALUE
 ========================================================= */
 
-function getValue(
-    id
-) {
+function getValue(id) {
 
     const element =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
 
     if (!element) {
@@ -1793,136 +1756,61 @@ function getValue(
 
 
 /* =========================================================
-   FILE TO BASE64
+   SET INPUT VALUE
 ========================================================= */
 
-function fileToBase64(
-    file
+function setValue(
+    id,
+    value
 ) {
 
-    return new Promise(
-        function (
-            resolve,
-            reject
-        ) {
-
-            const reader =
-                new FileReader();
+    const element =
+        document.getElementById(id);
 
 
-            reader.onload =
-                function () {
+    if (element) {
 
-                    const result =
-                        reader.result;
+        element.value =
+            value || "";
 
-
-                    /*
-                     * Remove:
-                     * data:image/jpeg;base64,
-                     */
-
-                    const base64 =
-                        String(
-                            result
-                        )
-                        .split(",")[1];
-
-
-                    resolve(
-                        base64
-                    );
-
-                };
-
-
-            reader.onerror =
-                function () {
-
-                    reject(
-                        new Error(
-                            "Picture Read Failed"
-                        )
-                    );
-
-                };
-
-
-            reader.readAsDataURL(
-                file
-            );
-
-        }
-    );
+    }
 
 }
 
 
 /* =========================================================
-   ESCAPE HTML
+   HTML ESCAPE
 ========================================================= */
 
-function escapeHTML(
-    value
-) {
+function escapeHTML(value) {
 
     return String(
         value || ""
     )
+
     .replace(
         /&/g,
         "&amp;"
     )
+
     .replace(
         /</g,
         "&lt;"
     )
+
     .replace(
         />/g,
         "&gt;"
     )
+
     .replace(
         /"/g,
         "&quot;"
     )
+
     .replace(
         /'/g,
         "&#039;"
-    );
-
-}
-
-
-/* =========================================================
-   ESCAPE JAVASCRIPT
-========================================================= */
-
-function escapeJS(
-    value
-) {
-
-    return String(
-        value || ""
-    )
-    .replace(
-        /\\/g,
-        "\\\\"
-    )
-    .replace(
-        /'/g,
-        "\\'"
-    )
-    .replace(
-        /"/g,
-        '\\"'
-    )
-    .replace(
-        /\r/g,
-        "\\r"
-    )
-    .replace(
-        /\n/g,
-        "\\n"
     );
 
 }
@@ -1948,21 +1836,19 @@ function showLoading(
         );
 
 
-    if (loading) {
+    if (loadingText) {
 
-        loading.style.display =
-            "flex";
+        loadingText.textContent =
+            message ||
+            "Loading...";
 
     }
 
 
-    if (
-        loadingText &&
-        message
-    ) {
+    if (loading) {
 
-        loadingText.textContent =
-            message;
+        loading.style.display =
+            "flex";
 
     }
 
@@ -2025,28 +1911,27 @@ function showPopup(
         );
 
 
-    if (
-        popupTitle
-    ) {
+    if (popupTitle) {
 
         popupTitle.textContent =
-            title;
+            title || "";
 
     }
 
 
-    if (
-        popupMessage
-    ) {
+    if (popupMessage) {
 
         popupMessage.textContent =
-            msg;
+            msg || "";
 
     }
 
 
     if (icon) {
 
+        /* =========================
+           SUCCESS
+        ========================= */
 
         if (
             type === "success"
@@ -2061,6 +1946,10 @@ function showPopup(
         }
 
 
+        /* =========================
+           ERROR
+        ========================= */
+
         else if (
             type === "error"
         ) {
@@ -2074,6 +1963,10 @@ function showPopup(
         }
 
 
+        /* =========================
+           WARNING
+        ========================= */
+
         else if (
             type === "warning"
         ) {
@@ -2086,6 +1979,10 @@ function showPopup(
 
         }
 
+
+        /* =========================
+           LOGIN
+        ========================= */
 
         else if (
             type === "login"
@@ -2135,19 +2032,48 @@ function closePopup() {
 
 
 /* =========================================================
-   PREVENT BACK AFTER LOGOUT
+   CLOSE POPUP WHEN CLICK OUTSIDE
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function (e) {
+
+        const popup =
+            document.getElementById(
+                "popupBox"
+            );
+
+
+        if (
+            popup &&
+            e.target === popup
+        ) {
+
+            closePopup();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PREVENT CACHE / BACK AFTER LOGOUT
 ========================================================= */
 
 window.addEventListener(
-    "pageshow",
+    "popstate",
     function () {
 
-        if (
+        const login =
             localStorage.getItem(
                 "isLogin"
-            )
-            !==
-            "true"
+            );
+
+
+        if (
+            login !== "true"
         ) {
 
             window.location.replace(
