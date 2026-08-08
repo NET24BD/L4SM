@@ -1,43 +1,52 @@
+/* =========================================
+   RESET
+========================================= */
+
 *{
-
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
     font-family:"Segoe UI",Arial,sans-serif;
-
 }
 
+
+/* =========================================
+   BODY
+========================================= */
 
 body{
 
     min-height:100vh;
 
-    background:#f1f5f9;
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f8fafc
+        );
 
-    color:#334155;
+    color:#1f2937;
+
+    padding:20px;
 
 }
 
 
-
-/* =========================
-HEADER
-========================= */
+/* =========================================
+   HEADER
+========================================= */
 
 .header{
 
-    width:94%;
+    width:100%;
 
-    margin:20px auto;
+    min-height:70px;
 
-    background:white;
-
-    padding:14px 20px;
+    background:#ffffff;
 
     border-radius:16px;
+
+    padding:12px 20px;
 
     display:flex;
 
@@ -48,6 +57,10 @@ HEADER
     box-shadow:
         0 8px 25px rgba(0,0,0,.10);
 
+    position:relative;
+
+    z-index:100;
+
 }
 
 
@@ -57,33 +70,36 @@ HEADER
 
     align-items:center;
 
-    gap:18px;
+    gap:15px;
 
 }
 
 
 .left-section h2{
 
-    color:#0f172a;
+    color:#1e3a8a;
 
     font-size:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
 
 }
 
 
 .left-section h2 i{
 
-    color:#ea580c;
-
-    margin-right:7px;
+    color:#2563eb;
 
 }
 
 
-
-/* =========================
-BACK BUTTON
-========================= */
+/* =========================================
+   BACK BUTTON
+========================================= */
 
 .back-btn{
 
@@ -91,7 +107,7 @@ BACK BUTTON
 
     background:#2563eb;
 
-    color:white;
+    color:#ffffff;
 
     padding:10px 16px;
 
@@ -105,7 +121,9 @@ BACK BUTTON
 
     align-items:center;
 
-    gap:8px;
+    gap:7px;
+
+    transition:.25s;
 
 }
 
@@ -114,13 +132,14 @@ BACK BUTTON
 
     background:#1d4ed8;
 
+    transform:translateY(-1px);
+
 }
 
 
-
-/* =========================
-PROFILE
-========================= */
+/* =========================================
+   PROFILE
+========================================= */
 
 .profile{
 
@@ -135,26 +154,35 @@ PROFILE
 
     align-items:center;
 
-    gap:10px;
+    gap:9px;
 
     cursor:pointer;
+
+    padding:5px 8px;
+
+    border-radius:10px;
+
+    transition:.2s;
+
+}
+
+
+.profile-head:hover{
+
+    background:#f1f5f9;
 
 }
 
 
 .profile-head img{
 
-    width:45px;
+    width:44px;
 
-    height:45px;
+    height:44px;
 
-    min-width:45px;
+    min-width:44px;
 
-    min-height:45px;
-
-    max-width:45px;
-
-    max-height:45px;
+    max-width:44px;
 
     border-radius:50%;
 
@@ -162,40 +190,57 @@ PROFILE
 
     border:3px solid #2563eb;
 
+    display:block;
+
 }
 
 
 .profile-head span{
 
+    font-size:14px;
+
     font-weight:600;
 
-    color:#1e293b;
+    color:#111827;
 
 }
 
 
-.profile-menu{
+.profile-head > i{
 
-    display:none;
+    color:#64748b;
+
+    font-size:13px;
+
+}
+
+
+/* =========================================
+   PROFILE MENU
+========================================= */
+
+.profile-menu{
 
     position:absolute;
 
     right:0;
 
-    top:55px;
+    top:58px;
 
     width:180px;
 
-    background:white;
+    background:#ffffff;
 
     border-radius:12px;
 
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.18);
+
     overflow:hidden;
 
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.18);
+    display:none;
 
-    z-index:1000;
+    z-index:5000;
 
 }
 
@@ -213,82 +258,350 @@ PROFILE
 
     border:none;
 
-    background:white;
+    background:#ffffff;
 
     padding:13px 15px;
 
-    text-align:left;
+    display:flex;
 
-    cursor:pointer;
+    align-items:center;
+
+    gap:10px;
+
+    text-align:left;
 
     font-size:14px;
 
     color:#334155;
+
+    cursor:pointer;
+
+    transition:.2s;
 
 }
 
 
 .profile-menu button:hover{
 
-    background:#f1f5f9;
+    background:#eff6ff;
 
     color:#2563eb;
 
 }
 
 
+.profile-menu button i{
 
-/* =========================
-TABLE BOX
-========================= */
+    width:18px;
+
+    text-align:center;
+
+}
+
+
+/* =========================================
+   FILTER BOX
+========================================= */
+
+.filter-box{
+
+    margin-top:20px;
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:14px;
+
+    flex-wrap:wrap;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+.filter-item{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:7px;
+
+    min-width:160px;
+
+    flex:1;
+
+}
+
+
+.filter-item label{
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#475569;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+}
+
+
+.filter-item label i{
+
+    color:#2563eb;
+
+}
+
+
+.filter-item input,
+.filter-item select{
+
+    height:42px;
+
+    width:100%;
+
+    padding:0 12px;
+
+    border:1px solid #dbe2ea;
+
+    border-radius:9px;
+
+    outline:none;
+
+    background:#f8fafc;
+
+    color:#334155;
+
+    font-size:13px;
+
+    transition:.2s;
+
+}
+
+
+.filter-item input:focus,
+.filter-item select:focus{
+
+    border-color:#2563eb;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.10);
+
+}
+
+
+.search-item{
+
+    min-width:230px;
+
+}
+
+
+/* =========================================
+   FILTER BUTTONS
+========================================= */
+
+.filter-buttons{
+
+    display:flex;
+
+    gap:8px;
+
+    align-items:center;
+
+}
+
+
+.filter-buttons button{
+
+    height:42px;
+
+    padding:0 15px;
+
+    border:none;
+
+    border-radius:9px;
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    transition:.25s;
+
+}
+
+
+.filter-btn{
+
+    background:#2563eb;
+
+}
+
+
+.filter-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+.clear-btn{
+
+    background:#64748b;
+
+}
+
+
+.clear-btn:hover{
+
+    background:#475569;
+
+}
+
+
+/* =========================================
+   TABLE BOX
+========================================= */
 
 .table-box{
 
-    width:94%;
+    margin-top:20px;
 
-    margin:20px auto;
-
-    background:white;
+    background:#ffffff;
 
     border-radius:16px;
 
     padding:20px;
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.10);
+        0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+.table-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:15px;
+
+}
+
+
+.table-header h3{
+
+    color:#1e3a8a;
+
+    font-size:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+
+.table-header h3 i{
+
+    color:#2563eb;
+
+}
+
+
+#resultCount{
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    padding:6px 11px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================
+   TABLE SCROLL
+========================================= */
+
+.table-scroll{
+
+    width:100%;
 
     overflow-x:auto;
 
 }
 
 
+/* =========================================
+   TABLE
+========================================= */
+
 table{
 
     width:100%;
 
-    border-collapse:collapse;
+    min-width:1050px;
 
-    min-width:900px;
+    border-collapse:collapse;
 
 }
 
 
 thead{
 
-    background:#ea580c;
+    background:#2563eb;
 
-    color:white;
+    color:#ffffff;
 
 }
 
 
 th{
 
-    padding:14px 12px;
+    padding:13px 10px;
 
-    font-size:14px;
+    font-size:13px;
 
-    text-align:center;
+    font-weight:600;
 
     white-space:nowrap;
 
@@ -297,28 +610,45 @@ th{
 
 td{
 
-    padding:12px;
+    padding:12px 10px;
+
+    border-bottom:1px solid #e5e7eb;
 
     text-align:center;
 
-    border-bottom:1px solid #e2e8f0;
+    font-size:13px;
 
-    font-size:14px;
+    color:#334155;
+
+    vertical-align:middle;
+
+}
+
+
+tbody tr{
+
+    transition:.2s;
 
 }
 
 
 tbody tr:hover{
 
-    background:#fff7ed;
+    background:#f8fafc;
 
 }
 
 
+tbody tr:last-child td{
 
-/* =========================
-ACTION BUTTON
-========================= */
+    border-bottom:none;
+
+}
+
+
+/* =========================================
+   ACTION BUTTON
+========================================= */
 
 .edit-btn{
 
@@ -326,15 +656,25 @@ ACTION BUTTON
 
     background:#2563eb;
 
-    color:white;
+    color:#ffffff;
 
-    padding:8px 14px;
+    padding:7px 13px;
 
-    border-radius:8px;
+    border-radius:7px;
 
     cursor:pointer;
 
-    font-size:13px;
+    font-size:12px;
+
+    font-weight:600;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    transition:.2s;
 
 }
 
@@ -343,29 +683,38 @@ ACTION BUTTON
 
     background:#1d4ed8;
 
+    transform:translateY(-1px);
+
 }
 
 
-
-/* =========================
-EDIT MODAL
-========================= */
+/* =========================================
+   MODAL
+========================================= */
 
 .modal{
-
-    display:none;
 
     position:fixed;
 
     inset:0;
 
+    width:100%;
+
+    height:100%;
+
     background:rgba(15,23,42,.55);
+
+    backdrop-filter:blur(3px);
+
+    display:none;
 
     align-items:center;
 
     justify-content:center;
 
-    z-index:5000;
+    padding:20px;
+
+    z-index:9000;
 
 }
 
@@ -377,26 +726,30 @@ EDIT MODAL
 }
 
 
+/* =========================================
+   EDIT POPUP
+========================================= */
+
 .popup{
 
-    width:430px;
+    position:relative;
 
-    max-width:92%;
+    width:450px;
+
+    max-width:100%;
 
     max-height:90vh;
 
     overflow-y:auto;
 
-    background:white;
+    background:#ffffff;
 
-    padding:28px;
+    border-radius:18px;
 
-    border-radius:20px;
-
-    position:relative;
+    padding:25px;
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,.30);
+        0 20px 60px rgba(0,0,0,.30);
 
 }
 
@@ -405,52 +758,18 @@ EDIT MODAL
 
     text-align:center;
 
-    color:#ea580c;
+    color:#1e3a8a;
+
+    font-size:20px;
 
     margin-bottom:20px;
 
 }
 
 
-.popup label{
+.popup h2 i{
 
-    display:block;
-
-    margin-bottom:6px;
-
-    margin-top:12px;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    color:#334155;
-
-}
-
-
-.popup input,
-.popup textarea{
-
-    width:100%;
-
-    padding:11px;
-
-    border:1px solid #cbd5e1;
-
-    border-radius:9px;
-
-    outline:none;
-
-    font-size:14px;
-
-}
-
-
-.popup input:focus,
-.popup textarea:focus{
-
-    border-color:#ea580c;
+    color:#2563eb;
 
 }
 
@@ -459,9 +778,9 @@ EDIT MODAL
 
     position:absolute;
 
-    top:13px;
+    top:12px;
 
-    right:13px;
+    right:12px;
 
     width:34px;
 
@@ -471,21 +790,103 @@ EDIT MODAL
 
     border-radius:50%;
 
-    background:#dc2626;
+    background:#fee2e2;
 
-    color:white;
+    color:#dc2626;
 
     font-size:20px;
 
     cursor:pointer;
 
+    transition:.2s;
+
 }
 
 
+.close-btn:hover{
 
-/* =========================
-POPUP BUTTONS
-========================= */
+    background:#dc2626;
+
+    color:#ffffff;
+
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.popup label{
+
+    display:block;
+
+    margin-bottom:6px;
+
+    margin-top:12px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+
+.popup input,
+.popup textarea{
+
+    width:100%;
+
+    border:1px solid #dbe2ea;
+
+    border-radius:9px;
+
+    outline:none;
+
+    padding:10px 12px;
+
+    font-size:13px;
+
+    background:#f8fafc;
+
+    color:#1f2937;
+
+}
+
+
+.popup input{
+
+    height:42px;
+
+}
+
+
+.popup textarea{
+
+    resize:vertical;
+
+    min-height:75px;
+
+}
+
+
+.popup input:focus,
+.popup textarea:focus{
+
+    border-color:#2563eb;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.10);
+
+}
+
+
+/* =========================================
+   POPUP BUTTONS
+========================================= */
 
 .popup-buttons{
 
@@ -502,17 +903,29 @@ POPUP BUTTONS
 
     flex:1;
 
-    padding:11px;
+    min-height:42px;
 
     border:none;
 
     border-radius:9px;
 
+    color:#ffffff;
+
     cursor:pointer;
 
-    color:white;
+    font-size:13px;
 
     font-weight:600;
+
+    transition:.2s;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
 
 }
 
@@ -559,26 +972,29 @@ POPUP BUTTONS
 }
 
 
-
-/* =========================
-MESSAGE POPUP
-========================= */
+/* =========================================
+   MESSAGE MODAL
+========================================= */
 
 .message-modal{
-
-    display:none;
 
     position:fixed;
 
     inset:0;
 
-    background:rgba(0,0,0,.40);
+    background:rgba(15,23,42,.50);
+
+    backdrop-filter:blur(3px);
+
+    display:none;
 
     align-items:center;
 
     justify-content:center;
 
-    z-index:9000;
+    z-index:10000;
+
+    padding:20px;
 
 }
 
@@ -594,36 +1010,52 @@ MESSAGE POPUP
 
     width:330px;
 
-    max-width:90%;
+    max-width:100%;
 
-    background:white;
+    background:#ffffff;
 
-    padding:28px;
+    border-radius:18px;
 
-    border-radius:20px;
+    padding:28px 25px;
 
     text-align:center;
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,.25);
+        0 20px 60px rgba(0,0,0,.30);
 
 }
 
 
 .message-icon{
 
-    font-size:48px;
+    width:65px;
+
+    height:65px;
+
+    margin:0 auto 15px;
+
+    border-radius:50%;
+
+    background:#dcfce7;
 
     color:#16a34a;
 
-    margin-bottom:12px;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:32px;
 
 }
 
 
 .message-box h3{
 
-    color:#0f172a;
+    color:#1f2937;
+
+    font-size:19px;
 
     margin-bottom:8px;
 
@@ -636,6 +1068,8 @@ MESSAGE POPUP
 
     font-size:14px;
 
+    line-height:1.5;
+
 }
 
 
@@ -643,41 +1077,53 @@ MESSAGE POPUP
 
     margin-top:18px;
 
-    border:none;
-
-    background:#2563eb;
-
-    color:white;
-
     padding:10px 35px;
+
+    border:none;
 
     border-radius:9px;
 
+    background:#2563eb;
+
+    color:#ffffff;
+
     cursor:pointer;
+
+    font-weight:600;
 
 }
 
 
+.message-box button:hover{
 
-/* =========================
-CONFIRM POPUP
-========================= */
+    background:#1d4ed8;
+
+}
+
+
+/* =========================================
+   CONFIRM MODAL
+========================================= */
 
 .confirm-modal{
-
-    display:none;
 
     position:fixed;
 
     inset:0;
 
-    background:rgba(0,0,0,.45);
+    background:rgba(15,23,42,.55);
+
+    backdrop-filter:blur(3px);
+
+    display:none;
 
     align-items:center;
 
     justify-content:center;
 
-    z-index:9500;
+    z-index:11000;
+
+    padding:20px;
 
 }
 
@@ -691,38 +1137,54 @@ CONFIRM POPUP
 
 .confirm-box{
 
-    width:340px;
+    width:350px;
 
-    max-width:90%;
+    max-width:100%;
 
-    background:white;
+    background:#ffffff;
 
-    padding:28px;
+    border-radius:18px;
 
-    border-radius:20px;
+    padding:28px 25px;
 
     text-align:center;
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,.30);
+        0 20px 60px rgba(0,0,0,.30);
 
 }
 
 
 .confirm-icon{
 
-    font-size:48px;
+    width:65px;
 
-    color:#f59e0b;
+    height:65px;
 
-    margin-bottom:12px;
+    margin:0 auto 15px;
+
+    border-radius:50%;
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:30px;
 
 }
 
 
 .confirm-box h3{
 
-    color:#0f172a;
+    font-size:19px;
+
+    color:#1f2937;
 
     margin-bottom:8px;
 
@@ -734,6 +1196,8 @@ CONFIRM POPUP
     color:#64748b;
 
     font-size:14px;
+
+    line-height:1.5;
 
 }
 
@@ -753,17 +1217,25 @@ CONFIRM POPUP
 
     flex:1;
 
-    padding:11px;
+    height:42px;
 
     border:none;
 
     border-radius:9px;
 
-    color:white;
-
     cursor:pointer;
 
+    font-size:13px;
+
     font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
 
 }
 
@@ -772,35 +1244,153 @@ CONFIRM POPUP
 
     background:#dc2626;
 
+    color:#ffffff;
+
+}
+
+
+.confirm-delete:hover{
+
+    background:#b91c1c;
+
 }
 
 
 .confirm-cancel{
 
-    background:#64748b;
+    background:#e5e7eb;
+
+    color:#374151;
 
 }
 
 
+.confirm-cancel:hover{
 
-/* =========================
-MOBILE
-========================= */
+    background:#d1d5db;
 
-@media(max-width:700px){
+}
 
-    .header{
 
-        width:95%;
+/* =========================================
+   EMPTY / LOADING TABLE
+========================================= */
+
+#callList td[colspan]{
+
+    padding:35px 15px;
+
+    color:#64748b;
+
+}
+
+
+.fa-spin{
+
+    margin-right:6px;
+
+    color:#2563eb;
+
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.table-scroll::-webkit-scrollbar,
+.popup::-webkit-scrollbar{
+
+    height:7px;
+
+    width:7px;
+
+}
+
+
+.table-scroll::-webkit-scrollbar-track,
+.popup::-webkit-scrollbar-track{
+
+    background:#f1f5f9;
+
+    border-radius:10px;
+
+}
+
+
+.table-scroll::-webkit-scrollbar-thumb,
+.popup::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:10px;
+
+}
+
+
+.table-scroll::-webkit-scrollbar-thumb:hover,
+.popup::-webkit-scrollbar-thumb:hover{
+
+    background:#94a3b8;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:900px){
+
+    body{
 
         padding:12px;
 
     }
 
 
+    .filter-box{
+
+        align-items:stretch;
+
+    }
+
+
+    .filter-item{
+
+        min-width:calc(50% - 10px);
+
+    }
+
+
+    .filter-buttons{
+
+        width:100%;
+
+    }
+
+
+    .filter-buttons button{
+
+        flex:1;
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .header{
+
+        padding:10px 12px;
+
+    }
+
+
     .left-section{
 
-        gap:10px;
+        gap:8px;
 
     }
 
@@ -819,6 +1409,20 @@ MOBILE
     }
 
 
+    .back-btn{
+
+        font-size:0;
+
+    }
+
+
+    .back-btn i{
+
+        font-size:15px;
+
+    }
+
+
     .profile-head span{
 
         display:none;
@@ -826,18 +1430,128 @@ MOBILE
     }
 
 
-    .table-box{
+    .profile-head > i{
 
-        width:95%;
+        display:none;
+
+    }
+
+
+    .filter-box{
+
+        padding:14px;
+
+        flex-direction:column;
+
+    }
+
+
+    .filter-item{
+
+        width:100%;
+
+        min-width:100%;
+
+    }
+
+
+    .filter-buttons{
+
+        width:100%;
+
+    }
+
+
+    .table-box{
 
         padding:12px;
 
     }
 
 
+    .table-header h3{
+
+        font-size:16px;
+
+    }
+
+
+    #resultCount{
+
+        font-size:11px;
+
+    }
+
+
     .popup{
 
-        padding:22px;
+        padding:20px;
+
+    }
+
+
+    .popup-buttons{
+
+        flex-wrap:wrap;
+
+    }
+
+
+    .popup-buttons button{
+
+        min-width:calc(50% - 5px);
+
+    }
+
+
+    .delete-btn{
+
+        min-width:100% !important;
+
+    }
+
+}
+
+
+@media(max-width:400px){
+
+    .left-section h2{
+
+        font-size:15px;
+
+    }
+
+
+    .profile-head img{
+
+        width:40px;
+
+        height:40px;
+
+        min-width:40px;
+
+        max-width:40px;
+
+    }
+
+
+    .filter-buttons{
+
+        flex-direction:column;
+
+    }
+
+
+    .filter-buttons button{
+
+        width:100%;
+
+    }
+
+
+    .confirm-buttons{
+
+        flex-direction:column;
 
     }
 
