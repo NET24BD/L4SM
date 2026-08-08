@@ -1,12 +1,6 @@
 /* =====================================================
-   CALL.CSS
-   PENDING CALL - BLUE THEME
-===================================================== */
-
-
-/* =========================
    RESET
-========================= */
+===================================================== */
 
 *{
     margin:0;
@@ -16,166 +10,196 @@
 }
 
 
-/* =========================
+/* =====================================================
    BODY
-========================= */
+===================================================== */
 
 body{
+
     min-height:100vh;
+
     background:#f1f5f9;
+
     color:#334155;
+
     overflow-x:hidden;
+
 }
 
 
-/* =========================
+/* =====================================================
    HEADER
-========================= */
+===================================================== */
 
 .header{
-    width:96%;
-    margin:20px auto 15px;
-    min-height:65px;
 
-    background:white;
+    width:calc(100% - 6px);
 
-    border-radius:15px;
+    min-height:72px;
 
-    padding:10px 20px;
+    margin:0 3px;
+
+    padding:0 22px;
+
+    background:#ffffff;
+
+    border-radius:0 0 16px 16px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.08);
+
 }
 
 
-/* =========================
+/* =====================================================
    LEFT SECTION
-========================= */
+===================================================== */
 
 .left-section{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-
-.left-section h2{
-    color:#0f172a;
-    font-size:21px;
 
     display:flex;
+
     align-items:center;
-    gap:8px;
+
+    gap:14px;
+
 }
 
 
-.left-section h2 i{
-    color:#2563eb;
-}
-
-
-/* =========================
+/* =====================================================
    BACK BUTTON
-========================= */
+===================================================== */
 
 .back-btn{
-    background:#2563eb;
-    color:white;
 
     border:none;
 
-    padding:8px 13px;
+    background:#2563eb;
+
+    color:#ffffff;
+
+    padding:9px 15px;
 
     border-radius:8px;
+
+    font-size:14px;
 
     cursor:pointer;
 
     display:flex;
+
     align-items:center;
+
     gap:6px;
 
-    font-size:13px;
-
     transition:.2s;
+
 }
 
 
 .back-btn:hover{
+
     background:#1d4ed8;
+
+    transform:translateY(-1px);
+
 }
 
 
-/* =========================
-   FILTER BUTTON
-========================= */
+/* =====================================================
+   PENDING CALL TITLE
+===================================================== */
 
-.filter-toggle{
-    background:#2563eb;
-    color:white;
+.call-title{
 
-    border:none;
+    display:flex;
 
-    width:36px;
-    height:36px;
+    align-items:center;
 
-    border-radius:8px;
+    gap:8px;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#0f172a;
 
     cursor:pointer;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    user-select:none;
 
-    font-size:15px;
+}
+
+
+.call-title i{
+
+    color:#2563eb;
+
+    font-size:23px;
+
+    cursor:pointer;
 
     transition:.2s;
+
 }
 
 
-.filter-toggle:hover{
-    background:#1d4ed8;
-    transform:translateY(-1px);
+.call-title:hover i{
+
+    transform:scale(1.1);
+
 }
 
 
-/* =========================
+/* =====================================================
    PROFILE
-========================= */
+===================================================== */
 
 .profile{
+
     position:relative;
+
 }
 
 
+/* =====================================================
+   PROFILE HEAD
+===================================================== */
+
 .profile-head{
+
     display:flex;
+
     align-items:center;
+
     gap:8px;
 
     cursor:pointer;
 
-    padding:5px 8px;
+    user-select:none;
 
-    border-radius:10px;
-
-    transition:.2s;
 }
 
 
-.profile-head:hover{
-    background:#f1f5f9;
-}
-
+/* =====================================================
+   PROFILE IMAGE
+===================================================== */
 
 .profile-head img{
-    width:42px;
-    height:42px;
 
-    min-width:42px;
-    min-height:42px;
+    width:44px;
+
+    height:44px;
+
+    min-width:44px;
+
+    min-height:44px;
 
     border-radius:50%;
 
@@ -184,220 +208,244 @@ body{
     border:2px solid #2563eb;
 
     display:block;
+
 }
 
+
+/* =====================================================
+   USERNAME
+===================================================== */
 
 .profile-head span{
+
     font-size:14px;
+
     font-weight:600;
-    color:#1e293b;
+
+    color:#0f172a;
+
 }
 
 
-.profile-head i{
-    font-size:12px;
+/* =====================================================
+   PROFILE ARROW
+===================================================== */
+
+.profile-head > i{
+
+    font-size:13px;
+
     color:#64748b;
+
 }
 
 
-/* =========================
+/* =====================================================
    PROFILE MENU
-========================= */
+===================================================== */
 
 .profile-menu{
+
     position:absolute;
 
     right:0;
-    top:53px;
 
-    width:185px;
+    top:55px;
 
-    background:white;
+    width:190px;
+
+    background:#ffffff;
 
     border-radius:12px;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.18);
 
     overflow:hidden;
 
     display:none;
 
     z-index:5000;
+
 }
 
 
 .profile-menu.show{
+
     display:block;
+
 }
 
 
+/* =====================================================
+   PROFILE MENU BUTTON
+===================================================== */
+
 .profile-menu button{
+
     width:100%;
 
-    padding:13px 14px;
+    padding:13px 15px;
 
     border:none;
 
-    background:white;
+    background:#ffffff;
+
+    color:#334155;
+
+    font-size:14px;
 
     text-align:left;
 
     cursor:pointer;
-
-    font-size:14px;
-
-    color:#334155;
 
     display:flex;
 
     align-items:center;
 
     gap:10px;
+
 }
 
 
 .profile-menu button:hover{
+
     background:#f1f5f9;
+
+}
+
+
+.profile-menu button i{
+
+    width:18px;
+
     color:#2563eb;
+
 }
 
 
 /* =====================================================
-   FILTER BAR
+   FILTER ROW
    DEFAULT HIDDEN
 ===================================================== */
 
 .filter-row{
 
-    width:96%;
+    width:calc(100% - 6px);
 
-    margin:0 auto 15px;
+    margin:15px 3px 0;
 
-    padding:8px 10px;
+    padding:14px 18px;
 
-    background:white;
+    background:#ffffff;
 
-    border-radius:10px;
+    border-radius:14px;
 
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.07);
 
     display:none;
 
-    align-items:center;
+    align-items:flex-end;
 
-    gap:8px;
+    gap:12px;
 
-    flex-wrap:nowrap;
 }
 
 
 /* SHOW FILTER */
 
 .filter-row.show{
+
     display:flex;
+
 }
 
 
-/* =========================
+/* =====================================================
    FILTER GROUP
-========================= */
+===================================================== */
 
 .filter-group{
+
     display:flex;
 
-    align-items:center;
+    flex-direction:column;
 
     gap:5px;
+
+    flex:1;
+
 }
 
 
 .filter-group label{
-    font-size:11px;
+
+    font-size:12px;
 
     font-weight:600;
 
     color:#475569;
 
-    white-space:nowrap;
 }
 
 
-/* =========================
-   FILTER INPUT
-========================= */
+.filter-group input{
 
-.filter-row input{
+    width:100%;
 
-    height:32px;
+    height:36px;
 
-    padding:5px 8px;
+    padding:7px 10px;
 
-    border:1px solid #d1d5db;
+    border:1px solid #cbd5e1;
 
     border-radius:7px;
 
     outline:none;
 
-    background:#f8fafc;
+    font-size:13px;
 
     color:#334155;
 
-    font-size:12px;
+    background:#ffffff;
 
-    transition:.2s;
 }
 
 
-.filter-row input:focus{
+.filter-group input:focus{
 
     border-color:#2563eb;
 
-    background:white;
+    box-shadow:
+        0 0 0 2px rgba(37,99,235,.10);
 
-    box-shadow:0 0 0 2px rgba(37,99,235,.08);
 }
 
 
-/* FROM / TO */
+/* =====================================================
+   FILTER BUTTON
+===================================================== */
 
-.filter-row input[type="date"]{
-    width:125px;
-}
+.filter-btn{
 
+    height:36px;
 
-/* LAST DAYS */
-
-.filter-row input[type="number"]{
-    width:65px;
-}
-
-
-/* SEARCH */
-
-.filter-row input[type="text"]{
-    width:150px;
-}
-
-
-/* =========================
-   FILTER BUTTONS
-========================= */
-
-.filter-row button{
-
-    height:32px;
-
-    padding:5px 11px;
+    padding:0 14px;
 
     border:none;
 
     border-radius:7px;
 
-    cursor:pointer;
+    background:#2563eb;
 
-    font-size:11px;
+    color:#ffffff;
+
+    font-size:13px;
 
     font-weight:600;
+
+    cursor:pointer;
 
     display:flex;
 
@@ -405,157 +453,248 @@ body{
 
     justify-content:center;
 
-    gap:5px;
+    gap:6px;
 
-    white-space:nowrap;
-
-    transition:.2s;
-}
-
-
-/* APPLY */
-
-.filter-btn{
-    background:#2563eb;
-    color:white;
 }
 
 
 .filter-btn:hover{
+
     background:#1d4ed8;
+
 }
 
 
-/* RESET */
+/* =====================================================
+   RESET BUTTON
+===================================================== */
 
 .reset-btn{
+
+    height:36px;
+
+    padding:0 13px;
+
+    border:none;
+
+    border-radius:7px;
+
     background:#64748b;
-    color:white;
-}
 
-
-.reset-btn:hover{
-    background:#475569;
-}
-
-
-/* =========================
-   TABLE BOX
-========================= */
-
-.table-box{
-
-    width:96%;
-
-    margin:0 auto 30px;
-
-    background:white;
-
-    border-radius:15px;
-
-    padding:15px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-
-    overflow-x:auto;
-}
-
-
-/* =========================
-   TABLE
-========================= */
-
-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    min-width:850px;
-}
-
-
-/* =========================
-   TABLE HEADER
-========================= */
-
-thead{
-    background:#2563eb;
-    color:white;
-}
-
-
-th{
-
-    padding:12px 10px;
+    color:#ffffff;
 
     font-size:13px;
 
     font-weight:600;
 
-    white-space:nowrap;
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
 }
 
 
-/* =========================
+.reset-btn:hover{
+
+    background:#475569;
+
+}
+
+
+/* =====================================================
+   TABLE BOX
+===================================================== */
+
+.table-box{
+
+    width:calc(100% - 6px);
+
+    max-width:none;
+
+    margin:15px 3px 0;
+
+    padding:16px 18px;
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.08);
+
+    overflow-x:auto;
+
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-box table{
+
+    width:100%;
+
+    min-width:1000px;
+
+    border-collapse:collapse;
+
+    table-layout:auto;
+
+}
+
+
+/* =====================================================
+   TABLE HEADER
+===================================================== */
+
+.table-box thead{
+
+    background:#2563eb;
+
+}
+
+
+.table-box th{
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    padding:14px 12px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-align:center;
+
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
    TABLE BODY
-========================= */
+===================================================== */
 
-td{
+.table-box td{
 
-    padding:11px 10px;
+    padding:14px 12px;
+
+    font-size:13px;
+
+    color:#334155;
 
     text-align:center;
 
     border-bottom:1px solid #e2e8f0;
 
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
+   TABLE HOVER
+===================================================== */
+
+.table-box tbody tr:hover{
+
+    background:#f8fafc;
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.table-box td[colspan]{
+
+    height:40px;
+
+    text-align:center;
+
+    color:#64748b;
+
     font-size:13px;
 
-    color:#334155;
 }
 
 
-tbody tr{
-    transition:.2s;
-}
-
-
-tbody tr:hover{
-    background:#f8fafc;
-}
-
-
-/* =========================
+/* =====================================================
    EDIT BUTTON
-========================= */
+===================================================== */
 
 .edit-btn{
 
     border:none;
 
-    background:#2563eb;
+    background:#16a34a;
 
-    color:white;
+    color:#ffffff;
 
     padding:7px 12px;
 
-    border-radius:7px;
-
-    cursor:pointer;
+    border-radius:6px;
 
     font-size:12px;
 
-    font-weight:600;
+    cursor:pointer;
+
+    margin:2px;
+
 }
 
 
 .edit-btn:hover{
-    background:#1d4ed8;
+
+    background:#15803d;
+
 }
 
 
 /* =====================================================
-   EDIT MODAL
+   DELETE BUTTON
+===================================================== */
+
+.delete-btn{
+
+    border:none;
+
+    background:#dc2626;
+
+    color:#ffffff;
+
+    padding:7px 12px;
+
+    border-radius:6px;
+
+    font-size:12px;
+
+    cursor:pointer;
+
+    margin:2px;
+
+}
+
+
+.delete-btn:hover{
+
+    background:#b91c1c;
+
+}
+
+
+/* =====================================================
+   MODAL
 ===================================================== */
 
 .modal{
@@ -574,24 +713,25 @@ tbody tr:hover{
 
     padding:20px;
 
-    z-index:9000;
+    z-index:10000;
+
 }
 
 
 .modal.show{
+
     display:flex;
+
 }
 
 
-/* =========================
-   POPUP
-========================= */
+/* =====================================================
+   EDIT POPUP
+===================================================== */
 
 .popup{
 
-    position:relative;
-
-    width:430px;
+    width:450px;
 
     max-width:100%;
 
@@ -599,39 +739,31 @@ tbody tr:hover{
 
     overflow-y:auto;
 
-    background:white;
-
-    padding:25px;
+    background:#ffffff;
 
     border-radius:18px;
 
-    box-shadow:0 20px 50px rgba(0,0,0,.30);
+    padding:25px;
+
+    position:relative;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+
 }
 
 
-.popup h2{
-
-    text-align:center;
-
-    color:#0f172a;
-
-    margin-bottom:20px;
-
-    font-size:21px;
-}
-
-
-/* =========================
+/* =====================================================
    CLOSE BUTTON
-========================= */
+===================================================== */
 
 .close-btn{
 
     position:absolute;
 
-    right:13px;
+    right:15px;
 
-    top:13px;
+    top:12px;
 
     width:32px;
 
@@ -641,46 +773,63 @@ tbody tr:hover{
 
     border-radius:50%;
 
-    background:#2563eb;
+    background:#f1f5f9;
 
-    color:white;
+    color:#475569;
 
-    font-size:20px;
+    font-size:22px;
 
     cursor:pointer;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
 }
 
 
 .close-btn:hover{
-    background:#1d4ed8;
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
 }
 
 
-/* =========================
-   FORM
-========================= */
+/* =====================================================
+   POPUP TITLE
+===================================================== */
+
+.popup h2{
+
+    margin-bottom:20px;
+
+    color:#0f172a;
+
+    font-size:21px;
+
+}
+
+
+/* =====================================================
+   POPUP LABEL
+===================================================== */
 
 .popup label{
 
     display:block;
 
-    margin-bottom:5px;
-
-    margin-top:11px;
-
-    color:#334155;
+    margin:10px 0 6px;
 
     font-size:13px;
 
     font-weight:600;
+
+    color:#334155;
+
 }
 
+
+/* =====================================================
+   POPUP INPUT
+===================================================== */
 
 .popup input,
 .popup textarea{
@@ -689,7 +838,7 @@ tbody tr:hover{
 
     padding:10px 11px;
 
-    border:1px solid #d1d5db;
+    border:1px solid #cbd5e1;
 
     border-radius:8px;
 
@@ -698,6 +847,7 @@ tbody tr:hover{
     font-size:13px;
 
     resize:vertical;
+
 }
 
 
@@ -706,13 +856,15 @@ tbody tr:hover{
 
     border-color:#2563eb;
 
-    box-shadow:0 0 0 2px rgba(37,99,235,.08);
+    box-shadow:
+        0 0 0 2px rgba(37,99,235,.08);
+
 }
 
 
-/* =========================
+/* =====================================================
    POPUP BUTTONS
-========================= */
+===================================================== */
 
 .popup-buttons{
 
@@ -721,65 +873,105 @@ tbody tr:hover{
     gap:8px;
 
     margin-top:20px;
+
+    flex-wrap:wrap;
+
 }
 
 
-.popup-buttons button{
+.submit-btn{
 
     flex:1;
 
-    min-height:38px;
+    min-width:90px;
+
+    padding:10px;
 
     border:none;
 
     border-radius:8px;
 
-    cursor:pointer;
+    background:#2563eb;
+
+    color:#ffffff;
 
     font-size:13px;
 
     font-weight:600;
 
-    transition:.2s;
-}
+    cursor:pointer;
 
-
-/* SUBMIT */
-
-.submit-btn{
-    background:#2563eb;
-    color:white;
 }
 
 
 .submit-btn:hover{
+
     background:#1d4ed8;
+
 }
 
 
-/* CANCEL */
-
 .cancel-btn{
+
+    flex:1;
+
+    min-width:90px;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:8px;
+
     background:#64748b;
-    color:white;
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
 }
 
 
 .cancel-btn:hover{
+
     background:#475569;
+
 }
 
 
-/* DELETE */
+.popup-buttons .delete-btn{
 
-.delete-btn{
+    flex:1;
+
+    min-width:90px;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:8px;
+
     background:#dc2626;
-    color:white;
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
 }
 
 
-.delete-btn:hover{
+.popup-buttons .delete-btn:hover{
+
     background:#b91c1c;
+
 }
 
 
@@ -793,7 +985,7 @@ tbody tr:hover{
 
     inset:0;
 
-    background:rgba(15,23,42,.45);
+    background:rgba(15,23,42,.55);
 
     display:none;
 
@@ -801,30 +993,41 @@ tbody tr:hover{
 
     justify-content:center;
 
-    z-index:10000;
+    padding:20px;
+
+    z-index:20000;
+
 }
 
 
 .message-modal.show{
+
     display:flex;
+
 }
 
 
+/* =====================================================
+   MESSAGE BOX
+===================================================== */
+
 .message-box{
 
-    width:320px;
+    width:330px;
 
-    max-width:90%;
+    max-width:100%;
 
-    background:white;
+    padding:28px 25px;
+
+    background:#ffffff;
 
     border-radius:18px;
 
-    padding:25px;
-
     text-align:center;
 
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+
 }
 
 
@@ -834,9 +1037,13 @@ tbody tr:hover{
 
     height:60px;
 
-    margin:0 auto 12px;
+    margin:0 auto 15px;
 
     border-radius:50%;
+
+    background:#dcfce7;
+
+    color:#16a34a;
 
     display:flex;
 
@@ -844,11 +1051,8 @@ tbody tr:hover{
 
     justify-content:center;
 
-    background:#dbeafe;
-
-    color:#2563eb;
-
     font-size:30px;
+
 }
 
 
@@ -856,7 +1060,8 @@ tbody tr:hover{
 
     color:#0f172a;
 
-    margin-bottom:7px;
+    margin-bottom:8px;
+
 }
 
 
@@ -865,36 +1070,40 @@ tbody tr:hover{
     color:#64748b;
 
     font-size:14px;
+
+    margin-bottom:20px;
+
 }
 
 
 .message-box button{
 
-    margin-top:18px;
-
-    padding:9px 30px;
-
     border:none;
-
-    border-radius:8px;
 
     background:#2563eb;
 
-    color:white;
+    color:#ffffff;
+
+    padding:10px 28px;
+
+    border-radius:8px;
 
     cursor:pointer;
 
     font-weight:600;
+
 }
 
 
 .message-box button:hover{
+
     background:#1d4ed8;
+
 }
 
 
 /* =====================================================
-   CONFIRM DELETE MODAL
+   CONFIRM MODAL
 ===================================================== */
 
 .confirm-modal{
@@ -903,7 +1112,7 @@ tbody tr:hover{
 
     inset:0;
 
-    background:rgba(15,23,42,.50);
+    background:rgba(15,23,42,.55);
 
     display:none;
 
@@ -911,30 +1120,41 @@ tbody tr:hover{
 
     justify-content:center;
 
-    z-index:11000;
+    padding:20px;
+
+    z-index:21000;
+
 }
 
 
 .confirm-modal.show{
+
     display:flex;
+
 }
 
 
+/* =====================================================
+   CONFIRM BOX
+===================================================== */
+
 .confirm-box{
 
-    width:340px;
+    width:350px;
 
-    max-width:90%;
+    max-width:100%;
 
-    background:white;
+    padding:28px 25px;
+
+    background:#ffffff;
 
     border-radius:18px;
 
-    padding:25px;
-
     text-align:center;
 
-    box-shadow:0 20px 50px rgba(0,0,0,.30);
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+
 }
 
 
@@ -944,7 +1164,7 @@ tbody tr:hover{
 
     height:60px;
 
-    margin:0 auto 14px;
+    margin:0 auto 15px;
 
     border-radius:50%;
 
@@ -959,6 +1179,7 @@ tbody tr:hover{
     justify-content:center;
 
     font-size:28px;
+
 }
 
 
@@ -967,6 +1188,7 @@ tbody tr:hover{
     color:#0f172a;
 
     margin-bottom:8px;
+
 }
 
 
@@ -974,11 +1196,18 @@ tbody tr:hover{
 
     color:#64748b;
 
-    font-size:13px;
+    font-size:14px;
 
     line-height:1.5;
+
+    margin-bottom:20px;
+
 }
 
+
+/* =====================================================
+   CONFIRM BUTTONS
+===================================================== */
 
 .confirm-buttons{
 
@@ -986,11 +1215,10 @@ tbody tr:hover{
 
     gap:10px;
 
-    margin-top:20px;
 }
 
 
-.confirm-buttons button{
+.confirm-delete{
 
     flex:1;
 
@@ -1000,66 +1228,73 @@ tbody tr:hover{
 
     border-radius:8px;
 
-    cursor:pointer;
+    background:#dc2626;
+
+    color:#ffffff;
 
     font-size:13px;
 
     font-weight:600;
-}
 
+    cursor:pointer;
 
-/* DELETE */
-
-.confirm-delete{
-
-    background:#dc2626;
-
-    color:white;
 }
 
 
 .confirm-delete:hover{
+
     background:#b91c1c;
+
 }
 
 
-/* CANCEL */
-
 .confirm-cancel{
+
+    flex:1;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:8px;
 
     background:#64748b;
 
-    color:white;
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
 }
 
 
 .confirm-cancel:hover{
+
     background:#475569;
+
 }
 
 
 /* =====================================================
-   MOBILE
+   RESPONSIVE
 ===================================================== */
 
 @media(max-width:900px){
 
-    .header{
-        width:94%;
-    }
-
-
     .filter-row{
-
-        width:94%;
 
         flex-wrap:wrap;
 
     }
 
 
-    .table-box{
-        width:94%;
+    .filter-group{
+
+        min-width:180px;
+
     }
 
 }
@@ -1069,41 +1304,39 @@ tbody tr:hover{
 
     .header{
 
-        padding:9px 12px;
+        min-height:65px;
+
+        padding:0 12px;
 
     }
 
 
     .left-section{
 
-        gap:7px;
-
-    }
-
-
-    .left-section h2{
-
-        font-size:16px;
+        gap:8px;
 
     }
 
 
     .back-btn{
 
-        padding:6px 9px;
+        padding:8px 11px;
 
-        font-size:11px;
+        font-size:13px;
 
     }
 
 
-    .filter-toggle{
+    .call-title{
 
-        width:32px;
+        font-size:18px;
 
-        height:32px;
+    }
 
-        font-size:13px;
+
+    .call-title i{
+
+        font-size:19px;
 
     }
 
@@ -1117,37 +1350,33 @@ tbody tr:hover{
 
     .profile-head img{
 
-        width:38px;
+        width:40px;
 
-        height:38px;
+        height:40px;
 
-        min-width:38px;
+        min-width:40px;
 
-        min-height:38px;
+        min-height:40px;
 
     }
 
 
-    /* FILTER MOBILE */
+    .table-box{
+
+        padding:12px;
+
+        margin-top:12px;
+
+    }
+
 
     .filter-row{
 
-        display:none;
+        padding:12px;
 
         flex-direction:column;
 
         align-items:stretch;
-
-        gap:8px;
-
-        padding:10px;
-
-    }
-
-
-    .filter-row.show{
-
-        display:flex;
 
     }
 
@@ -1156,46 +1385,18 @@ tbody tr:hover{
 
         width:100%;
 
-        justify-content:space-between;
+        min-width:0;
 
     }
 
 
-    .filter-group label{
-
-        min-width:55px;
-
-    }
-
-
-    .filter-row input[type="date"],
-    .filter-row input[type="number"],
-    .filter-row input[type="text"]{
-
-        width:100%;
-
-        flex:1;
-
-    }
-
-
-    .filter-row button{
+    .filter-btn,
+    .reset-btn{
 
         width:100%;
 
     }
 
-
-    /* TABLE */
-
-    .table-box{
-
-        padding:10px;
-
-    }
-
-
-    /* EDIT POPUP */
 
     .popup{
 
@@ -1211,9 +1412,62 @@ tbody tr:hover{
     }
 
 
-    .confirm-buttons{
+    .submit-btn,
+    .cancel-btn,
+    .popup-buttons .delete-btn{
 
-        flex-direction:column;
+        width:100%;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:450px){
+
+    .header{
+
+        width:100%;
+
+        margin:0;
+
+        border-radius:0 0 14px 14px;
+
+    }
+
+
+    .back-btn{
+
+        font-size:0;
+
+        padding:9px 11px;
+
+    }
+
+
+    .back-btn i{
+
+        font-size:15px;
+
+        margin:0;
+
+    }
+
+
+    .call-title{
+
+        font-size:17px;
+
+    }
+
+
+    .profile-head > i{
+
+        display:none;
 
     }
 
