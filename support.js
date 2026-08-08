@@ -1,655 +1,858 @@
+```javascript
+// =====================================
+// SUPPORT WEB - FINAL JS
+// =====================================
+
 // ===============================
 // API URL
 // ===============================
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
-
-let currentRow="";
-
-
-
+let currentRow = "";
 
 
 // ===============================
 // START
 // ===============================
+document.addEventListener("DOMContentLoaded", function () {
+
+    // ===============================
+    // LOAD USER
+    // ===============================
+    const user = localStorage.getItem("username");
+
+    if (user) {
+        const usernameEl = document.getElementById("username");
+
+        if (usernameEl) {
+            usernameEl.innerHTML = user;
+        }
+    }
 
 
-document.addEventListener("DOMContentLoaded",function(){
+    // ===============================
+    // LOAD PROFILE IMAGE
+    // ===============================
+    const img = localStorage.getItem("picture");
+
+    if (img) {
+        const profileImg = document.getElementById("profileImg");
+
+        if (profileImg) {
+            profileImg.src = img;
+        }
+    }
 
 
-
-let user =
-localStorage.getItem("username");
-
-
-if(user){
-
-document.getElementById("username").innerHTML=user;
-
-}
-
-
-
-let img =
-localStorage.getItem("picture");
-
-
-if(img){
-
-document.getElementById("profileImg").src=img;
-
-}
-
-
-
-loadSupport();
-
+    // ===============================
+    // LOAD SUPPORT DATA
+    // ===============================
+    loadSupport();
 
 });
-
-
-
-
-
-
-
 
 
 // ===============================
 // PROFILE
 // ===============================
+function toggleProfile() {
 
+    const menu = document.getElementById("profileMenu");
 
-function toggleProfile(){
-
-
-document
-.getElementById("profileMenu")
-.classList.toggle("show");
-
+    if (menu) {
+        menu.classList.toggle("show");
+    }
 
 }
 
 
+function myAccount() {
 
-
-function myAccount(){
-
-
-location.href="myaccount.html";
-
+    location.href = "myaccount.html";
 
 }
 
 
+function logout() {
 
+    localStorage.clear();
 
-function logout(){
-
-
-localStorage.clear();
-
-
-location.href="index.html";
-
+    location.href = "index.html";
 
 }
 
 
+function goBack() {
 
-function goBack(){
-
-
-location.href="dashboard.html";
-
+    location.href = "dashboard.html";
 
 }
-
-
-
-
-
-
-
 
 
 // ===============================
 // LOAD SUPPORT
 // ===============================
+function loadSupport() {
 
+    const list = document.getElementById("supportList");
 
-function loadSupport(){
+    if (list) {
 
+        list.innerHTML = `
+            <div class="loading">
+                Loading...
+            </div>
+        `;
 
+    }
 
-fetch(API_URL,{
 
-method:"POST",
+    fetch(API_URL, {
 
-headers:{
+        method: "POST",
 
-"Content-Type":"text/plain;charset=utf-8"
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
 
-},
+        body: JSON.stringify({
 
-body:JSON.stringify({
+            action: "getPendingSupport"
 
-action:"getPendingSupport"
+        })
 
-})
+    })
 
+    .then(function (res) {
 
-})
+        return res.json();
 
-.then(res=>res.json())
+    })
 
-.then(data=>{
+    .then(function (data) {
 
+        if (!data || data.success === false) {
 
-let html="";
+            throw new Error(
+                data && data.message
+                    ? data.message
+                    : "Failed to load support data"
+            );
 
+        }
 
 
-if(data.data){
+        let html = "";
 
 
+        // ===============================
+        // NO DATA
+        // ===============================
+        if (!data.data || data.data.length === 0) {
 
-data.data.forEach(item=>{
+            html = `
+                <div class="no-data">
+                    No Pending Support
+                </div>
+            `;
 
+        }
 
+        else {
 
-html+=`
+            data.data.forEach(function (item) {
 
-<tr>
+                html += `
 
+                    <div class="support-item">
 
-<td>
+                        <div class="customer-id">
+                            ${escapeHTML(item.customerId)}
+                        </div>
 
-${item.customerId || ""}
+                        <div class="problem">
+                            ${escapeHTML(item.problem)}
+                        </div>
 
-</td>
+                        <div class="reference">
+                            ${escapeHTML(item.reference)}
+                        </div>
 
+                        <div class="date">
+                            ${escapeHTML(item.date)}
+                        </div>
 
+                        <button
+                            class="edit-btn"
+                            onclick="editSupport(${Number(item.row)})">
 
-<td>
+                            Edit
 
-${item.problem || ""}
+                        </button>
 
-</td>
+                    </div>
 
+                `;
 
+            });
 
-<td>
+        }
 
-${item.reference || ""}
 
-</td>
+        if (list) {
 
+            list.innerHTML = html;
 
+        }
 
-<td>
+    })
 
-${formatDate(item.date)}
+    .catch(function (error) {
 
-</td>
+        console.error("Support Load Error:", error);
 
+        if (list) {
 
+            list.innerHTML = `
+                <div class="error">
+                    Failed to load support data
+                </div>
+            `;
 
-<td>
+        }
 
-
-<button class="edit-btn"
-
-onclick="editSupport('${item.row}')">
-
-
-<i class="fa fa-edit"></i>
-
-Edit
-
-
-</button>
-
-
-</td>
-
-
-</tr>
-
-`;
-
-
-
-});
-
-
+    });
 
 }
 
 
+// ===============================
+// HTML ESCAPE
+// ===============================
+function escapeHTML(value) {
 
-document
-.getElementById("supportList")
-.innerHTML=html;
+    if (value === null || value === undefined) {
+        return "";
+    }
 
-
-
-})
-
-.catch(error=>{
-
-
-console.log("Server Error",error);
-
-
-});
-
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
-
-
-
-
-
-
-
 
 
 // ===============================
 // DATE FORMAT
 // ===============================
+function formatDate(date) {
+
+    if (!date) {
+        return "";
+    }
+
+    const d = new Date(date);
+
+    if (isNaN(d.getTime())) {
+        return String(date);
+    }
 
 
-function formatDate(date){
+    const day =
+        String(d.getDate()).padStart(2, "0");
 
 
-if(!date){
+    const monthList = [
 
-return "";
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
 
-}
-
-
-
-let d=new Date(date);
-
-
-
-let day=
-String(d.getDate())
-.padStart(2,"0");
-
-
-
-let monthList=[
-
-"Jan",
-"Feb",
-"Mar",
-"Apr",
-"May",
-"Jun",
-"Jul",
-"Aug",
-"Sep",
-"Oct",
-"Nov",
-"Dec"
-
-];
+    ];
 
 
-
-let month=
-monthList[d.getMonth()];
-
+    const month =
+        monthList[d.getMonth()];
 
 
-let year=
-d.getFullYear();
+    const year =
+        d.getFullYear();
 
 
-
-return `${day} ${month} ${year}`;
-
+    return `${day} ${month} ${year}`;
 
 }
-
-
-
-
-
-
-
 
 
 // ===============================
-// EDIT OPEN
+// EDIT SUPPORT
 // ===============================
+function editSupport(row) {
+
+    currentRow = Number(row);
 
 
-function editSupport(row){
+    fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+
+        body: JSON.stringify({
+
+            action: "getSingleSupport",
+
+            row: currentRow
+
+        })
+
+    })
+
+    .then(function (res) {
+
+        return res.json();
+
+    })
+
+    .then(function (data) {
+
+        if (!data || data.success === false) {
+
+            throw new Error(
+                data && data.message
+                    ? data.message
+                    : "Unable to load record"
+            );
+
+        }
 
 
-currentRow=row;
+        // ===============================
+        // CUSTOMER ID
+        // ===============================
+        setValue(
+            "customerId",
+            data.customerId
+        );
 
 
-
-fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"text/plain;charset=utf-8"
-
-},
-
-body:JSON.stringify({
-
-action:"getSingleSupport",
-
-row:row
-
-})
+        // ===============================
+        // PROBLEM
+        // ===============================
+        setValue(
+            "problem",
+            data.problem
+        );
 
 
-})
+        // ===============================
+        // REFERENCE
+        // ===============================
+        setValue(
+            "reference",
+            data.reference
+        );
 
 
-.then(res=>res.json())
+        // ===============================
+        // DATE
+        // ===============================
+        setValue(
+            "date",
+            convertDate(data.date)
+        );
 
 
-.then(data=>{
+        // ===============================
+        // SUPPORT
+        // ===============================
+        setValue(
+            "support",
+            data.support
+        );
 
 
-
-document.getElementById("customerId").value =
-data.customerId || "";
-
-
-
-document.getElementById("problem").value =
-data.problem || "";
-
+        // ===============================
+        // SUPPORT WORK
+        // ===============================
+        setValue(
+            "supportWork",
+            data.supportWork
+        );
 
 
-document.getElementById("reference").value =
-data.reference || "";
+        // ===============================
+        // SUPPORT TIME
+        // ===============================
+        setValue(
+            "supportTime",
+            data.supportTime
+        );
 
 
+        // ===============================
+        // OPEN MODAL
+        // ===============================
+        const modal =
+            document.getElementById("editModal");
 
-document.getElementById("date").value =
-convertDate(data.date);
+        if (modal) {
 
+            modal.classList.add("show");
 
+        }
 
-document.getElementById("support").value =
-data.support || "";
+    })
 
+    .catch(function (error) {
 
+        console.error(
+            "Edit Support Error:",
+            error
+        );
 
-document.getElementById("supportWork").value =
-data.supportWork || "";
+        alert(
+            "Unable to load support data."
+        );
 
-
-
-
-
-document
-.getElementById("editModal")
-.classList.add("show");
-
-
-
-})
-
-.catch(err=>{
-
-
-console.log(err);
-
-
-});
-
+    });
 
 }
 
 
+// ===============================
+// SET VALUE
+// ===============================
+function setValue(id, value) {
 
+    const element =
+        document.getElementById(id);
 
+    if (element) {
 
+        element.value =
+            value || "";
 
+    }
 
+}
 
 
 // ===============================
 // DATE FOR INPUT
 // ===============================
+function convertDate(date) {
+
+    if (!date) {
+        return "";
+    }
 
 
-function convertDate(date){
+    const d = new Date(date);
+
+    if (isNaN(d.getTime())) {
+
+        return "";
+
+    }
 
 
-if(!date){
-
-return "";
+    return d
+        .toISOString()
+        .split("T")[0];
 
 }
-
-
-let d=new Date(date);
-
-
-
-return d.toISOString().split("T")[0];
-
-
-}
-
-
-
-
-
-
-
 
 
 // ===============================
 // CLOSE EDIT
 // ===============================
+function closeEdit() {
 
+    const modal =
+        document.getElementById("editModal");
 
-function closeEdit(){
+    if (modal) {
 
+        modal.classList.remove("show");
 
-document
-.getElementById("editModal")
-.classList.remove("show");
-
+    }
 
 }
 
 
-
-
-
-
-
-
-
 // ===============================
-// UPDATE
+// SUBMIT SUPPORT
 // ===============================
+// Support + Support Work পূরণ করে
+// এই function call হবে
+// ===============================
+function updateSupport() {
+
+    if (!currentRow) {
+
+        alert(
+            "No support record selected."
+        );
+
+        return;
+
+    }
 
 
-function updateSupport(){
+    const customerId =
+        getValue("customerId");
 
 
-
-fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"text/plain;charset=utf-8"
-
-},
+    const problem =
+        getValue("problem");
 
 
-body:JSON.stringify({
-
-action:"updateSupport",
-
-
-row:currentRow,
+    const reference =
+        getValue("reference");
 
 
-customerId:
-document.getElementById("customerId").value,
+    const date =
+        getValue("date");
 
 
-problem:
-document.getElementById("problem").value,
+    const support =
+        getValue("support").trim();
 
 
-reference:
-document.getElementById("reference").value,
+    const supportWork =
+        getValue("supportWork").trim();
 
 
-date:
-document.getElementById("date").value,
+    const supportTime =
+        getValue("supportTime").trim();
 
 
-support:
-document.getElementById("support").value,
+    // ===============================
+    // VALIDATION
+    // ===============================
+    if (!support) {
+
+        alert(
+            "Please enter Support."
+        );
+
+        return;
+
+    }
 
 
-supportWork:
-document.getElementById("supportWork").value
+    if (!supportWork) {
+
+        alert(
+            "Please enter Support Work."
+        );
+
+        return;
+
+    }
 
 
-})
+    // ===============================
+    // BUTTON
+    // ===============================
+    const submitBtn =
+        document.querySelector(
+            "#editModal .submit-btn"
+        );
 
 
-})
+    if (submitBtn) {
+
+        submitBtn.disabled = true;
+
+        submitBtn.innerText =
+            "Submitting...";
+
+    }
 
 
-.then(res=>res.json())
+    // ===============================
+    // SEND TO APPS SCRIPT
+    // ===============================
+    fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type":
+                "text/plain;charset=utf-8"
+
+        },
+
+        body: JSON.stringify({
+
+            action: "moveToCall",
+
+            row: Number(currentRow),
+
+            customerId:
+                customerId,
+
+            problem:
+                problem,
+
+            reference:
+                reference,
+
+            date:
+                date,
+
+            support:
+                support,
+
+            supportWork:
+                supportWork,
+
+            supportTime:
+                supportTime
+
+        })
+
+    })
+
+    .then(function (res) {
+
+        return res.json();
+
+    })
+
+    .then(function (data) {
+
+        if (!data || data.success === false) {
+
+            throw new Error(
+                data && data.message
+                    ? data.message
+                    : "Support submission failed"
+            );
+
+        }
 
 
-.then(data=>{
+        // ===============================
+        // SUCCESS
+        // ===============================
+        alert(
+            "Support completed successfully."
+        );
 
 
-alert("Updated Successfully");
+        closeEdit();
 
 
-closeEdit();
+        currentRow = "";
 
 
-loadSupport();
+        // ===============================
+        // RELOAD SUPPORT LIST
+        // ===============================
+        loadSupport();
 
+    })
 
+    .catch(function (error) {
 
-})
+        console.error(
+            "Support Submit Error:",
+            error
+        );
 
+        alert(
+            "Support submit failed.\n\n" +
+            error.message
+        );
 
-.catch(err=>{
+    })
 
+    .finally(function () {
 
-alert("Update Failed");
+        if (submitBtn) {
 
+            submitBtn.disabled = false;
 
-});
+            submitBtn.innerText =
+                "Submit";
 
+        }
 
+    });
 
 }
 
 
-
-
-
-
-
-
-
 // ===============================
-// DELETE
+// GET VALUE
 // ===============================
+function getValue(id) {
 
+    const element =
+        document.getElementById(id);
 
-function deleteSupport(){
+    if (!element) {
 
+        return "";
 
+    }
 
-let confirmDelete =
-confirm("Are you sure you want to delete?");
-
-
-
-if(!confirmDelete){
-
-return;
+    return element.value || "";
 
 }
 
 
+// ===============================
+// DELETE SUPPORT
+// ===============================
+function deleteSupport() {
 
-fetch(API_URL,{
+    if (!currentRow) {
 
-method:"POST",
+        alert(
+            "No support record selected."
+        );
 
-headers:{
+        return;
 
-"Content-Type":"text/plain;charset=utf-8"
-
-},
-
-body:JSON.stringify({
-
-action:"deleteSupport",
-
-row:currentRow
+    }
 
 
-})
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete this support?"
+        );
 
 
-})
+    if (!confirmDelete) {
+
+        return;
+
+    }
 
 
-.then(res=>res.json())
+    fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type":
+                "text/plain;charset=utf-8"
+
+        },
+
+        body: JSON.stringify({
+
+            action:
+                "deleteSupport",
+
+            row:
+                Number(currentRow)
+
+        })
+
+    })
+
+    .then(function (res) {
+
+        return res.json();
+
+    })
+
+    .then(function (data) {
+
+        if (!data || data.success === false) {
+
+            throw new Error(
+                data && data.message
+                    ? data.message
+                    : "Delete failed"
+            );
+
+        }
 
 
-.then(data=>{
+        alert(
+            "Deleted Successfully"
+        );
 
 
-alert("Deleted Successfully");
+        closeEdit();
 
 
-closeEdit();
+        currentRow = "";
 
 
-loadSupport();
+        loadSupport();
 
+    })
 
+    .catch(function (error) {
 
-})
+        console.error(
+            "Delete Error:",
+            error
+        );
 
+        alert(
+            "Delete Failed"
+        );
 
-.catch(err=>{
-
-
-alert("Delete Failed");
-
-
-});
-
-
+    });
 
 }
+
+
+// ===============================
+// CLOSE PROFILE WHEN CLICK OUTSIDE
+// ===============================
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const profileMenu =
+            document.getElementById(
+                "profileMenu"
+            );
+
+        const profile =
+            document.querySelector(
+                ".profile"
+            );
+
+
+        if (
+            profileMenu &&
+            profile &&
+            !profile.contains(event.target)
+        ) {
+
+            profileMenu.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+```
