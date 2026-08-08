@@ -10,11 +10,10 @@
 
 <title>Pending Call</title>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="call.css">
 
 <link rel="stylesheet"
-      href="call.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
@@ -22,9 +21,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
-<!-- ===============================
+<!-- =========================
 HEADER
-=============================== -->
+========================= -->
 
 <div class="header">
 
@@ -51,13 +50,26 @@ HEADER
         </h2>
 
 
+        <!-- FILTER BUTTON -->
+
+        <button class="filter-toggle"
+                id="filterToggle"
+                onclick="toggleFilter()">
+
+            <i class="fa-solid fa-filter"></i>
+
+            Filter
+
+        </button>
+
+
     </div>
 
 
 
-    <!-- ===============================
+    <!-- =========================
     PROFILE
-    =============================== -->
+    ========================= -->
 
     <div class="profile">
 
@@ -67,8 +79,7 @@ HEADER
 
 
             <img id="profileImg"
-                 src="assets/profile.png"
-                 alt="Profile">
+                 src="assets/profile.png">
 
 
             <span id="username">
@@ -118,49 +129,22 @@ HEADER
 
 
 
+<!-- =========================
+FILTER BAR
+HIDDEN BY DEFAULT
+========================= -->
 
-<!-- ===============================
-FILTER AREA
-=============================== -->
-
-<div class="filter-box">
-
-
-    <!-- SEARCH -->
-
-    <div class="filter-item search-item">
-
-        <label>
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            Search
-
-        </label>
-
-
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Customer ID, Problem, Reference...">
-
-    </div>
-
-
+<div class="filter-row"
+     id="filterRow">
 
 
     <!-- FROM DATE -->
 
-    <div class="filter-item">
+    <div class="filter-group">
 
         <label>
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            From Date
-
+            From
         </label>
-
 
         <input
             type="date"
@@ -170,19 +154,13 @@ FILTER AREA
 
 
 
-
     <!-- TO DATE -->
 
-    <div class="filter-item">
+    <div class="filter-group">
 
         <label>
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            To Date
-
+            To
         </label>
-
 
         <input
             type="date"
@@ -192,90 +170,66 @@ FILTER AREA
 
 
 
-
     <!-- LAST DAYS -->
 
-    <div class="filter-item">
+    <div class="filter-group">
 
         <label>
-
-            <i class="fa-solid fa-clock-rotate-left"></i>
-
-            Last Days
-
+            Last
         </label>
 
-
-        <select id="lastDays">
-
-            <option value="">
-                All
-            </option>
-
-            <option value="1">
-                Last 1 Day
-            </option>
-
-            <option value="3">
-                Last 3 Days
-            </option>
-
-            <option value="7">
-                Last 7 Days
-            </option>
-
-            <option value="15">
-                Last 15 Days
-            </option>
-
-            <option value="30">
-                Last 30 Days
-            </option>
-
-            <option value="60">
-                Last 60 Days
-            </option>
-
-            <option value="90">
-                Last 90 Days
-            </option>
-
-        </select>
+        <input
+            type="number"
+            id="lastDays"
+            min="1"
+            placeholder="Days">
 
     </div>
 
 
 
+    <!-- SEARCH -->
 
-    <!-- FILTER BUTTON -->
+    <div class="filter-group search-filter">
 
-    <div class="filter-buttons">
+        <label>
+            Search
+        </label>
 
-
-        <button
-            class="filter-btn"
-            onclick="applyFilter()">
-
-            <i class="fa-solid fa-filter"></i>
-
-            Filter
-
-        </button>
-
-
-
-        <button
-            class="clear-btn"
-            onclick="clearFilter()">
-
-            <i class="fa-solid fa-rotate-left"></i>
-
-            Clear
-
-        </button>
-
+        <input
+            type="text"
+            id="searchFilter"
+            placeholder="Customer ID / Problem">
 
     </div>
+
+
+
+    <!-- APPLY -->
+
+    <button
+        class="filter-btn"
+        onclick="applyFilter()">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        Apply
+
+    </button>
+
+
+
+    <!-- RESET -->
+
+    <button
+        class="reset-btn"
+        onclick="resetFilter()">
+
+        <i class="fa-solid fa-rotate-left"></i>
+
+        Reset
+
+    </button>
 
 
 </div>
@@ -284,109 +238,80 @@ FILTER AREA
 
 
 
-<!-- ===============================
+<!-- =========================
 TABLE
-=============================== -->
+========================= -->
 
 <div class="table-box">
 
 
-    <div class="table-header">
+<table>
 
 
-        <h3>
+    <thead>
 
-            <i class="fa-solid fa-list"></i>
-
-            Pending Call List
-
-        </h3>
+        <tr>
 
 
-        <span id="resultCount">
-
-            0 Records
-
-        </span>
+            <th>
+                Customer ID
+            </th>
 
 
-    </div>
+            <th>
+                Problem
+            </th>
 
 
-
-    <div class="table-scroll">
-
-
-        <table>
+            <th>
+                Reference
+            </th>
 
 
-            <thead>
+            <th>
+                Date
+            </th>
 
-                <tr>
 
-                    <th>
-                        Customer ID
-                    </th>
+            <th>
+                Support
+            </th>
 
-                    <th>
-                        Problem
-                    </th>
 
-                    <th>
-                        Reference
-                    </th>
+            <th>
+                Support Work
+            </th>
 
-                    <th>
-                        Date
-                    </th>
 
-                    <th>
-                        Support
-                    </th>
+            <th>
+                Action
+            </th>
 
-                    <th>
-                        Support Work
-                    </th>
 
-                    <th>
-                        Call
-                    </th>
+        </tr>
 
-                    <th>
-                        Call Work
-                    </th>
-
-                    <th>
-                        Action
-                    </th>
-
-                </tr>
-
-            </thead>
+    </thead>
 
 
 
-            <tbody id="callList">
+    <tbody id="callList">
 
 
-                <tr>
+        <tr>
 
-                    <td colspan="9">
+            <td colspan="7">
 
-                        Loading...
+                Loading...
 
-                    </td>
+            </td>
 
-                </tr>
-
-
-            </tbody>
+        </tr>
 
 
-        </table>
+    </tbody>
 
 
-    </div>
+</table>
 
 
 </div>
@@ -395,9 +320,10 @@ TABLE
 
 
 
-<!-- ===============================
+
+<!-- =========================
 EDIT MODAL
-=============================== -->
+========================= -->
 
 <div class="modal"
      id="editModal">
@@ -406,9 +332,8 @@ EDIT MODAL
     <div class="popup">
 
 
-        <button
-            class="close-btn"
-            onclick="closeEdit()">
+        <button class="close-btn"
+                onclick="closeEdit()">
 
             ×
 
@@ -418,15 +343,11 @@ EDIT MODAL
 
         <h2>
 
-            <i class="fa-solid fa-pen-to-square"></i>
-
             Edit Call
 
         </h2>
 
 
-
-        <!-- CUSTOMER ID -->
 
         <label>
             Customer ID
@@ -438,8 +359,6 @@ EDIT MODAL
 
 
 
-        <!-- PROBLEM -->
-
         <label>
             Problem
         </label>
@@ -449,8 +368,6 @@ EDIT MODAL
             rows="4"></textarea>
 
 
-
-        <!-- REFERENCE -->
 
         <label>
             Reference
@@ -462,8 +379,6 @@ EDIT MODAL
 
 
 
-        <!-- DATE -->
-
         <label>
             Date
         </label>
@@ -473,8 +388,6 @@ EDIT MODAL
             type="date">
 
 
-
-        <!-- SUPPORT -->
 
         <label>
             Support
@@ -486,8 +399,6 @@ EDIT MODAL
 
 
 
-        <!-- SUPPORT WORK -->
-
         <label>
             Support Work
         </label>
@@ -497,8 +408,6 @@ EDIT MODAL
             rows="3"></textarea>
 
 
-
-        <!-- CALL -->
 
         <label>
             Call
@@ -510,8 +419,6 @@ EDIT MODAL
 
 
 
-        <!-- CALL WORK -->
-
         <label>
             Call Work
         </label>
@@ -521,8 +428,6 @@ EDIT MODAL
             rows="3"></textarea>
 
 
-
-        <!-- BUTTONS -->
 
         <div class="popup-buttons">
 
@@ -572,9 +477,10 @@ EDIT MODAL
 
 
 
-<!-- ===============================
-MESSAGE POPUP
-=============================== -->
+
+<!-- =========================
+SUCCESS / MESSAGE POPUP
+========================= -->
 
 <div class="message-modal"
      id="messageModal">
@@ -591,7 +497,6 @@ MESSAGE POPUP
         </div>
 
 
-
         <h3 id="messageTitle">
 
             Success
@@ -599,13 +504,11 @@ MESSAGE POPUP
         </h3>
 
 
-
         <p id="messageText">
 
             Done
 
         </p>
-
 
 
         <button onclick="closeMessage()">
@@ -624,9 +527,10 @@ MESSAGE POPUP
 
 
 
-<!-- ===============================
-DELETE CONFIRMATION
-=============================== -->
+
+<!-- =========================
+DELETE CONFIRM POPUP
+========================= -->
 
 <div class="confirm-modal"
      id="confirmModal">
@@ -642,7 +546,6 @@ DELETE CONFIRMATION
         </div>
 
 
-
         <h3>
 
             Delete Call?
@@ -650,10 +553,10 @@ DELETE CONFIRMATION
         </h3>
 
 
-
         <p>
 
-            Are you sure you want to delete this record?
+            Are you sure you want to delete
+            this record?
 
         </p>
 
@@ -666,12 +569,9 @@ DELETE CONFIRMATION
                 class="confirm-delete"
                 onclick="confirmDelete()">
 
-                <i class="fa-solid fa-trash"></i>
-
                 Delete
 
             </button>
-
 
 
             <button
@@ -695,9 +595,10 @@ DELETE CONFIRMATION
 
 
 
-<!-- ===============================
+
+<!-- =========================
 JAVASCRIPT
-=============================== -->
+========================= -->
 
 <script src="call.js"></script>
 
