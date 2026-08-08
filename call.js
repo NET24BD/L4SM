@@ -1,120 +1,107 @@
-// =====================================================
-// CALL.JS
-// PENDING CALL - FINAL
-// =====================================================
+// =====================================
+// L4SM PENDING CALL
+// FULL FINAL call.js
+// =====================================
 
 
-// =====================================================
+// =====================================
 // API URL
-// =====================================================
+// =====================================
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
-// =====================================================
+// =====================================
 // GLOBAL VARIABLES
-// =====================================================
+// =====================================
 
 let currentRow = "";
+let callData = [];
 
-let allCallData = [];
 
-
-// =====================================================
+// =====================================
 // START
-// =====================================================
+// =====================================
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
 
-    loadUserProfile();
+    loadProfile();
 
     loadCall();
 
 });
 
 
-// =====================================================
-// LOAD USER PROFILE
-// =====================================================
+// =====================================
+// PROFILE
+// =====================================
 
-function loadUserProfile(){
+function loadProfile() {
 
-    const username =
+    const user =
         localStorage.getItem("username");
 
-    const picture =
-        localStorage.getItem("picture");
+    if (user) {
 
+        const username =
+            document.getElementById("username");
 
-    const usernameElement =
-        document.getElementById("username");
-
-
-    const profileImg =
-        document.getElementById("profileImg");
-
-
-    if(usernameElement && username){
-
-        usernameElement.innerText = username;
+        if (username) {
+            username.innerText = user;
+        }
 
     }
 
 
-    if(profileImg && picture){
+    const picture =
+        localStorage.getItem("picture");
 
-        profileImg.src = picture;
+    if (picture) {
+
+        const profileImg =
+            document.getElementById("profileImg");
+
+        if (profileImg) {
+            profileImg.src = picture;
+        }
 
     }
 
 }
 
 
-// =====================================================
+// =====================================
 // PROFILE MENU
-// =====================================================
+// =====================================
 
-function toggleProfile(){
+function toggleProfile() {
 
     const menu =
         document.getElementById("profileMenu");
 
-
-    if(!menu){
-
-        return;
-
-    }
-
+    if (!menu) return;
 
     menu.classList.toggle("show");
 
 }
 
 
-// =====================================================
-// CLOSE PROFILE MENU WHEN CLICK OUTSIDE
-// =====================================================
+// =====================================
+// CLOSE PROFILE MENU
+// =====================================
 
-document.addEventListener("click", function(event){
+document.addEventListener("click", function (event) {
 
     const profile =
         document.querySelector(".profile");
 
-
     const menu =
         document.getElementById("profileMenu");
 
+    if (!profile || !menu) return;
 
-    if(!profile || !menu){
-
-        return;
-
-    }
-
-
-    if(!profile.contains(event.target)){
+    if (!profile.contains(event.target)) {
 
         menu.classList.remove("show");
 
@@ -123,11 +110,11 @@ document.addEventListener("click", function(event){
 });
 
 
-// =====================================================
+// =====================================
 // MY ACCOUNT
-// =====================================================
+// =====================================
 
-function myAccount(){
+function myAccount() {
 
     window.location.href =
         "myaccount.html";
@@ -135,11 +122,11 @@ function myAccount(){
 }
 
 
-// =====================================================
+// =====================================
 // LOGOUT
-// =====================================================
+// =====================================
 
-function logout(){
+function logout() {
 
     localStorage.clear();
 
@@ -149,11 +136,11 @@ function logout(){
 }
 
 
-// =====================================================
+// =====================================
 // BACK
-// =====================================================
+// =====================================
 
-function goBack(){
+function goBack() {
 
     window.location.href =
         "dashboard.html";
@@ -161,103 +148,119 @@ function goBack(){
 }
 
 
-// =====================================================
-// FILTER TOGGLE
-// =====================================================
+// =====================================
+// LOAD CALL
+// =====================================
 
-function toggleFilter(){
-
-    const filter =
-        document.getElementById("filterRow");
-
-
-    if(!filter){
-
-        return;
-
-    }
-
-
-    filter.classList.toggle("show");
-
-}
-
-
-// =====================================================
-// LOAD CALL DATA
-// =====================================================
-
-function loadCall(){
+function loadCall() {
 
     const list =
         document.getElementById("callList");
 
-
-    if(list){
-
-        list.innerHTML = `
-            <tr>
-                <td colspan="7">
-                    Loading...
-                </td>
-            </tr>
-        `;
-
-    }
+    if (!list) return;
 
 
-    fetch(API_URL,{
+    list.innerHTML = `
 
-        method:"POST",
+        <tr>
 
-        headers:{
+            <td colspan="7"
+                style="text-align:center;">
+
+                Loading...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+
             "Content-Type":
-            "text/plain;charset=utf-8"
+                "text/plain;charset=utf-8"
+
         },
 
-        body:JSON.stringify({
+        body: JSON.stringify({
 
-            action:"getPendingCall"
+            action:
+                "getPendingCall"
 
         })
 
     })
 
-    .then(function(response){
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Network response failed"
+            );
+
+        }
 
         return response.json();
 
     })
 
-    .then(function(data){
+    .then(data => {
 
-        console.log("Call Data:",data);
+        if (
+            !data ||
+            data.success !== true
+        ) {
 
+            list.innerHTML = `
 
-        if(data.success === false){
+                <tr>
 
-            showMessage(
-                "Error",
-                data.message || "Failed to load call data",
-                "error"
-            );
+                    <td colspan="7"
+                        style="text-align:center;">
+
+                        ${
+                            data &&
+                            data.message
+                                ? data.message
+                                : "Failed to load Call data"
+                        }
+
+                    </td>
+
+                </tr>
+
+            `;
 
             return;
 
         }
 
 
-        allCallData =
+        // ---------------------------------
+        // SAVE DATA LOCALLY
+        // ---------------------------------
+
+        callData =
             Array.isArray(data.data)
-            ? data.data
-            : [];
+                ? data.data
+                : [];
 
 
-        renderCall(allCallData);
+        // ---------------------------------
+        // DISPLAY
+        // ---------------------------------
+
+        displayCall(callData);
 
     })
 
-    .catch(function(error){
+    .catch(error => {
 
         console.error(
             "Load Call Error:",
@@ -265,51 +268,53 @@ function loadCall(){
         );
 
 
-        if(list){
+        list.innerHTML = `
 
-            list.innerHTML = `
-                <tr>
-                    <td colspan="7">
-                        Server Error
-                    </td>
-                </tr>
-            `;
+            <tr>
 
-        }
+                <td colspan="7"
+                    style="text-align:center;color:red;">
+
+                    Server Error
+
+                </td>
+
+            </tr>
+
+        `;
 
     });
 
 }
 
 
-// =====================================================
-// RENDER CALL TABLE
-// =====================================================
+// =====================================
+// DISPLAY CALL
+// =====================================
 
-function renderCall(data){
+function displayCall(data) {
 
     const list =
         document.getElementById("callList");
 
-
-    if(!list){
-
-        return;
-
-    }
+    if (!list) return;
 
 
-    list.innerHTML = "";
-
-
-    if(!data || data.length === 0){
+    if (!data || data.length === 0) {
 
         list.innerHTML = `
+
             <tr>
-                <td colspan="7">
-                    No Pending Call Found
+
+                <td colspan="7"
+                    style="text-align:center;">
+
+                    No Pending Call
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -317,71 +322,226 @@ function renderCall(data){
     }
 
 
-    data.forEach(function(item){
-
-        const row =
-            document.createElement("tr");
+    let html = "";
 
 
-        row.innerHTML = `
+    data.forEach(function (item) {
 
-            <td>
-                ${escapeHTML(item.customerId || "")}
-            </td>
+        html += `
 
-            <td>
-                ${escapeHTML(item.problem || "")}
-            </td>
+            <tr>
 
-            <td>
-                ${escapeHTML(item.reference || "")}
-            </td>
+                <td>
+                    ${escapeHTML(item.customerId)}
+                </td>
 
-            <td>
-                ${formatDate(item.date)}
-            </td>
+                <td>
+                    ${escapeHTML(item.problem)}
+                </td>
 
-            <td>
-                ${escapeHTML(item.support || "")}
-            </td>
+                <td>
+                    ${escapeHTML(item.reference)}
+                </td>
 
-            <td>
-                ${escapeHTML(item.supportWork || "")}
-            </td>
+                <td>
+                    ${formatDate(item.date)}
+                </td>
 
-            <td>
+                <td>
+                    ${escapeHTML(item.support)}
+                </td>
 
-                <button
-                    class="edit-btn"
-                    onclick="editCall('${item.row}')">
+                <td>
+                    ${escapeHTML(item.supportWork)}
+                </td>
 
-                    <i class="fa-solid fa-pen"></i>
+                <td>
 
-                    Edit
+                    <button
+                        class="edit-btn"
+                        onclick="editCall(${item.row})">
 
-                </button>
+                        <i class="fa-solid fa-pen"></i>
 
-            </td>
+                        Edit
+
+                    </button>
+
+                </td>
+
+            </tr>
 
         `;
 
-
-        list.appendChild(row);
-
     });
+
+
+    list.innerHTML =
+        html;
 
 }
 
 
-// =====================================================
-// DATE FORMAT
-// =====================================================
+// =====================================
+// EDIT CALL - INSTANT POPUP
+// =====================================
 
-function formatDate(date){
+function editCall(row) {
 
-    if(!date){
+    currentRow =
+        Number(row);
 
+
+    // ---------------------------------
+    // FIND DATA FROM LOCAL ARRAY
+    // ---------------------------------
+
+    const item =
+        callData.find(function (record) {
+
+            return Number(record.row) ===
+                Number(row);
+
+        });
+
+
+    if (!item) {
+
+        alert(
+            "Call data not found. Please refresh."
+        );
+
+        return;
+
+    }
+
+
+    // ---------------------------------
+    // FILL FORM FIRST
+    // ---------------------------------
+
+    const customerId =
+        document.getElementById(
+            "customerId"
+        );
+
+    const problem =
+        document.getElementById(
+            "problem"
+        );
+
+    const reference =
+        document.getElementById(
+            "reference"
+        );
+
+    const date =
+        document.getElementById(
+            "date"
+        );
+
+    const support =
+        document.getElementById(
+            "support"
+        );
+
+    const supportWork =
+        document.getElementById(
+            "supportWork"
+        );
+
+    const call =
+        document.getElementById(
+            "call"
+        );
+
+    const callWork =
+        document.getElementById(
+            "callWork"
+        );
+
+
+    if (customerId)
+        customerId.value =
+            item.customerId || "";
+
+
+    if (problem)
+        problem.value =
+            item.problem || "";
+
+
+    if (reference)
+        reference.value =
+            item.reference || "";
+
+
+    if (date)
+        date.value =
+            convertDate(item.date);
+
+
+    if (support)
+        support.value =
+            item.support || "";
+
+
+    if (supportWork)
+        supportWork.value =
+            item.supportWork || "";
+
+
+    if (call)
+        call.value =
+            item.call || "";
+
+
+    if (callWork)
+        callWork.value =
+            item.callWork || "";
+
+
+    // ---------------------------------
+    // OPEN POPUP IMMEDIATELY
+    // ---------------------------------
+
+    const modal =
+        document.getElementById(
+            "editModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.add("show");
+
+    }
+
+}
+
+
+// =====================================
+// CONVERT DATE
+// =====================================
+
+function convertDate(date) {
+
+    if (!date) {
         return "";
+    }
+
+
+    // ---------------------------------
+    // ALREADY YYYY-MM-DD
+    // ---------------------------------
+
+    if (
+        /^\d{4}-\d{2}-\d{2}$/.test(
+            String(date)
+        )
+    ) {
+
+        return String(date);
 
     }
 
@@ -390,16 +550,64 @@ function formatDate(date){
         new Date(date);
 
 
-    if(isNaN(d.getTime())){
+    if (isNaN(d.getTime())) {
 
-        return date;
+        return "";
+
+    }
+
+
+    const year =
+        d.getFullYear();
+
+
+    const month =
+        String(
+            d.getMonth() + 1
+        ).padStart(2, "0");
+
+
+    const day =
+        String(
+            d.getDate()
+        ).padStart(2, "0");
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+// =====================================
+// DISPLAY DATE
+// =====================================
+
+function formatDate(date) {
+
+    if (!date) {
+        return "";
+    }
+
+
+    // ---------------------------------
+    // PARSE
+    // ---------------------------------
+
+    const d =
+        new Date(date);
+
+
+    if (isNaN(d.getTime())) {
+
+        return String(date);
 
     }
 
 
     const day =
-        String(d.getDate())
-        .padStart(2,"0");
+        String(
+            d.getDate()
+        ).padStart(2, "0");
 
 
     const monthList = [
@@ -421,7 +629,9 @@ function formatDate(date){
 
 
     const month =
-        monthList[d.getMonth()];
+        monthList[
+            d.getMonth()
+        ];
 
 
     const year =
@@ -433,216 +643,23 @@ function formatDate(date){
 }
 
 
-// =====================================================
-// DATE FOR DATE INPUT
-// =====================================================
-
-function convertDate(date){
-
-    if(!date){
-
-        return "";
-
-    }
-
-
-    const d =
-        new Date(date);
-
-
-    if(isNaN(d.getTime())){
-
-        return "";
-
-    }
-
-
-    const year =
-        d.getFullYear();
-
-
-    const month =
-        String(d.getMonth()+1)
-        .padStart(2,"0");
-
-
-    const day =
-        String(d.getDate())
-        .padStart(2,"0");
-
-
-    return `${year}-${month}-${day}`;
-
-}
-
-
-// =====================================================
-// EDIT CALL
-// =====================================================
-
-function editCall(row){
-
-    currentRow = row;
-
-
-    fetch(API_URL,{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":
-            "text/plain;charset=utf-8"
-        },
-
-        body:JSON.stringify({
-
-            action:"getSingleCall",
-
-            row:row
-
-        })
-
-    })
-
-    .then(function(response){
-
-        return response.json();
-
-    })
-
-    .then(function(data){
-
-        console.log(
-            "Single Call:",
-            data
-        );
-
-
-        if(data.success === false){
-
-            showMessage(
-                "Error",
-                data.message || "Failed to load data",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        setValue(
-            "customerId",
-            data.customerId
-        );
-
-
-        setValue(
-            "problem",
-            data.problem
-        );
-
-
-        setValue(
-            "reference",
-            data.reference
-        );
-
-
-        setValue(
-            "date",
-            convertDate(data.date)
-        );
-
-
-        setValue(
-            "support",
-            data.support
-        );
-
-
-        setValue(
-            "supportWork",
-            data.supportWork
-        );
-
-
-        setValue(
-            "call",
-            data.call
-        );
-
-
-        setValue(
-            "callWork",
-            data.callWork
-        );
-
-
-        const modal =
-            document.getElementById("editModal");
-
-
-        if(modal){
-
-            modal.classList.add("show");
-
-        }
-
-    })
-
-    .catch(function(error){
-
-        console.error(
-            "Edit Error:",
-            error
-        );
-
-
-        showMessage(
-            "Error",
-            "Failed to load call data",
-            "error"
-        );
-
-    });
-
-}
-
-
-// =====================================================
-// SET INPUT VALUE
-// =====================================================
-
-function setValue(id,value){
-
-    const element =
-        document.getElementById(id);
-
-
-    if(element){
-
-        element.value =
-            value || "";
-
-    }
-
-}
-
-
-// =====================================================
+// =====================================
 // CLOSE EDIT
-// =====================================================
+// =====================================
 
-function closeEdit(){
+function closeEdit() {
 
     const modal =
-        document.getElementById("editModal");
+        document.getElementById(
+            "editModal"
+        );
 
 
-    if(modal){
+    if (modal) {
 
-        modal.classList.remove("show");
+        modal.classList.remove(
+            "show"
+        );
 
     }
 
@@ -652,18 +669,16 @@ function closeEdit(){
 }
 
 
-// =====================================================
+// =====================================
 // UPDATE CALL
-// =====================================================
+// =====================================
 
-function updateCall(){
+function updateCall() {
 
-    if(!currentRow){
+    if (!currentRow) {
 
-        showMessage(
-            "Error",
-            "Invalid record",
-            "error"
+        alert(
+            "Invalid Call Row"
         );
 
         return;
@@ -671,45 +686,66 @@ function updateCall(){
     }
 
 
+    // ---------------------------------
+    // GET FORM DATA
+    // ---------------------------------
+
     const customerId =
-        getValue("customerId");
+        document.getElementById(
+            "customerId"
+        ).value.trim();
 
 
     const problem =
-        getValue("problem");
+        document.getElementById(
+            "problem"
+        ).value.trim();
 
 
     const reference =
-        getValue("reference");
+        document.getElementById(
+            "reference"
+        ).value.trim();
 
 
     const date =
-        getValue("date");
+        document.getElementById(
+            "date"
+        ).value;
 
 
     const support =
-        getValue("support");
+        document.getElementById(
+            "support"
+        ).value.trim();
 
 
     const supportWork =
-        getValue("supportWork");
+        document.getElementById(
+            "supportWork"
+        ).value.trim();
 
 
     const call =
-        getValue("call");
+        document.getElementById(
+            "call"
+        ).value.trim();
 
 
     const callWork =
-        getValue("callWork");
+        document.getElementById(
+            "callWork"
+        ).value.trim();
 
 
-    if(customerId === "" ||
-       problem === ""){
+    // ---------------------------------
+    // VALIDATION
+    // ---------------------------------
 
-        showMessage(
-            "Required",
-            "Customer ID and Problem are required",
-            "error"
+    if (!customerId) {
+
+        alert(
+            "Customer ID is required"
         );
 
         return;
@@ -717,113 +753,239 @@ function updateCall(){
     }
 
 
-    fetch(API_URL,{
+    if (!call) {
 
-        method:"POST",
+        alert(
+            "Call is required"
+        );
 
-        headers:{
+        return;
+
+    }
+
+
+    if (!callWork) {
+
+        alert(
+            "Call Work is required"
+        );
+
+        return;
+
+    }
+
+
+    // ---------------------------------
+    // BUTTON
+    // ---------------------------------
+
+    const submitButton =
+        document.querySelector(
+            ".submit-btn"
+        );
+
+
+    if (submitButton) {
+
+        submitButton.disabled =
+            true;
+
+        submitButton.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+    }
+
+
+    // ---------------------------------
+    // UPDATE API
+    // ---------------------------------
+
+    fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+
             "Content-Type":
-            "text/plain;charset=utf-8"
+                "text/plain;charset=utf-8"
+
         },
 
-        body:JSON.stringify({
+        body: JSON.stringify({
 
-            action:"updateCall",
+            action:
+                "updateCall",
 
-            row:currentRow,
+            row:
+                currentRow,
 
-            customerId:customerId,
+            customerId:
+                customerId,
 
-            problem:problem,
+            problem:
+                problem,
 
-            reference:reference,
+            reference:
+                reference,
 
-            date:date,
+            date:
+                date,
 
-            support:support,
+            support:
+                support,
 
-            supportWork:supportWork,
+            supportWork:
+                supportWork,
 
-            call:call,
+            call:
+                call,
 
-            callWork:callWork
+            callWork:
+                callWork
 
         })
 
     })
 
-    .then(function(response){
+    .then(response =>
+        response.json()
+    )
 
-        return response.json();
+    .then(data => {
 
-    })
+        if (
+            data &&
+            data.success === true
+        ) {
 
-    .then(function(data){
+            // -------------------------
+            // UPDATE LOCAL DATA
+            // -------------------------
 
-        console.log(
-            "Update Response:",
-            data
-        );
+            const index =
+                callData.findIndex(
+                    function (record) {
+
+                        return Number(
+                            record.row
+                        ) ===
+                        Number(currentRow);
+
+                    }
+                );
 
 
-        if(data.success === false){
+            if (index !== -1) {
 
-            showMessage(
-                "Update Failed",
-                data.message || "Could not update record",
-                "error"
+                callData[index] = {
+
+                    ...callData[index],
+
+                    customerId:
+                        customerId,
+
+                    problem:
+                        problem,
+
+                    reference:
+                        reference,
+
+                    date:
+                        date,
+
+                    support:
+                        support,
+
+                    supportWork:
+                        supportWork,
+
+                    call:
+                        call,
+
+                    callWork:
+                        callWork
+
+                };
+
+            }
+
+
+            // -------------------------
+            // CLOSE POPUP
+            // -------------------------
+
+            closeEdit();
+
+
+            // -------------------------
+            // REFRESH TABLE
+            // -------------------------
+
+            displayCall(
+                callData
             );
 
-            return;
+
+            showMessage(
+                "Success",
+                "Call updated successfully."
+            );
 
         }
 
+        else {
 
-        closeEdit();
+            alert(
+                data &&
+                data.message
+                    ? data.message
+                    : "Update Failed"
+            );
 
-
-        showMessage(
-            "Success",
-            data.message || "Call Updated Successfully",
-            "success"
-        );
-
-
-        loadCall();
+        }
 
     })
 
-    .catch(function(error){
+    .catch(error => {
 
         console.error(
             "Update Error:",
             error
         );
 
-
-        showMessage(
-            "Error",
-            "Update Failed",
-            "error"
+        alert(
+            "Update Failed"
         );
+
+    })
+
+    .finally(() => {
+
+        if (submitButton) {
+
+            submitButton.disabled =
+                false;
+
+            submitButton.innerHTML =
+                '<i class="fa-solid fa-save"></i> Submit';
+
+        }
 
     });
 
 }
 
 
-// =====================================================
+// =====================================
 // DELETE CALL
-// =====================================================
+// =====================================
 
-function deleteCall(){
+function deleteCall() {
 
-    if(!currentRow){
+    if (!currentRow) {
 
-        showMessage(
-            "Error",
-            "Invalid record",
-            "error"
+        alert(
+            "Invalid Call Row"
         );
 
         return;
@@ -831,106 +993,146 @@ function deleteCall(){
     }
 
 
-    openConfirm();
+    // ---------------------------------
+    // OPEN CONFIRM POPUP
+    // ---------------------------------
 
-}
+    const confirmModal =
+        document.getElementById(
+            "confirmModal"
+        );
 
 
-// =====================================================
-// CONFIRM DELETE
-// =====================================================
+    if (confirmModal) {
 
-function confirmDelete(){
-
-    if(!currentRow){
-
-        closeConfirm();
+        confirmModal.classList.add(
+            "show"
+        );
 
         return;
 
     }
 
 
-    fetch(API_URL,{
+    // Fallback
+    if (
+        confirm(
+            "Are you sure you want to delete this record?"
+        )
+    ) {
 
-        method:"POST",
+        confirmDelete();
 
-        headers:{
+    }
+
+}
+
+
+// =====================================
+// CONFIRM DELETE
+// =====================================
+
+function confirmDelete() {
+
+    if (!currentRow) {
+        return;
+    }
+
+
+    closeConfirm();
+
+
+    fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+
             "Content-Type":
-            "text/plain;charset=utf-8"
+                "text/plain;charset=utf-8"
+
         },
 
-        body:JSON.stringify({
+        body: JSON.stringify({
 
-            action:"deleteCall",
+            action:
+                "deleteCall",
 
-            row:currentRow
+            row:
+                currentRow
 
         })
 
     })
 
-    .then(function(response){
+    .then(response =>
+        response.json()
+    )
 
-        return response.json();
+    .then(data => {
 
-    })
+        if (
+            data &&
+            data.success === true
+        ) {
 
-    .then(function(data){
+            // -------------------------
+            // REMOVE LOCAL RECORD
+            // -------------------------
 
-        console.log(
-            "Delete Response:",
-            data
-        );
+            callData =
+                callData.filter(
+                    function (record) {
+
+                        return Number(
+                            record.row
+                        ) !==
+                        Number(currentRow);
+
+                    }
+                );
 
 
-        closeConfirm();
-
-        closeEdit();
+            closeEdit();
 
 
-        if(data.success === false){
-
-            showMessage(
-                "Delete Failed",
-                data.message || "Could not delete record",
-                "error"
+            displayCall(
+                callData
             );
 
-            return;
+
+            showMessage(
+                "Deleted",
+                "Call deleted successfully."
+            );
+
+
+            currentRow = "";
 
         }
 
+        else {
 
-        showMessage(
-            "Deleted",
-            data.message || "Call Deleted Successfully",
-            "success"
-        );
+            alert(
+                data &&
+                data.message
+                    ? data.message
+                    : "Delete Failed"
+            );
 
-
-        currentRow = "";
-
-
-        loadCall();
+        }
 
     })
 
-    .catch(function(error){
+    .catch(error => {
 
         console.error(
             "Delete Error:",
             error
         );
 
-
-        closeConfirm();
-
-
-        showMessage(
-            "Error",
-            "Delete Failed",
-            "error"
+        alert(
+            "Delete Failed"
         );
 
     });
@@ -938,80 +1140,64 @@ function confirmDelete(){
 }
 
 
-// =====================================================
-// CONFIRM BOX OPEN
-// =====================================================
-
-function openConfirm(){
-
-    const confirmModal =
-        document.getElementById("confirmModal");
-
-
-    if(confirmModal){
-
-        confirmModal.classList.add("show");
-
-    }
-
-}
-
-
-// =====================================================
+// =====================================
 // CLOSE CONFIRM
-// =====================================================
+// =====================================
 
-function closeConfirm(){
+function closeConfirm() {
 
     const confirmModal =
-        document.getElementById("confirmModal");
+        document.getElementById(
+            "confirmModal"
+        );
 
 
-    if(confirmModal){
+    if (confirmModal) {
 
-        confirmModal.classList.remove("show");
+        confirmModal.classList.remove(
+            "show"
+        );
 
     }
 
 }
 
 
-// =====================================================
-// MESSAGE POPUP
-// =====================================================
+// =====================================
+// SUCCESS / MESSAGE POPUP
+// =====================================
 
 function showMessage(
     title,
-    message,
-    type
-){
+    message
+) {
 
     const modal =
-        document.getElementById("messageModal");
+        document.getElementById(
+            "messageModal"
+        );
 
 
-    const titleElement =
-        document.getElementById("messageTitle");
-
-
-    const textElement =
-        document.getElementById("messageText");
-
-
-    const icon =
-        document.getElementById("messageIcon");
-
-
-    if(!modal){
-
-        alert(message);
+    if (!modal) {
 
         return;
 
     }
 
 
-    if(titleElement){
+    const titleElement =
+        document.getElementById(
+            "messageTitle"
+        );
+
+
+    const textElement =
+        document.getElementById(
+            "messageText"
+        );
+
+
+    if (titleElement) {
 
         titleElement.innerText =
             title;
@@ -1019,7 +1205,7 @@ function showMessage(
     }
 
 
-    if(textElement){
+    if (textElement) {
 
         textElement.innerText =
             message;
@@ -1027,351 +1213,46 @@ function showMessage(
     }
 
 
-    if(icon){
-
-        if(type === "error"){
-
-            icon.innerHTML =
-                '<i class="fa-solid fa-circle-xmark"></i>';
-
-        }
-        else{
-
-            icon.innerHTML =
-                '<i class="fa-solid fa-circle-check"></i>';
-
-        }
-
-    }
-
-
-    modal.classList.add("show");
+    modal.classList.add(
+        "show"
+    );
 
 }
 
 
-// =====================================================
+// =====================================
 // CLOSE MESSAGE
-// =====================================================
+// =====================================
 
-function closeMessage(){
+function closeMessage() {
 
     const modal =
-        document.getElementById("messageModal");
-
-
-    if(modal){
-
-        modal.classList.remove("show");
-
-    }
-
-}
-
-
-// =====================================================
-// FILTER - APPLY
-// =====================================================
-
-function applyFilter(){
-
-    const fromDate =
-        getValue("fromDate");
-
-
-    const toDate =
-        getValue("toDate");
-
-
-    const lastDays =
-        getValue("lastDays");
-
-
-    const search =
-        getValue("searchCall")
-        .toLowerCase()
-        .trim();
-
-
-    let result =
-        [...allCallData];
-
-
-    // =============================
-    // SEARCH
-    // =============================
-
-    if(search){
-
-        result =
-            result.filter(function(item){
-
-                const text = (
-
-                    String(item.customerId || "") +
-                    " " +
-                    String(item.problem || "") +
-                    " " +
-                    String(item.reference || "") +
-                    " " +
-                    String(item.support || "") +
-                    " " +
-                    String(item.supportWork || "") +
-                    " " +
-                    String(item.call || "") +
-                    " " +
-                    String(item.callWork || "")
-
-                ).toLowerCase();
-
-
-                return text.includes(search);
-
-            });
-
-    }
-
-
-    // =============================
-    // FROM DATE
-    // =============================
-
-    if(fromDate){
-
-        const from =
-            new Date(fromDate);
-
-        from.setHours(
-            0,0,0,0
+        document.getElementById(
+            "messageModal"
         );
 
 
-        result =
-            result.filter(function(item){
+    if (modal) {
 
-                const date =
-                    getItemDate(item);
-
-
-                if(!date){
-
-                    return false;
-
-                }
-
-
-                return date >= from;
-
-            });
-
-    }
-
-
-    // =============================
-    // TO DATE
-    // =============================
-
-    if(toDate){
-
-        const to =
-            new Date(toDate);
-
-        to.setHours(
-            23,59,59,999
+        modal.classList.remove(
+            "show"
         );
 
-
-        result =
-            result.filter(function(item){
-
-                const date =
-                    getItemDate(item);
-
-
-                if(!date){
-
-                    return false;
-
-                }
-
-
-                return date <= to;
-
-            });
-
     }
-
-
-    // =================================================
-    // LAST DAYS
-    //
-    // Example:
-    // Last Days = 7
-    //
-    // Today থেকে গত 7 দিনের records
-    // =================================================
-
-    if(lastDays){
-
-        const days =
-            Number(lastDays);
-
-
-        if(days > 0){
-
-            const today =
-                new Date();
-
-
-            today.setHours(
-                23,59,59,999
-            );
-
-
-            const startDate =
-                new Date();
-
-
-            startDate.setDate(
-                startDate.getDate() - days
-            );
-
-
-            startDate.setHours(
-                0,0,0,0
-            );
-
-
-            result =
-                result.filter(function(item){
-
-                    const date =
-                        getItemDate(item);
-
-
-                    if(!date){
-
-                        return false;
-
-                    }
-
-
-                    return (
-                        date >= startDate &&
-                        date <= today
-                    );
-
-                });
-
-        }
-
-    }
-
-
-    renderCall(result);
 
 }
 
 
-// =====================================================
-// GET ITEM DATE
-// =====================================================
-
-function getItemDate(item){
-
-    if(!item || !item.date){
-
-        return null;
-
-    }
-
-
-    const date =
-        new Date(item.date);
-
-
-    if(isNaN(date.getTime())){
-
-        return null;
-
-    }
-
-
-    date.setHours(
-        0,0,0,0
-    );
-
-
-    return date;
-
-}
-
-
-// =====================================================
-// RESET FILTER
-// =====================================================
-
-function resetFilter(){
-
-    setValue(
-        "fromDate",
-        ""
-    );
-
-
-    setValue(
-        "toDate",
-        ""
-    );
-
-
-    setValue(
-        "lastDays",
-        ""
-    );
-
-
-    setValue(
-        "searchCall",
-        ""
-    );
-
-
-    renderCall(allCallData);
-
-}
-
-
-// =====================================================
-// GET VALUE
-// =====================================================
-
-function getValue(id){
-
-    const element =
-        document.getElementById(id);
-
-
-    if(!element){
-
-        return "";
-
-    }
-
-
-    return element.value.trim();
-
-}
-
-
-// =====================================================
+// =====================================
 // ESCAPE HTML
-// =====================================================
+// =====================================
 
-function escapeHTML(value){
+function escapeHTML(value) {
 
-    if(value === null ||
-       value === undefined){
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
         return "";
 
@@ -1380,67 +1261,40 @@ function escapeHTML(value){
 
     return String(value)
 
-        .replace(/&/g,"&amp;")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-        .replace(/</g,"&lt;")
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-        .replace(/>/g,"&gt;")
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-        .replace(/"/g,"&quot;")
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-        .replace(/'/g,"&#039;");
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-// =====================================================
-// CLOSE MODALS BY CLICKING OUTSIDE
-// =====================================================
+// =====================================
+// REFRESH CALL DATA
+// =====================================
 
-document.addEventListener(
-    "click",
-    function(event){
+function refreshCall() {
 
-        const editModal =
-            document.getElementById("editModal");
+    loadCall();
 
-
-        const confirmModal =
-            document.getElementById("confirmModal");
-
-
-        const messageModal =
-            document.getElementById("messageModal");
-
-
-        if(
-            editModal &&
-            event.target === editModal
-        ){
-
-            closeEdit();
-
-        }
-
-
-        if(
-            confirmModal &&
-            event.target === confirmModal
-        ){
-
-            closeConfirm();
-
-        }
-
-
-        if(
-            messageModal &&
-            event.target === messageModal
-        ){
-
-            closeMessage();
-
-        }
-
-    }
-);
+}
