@@ -2,61 +2,51 @@
 // SUPPORT WEB - FINAL JS
 // =====================================
 
-
-// =====================================
+// ===============================
 // API URL
-// =====================================
-
+// ===============================
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
-
 
 let currentRow = "";
 
 
-// =====================================
+// ===============================
 // START
-// =====================================
-
+// ===============================
 document.addEventListener("DOMContentLoaded", function () {
 
     // ===============================
-    // USERNAME
+    // LOAD USER
     // ===============================
-
     let user =
         localStorage.getItem("username");
 
     if (user) {
 
-        let username =
+        const username =
             document.getElementById("username");
 
         if (username) {
-
             username.innerHTML = user;
-
         }
 
     }
 
 
     // ===============================
-    // PROFILE IMAGE
+    // LOAD PROFILE IMAGE
     // ===============================
-
     let img =
         localStorage.getItem("picture");
 
     if (img) {
 
-        let profileImg =
+        const profileImg =
             document.getElementById("profileImg");
 
         if (profileImg) {
-
             profileImg.src = img;
-
         }
 
     }
@@ -65,19 +55,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===============================
     // LOAD SUPPORT
     // ===============================
-
     loadSupport();
 
 });
 
 
-// =====================================
+// ===============================
 // PROFILE
-// =====================================
-
+// ===============================
 function toggleProfile() {
 
-    let menu =
+    const menu =
         document.getElementById("profileMenu");
 
     if (menu) {
@@ -89,10 +77,6 @@ function toggleProfile() {
 }
 
 
-// =====================================
-// MY ACCOUNT
-// =====================================
-
 function myAccount() {
 
     location.href =
@@ -100,10 +84,6 @@ function myAccount() {
 
 }
 
-
-// =====================================
-// LOGOUT
-// =====================================
 
 function logout() {
 
@@ -115,10 +95,6 @@ function logout() {
 }
 
 
-// =====================================
-// BACK
-// =====================================
-
 function goBack() {
 
     location.href =
@@ -127,20 +103,18 @@ function goBack() {
 }
 
 
-// =====================================
+// ===============================
 // LOAD SUPPORT
-// =====================================
-
+// ===============================
 function loadSupport() {
 
-    let supportList =
+    const supportList =
         document.getElementById("supportList");
 
 
     // ===============================
-    // LOADING
+    // SHOW LOADING
     // ===============================
-
     if (supportList) {
 
         supportList.innerHTML = `
@@ -149,7 +123,10 @@ function loadSupport() {
 
                 <td
                     colspan="5"
-                    style="text-align:center;padding:30px;">
+                    style="
+                        text-align:center;
+                        padding:35px;
+                    ">
 
                     Loading...
 
@@ -163,9 +140,8 @@ function loadSupport() {
 
 
     // ===============================
-    // API REQUEST
+    // FETCH SUPPORT DATA
     // ===============================
-
     fetch(API_URL, {
 
         method: "POST",
@@ -195,9 +171,8 @@ function loadSupport() {
     .then(function (data) {
 
         // ===============================
-        // ERROR RESPONSE
+        // CHECK RESPONSE
         // ===============================
-
         if (
             !data ||
             data.success === false
@@ -207,7 +182,7 @@ function loadSupport() {
 
                 data && data.message
                     ? data.message
-                    : "Failed to load support"
+                    : "Failed to load support data"
 
             );
 
@@ -220,7 +195,6 @@ function loadSupport() {
         // ===============================
         // NO DATA
         // ===============================
-
         if (
             !data.data ||
             data.data.length === 0
@@ -234,7 +208,7 @@ function loadSupport() {
                         colspan="5"
                         style="
                             text-align:center;
-                            padding:30px;
+                            padding:35px;
                         ">
 
                         No Pending Support
@@ -249,9 +223,8 @@ function loadSupport() {
 
 
         // ===============================
-        // DATA
+        // SHOW DATA
         // ===============================
-
         else {
 
             data.data.forEach(function (item) {
@@ -266,13 +239,11 @@ function loadSupport() {
                             )}
                         </td>
 
-
                         <td>
                             ${escapeHTML(
                                 item.problem || ""
                             )}
                         </td>
-
 
                         <td>
                             ${escapeHTML(
@@ -280,13 +251,11 @@ function loadSupport() {
                             )}
                         </td>
 
-
                         <td>
                             ${formatDate(
                                 item.date
                             )}
                         </td>
-
 
                         <td>
 
@@ -311,9 +280,8 @@ function loadSupport() {
 
 
         // ===============================
-        // SHOW DATA
+        // REMOVE LOADING
         // ===============================
-
         if (supportList) {
 
             supportList.innerHTML =
@@ -331,6 +299,9 @@ function loadSupport() {
         );
 
 
+        // ===============================
+        // SHOW ERROR
+        // ===============================
         if (supportList) {
 
             supportList.innerHTML = `
@@ -341,10 +312,10 @@ function loadSupport() {
                         colspan="5"
                         style="
                             text-align:center;
-                            padding:30px;
+                            padding:35px;
                         ">
 
-                        Failed to load support data
+                        Failed to load data
 
                     </td>
 
@@ -359,10 +330,9 @@ function loadSupport() {
 }
 
 
-// =====================================
+// ===============================
 // HTML ESCAPE
-// =====================================
-
+// ===============================
 function escapeHTML(value) {
 
     if (
@@ -405,10 +375,9 @@ function escapeHTML(value) {
 }
 
 
-// =====================================
+// ===============================
 // DATE FORMAT
-// =====================================
-
+// ===============================
 function formatDate(date) {
 
     if (!date) {
@@ -418,7 +387,7 @@ function formatDate(date) {
     }
 
 
-    let d =
+    const d =
         new Date(date);
 
 
@@ -433,7 +402,7 @@ function formatDate(date) {
     }
 
 
-    let day =
+    const day =
         String(
             d.getDate()
         ).padStart(
@@ -442,7 +411,7 @@ function formatDate(date) {
         );
 
 
-    let monthList = [
+    const monthList = [
 
         "Jan",
         "Feb",
@@ -460,13 +429,13 @@ function formatDate(date) {
     ];
 
 
-    let month =
+    const month =
         monthList[
             d.getMonth()
         ];
 
 
-    let year =
+    const year =
         d.getFullYear();
 
 
@@ -475,19 +444,14 @@ function formatDate(date) {
 }
 
 
-// =====================================
+// ===============================
 // EDIT SUPPORT
-// =====================================
-
+// ===============================
 function editSupport(row) {
 
     currentRow =
         Number(row);
 
-
-    // ===============================
-    // API REQUEST
-    // ===============================
 
     fetch(API_URL, {
 
@@ -523,7 +487,6 @@ function editSupport(row) {
         // ===============================
         // CHECK RESPONSE
         // ===============================
-
         if (
             !data ||
             data.success === false
@@ -543,7 +506,6 @@ function editSupport(row) {
         // ===============================
         // CUSTOMER ID
         // ===============================
-
         setValue(
             "customerId",
             data.customerId
@@ -553,7 +515,6 @@ function editSupport(row) {
         // ===============================
         // PROBLEM
         // ===============================
-
         setValue(
             "problem",
             data.problem
@@ -563,7 +524,6 @@ function editSupport(row) {
         // ===============================
         // REFERENCE
         // ===============================
-
         setValue(
             "reference",
             data.reference
@@ -573,7 +533,6 @@ function editSupport(row) {
         // ===============================
         // DATE
         // ===============================
-
         setValue(
             "date",
             convertDate(data.date)
@@ -583,7 +542,6 @@ function editSupport(row) {
         // ===============================
         // SUPPORT
         // ===============================
-
         setValue(
             "support",
             data.support
@@ -593,7 +551,6 @@ function editSupport(row) {
         // ===============================
         // SUPPORT WORK
         // ===============================
-
         setValue(
             "supportWork",
             data.supportWork
@@ -603,7 +560,6 @@ function editSupport(row) {
         // ===============================
         // SUPPORT TIME
         // ===============================
-
         setValue(
             "supportTime",
             data.supportTime
@@ -613,12 +569,10 @@ function editSupport(row) {
         // ===============================
         // OPEN MODAL
         // ===============================
-
-        let modal =
+        const modal =
             document.getElementById(
                 "editModal"
             );
-
 
         if (modal) {
 
@@ -637,7 +591,6 @@ function editSupport(row) {
             error
         );
 
-
         alert(
             "Unable to load support data."
         );
@@ -647,18 +600,13 @@ function editSupport(row) {
 }
 
 
-// =====================================
-// SET INPUT VALUE
-// =====================================
+// ===============================
+// SET VALUE
+// ===============================
+function setValue(id, value) {
 
-function setValue(
-    id,
-    value
-) {
-
-    let element =
+    const element =
         document.getElementById(id);
-
 
     if (element) {
 
@@ -670,15 +618,13 @@ function setValue(
 }
 
 
-// =====================================
-// GET INPUT VALUE
-// =====================================
-
+// ===============================
+// GET VALUE
+// ===============================
 function getValue(id) {
 
-    let element =
+    const element =
         document.getElementById(id);
-
 
     if (!element) {
 
@@ -686,16 +632,14 @@ function getValue(id) {
 
     }
 
-
     return element.value || "";
 
 }
 
 
-// =====================================
+// ===============================
 // DATE FOR INPUT
-// =====================================
-
+// ===============================
 function convertDate(date) {
 
     if (!date) {
@@ -705,7 +649,7 @@ function convertDate(date) {
     }
 
 
-    let d =
+    const d =
         new Date(date);
 
 
@@ -727,17 +671,15 @@ function convertDate(date) {
 }
 
 
-// =====================================
-// CLOSE EDIT MODAL
-// =====================================
-
+// ===============================
+// CLOSE EDIT
+// ===============================
 function closeEdit() {
 
-    let modal =
+    const modal =
         document.getElementById(
             "editModal"
         );
-
 
     if (modal) {
 
@@ -747,29 +689,24 @@ function closeEdit() {
 
     }
 
-
-    currentRow =
-        "";
+    currentRow = "";
 
 }
 
 
-// =====================================
+// ===============================
 // SUBMIT SUPPORT
-// =====================================
+// ===============================
 // Support + Support Work + Support Time
-// পূরণ করে Submit করলে:
+// পূরণ করে Submit করলে
 //
-// SUPPORT → CALL
-//
-// =====================================
-
+// Support → Call
+// ===============================
 function updateSupport() {
 
     // ===============================
     // CHECK ROW
     // ===============================
-
     if (!currentRow) {
 
         alert(
@@ -782,55 +719,45 @@ function updateSupport() {
 
 
     // ===============================
-    // GET FORM DATA
+    // GET DATA
     // ===============================
-
-    let customerId =
-        getValue(
-            "customerId"
-        ).trim();
+    const customerId =
+        getValue("customerId")
+        .trim();
 
 
-    let problem =
-        getValue(
-            "problem"
-        ).trim();
+    const problem =
+        getValue("problem")
+        .trim();
 
 
-    let reference =
-        getValue(
-            "reference"
-        ).trim();
+    const reference =
+        getValue("reference")
+        .trim();
 
 
-    let date =
-        getValue(
-            "date"
-        );
+    const date =
+        getValue("date");
 
 
-    let support =
-        getValue(
-            "support"
-        ).trim();
+    const support =
+        getValue("support")
+        .trim();
 
 
-    let supportWork =
-        getValue(
-            "supportWork"
-        ).trim();
+    const supportWork =
+        getValue("supportWork")
+        .trim();
 
 
-    let supportTime =
-        getValue(
-            "supportTime"
-        ).trim();
+    const supportTime =
+        getValue("supportTime")
+        .trim();
 
 
     // ===============================
     // VALIDATION
     // ===============================
-
     if (!support) {
 
         alert(
@@ -854,18 +781,13 @@ function updateSupport() {
 
 
     // ===============================
-    // FIND SUBMIT BUTTON
+    // SUBMIT BUTTON
     // ===============================
-
-    let submitBtn =
+    const submitBtn =
         document.querySelector(
             "#editModal .submit-btn"
         );
 
-
-    // ===============================
-    // DISABLE BUTTON
-    // ===============================
 
     if (submitBtn) {
 
@@ -881,7 +803,6 @@ function updateSupport() {
     // ===============================
     // SEND TO CALL
     // ===============================
-
     fetch(API_URL, {
 
         method: "POST",
@@ -937,7 +858,6 @@ function updateSupport() {
         // ===============================
         // CHECK RESPONSE
         // ===============================
-
         if (
             !data ||
             data.success === false
@@ -957,7 +877,6 @@ function updateSupport() {
         // ===============================
         // SUCCESS
         // ===============================
-
         alert(
             "Support completed successfully."
         );
@@ -966,22 +885,16 @@ function updateSupport() {
         // ===============================
         // CLOSE MODAL
         // ===============================
-
         closeEdit();
 
-
-        // ===============================
-        // RESET ROW
-        // ===============================
 
         currentRow =
             "";
 
 
         // ===============================
-        // RELOAD SUPPORT
+        // RELOAD
         // ===============================
-
         loadSupport();
 
     })
@@ -1006,7 +919,6 @@ function updateSupport() {
         // ===============================
         // ENABLE BUTTON
         // ===============================
-
         if (submitBtn) {
 
             submitBtn.disabled =
@@ -1022,16 +934,14 @@ function updateSupport() {
 }
 
 
-// =====================================
+// ===============================
 // DELETE SUPPORT
-// =====================================
-
+// ===============================
 function deleteSupport() {
 
     // ===============================
     // CHECK ROW
     // ===============================
-
     if (!currentRow) {
 
         alert(
@@ -1046,8 +956,7 @@ function deleteSupport() {
     // ===============================
     // CONFIRM
     // ===============================
-
-    let confirmDelete =
+    const confirmDelete =
         confirm(
             "Are you sure you want to delete?"
         );
@@ -1061,9 +970,8 @@ function deleteSupport() {
 
 
     // ===============================
-    // DELETE API
+    // DELETE REQUEST
     // ===============================
-
     fetch(API_URL, {
 
         method: "POST",
@@ -1098,7 +1006,6 @@ function deleteSupport() {
         // ===============================
         // CHECK RESPONSE
         // ===============================
-
         if (
             !data ||
             data.success === false
@@ -1118,7 +1025,6 @@ function deleteSupport() {
         // ===============================
         // SUCCESS
         // ===============================
-
         alert(
             "Deleted Successfully"
         );
@@ -1127,13 +1033,8 @@ function deleteSupport() {
         // ===============================
         // CLOSE MODAL
         // ===============================
-
         closeEdit();
 
-
-        // ===============================
-        // RESET
-        // ===============================
 
         currentRow =
             "";
@@ -1142,7 +1043,6 @@ function deleteSupport() {
         // ===============================
         // RELOAD
         // ===============================
-
         loadSupport();
 
     })
@@ -1164,21 +1064,20 @@ function deleteSupport() {
 }
 
 
-// =====================================
+// ===============================
 // CLOSE PROFILE MENU
-// =====================================
-
+// ===============================
 document.addEventListener(
     "click",
     function (event) {
 
-        let profileMenu =
+        const profileMenu =
             document.getElementById(
                 "profileMenu"
             );
 
 
-        let profile =
+        const profile =
             document.querySelector(
                 ".profile"
             );
