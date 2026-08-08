@@ -5,343 +5,214 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Loading</title>
 
 
 <style>
 
-
-/* =========================
-LOADING BOX
-========================= */
-
-
-.loading-box{
-
-
-display:none;
-
-
-position:fixed;
-
-
-top:50%;
-
-
-left:50%;
-
-
-transform:translate(-50%,-50%);
-
-
-
-width:280px;
-
-
-
-padding:30px 25px;
-
-
-
-background:white;
-
-
-
-border-radius:22px;
-
-
-
-box-shadow:
-
-0 20px 50px rgba(0,0,0,.30);
-
-
-
-z-index:99999;
-
-
-
-text-align:center;
-
-
-
-font-family:Arial,sans-serif;
-
-
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 
+body{
 
+    width:100%;
+    height:100vh;
 
+    overflow:hidden;
 
+    background:transparent;
+
+    font-family:Arial,sans-serif;
+
+}
 
 
 /* =========================
 OVERLAY
 ========================= */
 
-
 .loading-overlay{
 
+    position:fixed;
 
-display:none;
+    inset:0;
 
+    width:100%;
+    height:100%;
 
-position:fixed;
+    background:rgba(0,0,0,.35);
 
+    display:flex;
 
-top:0;
+    align-items:center;
 
+    justify-content:center;
 
-left:0;
-
-
-width:100%;
-
-
-height:100%;
-
-
-
-background:rgba(0,0,0,.35);
-
-
-
-z-index:99998;
-
+    z-index:99998;
 
 }
-
-
-
-
 
 
 /* =========================
-CIRCLE
+LOADING BOX
 ========================= */
 
+.loading-box{
 
-.loader-icon{
+    width:280px;
 
+    padding:30px 25px;
 
-width:80px;
+    background:white;
 
+    border-radius:22px;
 
-height:80px;
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.30);
 
-
-margin:auto;
-
-
-display:flex;
-
-
-justify-content:center;
-
-
-align-items:center;
-
+    text-align:center;
 
 }
 
+
+/* =========================
+LOADER
+========================= */
+
+.loader-icon{
+
+    width:80px;
+    height:80px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
 
 
 .circle{
 
+    width:60px;
+    height:60px;
 
-width:60px;
+    border-radius:50%;
 
+    border:6px solid #e5e7eb;
 
-height:60px;
+    border-top-color:#2563eb;
 
+    border-right-color:#16a34a;
 
-border-radius:50%;
-
-
-
-border:6px solid #e5e7eb;
-
-
-
-border-top-color:#2563eb;
-
-
-
-border-right-color:#16a34a;
-
-
-
-animation:rotate 1s linear infinite;
-
+    animation:
+        rotate 1s linear infinite;
 
 }
-
 
 
 @keyframes rotate{
 
+    0%{
+        transform:rotate(0deg);
+    }
 
-0%{
-
-transform:rotate(0deg);
-
-}
-
-
-100%{
-
-transform:rotate(360deg);
+    100%{
+        transform:rotate(360deg);
+    }
 
 }
-
-
-}
-
-
-
-
 
 
 /* =========================
 PERCENT
 ========================= */
 
-
 .percent{
 
+    margin-top:15px;
 
-margin-top:15px;
+    font-size:35px;
 
+    font-weight:700;
 
-
-font-size:35px;
-
-
-
-font-weight:700;
-
-
-
-color:#2563eb;
-
+    color:#2563eb;
 
 }
-
-
-
-
 
 
 /* =========================
 PROGRESS
 ========================= */
 
-
 .progress{
 
+    width:100%;
 
-width:100%;
+    height:12px;
 
+    background:#e5e7eb;
 
+    border-radius:20px;
 
-height:12px;
+    overflow:hidden;
 
-
-
-background:#e5e7eb;
-
-
-
-border-radius:20px;
-
-
-
-overflow:hidden;
-
-
-
-margin-top:15px;
-
+    margin-top:15px;
 
 }
-
-
 
 
 .progress-bar{
 
+    width:0%;
 
-width:0%;
+    height:100%;
 
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #16a34a
+        );
 
+    border-radius:20px;
 
-height:100%;
-
-
-
-background:
-
-
-linear-gradient(
-
-90deg,
-
-#2563eb,
-
-#16a34a
-
-);
-
-
-
-border-radius:20px;
-
-
-
-transition:.3s ease;
-
+    transition:
+        width .25s ease;
 
 }
-
-
-
-
 
 
 /* =========================
 TEXT
 ========================= */
 
-
 .loading-box h3{
 
+    margin-top:18px;
 
-margin-top:18px;
+    font-size:16px;
 
+    font-weight:600;
 
-
-font-size:16px;
-
-
-
-font-weight:600;
-
-
-
-color:#1e3a8a;
-
-
+    color:#1e3a8a;
 
 }
 
 
-
 </style>
-
 
 </head>
 
@@ -349,263 +220,157 @@ color:#1e3a8a;
 <body>
 
 
-
-<div class="loading-overlay" id="loadingOverlay"></div>
-
-
-
-<div class="loading-box" id="loadingBox">
+<div
+    class="loading-overlay"
+    id="loadingOverlay"
+>
 
 
-<div class="loader-icon">
+    <div
+        class="loading-box"
+        id="loadingBox"
+    >
 
 
-<div class="circle"></div>
+        <div class="loader-icon">
+
+            <div class="circle"></div>
+
+        </div>
 
 
-</div>
+        <div
+            class="percent"
+            id="percent"
+        >
+            0%
+        </div>
 
 
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
 
 
-<div class="percent" id="percent">
-
-0%
-
-</div>
+        <h3 id="loadingText">
+            Loading...
+        </h3>
 
 
-
-
-<div class="progress">
-
-
-<div class="progress-bar" id="progressBar"></div>
-
-
-</div>
-
-
-
-
-<h3 id="loadingText">
-
-Loading...
-
-</h3>
-
+    </div>
 
 
 </div>
-
-
-
-
-
 
 
 <script>
 
 
-let loadingInterval;
+/* =========================================================
+   LOADING SYSTEM
+========================================================= */
+
+let loadingInterval = null;
+
+let count = 0;
 
 
+/* =========================================================
+   GET MESSAGE FROM URL
+========================================================= */
 
-let count=0;
-
-
-
-
-
-// =========================
-// SHOW LOADING
-// =========================
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
 
-function showLoading(text="Loading..."){
+const message =
+    params.get("message");
 
 
+if(message){
 
-let box=document.getElementById("loadingBox");
-
-
-let overlay=document.getElementById("loadingOverlay");
-
-
-
-if(!box){
-
-return;
-
-}
-
-
-
-box.style.display="block";
-
-
-overlay.style.display="block";
-
-
-
-document.getElementById("loadingText").innerHTML=text;
-
-
-
-count=0;
-
-
-
-document.getElementById("percent").innerHTML="0%";
-
-
-document.getElementById("progressBar").style.width="0%";
-
-
-
-clearInterval(loadingInterval);
-
-
-
-loadingInterval=setInterval(function(){
-
-
-
-if(count<100){
-
-
-count++;
-
-
-
-document.getElementById("percent").innerHTML=
-count+"%";
-
-
-
-document.getElementById("progressBar").style.width=
-count+"%";
-
-
+    document.getElementById(
+        "loadingText"
+    ).textContent = message;
 
 }
 
 
+/* =========================================================
+   START LOADING
+========================================================= */
 
-},30);
+function startLoading(){
 
+    const percent =
+        document.getElementById(
+            "percent"
+        );
 
-
-}
-
-
-
-
-
-
-
-
-
-// =========================
-// HIDE LOADING
-// =========================
+    const progressBar =
+        document.getElementById(
+            "progressBar"
+        );
 
 
-function hideLoading(){
+    count = 0;
 
 
-
-clearInterval(loadingInterval);
-
-
-
-let bar=document.getElementById("progressBar");
-
-let percent=document.getElementById("percent");
+    clearInterval(
+        loadingInterval
+    );
 
 
-
-if(percent){
-
-percent.innerHTML="100%";
-
-}
+    loadingInterval =
+        setInterval(function(){
 
 
+            if(count < 95){
 
-if(bar){
-
-bar.style.width="100%";
-
-}
+                count++;
 
 
+                percent.textContent =
+                    count + "%";
 
 
+                progressBar.style.width =
+                    count + "%";
 
-setTimeout(function(){
-
-
-
-let box=document.getElementById("loadingBox");
-
-let overlay=document.getElementById("loadingOverlay");
+            }
 
 
-
-if(box){
-
-box.style.display="none";
+        },30);
 
 }
 
 
+/* =========================================================
+   AUTO START
+========================================================= */
 
-if(overlay){
-
-overlay.style.display="none";
-
-}
-
+startLoading();
 
 
+/* =========================================================
+   READY
+========================================================= */
 
-},400);
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =========================
-// AUTO READY
-// =========================
-
-
-document.addEventListener(
-"DOMContentLoaded",
-function(){
-
-
-console.log("Loading System Ready");
-
-
-});
-
+console.log(
+    "Loading System Ready"
+);
 
 
 </script>
 
 
-
 </body>
-
 
 </html>
