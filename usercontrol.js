@@ -87,7 +87,6 @@ function loadProfile() {
     const picture =
         localStorage.getItem("picture") || "";
 
-
     const userName =
         document.getElementById("userName");
 
@@ -112,21 +111,24 @@ function loadProfile() {
             profileImg.src = picture;
 
         }
+
         else {
 
-            profileImg.src = "profile.png";
+            profileImg.src =
+                "profile.png";
 
         }
 
 
         profileImg.onerror =
-        function () {
+            function () {
 
-            this.onerror = null;
+                this.onerror = null;
 
-            this.src = "profile.png";
+                this.src =
+                    "profile.png";
 
-        };
+            };
 
     }
 
@@ -201,7 +203,6 @@ function setupProfileMenu() {
 
 function setupNavigation() {
 
-
     /* BACK */
 
     const backBtn =
@@ -214,9 +215,8 @@ function setupNavigation() {
             "click",
             function () {
 
-                window.location.replace(
-                    "dashboard.html"
-                );
+                window.location.href =
+                    "dashboard.html";
 
             }
         );
@@ -272,6 +272,7 @@ function logoutUser() {
     localStorage.clear();
 
     sessionStorage.clear();
+
 
     window.location.replace(
         "login.html"
@@ -601,11 +602,8 @@ function loadUsers() {
         "?action=users&t=" +
         Date.now(),
         {
-
             method: "GET",
-
             cache: "no-store"
-
         }
     )
 
@@ -633,11 +631,6 @@ function loadUsers() {
             hideLoading();
 
 
-            /*
-             * Code.gs যদি directly
-             * ARRAY return করে
-             */
-
             if (
                 Array.isArray(data)
             ) {
@@ -653,10 +646,6 @@ function loadUsers() {
 
             }
 
-
-            /*
-             * API error object
-             */
 
             if (
                 data &&
@@ -744,22 +733,15 @@ function showUsers(data) {
     ) {
 
         table.innerHTML = `
-
             <tr>
-
                 <td
                     colspan="6"
                     class="no-user"
                 >
-
                     <i class="fa-solid fa-users-slash"></i>
-
                     No User Found
-
                 </td>
-
             </tr>
-
         `;
 
         return;
@@ -774,12 +756,6 @@ function showUsers(data) {
             const username =
                 String(
                     user.username || ""
-                );
-
-
-            const password =
-                String(
-                    user.password || ""
                 );
 
 
@@ -809,7 +785,7 @@ function showUsers(data) {
 
             /* =========================
                STATUS
-            ========================= */
+               ========================= */
 
             let statusClass =
                 "status-inactive";
@@ -854,7 +830,6 @@ function showUsers(data) {
             ) {
 
                 pictureHTML = `
-
                     <div class="user-picture">
 
                         <img
@@ -865,7 +840,6 @@ function showUsers(data) {
                         >
 
                     </div>
-
                 `;
 
             }
@@ -879,11 +853,8 @@ function showUsers(data) {
 
 
             /*
-             * IMPORTANT
-             *
-             * Original users index ব্যবহার করছি।
-             * Search করার পরেও Edit/Delete
-             * সঠিক user-এর উপর কাজ করবে।
+             * IMPORTANT:
+             * Original users index
              */
 
             const index =
@@ -892,7 +863,7 @@ function showUsers(data) {
 
             /* =========================
                TABLE
-            ========================= */
+               ========================= */
 
             table.innerHTML += `
 
@@ -931,9 +902,7 @@ function showUsers(data) {
                         <span
                             class="user-status ${statusClass}"
                         >
-
                             ${escapeHTML(status)}
-
                         </span>
 
                     </td>
@@ -1005,17 +974,12 @@ function editUserByIndex(index) {
 
 
     editUser(
-
         user.username || "",
-
         user.password || "",
-
         user.name || "",
-
         user.role || "Admin",
-
-        user.status || "Active"
-
+        user.status || "Active",
+        user.picture || ""
     );
 
 }
@@ -1023,6 +987,10 @@ function editUserByIndex(index) {
 
 /* =========================================================
    EDIT USER
+   =========================================================
+   NOTE:
+   Picture is NOT shown in popup.
+   Existing picture is only kept internally.
    ========================================================= */
 
 function editUser(
@@ -1030,7 +998,8 @@ function editUser(
     password,
     name,
     userRole,
-    status
+    status,
+    picture
 ) {
 
     editMode = true;
@@ -1070,16 +1039,53 @@ function editUser(
 
 
     /*
-     * Picture field থাকলেও
-     * Edit করার সময় empty থাকবে।
+     * Picture input is intentionally NOT
+     * filled or previewed.
      *
-     * Existing picture API-তে পাঠানো হবে না।
+     * Existing picture remains unchanged
+     * unless your backend specifically
+     * changes it.
      */
 
-    setValue(
-        "picture",
-        ""
-    );
+
+    const pictureInput =
+        document.getElementById(
+            "picture"
+        );
+
+
+    if (pictureInput) {
+
+        pictureInput.value = "";
+
+    }
+
+
+    const preview =
+        document.getElementById(
+            "picturePreview"
+        );
+
+
+    if (preview) {
+
+        preview.style.display =
+            "none";
+
+    }
+
+
+    const previewImg =
+        document.getElementById(
+            "picturePreviewImg"
+        );
+
+
+    if (previewImg) {
+
+        previewImg.src = "";
+
+    }
 
 
     const title =
@@ -1127,9 +1133,46 @@ function saveUser() {
         getValue("status");
 
 
+    /*
+     * Picture is NOT taken from popup.
+     */
+
+    let picture = "";
+
+
+    /*
+     * ADD MODE
+     *
+     * If picture input exists and user
+     * actually enters something manually,
+     * it can still be saved.
+     *
+     * But no preview is displayed.
+     */
+
+    if (!editMode) {
+
+        const pictureElement =
+            document.getElementById(
+                "picture"
+            );
+
+
+        if (pictureElement) {
+
+            picture =
+                String(
+                    pictureElement.value || ""
+                ).trim();
+
+        }
+
+    }
+
+
     /* =========================
        VALIDATION
-    ========================= */
+       ========================= */
 
     if (!username) {
 
@@ -1172,7 +1215,7 @@ function saveUser() {
 
     /* =========================
        DATA
-    ========================= */
+       ========================= */
 
     const data = {
 
@@ -1189,51 +1232,60 @@ function saveUser() {
             userRole,
 
         status:
-            status
+            status,
+
+        picture:
+            picture
 
     };
 
 
-    /*
-     * ADD USER
-     *
-     * Add করার সময় Picture URL
-     * save হবে।
-     */
-
-    if (!editMode) {
-
-        data.action =
-            "add";
-
-
-        const picture =
-            getValue("picture");
-
-
-        data.picture =
-            picture;
-
-    }
-
-
-    /*
-     * EDIT USER
-     *
-     * Picture পাঠানো হচ্ছে না।
-     *
-     * তাই existing picture
-     * পরিবর্তন হবে না।
-     */
-
-    else {
+    if (editMode) {
 
         data.action =
             "update";
 
-
         data.oldUsername =
             oldUsername;
+
+        /*
+         * Important:
+         * Do not overwrite existing picture
+         * when editing.
+         *
+         * Find existing user's picture.
+         */
+
+        const existingUser =
+            users.find(
+                function (u) {
+
+                    return String(
+                        u.username || ""
+                    ) === String(
+                        oldUsername
+                    );
+
+                }
+            );
+
+
+        if (
+            existingUser &&
+            existingUser.picture
+        ) {
+
+            data.picture =
+                existingUser.picture;
+
+        }
+
+    }
+
+    else {
+
+        data.action =
+            "add";
 
     }
 
@@ -1482,49 +1534,37 @@ function createDeletePopup() {
         );
 
 
-    if (cancel) {
-
-        cancel.addEventListener(
-            "click",
-            closeDeletePopup
-        );
-
-    }
+    cancel.addEventListener(
+        "click",
+        closeDeletePopup
+    );
 
 
-    if (confirmBtn) {
-
-        confirmBtn.addEventListener(
-            "click",
-            confirmDelete
-        );
-
-    }
+    confirmBtn.addEventListener(
+        "click",
+        confirmDelete
+    );
 
 
-    if (overlay) {
+    overlay.addEventListener(
+        "click",
+        function (e) {
 
-        overlay.addEventListener(
-            "click",
-            function (e) {
+            if (
+                e.target === overlay
+            ) {
 
-                if (
-                    e.target === overlay
-                ) {
-
-                    closeDeletePopup();
-
-                }
+                closeDeletePopup();
 
             }
-        );
 
-    }
+        }
+    );
 
 
     /* =========================
        POPUP CSS
-    ========================= */
+       ========================= */
 
     const style =
         document.createElement("style");
@@ -1539,7 +1579,6 @@ function createDeletePopup() {
         #customDeletePopup {
             display: none;
         }
-
 
         .custom-delete-overlay {
 
@@ -1620,8 +1659,7 @@ function createDeletePopup() {
 
         .custom-delete-box h3 {
 
-            margin:
-                0 0 8px;
+            margin: 0 0 8px;
 
             font-size: 20px;
 
@@ -1980,14 +2018,81 @@ function clearForm() {
 
 
     /*
-     * Picture URL field clear হবে।
-     * কোনো Preview নেই।
+     * Picture field is cleared,
+     * but preview is NOT used.
      */
 
     setValue(
         "picture",
         ""
     );
+
+
+    const preview =
+        document.getElementById(
+            "picturePreview"
+        );
+
+
+    if (preview) {
+
+        preview.style.display =
+            "none";
+
+    }
+
+
+    const previewImg =
+        document.getElementById(
+            "picturePreviewImg"
+        );
+
+
+    if (previewImg) {
+
+        previewImg.src = "";
+
+    }
+
+}
+
+
+/* =========================================================
+   PICTURE PREVIEW DISABLED
+   =========================================================
+   Function kept for compatibility
+   with old HTML/other scripts.
+   ========================================================= */
+
+function updatePicturePreview(
+    picture
+) {
+
+    const preview =
+        document.getElementById(
+            "picturePreview"
+        );
+
+
+    const previewImg =
+        document.getElementById(
+            "picturePreviewImg"
+        );
+
+
+    if (preview) {
+
+        preview.style.display =
+            "none";
+
+    }
+
+
+    if (previewImg) {
+
+        previewImg.src = "";
+
+    }
 
 }
 
@@ -2063,6 +2168,7 @@ function showPopup(
 
         }
 
+
         else if (
             type === "error"
         ) {
@@ -2074,6 +2180,7 @@ function showPopup(
                 "#dc2626";
 
         }
+
 
         else if (
             type === "warning"
@@ -2126,32 +2233,6 @@ function showLoading(
     text = "Loading..."
 ) {
 
-    /*
-     * External loading.js থাকলে
-     * সেটি ব্যবহার করবে।
-     */
-
-    const externalLoading =
-        window.showLoading;
-
-
-    if (
-        typeof externalLoading ===
-        "function" &&
-        externalLoading !== showLoading
-    ) {
-
-        externalLoading(text);
-
-        return;
-
-    }
-
-
-    /*
-     * Fallback Loading
-     */
-
     let loading =
         document.getElementById(
             "simpleLoading"
@@ -2172,20 +2253,20 @@ function showLoading(
 
         loading.style.cssText = `
 
-            position: fixed;
+            position:fixed;
 
-            inset: 0;
+            inset:0;
 
             background:
                 rgba(0,0,0,.35);
 
-            display: flex;
+            display:flex;
 
-            align-items: center;
+            align-items:center;
 
-            justify-content: center;
+            justify-content:center;
 
-            z-index: 99999;
+            z-index:99999;
 
         `;
 
@@ -2196,8 +2277,11 @@ function showLoading(
                 background:white;
                 padding:25px 35px;
                 border-radius:16px;
-                box-shadow:0 15px 40px rgba(0,0,0,.25);
-                font-family:Arial,sans-serif;
+                box-shadow:
+                    0 15px 40px
+                    rgba(0,0,0,.25);
+                font-family:
+                    Arial,sans-serif;
                 color:#1e3a8a;
                 font-weight:600;
             ">
@@ -2210,9 +2294,7 @@ function showLoading(
                 ></i>
 
                 <span id="simpleLoadingText">
-
                     ${escapeHTML(text)}
-
                 </span>
 
             </div>
@@ -2255,23 +2337,6 @@ function showLoading(
    ========================================================= */
 
 function hideLoading() {
-
-    const externalLoading =
-        window.hideLoading;
-
-
-    if (
-        typeof externalLoading ===
-        "function" &&
-        externalLoading !== hideLoading
-    ) {
-
-        externalLoading();
-
-        return;
-
-    }
-
 
     const loading =
         document.getElementById(
@@ -2391,6 +2456,7 @@ function imageError(
 
     img.onerror = null;
 
+
     img.src =
         "profile.png";
 
@@ -2411,7 +2477,9 @@ function createFallbackImage() {
                 src="profile.png"
                 class="user-avatar"
                 alt="User"
-                onerror="this.style.display='none'"
+                onerror="
+                    this.style.display='none'
+                "
             >
 
         </div>
