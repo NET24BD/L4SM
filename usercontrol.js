@@ -2,12 +2,12 @@
    LINK 4 USER CONTROL
    USERCONTROL.JS
    FINAL VERSION
-========================================================= */
+   ========================================================= */
 
 
 /* =========================================================
    API
-========================================================= */
+   ========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
@@ -15,7 +15,7 @@ const API_URL =
 
 /* =========================================================
    GLOBAL
-========================================================= */
+   ========================================================= */
 
 let users = [];
 
@@ -28,13 +28,13 @@ let deleteUsername = "";
 
 /* =========================================================
    LOGIN CHECK
-========================================================= */
+   ========================================================= */
 
 const isLogin =
-    localStorage.getItem("isLogin");
+localStorage.getItem("isLogin");
 
 const currentRole =
-    localStorage.getItem("role");
+localStorage.getItem("role");
 
 
 if (
@@ -49,7 +49,7 @@ if (
 
 /* =========================================================
    PAGE LOAD
-========================================================= */
+   ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -77,7 +77,7 @@ document.addEventListener(
 
 /* =========================================================
    PROFILE
-========================================================= */
+   ========================================================= */
 
 function loadProfile() {
 
@@ -86,6 +86,7 @@ function loadProfile() {
 
     const picture =
         localStorage.getItem("picture") || "";
+
 
     const userName =
         document.getElementById("userName");
@@ -96,8 +97,7 @@ function loadProfile() {
 
     if (userName) {
 
-        userName.textContent =
-            name;
+        userName.textContent = name;
 
     }
 
@@ -109,27 +109,24 @@ function loadProfile() {
             picture.trim() !== ""
         ) {
 
-            profileImg.src =
-                picture;
+            profileImg.src = picture;
 
         }
         else {
 
-            profileImg.src =
-                "profile.png";
+            profileImg.src = "profile.png";
 
         }
 
 
         profileImg.onerror =
-            function () {
+        function () {
 
-                this.onerror = null;
+            this.onerror = null;
 
-                this.src =
-                    "profile.png";
+            this.src = "profile.png";
 
-            };
+        };
 
     }
 
@@ -138,7 +135,7 @@ function loadProfile() {
 
 /* =========================================================
    PROFILE MENU
-========================================================= */
+   ========================================================= */
 
 function setupProfileMenu() {
 
@@ -200,7 +197,7 @@ function setupProfileMenu() {
 
 /* =========================================================
    NAVIGATION
-========================================================= */
+   ========================================================= */
 
 function setupNavigation() {
 
@@ -217,8 +214,9 @@ function setupNavigation() {
             "click",
             function () {
 
-                window.location.href =
-                    "dashboard.html";
+                window.location.replace(
+                    "dashboard.html"
+                );
 
             }
         );
@@ -267,7 +265,7 @@ function setupNavigation() {
 
 /* =========================================================
    LOGOUT
-========================================================= */
+   ========================================================= */
 
 function logoutUser() {
 
@@ -284,7 +282,7 @@ function logoutUser() {
 
 /* =========================================================
    LOGIN PROTECTION
-========================================================= */
+   ========================================================= */
 
 window.addEventListener(
     "pageshow",
@@ -314,7 +312,7 @@ window.addEventListener(
 
 /* =========================================================
    SEARCH
-========================================================= */
+   ========================================================= */
 
 function setupSearch() {
 
@@ -410,7 +408,7 @@ function setupSearch() {
 
 /* =========================================================
    ADD USER BUTTON
-========================================================= */
+   ========================================================= */
 
 function setupUserButtons() {
 
@@ -434,6 +432,7 @@ function setupUserButtons() {
             editMode = false;
 
             oldUsername = "";
+
 
             clearForm();
 
@@ -462,7 +461,7 @@ function setupUserButtons() {
 
 /* =========================================================
    MODAL SETUP
-========================================================= */
+   ========================================================= */
 
 function setupModal() {
 
@@ -544,7 +543,7 @@ function setupModal() {
 
 /* =========================================================
    OPEN MODAL
-========================================================= */
+   ========================================================= */
 
 function openModal() {
 
@@ -566,7 +565,7 @@ function openModal() {
 
 /* =========================================================
    CLOSE MODAL
-========================================================= */
+   ========================================================= */
 
 function closeModal() {
 
@@ -588,7 +587,7 @@ function closeModal() {
 
 /* =========================================================
    LOAD USERS
-========================================================= */
+   ========================================================= */
 
 function loadUsers() {
 
@@ -602,8 +601,11 @@ function loadUsers() {
         "?action=users&t=" +
         Date.now(),
         {
+
             method: "GET",
+
             cache: "no-store"
+
         }
     )
 
@@ -632,9 +634,8 @@ function loadUsers() {
 
 
             /*
-             * IMPORTANT:
-             * Code.gs getUsers()
-             * directly returns ARRAY
+             * Code.gs যদি directly
+             * ARRAY return করে
              */
 
             if (
@@ -654,7 +655,7 @@ function loadUsers() {
 
 
             /*
-             * If API returns error object
+             * API error object
              */
 
             if (
@@ -717,7 +718,7 @@ function loadUsers() {
 
 /* =========================================================
    SHOW USERS
-========================================================= */
+   ========================================================= */
 
 function showUsers(data) {
 
@@ -743,15 +744,22 @@ function showUsers(data) {
     ) {
 
         table.innerHTML = `
+
             <tr>
+
                 <td
                     colspan="6"
                     class="no-user"
                 >
+
                     <i class="fa-solid fa-users-slash"></i>
+
                     No User Found
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -822,6 +830,7 @@ function showUsers(data) {
                     "status-active";
 
             }
+
             else if (
                 statusLower === "block" ||
                 statusLower === "blocked"
@@ -834,8 +843,8 @@ function showUsers(data) {
 
 
             /* =========================
-               PICTURE
-            ========================= */
+               USER LIST PICTURE
+               ========================= */
 
             let pictureHTML;
 
@@ -845,17 +854,22 @@ function showUsers(data) {
             ) {
 
                 pictureHTML = `
+
                     <div class="user-picture">
+
                         <img
                             src="${escapeHTML(picture)}"
                             class="user-avatar"
                             alt="${escapeHTML(name)}"
                             onerror="imageError(this)"
                         >
+
                     </div>
+
                 `;
 
             }
+
             else {
 
                 pictureHTML =
@@ -865,10 +879,11 @@ function showUsers(data) {
 
 
             /*
-             * IMPORTANT:
-             * Use original users index.
-             * This keeps edit/delete correct
-             * after search.
+             * IMPORTANT
+             *
+             * Original users index ব্যবহার করছি।
+             * Search করার পরেও Edit/Delete
+             * সঠিক user-এর উপর কাজ করবে।
              */
 
             const index =
@@ -916,7 +931,9 @@ function showUsers(data) {
                         <span
                             class="user-status ${statusClass}"
                         >
+
                             ${escapeHTML(status)}
+
                         </span>
 
                     </td>
@@ -969,7 +986,7 @@ function showUsers(data) {
 
 /* =========================================================
    EDIT USER BY INDEX
-========================================================= */
+   ========================================================= */
 
 function editUserByIndex(index) {
 
@@ -988,12 +1005,17 @@ function editUserByIndex(index) {
 
 
     editUser(
+
         user.username || "",
+
         user.password || "",
+
         user.name || "",
+
         user.role || "Admin",
-        user.status || "Active",
-        user.picture || ""
+
+        user.status || "Active"
+
     );
 
 }
@@ -1001,15 +1023,14 @@ function editUserByIndex(index) {
 
 /* =========================================================
    EDIT USER
-========================================================= */
+   ========================================================= */
 
 function editUser(
     username,
     password,
     name,
     userRole,
-    status,
-    picture
+    status
 ) {
 
     editMode = true;
@@ -1048,9 +1069,16 @@ function editUser(
     );
 
 
+    /*
+     * Picture field থাকলেও
+     * Edit করার সময় empty থাকবে।
+     *
+     * Existing picture API-তে পাঠানো হবে না।
+     */
+
     setValue(
         "picture",
-        picture || ""
+        ""
     );
 
 
@@ -1068,11 +1096,6 @@ function editUser(
     }
 
 
-    updatePicturePreview(
-        picture || ""
-    );
-
-
     openModal();
 
 }
@@ -1080,7 +1103,7 @@ function editUser(
 
 /* =========================================================
    SAVE USER
-========================================================= */
+   ========================================================= */
 
 function saveUser() {
 
@@ -1102,10 +1125,6 @@ function saveUser() {
 
     const status =
         getValue("status");
-
-
-    const picture =
-        getValue("picture");
 
 
     /* =========================
@@ -1170,27 +1189,51 @@ function saveUser() {
             userRole,
 
         status:
-            status,
-
-        picture:
-            picture
+            status
 
     };
 
 
-    if (editMode) {
+    /*
+     * ADD USER
+     *
+     * Add করার সময় Picture URL
+     * save হবে।
+     */
+
+    if (!editMode) {
+
+        data.action =
+            "add";
+
+
+        const picture =
+            getValue("picture");
+
+
+        data.picture =
+            picture;
+
+    }
+
+
+    /*
+     * EDIT USER
+     *
+     * Picture পাঠানো হচ্ছে না।
+     *
+     * তাই existing picture
+     * পরিবর্তন হবে না।
+     */
+
+    else {
 
         data.action =
             "update";
 
+
         data.oldUsername =
             oldUsername;
-
-    }
-    else {
-
-        data.action =
-            "add";
 
     }
 
@@ -1263,6 +1306,7 @@ function saveUser() {
                 loadUsers();
 
             }
+
             else {
 
                 showPopup(
@@ -1303,7 +1347,7 @@ function saveUser() {
 
 /* =========================================================
    DELETE USER BY INDEX
-========================================================= */
+   ========================================================= */
 
 function deleteUserByIndex(index) {
 
@@ -1343,7 +1387,7 @@ function deleteUserByIndex(index) {
 
 /* =========================================================
    CREATE CUSTOM DELETE POPUP
-========================================================= */
+   ========================================================= */
 
 function createDeletePopup() {
 
@@ -1438,32 +1482,44 @@ function createDeletePopup() {
         );
 
 
-    cancel.addEventListener(
-        "click",
-        closeDeletePopup
-    );
+    if (cancel) {
+
+        cancel.addEventListener(
+            "click",
+            closeDeletePopup
+        );
+
+    }
 
 
-    confirmBtn.addEventListener(
-        "click",
-        confirmDelete
-    );
+    if (confirmBtn) {
+
+        confirmBtn.addEventListener(
+            "click",
+            confirmDelete
+        );
+
+    }
 
 
-    overlay.addEventListener(
-        "click",
-        function (e) {
+    if (overlay) {
 
-            if (
-                e.target === overlay
-            ) {
+        overlay.addEventListener(
+            "click",
+            function (e) {
 
-                closeDeletePopup();
+                if (
+                    e.target === overlay
+                ) {
+
+                    closeDeletePopup();
+
+                }
 
             }
+        );
 
-        }
-    );
+    }
 
 
     /* =========================
@@ -1483,6 +1539,7 @@ function createDeletePopup() {
         #customDeletePopup {
             display: none;
         }
+
 
         .custom-delete-overlay {
 
@@ -1563,7 +1620,8 @@ function createDeletePopup() {
 
         .custom-delete-box h3 {
 
-            margin: 0 0 8px;
+            margin:
+                0 0 8px;
 
             font-size: 20px;
 
@@ -1689,7 +1747,7 @@ function createDeletePopup() {
 
 /* =========================================================
    SHOW DELETE POPUP
-========================================================= */
+   ========================================================= */
 
 function showDeletePopup(
     username
@@ -1732,7 +1790,7 @@ function showDeletePopup(
 
 /* =========================================================
    CLOSE DELETE POPUP
-========================================================= */
+   ========================================================= */
 
 function closeDeletePopup() {
 
@@ -1757,7 +1815,7 @@ function closeDeletePopup() {
 
 /* =========================================================
    CONFIRM DELETE
-========================================================= */
+   ========================================================= */
 
 function confirmDelete() {
 
@@ -1846,6 +1904,7 @@ function confirmDelete() {
                 loadUsers();
 
             }
+
             else {
 
                 showPopup(
@@ -1886,7 +1945,7 @@ function confirmDelete() {
 
 /* =========================================================
    CLEAR FORM
-========================================================= */
+   ========================================================= */
 
 function clearForm() {
 
@@ -1920,87 +1979,22 @@ function clearForm() {
     );
 
 
+    /*
+     * Picture URL field clear হবে।
+     * কোনো Preview নেই।
+     */
+
     setValue(
         "picture",
         ""
     );
-
-
-    updatePicturePreview(
-        ""
-    );
-
-}
-
-
-/* =========================================================
-   PICTURE PREVIEW
-========================================================= */
-
-function updatePicturePreview(
-    picture
-) {
-
-    const preview =
-        document.getElementById(
-            "picturePreview"
-        );
-
-
-    const previewImg =
-        document.getElementById(
-            "picturePreviewImg"
-        );
-
-
-    if (
-        !preview ||
-        !previewImg
-    ) {
-
-        return;
-
-    }
-
-
-    if (
-        picture &&
-        picture.trim() !== ""
-    ) {
-
-        previewImg.src =
-            picture;
-
-
-        preview.style.display =
-            "flex";
-
-
-        previewImg.onerror =
-            function () {
-
-                preview.style.display =
-                    "none";
-
-            };
-
-    }
-    else {
-
-        preview.style.display =
-            "none";
-
-        previewImg.src =
-            "";
-
-    }
 
 }
 
 
 /* =========================================================
    POPUP
-========================================================= */
+   ========================================================= */
 
 function showPopup(
     title,
@@ -2069,7 +2063,6 @@ function showPopup(
 
         }
 
-
         else if (
             type === "error"
         ) {
@@ -2081,7 +2074,6 @@ function showPopup(
                 "#dc2626";
 
         }
-
 
         else if (
             type === "warning"
@@ -2106,7 +2098,7 @@ function showPopup(
 
 /* =========================================================
    CLOSE POPUP
-========================================================= */
+   ========================================================= */
 
 function closePopup() {
 
@@ -2128,24 +2120,28 @@ function closePopup() {
 
 /* =========================================================
    LOADING
-========================================================= */
+   ========================================================= */
 
 function showLoading(
     text = "Loading..."
 ) {
 
     /*
-     * তোমার loading.js থাকলে
-     * সেটার function ব্যবহার করবে।
+     * External loading.js থাকলে
+     * সেটি ব্যবহার করবে।
      */
 
+    const externalLoading =
+        window.showLoading;
+
+
     if (
-        typeof window.showLoading ===
+        typeof externalLoading ===
         "function" &&
-        window.showLoading !== showLoading
+        externalLoading !== showLoading
     ) {
 
-        window.showLoading(text);
+        externalLoading(text);
 
         return;
 
@@ -2153,7 +2149,7 @@ function showLoading(
 
 
     /*
-     * Fallback
+     * Fallback Loading
      */
 
     let loading =
@@ -2176,20 +2172,20 @@ function showLoading(
 
         loading.style.cssText = `
 
-            position:fixed;
+            position: fixed;
 
-            inset:0;
+            inset: 0;
 
             background:
                 rgba(0,0,0,.35);
 
-            display:flex;
+            display: flex;
 
-            align-items:center;
+            align-items: center;
 
-            justify-content:center;
+            justify-content: center;
 
-            z-index:99999;
+            z-index: 99999;
 
         `;
 
@@ -2214,7 +2210,9 @@ function showLoading(
                 ></i>
 
                 <span id="simpleLoadingText">
+
                     ${escapeHTML(text)}
+
                 </span>
 
             </div>
@@ -2227,6 +2225,7 @@ function showLoading(
         );
 
     }
+
     else {
 
         const textElement =
@@ -2253,14 +2252,9 @@ function showLoading(
 
 /* =========================================================
    HIDE LOADING
-========================================================= */
+   ========================================================= */
 
 function hideLoading() {
-
-    /*
-     * loading.js-এর function থাকলে
-     * সেটাই ব্যবহার করবে।
-     */
 
     const externalLoading =
         window.hideLoading;
@@ -2297,7 +2291,7 @@ function hideLoading() {
 
 /* =========================================================
    GET VALUE
-========================================================= */
+   ========================================================= */
 
 function getValue(id) {
 
@@ -2321,7 +2315,7 @@ function getValue(id) {
 
 /* =========================================================
    SET VALUE
-========================================================= */
+   ========================================================= */
 
 function setValue(
     id,
@@ -2344,7 +2338,7 @@ function setValue(
 
 /* =========================================================
    ESCAPE HTML
-========================================================= */
+   ========================================================= */
 
 function escapeHTML(value) {
 
@@ -2382,7 +2376,7 @@ function escapeHTML(value) {
 
 /* =========================================================
    IMAGE ERROR
-========================================================= */
+   ========================================================= */
 
 function imageError(
     img
@@ -2405,7 +2399,7 @@ function imageError(
 
 /* =========================================================
    FALLBACK IMAGE
-========================================================= */
+   ========================================================= */
 
 function createFallbackImage() {
 
@@ -2429,7 +2423,7 @@ function createFallbackImage() {
 
 /* =========================================================
    ESCAPE KEY
-========================================================= */
+   ========================================================= */
 
 document.addEventListener(
     "keydown",
