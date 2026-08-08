@@ -1,7 +1,3 @@
-/* =====================================================
-   RESET
-===================================================== */
-
 *{
     margin:0;
     padding:0;
@@ -10,20 +6,11 @@
 }
 
 
-/* =====================================================
-   BODY
-===================================================== */
-
 body{
-
-    min-height:100vh;
-
     background:#f1f5f9;
-
     color:#334155;
-
+    min-height:100vh;
     overflow-x:hidden;
-
 }
 
 
@@ -33,17 +20,11 @@ body{
 
 .header{
 
-    width:calc(100% - 6px);
+    width:100%;
 
-    min-height:72px;
+    height:75px;
 
-    margin:0 3px;
-
-    padding:0 22px;
-
-    background:#ffffff;
-
-    border-radius:0 0 16px 16px;
+    background:white;
 
     display:flex;
 
@@ -51,15 +32,15 @@ body{
 
     justify-content:space-between;
 
-    box-shadow:
-        0 6px 20px rgba(0,0,0,.08);
+    padding:0 30px;
 
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+
+    position:relative;
+
+    z-index:100;
 }
 
-
-/* =====================================================
-   LEFT SECTION
-===================================================== */
 
 .left-section{
 
@@ -67,14 +48,9 @@ body{
 
     align-items:center;
 
-    gap:14px;
-
+    gap:18px;
 }
 
-
-/* =====================================================
-   BACK BUTTON
-===================================================== */
 
 .back-btn{
 
@@ -82,24 +58,19 @@ body{
 
     background:#2563eb;
 
-    color:#ffffff;
+    color:white;
 
-    padding:9px 15px;
+    padding:10px 17px;
 
-    border-radius:8px;
-
-    font-size:14px;
+    border-radius:9px;
 
     cursor:pointer;
 
-    display:flex;
+    font-size:14px;
 
-    align-items:center;
-
-    gap:6px;
+    font-weight:600;
 
     transition:.2s;
-
 }
 
 
@@ -108,13 +79,8 @@ body{
     background:#1d4ed8;
 
     transform:translateY(-1px);
-
 }
 
-
-/* =====================================================
-   PENDING CALL TITLE
-===================================================== */
 
 .call-title{
 
@@ -122,18 +88,15 @@ body{
 
     align-items:center;
 
-    gap:8px;
-
-    font-size:22px;
-
-    font-weight:700;
+    gap:9px;
 
     color:#0f172a;
+
+    font-size:22px;
 
     cursor:pointer;
 
     user-select:none;
-
 }
 
 
@@ -142,18 +105,6 @@ body{
     color:#2563eb;
 
     font-size:23px;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-
-.call-title:hover i{
-
-    transform:scale(1.1);
-
 }
 
 
@@ -164,13 +115,8 @@ body{
 .profile{
 
     position:relative;
-
 }
 
-
-/* =====================================================
-   PROFILE HEAD
-===================================================== */
 
 .profile-head{
 
@@ -178,71 +124,45 @@ body{
 
     align-items:center;
 
-    gap:8px;
+    gap:10px;
 
     cursor:pointer;
 
     user-select:none;
-
 }
 
 
-/* =====================================================
-   PROFILE IMAGE
-===================================================== */
-
 .profile-head img{
 
-    width:44px;
+    width:43px;
 
-    height:44px;
-
-    min-width:44px;
-
-    min-height:44px;
+    height:43px;
 
     border-radius:50%;
 
     object-fit:cover;
 
-    border:2px solid #2563eb;
-
-    display:block;
-
+    border:3px solid #2563eb;
 }
 
-
-/* =====================================================
-   USERNAME
-===================================================== */
 
 .profile-head span{
 
-    font-size:14px;
-
     font-weight:600;
 
-    color:#0f172a;
-
+    color:#334155;
 }
 
 
-/* =====================================================
-   PROFILE ARROW
-===================================================== */
-
-.profile-head > i{
-
-    font-size:13px;
+.profile-head i{
 
     color:#64748b;
 
+    font-size:13px;
 }
 
 
-/* =====================================================
-   PROFILE MENU
-===================================================== */
+/* PROFILE MENU */
 
 .profile-menu{
 
@@ -254,95 +174,77 @@ body{
 
     width:190px;
 
-    background:#ffffff;
+    background:white;
 
     border-radius:12px;
 
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.18);
+    box-shadow:0 12px 35px rgba(0,0,0,.18);
 
     overflow:hidden;
 
     display:none;
 
-    z-index:5000;
-
+    z-index:9999;
 }
 
 
 .profile-menu.show{
 
     display:block;
-
 }
 
-
-/* =====================================================
-   PROFILE MENU BUTTON
-===================================================== */
 
 .profile-menu button{
 
     width:100%;
 
-    padding:13px 15px;
-
     border:none;
 
-    background:#ffffff;
+    background:white;
 
-    color:#334155;
-
-    font-size:14px;
+    padding:14px 16px;
 
     text-align:left;
 
     cursor:pointer;
 
-    display:flex;
+    font-size:14px;
 
-    align-items:center;
-
-    gap:10px;
-
+    color:#334155;
 }
 
 
 .profile-menu button:hover{
 
     background:#f1f5f9;
-
 }
 
 
 .profile-menu button i{
 
-    width:18px;
+    width:22px;
 
     color:#2563eb;
-
 }
 
 
 /* =====================================================
-   FILTER ROW
-   DEFAULT HIDDEN
+   FILTER
 ===================================================== */
 
-.filter-row{
+.filter-bar{
 
-    width:calc(100% - 6px);
+    width:calc(100% - 40px);
 
-    margin:15px 3px 0;
+    margin:20px auto;
 
-    padding:14px 18px;
+    padding:16px;
 
-    background:#ffffff;
+    background:white;
 
     border-radius:14px;
 
-    box-shadow:
-        0 6px 20px rgba(0,0,0,.07);
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 
     display:none;
 
@@ -350,21 +252,15 @@ body{
 
     gap:12px;
 
+    flex-wrap:wrap;
 }
 
 
-/* SHOW FILTER */
-
-.filter-row.show{
+.filter-bar.show{
 
     display:flex;
-
 }
 
-
-/* =====================================================
-   FILTER GROUP
-===================================================== */
 
 .filter-group{
 
@@ -372,10 +268,7 @@ body{
 
     flex-direction:column;
 
-    gap:5px;
-
-    flex:1;
-
+    gap:6px;
 }
 
 
@@ -386,21 +279,20 @@ body{
     font-weight:600;
 
     color:#475569;
-
 }
 
 
 .filter-group input{
 
-    width:100%;
+    height:38px;
 
-    height:36px;
-
-    padding:7px 10px;
+    min-width:145px;
 
     border:1px solid #cbd5e1;
 
-    border-radius:7px;
+    border-radius:8px;
+
+    padding:0 10px;
 
     outline:none;
 
@@ -408,8 +300,7 @@ body{
 
     color:#334155;
 
-    background:#ffffff;
-
+    background:white;
 }
 
 
@@ -417,119 +308,58 @@ body{
 
     border-color:#2563eb;
 
-    box-shadow:
-        0 0 0 2px rgba(37,99,235,.10);
-
+    box-shadow:0 0 0 2px rgba(37,99,235,.1);
 }
 
 
-/* =====================================================
-   FILTER BUTTON
-===================================================== */
+.search-group input{
 
-.filter-btn{
+    min-width:230px;
+}
 
-    height:36px;
 
-    padding:0 14px;
+.filter-btn,
+.reset-btn{
+
+    height:38px;
 
     border:none;
 
-    border-radius:7px;
+    border-radius:8px;
 
-    background:#2563eb;
+    padding:0 15px;
 
-    color:#ffffff;
+    cursor:pointer;
 
     font-size:13px;
 
     font-weight:600;
 
-    cursor:pointer;
+    color:white;
+}
 
-    display:flex;
 
-    align-items:center;
+.filter-btn{
 
-    justify-content:center;
-
-    gap:6px;
-
+    background:#2563eb;
 }
 
 
 .filter-btn:hover{
 
     background:#1d4ed8;
-
 }
 
 
-/* =====================================================
-   RESET BUTTON
-===================================================== */
-
 .reset-btn{
 
-    height:36px;
-
-    padding:0 13px;
-
-    border:none;
-
-    border-radius:7px;
-
     background:#64748b;
-
-    color:#ffffff;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:6px;
-
 }
 
 
 .reset-btn:hover{
 
     background:#475569;
-
-}
-
-
-/* =====================================================
-   TABLE BOX
-===================================================== */
-
-.table-box{
-
-    width:calc(100% - 6px);
-
-    max-width:none;
-
-    margin:15px 3px 0;
-
-    padding:16px 18px;
-
-    background:#ffffff;
-
-    border-radius:16px;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.08);
-
-    overflow-x:auto;
-
 }
 
 
@@ -537,95 +367,75 @@ body{
    TABLE
 ===================================================== */
 
-.table-box table{
+.table-box{
+
+    width:calc(100% - 40px);
+
+    margin:20px auto;
+
+    background:white;
+
+    border-radius:15px;
+
+    box-shadow:0 6px 25px rgba(0,0,0,.08);
+
+    overflow:auto;
+}
+
+
+table{
 
     width:100%;
 
-    min-width:1000px;
-
     border-collapse:collapse;
 
-    table-layout:auto;
-
+    min-width:900px;
 }
 
 
-/* =====================================================
-   TABLE HEADER
-===================================================== */
-
-.table-box thead{
+thead{
 
     background:#2563eb;
 
+    color:white;
 }
 
 
-.table-box th{
-
-    background:#2563eb;
-
-    color:#ffffff;
+th{
 
     padding:14px 12px;
+
+    text-align:left;
 
     font-size:13px;
 
-    font-weight:600;
-
-    text-align:center;
-
     white-space:nowrap;
-
 }
 
 
-/* =====================================================
-   TABLE BODY
-===================================================== */
+td{
 
-.table-box td{
+    padding:13px 12px;
 
-    padding:14px 12px;
+    border-bottom:1px solid #e2e8f0;
 
     font-size:13px;
 
     color:#334155;
 
-    text-align:center;
-
-    border-bottom:1px solid #e2e8f0;
-
-    white-space:nowrap;
-
+    vertical-align:middle;
 }
 
 
-/* =====================================================
-   TABLE HOVER
-===================================================== */
-
-.table-box tbody tr:hover{
+tbody tr:hover{
 
     background:#f8fafc;
-
 }
 
 
-/* =====================================================
-   LOADING
-===================================================== */
+tbody tr:last-child td{
 
-.table-box td[colspan]{
-
-    height:40px;
-
-    text-align:center;
-
-    color:#64748b;
-
-    font-size:13px;
-
+    border-bottom:none;
 }
 
 
@@ -637,59 +447,25 @@ body{
 
     border:none;
 
-    background:#16a34a;
+    background:#2563eb;
 
-    color:#ffffff;
+    color:white;
 
-    padding:7px 12px;
+    padding:8px 12px;
 
-    border-radius:6px;
-
-    font-size:12px;
+    border-radius:7px;
 
     cursor:pointer;
 
-    margin:2px;
+    font-size:12px;
 
+    font-weight:600;
 }
 
 
 .edit-btn:hover{
 
-    background:#15803d;
-
-}
-
-
-/* =====================================================
-   DELETE BUTTON
-===================================================== */
-
-.delete-btn{
-
-    border:none;
-
-    background:#dc2626;
-
-    color:#ffffff;
-
-    padding:7px 12px;
-
-    border-radius:6px;
-
-    font-size:12px;
-
-    cursor:pointer;
-
-    margin:2px;
-
-}
-
-
-.delete-btn:hover{
-
-    background:#b91c1c;
-
+    background:#1d4ed8;
 }
 
 
@@ -713,15 +489,13 @@ body{
 
     padding:20px;
 
-    z-index:10000;
-
+    z-index:5000;
 }
 
 
 .modal.show{
 
     display:flex;
-
 }
 
 
@@ -731,7 +505,7 @@ body{
 
 .popup{
 
-    width:450px;
+    width:480px;
 
     max-width:100%;
 
@@ -739,31 +513,47 @@ body{
 
     overflow-y:auto;
 
-    background:#ffffff;
+    background:white;
 
-    border-radius:18px;
+    border-radius:16px;
 
-    padding:25px;
+    padding:24px;
 
     position:relative;
 
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.25);
-
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
 }
 
 
-/* =====================================================
-   CLOSE BUTTON
-===================================================== */
+.popup h2{
+
+    color:#0f172a;
+
+    margin-bottom:20px;
+
+    font-size:21px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+
+.popup h2 i{
+
+    color:#2563eb;
+}
+
 
 .close-btn{
 
     position:absolute;
 
-    right:15px;
-
     top:12px;
+
+    right:15px;
 
     width:32px;
 
@@ -777,77 +567,48 @@ body{
 
     color:#475569;
 
-    font-size:22px;
+    font-size:21px;
 
     cursor:pointer;
-
 }
 
 
 .close-btn:hover{
 
-    background:#fee2e2;
-
-    color:#dc2626;
-
+    background:#e2e8f0;
 }
 
-
-/* =====================================================
-   POPUP TITLE
-===================================================== */
-
-.popup h2{
-
-    margin-bottom:20px;
-
-    color:#0f172a;
-
-    font-size:21px;
-
-}
-
-
-/* =====================================================
-   POPUP LABEL
-===================================================== */
 
 .popup label{
 
     display:block;
 
-    margin:10px 0 6px;
+    margin:12px 0 6px;
 
     font-size:13px;
 
     font-weight:600;
 
     color:#334155;
-
 }
 
-
-/* =====================================================
-   POPUP INPUT
-===================================================== */
 
 .popup input,
 .popup textarea{
 
     width:100%;
 
-    padding:10px 11px;
-
     border:1px solid #cbd5e1;
 
     border-radius:8px;
+
+    padding:10px;
 
     outline:none;
 
     font-size:13px;
 
     resize:vertical;
-
 }
 
 
@@ -856,9 +617,7 @@ body{
 
     border-color:#2563eb;
 
-    box-shadow:
-        0 0 0 2px rgba(37,99,235,.08);
-
+    box-shadow:0 0 0 2px rgba(37,99,235,.1);
 }
 
 
@@ -870,140 +629,69 @@ body{
 
     display:flex;
 
-    gap:8px;
+    gap:9px;
 
     margin-top:20px;
+}
 
-    flex-wrap:wrap;
 
+.popup-buttons button{
+
+    flex:1;
+
+    border:none;
+
+    padding:11px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    font-weight:600;
 }
 
 
 .submit-btn{
 
-    flex:1;
+    background:#16a34a;
 
-    min-width:90px;
-
-    padding:10px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background:#2563eb;
-
-    color:#ffffff;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
+    color:white;
 }
 
 
 .submit-btn:hover{
 
-    background:#1d4ed8;
-
+    background:#15803d;
 }
 
 
 .cancel-btn{
 
-    flex:1;
-
-    min-width:90px;
-
-    padding:10px;
-
-    border:none;
-
-    border-radius:8px;
-
     background:#64748b;
 
-    color:#ffffff;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
+    color:white;
 }
 
 
 .cancel-btn:hover{
 
     background:#475569;
-
 }
 
 
-.popup-buttons .delete-btn{
-
-    flex:1;
-
-    min-width:90px;
-
-    padding:10px;
-
-    border:none;
-
-    border-radius:8px;
+.delete-btn{
 
     background:#dc2626;
 
-    color:#ffffff;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
+    color:white;
 }
 
 
-.popup-buttons .delete-btn:hover{
+.delete-btn:hover{
 
     background:#b91c1c;
-
-}
-
-
-/* =====================================================
-   MESSAGE MODAL
-===================================================== */
-
-.message-modal{
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(15,23,42,.55);
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:20px;
-
-    z-index:20000;
-
-}
-
-
-.message-modal.show{
-
-    display:flex;
-
 }
 
 
@@ -1013,31 +701,27 @@ body{
 
 .message-box{
 
-    width:330px;
+    width:350px;
 
     max-width:100%;
 
-    padding:28px 25px;
+    background:white;
 
-    background:#ffffff;
+    border-radius:16px;
 
-    border-radius:18px;
+    padding:30px;
 
     text-align:center;
 
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.25);
-
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
 }
 
 
 .message-icon{
 
-    width:60px;
+    width:58px;
 
-    height:60px;
-
-    margin:0 auto 15px;
+    height:58px;
 
     border-radius:50%;
 
@@ -1051,8 +735,9 @@ body{
 
     justify-content:center;
 
-    font-size:30px;
+    margin:0 auto 15px;
 
+    font-size:28px;
 }
 
 
@@ -1061,7 +746,6 @@ body{
     color:#0f172a;
 
     margin-bottom:8px;
-
 }
 
 
@@ -1072,7 +756,6 @@ body{
     font-size:14px;
 
     margin-bottom:20px;
-
 }
 
 
@@ -1082,7 +765,7 @@ body{
 
     background:#2563eb;
 
-    color:#ffffff;
+    color:white;
 
     padding:10px 28px;
 
@@ -1091,46 +774,6 @@ body{
     cursor:pointer;
 
     font-weight:600;
-
-}
-
-
-.message-box button:hover{
-
-    background:#1d4ed8;
-
-}
-
-
-/* =====================================================
-   CONFIRM MODAL
-===================================================== */
-
-.confirm-modal{
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(15,23,42,.55);
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:20px;
-
-    z-index:21000;
-
-}
-
-
-.confirm-modal.show{
-
-    display:flex;
-
 }
 
 
@@ -1140,37 +783,33 @@ body{
 
 .confirm-box{
 
-    width:350px;
+    width:380px;
 
     max-width:100%;
 
-    padding:28px 25px;
+    background:white;
 
-    background:#ffffff;
+    border-radius:16px;
 
-    border-radius:18px;
+    padding:28px;
 
     text-align:center;
 
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.25);
-
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
 }
 
 
 .confirm-icon{
 
-    width:60px;
+    width:58px;
 
-    height:60px;
-
-    margin:0 auto 15px;
+    height:58px;
 
     border-radius:50%;
 
-    background:#fee2e2;
+    background:#fef3c7;
 
-    color:#dc2626;
+    color:#d97706;
 
     display:flex;
 
@@ -1178,8 +817,9 @@ body{
 
     justify-content:center;
 
-    font-size:28px;
+    margin:0 auto 15px;
 
+    font-size:27px;
 }
 
 
@@ -1188,7 +828,6 @@ body{
     color:#0f172a;
 
     margin-bottom:8px;
-
 }
 
 
@@ -1198,83 +837,59 @@ body{
 
     font-size:14px;
 
-    line-height:1.5;
-
     margin-bottom:20px;
-
 }
 
-
-/* =====================================================
-   CONFIRM BUTTONS
-===================================================== */
 
 .confirm-buttons{
 
     display:flex;
 
     gap:10px;
+}
 
+
+.confirm-buttons button{
+
+    flex:1;
+
+    border:none;
+
+    padding:11px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:600;
 }
 
 
 .confirm-delete{
 
-    flex:1;
-
-    padding:10px;
-
-    border:none;
-
-    border-radius:8px;
-
     background:#dc2626;
 
-    color:#ffffff;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
+    color:white;
 }
 
 
 .confirm-delete:hover{
 
     background:#b91c1c;
-
 }
 
 
 .confirm-cancel{
 
-    flex:1;
-
-    padding:10px;
-
-    border:none;
-
-    border-radius:8px;
-
     background:#64748b;
 
-    color:#ffffff;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
+    color:white;
 }
 
 
 .confirm-cancel:hover{
 
     background:#475569;
-
 }
 
 
@@ -1284,52 +899,52 @@ body{
 
 @media(max-width:900px){
 
-    .filter-row{
+    .filter-bar{
 
-        flex-wrap:wrap;
+        align-items:stretch;
 
     }
 
-
     .filter-group{
 
-        min-width:180px;
+        flex:1;
+
+        min-width:150px;
+
+    }
+
+    .filter-group input{
+
+        width:100%;
 
     }
 
 }
 
 
-@media(max-width:700px){
+@media(max-width:650px){
 
     .header{
 
-        min-height:65px;
+        height:auto;
 
-        padding:0 12px;
+        min-height:70px;
+
+        padding:12px 15px;
 
     }
 
 
     .left-section{
 
-        gap:8px;
-
-    }
-
-
-    .back-btn{
-
-        padding:8px 11px;
-
-        font-size:13px;
+        gap:10px;
 
     }
 
 
     .call-title{
 
-        font-size:18px;
+        font-size:17px;
 
     }
 
@@ -1341,6 +956,13 @@ body{
     }
 
 
+    .back-btn{
+
+        padding:8px 11px;
+
+    }
+
+
     .profile-head span{
 
         display:none;
@@ -1348,40 +970,26 @@ body{
     }
 
 
-    .profile-head img{
+    .filter-bar{
 
-        width:40px;
+        width:calc(100% - 20px);
 
-        height:40px;
-
-        min-width:40px;
-
-        min-height:40px;
-
-    }
-
-
-    .table-box{
-
-        padding:12px;
-
-        margin-top:12px;
-
-    }
-
-
-    .filter-row{
-
-        padding:12px;
+        margin:10px auto;
 
         flex-direction:column;
-
-        align-items:stretch;
 
     }
 
 
     .filter-group{
+
+        width:100%;
+
+    }
+
+
+    .filter-group input,
+    .search-group input{
 
         width:100%;
 
@@ -1398,6 +1006,15 @@ body{
     }
 
 
+    .table-box{
+
+        width:calc(100% - 20px);
+
+        margin:10px auto;
+
+    }
+
+
     .popup{
 
         padding:20px;
@@ -1408,66 +1025,6 @@ body{
     .popup-buttons{
 
         flex-direction:column;
-
-    }
-
-
-    .submit-btn,
-    .cancel-btn,
-    .popup-buttons .delete-btn{
-
-        width:100%;
-
-    }
-
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media(max-width:450px){
-
-    .header{
-
-        width:100%;
-
-        margin:0;
-
-        border-radius:0 0 14px 14px;
-
-    }
-
-
-    .back-btn{
-
-        font-size:0;
-
-        padding:9px 11px;
-
-    }
-
-
-    .back-btn i{
-
-        font-size:15px;
-
-        margin:0;
-
-    }
-
-
-    .call-title{
-
-        font-size:17px;
-
-    }
-
-
-    .profile-head > i{
-
-        display:none;
 
     }
 
