@@ -301,28 +301,29 @@ body{
 
 /* =========================================
    FILTER BOX
+   COMPACT / THIN
 ========================================= */
 
 .filter-box{
 
-    margin-top:20px;
+    margin-top:16px;
 
     background:#ffffff;
 
-    border-radius:16px;
+    border-radius:14px;
 
-    padding:18px;
+    padding:12px 14px;
 
     display:flex;
 
     align-items:flex-end;
 
-    gap:14px;
+    gap:10px;
 
     flex-wrap:wrap;
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.08);
+        0 5px 18px rgba(0,0,0,.07);
 
 }
 
@@ -333,9 +334,9 @@ body{
 
     flex-direction:column;
 
-    gap:7px;
+    gap:5px;
 
-    min-width:160px;
+    min-width:145px;
 
     flex:1;
 
@@ -344,9 +345,9 @@ body{
 
 .filter-item label{
 
-    font-size:12px;
+    font-size:11px;
 
-    font-weight:700;
+    font-weight:600;
 
     color:#475569;
 
@@ -354,7 +355,7 @@ body{
 
     align-items:center;
 
-    gap:6px;
+    gap:5px;
 
 }
 
@@ -369,15 +370,15 @@ body{
 .filter-item input,
 .filter-item select{
 
-    height:42px;
+    height:36px;
 
     width:100%;
 
-    padding:0 12px;
+    padding:0 9px;
 
     border:1px solid #dbe2ea;
 
-    border-radius:9px;
+    border-radius:7px;
 
     outline:none;
 
@@ -385,7 +386,7 @@ body{
 
     color:#334155;
 
-    font-size:13px;
+    font-size:12px;
 
     transition:.2s;
 
@@ -400,14 +401,14 @@ body{
     background:#ffffff;
 
     box-shadow:
-        0 0 0 3px rgba(37,99,235,.10);
+        0 0 0 2px rgba(37,99,235,.08);
 
 }
 
 
 .search-item{
 
-    min-width:230px;
+    min-width:200px;
 
 }
 
@@ -420,7 +421,7 @@ body{
 
     display:flex;
 
-    gap:8px;
+    gap:6px;
 
     align-items:center;
 
@@ -429,19 +430,19 @@ body{
 
 .filter-buttons button{
 
-    height:42px;
+    height:36px;
 
-    padding:0 15px;
+    padding:0 12px;
 
     border:none;
 
-    border-radius:9px;
+    border-radius:7px;
 
     color:#ffffff;
 
     cursor:pointer;
 
-    font-size:13px;
+    font-size:12px;
 
     font-weight:600;
 
@@ -451,9 +452,9 @@ body{
 
     justify-content:center;
 
-    gap:7px;
+    gap:5px;
 
-    transition:.25s;
+    transition:.2s;
 
 }
 
@@ -1273,7 +1274,7 @@ tbody tr:last-child td{
 
 
 /* =========================================
-   EMPTY / LOADING TABLE
+   LOADING / EMPTY
 ========================================= */
 
 #callList td[colspan]{
@@ -1337,7 +1338,7 @@ tbody tr:last-child td{
 
 
 /* =========================================
-   MOBILE
+   TABLET
 ========================================= */
 
 @media(max-width:900px){
@@ -1379,7 +1380,18 @@ tbody tr:last-child td{
 }
 
 
+/* =========================================
+   MOBILE
+========================================= */
+
 @media(max-width:600px){
+
+    body{
+
+        padding:10px;
+
+    }
+
 
     .header{
 
@@ -1439,9 +1451,11 @@ tbody tr:last-child td{
 
     .filter-box{
 
-        padding:14px;
+        padding:12px;
 
         flex-direction:column;
+
+        gap:9px;
 
     }
 
@@ -1455,9 +1469,24 @@ tbody tr:last-child td{
     }
 
 
+    .filter-item input,
+    .filter-item select{
+
+        height:36px;
+
+    }
+
+
     .filter-buttons{
 
         width:100%;
+
+    }
+
+
+    .filter-buttons button{
+
+        flex:1;
 
     }
 
@@ -1512,6 +1541,10 @@ tbody tr:last-child td{
 
 }
 
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
 
 @media(max-width:400px){
 
