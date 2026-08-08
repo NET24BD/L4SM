@@ -5,362 +5,268 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>User Control</title>
 
 
-<link rel="stylesheet" href="usercontrol.css">
+<!-- USER CONTROL CSS -->
+<link
+    rel="stylesheet"
+    href="usercontrol.css"
+>
 
 
-<link rel="stylesheet" href="loading.css">
-
-
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- FONT AWESOME -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+>
 
 
 </head>
 
 
-
 <body>
 
 
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
 
 <div class="container">
 
 
+    <!-- =================================================
+         HEADER
+    ================================================== -->
 
+    <header>
 
 
-<!-- HEADER -->
+        <!-- BACK BUTTON -->
 
+        <button
+            class="back-btn"
+            id="backBtn"
+            type="button"
+        >
 
-<header>
+            <i class="fa-solid fa-arrow-left"></i>
 
+        </button>
 
 
-<button class="back-btn" id="backBtn">
+        <!-- TITLE -->
 
-<i class="fa-solid fa-arrow-left"></i>
+        <div class="title">
 
-</button>
+            <h2>
+                User Control
+            </h2>
 
+        </div>
 
 
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
 
+        <div
+            class="profile"
+            id="profileBtn"
+        >
 
-<div class="title">
 
-<h2>
+            <img
+                id="profileImg"
+                src="profile.png"
+                alt="Profile"
+            >
 
-User Control
 
-</h2>
+            <div class="profile-info">
 
-</div>
+                <h4 id="userName">
+                    Username
+                </h4>
 
+                <p>
+                    Online
+                </p>
 
+            </div>
 
 
+            <!-- PROFILE MENU -->
 
+            <div
+                class="profile-menu"
+                id="profileMenu"
+            >
 
 
+                <div id="accountBtn">
 
-<!-- PROFILE -->
+                    <i class="fa-solid fa-user"></i>
 
+                    <span>
+                        My Account
+                    </span>
 
-<div class="profile" id="profileBtn">
+                </div>
 
 
+                <div id="logoutBtn">
 
-<img id="profileImg" src="profile.png">
+                    <i class="fa-solid fa-right-from-bracket"></i>
 
+                    <span>
+                        Logout
+                    </span>
 
+                </div>
 
 
+            </div>
 
-<div class="profile-info">
 
+        </div>
 
-<h4 id="userName">
 
-Username
+    </header>
 
-</h4>
 
 
+    <!-- =================================================
+         USER LIST
+    ================================================== -->
 
-<p>
+    <div class="user-box">
 
-Online
 
-</p>
+        <!-- TOP -->
 
+        <div class="top">
 
 
-</div>
+            <!-- TITLE -->
 
+            <h3>
 
+                <i class="fa-solid fa-users"></i>
 
+                Users List
 
+            </h3>
 
 
+            <!-- SEARCH -->
 
+            <div class="search-box">
 
-<!-- PROFILE MENU -->
+                <i class="fa-solid fa-search"></i>
 
+                <input
+                    type="text"
+                    id="searchUser"
+                    placeholder="Search User..."
+                    autocomplete="off"
+                >
 
-<div class="profile-menu" id="profileMenu">
+            </div>
 
 
+            <!-- ADD USER -->
 
-<div id="accountBtn">
+            <button
+                id="addUserBtn"
+                type="button"
+            >
 
+                <i class="fa-solid fa-user-plus"></i>
 
-<i class="fa-solid fa-user"></i>
+                Add User
 
-My Account
+            </button>
 
 
-</div>
+        </div>
 
 
 
+        <!-- =================================================
+             TABLE
+        ================================================== -->
 
+        <div class="table-area">
 
 
-<div id="logoutBtn">
+            <table>
 
 
-<i class="fa-solid fa-right-from-bracket"></i>
+                <thead>
 
-Logout
+                    <tr>
 
+                        <th>
+                            Picture
+                        </th>
 
-</div>
+                        <th>
+                            Username
+                        </th>
 
+                        <th>
+                            Name
+                        </th>
 
+                        <th>
+                            Role
+                        </th>
 
+                        <th>
+                            Status
+                        </th>
 
+                        <th>
+                            Action
+                        </th>
 
-</div>
+                    </tr>
 
+                </thead>
 
 
+                <tbody id="userTable">
 
 
+                    <tr>
 
+                        <td
+                            colspan="6"
+                        >
 
-</div>
+                            Loading...
 
+                        </td>
 
+                    </tr>
 
 
+                </tbody>
 
-</header>
 
+            </table>
 
 
+        </div>
 
 
-
-
-
-
-<!-- LOADING AREA -->
-
-
-<div id="loadingArea"></div>
-
-
-
-
-
-
-
-
-
-<!-- USER LIST -->
-
-
-<div class="user-box">
-
-
-
-
-
-<div class="top">
-
-
-
-
-
-<h3>
-
-
-<i class="fa-solid fa-users"></i>
-
-
-Users List
-
-
-</h3>
-
-
-
-
-
-
-
-<div class="search-box">
-
-
-<i class="fa-solid fa-search"></i>
-
-
-
-<input 
-
-type="text"
-
-id="searchUser"
-
-placeholder="Search User...">
-
-
-</div>
-
-
-
-
-
-
-
-
-<button id="addUserBtn">
-
-
-<i class="fa-solid fa-user-plus"></i>
-
-
-Add User
-
-
-</button>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="table-area">
-
-
-
-<table>
-
-
-
-<thead>
-
-
-<tr>
-
-
-<th>
-
-Picture
-
-</th>
-
-
-<th>
-
-Username
-
-</th>
-
-
-<th>
-
-Name
-
-</th>
-
-
-<th>
-
-Role
-
-</th>
-
-
-<th>
-
-Status
-
-</th>
-
-
-<th>
-
-Action
-
-</th>
-
-
-</tr>
-
-
-
-</thead>
-
-
-
-
-
-
-
-<tbody id="userTable">
-
-
-<tr>
-
-<td colspan="6">
-
-Loading...
-
-</td>
-
-
-</tr>
-
-
-
-</tbody>
-
-
-
-
-
-
-
-</table>
+    </div>
 
 
 
@@ -368,332 +274,318 @@ Loading...
 
 
 
+<!-- =====================================================
+     USER FORM MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="userModal"
+>
 
 
+    <div class="modal-box">
+
+
+        <!-- CLOSE -->
+
+        <button
+            class="close-modal"
+            id="closeModal"
+            type="button"
+        >
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <!-- TITLE -->
+
+        <h2 id="formTitle">
+
+            Add User
+
+        </h2>
+
+
+        <!-- USERNAME -->
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            autocomplete="off"
+        >
+
+
+        <!-- PASSWORD -->
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="new-password"
+        >
+
+
+        <!-- NAME -->
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Full Name"
+            autocomplete="off"
+        >
+
+
+        <!-- ROLE -->
+
+        <select id="role">
+
+            <option value="Admin">
+                Admin
+            </option>
+
+            <option value="Support">
+                Support
+            </option>
+
+            <option value="Caller">
+                Caller
+            </option>
+
+            <option value="Manager">
+                Manager
+            </option>
+
+            <option value="Guest">
+                Guest
+            </option>
+
+        </select>
+
+
+        <!-- STATUS -->
+
+        <select id="status">
+
+            <option value="Active">
+                Active
+            </option>
+
+            <option value="Block">
+                Block
+            </option>
+
+        </select>
+
+
+        <!-- PICTURE URL -->
+
+        <input
+            type="text"
+            id="picture"
+            placeholder="Picture URL"
+            autocomplete="off"
+        >
+
+
+        <!-- PICTURE PREVIEW -->
+
+        <div
+            id="picturePreview"
+            class="picture-preview"
+            style="display:none;"
+        >
+
+            <img
+                id="picturePreviewImg"
+                src=""
+                alt="Picture Preview"
+            >
+
+        </div>
+
+
+        <!-- FORM BUTTONS -->
+
+        <div class="form-buttons">
+
+
+            <button
+                id="saveUser"
+                type="button"
+            >
+
+                <i class="fa-solid fa-save"></i>
+
+                Save
+
+            </button>
+
+
+            <button
+                id="cancelUser"
+                type="button"
+            >
+
+                Cancel
+
+            </button>
+
+
+        </div>
+
+
+    </div>
 
 
 </div>
 
 
 
+<!-- =====================================================
+     CUSTOM DELETE CONFIRMATION
+===================================================== -->
 
+<div
+    class="delete-confirm-modal"
+    id="deleteConfirmModal"
+>
 
 
+    <div class="delete-confirm-box">
 
 
+        <!-- ICON -->
 
+        <div class="delete-confirm-icon">
 
+            <i class="fa-solid fa-trash-can"></i>
 
+        </div>
 
 
+        <!-- TITLE -->
 
+        <h2>
+            Delete User?
+        </h2>
 
-<!-- USER FORM MODAL -->
 
+        <!-- MESSAGE -->
 
-<div class="modal" id="userModal">
+        <p id="deleteConfirmMessage">
 
+            Are you sure you want to delete this user?
 
+        </p>
 
 
+        <!-- BUTTONS -->
 
-<div class="modal-box">
+        <div class="delete-confirm-buttons">
 
 
+            <button
+                type="button"
+                id="deleteCancelBtn"
+            >
 
+                Cancel
 
+            </button>
 
-<button class="close-modal" id="closeModal">
 
+            <button
+                type="button"
+                id="deleteConfirmBtn"
+            >
 
-<i class="fa-solid fa-xmark"></i>
+                <i class="fa-solid fa-trash"></i>
 
+                Delete
 
-</button>
+            </button>
 
 
+        </div>
 
 
-
-
-
-<h2 id="formTitle">
-
-
-Add User
-
-
-</h2>
-
-
-
-
-
-
-
-
-<input
-
-type="text"
-
-id="username"
-
-placeholder="Username">
-
-
-
-
-
-
-<input
-
-type="password"
-
-id="password"
-
-placeholder="Password">
-
-
-
-
-
-
-<input
-
-type="text"
-
-id="name"
-
-placeholder="Full Name">
-
-
-
-
-
-
-
-<select id="role">
-
-
-<option>
-
-Admin
-
-</option>
-
-
-<option>
-
-Support
-
-</option>
-
-
-<option>
-
-Caller
-
-</option>
-
-
-<option>
-
-Manager
-
-</option>
-
-
-<option>
-
-Guest
-
-</option>
-
-
-
-</select>
-
-
-
-
-
-
-
-
-<select id="status">
-
-
-<option>
-
-Active
-
-</option>
-
-
-<option>
-
-Block
-
-</option>
-
-
-
-</select>
-
-
-
-
-
-
-
-
-<input
-
-type="text"
-
-id="picture"
-
-placeholder="Picture URL">
-
-
-
-
-
-
-
-<div class="form-buttons">
-
-
-
-<button id="saveUser">
-
-<i class="fa-solid fa-save"></i>
-
-Save
-
-</button>
-
-
-
-
-
-
-<button id="cancelUser">
-
-Cancel
-
-</button>
-
-
-
+    </div>
 
 
 </div>
 
 
 
+<!-- =====================================================
+     SUCCESS / ERROR POPUP
+===================================================== -->
+
+<div
+    class="popup"
+    id="popupBox"
+>
 
 
-
-</div>
-
+    <div class="popup-content">
 
 
+        <!-- ICON -->
+
+        <i
+            id="popupIcon"
+            class="fa-solid fa-circle-check"
+        ></i>
 
 
-</div>
+        <!-- TITLE -->
+
+        <h3 id="popupTitle">
+
+            Success
+
+        </h3>
 
 
+        <!-- MESSAGE -->
+
+        <p id="popupMessage">
+
+            Done
+
+        </p>
 
 
+        <!-- OK -->
+
+        <button
+            id="popupBtn"
+            type="button"
+            onclick="closePopup()"
+        >
+
+            OK
+
+        </button>
 
 
-
-
-
-
-
-
-<!-- SUCCESS POPUP -->
-
-
-<div class="popup" id="popupBox">
-
-
-
-
-
-<div class="popup-content">
-
-
-
-
-
-<i id="popupIcon" class="fa-solid fa-circle-check"></i>
-
-
-
-
-
-<h3 id="popupTitle">
-
-Success
-
-</h3>
-
-
-
-
-
-
-<p id="popupMessage">
-
-Done
-
-</p>
-
-
-
-
-
-
-<button id="popupBtn" onclick="closePopup()">
-
-OK
-
-</button>
-
-
-
-
+    </div>
 
 
 </div>
 
 
 
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="loading.js"></script>
-
+<!-- =====================================================
+     USER CONTROL JS
+===================================================== -->
 
 <script src="usercontrol.js"></script>
 
 
-
-
 </body>
-
 
 </html>
