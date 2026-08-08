@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadCall();
 
+    setupFilterEvents();
+
 });
 
 
@@ -227,7 +229,7 @@ function loadCall() {
                         ${
                             data &&
                             data.message
-                                ? data.message
+                                ? escapeHTML(data.message)
                                 : "Failed to load Call data"
                         }
 
@@ -242,9 +244,9 @@ function loadCall() {
         }
 
 
-        // ---------------------------------
-        // SAVE DATA LOCALLY
-        // ---------------------------------
+        // =================================
+        // SAVE FRESH DATA
+        // =================================
 
         callData =
             Array.isArray(data.data)
@@ -252,11 +254,11 @@ function loadCall() {
                 : [];
 
 
-        // ---------------------------------
-        // DISPLAY
-        // ---------------------------------
+        // =================================
+        // APPLY CURRENT FILTER
+        // =================================
 
-        displayCall(callData);
+        applyFilters();
 
     })
 
@@ -359,7 +361,7 @@ function displayCall(data) {
 
                     <button
                         class="edit-btn"
-                        onclick="editCall(${item.row})">
+                        onclick="editCall(${Number(item.row)})">
 
                         <i class="fa-solid fa-pen"></i>
 
@@ -392,9 +394,9 @@ function editCall(row) {
         Number(row);
 
 
-    // ---------------------------------
+    // =================================
     // FIND DATA FROM LOCAL ARRAY
-    // ---------------------------------
+    // =================================
 
     const item =
         callData.find(function (record) {
@@ -416,50 +418,38 @@ function editCall(row) {
     }
 
 
-    // ---------------------------------
-    // FILL FORM FIRST
-    // ---------------------------------
+    // =================================
+    // FORM ELEMENTS
+    // =================================
 
     const customerId =
-        document.getElementById(
-            "customerId"
-        );
+        document.getElementById("customerId");
 
     const problem =
-        document.getElementById(
-            "problem"
-        );
+        document.getElementById("problem");
 
     const reference =
-        document.getElementById(
-            "reference"
-        );
+        document.getElementById("reference");
 
     const date =
-        document.getElementById(
-            "date"
-        );
+        document.getElementById("date");
 
     const support =
-        document.getElementById(
-            "support"
-        );
+        document.getElementById("support");
 
     const supportWork =
-        document.getElementById(
-            "supportWork"
-        );
+        document.getElementById("supportWork");
 
     const call =
-        document.getElementById(
-            "call"
-        );
+        document.getElementById("call");
 
     const callWork =
-        document.getElementById(
-            "callWork"
-        );
+        document.getElementById("callWork");
 
+
+    // =================================
+    // FILL DATA
+    // =================================
 
     if (customerId)
         customerId.value =
@@ -501,15 +491,12 @@ function editCall(row) {
             item.callWork || "";
 
 
-    // ---------------------------------
+    // =================================
     // OPEN POPUP IMMEDIATELY
-    // ---------------------------------
+    // =================================
 
     const modal =
-        document.getElementById(
-            "editModal"
-        );
-
+        document.getElementById("editModal");
 
     if (modal) {
 
@@ -530,10 +517,6 @@ function convertDate(date) {
         return "";
     }
 
-
-    // ---------------------------------
-    // ALREADY YYYY-MM-DD
-    // ---------------------------------
 
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
@@ -560,12 +543,10 @@ function convertDate(date) {
     const year =
         d.getFullYear();
 
-
     const month =
         String(
             d.getMonth() + 1
         ).padStart(2, "0");
-
 
     const day =
         String(
@@ -588,10 +569,6 @@ function formatDate(date) {
         return "";
     }
 
-
-    // ---------------------------------
-    // PARSE
-    // ---------------------------------
 
     const d =
         new Date(date);
@@ -650,9 +627,7 @@ function formatDate(date) {
 function closeEdit() {
 
     const modal =
-        document.getElementById(
-            "editModal"
-        );
+        document.getElementById("editModal");
 
 
     if (modal) {
@@ -685,10 +660,6 @@ function updateCall() {
 
     }
 
-
-    // ---------------------------------
-    // GET FORM DATA
-    // ---------------------------------
 
     const customerId =
         document.getElementById(
@@ -738,9 +709,9 @@ function updateCall() {
         ).value.trim();
 
 
-    // ---------------------------------
+    // =================================
     // VALIDATION
-    // ---------------------------------
+    // =================================
 
     if (!customerId) {
 
@@ -775,10 +746,6 @@ function updateCall() {
     }
 
 
-    // ---------------------------------
-    // BUTTON
-    // ---------------------------------
-
     const submitButton =
         document.querySelector(
             ".submit-btn"
@@ -796,9 +763,9 @@ function updateCall() {
     }
 
 
-    // ---------------------------------
+    // =================================
     // UPDATE API
-    // ---------------------------------
+    // =================================
 
     fetch(API_URL, {
 
@@ -858,78 +825,25 @@ function updateCall() {
             data.success === true
         ) {
 
-            // -------------------------
-            // UPDATE LOCAL DATA
-            // -------------------------
-
-            const index =
-                callData.findIndex(
-                    function (record) {
-
-                        return Number(
-                            record.row
-                        ) ===
-                        Number(currentRow);
-
-                    }
-                );
-
-
-            if (index !== -1) {
-
-                callData[index] = {
-
-                    ...callData[index],
-
-                    customerId:
-                        customerId,
-
-                    problem:
-                        problem,
-
-                    reference:
-                        reference,
-
-                    date:
-                        date,
-
-                    support:
-                        support,
-
-                    supportWork:
-                        supportWork,
-
-                    call:
-                        call,
-
-                    callWork:
-                        callWork
-
-                };
-
-            }
-
-
-            // -------------------------
-            // CLOSE POPUP
-            // -------------------------
-
             closeEdit();
-
-
-            // -------------------------
-            // REFRESH TABLE
-            // -------------------------
-
-            displayCall(
-                callData
-            );
 
 
             showMessage(
                 "Success",
                 "Call updated successfully."
             );
+
+
+            // =================================
+            // IMPORTANT:
+            // GET FRESH DATA FROM SHEET
+            // =================================
+
+            setTimeout(function () {
+
+                loadCall();
+
+            }, 150);
 
         }
 
@@ -993,10 +907,6 @@ function deleteCall() {
     }
 
 
-    // ---------------------------------
-    // OPEN CONFIRM POPUP
-    // ---------------------------------
-
     const confirmModal =
         document.getElementById(
             "confirmModal"
@@ -1014,7 +924,6 @@ function deleteCall() {
     }
 
 
-    // Fallback
     if (
         confirm(
             "Are you sure you want to delete this record?"
@@ -1076,29 +985,7 @@ function confirmDelete() {
             data.success === true
         ) {
 
-            // -------------------------
-            // REMOVE LOCAL RECORD
-            // -------------------------
-
-            callData =
-                callData.filter(
-                    function (record) {
-
-                        return Number(
-                            record.row
-                        ) !==
-                        Number(currentRow);
-
-                    }
-                );
-
-
             closeEdit();
-
-
-            displayCall(
-                callData
-            );
 
 
             showMessage(
@@ -1108,6 +995,17 @@ function confirmDelete() {
 
 
             currentRow = "";
+
+
+            // =================================
+            // FRESH DATA
+            // =================================
+
+            setTimeout(function () {
+
+                loadCall();
+
+            }, 150);
 
         }
 
@@ -1179,9 +1077,7 @@ function showMessage(
 
 
     if (!modal) {
-
         return;
-
     }
 
 
@@ -1244,6 +1140,453 @@ function closeMessage() {
 
 
 // =====================================
+// FILTER SETUP
+// =====================================
+
+function setupFilterEvents() {
+
+    const search =
+        document.getElementById(
+            "callSearch"
+        );
+
+    const fromDate =
+        document.getElementById(
+            "fromDate"
+        );
+
+    const toDate =
+        document.getElementById(
+            "toDate"
+        );
+
+    const lastDays =
+        document.getElementById(
+            "lastDays"
+        );
+
+
+    if (search) {
+
+        search.addEventListener(
+            "input",
+            applyFilters
+        );
+
+    }
+
+
+    if (fromDate) {
+
+        fromDate.addEventListener(
+            "change",
+            applyFilters
+        );
+
+    }
+
+
+    if (toDate) {
+
+        toDate.addEventListener(
+            "change",
+            applyFilters
+        );
+
+    }
+
+
+    if (lastDays) {
+
+        lastDays.addEventListener(
+            "input",
+            applyFilters
+        );
+
+    }
+
+}
+
+
+// =====================================
+// APPLY FILTERS
+// =====================================
+
+function applyFilters() {
+
+    if (!Array.isArray(callData)) {
+        return;
+    }
+
+
+    const searchElement =
+        document.getElementById(
+            "callSearch"
+        );
+
+
+    const fromElement =
+        document.getElementById(
+            "fromDate"
+        );
+
+
+    const toElement =
+        document.getElementById(
+            "toDate"
+        );
+
+
+    const lastDaysElement =
+        document.getElementById(
+            "lastDays"
+        );
+
+
+    const search =
+        searchElement
+            ? searchElement.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+
+    const fromDate =
+        fromElement
+            ? fromElement.value
+            : "";
+
+
+    const toDate =
+        toElement
+            ? toElement.value
+            : "";
+
+
+    const lastDaysValue =
+        lastDaysElement
+            ? Number(
+                lastDaysElement.value
+              )
+            : 0;
+
+
+    let filtered =
+        callData.filter(function (item) {
+
+
+            // =================================
+            // SEARCH
+            // =================================
+
+            if (search) {
+
+                const searchable = [
+
+                    item.customerId,
+                    item.problem,
+                    item.reference,
+                    item.support,
+                    item.supportWork,
+                    item.call,
+                    item.callWork
+
+                ]
+                .join(" ")
+                .toLowerCase();
+
+
+                if (
+                    !searchable.includes(
+                        search
+                    )
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            // =================================
+            // ITEM DATE
+            // =================================
+
+            const itemDate =
+                getDateOnly(
+                    item.date
+                );
+
+
+            // =================================
+            // FROM DATE
+            // =================================
+
+            if (fromDate) {
+
+                if (
+                    itemDate <
+                    fromDate
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            // =================================
+            // TO DATE
+            // =================================
+
+            if (toDate) {
+
+                if (
+                    itemDate >
+                    toDate
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            // =================================
+            // LAST DAYS
+            // =================================
+
+            if (
+                lastDaysValue &&
+                lastDaysValue > 0
+            ) {
+
+                const today =
+                    new Date();
+
+
+                today.setHours(
+                    0, 0, 0, 0
+                );
+
+
+                const startDate =
+                    new Date(today);
+
+
+                startDate.setDate(
+                    today.getDate() -
+                    lastDaysValue
+                );
+
+
+                const startString =
+                    dateToString(
+                        startDate
+                    );
+
+
+                const todayString =
+                    dateToString(
+                        today
+                    );
+
+
+                if (
+                    itemDate <
+                    startString ||
+                    itemDate >
+                    todayString
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            return true;
+
+        });
+
+
+    displayCall(
+        filtered
+    );
+
+}
+
+
+// =====================================
+// GET DATE ONLY
+// =====================================
+
+function getDateOnly(date) {
+
+    if (!date) {
+        return "";
+    }
+
+
+    const value =
+        String(date);
+
+
+    // YYYY-MM-DD
+    const match =
+        value.match(
+            /^(\d{4})-(\d{2})-(\d{2})/
+        );
+
+
+    if (match) {
+
+        return (
+            match[1] +
+            "-" +
+            match[2] +
+            "-" +
+            match[3]
+        );
+
+    }
+
+
+    const d =
+        new Date(date);
+
+
+    if (isNaN(d.getTime())) {
+
+        return "";
+
+    }
+
+
+    return dateToString(d);
+
+}
+
+
+// =====================================
+// DATE TO STRING
+// =====================================
+
+function dateToString(date) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+// =====================================
+// CLEAR FILTER
+// =====================================
+
+function clearCallFilter() {
+
+    const search =
+        document.getElementById(
+            "callSearch"
+        );
+
+    const fromDate =
+        document.getElementById(
+            "fromDate"
+        );
+
+    const toDate =
+        document.getElementById(
+            "toDate"
+        );
+
+    const lastDays =
+        document.getElementById(
+            "lastDays"
+        );
+
+
+    if (search)
+        search.value = "";
+
+
+    if (fromDate)
+        fromDate.value = "";
+
+
+    if (toDate)
+        toDate.value = "";
+
+
+    if (lastDays)
+        lastDays.value = "";
+
+
+    displayCall(
+        callData
+    );
+
+}
+
+
+// =====================================
+// FILTER TOGGLE
+// =====================================
+
+function toggleCallFilter() {
+
+    const filter =
+        document.getElementById(
+            "callFilter"
+        );
+
+
+    if (!filter) return;
+
+
+    filter.classList.toggle(
+        "show"
+    );
+
+}
+
+
+// =====================================
+// REFRESH CALL DATA
+// =====================================
+
+function refreshCall() {
+
+    loadCall();
+
+}
+
+
+// =====================================
 // ESCAPE HTML
 // =====================================
 
@@ -1285,16 +1628,5 @@ function escapeHTML(value) {
             /'/g,
             "&#039;"
         );
-
-}
-
-
-// =====================================
-// REFRESH CALL DATA
-// =====================================
-
-function refreshCall() {
-
-    loadCall();
 
 }
