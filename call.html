@@ -1,60 +1,426 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
-<title>Call Dashboard</title>
+<meta charset="UTF-8">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+<title>Pending Call</title>
 
-body{
+<link rel="stylesheet" href="call.css">
 
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#4d7094;
-font-family:Arial;
-
-}
-
-
-.box{
-
-background:white;
-padding:40px;
-border-radius:20px;
-text-align:center;
-box-shadow:0 10px 30px #0003;
-
-}
-
-
-h1{
-
-color:#16a34a;
-
-}
-
-</style>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
-
 
 <body>
 
 
-<div class="box">
+<!-- =========================
+HEADER
+========================= -->
+
+<div class="header">
 
 
-<h1>Hello Caller</h1>
+    <div class="left-section">
+
+        <button class="back-btn" onclick="goBack()">
+
+            <i class="fa fa-arrow-left"></i>
+
+            Back
+
+        </button>
 
 
-<p>Welcome to Call Dashboard</p>
+        <h2>
 
+            <i class="fa fa-phone-volume"></i>
+
+            Pending Call
+
+        </h2>
+
+    </div>
+
+
+
+    <!-- PROFILE -->
+
+    <div class="profile">
+
+        <div class="profile-head"
+             onclick="toggleProfile()">
+
+
+            <img id="profileImg"
+                 src="assets/profile.png">
+
+
+            <span id="username">
+                User
+            </span>
+
+
+            <i class="fa fa-angle-down"></i>
+
+
+        </div>
+
+
+
+        <!-- PROFILE MENU -->
+
+        <div class="profile-menu"
+             id="profileMenu">
+
+
+            <button onclick="myAccount()">
+
+                <i class="fa fa-user"></i>
+
+                My Account
+
+            </button>
+
+
+            <button onclick="logout()">
+
+                <i class="fa fa-sign-out"></i>
+
+                Logout
+
+            </button>
+
+
+        </div>
+
+    </div>
 
 </div>
 
+
+
+<!-- =========================
+CALL TABLE
+========================= -->
+
+<div class="table-box">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Customer ID
+                </th>
+
+                <th>
+                    Problem
+                </th>
+
+                <th>
+                    Reference
+                </th>
+
+                <th>
+                    Date
+                </th>
+
+                <th>
+                    Support
+                </th>
+
+                <th>
+                    Support Work
+                </th>
+
+                <th>
+                    Action
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="callList">
+
+            <tr>
+
+                <td colspan="7">
+
+                    Loading...
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+<!-- =========================
+EDIT CALL MODAL
+========================= -->
+
+<div class="modal"
+     id="editModal">
+
+
+    <div class="popup">
+
+
+        <button class="close-btn"
+                onclick="closeEdit()">
+
+            ×
+
+        </button>
+
+
+        <h2>
+            Edit Call
+        </h2>
+
+
+
+        <label>
+            Customer ID
+        </label>
+
+        <input
+            id="customerId"
+            type="text">
+
+
+
+        <label>
+            Problem
+        </label>
+
+        <textarea
+            id="problem"
+            rows="4"></textarea>
+
+
+
+        <label>
+            Reference
+        </label>
+
+        <input
+            id="reference"
+            type="text">
+
+
+
+        <label>
+            Date
+        </label>
+
+        <input
+            id="date"
+            type="date">
+
+
+
+        <label>
+            Support
+        </label>
+
+        <input
+            id="support"
+            type="text">
+
+
+
+        <label>
+            Support Work
+        </label>
+
+        <textarea
+            id="supportWork"
+            rows="3"></textarea>
+
+
+
+        <label>
+            Call
+        </label>
+
+        <input
+            id="call"
+            type="text">
+
+
+
+        <label>
+            Call Work
+        </label>
+
+        <textarea
+            id="callWork"
+            rows="3"></textarea>
+
+
+
+        <div class="popup-buttons">
+
+
+            <button
+                class="submit-btn"
+                onclick="updateCall()">
+
+                <i class="fa-solid fa-save"></i>
+
+                Submit
+
+            </button>
+
+
+
+            <button
+                class="cancel-btn"
+                onclick="closeEdit()">
+
+                Cancel
+
+            </button>
+
+
+
+            <button
+                class="delete-btn"
+                onclick="deleteCall()">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Delete
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+CUSTOM MESSAGE POPUP
+========================= -->
+
+<div class="message-modal"
+     id="messageModal">
+
+
+    <div class="message-box">
+
+
+        <div class="message-icon"
+             id="messageIcon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+
+        <h3 id="messageTitle">
+            Success
+        </h3>
+
+
+        <p id="messageText">
+            Done
+        </p>
+
+
+        <button onclick="closeMessage()">
+
+            OK
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+DELETE CONFIRM POPUP
+========================= -->
+
+<div class="confirm-modal"
+     id="confirmModal">
+
+
+    <div class="confirm-box">
+
+
+        <div class="confirm-icon">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+        </div>
+
+
+        <h3>
+            Delete Call?
+        </h3>
+
+
+        <p>
+            Are you sure you want to delete this record?
+        </p>
+
+
+        <div class="confirm-buttons">
+
+
+            <button
+                class="confirm-delete"
+                onclick="confirmDelete()">
+
+                Delete
+
+            </button>
+
+
+            <button
+                class="confirm-cancel"
+                onclick="closeConfirm()">
+
+                Cancel
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script src="call.js"></script>
 
 </body>
 
