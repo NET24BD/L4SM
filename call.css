@@ -1,52 +1,60 @@
-/* =========================================
+/* =====================================================
+   CALL.CSS
+   PENDING CALL
+===================================================== */
+
+
+/* =====================================================
    RESET
-========================================= */
+===================================================== */
 
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
     font-family:"Segoe UI",Arial,sans-serif;
+
 }
 
 
-/* =========================================
+/* =====================================================
    BODY
-========================================= */
+===================================================== */
 
 body{
 
     min-height:100vh;
 
-    background:
-        linear-gradient(
-            135deg,
-            #eef2ff,
-            #f8fafc
-        );
+    background:#f1f5f9;
 
-    color:#1f2937;
+    color:#334155;
 
-    padding:20px;
+    overflow-x:hidden;
 
 }
 
 
-/* =========================================
+/* =====================================================
    HEADER
-========================================= */
+===================================================== */
 
 .header{
 
-    width:100%;
+    width:96%;
 
-    min-height:70px;
+    margin:20px auto 15px;
 
-    background:#ffffff;
+    min-height:65px;
 
-    border-radius:16px;
+    background:white;
 
-    padding:12px 20px;
+    border-radius:14px;
+
+    padding:10px 18px;
 
     display:flex;
 
@@ -54,15 +62,14 @@ body{
 
     justify-content:space-between;
 
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.10);
-
-    position:relative;
-
-    z-index:100;
+    box-shadow:0 5px 20px rgba(0,0,0,.10);
 
 }
 
+
+/* =====================================================
+   LEFT SECTION
+===================================================== */
 
 .left-section{
 
@@ -70,65 +77,113 @@ body{
 
     align-items:center;
 
-    gap:15px;
+    gap:12px;
 
 }
 
 
 .left-section h2{
 
-    color:#1e3a8a;
+    color:#0f172a;
 
-    font-size:22px;
+    font-size:21px;
 
     display:flex;
 
     align-items:center;
 
-    gap:9px;
+    gap:8px;
 
 }
 
 
 .left-section h2 i{
 
-    color:#2563eb;
+    color:#ea580c;
 
 }
 
 
-/* =========================================
+/* =====================================================
    BACK BUTTON
-========================================= */
+===================================================== */
 
 .back-btn{
 
+    height:36px;
+
+    padding:6px 12px;
+
     border:none;
 
-    background:#2563eb;
+    border-radius:8px;
 
-    color:#ffffff;
+    background:#0f172a;
 
-    padding:10px 16px;
-
-    border-radius:9px;
+    color:white;
 
     cursor:pointer;
-
-    font-size:14px;
 
     display:flex;
 
     align-items:center;
 
-    gap:7px;
+    gap:6px;
 
-    transition:.25s;
+    font-size:13px;
+
+    transition:.2s;
 
 }
 
 
 .back-btn:hover{
+
+    background:#1e293b;
+
+    transform:translateY(-1px);
+
+}
+
+
+/* =====================================================
+   FILTER TOGGLE
+===================================================== */
+
+.filter-toggle{
+
+    height:34px;
+
+    padding:6px 12px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2563eb;
+
+    color:white;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    transition:.2s;
+
+}
+
+
+.filter-toggle:hover{
 
     background:#1d4ed8;
 
@@ -137,9 +192,9 @@ body{
 }
 
 
-/* =========================================
+/* =====================================================
    PROFILE
-========================================= */
+===================================================== */
 
 .profile{
 
@@ -154,7 +209,7 @@ body{
 
     align-items:center;
 
-    gap:9px;
+    gap:8px;
 
     cursor:pointer;
 
@@ -176,19 +231,19 @@ body{
 
 .profile-head img{
 
-    width:44px;
+    width:40px;
 
-    height:44px;
+    height:40px;
 
-    min-width:44px;
+    min-width:40px;
 
-    max-width:44px;
+    min-height:40px;
 
     border-radius:50%;
 
     object-fit:cover;
 
-    border:3px solid #2563eb;
+    border:2px solid #2563eb;
 
     display:block;
 
@@ -201,23 +256,23 @@ body{
 
     font-weight:600;
 
-    color:#111827;
+    color:#1e293b;
 
 }
 
 
-.profile-head > i{
+.profile-head i{
+
+    font-size:12px;
 
     color:#64748b;
 
-    font-size:13px;
-
 }
 
 
-/* =========================================
+/* =====================================================
    PROFILE MENU
-========================================= */
+===================================================== */
 
 .profile-menu{
 
@@ -225,16 +280,15 @@ body{
 
     right:0;
 
-    top:58px;
+    top:52px;
 
     width:180px;
 
-    background:#ffffff;
+    background:white;
 
     border-radius:12px;
 
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.18);
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
 
     overflow:hidden;
 
@@ -256,11 +310,19 @@ body{
 
     width:100%;
 
+    padding:12px 14px;
+
     border:none;
 
-    background:#ffffff;
+    background:white;
 
-    padding:13px 15px;
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    color:#334155;
 
     display:flex;
 
@@ -268,82 +330,71 @@ body{
 
     gap:10px;
 
-    text-align:left;
-
-    font-size:14px;
-
-    color:#334155;
-
-    cursor:pointer;
-
-    transition:.2s;
-
 }
 
 
 .profile-menu button:hover{
 
-    background:#eff6ff;
+    background:#f1f5f9;
 
     color:#2563eb;
 
 }
 
 
-.profile-menu button i{
+/* =====================================================
+   FILTER ROW
+   DEFAULT HIDDEN
+===================================================== */
 
-    width:18px;
+.filter-row{
 
-    text-align:center;
+    width:96%;
 
-}
+    margin:0 auto 15px;
 
+    padding:8px 10px;
 
-/* =========================================
-   FILTER BOX
-   COMPACT / THIN
-========================================= */
+    background:white;
 
-.filter-box{
+    border-radius:10px;
 
-    margin-top:16px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
 
-    background:#ffffff;
+    display:none;
 
-    border-radius:14px;
+    align-items:center;
 
-    padding:12px 14px;
+    gap:8px;
 
-    display:flex;
-
-    align-items:flex-end;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    box-shadow:
-        0 5px 18px rgba(0,0,0,.07);
+    flex-wrap:nowrap;
 
 }
 
 
-.filter-item{
+.filter-row.show{
 
     display:flex;
 
-    flex-direction:column;
+}
+
+
+/* =====================================================
+   FILTER GROUP
+===================================================== */
+
+.filter-group{
+
+    display:flex;
+
+    align-items:center;
 
     gap:5px;
 
-    min-width:145px;
-
-    flex:1;
-
 }
 
 
-.filter-item label{
+.filter-group label{
 
     font-size:11px;
 
@@ -351,32 +402,22 @@ body{
 
     color:#475569;
 
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
+    white-space:nowrap;
 
 }
 
 
-.filter-item label i{
+/* =====================================================
+   FILTER INPUT
+===================================================== */
 
-    color:#2563eb;
+.filter-row input{
 
-}
+    height:31px;
 
+    padding:5px 8px;
 
-.filter-item input,
-.filter-item select{
-
-    height:36px;
-
-    width:100%;
-
-    padding:0 9px;
-
-    border:1px solid #dbe2ea;
+    border:1px solid #d1d5db;
 
     border-radius:7px;
 
@@ -393,56 +434,61 @@ body{
 }
 
 
-.filter-item input:focus,
-.filter-item select:focus{
+.filter-row input:focus{
 
     border-color:#2563eb;
 
-    background:#ffffff;
+    background:white;
 
-    box-shadow:
-        0 0 0 2px rgba(37,99,235,.08);
-
-}
-
-
-.search-item{
-
-    min-width:200px;
+    box-shadow:0 0 0 2px rgba(37,99,235,.08);
 
 }
 
 
-/* =========================================
+/* DATE */
+
+.filter-row input[type="date"]{
+
+    width:125px;
+
+}
+
+
+/* LAST DAYS */
+
+.filter-row input[type="number"]{
+
+    width:65px;
+
+}
+
+
+/* SEARCH */
+
+.filter-row input[type="text"]{
+
+    width:150px;
+
+}
+
+
+/* =====================================================
    FILTER BUTTONS
-========================================= */
+===================================================== */
 
-.filter-buttons{
+.filter-row button{
 
-    display:flex;
+    height:31px;
 
-    gap:6px;
-
-    align-items:center;
-
-}
-
-
-.filter-buttons button{
-
-    height:36px;
-
-    padding:0 12px;
+    padding:5px 10px;
 
     border:none;
 
     border-radius:7px;
 
-    color:#ffffff;
-
     cursor:pointer;
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:600;
 
@@ -454,14 +500,20 @@ body{
 
     gap:5px;
 
+    white-space:nowrap;
+
     transition:.2s;
 
 }
 
 
+/* APPLY */
+
 .filter-btn{
 
     background:#2563eb;
+
+    color:white;
 
 }
 
@@ -473,132 +525,74 @@ body{
 }
 
 
-.clear-btn{
+/* RESET */
+
+.reset-btn{
 
     background:#64748b;
+
+    color:white;
 
 }
 
 
-.clear-btn:hover{
+.reset-btn:hover{
 
     background:#475569;
 
 }
 
 
-/* =========================================
+/* =====================================================
    TABLE BOX
-========================================= */
+===================================================== */
 
 .table-box{
 
-    margin-top:20px;
+    width:96%;
 
-    background:#ffffff;
+    margin:0 auto 30px;
 
-    border-radius:16px;
+    background:white;
 
-    padding:20px;
+    border-radius:15px;
 
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.08);
+    padding:15px;
 
-}
-
-
-.table-header{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin-bottom:15px;
-
-}
-
-
-.table-header h3{
-
-    color:#1e3a8a;
-
-    font-size:18px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-}
-
-
-.table-header h3 i{
-
-    color:#2563eb;
-
-}
-
-
-#resultCount{
-
-    background:#eff6ff;
-
-    color:#2563eb;
-
-    padding:6px 11px;
-
-    border-radius:20px;
-
-    font-size:12px;
-
-    font-weight:700;
-
-}
-
-
-/* =========================================
-   TABLE SCROLL
-========================================= */
-
-.table-scroll{
-
-    width:100%;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 
     overflow-x:auto;
 
 }
 
 
-/* =========================================
+/* =====================================================
    TABLE
-========================================= */
+===================================================== */
 
 table{
 
     width:100%;
 
-    min-width:1050px;
-
     border-collapse:collapse;
+
+    min-width:850px;
 
 }
 
 
 thead{
 
-    background:#2563eb;
+    background:#0f172a;
 
-    color:#ffffff;
+    color:white;
 
 }
 
 
 th{
 
-    padding:13px 10px;
+    padding:12px 10px;
 
     font-size:13px;
 
@@ -611,17 +605,15 @@ th{
 
 td{
 
-    padding:12px 10px;
-
-    border-bottom:1px solid #e5e7eb;
+    padding:11px 10px;
 
     text-align:center;
+
+    border-bottom:1px solid #e2e8f0;
 
     font-size:13px;
 
     color:#334155;
-
-    vertical-align:middle;
 
 }
 
@@ -640,16 +632,9 @@ tbody tr:hover{
 }
 
 
-tbody tr:last-child td{
-
-    border-bottom:none;
-
-}
-
-
-/* =========================================
+/* =====================================================
    ACTION BUTTON
-========================================= */
+===================================================== */
 
 .edit-btn{
 
@@ -657,9 +642,9 @@ tbody tr:last-child td{
 
     background:#2563eb;
 
-    color:#ffffff;
+    color:white;
 
-    padding:7px 13px;
+    padding:7px 12px;
 
     border-radius:7px;
 
@@ -669,14 +654,6 @@ tbody tr:last-child td{
 
     font-weight:600;
 
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    transition:.2s;
-
 }
 
 
@@ -684,14 +661,12 @@ tbody tr:last-child td{
 
     background:#1d4ed8;
 
-    transform:translateY(-1px);
-
 }
 
 
-/* =========================================
+/* =====================================================
    MODAL
-========================================= */
+===================================================== */
 
 .modal{
 
@@ -699,13 +674,7 @@ tbody tr:last-child td{
 
     inset:0;
 
-    width:100%;
-
-    height:100%;
-
     background:rgba(15,23,42,.55);
-
-    backdrop-filter:blur(3px);
 
     display:none;
 
@@ -727,15 +696,15 @@ tbody tr:last-child td{
 }
 
 
-/* =========================================
+/* =====================================================
    EDIT POPUP
-========================================= */
+===================================================== */
 
 .popup{
 
     position:relative;
 
-    width:450px;
+    width:430px;
 
     max-width:100%;
 
@@ -743,14 +712,13 @@ tbody tr:last-child td{
 
     overflow-y:auto;
 
-    background:#ffffff;
-
-    border-radius:18px;
+    background:white;
 
     padding:25px;
 
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.30);
+    border-radius:18px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.30);
 
 }
 
@@ -759,77 +727,76 @@ tbody tr:last-child td{
 
     text-align:center;
 
-    color:#1e3a8a;
-
-    font-size:20px;
+    color:#0f172a;
 
     margin-bottom:20px;
 
-}
-
-
-.popup h2 i{
-
-    color:#2563eb;
+    font-size:21px;
 
 }
 
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
 
 .close-btn{
 
     position:absolute;
 
-    top:12px;
+    right:13px;
 
-    right:12px;
+    top:13px;
 
-    width:34px;
+    width:32px;
 
-    height:34px;
+    height:32px;
 
     border:none;
 
     border-radius:50%;
 
-    background:#fee2e2;
+    background:#dc2626;
 
-    color:#dc2626;
+    color:white;
 
     font-size:20px;
 
     cursor:pointer;
 
-    transition:.2s;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
 
 }
 
 
 .close-btn:hover{
 
-    background:#dc2626;
-
-    color:#ffffff;
+    background:#b91c1c;
 
 }
 
 
-/* =========================================
+/* =====================================================
    FORM
-========================================= */
+===================================================== */
 
 .popup label{
 
     display:block;
 
-    margin-bottom:6px;
+    margin-bottom:5px;
 
-    margin-top:12px;
+    margin-top:11px;
+
+    color:#334155;
 
     font-size:13px;
 
     font-weight:600;
-
-    color:#374151;
 
 }
 
@@ -839,35 +806,17 @@ tbody tr:last-child td{
 
     width:100%;
 
-    border:1px solid #dbe2ea;
+    padding:10px 11px;
 
-    border-radius:9px;
+    border:1px solid #d1d5db;
+
+    border-radius:8px;
 
     outline:none;
 
-    padding:10px 12px;
-
     font-size:13px;
 
-    background:#f8fafc;
-
-    color:#1f2937;
-
-}
-
-
-.popup input{
-
-    height:42px;
-
-}
-
-
-.popup textarea{
-
     resize:vertical;
-
-    min-height:75px;
 
 }
 
@@ -877,17 +826,14 @@ tbody tr:last-child td{
 
     border-color:#2563eb;
 
-    background:#ffffff;
-
-    box-shadow:
-        0 0 0 3px rgba(37,99,235,.10);
+    box-shadow:0 0 0 2px rgba(37,99,235,.08);
 
 }
 
 
-/* =========================================
+/* =====================================================
    POPUP BUTTONS
-========================================= */
+===================================================== */
 
 .popup-buttons{
 
@@ -904,13 +850,11 @@ tbody tr:last-child td{
 
     flex:1;
 
-    min-height:42px;
+    min-height:38px;
 
     border:none;
 
-    border-radius:9px;
-
-    color:#ffffff;
+    border-radius:8px;
 
     cursor:pointer;
 
@@ -920,20 +864,16 @@ tbody tr:last-child td{
 
     transition:.2s;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:6px;
-
 }
 
+
+/* SUBMIT */
 
 .submit-btn{
 
     background:#16a34a;
+
+    color:white;
 
 }
 
@@ -945,9 +885,13 @@ tbody tr:last-child td{
 }
 
 
+/* CANCEL */
+
 .cancel-btn{
 
     background:#64748b;
+
+    color:white;
 
 }
 
@@ -959,9 +903,13 @@ tbody tr:last-child td{
 }
 
 
+/* DELETE */
+
 .delete-btn{
 
     background:#dc2626;
+
+    color:white;
 
 }
 
@@ -973,9 +921,9 @@ tbody tr:last-child td{
 }
 
 
-/* =========================================
+/* =====================================================
    MESSAGE MODAL
-========================================= */
+===================================================== */
 
 .message-modal{
 
@@ -983,9 +931,7 @@ tbody tr:last-child td{
 
     inset:0;
 
-    background:rgba(15,23,42,.50);
-
-    backdrop-filter:blur(3px);
+    background:rgba(15,23,42,.45);
 
     display:none;
 
@@ -994,8 +940,6 @@ tbody tr:last-child td{
     justify-content:center;
 
     z-index:10000;
-
-    padding:20px;
 
 }
 
@@ -1009,37 +953,32 @@ tbody tr:last-child td{
 
 .message-box{
 
-    width:330px;
+    width:320px;
 
-    max-width:100%;
+    max-width:90%;
 
-    background:#ffffff;
+    background:white;
 
     border-radius:18px;
 
-    padding:28px 25px;
+    padding:25px;
 
     text-align:center;
 
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.30);
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
 
 }
 
 
 .message-icon{
 
-    width:65px;
+    width:60px;
 
-    height:65px;
+    height:60px;
 
-    margin:0 auto 15px;
+    margin:0 auto 12px;
 
     border-radius:50%;
-
-    background:#dcfce7;
-
-    color:#16a34a;
 
     display:flex;
 
@@ -1047,18 +986,20 @@ tbody tr:last-child td{
 
     justify-content:center;
 
-    font-size:32px;
+    background:#dcfce7;
+
+    color:#16a34a;
+
+    font-size:30px;
 
 }
 
 
 .message-box h3{
 
-    color:#1f2937;
+    color:#0f172a;
 
-    font-size:19px;
-
-    margin-bottom:8px;
+    margin-bottom:7px;
 
 }
 
@@ -1069,8 +1010,6 @@ tbody tr:last-child td{
 
     font-size:14px;
 
-    line-height:1.5;
-
 }
 
 
@@ -1078,15 +1017,15 @@ tbody tr:last-child td{
 
     margin-top:18px;
 
-    padding:10px 35px;
+    padding:9px 30px;
 
     border:none;
 
-    border-radius:9px;
+    border-radius:8px;
 
     background:#2563eb;
 
-    color:#ffffff;
+    color:white;
 
     cursor:pointer;
 
@@ -1102,9 +1041,9 @@ tbody tr:last-child td{
 }
 
 
-/* =========================================
+/* =====================================================
    CONFIRM MODAL
-========================================= */
+===================================================== */
 
 .confirm-modal{
 
@@ -1112,9 +1051,7 @@ tbody tr:last-child td{
 
     inset:0;
 
-    background:rgba(15,23,42,.55);
-
-    backdrop-filter:blur(3px);
+    background:rgba(15,23,42,.50);
 
     display:none;
 
@@ -1123,8 +1060,6 @@ tbody tr:last-child td{
     justify-content:center;
 
     z-index:11000;
-
-    padding:20px;
 
 }
 
@@ -1138,37 +1073,36 @@ tbody tr:last-child td{
 
 .confirm-box{
 
-    width:350px;
+    width:340px;
 
-    max-width:100%;
+    max-width:90%;
 
-    background:#ffffff;
+    background:white;
 
     border-radius:18px;
 
-    padding:28px 25px;
+    padding:25px;
 
     text-align:center;
 
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.30);
+    box-shadow:0 20px 50px rgba(0,0,0,.30);
 
 }
 
 
 .confirm-icon{
 
-    width:65px;
+    width:60px;
 
-    height:65px;
+    height:60px;
 
-    margin:0 auto 15px;
+    margin:0 auto 14px;
 
     border-radius:50%;
 
-    background:#fee2e2;
+    background:#fef3c7;
 
-    color:#dc2626;
+    color:#d97706;
 
     display:flex;
 
@@ -1176,16 +1110,14 @@ tbody tr:last-child td{
 
     justify-content:center;
 
-    font-size:30px;
+    font-size:28px;
 
 }
 
 
 .confirm-box h3{
 
-    font-size:19px;
-
-    color:#1f2937;
+    color:#0f172a;
 
     margin-bottom:8px;
 
@@ -1196,7 +1128,7 @@ tbody tr:last-child td{
 
     color:#64748b;
 
-    font-size:14px;
+    font-size:13px;
 
     line-height:1.5;
 
@@ -1218,11 +1150,11 @@ tbody tr:last-child td{
 
     flex:1;
 
-    height:42px;
+    padding:10px;
 
     border:none;
 
-    border-radius:9px;
+    border-radius:8px;
 
     cursor:pointer;
 
@@ -1230,22 +1162,16 @@ tbody tr:last-child td{
 
     font-weight:600;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:6px;
-
 }
 
+
+/* CONFIRM DELETE */
 
 .confirm-delete{
 
     background:#dc2626;
 
-    color:#ffffff;
+    color:white;
 
 }
 
@@ -1257,180 +1183,92 @@ tbody tr:last-child td{
 }
 
 
+/* CONFIRM CANCEL */
+
 .confirm-cancel{
 
-    background:#e5e7eb;
+    background:#64748b;
 
-    color:#374151;
+    color:white;
 
 }
 
 
 .confirm-cancel:hover{
 
-    background:#d1d5db;
+    background:#475569;
 
 }
 
 
-/* =========================================
-   LOADING / EMPTY
-========================================= */
-
-#callList td[colspan]{
-
-    padding:35px 15px;
-
-    color:#64748b;
-
-}
-
-
-.fa-spin{
-
-    margin-right:6px;
-
-    color:#2563eb;
-
-}
-
-
-/* =========================================
-   SCROLLBAR
-========================================= */
-
-.table-scroll::-webkit-scrollbar,
-.popup::-webkit-scrollbar{
-
-    height:7px;
-
-    width:7px;
-
-}
-
-
-.table-scroll::-webkit-scrollbar-track,
-.popup::-webkit-scrollbar-track{
-
-    background:#f1f5f9;
-
-    border-radius:10px;
-
-}
-
-
-.table-scroll::-webkit-scrollbar-thumb,
-.popup::-webkit-scrollbar-thumb{
-
-    background:#cbd5e1;
-
-    border-radius:10px;
-
-}
-
-
-.table-scroll::-webkit-scrollbar-thumb:hover,
-.popup::-webkit-scrollbar-thumb:hover{
-
-    background:#94a3b8;
-
-}
-
-
-/* =========================================
-   TABLET
-========================================= */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:900px){
 
-    body{
+    .header{
 
-        padding:12px;
-
-    }
-
-
-    .filter-box{
-
-        align-items:stretch;
+        width:94%;
 
     }
 
 
-    .filter-item{
+    .filter-row{
 
-        min-width:calc(50% - 10px);
+        width:94%;
 
-    }
-
-
-    .filter-buttons{
-
-        width:100%;
+        flex-wrap:wrap;
 
     }
 
 
-    .filter-buttons button{
+    .table-box{
 
-        flex:1;
+        width:94%;
 
     }
 
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
-
-@media(max-width:600px){
-
-    body{
-
-        padding:10px;
-
-    }
-
+@media(max-width:700px){
 
     .header{
 
-        padding:10px 12px;
+        padding:9px 12px;
 
     }
 
 
     .left-section{
 
-        gap:8px;
+        gap:7px;
 
     }
 
 
     .left-section h2{
 
-        font-size:17px;
+        font-size:16px;
 
     }
 
 
     .back-btn{
 
-        padding:9px 11px;
+        padding:6px 9px;
+
+        font-size:11px;
 
     }
 
 
-    .back-btn{
+    .filter-toggle{
 
-        font-size:0;
+        padding:6px 8px;
 
-    }
-
-
-    .back-btn i{
-
-        font-size:15px;
+        font-size:11px;
 
     }
 
@@ -1442,72 +1280,78 @@ tbody tr:last-child td{
     }
 
 
-    .profile-head > i{
+    .profile-head img{
+
+        width:38px;
+
+        height:38px;
+
+        min-width:38px;
+
+        min-height:38px;
+
+    }
+
+
+    .filter-row{
 
         display:none;
 
-    }
-
-
-    .filter-box{
-
-        padding:12px;
-
         flex-direction:column;
 
-        gap:9px;
+        align-items:stretch;
+
+        gap:8px;
+
+        padding:10px;
 
     }
 
 
-    .filter-item{
+    .filter-row.show{
+
+        display:flex;
+
+    }
+
+
+    .filter-group{
 
         width:100%;
 
-        min-width:100%;
+        justify-content:space-between;
 
     }
 
 
-    .filter-item input,
-    .filter-item select{
+    .filter-group label{
 
-        height:36px;
+        min-width:55px;
 
     }
 
 
-    .filter-buttons{
+    .filter-row input[type="date"],
+    .filter-row input[type="number"],
+    .filter-row input[type="text"]{
 
         width:100%;
-
-    }
-
-
-    .filter-buttons button{
 
         flex:1;
 
     }
 
 
+    .filter-row button{
+
+        width:100%;
+
+    }
+
+
     .table-box{
 
-        padding:12px;
-
-    }
-
-
-    .table-header h3{
-
-        font-size:16px;
-
-    }
-
-
-    #resultCount{
-
-        font-size:11px;
+        padding:10px;
 
     }
 
@@ -1521,63 +1365,7 @@ tbody tr:last-child td{
 
     .popup-buttons{
 
-        flex-wrap:wrap;
-
-    }
-
-
-    .popup-buttons button{
-
-        min-width:calc(50% - 5px);
-
-    }
-
-
-    .delete-btn{
-
-        min-width:100% !important;
-
-    }
-
-}
-
-
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
-@media(max-width:400px){
-
-    .left-section h2{
-
-        font-size:15px;
-
-    }
-
-
-    .profile-head img{
-
-        width:40px;
-
-        height:40px;
-
-        min-width:40px;
-
-        max-width:40px;
-
-    }
-
-
-    .filter-buttons{
-
         flex-direction:column;
-
-    }
-
-
-    .filter-buttons button{
-
-        width:100%;
 
     }
 
