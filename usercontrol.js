@@ -1,32 +1,21 @@
-/* ==========================================
-   USER CONTROL JS
-   FINAL PART 1
-========================================== */
+/* =========================================================
+   LINK 4 USER CONTROL
+   USERCONTROL.JS
+   DIRECT PROFILE PICTURE UPLOAD VERSION
+========================================================= */
 
 
-/* ==========================================
-   LOGIN CHECK
-========================================== */
-
-const isLogin = localStorage.getItem("isLogin");
-const role = localStorage.getItem("role");
-
-if (isLogin !== "true" || role !== "Admin") {
-    window.location.replace("login.html");
-}
-
-
-/* ==========================================
-   GOOGLE APPS SCRIPT API
-========================================== */
+/* =========================================================
+   API
+========================================================= */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
-/* ==========================================
-   GLOBAL VARIABLES
-========================================== */
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 let users = [];
 
@@ -34,38 +23,416 @@ let editMode = false;
 
 let oldUsername = "";
 
+let selectedPicture = null;
 
-/* ==========================================
+let existingPicture = "";
+
+
+/* =========================================================
+   LOGIN CHECK
+========================================================= */
+
+const isLogin =
+    localStorage.getItem("isLogin");
+
+const role =
+    localStorage.getItem("role");
+
+
+if (
+    isLogin !== "true" ||
+    role !== "Admin"
+) {
+
+    window.location.replace(
+        "login.html"
+    );
+
+}
+
+
+/* =========================================================
    PAGE LOAD
-========================================== */
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    loadProfile();
+        loadProfile();
 
-    loadUsers();
+        loadUsers();
 
-});
+        setupEvents();
+
+        setupPictureUpload();
+
+    }
+);
 
 
-/* ==========================================
+/* =========================================================
+   SETUP ALL EVENTS
+========================================================= */
+
+function setupEvents() {
+
+
+    /* ======================================
+       PROFILE BUTTON
+    ====================================== */
+
+    const profileBtn =
+        document.getElementById(
+            "profileBtn"
+        );
+
+
+    if (profileBtn) {
+
+        profileBtn.addEventListener(
+            "click",
+            function (e) {
+
+                e.stopPropagation();
+
+                const menu =
+                    document.getElementById(
+                        "profileMenu"
+                    );
+
+                if (!menu) return;
+
+
+                menu.style.display =
+                    menu.style.display === "block"
+                        ? "none"
+                        : "block";
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       CLOSE PROFILE MENU
+    ====================================== */
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            const menu =
+                document.getElementById(
+                    "profileMenu"
+                );
+
+            if (menu) {
+
+                menu.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    /* ======================================
+       BACK BUTTON
+    ====================================== */
+
+    const backBtn =
+        document.getElementById(
+            "backBtn"
+        );
+
+
+    if (backBtn) {
+
+        backBtn.addEventListener(
+            "click",
+            function () {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       ACCOUNT BUTTON
+    ====================================== */
+
+    const accountBtn =
+        document.getElementById(
+            "accountBtn"
+        );
+
+
+    if (accountBtn) {
+
+        accountBtn.addEventListener(
+            "click",
+            function () {
+
+                window.location.href =
+                    "my-account.html";
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       LOGOUT
+    ====================================== */
+
+    const logoutBtn =
+        document.getElementById(
+            "logoutBtn"
+        );
+
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener(
+            "click",
+            function () {
+
+                localStorage.clear();
+
+                window.location.replace(
+                    "login.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       SEARCH
+    ====================================== */
+
+    const searchUser =
+        document.getElementById(
+            "searchUser"
+        );
+
+
+    if (searchUser) {
+
+        searchUser.addEventListener(
+            "input",
+            function () {
+
+                const value =
+                    this.value
+                        .toLowerCase()
+                        .trim();
+
+
+                const result =
+                    users.filter(
+                        function (user) {
+
+                            return (
+
+                                String(
+                                    user.username || ""
+                                )
+                                .toLowerCase()
+                                .includes(value)
+
+                                ||
+
+                                String(
+                                    user.name || ""
+                                )
+                                .toLowerCase()
+                                .includes(value)
+
+                                ||
+
+                                String(
+                                    user.role || ""
+                                )
+                                .toLowerCase()
+                                .includes(value)
+
+                                ||
+
+                                String(
+                                    user.status || ""
+                                )
+                                .toLowerCase()
+                                .includes(value)
+
+                            );
+
+                        }
+                    );
+
+
+                showUsers(result);
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       ADD USER
+    ====================================== */
+
+    const addUserBtn =
+        document.getElementById(
+            "addUserBtn"
+        );
+
+
+    if (addUserBtn) {
+
+        addUserBtn.addEventListener(
+            "click",
+            function () {
+
+                editMode = false;
+
+                oldUsername = "";
+
+                selectedPicture = null;
+
+                existingPicture = "";
+
+                clearForm();
+
+                setFormTitle(
+                    "Add User"
+                );
+
+                resetPicturePreview();
+
+                openModal();
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       CLOSE MODAL
+    ====================================== */
+
+    const closeModalBtn =
+        document.getElementById(
+            "closeModal"
+        );
+
+
+    if (closeModalBtn) {
+
+        closeModalBtn.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    /* ======================================
+       CANCEL USER
+    ====================================== */
+
+    const cancelUser =
+        document.getElementById(
+            "cancelUser"
+        );
+
+
+    if (cancelUser) {
+
+        cancelUser.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    /* ======================================
+       SAVE USER
+    ====================================== */
+
+    const saveUserBtn =
+        document.getElementById(
+            "saveUser"
+        );
+
+
+    if (saveUserBtn) {
+
+        saveUserBtn.addEventListener(
+            "click",
+            saveUser
+        );
+
+    }
+
+
+    /* ======================================
+       POPUP CLOSE
+    ====================================== */
+
+    const popupClose =
+        document.getElementById(
+            "popupClose"
+        );
+
+
+    if (popupClose) {
+
+        popupClose.addEventListener(
+            "click",
+            closePopup
+        );
+
+    }
+
+}
+
+
+/* =========================================================
    PROFILE
-========================================== */
+========================================================= */
 
 function loadProfile() {
 
     const name =
-        localStorage.getItem("name");
+        localStorage.getItem(
+            "name"
+        );
+
 
     const picture =
-        localStorage.getItem("picture");
+        localStorage.getItem(
+            "picture"
+        );
 
 
     const userName =
-        document.getElementById("userName");
-
-    const profileImg =
-        document.getElementById("profileImg");
+        document.getElementById(
+            "userName"
+        );
 
 
     if (userName) {
@@ -76,223 +443,389 @@ function loadProfile() {
     }
 
 
-    if (profileImg && picture) {
-
-        profileImg.src = picture;
-
-    }
-
-}
-
-
-/* ==========================================
-   PROFILE MENU
-========================================== */
-
-const profileBtn =
-    document.getElementById("profileBtn");
-
-const profileMenu =
-    document.getElementById("profileMenu");
-
-
-if (profileBtn) {
-
-    profileBtn.addEventListener("click", function (e) {
-
-        e.stopPropagation();
-
-        if (!profileMenu) return;
-
-        profileMenu.style.display =
-            profileMenu.style.display === "block"
-                ? "none"
-                : "block";
-
-    });
-
-}
-
-
-document.addEventListener("click", function () {
-
-    if (profileMenu) {
-
-        profileMenu.style.display = "none";
-
-    }
-
-});
-
-
-/* ==========================================
-   BACK BUTTON
-========================================== */
-
-const backBtn =
-    document.getElementById("backBtn");
-
-
-if (backBtn) {
-
-    backBtn.addEventListener("click", function () {
-
-        window.location.href =
-            "dashboard.html";
-
-    });
-
-}
-
-
-/* ==========================================
-   ACCOUNT BUTTON
-========================================== */
-
-const accountBtn =
-    document.getElementById("accountBtn");
-
-
-if (accountBtn) {
-
-    accountBtn.addEventListener("click", function () {
-
-        window.location.href =
-            "my-account.html";
-
-    });
-
-}
-
-
-/* ==========================================
-   LOGOUT
-========================================== */
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
-
-
-if (logoutBtn) {
-
-    logoutBtn.addEventListener("click", function () {
-
-        /*
-         * Clear all login information
-         */
-
-        localStorage.clear();
-
-
-        /*
-         * Prevent browser back access
-         */
-
-        window.location.replace(
-            "login.html"
+    const profileImg =
+        document.getElementById(
+            "profileImg"
         );
 
-    });
+
+    if (
+        profileImg &&
+        picture
+    ) {
+
+        profileImg.src =
+            picture;
+
+    }
 
 }
 
 
-/* ==========================================
-   LOAD USERS
-========================================== */
+/* =========================================================
+   PICTURE UPLOAD SETUP
+========================================================= */
 
-function loadUsers() {
+function setupPictureUpload() {
 
-    showLoading("Loading Users...");
+    const pictureFile =
+        document.getElementById(
+            "pictureFile"
+        );
 
 
-    fetch(
-        API_URL + "?action=users",
-        {
-            method: "GET",
-            cache: "no-store"
-        }
-    )
+    if (!pictureFile) {
 
-    .then(function (response) {
+        return;
 
-        if (!response.ok) {
+    }
 
-            throw new Error(
-                "Server response error"
+
+    pictureFile.addEventListener(
+        "change",
+        function (event) {
+
+            const file =
+                event.target.files[0];
+
+
+            if (!file) {
+
+                selectedPicture =
+                    null;
+
+                return;
+
+            }
+
+
+            /* ==================================
+               CHECK IMAGE
+            ================================== */
+
+            if (
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
+
+                showPopup(
+                    "Warning",
+                    "Please select an image file.",
+                    "warning"
+                );
+
+                pictureFile.value = "";
+
+                selectedPicture =
+                    null;
+
+                return;
+
+            }
+
+
+            /* ==================================
+               MAX SIZE
+               5 MB
+            ================================== */
+
+            if (
+                file.size >
+                5 * 1024 * 1024
+            ) {
+
+                showPopup(
+                    "Warning",
+                    "Picture size must be less than 5 MB.",
+                    "warning"
+                );
+
+                pictureFile.value = "";
+
+                selectedPicture =
+                    null;
+
+                return;
+
+            }
+
+
+            selectedPicture =
+                file;
+
+
+            /* ==================================
+               PREVIEW
+            ================================== */
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function (e) {
+
+                    showPicturePreview(
+                        e.target.result
+                    );
+
+                };
+
+
+            reader.readAsDataURL(
+                file
             );
 
         }
-
-        return response.json();
-
-    })
-
-    .then(function (data) {
-
-        /*
-         * Make sure data is an array
-         */
-
-        if (Array.isArray(data)) {
-
-            users = data;
-
-        }
-
-        else if (
-            data &&
-            Array.isArray(data.users)
-        ) {
-
-            users = data.users;
-
-        }
-
-        else {
-
-            users = [];
-
-        }
-
-
-        showUsers(users);
-
-    })
-
-    .catch(function (error) {
-
-        console.error(
-            "User Load Error:",
-            error
-        );
-
-
-        showPopup(
-            "Error",
-            "User Load Failed",
-            "error"
-        );
-
-    })
-
-    .finally(function () {
-
-        hideLoading();
-
-    });
+    );
 
 }
 
 
-/* ==========================================
+/* =========================================================
+   SHOW PICTURE PREVIEW
+========================================================= */
+
+function showPicturePreview(
+    src
+) {
+
+    const preview =
+        document.getElementById(
+            "picturePreview"
+        );
+
+
+    const previewImg =
+        document.getElementById(
+            "picturePreviewImg"
+        );
+
+
+    if (
+        preview &&
+        previewImg
+    ) {
+
+        previewImg.src =
+            src;
+
+        preview.style.display =
+            "flex";
+
+        return;
+
+    }
+
+
+    /* ======================================
+       FALLBACK
+    ====================================== */
+
+    const profilePreview =
+        document.querySelector(
+            ".picture-preview"
+        );
+
+
+    const image =
+        document.querySelector(
+            ".picture-preview img"
+        );
+
+
+    if (
+        profilePreview &&
+        image
+    ) {
+
+        image.src =
+            src;
+
+        profilePreview.style.display =
+            "flex";
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET PICTURE PREVIEW
+========================================================= */
+
+function resetPicturePreview() {
+
+    const pictureFile =
+        document.getElementById(
+            "pictureFile"
+        );
+
+
+    if (pictureFile) {
+
+        pictureFile.value = "";
+
+    }
+
+
+    const preview =
+        document.getElementById(
+            "picturePreview"
+        );
+
+
+    const previewImg =
+        document.getElementById(
+            "picturePreviewImg"
+        );
+
+
+    if (preview) {
+
+        preview.style.display =
+            "none";
+
+    }
+
+
+    if (previewImg) {
+
+        previewImg.src = "";
+
+    }
+
+
+    selectedPicture =
+        null;
+
+}
+
+
+/* =========================================================
+   SHOW EXISTING PICTURE
+========================================================= */
+
+function showExistingPicture(
+    picture
+) {
+
+    existingPicture =
+        picture || "";
+
+
+    if (!picture) {
+
+        resetPicturePreview();
+
+        return;
+
+    }
+
+
+    showPicturePreview(
+        picture
+    );
+
+}
+
+
+/* =========================================================
+   LOAD USERS
+========================================================= */
+
+function loadUsers() {
+
+    showLoading(
+        "Loading Users..."
+    );
+
+
+    fetch(
+        API_URL +
+        "?action=users"
+    )
+
+    .then(
+        function (res) {
+
+            if (!res.ok) {
+
+                throw new Error(
+                    "HTTP " +
+                    res.status
+                );
+
+            }
+
+            return res.json();
+
+        }
+    )
+
+    .then(
+        function (data) {
+
+            if (!Array.isArray(data)) {
+
+                throw new Error(
+                    "Invalid API Response"
+                );
+
+            }
+
+
+            users =
+                data;
+
+
+            showUsers(
+                users
+            );
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "User Load Error:",
+                error
+            );
+
+
+            showPopup(
+                "Error",
+                "User Load Failed",
+                "error"
+            );
+
+        }
+    )
+
+    .finally(
+        function () {
+
+            hideLoading();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
    SHOW USERS
-========================================== */
+========================================================= */
 
 function showUsers(data) {
 
     const table =
-        document.getElementById("userTable");
+        document.getElementById(
+            "userTable"
+        );
 
 
     if (!table) return;
@@ -307,12 +840,22 @@ function showUsers(data) {
     ) {
 
         table.innerHTML = `
+
             <tr>
-                <td colspan="6"
-                    style="text-align:center;">
+
+                <td
+                    colspan="6"
+                    class="no-user"
+                >
+
+                    <i class="fa-solid fa-users-slash"></i>
+
                     No User Found
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -320,698 +863,246 @@ function showUsers(data) {
     }
 
 
-    data.forEach(function (user) {
-
-        const username =
-            user.username || "";
-
-        const password =
-            user.password || "";
-
-        const name =
-            user.name || "";
-
-        const role =
-            user.role || "";
-
-        const status =
-            user.status || "";
-
-        const picture =
-            user.picture || "";
-
-
-        const row =
-            document.createElement("tr");
-
-
-        row.innerHTML = `
-
-            <td>
-                ${escapeHTML(username)}
-            </td>
-
-            <td>
-                ${escapeHTML(name)}
-            </td>
-
-            <td>
-                ${escapeHTML(role)}
-            </td>
-
-            <td>
-                <span class="status ${status.toLowerCase()}">
-                    ${escapeHTML(status)}
-                </span>
-            </td>
-
-            <td>
-                <button
-                    class="edit-btn"
-                    onclick="editUser(
-                        '${escapeJS(username)}',
-                        '${escapeJS(password)}',
-                        '${escapeJS(name)}',
-                        '${escapeJS(role)}',
-                        '${escapeJS(status)}',
-                        '${escapeJS(picture)}'
-                    )">
-
-                    <i class="fa-solid fa-pen"></i>
-                    Edit
-
-                </button>
-            </td>
-
-            <td>
-                <button
-                    class="delete-btn"
-                    onclick="deleteUser(
-                        '${escapeJS(username)}'
-                    )">
-
-                    <i class="fa-solid fa-trash"></i>
-                    Delete
-
-                </button>
-            </td>
-
-        `;
-
-
-        table.appendChild(row);
-
-    });
-
-}
-
-
-/* ==========================================
-   HTML SECURITY
-========================================== */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* ==========================================
-   JAVASCRIPT STRING SECURITY
-========================================== */
-
-function escapeJS(value) {
-
-    return String(value || "")
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'")
-        .replace(/"/g, '\\"')
-        .replace(/\r/g, "\\r")
-        .replace(/\n/g, "\\n");
-
-}
-/* ==========================================
-   USER CONTROL JS
-   FINAL PART 2
-========================================== */
-
-
-/* ==========================================
-   SEARCH USER
-========================================== */
-
-const searchUser =
-    document.getElementById("searchUser");
-
-
-if (searchUser) {
-
-    searchUser.addEventListener(
-        "keyup",
-        function () {
-
-            const value =
-                this.value
-                    .trim()
-                    .toLowerCase();
-
-
-            /*
-             * Show all users when search is empty
-             */
-
-            if (value === "") {
-
-                showUsers(users);
-
-                return;
-
-            }
-
-
-            /*
-             * Filter users
-             */
-
-            const result =
-                users.filter(function (user) {
-
-                    const username =
-                        String(
-                            user.username || ""
-                        ).toLowerCase();
-
-                    const name =
-                        String(
-                            user.name || ""
-                        ).toLowerCase();
-
-                    const role =
-                        String(
-                            user.role || ""
-                        ).toLowerCase();
-
-                    const status =
-                        String(
-                            user.status || ""
-                        ).toLowerCase();
-
-
-                    return (
-
-                        username.includes(value) ||
-
-                        name.includes(value) ||
-
-                        role.includes(value) ||
-
-                        status.includes(value)
-
-                    );
-
-                });
-
-
-            showUsers(result);
-
-        }
-    );
-
-}
-
-
-/* ==========================================
-   ADD USER BUTTON
-========================================== */
-
-const addUserBtn =
-    document.getElementById("addUserBtn");
-
-
-if (addUserBtn) {
-
-    addUserBtn.addEventListener(
-        "click",
-        function () {
-
-            /*
-             * New User Mode
-             */
-
-            editMode = false;
-
-            oldUsername = "";
-
-
-            /*
-             * Clear previous data
-             */
-
-            clearForm();
-
-
-            /*
-             * Change modal title
-             */
-
-            const formTitle =
-                document.getElementById("formTitle");
-
-
-            if (formTitle) {
-
-                formTitle.textContent =
-                    "Add User";
-
-            }
-
-
-            /*
-             * Show modal
-             */
-
-            const userModal =
-                document.getElementById("userModal");
-
-
-            if (userModal) {
-
-                userModal.style.display =
-                    "flex";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* ==========================================
-   CLOSE MODAL BUTTON
-========================================== */
-
-const closeModalBtn =
-    document.getElementById("closeModal");
-
-
-if (closeModalBtn) {
-
-    closeModalBtn.addEventListener(
-        "click",
-        function () {
-
-            closeModal();
-
-        }
-    );
-
-}
-
-
-/* ==========================================
-   CANCEL USER BUTTON
-========================================== */
-
-const cancelUser =
-    document.getElementById("cancelUser");
-
-
-if (cancelUser) {
-
-    cancelUser.addEventListener(
-        "click",
-        function () {
-
-            closeModal();
-
-        }
-    );
-
-}
-
-
-/* ==========================================
-   CLOSE MODAL FUNCTION
-========================================== */
-
-function closeModal() {
-
-    const userModal =
-        document.getElementById("userModal");
-
-
-    if (userModal) {
-
-        userModal.style.display =
-            "none";
-
-    }
-
-
-    /*
-     * Reset edit mode
-     */
-
-    editMode = false;
-
-    oldUsername = "";
-
-}
-
-
-/* ==========================================
-   CLOSE MODAL WHEN CLICK OUTSIDE
-========================================== */
-
-const userModal =
-    document.getElementById("userModal");
-
-
-if (userModal) {
-
-    userModal.addEventListener(
-        "click",
-        function (e) {
-
-            /*
-             * Only close when clicking
-             * the modal background
-             */
-
-            if (e.target === userModal) {
-
-                closeModal();
-
-            }
-
-        }
-    );
-
-}
-
-
-/* ==========================================
-   SAVE / UPDATE USER
-========================================== */
-
-const saveUser =
-    document.getElementById("saveUser");
-
-
-if (saveUser) {
-
-    saveUser.addEventListener(
-        "click",
-        function () {
-
-
-            /* ==============================
-               GET FORM DATA
-            ============================== */
-
-            const usernameInput =
-                document.getElementById("username");
-
-            const passwordInput =
-                document.getElementById("password");
-
-            const nameInput =
-                document.getElementById("name");
-
-            const roleInput =
-                document.getElementById("role");
-
-            const statusInput =
-                document.getElementById("status");
-
-            const pictureInput =
-                document.getElementById("picture");
-
-
-            const data = {
-
-                username:
-                    usernameInput
-                        ? usernameInput.value.trim()
-                        : "",
-
-                password:
-                    passwordInput
-                        ? passwordInput.value.trim()
-                        : "",
-
-                name:
-                    nameInput
-                        ? nameInput.value.trim()
-                        : "",
-
-                role:
-                    roleInput
-                        ? roleInput.value
-                        : "Admin",
-
-                status:
-                    statusInput
-                        ? statusInput.value
-                        : "Active",
-
-                picture:
-                    pictureInput
-                        ? pictureInput.value.trim()
-                        : ""
-
-            };
-
-
-            /* ==============================
-               VALIDATION
-            ============================== */
-
-            if (!data.username) {
-
-                showPopup(
-                    "Warning",
-                    "Username Required",
-                    "warning"
+    data.forEach(
+        function (user) {
+
+            const row =
+                document.createElement(
+                    "tr"
                 );
 
-                return;
 
-            }
-
-
-            if (!data.password) {
-
-                showPopup(
-                    "Warning",
-                    "Password Required",
-                    "warning"
-                );
-
-                return;
-
-            }
+            const picture =
+                user.picture || "";
 
 
-            if (!data.name) {
-
-                showPopup(
-                    "Warning",
-                    "Name Required",
-                    "warning"
-                );
-
-                return;
-
-            }
+            let profileHTML = "";
 
 
-            if (!data.role) {
+            if (
+                picture &&
+                picture.trim() !== ""
+            ) {
 
-                showPopup(
-                    "Warning",
-                    "Role Required",
-                    "warning"
-                );
+                profileHTML = `
 
-                return;
+                    <img
+                        src="${escapeHTML(picture)}"
+                        class="user-avatar"
+                        alt="Profile"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
 
-            }
+                    <div
+                        class="user-avatar-fallback"
+                        style="display:none;"
+                    >
 
+                        <i class="fa-solid fa-user"></i>
 
-            /* ==============================
-               CHECK DUPLICATE USERNAME
-            ============================== */
+                    </div>
 
-            if (!editMode) {
-
-                const duplicate =
-                    users.some(function (user) {
-
-                        return String(
-                            user.username || ""
-                        ).toLowerCase()
-                        ===
-                        data.username.toLowerCase();
-
-                    });
-
-
-                if (duplicate) {
-
-                    showPopup(
-                        "Warning",
-                        "This Username Already Exists",
-                        "warning"
-                    );
-
-                    return;
-
-                }
-
-            }
-
-
-            /* ==============================
-               ADD / UPDATE ACTION
-            ============================== */
-
-            if (editMode) {
-
-                data.action = "update";
-
-                data.oldUsername =
-                    oldUsername;
+                `;
 
             }
 
             else {
 
-                data.action = "add";
+                profileHTML = `
+
+                    <div class="user-avatar-fallback">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                `;
 
             }
 
 
-            /* ==============================
-               LOADING
-            ============================== */
+            /* ==================================
+               STATUS CLASS
+            ================================== */
 
-            showLoading(
-                editMode
-                    ? "Updating User..."
-                    : "Creating User..."
+            let statusClass =
+                "status-active";
+
+
+            if (
+                String(
+                    user.status || ""
+                )
+                .toLowerCase()
+                ===
+                "block"
+            ) {
+
+                statusClass =
+                    "status-block";
+
+            }
+
+            else if (
+                String(
+                    user.status || ""
+                )
+                .toLowerCase()
+                ===
+                "inactive"
+            ) {
+
+                statusClass =
+                    "status-inactive";
+
+            }
+
+
+            /* ==================================
+               CREATE CELLS
+            ================================== */
+
+            row.innerHTML = `
+
+                <td class="picture-cell">
+
+                    <div class="user-picture">
+
+                        ${profileHTML}
+
+                    </div>
+
+                </td>
+
+
+                <td class="username-cell">
+
+                    ${escapeHTML(
+                        user.username || ""
+                    )}
+
+                </td>
+
+
+                <td class="name-cell">
+
+                    ${escapeHTML(
+                        user.name || ""
+                    )}
+
+                </td>
+
+
+                <td class="role-cell">
+
+                    ${escapeHTML(
+                        user.role || ""
+                    )}
+
+                </td>
+
+
+                <td class="status-cell">
+
+                    <span
+                        class="user-status ${statusClass}"
+                    >
+
+                        ${escapeHTML(
+                            user.status || ""
+                        )}
+
+                    </span>
+
+                </td>
+
+
+                <td class="action-cell">
+
+                    <div class="action-buttons">
+
+                        <button
+                            type="button"
+                            class="edit-btn"
+                        >
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="delete-btn"
+                        >
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+
+            /* ==================================
+               EDIT BUTTON
+            ================================== */
+
+            const editBtn =
+                row.querySelector(
+                    ".edit-btn"
+                );
+
+
+            editBtn.addEventListener(
+                "click",
+                function () {
+
+                    editUser(
+                        user.username || "",
+                        user.password || "",
+                        user.name || "",
+                        user.role || "",
+                        user.status || "",
+                        user.picture || ""
+                    );
+
+                }
             );
 
 
-            /*
-             * Disable button
-             * while saving
-             */
+            /* ==================================
+               DELETE BUTTON
+            ================================== */
 
-            saveUser.disabled = true;
-
-
-            /* ==============================
-               SEND TO GOOGLE APPS SCRIPT
-            ============================== */
-
-            fetch(
-                API_URL,
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-
-                    },
-
-                    body:
-                        JSON.stringify(data)
-
-                }
-            )
-
-            .then(function (response) {
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Server Error"
-                    );
-
-                }
-
-                return response.json();
-
-            })
-
-            .then(function (result) {
-
-
-                hideLoading();
-
-
-                if (result.success) {
-
-
-                    showPopup(
-                        "Success",
-                        result.message ||
-                        (
-                            editMode
-                                ? "User Updated Successfully"
-                                : "User Created Successfully"
-                        ),
-                        "success"
-                    );
-
-
-                    /*
-                     * Close modal
-                     */
-
-                    closeModal();
-
-
-                    /*
-                     * Reload users
-                     */
-
-                    loadUsers();
-
-                }
-
-                else {
-
-                    showPopup(
-                        "Error",
-                        result.message ||
-                        "Operation Failed",
-                        "error"
-                    );
-
-                }
-
-            })
-
-            .catch(function (error) {
-
-                console.error(
-                    "Save User Error:",
-                    error
+            const deleteBtn =
+                row.querySelector(
+                    ".delete-btn"
                 );
 
 
-                hideLoading();
+            deleteBtn.addEventListener(
+                "click",
+                function () {
+
+                    deleteUser(
+                        user.username || ""
+                    );
+
+                }
+            );
 
 
-                showPopup(
-                    "Error",
-                    "Server Error",
-                    "error"
-                );
-
-            })
-
-            .finally(function () {
-
-                /*
-                 * Enable button again
-                 */
-
-                saveUser.disabled = false;
-
-            });
+            table.appendChild(
+                row
+            );
 
         }
     );
@@ -1019,9 +1110,9 @@ if (saveUser) {
 }
 
 
-/* ==========================================
+/* =========================================================
    EDIT USER
-========================================== */
+========================================================= */
 
 function editUser(
     username,
@@ -1032,176 +1123,418 @@ function editUser(
     picture
 ) {
 
-
-    /* ==============================
-       EDIT MODE
-    ============================== */
-
-    editMode = true;
-
-    oldUsername = username;
+    editMode =
+        true;
 
 
-    /* ==============================
-       FILL FORM
-    ============================== */
+    oldUsername =
+        username;
+
+
+    existingPicture =
+        picture || "";
+
 
     const usernameInput =
-        document.getElementById("username");
+        document.getElementById(
+            "username"
+        );
+
 
     const passwordInput =
-        document.getElementById("password");
+        document.getElementById(
+            "password"
+        );
+
 
     const nameInput =
-        document.getElementById("name");
+        document.getElementById(
+            "name"
+        );
+
 
     const roleInput =
-        document.getElementById("role");
+        document.getElementById(
+            "role"
+        );
+
 
     const statusInput =
-        document.getElementById("status");
+        document.getElementById(
+            "status"
+        );
 
-    const pictureInput =
-        document.getElementById("picture");
 
-
-    if (usernameInput) {
-
+    if (usernameInput)
         usernameInput.value =
-            username || "";
-
-    }
+            username;
 
 
-    if (passwordInput) {
-
+    if (passwordInput)
         passwordInput.value =
-            password || "";
-
-    }
+            password;
 
 
-    if (nameInput) {
-
+    if (nameInput)
         nameInput.value =
-            name || "";
-
-    }
+            name;
 
 
-    if (roleInput) {
-
+    if (roleInput)
         roleInput.value =
-            role || "Admin";
-
-    }
+            role;
 
 
-    if (statusInput) {
-
+    if (statusInput)
         statusInput.value =
-            status || "Active";
+            status;
+
+
+    /* ==================================
+       RESET NEW FILE
+    ================================== */
+
+    selectedPicture =
+        null;
+
+
+    const pictureFile =
+        document.getElementById(
+            "pictureFile"
+        );
+
+
+    if (pictureFile) {
+
+        pictureFile.value = "";
 
     }
 
 
-    if (pictureInput) {
+    /* ==================================
+       SHOW EXISTING PICTURE
+    ================================== */
 
-        pictureInput.value =
-            picture || "";
+    if (picture) {
+
+        showExistingPicture(
+            picture
+        );
+
+    }
+
+    else {
+
+        resetPicturePreview();
 
     }
 
 
-    /* ==============================
-       CHANGE TITLE
-    ============================== */
-
-    const formTitle =
-        document.getElementById("formTitle");
+    setFormTitle(
+        "Edit User"
+    );
 
 
-    if (formTitle) {
+    openModal();
 
-        formTitle.textContent =
-            "Edit User";
+}
+
+
+/* =========================================================
+   SAVE USER
+========================================================= */
+
+async function saveUser() {
+
+    const username =
+        getValue("username");
+
+
+    const password =
+        getValue("password");
+
+
+    const name =
+        getValue("name");
+
+
+    const role =
+        getValue("role");
+
+
+    const status =
+        getValue("status");
+
+
+    /* ==================================
+       VALIDATION
+    ================================== */
+
+    if (!username) {
+
+        showPopup(
+            "Warning",
+            "Username Required",
+            "warning"
+        );
+
+        return;
 
     }
 
 
-    /* ==============================
-       OPEN MODAL
-    ============================== */
+    if (!password) {
 
-    const userModal =
-        document.getElementById("userModal");
+        showPopup(
+            "Warning",
+            "Password Required",
+            "warning"
+        );
+
+        return;
+
+    }
 
 
-    if (userModal) {
+    if (!name) {
 
-        userModal.style.display =
-            "flex";
+        showPopup(
+            "Warning",
+            "Name Required",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    /* ==================================
+       BASE DATA
+    ================================== */
+
+    const data = {
+
+        username:
+            username,
+
+        password:
+            password,
+
+        name:
+            name,
+
+        role:
+            role,
+
+        status:
+            status
+
+    };
+
+
+    /* ==================================
+       EDIT
+    ================================== */
+
+    if (editMode) {
+
+        data.action =
+            "update";
+
+        data.oldUsername =
+            oldUsername;
+
+
+    }
+
+    else {
+
+        data.action =
+            "add";
+
+    }
+
+
+    /* ==================================
+       PICTURE
+    ================================== */
+
+    showLoading(
+        editMode
+            ? "Updating User..."
+            : "Creating User..."
+    );
+
+
+    try {
+
+        if (selectedPicture) {
+
+            const pictureData =
+                await fileToBase64(
+                    selectedPicture
+                );
+
+
+            data.pictureData =
+                pictureData;
+
+
+            data.pictureName =
+                selectedPicture.name;
+
+
+            data.pictureType =
+                selectedPicture.type;
+
+        }
+
+        else if (
+            editMode &&
+            existingPicture
+        ) {
+
+            data.picture =
+                existingPicture;
+
+        }
+
+        else {
+
+            data.picture =
+                "";
+
+        }
+
+
+        /* ==================================
+           SEND TO GOOGLE APPS SCRIPT
+        ================================== */
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            data
+                        )
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        hideLoading();
+
+
+        /* ==================================
+           RESULT
+        ================================== */
+
+        if (
+            result.success
+        ) {
+
+            showPopup(
+                "Success",
+                result.message ||
+                    (
+                        editMode
+                            ? "User Updated Successfully"
+                            : "User Created Successfully"
+                    ),
+                "success"
+            );
+
+
+            closeModal();
+
+
+            loadUsers();
+
+        }
+
+        else {
+
+            showPopup(
+                "Error",
+                result.message ||
+                    "Operation Failed",
+                "error"
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Save User Error:",
+            error
+        );
+
+
+        hideLoading();
+
+
+        showPopup(
+            "Error",
+            "Server Error",
+            "error"
+        );
 
     }
 
 }
 
 
-/* ==========================================
+/* =========================================================
    DELETE USER
-========================================== */
+========================================================= */
 
-function deleteUser(username) {
+function deleteUser(
+    username
+) {
 
-
-    if (!username) {
-
-        showPopup(
-            "Error",
-            "Username Not Found",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    /* ==============================
-       CONFIRM DELETE
-    ============================== */
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to delete this user?"
-        );
-
-
-    if (!confirmed) {
+    if (
+        !confirm(
+            "Delete this user?"
+        )
+    ) {
 
         return;
 
     }
 
-
-    /* ==============================
-       LOADING
-    ============================== */
 
     showLoading(
         "Deleting User..."
     );
 
 
-    /* ==============================
-       SEND DELETE REQUEST
-    ============================== */
-
     fetch(
         API_URL,
         {
 
-            method: "POST",
+            method:
+                "POST",
 
             headers: {
 
@@ -1213,7 +1546,8 @@ function deleteUser(username) {
             body:
                 JSON.stringify({
 
-                    action: "delete",
+                    action:
+                        "delete",
 
                     username:
                         username
@@ -1223,464 +1557,428 @@ function deleteUser(username) {
         }
     )
 
-    .then(function (response) {
+    .then(
+        function (res) {
 
-        if (!response.ok) {
-
-            throw new Error(
-                "Server Error"
-            );
+            return res.json();
 
         }
+    )
 
-        return response.json();
+    .then(
+        function (result) {
 
-    })
-
-    .then(function (result) {
-
-
-        hideLoading();
+            hideLoading();
 
 
-        if (result.success) {
+            if (
+                result.success
+            ) {
+
+                showPopup(
+                    "Success",
+                    result.message ||
+                        "User Deleted Successfully",
+                    "success"
+                );
 
 
-            showPopup(
-                "Success",
-                result.message ||
-                "User Deleted Successfully",
-                "success"
+                loadUsers();
+
+            }
+
+            else {
+
+                showPopup(
+                    "Error",
+                    result.message ||
+                        "Delete Failed",
+                    "error"
+                );
+
+            }
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "Delete Error:",
+                error
             );
 
 
-            /*
-             * Reload user list
-             */
+            hideLoading();
 
-            loadUsers();
-
-        }
-
-        else {
 
             showPopup(
                 "Error",
-                result.message ||
                 "Delete Failed",
                 "error"
             );
 
         }
-
-    })
-
-    .catch(function (error) {
-
-        console.error(
-            "Delete User Error:",
-            error
-        );
-
-
-        hideLoading();
-
-
-        showPopup(
-            "Error",
-            "Delete Failed",
-            "error"
-        );
-
-    });
+    );
 
 }
 
 
-/* ==========================================
+/* =========================================================
    CLEAR FORM
-========================================== */
+========================================================= */
 
 function clearForm() {
 
     const username =
-        document.getElementById("username");
-
-    const password =
-        document.getElementById("password");
-
-    const name =
-        document.getElementById("name");
-
-    const role =
-        document.getElementById("role");
-
-    const status =
-        document.getElementById("status");
-
-    const picture =
-        document.getElementById("picture");
-
-
-    if (username) {
-
-        username.value = "";
-
-    }
-
-
-    if (password) {
-
-        password.value = "";
-
-    }
-
-
-    if (name) {
-
-        name.value = "";
-
-    }
-
-
-    if (role) {
-
-        role.value = "Admin";
-
-    }
-
-
-    if (status) {
-
-        status.value = "Active";
-
-    }
-
-
-    if (picture) {
-
-        picture.value = "";
-
-    }
-
-}
-/* ==========================================
-   USER CONTROL JS
-   FINAL PART 3
-========================================== */
-
-
-/* ==========================================
-   POPUP SYSTEM
-========================================== */
-
-function showPopup(
-    title,
-    msg,
-    type = "success"
-) {
-
-    const popupBox =
-        document.getElementById("popupBox");
-
-    const popupTitle =
-        document.getElementById("popupTitle");
-
-    const popupMessage =
-        document.getElementById("popupMessage");
-
-    const popupIcon =
-        document.getElementById("popupIcon");
-
-
-    /*
-     * Check popup elements
-     */
-
-    if (!popupBox) {
-
-        console.error(
-            "popupBox not found"
+        document.getElementById(
+            "username"
         );
 
-        return;
 
-    }
-
-
-    /*
-     * Set title
-     */
-
-    if (popupTitle) {
-
-        popupTitle.textContent =
-            title || "Message";
-
-    }
+    const password =
+        document.getElementById(
+            "password"
+        );
 
 
-    /*
-     * Set message
-     */
-
-    if (popupMessage) {
-
-        popupMessage.textContent =
-            msg || "";
-
-    }
+    const name =
+        document.getElementById(
+            "name"
+        );
 
 
-    /*
-     * Set icon
-     */
-
-    if (popupIcon) {
-
-
-        /* Remove previous classes */
-
-        popupIcon.className = "";
+    const role =
+        document.getElementById(
+            "role"
+        );
 
 
-        /*
-         * Success
-         */
-
-        if (type === "success") {
-
-            popupIcon.className =
-                "fa-solid fa-circle-check";
-
-            popupIcon.style.color =
-                "#16a34a";
-
-        }
+    const status =
+        document.getElementById(
+            "status"
+        );
 
 
-        /*
-         * Error
-         */
-
-        else if (type === "error") {
-
-            popupIcon.className =
-                "fa-solid fa-circle-xmark";
-
-            popupIcon.style.color =
-                "#dc2626";
-
-        }
+    if (username)
+        username.value = "";
 
 
-        /*
-         * Warning
-         */
-
-        else if (type === "warning") {
-
-            popupIcon.className =
-                "fa-solid fa-triangle-exclamation";
-
-            popupIcon.style.color =
-                "#f59e0b";
-
-        }
+    if (password)
+        password.value = "";
 
 
-        /*
-         * Login
-         */
-
-        else if (type === "login") {
-
-            popupIcon.className =
-                "fa-solid fa-lock";
-
-            popupIcon.style.color =
-                "#2563eb";
-
-        }
+    if (name)
+        name.value = "";
 
 
-        /*
-         * Default
-         */
-
-        else {
-
-            popupIcon.className =
-                "fa-solid fa-circle-info";
-
-            popupIcon.style.color =
-                "#2563eb";
-
-        }
-
-    }
+    if (role)
+        role.value =
+            "Admin";
 
 
-    /*
-     * Show popup
-     */
+    if (status)
+        status.value =
+            "Active";
 
-    popupBox.style.display =
-        "flex";
+
+    resetPicturePreview();
 
 }
 
 
-/* ==========================================
-   CLOSE POPUP
-========================================== */
+/* =========================================================
+   OPEN MODAL
+========================================================= */
 
-function closePopup() {
+function openModal() {
 
-    const popupBox =
-        document.getElementById("popupBox");
+    const modal =
+        document.getElementById(
+            "userModal"
+        );
 
 
-    if (popupBox) {
+    if (modal) {
 
-        popupBox.style.display =
+        modal.style.display =
+            "flex";
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    const modal =
+        document.getElementById(
+            "userModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
             "none";
 
     }
 
-}
+
+    selectedPicture =
+        null;
 
 
-/* ==========================================
-   POPUP CLOSE BUTTON
-========================================== */
-
-const popupClose =
-    document.getElementById("popupClose");
-
-
-if (popupClose) {
-
-    popupClose.addEventListener(
-        "click",
-        function () {
-
-            closePopup();
-
-        }
-    );
+    existingPicture =
+        "";
 
 }
 
 
-/* ==========================================
-   POPUP OK BUTTON
-========================================== */
+/* =========================================================
+   FORM TITLE
+========================================================= */
 
-const popupOk =
-    document.getElementById("popupOk");
+function setFormTitle(
+    title
+) {
 
-
-if (popupOk) {
-
-    popupOk.addEventListener(
-        "click",
-        function () {
-
-            closePopup();
-
-        }
-    );
-
-}
+    const formTitle =
+        document.getElementById(
+            "formTitle"
+        );
 
 
-/* ==========================================
-   CLOSE POPUP OUTSIDE
-========================================== */
+    if (formTitle) {
 
-const popupBox =
-    document.getElementById("popupBox");
+        formTitle.textContent =
+            title;
 
-
-if (popupBox) {
-
-    popupBox.addEventListener(
-        "click",
-        function (e) {
-
-            /*
-             * Only close when clicking
-             * popup background
-             */
-
-            if (e.target === popupBox) {
-
-                closePopup();
-
-            }
-
-        }
-    );
+    }
 
 }
 
 
-/* ==========================================
-   LOADING SYSTEM
-========================================== */
+/* =========================================================
+   GET INPUT VALUE
+========================================================= */
 
-function showLoading(message = "Loading...") {
+function getValue(
+    id
+) {
 
-    const loading =
-        document.getElementById("loadingBox");
+    const element =
+        document.getElementById(
+            id
+        );
 
-    const loadingText =
-        document.getElementById("loadingText");
 
+    if (!element) {
 
-    /*
-     * If loading element does not exist,
-     * do nothing
-     */
-
-    if (!loading) {
-
-        return;
+        return "";
 
     }
 
 
-    /*
-     * Set loading message
-     */
+    return String(
+        element.value || ""
+    ).trim();
 
-    if (loadingText) {
+}
+
+
+/* =========================================================
+   FILE TO BASE64
+========================================================= */
+
+function fileToBase64(
+    file
+) {
+
+    return new Promise(
+        function (
+            resolve,
+            reject
+        ) {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function () {
+
+                    const result =
+                        reader.result;
+
+
+                    /*
+                     * Remove:
+                     * data:image/jpeg;base64,
+                     */
+
+                    const base64 =
+                        String(
+                            result
+                        )
+                        .split(",")[1];
+
+
+                    resolve(
+                        base64
+                    );
+
+                };
+
+
+            reader.onerror =
+                function () {
+
+                    reject(
+                        new Error(
+                            "Picture Read Failed"
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value || ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE JAVASCRIPT
+========================================================= */
+
+function escapeJS(
+    value
+) {
+
+    return String(
+        value || ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    )
+    .replace(
+        /"/g,
+        '\\"'
+    )
+    .replace(
+        /\r/g,
+        "\\r"
+    )
+    .replace(
+        /\n/g,
+        "\\n"
+    );
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+function showLoading(
+    message
+) {
+
+    const loading =
+        document.getElementById(
+            "loadingBox"
+        );
+
+
+    const loadingText =
+        document.getElementById(
+            "loadingText"
+        );
+
+
+    if (loading) {
+
+        loading.style.display =
+            "flex";
+
+    }
+
+
+    if (
+        loadingText &&
+        message
+    ) {
 
         loadingText.textContent =
             message;
 
     }
 
-
-    /*
-     * Show loading
-     */
-
-    loading.style.display =
-        "flex";
-
 }
 
 
-/* ==========================================
+/* =========================================================
    HIDE LOADING
-========================================== */
+========================================================= */
 
 function hideLoading() {
 
     const loading =
-        document.getElementById("loadingBox");
+        document.getElementById(
+            "loadingBox"
+        );
 
 
     if (loading) {
@@ -1693,39 +1991,163 @@ function hideLoading() {
 }
 
 
-/* ==========================================
+/* =========================================================
+   POPUP
+========================================================= */
+
+function showPopup(
+    title,
+    msg,
+    type = "success"
+) {
+
+    const popup =
+        document.getElementById(
+            "popupBox"
+        );
+
+
+    const popupTitle =
+        document.getElementById(
+            "popupTitle"
+        );
+
+
+    const popupMessage =
+        document.getElementById(
+            "popupMessage"
+        );
+
+
+    const icon =
+        document.getElementById(
+            "popupIcon"
+        );
+
+
+    if (
+        popupTitle
+    ) {
+
+        popupTitle.textContent =
+            title;
+
+    }
+
+
+    if (
+        popupMessage
+    ) {
+
+        popupMessage.textContent =
+            msg;
+
+    }
+
+
+    if (icon) {
+
+
+        if (
+            type === "success"
+        ) {
+
+            icon.className =
+                "fa-solid fa-circle-check";
+
+            icon.style.color =
+                "#16a34a";
+
+        }
+
+
+        else if (
+            type === "error"
+        ) {
+
+            icon.className =
+                "fa-solid fa-circle-xmark";
+
+            icon.style.color =
+                "#dc2626";
+
+        }
+
+
+        else if (
+            type === "warning"
+        ) {
+
+            icon.className =
+                "fa-solid fa-triangle-exclamation";
+
+            icon.style.color =
+                "#f59e0b";
+
+        }
+
+
+        else if (
+            type === "login"
+        ) {
+
+            icon.className =
+                "fa-solid fa-lock";
+
+            icon.style.color =
+                "#2563eb";
+
+        }
+
+    }
+
+
+    if (popup) {
+
+        popup.style.display =
+            "flex";
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE POPUP
+========================================================= */
+
+function closePopup() {
+
+    const popup =
+        document.getElementById(
+            "popupBox"
+        );
+
+
+    if (popup) {
+
+        popup.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
    PREVENT BACK AFTER LOGOUT
-========================================== */
+========================================================= */
 
 window.addEventListener(
     "pageshow",
     function () {
 
-
-        /*
-         * Check login status
-         */
-
-        const loggedIn =
+        if (
             localStorage.getItem(
                 "isLogin"
-            );
-
-
-        const currentRole =
-            localStorage.getItem(
-                "role"
-            );
-
-
-        /*
-         * If user is logged out,
-         * send them to login page
-         */
-
-        if (
-            loggedIn !== "true" ||
-            currentRole !== "Admin"
+            )
+            !==
+            "true"
         ) {
 
             window.location.replace(
@@ -1736,119 +2158,3 @@ window.addEventListener(
 
     }
 );
-
-
-/* ==========================================
-   HISTORY SECURITY
-========================================== */
-
-if (
-    localStorage.getItem("isLogin") !== "true"
-) {
-
-    window.location.replace(
-        "login.html"
-    );
-
-}
-
-
-/* ==========================================
-   PREVENT BROWSER CACHE
-========================================== */
-
-window.addEventListener(
-    "load",
-    function () {
-
-        /*
-         * Replace current history entry
-         * so browser back cannot easily
-         * return to protected page
-         */
-
-        if (
-            localStorage.getItem("isLogin") !== "true"
-        ) {
-
-            window.location.replace(
-                "login.html"
-            );
-
-        }
-
-    }
-);
-
-
-/* ==========================================
-   TAB VISIBILITY SECURITY
-========================================== */
-
-document.addEventListener(
-    "visibilitychange",
-    function () {
-
-        if (
-            document.visibilityState ===
-            "visible"
-        ) {
-
-            const loggedIn =
-                localStorage.getItem(
-                    "isLogin"
-                );
-
-
-            const currentRole =
-                localStorage.getItem(
-                    "role"
-                );
-
-
-            if (
-                loggedIn !== "true" ||
-                currentRole !== "Admin"
-            ) {
-
-                window.location.replace(
-                    "login.html"
-                );
-
-            }
-
-        }
-
-    }
-);
-
-
-/* ==========================================
-   FINAL LOGIN GUARD
-========================================== */
-
-(function () {
-
-    const loggedIn =
-        localStorage.getItem(
-            "isLogin"
-        );
-
-    const currentRole =
-        localStorage.getItem(
-            "role"
-        );
-
-
-    if (
-        loggedIn !== "true" ||
-        currentRole !== "Admin"
-    ) {
-
-        window.location.replace(
-            "login.html"
-        );
-
-    }
-
-})();
