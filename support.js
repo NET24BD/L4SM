@@ -4,7 +4,7 @@
 
 
 // =====================================
-// API CONFIG
+// API URL
 // =====================================
 
 const API_URL =
@@ -24,78 +24,67 @@ let supportData = [];
 // PAGE START
 // =====================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener("DOMContentLoaded", function () {
 
-        // ===============================
-        // USERNAME
-        // ===============================
+    // ===============================
+    // LOAD USERNAME
+    // ===============================
 
-        const username =
-            localStorage.getItem("username");
+    const username =
+        localStorage.getItem("username");
 
-        const usernameElement =
-            document.getElementById("username");
+    const usernameElement =
+        document.getElementById("username");
 
-        if (
-            usernameElement &&
-            username
-        ) {
+    if (usernameElement && username) {
 
-            usernameElement.innerHTML =
-                escapeHTML(username);
-
-        }
-
-
-        // ===============================
-        // PROFILE IMAGE
-        // ===============================
-
-        const picture =
-            localStorage.getItem("picture");
-
-        const profileImg =
-            document.getElementById("profileImg");
-
-        if (
-            profileImg &&
-            picture
-        ) {
-
-            profileImg.src = picture;
-
-        }
-
-
-        // ===============================
-        // LOAD SUPPORT
-        // ===============================
-
-        loadSupport();
-
-
-        // ===============================
-        // SEARCH ENTER
-        // ===============================
-
-        const searchInput =
-            document.getElementById(
-                "supportSearch"
-            );
-
-        if (searchInput) {
-
-            searchInput.addEventListener(
-                "input",
-                searchSupport
-            );
-
-        }
+        usernameElement.innerHTML =
+            escapeHTML(username);
 
     }
-);
+
+
+    // ===============================
+    // LOAD PROFILE IMAGE
+    // ===============================
+
+    const picture =
+        localStorage.getItem("picture");
+
+    const profileImg =
+        document.getElementById("profileImg");
+
+    if (profileImg && picture) {
+
+        profileImg.src = picture;
+
+    }
+
+
+    // ===============================
+    // LOAD SUPPORT
+    // ===============================
+
+    loadSupport();
+
+
+    // ===============================
+    // SEARCH
+    // ===============================
+
+    const searchInput =
+        document.getElementById("supportSearch");
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            searchSupport
+        );
+
+    }
+
+});
 
 
 // =====================================
@@ -105,9 +94,7 @@ document.addEventListener(
 function toggleProfile() {
 
     const menu =
-        document.getElementById(
-            "profileMenu"
-        );
+        document.getElementById("profileMenu");
 
     if (!menu) return;
 
@@ -161,13 +148,11 @@ function goBack() {
 function loadSupport() {
 
     const supportList =
-        document.getElementById(
-            "supportList"
-        );
+        document.getElementById("supportList");
 
 
     // ===============================
-    // SHOW LOADING
+    // LOADING
     // ===============================
 
     if (supportList) {
@@ -236,13 +221,13 @@ function loadSupport() {
     .then(function (data) {
 
         console.log(
-            "Support API:",
+            "Support Data:",
             data
         );
 
 
         // ===============================
-        // CHECK SUCCESS
+        // CHECK RESPONSE
         // ===============================
 
         if (
@@ -254,9 +239,7 @@ function loadSupport() {
 
                 data &&
                 data.message
-
                     ? data.message
-
                     : "Unable to load support"
 
             );
@@ -265,7 +248,7 @@ function loadSupport() {
 
 
         // ===============================
-        // SAVE DATA
+        // STORE DATA
         // ===============================
 
         supportData =
@@ -275,7 +258,7 @@ function loadSupport() {
 
 
         // ===============================
-        // RENDER
+        // SHOW DATA
         // ===============================
 
         renderSupport(
@@ -329,23 +312,14 @@ function loadSupport() {
 function renderSupport(data) {
 
     const supportList =
-        document.getElementById(
-            "supportList"
-        );
+        document.getElementById("supportList");
 
 
     if (!supportList) {
 
-        console.error(
-            "supportList not found"
-        );
-
         return;
 
     }
-
-
-    let html = "";
 
 
     // ===============================
@@ -366,6 +340,7 @@ function renderSupport(data) {
                     style="
                         text-align:center;
                         padding:35px;
+                        color:#64748b;
                     "
                 >
 
@@ -383,8 +358,11 @@ function renderSupport(data) {
 
 
     // ===============================
-    // CREATE ROWS
+    // BUILD TABLE
     // ===============================
+
+    let html = "";
+
 
     data.forEach(function (item) {
 
@@ -433,7 +411,6 @@ function renderSupport(data) {
                     >
 
                         <i class="fa fa-pen"></i>
-
                         Edit
 
                     </button>
@@ -467,29 +444,15 @@ function searchSupport() {
 
     if (!searchInput) {
 
-        console.error(
-            "supportSearch input not found"
-        );
-
         return;
 
     }
 
 
-    // ===============================
-    // SEARCH TEXT
-    // ===============================
-
     const keyword =
         searchInput.value
             .trim()
             .toLowerCase();
-
-
-    console.log(
-        "Searching:",
-        keyword
-    );
 
 
     // ===============================
@@ -508,7 +471,7 @@ function searchSupport() {
 
 
     // ===============================
-    // FILTER DATA
+    // FILTER
     // ===============================
 
     const filtered =
@@ -539,7 +502,7 @@ function searchSupport() {
                     ).toLowerCase();
 
 
-                const formattedDate =
+                const displayDate =
                     formatDate(
                         item.date
                     ).toLowerCase();
@@ -571,7 +534,7 @@ function searchSupport() {
 
                     ||
 
-                    formattedDate.includes(
+                    displayDate.includes(
                         keyword
                     )
 
@@ -585,6 +548,44 @@ function searchSupport() {
     // SHOW RESULT
     // ===============================
 
+    if (filtered.length === 0) {
+
+        const supportList =
+            document.getElementById(
+                "supportList"
+            );
+
+
+        if (supportList) {
+
+            supportList.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        style="
+                            text-align:center;
+                            padding:35px;
+                            color:#64748b;
+                        "
+                    >
+
+                        No matching support found
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+        return;
+
+    }
+
+
     renderSupport(
         filtered
     );
@@ -594,6 +595,11 @@ function searchSupport() {
 
 // =====================================
 // EDIT SUPPORT
+// =====================================
+// IMPORTANT:
+// এখানে কোনো API request নেই.
+// Local supportData থেকে সরাসরি popup open হবে.
+// তাই Edit অনেক দ্রুত হবে.
 // =====================================
 
 function editSupport(row) {
@@ -617,160 +623,93 @@ function editSupport(row) {
 
 
     // ===============================
-    // LOADING MODAL DATA
+    // FIND EXISTING DATA
     // ===============================
 
-    fetch(API_URL, {
+    const item =
+        supportData.find(
+            function (support) {
 
-        method: "POST",
+                return Number(
+                    support.row
+                ) === currentRow;
 
-        headers: {
-
-            "Content-Type":
-                "text/plain;charset=utf-8"
-
-        },
-
-        body: JSON.stringify({
-
-            action:
-                "getSingleSupport",
-
-            row:
-                currentRow
-
-        })
-
-    })
-
-    .then(function (response) {
-
-        return response.json();
-
-    })
-
-    .then(function (data) {
-
-        console.log(
-            "Single Support:",
-            data
+            }
         );
 
 
-        if (
-            !data ||
-            data.success === false
-        ) {
+    // ===============================
+    // DATA NOT FOUND
+    // ===============================
 
-            throw new Error(
-
-                data &&
-                data.message
-
-                    ? data.message
-
-                    : "Record not found"
-
-            );
-
-        }
-
-
-        // ===============================
-        // CUSTOMER ID
-        // ===============================
-
-        setValue(
-            "customerId",
-            data.customerId
-        );
-
-
-        // ===============================
-        // PROBLEM
-        // ===============================
-
-        setValue(
-            "problem",
-            data.problem
-        );
-
-
-        // ===============================
-        // REFERENCE
-        // ===============================
-
-        setValue(
-            "reference",
-            data.reference
-        );
-
-
-        // ===============================
-        // DATE
-        // ===============================
-
-        setValue(
-            "date",
-            convertDate(
-                data.date
-            )
-        );
-
-
-        // ===============================
-        // SUPPORT
-        // ===============================
-
-        setValue(
-            "support",
-            data.support
-        );
-
-
-        // ===============================
-        // SUPPORT WORK
-        // ===============================
-
-        setValue(
-            "supportWork",
-            data.supportWork
-        );
-
-
-        // ===============================
-        // OPEN MODAL
-        // ===============================
-
-        const modal =
-            document.getElementById(
-                "editModal"
-            );
-
-
-        if (modal) {
-
-            modal.classList.add(
-                "show"
-            );
-
-        }
-
-    })
-
-    .catch(function (error) {
-
-        console.error(
-            "Edit Error:",
-            error
-        );
-
+    if (!item) {
 
         alert(
-            "Unable to load support data."
+            "Support record not found."
         );
 
-    });
+        return;
+
+    }
+
+
+    // ===============================
+    // FILL POPUP
+    // ===============================
+
+    setValue(
+        "customerId",
+        item.customerId
+    );
+
+
+    setValue(
+        "problem",
+        item.problem
+    );
+
+
+    setValue(
+        "reference",
+        item.reference
+    );
+
+
+    setValue(
+        "date",
+        convertDate(item.date)
+    );
+
+
+    setValue(
+        "support",
+        item.support
+    );
+
+
+    setValue(
+        "supportWork",
+        item.supportWork
+    );
+
+
+    // ===============================
+    // OPEN POPUP IMMEDIATELY
+    // ===============================
+
+    const modal =
+        document.getElementById(
+            "editModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.add(
+            "show"
+        );
+
+    }
 
 }
 
@@ -779,10 +718,7 @@ function editSupport(row) {
 // SET INPUT VALUE
 // =====================================
 
-function setValue(
-    id,
-    value
-) {
+function setValue(id, value) {
 
     const element =
         document.getElementById(id);
@@ -832,10 +768,7 @@ function convertDate(date) {
     }
 
 
-    // ===============================
-    // ALREADY YYYY-MM-DD
-    // ===============================
-
+    // Already YYYY-MM-DD
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
             String(date)
@@ -884,13 +817,19 @@ function convertDate(date) {
         );
 
 
-    return `${year}-${month}-${day}`;
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
 
 }
 
 
 // =====================================
-// FORMAT DATE
+// DISPLAY DATE
 // =====================================
 
 function formatDate(date) {
@@ -954,13 +893,21 @@ function formatDate(date) {
         d.getFullYear();
 
 
-    return `${day} ${month} ${year}`;
+    return (
+        day +
+        " " +
+        month +
+        " " +
+        year
+    );
 
 }
 
 
 // =====================================
-// UPDATE / MOVE TO CALL
+// UPDATE SUPPORT
+// =====================================
+// Submit করলে Support -> Call যাবে.
 // =====================================
 
 function updateSupport() {
@@ -984,7 +931,7 @@ function updateSupport() {
 
 
     // ===============================
-    // GET VALUES
+    // GET FORM DATA
     // ===============================
 
     const customerId =
@@ -1050,7 +997,7 @@ function updateSupport() {
 
 
     // ===============================
-    // BUTTON
+    // SUBMIT BUTTON
     // ===============================
 
     const submitBtn =
@@ -1117,6 +1064,14 @@ function updateSupport() {
 
     .then(function (response) {
 
+        if (!response.ok) {
+
+            throw new Error(
+                "Server Error"
+            );
+
+        }
+
         return response.json();
 
     })
@@ -1138,9 +1093,7 @@ function updateSupport() {
 
                 data &&
                 data.message
-
                     ? data.message
-
                     : "Support submission failed"
 
             );
@@ -1158,17 +1111,44 @@ function updateSupport() {
 
 
         // ===============================
-        // CLOSE MODAL
+        // CLOSE POPUP
         // ===============================
 
         closeEdit();
 
 
         // ===============================
-        // RELOAD SUPPORT
+        // REMOVE FROM LOCAL DATA
         // ===============================
 
-        loadSupport();
+        supportData =
+            supportData.filter(
+                function (item) {
+
+                    return Number(
+                        item.row
+                    ) !== Number(
+                        currentRow
+                    );
+
+                }
+            );
+
+
+        // ===============================
+        // REFRESH TABLE IMMEDIATELY
+        // ===============================
+
+        renderSupport(
+            supportData
+        );
+
+
+        // ===============================
+        // RESET ROW
+        // ===============================
+
+        currentRow = "";
 
     })
 
@@ -1205,7 +1185,7 @@ function updateSupport() {
 
 
 // =====================================
-// CLOSE EDIT MODAL
+// CLOSE EDIT
 // =====================================
 
 function closeEdit() {
@@ -1236,10 +1216,6 @@ function closeEdit() {
 // =====================================
 
 function deleteSupport() {
-
-    // ===============================
-    // CHECK ROW
-    // ===============================
 
     if (
         !currentRow ||
@@ -1273,7 +1249,7 @@ function deleteSupport() {
 
 
     // ===============================
-    // SEND DELETE
+    // DELETE REQUEST
     // ===============================
 
     fetch(API_URL, {
@@ -1301,6 +1277,14 @@ function deleteSupport() {
 
     .then(function (response) {
 
+        if (!response.ok) {
+
+            throw new Error(
+                "Server Error"
+            );
+
+        }
+
         return response.json();
 
     })
@@ -1322,9 +1306,7 @@ function deleteSupport() {
 
                 data &&
                 data.message
-
                     ? data.message
-
                     : "Delete failed"
 
             );
@@ -1341,10 +1323,38 @@ function deleteSupport() {
         );
 
 
+        // ===============================
+        // REMOVE LOCAL DATA
+        // ===============================
+
+        supportData =
+            supportData.filter(
+                function (item) {
+
+                    return Number(
+                        item.row
+                    ) !== Number(
+                        currentRow
+                    );
+
+                }
+            );
+
+
+        // ===============================
+        // REFRESH TABLE
+        // ===============================
+
+        renderSupport(
+            supportData
+        );
+
+
+        // ===============================
+        // CLOSE
+        // ===============================
+
         closeEdit();
-
-
-        loadSupport();
 
     })
 
@@ -1367,7 +1377,7 @@ function deleteSupport() {
 
 
 // =====================================
-// HTML ESCAPE
+// ESCAPE HTML
 // =====================================
 
 function escapeHTML(value) {
@@ -1413,7 +1423,7 @@ function escapeHTML(value) {
 
 
 // =====================================
-// CLOSE PROFILE WHEN CLICK OUTSIDE
+// CLOSE PROFILE OUTSIDE CLICK
 // =====================================
 
 document.addEventListener(
@@ -1451,7 +1461,7 @@ document.addEventListener(
 
 
 // =====================================
-// CLOSE MODAL WHEN CLICK OUTSIDE
+// CLOSE MODAL OUTSIDE CLICK
 // =====================================
 
 document.addEventListener(
