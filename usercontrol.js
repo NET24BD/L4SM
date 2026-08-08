@@ -1364,3 +1364,491 @@ function clearForm() {
     }
 
 }
+/* ==========================================
+   USER CONTROL JS
+   FINAL PART 3
+========================================== */
+
+
+/* ==========================================
+   POPUP SYSTEM
+========================================== */
+
+function showPopup(
+    title,
+    msg,
+    type = "success"
+) {
+
+    const popupBox =
+        document.getElementById("popupBox");
+
+    const popupTitle =
+        document.getElementById("popupTitle");
+
+    const popupMessage =
+        document.getElementById("popupMessage");
+
+    const popupIcon =
+        document.getElementById("popupIcon");
+
+
+    /*
+     * Check popup elements
+     */
+
+    if (!popupBox) {
+
+        console.error(
+            "popupBox not found"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Set title
+     */
+
+    if (popupTitle) {
+
+        popupTitle.textContent =
+            title || "Message";
+
+    }
+
+
+    /*
+     * Set message
+     */
+
+    if (popupMessage) {
+
+        popupMessage.textContent =
+            msg || "";
+
+    }
+
+
+    /*
+     * Set icon
+     */
+
+    if (popupIcon) {
+
+
+        /* Remove previous classes */
+
+        popupIcon.className = "";
+
+
+        /*
+         * Success
+         */
+
+        if (type === "success") {
+
+            popupIcon.className =
+                "fa-solid fa-circle-check";
+
+            popupIcon.style.color =
+                "#16a34a";
+
+        }
+
+
+        /*
+         * Error
+         */
+
+        else if (type === "error") {
+
+            popupIcon.className =
+                "fa-solid fa-circle-xmark";
+
+            popupIcon.style.color =
+                "#dc2626";
+
+        }
+
+
+        /*
+         * Warning
+         */
+
+        else if (type === "warning") {
+
+            popupIcon.className =
+                "fa-solid fa-triangle-exclamation";
+
+            popupIcon.style.color =
+                "#f59e0b";
+
+        }
+
+
+        /*
+         * Login
+         */
+
+        else if (type === "login") {
+
+            popupIcon.className =
+                "fa-solid fa-lock";
+
+            popupIcon.style.color =
+                "#2563eb";
+
+        }
+
+
+        /*
+         * Default
+         */
+
+        else {
+
+            popupIcon.className =
+                "fa-solid fa-circle-info";
+
+            popupIcon.style.color =
+                "#2563eb";
+
+        }
+
+    }
+
+
+    /*
+     * Show popup
+     */
+
+    popupBox.style.display =
+        "flex";
+
+}
+
+
+/* ==========================================
+   CLOSE POPUP
+========================================== */
+
+function closePopup() {
+
+    const popupBox =
+        document.getElementById("popupBox");
+
+
+    if (popupBox) {
+
+        popupBox.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ==========================================
+   POPUP CLOSE BUTTON
+========================================== */
+
+const popupClose =
+    document.getElementById("popupClose");
+
+
+if (popupClose) {
+
+    popupClose.addEventListener(
+        "click",
+        function () {
+
+            closePopup();
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   POPUP OK BUTTON
+========================================== */
+
+const popupOk =
+    document.getElementById("popupOk");
+
+
+if (popupOk) {
+
+    popupOk.addEventListener(
+        "click",
+        function () {
+
+            closePopup();
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   CLOSE POPUP OUTSIDE
+========================================== */
+
+const popupBox =
+    document.getElementById("popupBox");
+
+
+if (popupBox) {
+
+    popupBox.addEventListener(
+        "click",
+        function (e) {
+
+            /*
+             * Only close when clicking
+             * popup background
+             */
+
+            if (e.target === popupBox) {
+
+                closePopup();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   LOADING SYSTEM
+========================================== */
+
+function showLoading(message = "Loading...") {
+
+    const loading =
+        document.getElementById("loadingBox");
+
+    const loadingText =
+        document.getElementById("loadingText");
+
+
+    /*
+     * If loading element does not exist,
+     * do nothing
+     */
+
+    if (!loading) {
+
+        return;
+
+    }
+
+
+    /*
+     * Set loading message
+     */
+
+    if (loadingText) {
+
+        loadingText.textContent =
+            message;
+
+    }
+
+
+    /*
+     * Show loading
+     */
+
+    loading.style.display =
+        "flex";
+
+}
+
+
+/* ==========================================
+   HIDE LOADING
+========================================== */
+
+function hideLoading() {
+
+    const loading =
+        document.getElementById("loadingBox");
+
+
+    if (loading) {
+
+        loading.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ==========================================
+   PREVENT BACK AFTER LOGOUT
+========================================== */
+
+window.addEventListener(
+    "pageshow",
+    function () {
+
+
+        /*
+         * Check login status
+         */
+
+        const loggedIn =
+            localStorage.getItem(
+                "isLogin"
+            );
+
+
+        const currentRole =
+            localStorage.getItem(
+                "role"
+            );
+
+
+        /*
+         * If user is logged out,
+         * send them to login page
+         */
+
+        if (
+            loggedIn !== "true" ||
+            currentRole !== "Admin"
+        ) {
+
+            window.location.replace(
+                "login.html"
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   HISTORY SECURITY
+========================================== */
+
+if (
+    localStorage.getItem("isLogin") !== "true"
+) {
+
+    window.location.replace(
+        "login.html"
+    );
+
+}
+
+
+/* ==========================================
+   PREVENT BROWSER CACHE
+========================================== */
+
+window.addEventListener(
+    "load",
+    function () {
+
+        /*
+         * Replace current history entry
+         * so browser back cannot easily
+         * return to protected page
+         */
+
+        if (
+            localStorage.getItem("isLogin") !== "true"
+        ) {
+
+            window.location.replace(
+                "login.html"
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   TAB VISIBILITY SECURITY
+========================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function () {
+
+        if (
+            document.visibilityState ===
+            "visible"
+        ) {
+
+            const loggedIn =
+                localStorage.getItem(
+                    "isLogin"
+                );
+
+
+            const currentRole =
+                localStorage.getItem(
+                    "role"
+                );
+
+
+            if (
+                loggedIn !== "true" ||
+                currentRole !== "Admin"
+            ) {
+
+                window.location.replace(
+                    "login.html"
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   FINAL LOGIN GUARD
+========================================== */
+
+(function () {
+
+    const loggedIn =
+        localStorage.getItem(
+            "isLogin"
+        );
+
+    const currentRole =
+        localStorage.getItem(
+            "role"
+        );
+
+
+    if (
+        loggedIn !== "true" ||
+        currentRole !== "Admin"
+    ) {
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+
+})();
