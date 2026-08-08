@@ -28,11 +28,11 @@
 <body>
 
 
-<!-- =====================================================
+<!-- =================================================
      HEADER
-===================================================== -->
+================================================= -->
 
-<div class="header">
+<header class="header">
 
 
     <!-- LEFT -->
@@ -103,7 +103,8 @@
              id="profileMenu">
 
 
-            <button onclick="myAccount()">
+            <button type="button"
+                    onclick="myAccount()">
 
                 <i class="fa fa-user"></i>
 
@@ -113,7 +114,8 @@
 
 
 
-            <button onclick="logout()">
+            <button type="button"
+                    onclick="logout()">
 
                 <i class="fa fa-sign-out"></i>
 
@@ -128,26 +130,25 @@
     </div>
 
 
-</div>
+</header>
 
 
 
 
 
-<!-- =====================================================
-     FILTER BAR
-     DEFAULT HIDDEN
-===================================================== -->
+<!-- =================================================
+     FILTER AREA
+================================================= -->
 
-<div class="filter-row"
-     id="filterRow">
+<div class="filter-bar"
+     id="filterBar">
 
 
     <!-- FROM -->
 
     <div class="filter-group">
 
-        <label>
+        <label for="fromDate">
             From
         </label>
 
@@ -163,7 +164,7 @@
 
     <div class="filter-group">
 
-        <label>
+        <label for="toDate">
             To
         </label>
 
@@ -179,7 +180,7 @@
 
     <div class="filter-group">
 
-        <label>
+        <label for="lastDays">
             Last Days
         </label>
 
@@ -195,16 +196,16 @@
 
     <!-- SEARCH -->
 
-    <div class="filter-group">
+    <div class="filter-group search-group">
 
-        <label>
+        <label for="searchCall">
             Search
         </label>
 
         <input
             type="text"
             id="searchCall"
-            placeholder="Search...">
+            placeholder="Search Customer ID / Problem / Reference">
 
     </div>
 
@@ -213,6 +214,7 @@
     <!-- APPLY -->
 
     <button
+        type="button"
         class="filter-btn"
         onclick="applyFilter()">
 
@@ -227,6 +229,7 @@
     <!-- RESET -->
 
     <button
+        type="button"
         class="reset-btn"
         onclick="resetFilter()">
 
@@ -243,9 +246,9 @@
 
 
 
-<!-- =====================================================
+<!-- =================================================
      TABLE
-===================================================== -->
+================================================= -->
 
 <div class="table-box">
 
@@ -329,9 +332,9 @@
 
 
 
-<!-- =====================================================
+<!-- =================================================
      EDIT MODAL
-===================================================== -->
+================================================= -->
 
 <div class="modal"
      id="editModal">
@@ -342,8 +345,10 @@
 
         <!-- CLOSE -->
 
-        <button class="close-btn"
-                onclick="closeEdit()">
+        <button
+            type="button"
+            class="close-btn"
+            onclick="closeEdit()">
 
             ×
 
@@ -352,14 +357,18 @@
 
 
         <h2>
+
+            <i class="fa-solid fa-phone-volume"></i>
+
             Edit Call
+
         </h2>
 
 
 
         <!-- CUSTOMER ID -->
 
-        <label>
+        <label for="customerId">
             Customer ID
         </label>
 
@@ -371,7 +380,7 @@
 
         <!-- PROBLEM -->
 
-        <label>
+        <label for="problem">
             Problem
         </label>
 
@@ -383,7 +392,7 @@
 
         <!-- REFERENCE -->
 
-        <label>
+        <label for="reference">
             Reference
         </label>
 
@@ -395,7 +404,7 @@
 
         <!-- DATE -->
 
-        <label>
+        <label for="date">
             Date
         </label>
 
@@ -407,7 +416,7 @@
 
         <!-- SUPPORT -->
 
-        <label>
+        <label for="support">
             Support
         </label>
 
@@ -419,7 +428,7 @@
 
         <!-- SUPPORT WORK -->
 
-        <label>
+        <label for="supportWork">
             Support Work
         </label>
 
@@ -431,7 +440,7 @@
 
         <!-- CALL -->
 
-        <label>
+        <label for="call">
             Call
         </label>
 
@@ -443,7 +452,7 @@
 
         <!-- CALL WORK -->
 
-        <label>
+        <label for="callWork">
             Call Work
         </label>
 
@@ -461,6 +470,7 @@
             <!-- UPDATE -->
 
             <button
+                type="button"
                 class="submit-btn"
                 onclick="updateCall()">
 
@@ -475,6 +485,7 @@
             <!-- CANCEL -->
 
             <button
+                type="button"
                 class="cancel-btn"
                 onclick="closeEdit()">
 
@@ -487,6 +498,7 @@
             <!-- DELETE -->
 
             <button
+                type="button"
                 class="delete-btn"
                 onclick="deleteCall()">
 
@@ -509,11 +521,11 @@
 
 
 
-<!-- =====================================================
-     SUCCESS / ERROR MESSAGE MODAL
-===================================================== -->
+<!-- =================================================
+     SUCCESS MESSAGE MODAL
+================================================= -->
 
-<div class="message-modal"
+<div class="modal"
      id="messageModal">
 
 
@@ -546,6 +558,7 @@
 
 
         <button
+            type="button"
             onclick="closeMessage()">
 
             OK
@@ -562,11 +575,11 @@
 
 
 
-<!-- =====================================================
+<!-- =================================================
      DELETE CONFIRM MODAL
-===================================================== -->
+================================================= -->
 
-<div class="confirm-modal"
+<div class="modal"
      id="confirmModal">
 
 
@@ -603,6 +616,7 @@
             <!-- CONFIRM DELETE -->
 
             <button
+                type="button"
                 class="confirm-delete"
                 onclick="confirmDelete()">
 
@@ -617,6 +631,7 @@
             <!-- CANCEL -->
 
             <button
+                type="button"
                 class="confirm-cancel"
                 onclick="closeConfirm()">
 
@@ -637,9 +652,9 @@
 
 
 
-<!-- =====================================================
+<!-- =================================================
      CALL JS
-===================================================== -->
+================================================= -->
 
 <script src="call.js"></script>
 
