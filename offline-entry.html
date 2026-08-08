@@ -2,135 +2,567 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Coming Soon</title>
 
+
     <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
         }
+
+
+        /* =========================================
+           BODY
+        ========================================= */
 
         body {
+
             min-height: 100vh;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            background: linear-gradient(
-                135deg,
-                #ecfdf5,
-                #eff6ff,
-                #f8fafc
-            );
+
             padding: 20px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+
+                radial-gradient(
+                    circle at top left,
+                    #064e3b 0%,
+                    transparent 45%
+                ),
+
+                radial-gradient(
+                    circle at bottom right,
+                    #1e3a8a 0%,
+                    transparent 45%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #020617,
+                    #0f172a,
+                    #064e3b
+                );
         }
 
-        .container {
-            width: 100%;
-            max-width: 650px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 28px;
-            padding: 55px 35px;
-            text-align: center;
 
-            box-shadow:
-                0 25px 70px rgba(0, 0, 0, 0.15);
+        /* =========================================
+           BACKGROUND GLOW
+        ========================================= */
 
-            border: 1px solid rgba(255,255,255,.8);
-        }
+        .glow {
 
-        .icon {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 25px;
+            position: absolute;
 
             border-radius: 50%;
 
+            filter: blur(120px);
+
+            pointer-events: none;
+
+        }
+
+
+        .glow-green {
+
+            width: 350px;
+
+            height: 350px;
+
+            background: #10b981;
+
+            opacity: .16;
+
+            top: -130px;
+
+            left: -100px;
+
+        }
+
+
+        .glow-blue {
+
+            width: 400px;
+
+            height: 400px;
+
+            background: #3b82f6;
+
+            opacity: .15;
+
+            bottom: -160px;
+
+            right: -130px;
+
+        }
+
+
+        /* =========================================
+           MAIN CARD
+        ========================================= */
+
+        .container {
+
+            width: 100%;
+
+            max-width: 680px;
+
+            padding: 55px 40px;
+
+            text-align: center;
+
+            position: relative;
+
+            z-index: 2;
+
+            background:
+                rgba(255,255,255,.96);
+
+            border-radius: 30px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.7);
+
+            box-shadow:
+                0 30px 80px
+                rgba(0,0,0,.35);
+
+            animation:
+                cardIn .6s ease;
+
+        }
+
+
+        /* =========================================
+           CARD ANIMATION
+        ========================================= */
+
+        @keyframes cardIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(.96);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =========================================
+           ICON
+        ========================================= */
+
+        .icon-box {
+
+            width: 90px;
+
+            height: 90px;
+
+            margin:
+                0 auto 25px;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
-            background: #ecfdf5;
-            color: #059669;
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ecfdf5,
+                    #dbeafe
+                );
+
+            box-shadow:
+                0 10px 30px
+                rgba(5,150,105,.15);
+
+        }
+
+
+        .icon-box span {
 
             font-size: 42px;
+
         }
 
-        .small-text {
+
+        /* =========================================
+           SMALL TITLE
+        ========================================= */
+
+        .small-title {
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+
             color: #64748b;
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: 1px;
+
             margin-bottom: 12px;
-            text-transform: uppercase;
+
         }
+
+
+        /* =========================================
+           MAIN TITLE
+        ========================================= */
 
         h1 {
-            font-size: clamp(38px, 7vw, 65px);
-            font-weight: 800;
-            color: #064e3b;
-            margin-bottom: 18px;
-            line-height: 1.1;
+
+            font-size:
+                clamp(40px, 8vw, 70px);
+
+            line-height: 1;
+
+            font-weight: 900;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 22px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #064e3b,
+                    #059669,
+                    #1e3a8a
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color:
+                transparent;
+
         }
 
-        .message {
-            font-size: 18px;
-            color: #475569;
+
+        /* =========================================
+           DESCRIPTION
+        ========================================= */
+
+        .description {
+
+            max-width: 530px;
+
+            margin:
+                0 auto 30px;
+
+            font-size: 17px;
+
             line-height: 1.7;
-            max-width: 500px;
-            margin: 0 auto 30px;
+
+            color: #475569;
+
         }
 
-        .contact-box {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 22px;
+
+        /* =========================================
+           ADMIN BOX
+        ========================================= */
+
+        .admin-box {
+
+            display: flex;
+
+            align-items: center;
+
+            text-align: left;
+
+            gap: 18px;
+
+            padding: 20px;
+
             margin-top: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f0fdf4,
+                    #eff6ff
+                );
+
+            border:
+                1px solid
+                #dbeafe;
+
+            border-radius: 18px;
+
         }
 
-        .contact-box h2 {
+
+        /* =========================================
+           ADMIN ICON
+        ========================================= */
+
+        .admin-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                #065f46;
+
+            color: white;
+
+            font-size: 25px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(6,95,70,.25);
+
+        }
+
+
+        /* =========================================
+           ADMIN CONTENT
+        ========================================= */
+
+        .admin-content h2 {
+
+            font-size: 19px;
+
             color: #0f172a;
-            font-size: 20px;
-            margin-bottom: 8px;
+
+            margin-bottom: 5px;
+
         }
 
-        .contact-box p {
+
+        .admin-content p {
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
             color: #64748b;
-            font-size: 15px;
+
         }
 
-        .admin-text {
+
+        .admin-content strong {
+
             color: #059669;
-            font-weight: 700;
+
         }
+
+
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
+
+        .back-btn {
+
+            margin-top: 28px;
+
+            padding: 11px 24px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                #065f46;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                .25s ease;
+
+        }
+
+
+        .back-btn:hover {
+
+            background:
+                #059669;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(5,150,105,.25);
+
+        }
+
+
+        .back-btn:disabled {
+
+            opacity: .7;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
 
         .footer {
-            margin-top: 30px;
-            font-size: 13px;
+
+            margin-top: 28px;
+
+            font-size: 12px;
+
             color: #94a3b8;
+
         }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
 
         @media (max-width: 600px) {
 
+            body {
+
+                padding: 15px;
+
+            }
+
+
             .container {
-                padding: 40px 22px;
-                border-radius: 22px;
+
+                padding:
+                    40px 22px;
+
+                border-radius:
+                    24px;
+
             }
 
-            .icon {
+
+            .icon-box {
+
                 width: 75px;
+
                 height: 75px;
-                font-size: 34px;
+
             }
 
-            .message {
+
+            .icon-box span {
+
+                font-size: 34px;
+
+            }
+
+
+            h1 {
+
+                font-size: 43px;
+
+                letter-spacing: -1px;
+
+            }
+
+
+            .description {
+
+                font-size: 15px;
+
+            }
+
+
+            .admin-box {
+
+                padding: 16px;
+
+                gap: 12px;
+
+            }
+
+
+            .admin-icon {
+
+                width: 48px;
+
+                height: 48px;
+
+                font-size: 21px;
+
+            }
+
+
+            .admin-content h2 {
+
                 font-size: 16px;
+
+            }
+
+
+            .admin-content p {
+
+                font-size: 13px;
+
             }
 
         }
@@ -142,47 +574,173 @@
 
 <body>
 
+
+    <!-- Background Glow -->
+
+    <div class="glow glow-green"></div>
+
+    <div class="glow glow-blue"></div>
+
+
+    <!-- Main Content -->
+
     <div class="container">
 
-        <div class="icon">
-            🚧
+
+        <!-- Icon -->
+
+        <div class="icon-box">
+
+            <span>🚧</span>
+
         </div>
 
-        <div class="small-text">
-            This Section
+
+        <div class="small-title">
+
+            THIS SECTION
+
         </div>
+
 
         <h1>
-            Coming Soon
+
+            COMING SOON
+
         </h1>
 
-        <p class="message">
+
+        <p class="description">
+
             This feature is currently under development.
-            We are working to bring you a better experience.
-            Please check back again soon.
+            We are working hard to bring you a better
+            experience. Please check back again soon.
+
         </p>
 
-        <div class="contact-box">
 
-            <h2>
-                Contact Your Admin
-            </h2>
+        <!-- Contact Admin -->
 
-            <p>
-                For more information or assistance,
-                please contact your
-                <span class="admin-text">
-                    Admin
-                </span>.
-            </p>
+        <div class="admin-box">
+
+
+            <div class="admin-icon">
+
+                👤
+
+            </div>
+
+
+            <div class="admin-content">
+
+                <h2>
+
+                    Contact Your Admin
+
+                </h2>
+
+
+                <p>
+
+                    For more information or assistance,
+                    please contact your
+                    <strong>Admin</strong>.
+
+                </p>
+
+            </div>
+
 
         </div>
+
+
+        <!-- Back -->
+
+        <button
+            class="back-btn"
+            id="backButton"
+        >
+
+            ← Back
+
+        </button>
+
 
         <div class="footer">
+
             Thank you for your patience and understanding.
+
         </div>
 
+
     </div>
+
+
+
+    <script>
+
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
+
+        function goBack() {
+
+            if (
+                document.referrer &&
+                document.referrer !==
+                window.location.href
+            ) {
+
+                history.back();
+
+            }
+
+            else {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }
+
+        }
+
+
+        /* =========================================
+           BUTTON
+        ========================================= */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const button =
+                    document.getElementById(
+                        "backButton"
+                    );
+
+
+                if (!button) {
+                    return;
+                }
+
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        button.disabled =
+                            true;
+
+                        goBack();
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
 
 </body>
 
