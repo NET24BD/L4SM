@@ -2,12 +2,12 @@
    LINK 4 USER CONTROL
    USERCONTROL.JS
    FINAL VERSION
-   ========================================================= */
+========================================================= */
 
 
 /* =========================================================
    API
-   ========================================================= */
+========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
@@ -15,7 +15,7 @@ const API_URL =
 
 /* =========================================================
    GLOBAL
-   ========================================================= */
+========================================================= */
 
 let users = [];
 
@@ -27,29 +27,37 @@ let deleteUsername = "";
 
 
 /* =========================================================
-   LOGIN CHECK
-   ========================================================= */
+   LOGIN / ADMIN PROTECTION
+========================================================= */
 
-const isLogin =
-localStorage.getItem("isLogin");
+(function () {
 
-const currentRole =
-localStorage.getItem("role");
+    const isLogin =
+        localStorage.getItem("isLogin");
+
+    const role =
+        String(
+            localStorage.getItem("role") || ""
+        ).toLowerCase();
 
 
-if (
-    isLogin !== "true" ||
-    String(currentRole).toLowerCase() !== "admin"
-) {
+    if (
+        isLogin !== "true" ||
+        role !== "admin"
+    ) {
 
-    window.location.replace("login.html");
+        window.location.replace(
+            "login.html"
+        );
 
-}
+    }
+
+})();
 
 
 /* =========================================================
    PAGE LOAD
-   ========================================================= */
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -77,26 +85,35 @@ document.addEventListener(
 
 /* =========================================================
    PROFILE
-   ========================================================= */
+========================================================= */
 
 function loadProfile() {
 
     const name =
-        localStorage.getItem("name") || "User";
+        localStorage.getItem("name") ||
+        "User";
 
     const picture =
-        localStorage.getItem("picture") || "";
+        localStorage.getItem("picture") ||
+        "";
+
 
     const userName =
-        document.getElementById("userName");
+        document.getElementById(
+            "userName"
+        );
+
 
     const profileImg =
-        document.getElementById("profileImg");
+        document.getElementById(
+            "profileImg"
+        );
 
 
     if (userName) {
 
-        userName.textContent = name;
+        userName.textContent =
+            name;
 
     }
 
@@ -108,10 +125,10 @@ function loadProfile() {
             picture.trim() !== ""
         ) {
 
-            profileImg.src = picture;
+            profileImg.src =
+                picture;
 
         }
-
         else {
 
             profileImg.src =
@@ -137,15 +154,20 @@ function loadProfile() {
 
 /* =========================================================
    PROFILE MENU
-   ========================================================= */
+========================================================= */
 
 function setupProfileMenu() {
 
     const profileBtn =
-        document.getElementById("profileBtn");
+        document.getElementById(
+            "profileBtn"
+        );
+
 
     const profileMenu =
-        document.getElementById("profileMenu");
+        document.getElementById(
+            "profileMenu"
+        );
 
 
     if (
@@ -199,14 +221,16 @@ function setupProfileMenu() {
 
 /* =========================================================
    NAVIGATION
-   ========================================================= */
+========================================================= */
 
 function setupNavigation() {
 
     /* BACK */
 
     const backBtn =
-        document.getElementById("backBtn");
+        document.getElementById(
+            "backBtn"
+        );
 
 
     if (backBtn) {
@@ -227,7 +251,9 @@ function setupNavigation() {
     /* ACCOUNT */
 
     const accountBtn =
-        document.getElementById("accountBtn");
+        document.getElementById(
+            "accountBtn"
+        );
 
 
     if (accountBtn) {
@@ -248,7 +274,9 @@ function setupNavigation() {
     /* LOGOUT */
 
     const logoutBtn =
-        document.getElementById("logoutBtn");
+        document.getElementById(
+            "logoutBtn"
+        );
 
 
     if (logoutBtn) {
@@ -265,7 +293,7 @@ function setupNavigation() {
 
 /* =========================================================
    LOGOUT
-   ========================================================= */
+========================================================= */
 
 function logoutUser() {
 
@@ -282,23 +310,30 @@ function logoutUser() {
 
 
 /* =========================================================
-   LOGIN PROTECTION
-   ========================================================= */
+   PAGE BACK PROTECTION
+========================================================= */
 
 window.addEventListener(
     "pageshow",
     function () {
 
-        const login =
-            localStorage.getItem("isLogin");
+        const isLogin =
+            localStorage.getItem(
+                "isLogin"
+            );
+
 
         const role =
-            localStorage.getItem("role");
+            String(
+                localStorage.getItem(
+                    "role"
+                ) || ""
+            ).toLowerCase();
 
 
         if (
-            login !== "true" ||
-            String(role).toLowerCase() !== "admin"
+            isLogin !== "true" ||
+            role !== "admin"
         ) {
 
             window.location.replace(
@@ -313,7 +348,7 @@ window.addEventListener(
 
 /* =========================================================
    SEARCH
-   ========================================================= */
+========================================================= */
 
 function setupSearch() {
 
@@ -355,43 +390,55 @@ function setupSearch() {
 
                         const username =
                             String(
-                                user.username || ""
+                                user.username ||
+                                ""
                             ).toLowerCase();
 
 
                         const name =
                             String(
-                                user.name || ""
+                                user.name ||
+                                ""
                             ).toLowerCase();
 
 
                         const role =
                             String(
-                                user.role || ""
+                                user.role ||
+                                ""
                             ).toLowerCase();
 
 
                         const status =
                             String(
-                                user.status || ""
+                                user.status ||
+                                ""
                             ).toLowerCase();
 
 
                         return (
 
-                            username.includes(value)
+                            username.includes(
+                                value
+                            )
 
                             ||
 
-                            name.includes(value)
+                            name.includes(
+                                value
+                            )
 
                             ||
 
-                            role.includes(value)
+                            role.includes(
+                                value
+                            )
 
                             ||
 
-                            status.includes(value)
+                            status.includes(
+                                value
+                            )
 
                         );
 
@@ -409,7 +456,7 @@ function setupSearch() {
 
 /* =========================================================
    ADD USER BUTTON
-   ========================================================= */
+========================================================= */
 
 function setupUserButtons() {
 
@@ -462,7 +509,7 @@ function setupUserButtons() {
 
 /* =========================================================
    MODAL SETUP
-   ========================================================= */
+========================================================= */
 
 function setupModal() {
 
@@ -544,7 +591,7 @@ function setupModal() {
 
 /* =========================================================
    OPEN MODAL
-   ========================================================= */
+========================================================= */
 
 function openModal() {
 
@@ -566,7 +613,7 @@ function openModal() {
 
 /* =========================================================
    CLOSE MODAL
-   ========================================================= */
+========================================================= */
 
 function closeModal() {
 
@@ -588,7 +635,7 @@ function closeModal() {
 
 /* =========================================================
    LOAD USERS
-   ========================================================= */
+========================================================= */
 
 function loadUsers() {
 
@@ -631,12 +678,40 @@ function loadUsers() {
             hideLoading();
 
 
+            /*
+             * Code.gs যদি directly
+             * ARRAY return করে
+             */
+
             if (
                 Array.isArray(data)
             ) {
 
                 users =
                     data;
+
+                showUsers(
+                    users
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * যদি API object return করে
+             */
+
+            if (
+                data &&
+                Array.isArray(
+                    data.data
+                )
+            ) {
+
+                users =
+                    data.data;
 
                 showUsers(
                     users
@@ -707,7 +782,7 @@ function loadUsers() {
 
 /* =========================================================
    SHOW USERS
-   ========================================================= */
+========================================================= */
 
 function showUsers(data) {
 
@@ -733,15 +808,24 @@ function showUsers(data) {
     ) {
 
         table.innerHTML = `
+
             <tr>
+
                 <td
                     colspan="6"
                     class="no-user"
                 >
-                    <i class="fa-solid fa-users-slash"></i>
+
+                    <i
+                        class="fa-solid fa-users-slash"
+                    ></i>
+
                     No User Found
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -777,6 +861,13 @@ function showUsers(data) {
                 );
 
 
+            /*
+             * Picture URL শুধু table/list
+             * এর user picture-এর জন্য।
+             *
+             * Edit popup-এ preview নেই।
+             */
+
             const picture =
                 String(
                     user.picture || ""
@@ -785,7 +876,7 @@ function showUsers(data) {
 
             /* =========================
                STATUS
-               ========================= */
+            ========================= */
 
             let statusClass =
                 "status-inactive";
@@ -806,7 +897,6 @@ function showUsers(data) {
                     "status-active";
 
             }
-
             else if (
                 statusLower === "block" ||
                 statusLower === "blocked"
@@ -819,8 +909,8 @@ function showUsers(data) {
 
 
             /* =========================
-               USER LIST PICTURE
-               ========================= */
+               USER IMAGE
+            ========================= */
 
             let pictureHTML;
 
@@ -830,6 +920,7 @@ function showUsers(data) {
             ) {
 
                 pictureHTML = `
+
                     <div class="user-picture">
 
                         <img
@@ -840,10 +931,10 @@ function showUsers(data) {
                         >
 
                     </div>
+
                 `;
 
             }
-
             else {
 
                 pictureHTML =
@@ -854,7 +945,10 @@ function showUsers(data) {
 
             /*
              * IMPORTANT:
-             * Original users index
+             *
+             * users.indexOf(user)
+             * ব্যবহার করা হচ্ছে যাতে search
+             * করার পরেও correct user edit/delete হয়।
              */
 
             const index =
@@ -863,7 +957,7 @@ function showUsers(data) {
 
             /* =========================
                TABLE
-               ========================= */
+            ========================= */
 
             table.innerHTML += `
 
@@ -878,21 +972,27 @@ function showUsers(data) {
 
                     <td class="username-cell">
 
-                        ${escapeHTML(username)}
+                        ${escapeHTML(
+                            username
+                        )}
 
                     </td>
 
 
                     <td class="name-cell">
 
-                        ${escapeHTML(name)}
+                        ${escapeHTML(
+                            name
+                        )}
 
                     </td>
 
 
                     <td class="role-cell">
 
-                        ${escapeHTML(userRole)}
+                        ${escapeHTML(
+                            userRole
+                        )}
 
                     </td>
 
@@ -902,7 +1002,11 @@ function showUsers(data) {
                         <span
                             class="user-status ${statusClass}"
                         >
-                            ${escapeHTML(status)}
+
+                            ${escapeHTML(
+                                status
+                            )}
+
                         </span>
 
                     </td>
@@ -910,8 +1014,9 @@ function showUsers(data) {
 
                     <td class="action-cell">
 
-                        <div class="action-buttons">
-
+                        <div
+                            class="action-buttons"
+                        >
 
                             <button
                                 type="button"
@@ -919,7 +1024,9 @@ function showUsers(data) {
                                 onclick="editUserByIndex(${index})"
                             >
 
-                                <i class="fa-solid fa-pen"></i>
+                                <i
+                                    class="fa-solid fa-pen"
+                                ></i>
 
                                 Edit
 
@@ -932,12 +1039,13 @@ function showUsers(data) {
                                 onclick="deleteUserByIndex(${index})"
                             >
 
-                                <i class="fa-solid fa-trash"></i>
+                                <i
+                                    class="fa-solid fa-trash"
+                                ></i>
 
                                 Delete
 
                             </button>
-
 
                         </div>
 
@@ -955,7 +1063,7 @@ function showUsers(data) {
 
 /* =========================================================
    EDIT USER BY INDEX
-   ========================================================= */
+========================================================= */
 
 function editUserByIndex(index) {
 
@@ -987,11 +1095,8 @@ function editUserByIndex(index) {
 
 /* =========================================================
    EDIT USER
-   =========================================================
-   NOTE:
-   Picture is NOT shown in popup.
-   Existing picture is only kept internally.
-   ========================================================= */
+   NO PICTURE PREVIEW
+========================================================= */
 
 function editUser(
     username,
@@ -1039,53 +1144,16 @@ function editUser(
 
 
     /*
-     * Picture input is intentionally NOT
-     * filled or previewed.
+     * Picture URL থাকবে।
      *
-     * Existing picture remains unchanged
-     * unless your backend specifically
-     * changes it.
+     * কিন্তু কোনো image preview
+     * দেখানো হবে না।
      */
 
-
-    const pictureInput =
-        document.getElementById(
-            "picture"
-        );
-
-
-    if (pictureInput) {
-
-        pictureInput.value = "";
-
-    }
-
-
-    const preview =
-        document.getElementById(
-            "picturePreview"
-        );
-
-
-    if (preview) {
-
-        preview.style.display =
-            "none";
-
-    }
-
-
-    const previewImg =
-        document.getElementById(
-            "picturePreviewImg"
-        );
-
-
-    if (previewImg) {
-
-        previewImg.src = "";
-
-    }
+    setValue(
+        "picture",
+        picture || ""
+    );
 
 
     const title =
@@ -1109,7 +1177,7 @@ function editUser(
 
 /* =========================================================
    SAVE USER
-   ========================================================= */
+========================================================= */
 
 function saveUser() {
 
@@ -1134,45 +1202,16 @@ function saveUser() {
 
 
     /*
-     * Picture is NOT taken from popup.
+     * Picture URL
      */
 
-    let picture = "";
-
-
-    /*
-     * ADD MODE
-     *
-     * If picture input exists and user
-     * actually enters something manually,
-     * it can still be saved.
-     *
-     * But no preview is displayed.
-     */
-
-    if (!editMode) {
-
-        const pictureElement =
-            document.getElementById(
-                "picture"
-            );
-
-
-        if (pictureElement) {
-
-            picture =
-                String(
-                    pictureElement.value || ""
-                ).trim();
-
-        }
-
-    }
+    const picture =
+        getValue("picture");
 
 
     /* =========================
        VALIDATION
-       ========================= */
+    ========================= */
 
     if (!username) {
 
@@ -1215,7 +1254,7 @@ function saveUser() {
 
     /* =========================
        DATA
-       ========================= */
+    ========================= */
 
     const data = {
 
@@ -1234,6 +1273,10 @@ function saveUser() {
         status:
             status,
 
+        /*
+         * Picture URL API-তে যাবে
+         */
+
         picture:
             picture
 
@@ -1248,40 +1291,7 @@ function saveUser() {
         data.oldUsername =
             oldUsername;
 
-        /*
-         * Important:
-         * Do not overwrite existing picture
-         * when editing.
-         *
-         * Find existing user's picture.
-         */
-
-        const existingUser =
-            users.find(
-                function (u) {
-
-                    return String(
-                        u.username || ""
-                    ) === String(
-                        oldUsername
-                    );
-
-                }
-            );
-
-
-        if (
-            existingUser &&
-            existingUser.picture
-        ) {
-
-            data.picture =
-                existingUser.picture;
-
-        }
-
     }
-
     else {
 
         data.action =
@@ -1311,7 +1321,9 @@ function saveUser() {
             },
 
             body:
-                JSON.stringify(data)
+                JSON.stringify(
+                    data
+                )
 
         }
     )
@@ -1322,7 +1334,8 @@ function saveUser() {
             if (!response.ok) {
 
                 throw new Error(
-                    "HTTP Error"
+                    "HTTP Error " +
+                    response.status
                 );
 
             }
@@ -1358,7 +1371,6 @@ function saveUser() {
                 loadUsers();
 
             }
-
             else {
 
                 showPopup(
@@ -1399,7 +1411,7 @@ function saveUser() {
 
 /* =========================================================
    DELETE USER BY INDEX
-   ========================================================= */
+========================================================= */
 
 function deleteUserByIndex(index) {
 
@@ -1439,7 +1451,7 @@ function deleteUserByIndex(index) {
 
 /* =========================================================
    CREATE CUSTOM DELETE POPUP
-   ========================================================= */
+========================================================= */
 
 function createDeletePopup() {
 
@@ -1455,7 +1467,9 @@ function createDeletePopup() {
 
 
     const popup =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     popup.id =
@@ -1464,13 +1478,21 @@ function createDeletePopup() {
 
     popup.innerHTML = `
 
-        <div class="custom-delete-overlay">
+        <div
+            class="custom-delete-overlay"
+        >
 
-            <div class="custom-delete-box">
+            <div
+                class="custom-delete-box"
+            >
 
-                <div class="custom-delete-icon">
+                <div
+                    class="custom-delete-icon"
+                >
 
-                    <i class="fa-solid fa-trash"></i>
+                    <i
+                        class="fa-solid fa-trash"
+                    ></i>
 
                 </div>
 
@@ -1480,18 +1502,24 @@ function createDeletePopup() {
                 </h3>
 
 
-                <p id="customDeleteMessage">
+                <p
+                    id="customDeleteMessage"
+                >
                     Are you sure?
                 </p>
 
 
-                <div class="custom-delete-buttons">
+                <div
+                    class="custom-delete-buttons"
+                >
 
                     <button
                         type="button"
                         id="customDeleteCancel"
                     >
+
                         Cancel
+
                     </button>
 
 
@@ -1499,7 +1527,9 @@ function createDeletePopup() {
                         type="button"
                         id="customDeleteConfirm"
                     >
+
                         Delete
+
                     </button>
 
                 </div>
@@ -1564,10 +1594,12 @@ function createDeletePopup() {
 
     /* =========================
        POPUP CSS
-       ========================= */
+    ========================= */
 
     const style =
-        document.createElement("style");
+        document.createElement(
+            "style"
+        );
 
 
     style.id =
@@ -1579,6 +1611,7 @@ function createDeletePopup() {
         #customDeletePopup {
             display: none;
         }
+
 
         .custom-delete-overlay {
 
@@ -1785,7 +1818,7 @@ function createDeletePopup() {
 
 /* =========================================================
    SHOW DELETE POPUP
-   ========================================================= */
+========================================================= */
 
 function showDeletePopup(
     username
@@ -1828,7 +1861,7 @@ function showDeletePopup(
 
 /* =========================================================
    CLOSE DELETE POPUP
-   ========================================================= */
+========================================================= */
 
 function closeDeletePopup() {
 
@@ -1853,7 +1886,7 @@ function closeDeletePopup() {
 
 /* =========================================================
    CONFIRM DELETE
-   ========================================================= */
+========================================================= */
 
 function confirmDelete() {
 
@@ -1909,7 +1942,8 @@ function confirmDelete() {
             if (!response.ok) {
 
                 throw new Error(
-                    "HTTP Error"
+                    "HTTP Error " +
+                    response.status
                 );
 
             }
@@ -1942,7 +1976,6 @@ function confirmDelete() {
                 loadUsers();
 
             }
-
             else {
 
                 showPopup(
@@ -1983,7 +2016,7 @@ function confirmDelete() {
 
 /* =========================================================
    CLEAR FORM
-   ========================================================= */
+========================================================= */
 
 function clearForm() {
 
@@ -2018,8 +2051,8 @@ function clearForm() {
 
 
     /*
-     * Picture field is cleared,
-     * but preview is NOT used.
+     * Picture URL থাকবে।
+     * শুধু input clear হবে।
      */
 
     setValue(
@@ -2027,79 +2060,12 @@ function clearForm() {
         ""
     );
 
-
-    const preview =
-        document.getElementById(
-            "picturePreview"
-        );
-
-
-    if (preview) {
-
-        preview.style.display =
-            "none";
-
-    }
-
-
-    const previewImg =
-        document.getElementById(
-            "picturePreviewImg"
-        );
-
-
-    if (previewImg) {
-
-        previewImg.src = "";
-
-    }
-
 }
 
 
 /* =========================================================
-   PICTURE PREVIEW DISABLED
-   =========================================================
-   Function kept for compatibility
-   with old HTML/other scripts.
-   ========================================================= */
-
-function updatePicturePreview(
-    picture
-) {
-
-    const preview =
-        document.getElementById(
-            "picturePreview"
-        );
-
-
-    const previewImg =
-        document.getElementById(
-            "picturePreviewImg"
-        );
-
-
-    if (preview) {
-
-        preview.style.display =
-            "none";
-
-    }
-
-
-    if (previewImg) {
-
-        previewImg.src = "";
-
-    }
-
-}
-
-
-/* =========================================================
-   POPUP
-   ========================================================= */
+   CUSTOM POPUP
+========================================================= */
 
 function showPopup(
     title,
@@ -2168,7 +2134,6 @@ function showPopup(
 
         }
 
-
         else if (
             type === "error"
         ) {
@@ -2180,7 +2145,6 @@ function showPopup(
                 "#dc2626";
 
         }
-
 
         else if (
             type === "warning"
@@ -2205,7 +2169,7 @@ function showPopup(
 
 /* =========================================================
    CLOSE POPUP
-   ========================================================= */
+========================================================= */
 
 function closePopup() {
 
@@ -2227,7 +2191,7 @@ function closePopup() {
 
 /* =========================================================
    LOADING
-   ========================================================= */
+========================================================= */
 
 function showLoading(
     text = "Loading..."
@@ -2273,18 +2237,20 @@ function showLoading(
 
         loading.innerHTML = `
 
-            <div style="
-                background:white;
-                padding:25px 35px;
-                border-radius:16px;
-                box-shadow:
-                    0 15px 40px
-                    rgba(0,0,0,.25);
-                font-family:
-                    Arial,sans-serif;
-                color:#1e3a8a;
-                font-weight:600;
-            ">
+            <div
+                style="
+                    background:white;
+                    padding:25px 35px;
+                    border-radius:16px;
+                    box-shadow:
+                        0 15px 40px
+                        rgba(0,0,0,.25);
+                    font-family:
+                        Arial,sans-serif;
+                    color:#1e3a8a;
+                    font-weight:600;
+                "
+            >
 
                 <i
                     class="fa-solid fa-spinner fa-spin"
@@ -2293,7 +2259,10 @@ function showLoading(
                     "
                 ></i>
 
-                <span id="simpleLoadingText">
+
+                <span
+                    id="simpleLoadingText"
+                >
                     ${escapeHTML(text)}
                 </span>
 
@@ -2307,7 +2276,6 @@ function showLoading(
         );
 
     }
-
     else {
 
         const textElement =
@@ -2334,7 +2302,7 @@ function showLoading(
 
 /* =========================================================
    HIDE LOADING
-   ========================================================= */
+========================================================= */
 
 function hideLoading() {
 
@@ -2356,7 +2324,7 @@ function hideLoading() {
 
 /* =========================================================
    GET VALUE
-   ========================================================= */
+========================================================= */
 
 function getValue(id) {
 
@@ -2380,7 +2348,7 @@ function getValue(id) {
 
 /* =========================================================
    SET VALUE
-   ========================================================= */
+========================================================= */
 
 function setValue(
     id,
@@ -2403,7 +2371,7 @@ function setValue(
 
 /* =========================================================
    ESCAPE HTML
-   ========================================================= */
+========================================================= */
 
 function escapeHTML(value) {
 
@@ -2441,11 +2409,9 @@ function escapeHTML(value) {
 
 /* =========================================================
    IMAGE ERROR
-   ========================================================= */
+========================================================= */
 
-function imageError(
-    img
-) {
+function imageError(img) {
 
     if (!img) {
 
@@ -2464,14 +2430,16 @@ function imageError(
 
 
 /* =========================================================
-   FALLBACK IMAGE
-   ========================================================= */
+   FALLBACK USER IMAGE
+========================================================= */
 
 function createFallbackImage() {
 
     return `
 
-        <div class="user-picture">
+        <div
+            class="user-picture"
+        >
 
             <img
                 src="profile.png"
@@ -2491,7 +2459,7 @@ function createFallbackImage() {
 
 /* =========================================================
    ESCAPE KEY
-   ========================================================= */
+========================================================= */
 
 document.addEventListener(
     "keydown",
