@@ -1,322 +1,250 @@
-// ============================================================
-// USER CONTROL JS
-// FINAL VERSION
-// ============================================================
+/* =========================================================
+   USER CONTROL JS
+   FINAL
+========================================================= */
 
 
-// ============================================================
-// LOGIN CHECK
-// ============================================================
+/* =========================================================
+   LOGIN CHECK
+========================================================= */
 
-const isLogin =
-    localStorage.getItem("isLogin");
+const isLogin = localStorage.getItem("isLogin");
+const role = localStorage.getItem("role");
 
-const role =
-    localStorage.getItem("role");
-
-
-if (
-    isLogin !== "true" ||
-    role !== "Admin"
-) {
-
-    window.location.replace(
-        "login.html"
-    );
-
+if (isLogin !== "true" || role !== "Admin") {
+    window.location.replace("login.html");
 }
 
 
-// ============================================================
-// API
-// ============================================================
+/* =========================================================
+   API
+========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
-// ============================================================
-// GLOBAL
-// ============================================================
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 let users = [];
-
 let editMode = false;
-
 let oldUsername = "";
-
 let deleteUsername = "";
 
 
-// ============================================================
-// PAGE LOAD
-// ============================================================
+/* =========================================================
+   PAGE LOAD
+========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener("DOMContentLoaded", function () {
 
-        loadProfile();
+    loadProfile();
+    setupProfileMenu();
+    setupButtons();
+    setupSearch();
+    setupDeletePopup();
+    setupPicturePreview();
 
-        setupProfileMenu();
+    loadUsers();
 
-        setupButtons();
-
-        setupSearch();
-
-        setupDeletePopup();
-
-        setupPicturePreview();
-
-        loadUsers();
-
-    }
-);
+});
 
 
-// ============================================================
-// PROFILE
-// ============================================================
+/* =========================================================
+   PROFILE
+========================================================= */
 
 function loadProfile() {
 
     const name =
-        localStorage.getItem("name");
+        localStorage.getItem("name") || "User";
 
     const picture =
         localStorage.getItem("picture");
 
-
     const userName =
-        document.getElementById(
-            "userName"
-        );
+        document.getElementById("userName");
 
     const profileImg =
-        document.getElementById(
-            "profileImg"
-        );
+        document.getElementById("profileImg");
 
 
     if (userName) {
-
-        userName.textContent =
-            name || "User";
-
+        userName.textContent = name;
     }
 
 
-    if (
-        profileImg &&
-        picture &&
-        picture.trim() !== ""
-    ) {
+    if (profileImg) {
 
-        profileImg.src =
-            picture;
+        if (picture && picture.trim() !== "") {
+
+            profileImg.src = picture;
+
+        } else {
+
+            profileImg.src = "profile.png";
+
+        }
+
+        profileImg.onerror = function () {
+
+            this.onerror = null;
+            this.src = "profile.png";
+
+        };
 
     }
 
 }
 
 
-// ============================================================
-// PROFILE MENU
-// ============================================================
+/* =========================================================
+   PROFILE MENU
+========================================================= */
 
 function setupProfileMenu() {
 
     const profileBtn =
-        document.getElementById(
-            "profileBtn"
-        );
+        document.getElementById("profileBtn");
 
     const profileMenu =
-        document.getElementById(
-            "profileMenu"
-        );
+        document.getElementById("profileMenu");
 
 
-    if (
-        !profileBtn ||
-        !profileMenu
-    ) {
-
+    if (!profileBtn || !profileMenu) {
         return;
-
     }
 
 
-    profileBtn.addEventListener(
-        "click",
-        function (e) {
+    profileBtn.addEventListener("click", function (e) {
 
-            e.stopPropagation();
+        e.stopPropagation();
 
-            profileMenu.style.display =
-                profileMenu.style.display === "block"
-                    ? "none"
-                    : "block";
+        profileMenu.style.display =
+            profileMenu.style.display === "block"
+                ? "none"
+                : "block";
 
-        }
-    );
+    });
 
 
-    document.addEventListener(
-        "click",
-        function () {
+    profileMenu.addEventListener("click", function (e) {
 
-            profileMenu.style.display =
-                "none";
+        e.stopPropagation();
 
-        }
-    );
+    });
 
 
-    profileMenu.addEventListener(
-        "click",
-        function (e) {
+    document.addEventListener("click", function () {
 
-            e.stopPropagation();
+        profileMenu.style.display = "none";
 
-        }
-    );
+    });
 
 }
 
 
-// ============================================================
-// BUTTONS
-// ============================================================
+/* =========================================================
+   BUTTON SETUP
+========================================================= */
 
 function setupButtons() {
 
     const backBtn =
-        document.getElementById(
-            "backBtn"
-        );
+        document.getElementById("backBtn");
 
     const accountBtn =
-        document.getElementById(
-            "accountBtn"
-        );
+        document.getElementById("accountBtn");
 
     const logoutBtn =
-        document.getElementById(
-            "logoutBtn"
-        );
+        document.getElementById("logoutBtn");
 
     const addUserBtn =
-        document.getElementById(
-            "addUserBtn"
-        );
+        document.getElementById("addUserBtn");
 
     const closeModalBtn =
-        document.getElementById(
-            "closeModal"
-        );
+        document.getElementById("closeModal");
 
     const cancelUserBtn =
-        document.getElementById(
-            "cancelUser"
-        );
+        document.getElementById("cancelUser");
 
     const saveUserBtn =
-        document.getElementById(
-            "saveUser"
-        );
+        document.getElementById("saveUser");
 
 
-    // BACK
+    /* BACK */
 
     if (backBtn) {
 
-        backBtn.addEventListener(
-            "click",
-            function () {
+        backBtn.addEventListener("click", function () {
 
-                window.location.href =
-                    "dashboard.html";
+            window.location.href =
+                "dashboard.html";
 
-            }
-        );
+        });
 
     }
 
 
-    // ACCOUNT
+    /* ACCOUNT */
 
     if (accountBtn) {
 
-        accountBtn.addEventListener(
-            "click",
-            function () {
+        accountBtn.addEventListener("click", function () {
 
-                window.location.href =
-                    "my-account.html";
+            window.location.href =
+                "my-account.html";
 
-            }
-        );
+        });
 
     }
 
 
-    // LOGOUT
+    /* LOGOUT */
 
     if (logoutBtn) {
 
-        logoutBtn.addEventListener(
-            "click",
-            function () {
+        logoutBtn.addEventListener("click", function () {
 
-                localStorage.clear();
+            localStorage.clear();
 
-                window.location.replace(
-                    "login.html"
-                );
+            window.location.replace(
+                "login.html"
+            );
 
-            }
-        );
+        });
 
     }
 
 
-    // ADD USER
+    /* ADD USER */
 
     if (addUserBtn) {
 
-        addUserBtn.addEventListener(
-            "click",
-            function () {
+        addUserBtn.addEventListener("click", function () {
 
-                editMode = false;
+            editMode = false;
+            oldUsername = "";
 
-                oldUsername = "";
+            clearForm();
 
-                clearForm();
+            const title =
+                document.getElementById("formTitle");
 
-                const formTitle =
-                    document.getElementById(
-                        "formTitle"
-                    );
-
-                if (formTitle) {
-
-                    formTitle.textContent =
-                        "Add User";
-
-                }
-
-
-                openUserModal();
-
+            if (title) {
+                title.textContent = "Add User";
             }
-        );
+
+            openUserModal();
+
+        });
 
     }
 
 
-    // CLOSE
+    /* CLOSE */
 
     if (closeModalBtn) {
 
@@ -328,7 +256,7 @@ function setupButtons() {
     }
 
 
-    // CANCEL
+    /* CANCEL */
 
     if (cancelUserBtn) {
 
@@ -340,7 +268,7 @@ function setupButtons() {
     }
 
 
-    // SAVE
+    /* SAVE */
 
     if (saveUserBtn) {
 
@@ -354,90 +282,62 @@ function setupButtons() {
 }
 
 
-// ============================================================
-// OPEN MODAL
-// ============================================================
+/* =========================================================
+   OPEN USER MODAL
+========================================================= */
 
 function openUserModal() {
 
     const modal =
-        document.getElementById(
-            "userModal"
-        );
-
+        document.getElementById("userModal");
 
     if (modal) {
-
-        modal.style.display =
-            "flex";
-
+        modal.style.display = "flex";
     }
 
 }
 
 
-// ============================================================
-// CLOSE MODAL
-// ============================================================
+/* =========================================================
+   CLOSE USER MODAL
+========================================================= */
 
 function closeModal() {
 
     const modal =
-        document.getElementById(
-            "userModal"
-        );
-
+        document.getElementById("userModal");
 
     if (modal) {
-
-        modal.style.display =
-            "none";
-
+        modal.style.display = "none";
     }
 
 }
 
 
-// ============================================================
-// LOAD USERS
-// ============================================================
+/* =========================================================
+   LOAD USERS
+========================================================= */
 
 function loadUsers() {
 
-    showLoading(
-        "Loading Users..."
-    );
+    showLoading("Loading Users...");
 
 
-    fetch(
-        API_URL +
-        "?action=users"
-    )
+    fetch(API_URL + "?action=users")
 
-    .then(
-        function (response) {
+        .then(function (response) {
 
             if (!response.ok) {
-
-                throw new Error(
-                    "HTTP Error " +
-                    response.status
-                );
-
+                throw new Error("Server Error");
             }
-
 
             return response.json();
 
-        }
-    )
+        })
 
-    .then(
-        function (data) {
+        .then(function (data) {
 
-            if (
-                Array.isArray(data)
-            ) {
+            if (Array.isArray(data)) {
 
                 users = data;
 
@@ -448,14 +348,10 @@ function loadUsers() {
             }
 
 
-            if (
-                data &&
-                data.success === false
-            ) {
+            if (data && data.success === false) {
 
                 throw new Error(
-                    data.message ||
-                    "User Load Failed"
+                    data.message || "User Load Failed"
                 );
 
             }
@@ -465,11 +361,9 @@ function loadUsers() {
                 "Invalid User Data"
             );
 
-        }
-    )
+        })
 
-    .catch(
-        function (error) {
+        .catch(function (error) {
 
             console.error(
                 "User Load Error:",
@@ -478,9 +372,7 @@ function loadUsers() {
 
 
             const table =
-                document.getElementById(
-                    "userTable"
-                );
+                document.getElementById("userTable");
 
 
             if (table) {
@@ -502,46 +394,36 @@ function loadUsers() {
                 "error"
             );
 
-        }
-    )
+        })
 
-    .finally(
-        function () {
+        .finally(function () {
 
             hideLoading();
 
-        }
-    );
+        });
 
 }
 
 
-// ============================================================
-// SHOW USERS
-// ============================================================
+/* =========================================================
+   SHOW USERS
+========================================================= */
 
 function showUsers(data) {
 
     const table =
-        document.getElementById(
-            "userTable"
-        );
+        document.getElementById("userTable");
 
 
     if (!table) {
-
         return;
-
     }
 
 
     table.innerHTML = "";
 
 
-    if (
-        !Array.isArray(data) ||
-        data.length === 0
-    ) {
+    if (!Array.isArray(data) || data.length === 0) {
 
         table.innerHTML = `
             <tr>
@@ -556,259 +438,183 @@ function showUsers(data) {
     }
 
 
-    data.forEach(
-        function (user) {
+    data.forEach(function (user) {
 
-            const username =
-                safeValue(
-                    user.username
+        const username =
+            safeValue(user.username);
+
+        const password =
+            safeValue(user.password);
+
+        const name =
+            safeValue(user.name);
+
+        const userRole =
+            safeValue(user.role);
+
+        const status =
+            safeValue(user.status);
+
+        const picture =
+            safeValue(user.picture);
+
+
+        const row =
+            document.createElement("tr");
+
+
+        /* PICTURE */
+
+        const pictureCell =
+            document.createElement("td");
+
+
+        const image =
+            document.createElement("img");
+
+
+        image.className = "user-photo";
+
+        image.alt = "User";
+
+        image.src =
+            picture || "profile.png";
+
+
+        image.onerror = function () {
+
+            this.onerror = null;
+
+            this.src = "profile.png";
+
+        };
+
+
+        pictureCell.appendChild(image);
+
+
+        /* USERNAME */
+
+        const usernameCell =
+            document.createElement("td");
+
+        usernameCell.textContent =
+            username;
+
+
+        /* NAME */
+
+        const nameCell =
+            document.createElement("td");
+
+        nameCell.textContent =
+            name;
+
+
+        /* ROLE */
+
+        const roleCell =
+            document.createElement("td");
+
+        roleCell.textContent =
+            userRole;
+
+
+        /* STATUS */
+
+        const statusCell =
+            document.createElement("td");
+
+        statusCell.textContent =
+            status;
+
+
+        /* ACTION */
+
+        const actionCell =
+            document.createElement("td");
+
+
+        /* EDIT BUTTON */
+
+        const editBtn =
+            document.createElement("button");
+
+        editBtn.type = "button";
+
+        editBtn.innerHTML =
+            '<i class="fa-solid fa-pen"></i> Edit';
+
+
+        editBtn.addEventListener(
+            "click",
+            function () {
+
+                editUser(
+                    username,
+                    password,
+                    name,
+                    userRole,
+                    status,
+                    picture
                 );
 
-            const password =
-                safeValue(
-                    user.password
-                );
+            }
+        );
 
-            const name =
-                safeValue(
-                    user.name
-                );
 
-            const userRole =
-                safeValue(
-                    user.role
-                );
+        /* DELETE BUTTON */
 
-            const status =
-                safeValue(
-                    user.status
-                );
+        const deleteBtn =
+            document.createElement("button");
 
-            const picture =
-                safeValue(
-                    user.picture
-                );
+        deleteBtn.type = "button";
 
+        deleteBtn.innerHTML =
+            '<i class="fa-solid fa-trash"></i> Delete';
 
-            const row =
-                document.createElement(
-                    "tr"
-                );
 
+        deleteBtn.addEventListener(
+            "click",
+            function () {
 
-            // PICTURE
+                deleteUser(username);
 
-            const pictureCell =
-                document.createElement(
-                    "td"
-                );
+            }
+        );
 
 
-            const img =
-                document.createElement(
-                    "img"
-                );
+        actionCell.appendChild(editBtn);
+        actionCell.appendChild(deleteBtn);
 
 
-            img.className =
-                "user-photo";
+        row.appendChild(pictureCell);
+        row.appendChild(usernameCell);
+        row.appendChild(nameCell);
+        row.appendChild(roleCell);
+        row.appendChild(statusCell);
+        row.appendChild(actionCell);
 
 
-            img.alt =
-                "User";
+        table.appendChild(row);
 
-
-            img.src =
-                picture ||
-                "profile.png";
-
-
-            img.onerror =
-                function () {
-
-                    this.onerror =
-                        null;
-
-                    this.src =
-                        "profile.png";
-
-                };
-
-
-            pictureCell.appendChild(
-                img
-            );
-
-
-            // USERNAME
-
-            const usernameCell =
-                document.createElement(
-                    "td"
-                );
-
-            usernameCell.textContent =
-                username;
-
-
-            // NAME
-
-            const nameCell =
-                document.createElement(
-                    "td"
-                );
-
-            nameCell.textContent =
-                name;
-
-
-            // ROLE
-
-            const roleCell =
-                document.createElement(
-                    "td"
-                );
-
-            roleCell.textContent =
-                userRole;
-
-
-            // STATUS
-
-            const statusCell =
-                document.createElement(
-                    "td"
-                );
-
-            statusCell.textContent =
-                status;
-
-
-            // ACTION
-
-            const actionCell =
-                document.createElement(
-                    "td"
-                );
-
-
-            // EDIT
-
-            const editBtn =
-                document.createElement(
-                    "button"
-                );
-
-            editBtn.type =
-                "button";
-
-            editBtn.innerHTML =
-                `<i class="fa-solid fa-pen"></i> Edit`;
-
-
-            editBtn.addEventListener(
-                "click",
-                function () {
-
-                    editUser(
-                        username,
-                        password,
-                        name,
-                        userRole,
-                        status,
-                        picture
-                    );
-
-                }
-            );
-
-
-            // DELETE
-
-            const deleteBtn =
-                document.createElement(
-                    "button"
-                );
-
-            deleteBtn.type =
-                "button";
-
-            deleteBtn.innerHTML =
-                `<i class="fa-solid fa-trash"></i> Delete`;
-
-
-            deleteBtn.addEventListener(
-                "click",
-                function () {
-
-                    deleteUser(
-                        username
-                    );
-
-                }
-            );
-
-
-            actionCell.appendChild(
-                editBtn
-            );
-
-            actionCell.appendChild(
-                deleteBtn
-            );
-
-
-            row.appendChild(
-                pictureCell
-            );
-
-            row.appendChild(
-                usernameCell
-            );
-
-            row.appendChild(
-                nameCell
-            );
-
-            row.appendChild(
-                roleCell
-            );
-
-            row.appendChild(
-                statusCell
-            );
-
-            row.appendChild(
-                actionCell
-            );
-
-
-            table.appendChild(
-                row
-            );
-
-        }
-    );
+    });
 
 }
 
 
-// ============================================================
-// SEARCH
-// ============================================================
+/* =========================================================
+   SEARCH
+========================================================= */
 
 function setupSearch() {
 
     const search =
-        document.getElementById(
-            "searchUser"
-        );
+        document.getElementById("searchUser");
 
 
     if (!search) {
-
         return;
-
     }
 
 
@@ -832,45 +638,35 @@ function setupSearch() {
 
 
             const result =
-                users.filter(
-                    function (user) {
+                users.filter(function (user) {
 
-                        return (
+                    return (
 
-                            safeValue(
-                                user.username
-                            )
+                        safeValue(user.username)
                             .toLowerCase()
                             .includes(value)
 
-                            ||
+                        ||
 
-                            safeValue(
-                                user.name
-                            )
+                        safeValue(user.name)
                             .toLowerCase()
                             .includes(value)
 
-                            ||
+                        ||
 
-                            safeValue(
-                                user.role
-                            )
+                        safeValue(user.role)
                             .toLowerCase()
                             .includes(value)
 
-                            ||
+                        ||
 
-                            safeValue(
-                                user.status
-                            )
+                        safeValue(user.status)
                             .toLowerCase()
                             .includes(value)
 
-                        );
+                    );
 
-                    }
-                );
+                });
 
 
             showUsers(result);
@@ -881,9 +677,9 @@ function setupSearch() {
 }
 
 
-// ============================================================
-// SAVE USER
-// ============================================================
+/* =========================================================
+   SAVE USER
+========================================================= */
 
 function saveUser() {
 
@@ -924,40 +720,31 @@ function saveUser() {
 
     const data = {
 
-        username:
-            username,
+        username: username,
 
-        password:
-            password,
+        password: password,
 
-        name:
-            name,
+        name: name,
 
-        role:
-            userRole,
+        role: userRole,
 
-        status:
-            status,
+        status: status,
 
-        picture:
-            picture
+        picture: picture
 
     };
 
 
     if (editMode) {
 
-        data.action =
-            "update";
+        data.action = "update";
 
         data.oldUsername =
             oldUsername;
 
-    }
-    else {
+    } else {
 
-        data.action =
-            "add";
+        data.action = "add";
 
     }
 
@@ -969,114 +756,95 @@ function saveUser() {
     );
 
 
-    fetch(
-        API_URL,
-        {
+    fetch(API_URL, {
 
-            method:
-                "POST",
+        method: "POST",
 
-            headers: {
+        headers: {
+            "Content-Type":
+                "text/plain;charset=utf-8"
+        },
 
-                "Content-Type":
-                    "text/plain;charset=utf-8"
+        body:
+            JSON.stringify(data)
 
-            },
+    })
 
-            body:
-                JSON.stringify(data)
+    .then(function (response) {
 
+        if (!response.ok) {
+            throw new Error("Server Error");
         }
-    )
 
-    .then(
-        function (response) {
+        return response.json();
 
-            if (!response.ok) {
+    })
 
-                throw new Error(
-                    "HTTP Error " +
-                    response.status
-                );
+    .then(function (result) {
 
-            }
+        hideLoading();
 
 
-            return response.json();
+        if (
+            result &&
+            result.success
+        ) {
 
-        }
-    )
-
-    .then(
-        function (result) {
-
-            hideLoading();
-
-
-            if (
-                result &&
-                result.success
-            ) {
-
-                closeModal();
-
-
-                showPopup(
-                    "Success",
-                    result.message ||
-                    (
-                        editMode
-                            ? "User Updated Successfully"
-                            : "User Added Successfully"
-                    ),
-                    "success"
-                );
-
-
-                loadUsers();
-
-            }
-            else {
-
-                showPopup(
-                    "Error",
-                    result.message ||
-                    "Operation Failed",
-                    "error"
-                );
-
-            }
-
-        }
-    )
-
-    .catch(
-        function (error) {
-
-            console.error(
-                "Save User Error:",
-                error
-            );
-
-
-            hideLoading();
+            closeModal();
 
 
             showPopup(
+                "Success",
+                result.message ||
+                (
+                    editMode
+                        ? "User Updated Successfully"
+                        : "User Added Successfully"
+                ),
+                "success"
+            );
+
+
+            loadUsers();
+
+        } else {
+
+            showPopup(
                 "Error",
-                "Server Error",
+                result.message ||
+                "Operation Failed",
                 "error"
             );
 
         }
-    );
+
+    })
+
+    .catch(function (error) {
+
+        console.error(
+            "Save User Error:",
+            error
+        );
+
+
+        hideLoading();
+
+
+        showPopup(
+            "Error",
+            "Server Error",
+            "error"
+        );
+
+    });
 
 }
 
 
-// ============================================================
-// EDIT USER
-// ============================================================
+/* =========================================================
+   EDIT USER
+========================================================= */
 
 function editUser(
     username,
@@ -1124,17 +892,14 @@ function editUser(
     );
 
 
-    const formTitle =
+    const title =
         document.getElementById(
             "formTitle"
         );
 
 
-    if (formTitle) {
-
-        formTitle.textContent =
-            "Edit User";
-
+    if (title) {
+        title.textContent = "Edit User";
     }
 
 
@@ -1148,16 +913,14 @@ function editUser(
 }
 
 
-// ============================================================
-// DELETE USER
-// ============================================================
+/* =========================================================
+   DELETE USER
+========================================================= */
 
 function deleteUser(username) {
 
     if (!username) {
-
         return;
-
     }
 
 
@@ -1189,17 +952,25 @@ function deleteUser(username) {
 
     if (modal) {
 
-        modal.style.display =
-            "flex";
+        modal.style.display = "flex";
+
+    } else {
+
+        /* Fallback if custom popup HTML is not added */
+
+        deleteUsername =
+            username;
+
+        confirmDeleteUser();
 
     }
 
 }
 
 
-// ============================================================
-// DELETE POPUP SETUP
-// ============================================================
+/* =========================================================
+   DELETE POPUP SETUP
+========================================================= */
 
 function setupDeletePopup() {
 
@@ -1245,9 +1016,7 @@ function setupDeletePopup() {
             "click",
             function (e) {
 
-                if (
-                    e.target === modal
-                ) {
+                if (e.target === modal) {
 
                     closeDeleteConfirm();
 
@@ -1261,9 +1030,9 @@ function setupDeletePopup() {
 }
 
 
-// ============================================================
-// CLOSE DELETE POPUP
-// ============================================================
+/* =========================================================
+   CLOSE DELETE POPUP
+========================================================= */
 
 function closeDeleteConfirm() {
 
@@ -1275,28 +1044,24 @@ function closeDeleteConfirm() {
 
     if (modal) {
 
-        modal.style.display =
-            "none";
+        modal.style.display = "none";
 
     }
 
 
-    deleteUsername =
-        "";
+    deleteUsername = "";
 
 }
 
 
-// ============================================================
-// CONFIRM DELETE
-// ============================================================
+/* =========================================================
+   CONFIRM DELETE
+========================================================= */
 
 function confirmDeleteUser() {
 
     if (!deleteUsername) {
-
         return;
-
     }
 
 
@@ -1312,176 +1077,126 @@ function confirmDeleteUser() {
     );
 
 
-    fetch(
-        API_URL,
-        {
+    fetch(API_URL, {
 
-            method:
-                "POST",
+        method: "POST",
 
-            headers: {
+        headers: {
+            "Content-Type":
+                "text/plain;charset=utf-8"
+        },
 
-                "Content-Type":
-                    "text/plain;charset=utf-8"
+        body:
+            JSON.stringify({
 
-            },
+                action: "delete",
 
-            body:
-                JSON.stringify({
+                username: username
 
-                    action:
-                        "delete",
+            })
 
-                    username:
-                        username
+    })
 
-                })
+    .then(function (response) {
 
+        if (!response.ok) {
+            throw new Error("Server Error");
         }
-    )
 
-    .then(
-        function (response) {
+        return response.json();
 
-            if (!response.ok) {
+    })
 
-                throw new Error(
-                    "HTTP Error " +
-                    response.status
-                );
+    .then(function (result) {
 
-            }
+        hideLoading();
 
 
-            return response.json();
+        if (
+            result &&
+            result.success
+        ) {
 
-        }
-    )
-
-    .then(
-        function (result) {
-
-            hideLoading();
-
-
-            if (
-                result &&
-                result.success
-            ) {
-
-                showPopup(
-                    "Success",
-                    result.message ||
-                    "User Deleted Successfully",
-                    "success"
-                );
-
-
-                loadUsers();
-
-            }
-            else {
-
-                showPopup(
-                    "Error",
-                    result.message ||
-                    "Delete Failed",
-                    "error"
-                );
-
-            }
-
-        }
-    )
-
-    .catch(
-        function (error) {
-
-            console.error(
-                "Delete Error:",
-                error
+            showPopup(
+                "Success",
+                result.message ||
+                "User Deleted Successfully",
+                "success"
             );
 
 
-            hideLoading();
+            loadUsers();
 
+        } else {
 
             showPopup(
                 "Error",
+                result.message ||
                 "Delete Failed",
                 "error"
             );
 
         }
-    );
 
-}
+    })
 
+    .catch(function (error) {
 
-// ============================================================
-// CLEAR FORM
-// ============================================================
-
-function clearForm() {
-
-    setValue(
-        "username",
-        ""
-    );
-
-    setValue(
-        "password",
-        ""
-    );
-
-    setValue(
-        "name",
-        ""
-    );
-
-    setValue(
-        "role",
-        "Admin"
-    );
-
-    setValue(
-        "status",
-        "Active"
-    );
-
-    setValue(
-        "picture",
-        ""
-    );
-
-
-    updatePicturePreview(
-        ""
-    );
-
-}
-
-
-// ============================================================
-// PICTURE PREVIEW
-// ============================================================
-
-function setupPicturePreview() {
-
-    const pictureInput =
-        document.getElementById(
-            "picture"
+        console.error(
+            "Delete Error:",
+            error
         );
 
 
-    if (!pictureInput) {
+        hideLoading();
 
+
+        showPopup(
+            "Error",
+            "Delete Failed",
+            "error"
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   CLEAR FORM
+========================================================= */
+
+function clearForm() {
+
+    setValue("username", "");
+    setValue("password", "");
+    setValue("name", "");
+    setValue("role", "Admin");
+    setValue("status", "Active");
+    setValue("picture", "");
+
+
+    updatePicturePreview("");
+
+}
+
+
+/* =========================================================
+   PICTURE PREVIEW
+========================================================= */
+
+function setupPicturePreview() {
+
+    const input =
+        document.getElementById("picture");
+
+
+    if (!input) {
         return;
-
     }
 
 
-    pictureInput.addEventListener(
+    input.addEventListener(
         "input",
         function () {
 
@@ -1495,28 +1210,21 @@ function setupPicturePreview() {
 }
 
 
-function updatePicturePreview(
-    url
-) {
+function updatePicturePreview(url) {
 
     const preview =
         document.getElementById(
             "picturePreview"
         );
 
-    const previewImg =
+    const image =
         document.getElementById(
             "picturePreviewImg"
         );
 
 
-    if (
-        !preview ||
-        !previewImg
-    ) {
-
+    if (!preview || !image) {
         return;
-
     }
 
 
@@ -1525,44 +1233,33 @@ function updatePicturePreview(
         url.trim() !== ""
     ) {
 
-        previewImg.src =
-            url;
+        image.src = url;
+
+        preview.style.display = "flex";
 
 
-        previewImg.onerror =
-            function () {
+        image.onerror = function () {
 
-                preview.style.display =
-                    "none";
+            preview.style.display =
+                "none";
 
-            };
+        };
 
-
-        previewImg.onload =
-            function () {
-
-                preview.style.display =
-                    "flex";
-
-            };
-
-    }
-    else {
+    } else {
 
         preview.style.display =
             "none";
 
-        previewImg.src =
-            "";
+        image.src = "";
 
     }
 
 }
 
 
-// ============================================================
-// POPUP
-// ============================================================
+/* =========================================================
+   SUCCESS / ERROR POPUP
+========================================================= */
 
 function showPopup(
     title,
@@ -1592,25 +1289,19 @@ function showPopup(
 
 
     if (!popup) {
-
         return;
-
     }
 
 
     if (popupTitle) {
-
         popupTitle.textContent =
             title;
-
     }
 
 
     if (popupMessage) {
-
         popupMessage.textContent =
             message;
-
     }
 
 
@@ -1626,9 +1317,7 @@ function showPopup(
 
         }
 
-        else if (
-            type === "error"
-        ) {
+        else if (type === "error") {
 
             icon.className =
                 "fa-solid fa-circle-xmark";
@@ -1638,9 +1327,7 @@ function showPopup(
 
         }
 
-        else if (
-            type === "warning"
-        ) {
+        else if (type === "warning") {
 
             icon.className =
                 "fa-solid fa-triangle-exclamation";
@@ -1650,9 +1337,7 @@ function showPopup(
 
         }
 
-        else if (
-            type === "login"
-        ) {
+        else if (type === "login") {
 
             icon.className =
                 "fa-solid fa-lock";
@@ -1671,9 +1356,9 @@ function showPopup(
 }
 
 
-// ============================================================
-// CLOSE POPUP
-// ============================================================
+/* =========================================================
+   CLOSE POPUP
+========================================================= */
 
 function closePopup() {
 
@@ -1693,32 +1378,27 @@ function closePopup() {
 }
 
 
-// ============================================================
-// LOADING
-// ============================================================
+/* =========================================================
+   LOADING SYSTEM
+========================================================= */
 
 function showLoading(
     text = "Loading..."
 ) {
-
-    // If loading.js is available,
-    // use its showLoading function.
 
     if (
         typeof window.showLoading ===
         "function"
     ) {
 
-        window.showLoading(
-            text
-        );
+        window.showLoading(text);
 
         return;
 
     }
 
 
-    // Fallback
+    /* Fallback loading */
 
     let loading =
         document.getElementById(
@@ -1729,27 +1409,20 @@ function showLoading(
     if (!loading) {
 
         loading =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
         loading.id =
             "simpleLoading";
 
+
         loading.style.position =
             "fixed";
 
-        loading.style.top =
-            "0";
+        loading.style.top = "0";
+        loading.style.left = "0";
 
-        loading.style.left =
-            "0";
-
-        loading.style.width =
-            "100%";
-
-        loading.style.height =
-            "100%";
+        loading.style.width = "100%";
+        loading.style.height = "100%";
 
         loading.style.background =
             "rgba(0,0,0,.35)";
@@ -1766,12 +1439,13 @@ function showLoading(
         loading.style.zIndex =
             "99999";
 
+
         loading.innerHTML = `
             <div style="
                 background:white;
                 padding:25px 35px;
                 border-radius:15px;
-                font-family:Arial;
+                font-family:Arial,sans-serif;
                 font-weight:600;
                 color:#1e3a8a;
             ">
@@ -1793,9 +1467,9 @@ function showLoading(
 }
 
 
-// ============================================================
-// HIDE LOADING
-// ============================================================
+/* =========================================================
+   HIDE LOADING
+========================================================= */
 
 function hideLoading() {
 
@@ -1827,22 +1501,18 @@ function hideLoading() {
 }
 
 
-// ============================================================
-// GET VALUE
-// ============================================================
+/* =========================================================
+   GET VALUE
+========================================================= */
 
 function getValue(id) {
 
     const element =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
 
     if (!element) {
-
         return "";
-
     }
 
 
@@ -1853,9 +1523,9 @@ function getValue(id) {
 }
 
 
-// ============================================================
-// SET VALUE
-// ============================================================
+/* =========================================================
+   SET VALUE
+========================================================= */
 
 function setValue(
     id,
@@ -1863,9 +1533,7 @@ function setValue(
 ) {
 
     const element =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
 
     if (element) {
@@ -1878,9 +1546,9 @@ function setValue(
 }
 
 
-// ============================================================
-// SAFE VALUE
-// ============================================================
+/* =========================================================
+   SAFE VALUE
+========================================================= */
 
 function safeValue(value) {
 
@@ -1899,9 +1567,9 @@ function safeValue(value) {
 }
 
 
-// ============================================================
-// BLOCK BACK AFTER LOGOUT
-// ============================================================
+/* =========================================================
+   BLOCK BACK AFTER LOGOUT
+========================================================= */
 
 window.addEventListener(
     "pageshow",
@@ -1923,27 +1591,21 @@ window.addEventListener(
 );
 
 
-// ============================================================
-// ESC KEY
-// CLOSE MODALS
-// ============================================================
+/* =========================================================
+   ESC KEY
+========================================================= */
 
 document.addEventListener(
     "keydown",
     function (e) {
 
-        if (
-            e.key !== "Escape"
-        ) {
+        if (e.key === "Escape") {
 
-            return;
+            closeDeleteConfirm();
+
+            closeModal();
 
         }
-
-
-        closeDeleteConfirm();
-
-        closeModal();
 
     }
 );
