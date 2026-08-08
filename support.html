@@ -3,19 +3,20 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>Pending Support</title>
-
-
-<link rel="stylesheet" href="support.css">
+    <title>Pending Support</title>
 
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet"
+          href="support.css">
 
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
@@ -23,255 +24,327 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
+<!-- =====================================
+     HEADER
+===================================== -->
 
 <div class="header">
 
 
-<div class="left-section">
+    <div class="left-section">
 
 
-<button class="back-btn" onclick="goBack()">
+        <button
+            class="back-btn"
+            onclick="goBack()">
 
-<i class="fa fa-arrow-left"></i>
+            <i class="fa fa-arrow-left"></i>
 
-Back
+            Back
 
-</button>
+        </button>
+
+
+        <h2>
+
+            <i class="fa fa-headset"></i>
+
+            Pending Support
+
+        </h2>
+
+
+    </div>
 
 
 
-<h2>
+    <!-- =====================================
+         PROFILE
+    ====================================== -->
 
-<i class="fa fa-headset"></i>
+    <div class="profile">
 
-Pending Support
 
-</h2>
+        <div
+            class="profile-head"
+            onclick="toggleProfile()">
+
+
+            <img
+                id="profileImg"
+                src="assets/profile.png">
+
+
+            <span id="username">
+                User
+            </span>
+
+
+            <i class="fa fa-angle-down"></i>
+
+
+        </div>
+
+
+
+        <div
+            class="profile-menu"
+            id="profileMenu">
+
+
+            <button
+                onclick="myAccount()">
+
+                <i class="fa fa-user"></i>
+
+                My Account
+
+            </button>
+
+
+            <button
+                onclick="logout()">
+
+                <i class="fa fa-sign-out"></i>
+
+                Logout
+
+            </button>
+
+
+        </div>
+
+
+    </div>
 
 
 </div>
 
 
 
+<!-- =====================================
+     SEARCH
+===================================== -->
+
+<div class="search-section">
 
 
-<div class="profile">
+    <div class="search-box">
 
 
-<div class="profile-head"
-onclick="toggleProfile()">
+        <i class="fa fa-search"></i>
 
 
-
-<img id="profileImg"
-src="assets/profile.png">
-
-
-<span id="username">
-User
-</span>
+        <input
+            type="text"
+            id="supportSearch"
+            placeholder="Search Customer ID, Problem, Reference..."
+            oninput="searchSupport()">
 
 
-<i class="fa fa-angle-down"></i>
-
-
-</div>
-
-
-
-
-
-<div class="profile-menu"
-id="profileMenu">
-
-
-
-<button onclick="myAccount()">
-
-<i class="fa fa-user"></i>
-
-My Account
-
-</button>
-
-
-
-<button onclick="logout()">
-
-<i class="fa fa-sign-out"></i>
-
-Logout
-
-</button>
-
-
-</div>
-
-
-</div>
+    </div>
 
 
 </div>
 
 
 
-
-
-
-
-
+<!-- =====================================
+     TABLE
+===================================== -->
 
 <div class="table-box">
 
 
-<table>
+    <table>
 
 
-<thead>
+        <thead>
 
-<tr>
+            <tr>
 
-<th>Customer ID</th>
-
-<th>Problem</th>
-
-<th>Reference</th>
-
-<th>Date</th>
-
-<th>Action</th>
+                <th>
+                    Customer ID
+                </th>
 
 
-</tr>
+                <th>
+                    Problem
+                </th>
 
 
-</thead>
+                <th>
+                    Reference
+                </th>
+
+
+                <th>
+                    Date
+                </th>
+
+
+                <th>
+                    Action
+                </th>
+
+            </tr>
+
+        </thead>
 
 
 
-<tbody id="supportList">
+        <tbody id="supportList">
+
+        </tbody>
 
 
-</tbody>
-
-
-</table>
+    </table>
 
 
 </div>
 
 
 
+<!-- =====================================
+     EDIT MODAL
+===================================== -->
+
+<div
+    class="modal"
+    id="editModal">
+
+
+    <div class="popup">
+
+
+        <button
+            class="close-btn"
+            onclick="closeEdit()">
+
+            ×
+
+        </button>
 
 
 
+        <h2>
+            Edit Support
+        </h2>
 
 
 
-<!-- EDIT -->
+        <!-- Customer ID -->
 
-<div class="modal"
-id="editModal">
+        <label>
+            Customer ID
+        </label>
 
-
-<div class="popup">
-
-
-
-<button class="close-btn"
-onclick="closeEdit()">
-
-×
-
-</button>
+        <input
+            id="customerId">
 
 
 
+        <!-- Problem -->
 
-<h2>Edit Support</h2>
+        <label>
+            Problem
+        </label>
 
-
-
-<label>Customer ID</label>
-
-<input id="customerId">
-
-
-
-<label>Problem</label>
-
-<textarea id="problem"></textarea>
+        <textarea
+            id="problem"></textarea>
 
 
 
-<label>Reference</label>
+        <!-- Reference -->
 
-<input id="reference">
+        <label>
+            Reference
+        </label>
 
-
-
-<label>Date</label>
-
-<input id="date"
-type="date">
+        <input
+            id="reference">
 
 
 
-<label>Support</label>
+        <!-- Date -->
 
-<input id="support">
+        <label>
+            Date
+        </label>
 
-
-
-<label>Support Work</label>
-
-<textarea id="supportWork"></textarea>
-
-
+        <input
+            id="date"
+            type="date">
 
 
-<div class="popup-buttons">
+
+        <!-- Support -->
+
+        <label>
+            Support
+        </label>
+
+        <input
+            id="support">
 
 
-<button class="submit-btn"
-onclick="updateSupport()">
 
-Submit
+        <!-- Support Work -->
 
-</button>
+        <label>
+            Support Work
+        </label>
 
-
-<button class="cancel-btn"
-onclick="closeEdit()">
-
-Cancel
-
-</button>
+        <textarea
+            id="supportWork"></textarea>
 
 
-<button class="delete-btn"
-onclick="deleteSupport()">
 
-Delete
+        <!-- BUTTONS -->
 
-</button>
+        <div class="popup-buttons">
 
+
+            <button
+                class="submit-btn"
+                onclick="updateSupport()">
+
+                Submit
+
+            </button>
+
+
+            <button
+                class="cancel-btn"
+                onclick="closeEdit()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="delete-btn"
+                onclick="deleteSupport()">
+
+                Delete
+
+            </button>
+
+
+        </div>
+
+
+    </div>
 
 
 </div>
 
 
 
-</div>
-
-
-</div>
-
-
-
-
-
-
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
 
 <script src="support.js"></script>
 
