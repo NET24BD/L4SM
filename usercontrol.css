@@ -1,1066 +1,1616 @@
-*{
-
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-
-}
+/* =========================================================
+   LINK 4 USER CONTROL
+   USERCONTROL.CSS
+   FULL FINAL VERSION
+========================================================= */
 
 
-body{
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-background:#4d7094;
+* {
 
-color:#1f2937;
+    margin: 0;
 
-}
+    padding: 0;
 
+    box-sizing: border-box;
 
-
-.container{
-
-width:92%;
-
-margin:auto;
+    font-family: Arial, sans-serif;
 
 }
 
 
+body {
 
+    background: #4d7094;
 
+    color: #1f2937;
 
-
-/* =====================
-HEADER
-===================== */
-
-
-header{
-
-
-margin-top:20px;
-
-
-background:white;
-
-
-padding:12px 20px;
-
-
-border-radius:15px;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-justify-content:space-between;
-
-
-
-box-shadow:
-0 8px 25px rgba(0,0,0,.20);
-
+    min-height: 100vh;
 
 }
 
 
+/* =========================================================
+   CONTAINER
+========================================================= */
 
+.container {
 
-.back-btn{
+    width: 92%;
 
+    max-width: 1400px;
 
-width:42px;
-
-
-height:42px;
-
-
-border:none;
-
-
-border-radius:50%;
-
-
-background:#2563eb;
-
-
-color:white;
-
-
-font-size:18px;
-
-
-cursor:pointer;
-
+    margin: auto;
 
 }
 
 
+/* =========================================================
+   HEADER
+========================================================= */
 
-.back-btn:hover{
+header {
 
+    margin-top: 20px;
 
-background:#1d4ed8;
+    background: white;
 
+    padding: 12px 20px;
 
-}
+    border-radius: 15px;
 
+    display: flex;
 
+    align-items: center;
 
+    justify-content: space-between;
 
-
-.title h2{
-
-
-color:#1e3a8a;
-
-
-font-size:22px;
-
-
-}
-
-
-
-
-
-
-
-/* =====================
-PROFILE
-===================== */
-
-
-.profile{
-
-
-position:relative;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-cursor:pointer;
-
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .20);
 
 }
 
 
+/* =========================================================
+   BACK BUTTON
+========================================================= */
 
-.profile img{
+.back-btn {
 
+    width: 42px;
 
-width:45px;
+    height: 42px;
 
+    border: none;
 
-height:45px;
+    border-radius: 50%;
 
+    background: #2563eb;
 
-border-radius:50%;
+    color: white;
 
+    font-size: 18px;
 
-object-fit:cover;
+    cursor: pointer;
 
+    display: flex;
 
-border:3px solid #2563eb;
+    align-items: center;
 
+    justify-content: center;
 
-}
-
-
-
-
-.profile-info h4{
-
-
-font-size:14px;
-
-
-color:#111827;
-
+    transition: .2s ease;
 
 }
 
 
+.back-btn:hover {
 
+    background: #1d4ed8;
 
-.profile-info p{
-
-
-font-size:12px;
-
-
-color:#16a34a;
-
+    transform: translateX(-2px);
 
 }
 
 
+/* =========================================================
+   TITLE
+========================================================= */
 
+.title {
 
+    display: flex;
 
+    align-items: center;
 
-
-
-/* PROFILE MENU */
-
-
-.profile-menu{
-
-
-display:none;
-
-
-position:absolute;
-
-
-right:0;
-
-
-top:55px;
-
-
-
-width:170px;
-
-
-
-background:white;
-
-
-border-radius:12px;
-
-
-
-box-shadow:
-0 10px 30px rgba(0,0,0,.25);
-
-
-
-overflow:hidden;
-
-
-z-index:1000;
-
+    gap: 10px;
 
 }
 
 
+.title h2 {
 
-.profile-menu div{
+    color: #1e3a8a;
 
-
-padding:13px;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-cursor:pointer;
-
-
-font-size:14px;
-
+    font-size: 22px;
 
 }
 
 
+/* =========================================================
+   PROFILE
+========================================================= */
 
-.profile-menu div:hover{
+.profile {
 
+    position: relative;
 
-background:#eff6ff;
+    display: flex;
 
+    align-items: center;
 
-color:#2563eb;
+    gap: 10px;
 
+    cursor: pointer;
 
-}
-
-
-
-
-
-
-
-
-
-/* =====================
-USER BOX
-===================== */
-
-
-.user-box{
-
-
-margin-top:25px;
-
-
-background:white;
-
-
-padding:20px;
-
-
-border-radius:18px;
-
-
-
-box-shadow:
-
-0 8px 25px rgba(0,0,0,.20);
-
+    user-select: none;
 
 }
 
 
+/* PROFILE IMAGE */
 
+.profile img {
 
+    width: 45px !important;
 
+    height: 45px !important;
 
+    min-width: 45px !important;
 
-.top{
+    min-height: 45px !important;
 
+    max-width: 45px !important;
 
-display:flex;
+    max-height: 45px !important;
 
+    border-radius: 50%;
 
-align-items:center;
+    object-fit: cover;
 
+    object-position: center;
 
-justify-content:space-between;
+    border: 3px solid #2563eb;
 
-
-gap:15px;
-
-
-margin-bottom:20px;
-
-
-}
-
-
-
-.top h3{
-
-
-color:#1e3a8a;
-
-
-font-size:18px;
-
+    display: block;
 
 }
 
 
+/* PROFILE INFO */
 
+.profile-info h4 {
 
+    font-size: 14px;
 
-
-
-/* SEARCH */
-
-
-.search-box{
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:8px;
-
-
-background:#f3f4f6;
-
-
-padding:10px 15px;
-
-
-border-radius:10px;
-
+    color: #111827;
 
 }
 
 
+.profile-info p {
 
-.search-box input{
+    font-size: 12px;
 
-
-border:none;
-
-
-outline:none;
-
-
-background:none;
-
-
-width:200px;
-
+    color: #16a34a;
 
 }
 
 
+/* =========================================================
+   PROFILE MENU
+========================================================= */
 
+.profile-menu {
 
+    display: none;
 
+    position: absolute;
 
+    right: 0;
 
-/* BUTTON */
+    top: 55px;
 
+    width: 170px;
 
-.top button{
+    background: white;
 
+    border-radius: 12px;
 
-background:#2563eb;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .25);
 
+    overflow: hidden;
 
-color:white;
-
-
-border:none;
-
-
-padding:12px 18px;
-
-
-border-radius:10px;
-
-
-cursor:pointer;
-
-
-font-size:14px;
-
+    z-index: 1000;
 
 }
 
 
+.profile-menu div {
 
-.top button:hover{
+    padding: 13px;
 
+    display: flex;
 
-background:#1d4ed8;
+    align-items: center;
 
+    gap: 10px;
 
-}
+    cursor: pointer;
 
+    font-size: 14px;
 
-
-
-
-
-
-
-
-/* =====================
-TABLE
-===================== */
-
-
-.table-area{
-
-
-overflow-x:auto;
-
+    transition: .2s ease;
 
 }
 
 
+.profile-menu div:hover {
 
-table{
+    background: #eff6ff;
 
-
-width:100%;
-
-
-border-collapse:collapse;
-
+    color: #2563eb;
 
 }
 
 
+/* =========================================================
+   USER BOX
+========================================================= */
 
-thead{
+.user-box {
 
+    margin-top: 25px;
 
-background:#2563eb;
+    background: white;
 
+    padding: 20px;
 
-color:white;
+    border-radius: 18px;
 
-
-}
-
-
-
-th{
-
-
-padding:13px;
-
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .20);
 
 }
 
 
+/* =========================================================
+   TOP AREA
+========================================================= */
 
-td{
+.top {
 
+    display: flex;
 
-padding:12px;
+    align-items: center;
 
+    justify-content: space-between;
 
-text-align:center;
+    gap: 15px;
 
-
-border-bottom:1px solid #ddd;
-
-
-}
-
-
-
-
-tr:hover{
-
-
-background:#f8fafc;
-
+    margin-bottom: 20px;
 
 }
 
 
+.top h3 {
 
-.user-photo{
+    color: #1e3a8a;
 
-
-width:45px;
-
-
-height:45px;
-
-
-border-radius:50%;
-
-
-object-fit:cover;
-
+    font-size: 18px;
 
 }
 
 
+/* =========================================================
+   SEARCH
+========================================================= */
 
+.search-box {
 
+    display: flex;
 
+    align-items: center;
 
-td button{
+    gap: 8px;
 
+    background: #f3f4f6;
 
-border:none;
+    padding: 10px 15px;
 
+    border-radius: 10px;
 
-padding:8px 14px;
-
-
-border-radius:8px;
-
-
-color:white;
-
-
-cursor:pointer;
-
-
-margin:3px;
-
+    transition: .2s ease;
 
 }
 
 
+.search-box:focus-within {
 
-td button:first-child{
+    background: #eef2ff;
 
-
-background:#16a34a;
-
-
-}
-
-
-
-td button:last-child{
-
-
-background:#dc2626;
-
+    box-shadow:
+        0 0 0 2px rgba(37, 99, 235, .15);
 
 }
 
 
+.search-box i {
 
-td button:hover{
+    color: #475569;
 
-
-opacity:.85;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =====================
-MODAL
-===================== */
-
-
-.modal{
-
-
-display:none;
-
-
-position:fixed;
-
-
-top:0;
-
-
-left:0;
-
-
-width:100%;
-
-
-height:100%;
-
-
-
-background:rgba(0,0,0,.45);
-
-
-
-align-items:center;
-
-
-justify-content:center;
-
-
-z-index:5000;
-
+    font-size: 15px;
 
 }
 
 
+.search-box input {
 
+    border: none;
 
+    outline: none;
 
-.modal-box{
+    background: none;
 
+    width: 200px;
 
-position:relative;
+    font-size: 14px;
 
-
-background:white;
-
-
-width:380px;
-
-
-padding:30px;
-
-
-border-radius:20px;
-
-
-box-shadow:
-
-0 15px 40px rgba(0,0,0,.3);
-
+    color: #1f2937;
 
 }
 
 
+.search-box input::placeholder {
 
-
-.close-modal{
-
-
-position:absolute;
-
-
-right:15px;
-
-
-top:15px;
-
-
-width:35px;
-
-
-height:35px;
-
-
-border:none;
-
-
-border-radius:50%;
-
-
-background:#dc2626;
-
-
-color:white;
-
-
-cursor:pointer;
-
-
-font-size:18px;
-
+    color: #94a3b8;
 
 }
 
 
+/* =========================================================
+   ADD USER BUTTON
+========================================================= */
 
+.top button {
 
+    background: #2563eb;
 
-.modal-box h2{
+    color: white;
 
+    border: none;
 
-text-align:center;
+    padding: 12px 18px;
 
+    border-radius: 10px;
 
-color:#1e3a8a;
+    cursor: pointer;
 
+    font-size: 14px;
 
-margin-bottom:20px;
+    display: inline-flex;
 
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    transition: .2s ease;
 
 }
 
 
+.top button:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+
+}
 
 
+/* =========================================================
+   TABLE AREA
+========================================================= */
+
+.table-area {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 10px;
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+thead {
+
+    background: #2563eb;
+
+    color: white;
+
+}
+
+
+th {
+
+    padding: 13px 10px;
+
+    text-align: center;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   TABLE ROW
+========================================================= */
+
+#userTable tr {
+
+    height: 62px;
+
+}
+
+
+#userTable tr:not(:last-child) {
+
+    border-bottom: 1px solid #ddd;
+
+}
+
+
+#userTable tr:hover {
+
+    background: #f8fafc;
+
+}
+
+
+/* =========================================================
+   TABLE CELL
+========================================================= */
+
+#userTable td {
+
+    padding: 8px 10px;
+
+    text-align: center;
+
+    vertical-align: middle;
+
+    height: 62px;
+
+    font-size: 15px;
+
+    color: #1f2937;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =========================================================
+   COLUMN WIDTH
+========================================================= */
+
+#userTable th:nth-child(1),
+#userTable td:nth-child(1) {
+
+    width: 15%;
+
+}
+
+
+#userTable th:nth-child(2),
+#userTable td:nth-child(2) {
+
+    width: 17%;
+
+}
+
+
+#userTable th:nth-child(3),
+#userTable td:nth-child(3) {
+
+    width: 17%;
+
+}
+
+
+#userTable th:nth-child(4),
+#userTable td:nth-child(4) {
+
+    width: 15%;
+
+}
+
+
+#userTable th:nth-child(5),
+#userTable td:nth-child(5) {
+
+    width: 15%;
+
+}
+
+
+#userTable th:nth-child(6),
+#userTable td:nth-child(6) {
+
+    width: 21%;
+
+}
+
+
+/* =========================================================
+   PICTURE CELL
+========================================================= */
+
+#userTable .picture-cell {
+
+    padding: 6px !important;
+
+    text-align: center !important;
+
+    vertical-align: middle !important;
+
+}
+
+
+/* =========================================================
+   PICTURE WRAPPER
+========================================================= */
+
+#userTable .user-picture {
+
+    width: 46px !important;
+
+    height: 46px !important;
+
+    min-width: 46px !important;
+
+    min-height: 46px !important;
+
+    max-width: 46px !important;
+
+    max-height: 46px !important;
+
+    margin: 0 auto !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    overflow: hidden !important;
+
+    border-radius: 50% !important;
+
+}
+
+
+/* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+#userTable img.user-avatar {
+
+    width: 46px !important;
+
+    height: 46px !important;
+
+    min-width: 46px !important;
+
+    min-height: 46px !important;
+
+    max-width: 46px !important;
+
+    max-height: 46px !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+
+    object-position: center !important;
+
+    border-radius: 50% !important;
+
+    border: 2px solid #e2e8f0 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+}
+
+
+/* =========================================================
+   OLD PICTURE CLASS SUPPORT
+========================================================= */
+
+#userTable img.user-photo {
+
+    width: 46px !important;
+
+    height: 46px !important;
+
+    min-width: 46px !important;
+
+    min-height: 46px !important;
+
+    max-width: 46px !important;
+
+    max-height: 46px !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+
+    object-position: center !important;
+
+    border-radius: 50% !important;
+
+    border: 2px solid #e2e8f0 !important;
+
+    margin: 0 auto !important;
+
+    padding: 0 !important;
+
+}
+
+
+/* =========================================================
+   DEFAULT PROFILE ICON
+========================================================= */
+
+#userTable .user-avatar-fallback {
+
+    width: 46px !important;
+
+    height: 46px !important;
+
+    min-width: 46px !important;
+
+    min-height: 46px !important;
+
+    max-width: 46px !important;
+
+    max-height: 46px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    margin: 0 auto !important;
+
+    padding: 0 !important;
+
+    border-radius: 50% !important;
+
+    background: #e5e7eb !important;
+
+    color: #64748b !important;
+
+    overflow: hidden !important;
+
+    font-size: 18px !important;
+
+}
+
+
+/* =========================================================
+   USERNAME / NAME / ROLE
+========================================================= */
+
+#userTable .username-cell,
+#userTable .name-cell,
+#userTable .role-cell {
+
+    font-weight: 500;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+#userTable .status-cell {
+
+    text-align: center !important;
+
+}
+
+
+/* COMMON STATUS */
+
+#userTable .user-status {
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    min-width: 65px !important;
+
+    height: 30px !important;
+
+    padding: 4px 10px !important;
+
+    border-radius: 7px !important;
+
+    font-size: 13px !important;
+
+    font-weight: 600 !important;
+
+    box-sizing: border-box !important;
+
+}
+
+
+/* ACTIVE */
+
+#userTable .status-active {
+
+    background: #ecfdf5 !important;
+
+    color: #059669 !important;
+
+    border: 1px solid #bbf7d0 !important;
+
+}
+
+
+/* BLOCK */
+
+#userTable .status-block {
+
+    background: #fef2f2 !important;
+
+    color: #dc2626 !important;
+
+    border: 1px solid #fecaca !important;
+
+}
+
+
+/* INACTIVE */
+
+#userTable .status-inactive {
+
+    background: #f1f5f9 !important;
+
+    color: #64748b !important;
+
+    border: 1px solid #e2e8f0 !important;
+
+}
+
+
+/* =========================================================
+   ACTION CELL
+========================================================= */
+
+#userTable .action-cell {
+
+    text-align: center !important;
+
+    vertical-align: middle !important;
+
+    white-space: nowrap !important;
+
+}
+
+
+/* =========================================================
+   ACTION BUTTON WRAPPER
+========================================================= */
+
+#userTable .action-buttons {
+
+    width: 100% !important;
+
+    display: flex !important;
+
+    flex-direction: row !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    white-space: nowrap !important;
+
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
+
+#userTable .edit-btn {
+
+    width: auto !important;
+
+    min-width: 68px !important;
+
+    height: 32px !important;
+
+    margin: 0 !important;
+
+    padding: 6px 12px !important;
+
+    border: none !important;
+
+    border-radius: 7px !important;
+
+    background: #2563eb !important;
+
+    color: white !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    font-size: 13px !important;
+
+    font-weight: 600 !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    transition: .2s ease !important;
+
+    box-sizing: border-box !important;
+
+}
+
+
+#userTable .edit-btn:hover {
+
+    background: #1d4ed8 !important;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+#userTable .delete-btn {
+
+    width: auto !important;
+
+    min-width: 76px !important;
+
+    height: 32px !important;
+
+    margin: 0 !important;
+
+    padding: 6px 12px !important;
+
+    border: none !important;
+
+    border-radius: 7px !important;
+
+    background: #dc2626 !important;
+
+    color: white !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    font-size: 13px !important;
+
+    font-weight: 600 !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    transition: .2s ease !important;
+
+    box-sizing: border-box !important;
+
+}
+
+
+#userTable .delete-btn:hover {
+
+    background: #b91c1c !important;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =========================================================
+   OLD BUTTON SUPPORT
+========================================================= */
+
+#userTable td button {
+
+    margin: 0 !important;
+
+}
+
+
+/* =========================================================
+   NO USER
+========================================================= */
+
+#userTable .no-user {
+
+    padding: 40px !important;
+
+    text-align: center !important;
+
+    color: #64748b !important;
+
+    font-size: 16px !important;
+
+}
+
+
+#userTable .no-user i {
+
+    margin-right: 8px;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: rgba(0, 0, 0, .45);
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 5000;
+
+    padding: 20px;
+
+}
+
+
+/* =========================================================
+   MODAL BOX
+========================================================= */
+
+.modal-box {
+
+    position: relative;
+
+    background: white;
+
+    width: 380px;
+
+    max-width: 100%;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .30);
+
+    animation: modalOpen .2s ease;
+
+}
+
+
+@keyframes modalOpen {
+
+    from {
+
+        opacity: 0;
+
+        transform: scale(.95);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+.close-modal {
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 15px;
+
+    width: 35px;
+
+    height: 35px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #dc2626;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.close-modal:hover {
+
+    background: #b91c1c;
+
+}
+
+
+/* =========================================================
+   MODAL TITLE
+========================================================= */
+
+.modal-box h2 {
+
+    text-align: center;
+
+    color: #1e3a8a;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =========================================================
+   MODAL INPUT
+========================================================= */
 
 .modal-box input,
-.modal-box select{
+.modal-box select {
 
+    width: 100%;
 
-width:100%;
+    padding: 12px;
 
+    margin-bottom: 12px;
 
-padding:12px;
+    border: 1px solid #ddd;
 
+    border-radius: 10px;
 
-margin-bottom:12px;
+    outline: none;
 
+    background: white;
 
-border:1px solid #ddd;
+    color: #1f2937;
 
-
-border-radius:10px;
-
-
-outline:none;
-
-
-}
-
-
-
-
-
-
-
-.form-buttons{
-
-
-display:flex;
-
-
-gap:10px;
-
+    font-size: 14px;
 
 }
 
 
+.modal-box input:focus,
+.modal-box select:focus {
 
-.form-buttons button{
+    border-color: #2563eb;
 
-
-flex:1;
-
-
-padding:12px;
-
-
-border:none;
-
-
-border-radius:10px;
-
-
-background:#2563eb;
-
-
-color:white;
-
-
-cursor:pointer;
-
+    box-shadow:
+        0 0 0 2px rgba(37, 99, 235, .10);
 
 }
 
 
+/* =========================================================
+   PICTURE FILE INPUT
+========================================================= */
 
-.form-buttons button:last-child{
+#pictureFile {
 
+    cursor: pointer;
 
-background:#6b7280;
-
-
-}
-
-
-
-
-
-
-
-
-
-
-/* =====================
-POPUP
-===================== */
-
-
-.popup{
-
-
-display:none;
-
-
-position:fixed;
-
-
-top:0;
-
-
-left:0;
-
-
-width:100%;
-
-
-height:100%;
-
-
-
-background:rgba(0,0,0,.35);
-
-
-
-align-items:center;
-
-
-justify-content:center;
-
-
-z-index:9000;
-
+    padding: 10px !important;
 
 }
 
 
+/* =========================================================
+   PICTURE PREVIEW
+========================================================= */
 
+#picturePreview {
 
+    width: 100%;
 
-.popup-content{
+    display: none;
 
+    align-items: center;
 
-width:320px;
+    justify-content: center;
 
-
-background:white;
-
-
-padding:30px;
-
-
-border-radius:20px;
-
-
-text-align:center;
-
-
-box-shadow:
-
-0 15px 40px rgba(0,0,0,.3);
-
+    margin-bottom: 15px;
 
 }
 
 
+#picturePreviewImg {
 
+    width: 90px !important;
 
+    height: 90px !important;
 
-.popup-content i{
+    min-width: 90px !important;
 
+    min-height: 90px !important;
 
-font-size:50px;
+    max-width: 90px !important;
 
+    max-height: 90px !important;
 
-color:#16a34a;
+    object-fit: cover !important;
 
+    object-position: center !important;
 
-margin-bottom:15px;
+    border-radius: 50% !important;
 
-
-}
-
-
-
-
-
-.popup-content button{
-
-
-margin-top:15px;
-
-
-padding:10px 35px;
-
-
-border:none;
-
-
-border-radius:10px;
-
-
-background:#2563eb;
-
-
-color:white;
-
-
-cursor:pointer;
-
+    border: 3px solid #2563eb !important;
 
 }
 
 
+/* =========================================================
+   FORM BUTTONS
+========================================================= */
 
+.form-buttons {
 
+    display: flex;
 
+    gap: 10px;
 
-
-
-/* =====================
-MOBILE
-===================== */
-
-
-@media(max-width:700px){
-
-
-
-.container{
-
-
-width:95%;
-
+    margin-top: 5px;
 
 }
 
 
+.form-buttons button {
 
-header{
+    flex: 1;
 
+    padding: 12px;
 
-padding:12px;
+    border: none;
 
+    border-radius: 10px;
 
-}
+    background: #2563eb;
 
+    color: white;
 
+    cursor: pointer;
 
-.profile-info{
+    font-size: 14px;
 
-
-display:none;
-
-
-}
-
-
-
-.top{
-
-
-flex-direction:column;
-
-
-align-items:stretch;
-
+    font-weight: 600;
 
 }
 
 
+.form-buttons button:hover {
 
-.search-box input{
-
-
-width:100%;
-
+    background: #1d4ed8;
 
 }
 
 
+.form-buttons button:last-child {
 
-.top button{
-
-
-width:100%;
-
+    background: #6b7280;
 
 }
 
 
+.form-buttons button:last-child:hover {
 
-.modal-box{
-
-
-width:90%;
-
+    background: #4b5563;
 
 }
 
 
+/* =========================================================
+   LOADING BOX
+========================================================= */
+
+#loadingBox {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: rgba(0, 0, 0, .35);
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 8000;
+
+}
+
+
+.loading-content {
+
+    background: white;
+
+    padding: 25px 35px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .25);
+
+}
+
+
+.loading-content i {
+
+    font-size: 30px;
+
+    color: #2563eb;
+
+    margin-bottom: 12px;
+
+}
+
+
+#loadingText {
+
+    color: #334155;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   POPUP
+========================================================= */
+
+.popup {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: rgba(0, 0, 0, .35);
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 9000;
+
+    padding: 20px;
+
+}
+
+
+/* =========================================================
+   POPUP CONTENT
+========================================================= */
+
+.popup-content {
+
+    width: 320px;
+
+    max-width: 100%;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .30);
+
+}
+
+
+.popup-content i {
+
+    font-size: 50px;
+
+    color: #16a34a;
+
+    margin-bottom: 15px;
+
+}
+
+
+.popup-content h3 {
+
+    color: #1f2937;
+
+    margin-bottom: 8px;
+
+}
+
+
+.popup-content p {
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+
+.popup-content button {
+
+    margin-top: 15px;
+
+    padding: 10px 35px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+.popup-content button:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+
+    .container {
+
+        width: 95%;
+
+    }
+
+
+    header {
+
+        padding: 12px;
+
+    }
+
+
+    .title h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .profile-info {
+
+        display: none;
+
+    }
+
+
+    .top {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .search-box {
+
+        width: 100%;
+
+    }
+
+
+    .search-box input {
+
+        width: 100%;
+
+    }
+
+
+    .top button {
+
+        width: 100%;
+
+    }
+
+
+    .table-area {
+
+        overflow-x: auto;
+
+    }
+
+
+    #userTable {
+
+        min-width: 850px;
+
+    }
+
+
+    #userTable .action-buttons {
+
+        gap: 6px !important;
+
+    }
+
+
+    #userTable .edit-btn {
+
+        min-width: 65px !important;
+
+        padding: 6px 9px !important;
+
+    }
+
+
+    #userTable .delete-btn {
+
+        min-width: 73px !important;
+
+        padding: 6px 9px !important;
+
+    }
+
+
+    .modal {
+
+        padding: 15px;
+
+    }
+
+
+    .modal-box {
+
+        width: 90%;
+
+        padding: 25px;
+
+    }
+
+
+    .popup-content {
+
+        width: 90%;
+
+    }
 
 }
