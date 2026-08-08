@@ -1,0 +1,844 @@
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:"Segoe UI",Arial,sans-serif;
+
+}
+
+
+body{
+
+    min-height:100vh;
+
+    background:#f1f5f9;
+
+    color:#334155;
+
+}
+
+
+
+/* =========================
+HEADER
+========================= */
+
+.header{
+
+    width:94%;
+
+    margin:20px auto;
+
+    background:white;
+
+    padding:14px 20px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.10);
+
+}
+
+
+.left-section{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+
+.left-section h2{
+
+    color:#0f172a;
+
+    font-size:22px;
+
+}
+
+
+.left-section h2 i{
+
+    color:#ea580c;
+
+    margin-right:7px;
+
+}
+
+
+
+/* =========================
+BACK BUTTON
+========================= */
+
+.back-btn{
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:10px 16px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+
+.back-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+
+/* =========================
+PROFILE
+========================= */
+
+.profile{
+
+    position:relative;
+
+}
+
+
+.profile-head{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+}
+
+
+.profile-head img{
+
+    width:45px;
+
+    height:45px;
+
+    min-width:45px;
+
+    min-height:45px;
+
+    max-width:45px;
+
+    max-height:45px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #2563eb;
+
+}
+
+
+.profile-head span{
+
+    font-weight:600;
+
+    color:#1e293b;
+
+}
+
+
+.profile-menu{
+
+    display:none;
+
+    position:absolute;
+
+    right:0;
+
+    top:55px;
+
+    width:180px;
+
+    background:white;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.18);
+
+    z-index:1000;
+
+}
+
+
+.profile-menu.show{
+
+    display:block;
+
+}
+
+
+.profile-menu button{
+
+    width:100%;
+
+    border:none;
+
+    background:white;
+
+    padding:13px 15px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    color:#334155;
+
+}
+
+
+.profile-menu button:hover{
+
+    background:#f1f5f9;
+
+    color:#2563eb;
+
+}
+
+
+
+/* =========================
+TABLE BOX
+========================= */
+
+.table-box{
+
+    width:94%;
+
+    margin:20px auto;
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.10);
+
+    overflow-x:auto;
+
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:900px;
+
+}
+
+
+thead{
+
+    background:#ea580c;
+
+    color:white;
+
+}
+
+
+th{
+
+    padding:14px 12px;
+
+    font-size:14px;
+
+    text-align:center;
+
+    white-space:nowrap;
+
+}
+
+
+td{
+
+    padding:12px;
+
+    text-align:center;
+
+    border-bottom:1px solid #e2e8f0;
+
+    font-size:14px;
+
+}
+
+
+tbody tr:hover{
+
+    background:#fff7ed;
+
+}
+
+
+
+/* =========================
+ACTION BUTTON
+========================= */
+
+.edit-btn{
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+}
+
+
+.edit-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+
+/* =========================
+EDIT MODAL
+========================= */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(15,23,42,.55);
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:5000;
+
+}
+
+
+.modal.show{
+
+    display:flex;
+
+}
+
+
+.popup{
+
+    width:430px;
+
+    max-width:92%;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:white;
+
+    padding:28px;
+
+    border-radius:20px;
+
+    position:relative;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.30);
+
+}
+
+
+.popup h2{
+
+    text-align:center;
+
+    color:#ea580c;
+
+    margin-bottom:20px;
+
+}
+
+
+.popup label{
+
+    display:block;
+
+    margin-bottom:6px;
+
+    margin-top:12px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#334155;
+
+}
+
+
+.popup input,
+.popup textarea{
+
+    width:100%;
+
+    padding:11px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:9px;
+
+    outline:none;
+
+    font-size:14px;
+
+}
+
+
+.popup input:focus,
+.popup textarea:focus{
+
+    border-color:#ea580c;
+
+}
+
+
+.close-btn{
+
+    position:absolute;
+
+    top:13px;
+
+    right:13px;
+
+    width:34px;
+
+    height:34px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#dc2626;
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+}
+
+
+
+/* =========================
+POPUP BUTTONS
+========================= */
+
+.popup-buttons{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-top:20px;
+
+}
+
+
+.popup-buttons button{
+
+    flex:1;
+
+    padding:11px;
+
+    border:none;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:600;
+
+}
+
+
+.submit-btn{
+
+    background:#16a34a;
+
+}
+
+
+.submit-btn:hover{
+
+    background:#15803d;
+
+}
+
+
+.cancel-btn{
+
+    background:#64748b;
+
+}
+
+
+.cancel-btn:hover{
+
+    background:#475569;
+
+}
+
+
+.delete-btn{
+
+    background:#dc2626;
+
+}
+
+
+.delete-btn:hover{
+
+    background:#b91c1c;
+
+}
+
+
+
+/* =========================
+MESSAGE POPUP
+========================= */
+
+.message-modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.40);
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:9000;
+
+}
+
+
+.message-modal.show{
+
+    display:flex;
+
+}
+
+
+.message-box{
+
+    width:330px;
+
+    max-width:90%;
+
+    background:white;
+
+    padding:28px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+
+}
+
+
+.message-icon{
+
+    font-size:48px;
+
+    color:#16a34a;
+
+    margin-bottom:12px;
+
+}
+
+
+.message-box h3{
+
+    color:#0f172a;
+
+    margin-bottom:8px;
+
+}
+
+
+.message-box p{
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+
+.message-box button{
+
+    margin-top:18px;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:10px 35px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+}
+
+
+
+/* =========================
+CONFIRM POPUP
+========================= */
+
+.confirm-modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:9500;
+
+}
+
+
+.confirm-modal.show{
+
+    display:flex;
+
+}
+
+
+.confirm-box{
+
+    width:340px;
+
+    max-width:90%;
+
+    background:white;
+
+    padding:28px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.30);
+
+}
+
+
+.confirm-icon{
+
+    font-size:48px;
+
+    color:#f59e0b;
+
+    margin-bottom:12px;
+
+}
+
+
+.confirm-box h3{
+
+    color:#0f172a;
+
+    margin-bottom:8px;
+
+}
+
+
+.confirm-box p{
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+
+.confirm-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+
+.confirm-buttons button{
+
+    flex:1;
+
+    padding:11px;
+
+    border:none;
+
+    border-radius:9px;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+
+.confirm-delete{
+
+    background:#dc2626;
+
+}
+
+
+.confirm-cancel{
+
+    background:#64748b;
+
+}
+
+
+
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .header{
+
+        width:95%;
+
+        padding:12px;
+
+    }
+
+
+    .left-section{
+
+        gap:10px;
+
+    }
+
+
+    .left-section h2{
+
+        font-size:17px;
+
+    }
+
+
+    .back-btn{
+
+        padding:9px 11px;
+
+    }
+
+
+    .profile-head span{
+
+        display:none;
+
+    }
+
+
+    .table-box{
+
+        width:95%;
+
+        padding:12px;
+
+    }
+
+
+    .popup{
+
+        padding:22px;
+
+    }
+
+}
