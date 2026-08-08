@@ -1,34 +1,12 @@
-/* =========================================================
-   LINK 4 USER CONTROL
-   usercontrol.js
-   FULL FINAL VERSION
-========================================================= */
+// ============================================================
+// USER CONTROL JS
+// FINAL VERSION
+// ============================================================
 
 
-/* =========================================================
-   API
-========================================================= */
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
-
-
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-let users = [];
-
-let editMode = false;
-
-let oldUsername = "";
-
-let loadingFrame = null;
-
-
-/* =========================================================
-   LOGIN CHECK
-========================================================= */
+// ============================================================
+// LOGIN CHECK
+// ============================================================
 
 const isLogin =
     localStorage.getItem("isLogin");
@@ -39,17 +17,40 @@ const role =
 
 if (
     isLogin !== "true" ||
-    String(role).toLowerCase() !== "admin"
+    role !== "Admin"
 ) {
 
-    window.location.replace("login.html");
+    window.location.replace(
+        "login.html"
+    );
 
 }
 
 
-/* =========================================================
-   PAGE LOAD
-========================================================= */
+// ============================================================
+// API
+// ============================================================
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
+
+
+// ============================================================
+// GLOBAL
+// ============================================================
+
+let users = [];
+
+let editMode = false;
+
+let oldUsername = "";
+
+let deleteUsername = "";
+
+
+// ============================================================
+// PAGE LOAD
+// ============================================================
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -59,13 +60,13 @@ document.addEventListener(
 
         setupProfileMenu();
 
-        setupNavigation();
+        setupButtons();
 
         setupSearch();
 
-        setupUserButtons();
+        setupDeletePopup();
 
-        setupModal();
+        setupPicturePreview();
 
         loadUsers();
 
@@ -73,66 +74,55 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   PROFILE
-========================================================= */
+// ============================================================
+// PROFILE
+// ============================================================
 
 function loadProfile() {
 
     const name =
-        localStorage.getItem("name") || "User";
+        localStorage.getItem("name");
 
     const picture =
-        localStorage.getItem("picture") || "";
+        localStorage.getItem("picture");
 
 
     const userName =
-        document.getElementById("userName");
+        document.getElementById(
+            "userName"
+        );
 
     const profileImg =
-        document.getElementById("profileImg");
+        document.getElementById(
+            "profileImg"
+        );
 
 
     if (userName) {
 
         userName.textContent =
-            name;
+            name || "User";
 
     }
 
 
-    if (profileImg) {
+    if (
+        profileImg &&
+        picture &&
+        picture.trim() !== ""
+    ) {
 
-        if (picture.trim() !== "") {
-
-            profileImg.src =
-                picture;
-
-        }
-        else {
-
-            profileImg.src =
-                "https://via.placeholder.com/100?text=User";
-
-        }
-
-
-        profileImg.onerror =
-            function () {
-
-                this.src =
-                    "https://via.placeholder.com/100?text=User";
-
-            };
+        profileImg.src =
+            picture;
 
     }
 
 }
 
 
-/* =========================================================
-   PROFILE MENU
-========================================================= */
+// ============================================================
+// PROFILE MENU
+// ============================================================
 
 function setupProfileMenu() {
 
@@ -163,22 +153,10 @@ function setupProfileMenu() {
 
             e.stopPropagation();
 
-
-            if (
-                profileMenu.style.display ===
-                "block"
-            ) {
-
-                profileMenu.style.display =
-                    "none";
-
-            }
-            else {
-
-                profileMenu.style.display =
-                    "block";
-
-            }
+            profileMenu.style.display =
+                profileMenu.style.display === "block"
+                    ? "none"
+                    : "block";
 
         }
     );
@@ -207,22 +185,49 @@ function setupProfileMenu() {
 }
 
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+// ============================================================
+// BUTTONS
+// ============================================================
 
-function setupNavigation() {
-
-
-    /* =========================
-       BACK
-    ========================= */
+function setupButtons() {
 
     const backBtn =
         document.getElementById(
             "backBtn"
         );
 
+    const accountBtn =
+        document.getElementById(
+            "accountBtn"
+        );
+
+    const logoutBtn =
+        document.getElementById(
+            "logoutBtn"
+        );
+
+    const addUserBtn =
+        document.getElementById(
+            "addUserBtn"
+        );
+
+    const closeModalBtn =
+        document.getElementById(
+            "closeModal"
+        );
+
+    const cancelUserBtn =
+        document.getElementById(
+            "cancelUser"
+        );
+
+    const saveUserBtn =
+        document.getElementById(
+            "saveUser"
+        );
+
+
+    // BACK
 
     if (backBtn) {
 
@@ -239,15 +244,7 @@ function setupNavigation() {
     }
 
 
-    /* =========================
-       ACCOUNT
-    ========================= */
-
-    const accountBtn =
-        document.getElementById(
-            "accountBtn"
-        );
-
+    // ACCOUNT
 
     if (accountBtn) {
 
@@ -264,266 +261,66 @@ function setupNavigation() {
     }
 
 
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    const logoutBtn =
-        document.getElementById(
-            "logoutBtn"
-        );
-
+    // LOGOUT
 
     if (logoutBtn) {
 
         logoutBtn.addEventListener(
             "click",
-            logoutUser
-        );
+            function () {
 
-    }
+                localStorage.clear();
 
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-function logoutUser() {
-
-    localStorage.clear();
-
-    sessionStorage.clear();
-
-    window.location.replace(
-        "login.html"
-    );
-
-}
-
-
-/* =========================================================
-   PAGE SHOW LOGIN PROTECTION
-========================================================= */
-
-window.addEventListener(
-    "pageshow",
-    function () {
-
-        const login =
-            localStorage.getItem(
-                "isLogin"
-            );
-
-        const currentRole =
-            localStorage.getItem(
-                "role"
-            );
-
-
-        if (
-            login !== "true" ||
-            String(currentRole).toLowerCase() !==
-            "admin"
-        ) {
-
-            window.location.replace(
-                "login.html"
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function setupSearch() {
-
-    const searchInput =
-        document.getElementById(
-            "searchUser"
-        );
-
-
-    if (!searchInput) {
-
-        return;
-
-    }
-
-
-    searchInput.addEventListener(
-        "input",
-        function () {
-
-            const value =
-                this.value
-                    .trim()
-                    .toLowerCase();
-
-
-            if (value === "") {
-
-                showUsers(users);
-
-                return;
-
-            }
-
-
-            const result =
-                users.filter(
-                    function (user) {
-
-                        const username =
-                            String(
-                                user.username || ""
-                            ).toLowerCase();
-
-
-                        const name =
-                            String(
-                                user.name || ""
-                            ).toLowerCase();
-
-
-                        const userRole =
-                            String(
-                                user.role || ""
-                            ).toLowerCase();
-
-
-                        const status =
-                            String(
-                                user.status || ""
-                            ).toLowerCase();
-
-
-                        return (
-
-                            username.includes(
-                                value
-                            )
-
-                            ||
-
-                            name.includes(
-                                value
-                            )
-
-                            ||
-
-                            userRole.includes(
-                                value
-                            )
-
-                            ||
-
-                            status.includes(
-                                value
-                            )
-
-                        );
-
-                    }
+                window.location.replace(
+                    "login.html"
                 );
 
-
-            showUsers(result);
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ADD USER BUTTON
-========================================================= */
-
-function setupUserButtons() {
-
-    const addUserBtn =
-        document.getElementById(
-            "addUserBtn"
+            }
         );
-
-
-    if (!addUserBtn) {
-
-        return;
 
     }
 
 
-    addUserBtn.addEventListener(
-        "click",
-        function () {
+    // ADD USER
 
-            editMode = false;
+    if (addUserBtn) {
 
-            oldUsername = "";
+        addUserBtn.addEventListener(
+            "click",
+            function () {
 
-            clearForm();
+                editMode = false;
+
+                oldUsername = "";
+
+                clearForm();
+
+                const formTitle =
+                    document.getElementById(
+                        "formTitle"
+                    );
+
+                if (formTitle) {
+
+                    formTitle.textContent =
+                        "Add User";
+
+                }
 
 
-            const title =
-                document.getElementById(
-                    "formTitle"
-                );
-
-
-            if (title) {
-
-                title.textContent =
-                    "Add User";
+                openUserModal();
 
             }
-
-
-            openModal();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function setupModal() {
-
-    const closeBtn =
-        document.getElementById(
-            "closeModal"
         );
 
-    const cancelBtn =
-        document.getElementById(
-            "cancelUser"
-        );
-
-    const saveBtn =
-        document.getElementById(
-            "saveUser"
-        );
-
-    const modal =
-        document.getElementById(
-            "userModal"
-        );
+    }
 
 
-    if (closeBtn) {
+    // CLOSE
 
-        closeBtn.addEventListener(
+    if (closeModalBtn) {
+
+        closeModalBtn.addEventListener(
             "click",
             closeModal
         );
@@ -531,9 +328,11 @@ function setupModal() {
     }
 
 
-    if (cancelBtn) {
+    // CANCEL
 
-        cancelBtn.addEventListener(
+    if (cancelUserBtn) {
+
+        cancelUserBtn.addEventListener(
             "click",
             closeModal
         );
@@ -541,61 +340,25 @@ function setupModal() {
     }
 
 
-    if (saveBtn) {
+    // SAVE
 
-        saveBtn.addEventListener(
+    if (saveUserBtn) {
+
+        saveUserBtn.addEventListener(
             "click",
             saveUser
         );
 
     }
 
-
-    if (modal) {
-
-        modal.addEventListener(
-            "click",
-            function (e) {
-
-                if (
-                    e.target === modal
-                ) {
-
-                    closeModal();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    document.addEventListener(
-        "keydown",
-        function (e) {
-
-            if (
-                e.key === "Escape"
-            ) {
-
-                closeModal();
-
-                closePopup();
-
-            }
-
-        }
-    );
-
 }
 
 
-/* =========================================================
-   OPEN MODAL
-========================================================= */
+// ============================================================
+// OPEN MODAL
+// ============================================================
 
-function openModal() {
+function openUserModal() {
 
     const modal =
         document.getElementById(
@@ -613,9 +376,9 @@ function openModal() {
 }
 
 
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
+// ============================================================
+// CLOSE MODAL
+// ============================================================
 
 function closeModal() {
 
@@ -635,9 +398,9 @@ function closeModal() {
 }
 
 
-/* =========================================================
-   LOAD USERS
-========================================================= */
+// ============================================================
+// LOAD USERS
+// ============================================================
 
 function loadUsers() {
 
@@ -648,12 +411,7 @@ function loadUsers() {
 
     fetch(
         API_URL +
-        "?action=users&t=" +
-        Date.now(),
-        {
-            method: "GET",
-            cache: "no-store"
-        }
+        "?action=users"
     )
 
     .then(
@@ -677,9 +435,6 @@ function loadUsers() {
     .then(
         function (data) {
 
-            hideLoading();
-
-
             if (
                 Array.isArray(data)
             ) {
@@ -698,24 +453,16 @@ function loadUsers() {
                 data.success === false
             ) {
 
-                users = [];
-
-                showUsers([]);
-
-                showPopup(
-                    "Error",
+                throw new Error(
                     data.message ||
-                    "User Load Failed",
-                    "error"
+                    "User Load Failed"
                 );
-
-                return;
 
             }
 
 
             throw new Error(
-                "Invalid API Response"
+                "Invalid User Data"
             );
 
         }
@@ -730,7 +477,23 @@ function loadUsers() {
             );
 
 
-            hideLoading();
+            const table =
+                document.getElementById(
+                    "userTable"
+                );
+
+
+            if (table) {
+
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="6">
+                            User Load Failed
+                        </td>
+                    </tr>
+                `;
+
+            }
 
 
             showPopup(
@@ -740,14 +503,22 @@ function loadUsers() {
             );
 
         }
+    )
+
+    .finally(
+        function () {
+
+            hideLoading();
+
+        }
     );
 
 }
 
 
-/* =========================================================
-   SHOW USERS
-========================================================= */
+// ============================================================
+// SHOW USERS
+// ============================================================
 
 function showUsers(data) {
 
@@ -768,29 +539,16 @@ function showUsers(data) {
 
 
     if (
-        !data ||
+        !Array.isArray(data) ||
         data.length === 0
     ) {
 
         table.innerHTML = `
-
             <tr>
-
-                <td
-                    colspan="6"
-                    class="no-user"
-                >
-
-                    <i
-                        class="fa-solid fa-users-slash"
-                    ></i>
-
+                <td colspan="6">
                     No User Found
-
                 </td>
-
             </tr>
-
         `;
 
         return;
@@ -802,216 +560,232 @@ function showUsers(data) {
         function (user) {
 
             const username =
-                String(
-                    user.username || ""
+                safeValue(
+                    user.username
                 );
-
 
             const password =
-                String(
-                    user.password || ""
+                safeValue(
+                    user.password
                 );
-
 
             const name =
-                String(
-                    user.name || ""
+                safeValue(
+                    user.name
                 );
-
 
             const userRole =
-                String(
-                    user.role || ""
+                safeValue(
+                    user.role
                 );
-
 
             const status =
-                String(
-                    user.status || ""
+                safeValue(
+                    user.status
                 );
-
 
             const picture =
-                String(
-                    user.picture || ""
+                safeValue(
+                    user.picture
                 );
 
 
-            /* =========================
-               STATUS CLASS
-            ========================= */
+            const row =
+                document.createElement(
+                    "tr"
+                );
 
-            let statusClass =
-                "status-inactive";
 
+            // PICTURE
 
-            const statusLower =
-                status
-                    .trim()
-                    .toLowerCase();
+            const pictureCell =
+                document.createElement(
+                    "td"
+                );
 
 
-            if (
-                statusLower ===
-                "active"
-            ) {
+            const img =
+                document.createElement(
+                    "img"
+                );
 
-                statusClass =
-                    "status-active";
 
-            }
-            else if (
-                statusLower === "block" ||
-                statusLower === "blocked"
-            ) {
+            img.className =
+                "user-photo";
 
-                statusClass =
-                    "status-block";
 
-            }
+            img.alt =
+                "User";
 
 
-            /* =========================
-               USER PICTURE
-            ========================= */
+            img.src =
+                picture ||
+                "profile.png";
 
-            let pictureHTML = "";
 
+            img.onerror =
+                function () {
 
-            if (
-                picture.trim() !== ""
-            ) {
+                    this.onerror =
+                        null;
 
-                pictureHTML = `
+                    this.src =
+                        "profile.png";
 
-                    <div class="user-picture">
+                };
 
-                        <img
-                            src="${escapeHTML(picture)}"
-                            class="user-avatar"
-                            alt="${escapeHTML(name)}"
-                            onerror="imageError(this)"
-                        >
 
-                    </div>
+            pictureCell.appendChild(
+                img
+            );
 
-                `;
 
-            }
-            else {
+            // USERNAME
 
-                pictureHTML =
-                    createFallbackImage();
+            const usernameCell =
+                document.createElement(
+                    "td"
+                );
 
-            }
+            usernameCell.textContent =
+                username;
 
 
-            /* =========================
-               ORIGINAL INDEX
-            ========================= */
+            // NAME
 
-            const index =
-                users.indexOf(user);
+            const nameCell =
+                document.createElement(
+                    "td"
+                );
 
+            nameCell.textContent =
+                name;
 
-            /* =========================
-               TABLE ROW
-            ========================= */
 
-            table.innerHTML += `
+            // ROLE
 
-                <tr>
+            const roleCell =
+                document.createElement(
+                    "td"
+                );
 
+            roleCell.textContent =
+                userRole;
 
-                    <td class="picture-cell">
 
-                        ${pictureHTML}
+            // STATUS
 
-                    </td>
+            const statusCell =
+                document.createElement(
+                    "td"
+                );
 
+            statusCell.textContent =
+                status;
 
-                    <td class="username-cell">
 
-                        ${escapeHTML(username)}
+            // ACTION
 
-                    </td>
+            const actionCell =
+                document.createElement(
+                    "td"
+                );
 
 
-                    <td class="name-cell">
+            // EDIT
 
-                        ${escapeHTML(name)}
+            const editBtn =
+                document.createElement(
+                    "button"
+                );
 
-                    </td>
+            editBtn.type =
+                "button";
 
+            editBtn.innerHTML =
+                `<i class="fa-solid fa-pen"></i> Edit`;
 
-                    <td class="role-cell">
 
-                        ${escapeHTML(userRole)}
+            editBtn.addEventListener(
+                "click",
+                function () {
 
-                    </td>
+                    editUser(
+                        username,
+                        password,
+                        name,
+                        userRole,
+                        status,
+                        picture
+                    );
 
+                }
+            );
 
-                    <td class="status-cell">
 
-                        <span
-                            class="user-status
-                            ${statusClass}"
-                        >
+            // DELETE
 
-                            ${escapeHTML(status)}
+            const deleteBtn =
+                document.createElement(
+                    "button"
+                );
 
-                        </span>
+            deleteBtn.type =
+                "button";
 
-                    </td>
+            deleteBtn.innerHTML =
+                `<i class="fa-solid fa-trash"></i> Delete`;
 
 
-                    <td class="action-cell">
+            deleteBtn.addEventListener(
+                "click",
+                function () {
 
-                        <div class="action-buttons">
+                    deleteUser(
+                        username
+                    );
 
+                }
+            );
 
-                            <button
-                                type="button"
-                                class="edit-btn"
-                                onclick="
-                                    editUserByIndex(${index})
-                                "
-                            >
 
-                                <i
-                                    class="fa-solid fa-pen"
-                                ></i>
+            actionCell.appendChild(
+                editBtn
+            );
 
-                                Edit
+            actionCell.appendChild(
+                deleteBtn
+            );
 
-                            </button>
 
+            row.appendChild(
+                pictureCell
+            );
 
-                            <button
-                                type="button"
-                                class="delete-btn"
-                                onclick="
-                                    deleteUserByIndex(${index})
-                                "
-                            >
+            row.appendChild(
+                usernameCell
+            );
 
-                                <i
-                                    class="fa-solid fa-trash"
-                                ></i>
+            row.appendChild(
+                nameCell
+            );
 
-                                Delete
+            row.appendChild(
+                roleCell
+            );
 
-                            </button>
+            row.appendChild(
+                statusCell
+            );
 
+            row.appendChild(
+                actionCell
+            );
 
-                        </div>
 
-                    </td>
-
-
-                </tr>
-
-            `;
+            table.appendChild(
+                row
+            );
 
         }
     );
@@ -1019,164 +793,127 @@ function showUsers(data) {
 }
 
 
-/* =========================================================
-   EDIT USER BY INDEX
-========================================================= */
+// ============================================================
+// SEARCH
+// ============================================================
 
-function editUserByIndex(index) {
+function setupSearch() {
 
-    if (
-        index < 0 ||
-        index >= users.length
-    ) {
+    const search =
+        document.getElementById(
+            "searchUser"
+        );
+
+
+    if (!search) {
 
         return;
 
     }
 
 
-    const user =
-        users[index];
+    search.addEventListener(
+        "input",
+        function () {
+
+            const value =
+                this.value
+                    .trim()
+                    .toLowerCase();
 
 
-    editUser(
+            if (!value) {
 
-        user.username || "",
+                showUsers(users);
 
-        user.password || "",
+                return;
 
-        user.name || "",
+            }
 
-        user.role || "Admin",
 
-        user.status || "Active",
+            const result =
+                users.filter(
+                    function (user) {
 
-        user.picture || ""
+                        return (
 
+                            safeValue(
+                                user.username
+                            )
+                            .toLowerCase()
+                            .includes(value)
+
+                            ||
+
+                            safeValue(
+                                user.name
+                            )
+                            .toLowerCase()
+                            .includes(value)
+
+                            ||
+
+                            safeValue(
+                                user.role
+                            )
+                            .toLowerCase()
+                            .includes(value)
+
+                            ||
+
+                            safeValue(
+                                user.status
+                            )
+                            .toLowerCase()
+                            .includes(value)
+
+                        );
+
+                    }
+                );
+
+
+            showUsers(result);
+
+        }
     );
 
 }
 
 
-/* =========================================================
-   EDIT USER
-========================================================= */
-
-function editUser(
-    username,
-    password,
-    name,
-    userRole,
-    status,
-    picture
-) {
-
-    editMode = true;
-
-    oldUsername =
-        username;
-
-
-    setValue(
-        "username",
-        username
-    );
-
-
-    setValue(
-        "password",
-        password
-    );
-
-
-    setValue(
-        "name",
-        name
-    );
-
-
-    setValue(
-        "role",
-        userRole || "Admin"
-    );
-
-
-    setValue(
-        "status",
-        status || "Active"
-    );
-
-
-    setValue(
-        "picture",
-        picture || ""
-    );
-
-
-    const title =
-        document.getElementById(
-            "formTitle"
-        );
-
-
-    if (title) {
-
-        title.textContent =
-            "Edit User";
-
-    }
-
-
-    updatePicturePreview(
-        picture || ""
-    );
-
-
-    openModal();
-
-}
-
-
-/* =========================================================
-   SAVE USER
-========================================================= */
+// ============================================================
+// SAVE USER
+// ============================================================
 
 function saveUser() {
-
 
     const username =
         getValue("username");
 
-
     const password =
         getValue("password");
-
 
     const name =
         getValue("name");
 
-
     const userRole =
         getValue("role");
 
-
     const status =
         getValue("status");
-
 
     const picture =
         getValue("picture");
 
 
-    /* =========================
-       VALIDATION
-    ========================= */
-
-    if (!username) {
+    if (
+        username === "" ||
+        password === ""
+    ) {
 
         showPopup(
             "Warning",
-            "Username Required",
+            "Username Password Required",
             "warning"
         );
 
@@ -1184,36 +921,6 @@ function saveUser() {
 
     }
 
-
-    if (!password) {
-
-        showPopup(
-            "Warning",
-            "Password Required",
-            "warning"
-        );
-
-        return;
-
-    }
-
-
-    if (!name) {
-
-        showPopup(
-            "Warning",
-            "Name Required",
-            "warning"
-        );
-
-        return;
-
-    }
-
-
-    /* =========================
-       DATA
-    ========================= */
 
     const data = {
 
@@ -1255,24 +962,12 @@ function saveUser() {
     }
 
 
-    /* =========================
-       LOADING
-    ========================= */
-
     showLoading(
-
         editMode
-            ?
-            "Updating User..."
-            :
-            "Creating User..."
-
+            ? "Updating User..."
+            : "Creating User..."
     );
 
-
-    /* =========================
-       API REQUEST
-    ========================= */
 
     fetch(
         API_URL,
@@ -1331,10 +1026,8 @@ function saveUser() {
                     result.message ||
                     (
                         editMode
-                            ?
-                            "User Updated Successfully"
-                            :
-                            "User Added Successfully"
+                            ? "User Updated Successfully"
+                            : "User Added Successfully"
                     ),
                     "success"
                 );
@@ -1381,36 +1074,83 @@ function saveUser() {
 }
 
 
-/* =========================================================
-   DELETE USER BY INDEX
-========================================================= */
+// ============================================================
+// EDIT USER
+// ============================================================
 
-function deleteUserByIndex(index) {
+function editUser(
+    username,
+    password,
+    name,
+    userRole,
+    status,
+    picture
+) {
 
-    if (
-        index < 0 ||
-        index >= users.length
-    ) {
+    editMode = true;
 
-        return;
+    oldUsername =
+        username;
+
+
+    setValue(
+        "username",
+        username
+    );
+
+    setValue(
+        "password",
+        password
+    );
+
+    setValue(
+        "name",
+        name
+    );
+
+    setValue(
+        "role",
+        userRole
+    );
+
+    setValue(
+        "status",
+        status
+    );
+
+    setValue(
+        "picture",
+        picture || ""
+    );
+
+
+    const formTitle =
+        document.getElementById(
+            "formTitle"
+        );
+
+
+    if (formTitle) {
+
+        formTitle.textContent =
+            "Edit User";
 
     }
 
 
-    const username =
-        users[index].username || "";
-
-
-    deleteUser(
-        username
+    updatePicturePreview(
+        picture
     );
+
+
+    openUserModal();
 
 }
 
 
-/* =========================================================
-   DELETE USER
-========================================================= */
+// ============================================================
+// DELETE USER
+// ============================================================
 
 function deleteUser(username) {
 
@@ -1421,15 +1161,150 @@ function deleteUser(username) {
     }
 
 
-    if (
-        !confirm(
-            "Delete this user?"
-        )
-    ) {
+    deleteUsername =
+        username;
+
+
+    const message =
+        document.getElementById(
+            "deleteConfirmMessage"
+        );
+
+
+    if (message) {
+
+        message.textContent =
+            'Are you sure you want to delete "' +
+            username +
+            '"?';
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "deleteConfirmModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "flex";
+
+    }
+
+}
+
+
+// ============================================================
+// DELETE POPUP SETUP
+// ============================================================
+
+function setupDeletePopup() {
+
+    const cancelBtn =
+        document.getElementById(
+            "deleteCancelBtn"
+        );
+
+    const confirmBtn =
+        document.getElementById(
+            "deleteConfirmBtn"
+        );
+
+    const modal =
+        document.getElementById(
+            "deleteConfirmModal"
+        );
+
+
+    if (cancelBtn) {
+
+        cancelBtn.addEventListener(
+            "click",
+            closeDeleteConfirm
+        );
+
+    }
+
+
+    if (confirmBtn) {
+
+        confirmBtn.addEventListener(
+            "click",
+            confirmDeleteUser
+        );
+
+    }
+
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            function (e) {
+
+                if (
+                    e.target === modal
+                ) {
+
+                    closeDeleteConfirm();
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// CLOSE DELETE POPUP
+// ============================================================
+
+function closeDeleteConfirm() {
+
+    const modal =
+        document.getElementById(
+            "deleteConfirmModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+
+    deleteUsername =
+        "";
+
+}
+
+
+// ============================================================
+// CONFIRM DELETE
+// ============================================================
+
+function confirmDeleteUser() {
+
+    if (!deleteUsername) {
 
         return;
 
     }
+
+
+    const username =
+        deleteUsername;
+
+
+    closeDeleteConfirm();
 
 
     showLoading(
@@ -1523,7 +1398,7 @@ function deleteUser(username) {
         function (error) {
 
             console.error(
-                "Delete User Error:",
+                "Delete Error:",
                 error
             );
 
@@ -1543,9 +1418,9 @@ function deleteUser(username) {
 }
 
 
-/* =========================================================
-   CLEAR FORM
-========================================================= */
+// ============================================================
+// CLEAR FORM
+// ============================================================
 
 function clearForm() {
 
@@ -1554,30 +1429,25 @@ function clearForm() {
         ""
     );
 
-
     setValue(
         "password",
         ""
     );
-
 
     setValue(
         "name",
         ""
     );
 
-
     setValue(
         "role",
         "Admin"
     );
 
-
     setValue(
         "status",
         "Active"
     );
-
 
     setValue(
         "picture",
@@ -1592,19 +1462,47 @@ function clearForm() {
 }
 
 
-/* =========================================================
-   PICTURE PREVIEW
-========================================================= */
+// ============================================================
+// PICTURE PREVIEW
+// ============================================================
+
+function setupPicturePreview() {
+
+    const pictureInput =
+        document.getElementById(
+            "picture"
+        );
+
+
+    if (!pictureInput) {
+
+        return;
+
+    }
+
+
+    pictureInput.addEventListener(
+        "input",
+        function () {
+
+            updatePicturePreview(
+                this.value.trim()
+            );
+
+        }
+    );
+
+}
+
 
 function updatePicturePreview(
-    picture
+    url
 ) {
 
     const preview =
         document.getElementById(
             "picturePreview"
         );
-
 
     const previewImg =
         document.getElementById(
@@ -1623,16 +1521,12 @@ function updatePicturePreview(
 
 
     if (
-        picture &&
-        picture.trim() !== ""
+        url &&
+        url.trim() !== ""
     ) {
 
-        preview.style.display =
-            "flex";
-
-
         previewImg.src =
-            picture;
+            url;
 
 
         previewImg.onerror =
@@ -1643,313 +1537,36 @@ function updatePicturePreview(
 
             };
 
+
+        previewImg.onload =
+            function () {
+
+                preview.style.display =
+                    "flex";
+
+            };
+
     }
     else {
 
         preview.style.display =
             "none";
 
-
-        previewImg.removeAttribute(
-            "src"
-        );
+        previewImg.src =
+            "";
 
     }
 
 }
 
 
-/* =========================================================
-   PICTURE INPUT
-========================================================= */
-
-document.addEventListener(
-    "input",
-    function (e) {
-
-        if (
-            e.target &&
-            e.target.id === "picture"
-        ) {
-
-            updatePicturePreview(
-                e.target.value.trim()
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   IMAGE ERROR
-========================================================= */
-
-function imageError(img) {
-
-    if (!img) {
-
-        return;
-
-    }
-
-
-    const parent =
-        img.parentElement;
-
-
-    if (!parent) {
-
-        return;
-
-    }
-
-
-    parent.innerHTML = `
-
-        <div class="user-avatar-fallback">
-
-            <i
-                class="fa-solid fa-user"
-            ></i>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   FALLBACK IMAGE
-========================================================= */
-
-function createFallbackImage() {
-
-    return `
-
-        <div class="user-picture">
-
-            <div class="user-avatar-fallback">
-
-                <i
-                    class="fa-solid fa-user"
-                ></i>
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   GET VALUE
-========================================================= */
-
-function getValue(id) {
-
-    const element =
-        document.getElementById(id);
-
-
-    if (!element) {
-
-        return "";
-
-    }
-
-
-    return String(
-        element.value || ""
-    ).trim();
-
-}
-
-
-/* =========================================================
-   SET VALUE
-========================================================= */
-
-function setValue(
-    id,
-    value
-) {
-
-    const element =
-        document.getElementById(id);
-
-
-    if (element) {
-
-        element.value =
-            value || "";
-
-    }
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(value) {
-
-    return String(
-        value || ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =========================================================
-   LOADING.HTML CONNECT
-========================================================= */
-
-function showLoading(
-    message = "Loading..."
-) {
-
-
-    /* =========================
-       ALREADY OPEN
-    ========================= */
-
-    if (loadingFrame) {
-
-        const iframe =
-            loadingFrame;
-
-        iframe.src =
-            "loding.html?message=" +
-            encodeURIComponent(
-                message
-            );
-
-        return;
-
-    }
-
-
-    /* =========================
-       CREATE IFRAME
-    ========================= */
-
-    loadingFrame =
-        document.createElement(
-            "iframe"
-        );
-
-
-    loadingFrame.src =
-        "loding.html?message=" +
-        encodeURIComponent(
-            message
-        );
-
-
-    /* =========================
-       IFRAME STYLE
-    ========================= */
-
-    loadingFrame.style.position =
-        "fixed";
-
-    loadingFrame.style.top =
-        "0";
-
-    loadingFrame.style.left =
-        "0";
-
-    loadingFrame.style.width =
-        "100%";
-
-    loadingFrame.style.height =
-        "100%";
-
-    loadingFrame.style.border =
-        "none";
-
-    loadingFrame.style.margin =
-        "0";
-
-    loadingFrame.style.padding =
-        "0";
-
-    loadingFrame.style.background =
-        "transparent";
-
-    loadingFrame.style.zIndex =
-        "999999";
-
-
-    /* =========================
-       APPEND
-    ========================= */
-
-    document.body.appendChild(
-        loadingFrame
-    );
-
-}
-
-
-/* =========================================================
-   HIDE LOADING
-========================================================= */
-
-function hideLoading() {
-
-    if (!loadingFrame) {
-
-        return;
-
-    }
-
-
-    loadingFrame.remove();
-
-    loadingFrame = null;
-
-}
-
-
-/* =========================================================
-   POPUP
-========================================================= */
+// ============================================================
+// POPUP
+// ============================================================
 
 function showPopup(
     title,
-    msg,
+    message,
     type = "success"
 ) {
 
@@ -1958,12 +1575,15 @@ function showPopup(
             "popupBox"
         );
 
+    const icon =
+        document.getElementById(
+            "popupIcon"
+        );
 
     const popupTitle =
         document.getElementById(
             "popupTitle"
         );
-
 
     const popupMessage =
         document.getElementById(
@@ -1971,16 +1591,17 @@ function showPopup(
         );
 
 
-    const icon =
-        document.getElementById(
-            "popupIcon"
-        );
+    if (!popup) {
+
+        return;
+
+    }
 
 
     if (popupTitle) {
 
         popupTitle.textContent =
-            title || "";
+            title;
 
     }
 
@@ -1988,17 +1609,14 @@ function showPopup(
     if (popupMessage) {
 
         popupMessage.textContent =
-            msg || "";
+            message;
 
     }
 
 
     if (icon) {
 
-
-        if (
-            type === "success"
-        ) {
+        if (type === "success") {
 
             icon.className =
                 "fa-solid fa-circle-check";
@@ -2007,7 +1625,6 @@ function showPopup(
                 "#16a34a";
 
         }
-
 
         else if (
             type === "error"
@@ -2021,7 +1638,6 @@ function showPopup(
 
         }
 
-
         else if (
             type === "warning"
         ) {
@@ -2033,7 +1649,6 @@ function showPopup(
                 "#f59e0b";
 
         }
-
 
         else if (
             type === "login"
@@ -2050,19 +1665,15 @@ function showPopup(
     }
 
 
-    if (popup) {
-
-        popup.style.display =
-            "flex";
-
-    }
+    popup.style.display =
+        "flex";
 
 }
 
 
-/* =========================================================
-   CLOSE POPUP
-========================================================= */
+// ============================================================
+// CLOSE POPUP
+// ============================================================
 
 function closePopup() {
 
@@ -2082,26 +1693,229 @@ function closePopup() {
 }
 
 
-/* =========================================================
-   POPUP OUTSIDE CLICK
-========================================================= */
+// ============================================================
+// LOADING
+// ============================================================
 
-document.addEventListener(
-    "click",
-    function (e) {
+function showLoading(
+    text = "Loading..."
+) {
 
-        const popup =
-            document.getElementById(
-                "popupBox"
+    // If loading.js is available,
+    // use its showLoading function.
+
+    if (
+        typeof window.showLoading ===
+        "function"
+    ) {
+
+        window.showLoading(
+            text
+        );
+
+        return;
+
+    }
+
+
+    // Fallback
+
+    let loading =
+        document.getElementById(
+            "simpleLoading"
+        );
+
+
+    if (!loading) {
+
+        loading =
+            document.createElement(
+                "div"
             );
 
+        loading.id =
+            "simpleLoading";
+
+        loading.style.position =
+            "fixed";
+
+        loading.style.top =
+            "0";
+
+        loading.style.left =
+            "0";
+
+        loading.style.width =
+            "100%";
+
+        loading.style.height =
+            "100%";
+
+        loading.style.background =
+            "rgba(0,0,0,.35)";
+
+        loading.style.display =
+            "flex";
+
+        loading.style.alignItems =
+            "center";
+
+        loading.style.justifyContent =
+            "center";
+
+        loading.style.zIndex =
+            "99999";
+
+        loading.innerHTML = `
+            <div style="
+                background:white;
+                padding:25px 35px;
+                border-radius:15px;
+                font-family:Arial;
+                font-weight:600;
+                color:#1e3a8a;
+            ">
+                ${text}
+            </div>
+        `;
+
+
+        document.body.appendChild(
+            loading
+        );
+
+    }
+
+
+    loading.style.display =
+        "flex";
+
+}
+
+
+// ============================================================
+// HIDE LOADING
+// ============================================================
+
+function hideLoading() {
+
+    if (
+        typeof window.hideLoading ===
+        "function"
+    ) {
+
+        window.hideLoading();
+
+        return;
+
+    }
+
+
+    const loading =
+        document.getElementById(
+            "simpleLoading"
+        );
+
+
+    if (loading) {
+
+        loading.style.display =
+            "none";
+
+    }
+
+}
+
+
+// ============================================================
+// GET VALUE
+// ============================================================
+
+function getValue(id) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (!element) {
+
+        return "";
+
+    }
+
+
+    return String(
+        element.value || ""
+    ).trim();
+
+}
+
+
+// ============================================================
+// SET VALUE
+// ============================================================
+
+function setValue(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (element) {
+
+        element.value =
+            value || "";
+
+    }
+
+}
+
+
+// ============================================================
+// SAFE VALUE
+// ============================================================
+
+function safeValue(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value);
+
+}
+
+
+// ============================================================
+// BLOCK BACK AFTER LOGOUT
+// ============================================================
+
+window.addEventListener(
+    "pageshow",
+    function () {
 
         if (
-            popup &&
-            e.target === popup
+            localStorage.getItem(
+                "isLogin"
+            ) !== "true"
         ) {
 
-            closePopup();
+            window.location.replace(
+                "login.html"
+            );
 
         }
 
@@ -2109,19 +1923,27 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   PREVENT CACHE AFTER LOGOUT
-========================================================= */
+// ============================================================
+// ESC KEY
+// CLOSE MODALS
+// ============================================================
 
-window.addEventListener(
-    "beforeunload",
-    function () {
+document.addEventListener(
+    "keydown",
+    function (e) {
 
-        /*
-         * Nothing required here.
-         * Login protection is handled
-         * by pageshow + initial check.
-         */
+        if (
+            e.key !== "Escape"
+        ) {
+
+            return;
+
+        }
+
+
+        closeDeleteConfirm();
+
+        closeModal();
 
     }
 );
