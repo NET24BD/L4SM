@@ -1,214 +1,158 @@
 /* =====================================================
    CALL.CSS
-   PENDING CALL
+   PENDING CALL - BLUE THEME
 ===================================================== */
 
 
-/* =====================================================
+/* =========================
    RESET
-===================================================== */
+========================= */
 
 *{
-
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
     font-family:"Segoe UI",Arial,sans-serif;
-
 }
 
 
-/* =====================================================
+/* =========================
    BODY
-===================================================== */
+========================= */
 
 body{
-
     min-height:100vh;
-
     background:#f1f5f9;
-
     color:#334155;
-
     overflow-x:hidden;
-
 }
 
 
-/* =====================================================
+/* =========================
    HEADER
-===================================================== */
+========================= */
 
 .header{
-
     width:96%;
-
     margin:20px auto 15px;
-
     min-height:65px;
 
     background:white;
 
-    border-radius:14px;
+    border-radius:15px;
 
-    padding:10px 18px;
+    padding:10px 20px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
-    box-shadow:0 5px 20px rgba(0,0,0,.10);
-
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
 
-/* =====================================================
+/* =========================
    LEFT SECTION
-===================================================== */
+========================= */
 
 .left-section{
-
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
 }
 
 
 .left-section h2{
-
     color:#0f172a;
-
     font-size:21px;
 
     display:flex;
-
     align-items:center;
-
     gap:8px;
-
 }
 
 
 .left-section h2 i{
-
-    color:#ea580c;
-
+    color:#2563eb;
 }
 
 
-/* =====================================================
+/* =========================
    BACK BUTTON
-===================================================== */
+========================= */
 
 .back-btn{
-
-    height:36px;
-
-    padding:6px 12px;
+    background:#2563eb;
+    color:white;
 
     border:none;
 
+    padding:8px 13px;
+
     border-radius:8px;
-
-    background:#0f172a;
-
-    color:white;
 
     cursor:pointer;
 
     display:flex;
-
     align-items:center;
-
     gap:6px;
 
     font-size:13px;
 
     transition:.2s;
-
 }
 
 
 .back-btn:hover{
-
-    background:#1e293b;
-
-    transform:translateY(-1px);
-
+    background:#1d4ed8;
 }
 
 
-/* =====================================================
-   FILTER TOGGLE
-===================================================== */
+/* =========================
+   FILTER BUTTON
+========================= */
 
 .filter-toggle{
-
-    height:34px;
-
-    padding:6px 12px;
+    background:#2563eb;
+    color:white;
 
     border:none;
 
+    width:36px;
+    height:36px;
+
     border-radius:8px;
-
-    background:#2563eb;
-
-    color:white;
 
     cursor:pointer;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
-    gap:6px;
-
-    font-size:12px;
-
-    font-weight:600;
+    font-size:15px;
 
     transition:.2s;
-
 }
 
 
 .filter-toggle:hover{
-
     background:#1d4ed8;
-
     transform:translateY(-1px);
-
 }
 
 
-/* =====================================================
+/* =========================
    PROFILE
-===================================================== */
+========================= */
 
 .profile{
-
     position:relative;
-
 }
 
 
 .profile-head{
-
     display:flex;
-
     align-items:center;
-
     gap:8px;
 
     cursor:pointer;
@@ -218,26 +162,20 @@ body{
     border-radius:10px;
 
     transition:.2s;
-
 }
 
 
 .profile-head:hover{
-
     background:#f1f5f9;
-
 }
 
 
 .profile-head img{
+    width:42px;
+    height:42px;
 
-    width:40px;
-
-    height:40px;
-
-    min-width:40px;
-
-    min-height:40px;
+    min-width:42px;
+    min-height:42px;
 
     border-radius:50%;
 
@@ -246,43 +184,33 @@ body{
     border:2px solid #2563eb;
 
     display:block;
-
 }
 
 
 .profile-head span{
-
     font-size:14px;
-
     font-weight:600;
-
     color:#1e293b;
-
 }
 
 
 .profile-head i{
-
     font-size:12px;
-
     color:#64748b;
-
 }
 
 
-/* =====================================================
+/* =========================
    PROFILE MENU
-===================================================== */
+========================= */
 
 .profile-menu{
-
     position:absolute;
 
     right:0;
+    top:53px;
 
-    top:52px;
-
-    width:180px;
+    width:185px;
 
     background:white;
 
@@ -295,22 +223,18 @@ body{
     display:none;
 
     z-index:5000;
-
 }
 
 
 .profile-menu.show{
-
     display:block;
-
 }
 
 
 .profile-menu button{
-
     width:100%;
 
-    padding:12px 14px;
+    padding:13px 14px;
 
     border:none;
 
@@ -329,21 +253,17 @@ body{
     align-items:center;
 
     gap:10px;
-
 }
 
 
 .profile-menu button:hover{
-
     background:#f1f5f9;
-
     color:#2563eb;
-
 }
 
 
 /* =====================================================
-   FILTER ROW
+   FILTER BAR
    DEFAULT HIDDEN
 ===================================================== */
 
@@ -359,7 +279,7 @@ body{
 
     border-radius:10px;
 
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
 
     display:none;
 
@@ -368,34 +288,30 @@ body{
     gap:8px;
 
     flex-wrap:nowrap;
-
 }
 
+
+/* SHOW FILTER */
 
 .filter-row.show{
-
     display:flex;
-
 }
 
 
-/* =====================================================
+/* =========================
    FILTER GROUP
-===================================================== */
+========================= */
 
 .filter-group{
-
     display:flex;
 
     align-items:center;
 
     gap:5px;
-
 }
 
 
 .filter-group label{
-
     font-size:11px;
 
     font-weight:600;
@@ -403,17 +319,16 @@ body{
     color:#475569;
 
     white-space:nowrap;
-
 }
 
 
-/* =====================================================
+/* =========================
    FILTER INPUT
-===================================================== */
+========================= */
 
 .filter-row input{
 
-    height:31px;
+    height:32px;
 
     padding:5px 8px;
 
@@ -430,7 +345,6 @@ body{
     font-size:12px;
 
     transition:.2s;
-
 }
 
 
@@ -441,46 +355,39 @@ body{
     background:white;
 
     box-shadow:0 0 0 2px rgba(37,99,235,.08);
-
 }
 
 
-/* DATE */
+/* FROM / TO */
 
 .filter-row input[type="date"]{
-
     width:125px;
-
 }
 
 
 /* LAST DAYS */
 
 .filter-row input[type="number"]{
-
     width:65px;
-
 }
 
 
 /* SEARCH */
 
 .filter-row input[type="text"]{
-
     width:150px;
-
 }
 
 
-/* =====================================================
+/* =========================
    FILTER BUTTONS
-===================================================== */
+========================= */
 
 .filter-row button{
 
-    height:31px;
+    height:32px;
 
-    padding:5px 10px;
+    padding:5px 11px;
 
     border:none;
 
@@ -503,49 +410,38 @@ body{
     white-space:nowrap;
 
     transition:.2s;
-
 }
 
 
 /* APPLY */
 
 .filter-btn{
-
     background:#2563eb;
-
     color:white;
-
 }
 
 
 .filter-btn:hover{
-
     background:#1d4ed8;
-
 }
 
 
 /* RESET */
 
 .reset-btn{
-
     background:#64748b;
-
     color:white;
-
 }
 
 
 .reset-btn:hover{
-
     background:#475569;
-
 }
 
 
-/* =====================================================
+/* =========================
    TABLE BOX
-===================================================== */
+========================= */
 
 .table-box{
 
@@ -562,13 +458,12 @@ body{
     box-shadow:0 5px 20px rgba(0,0,0,.08);
 
     overflow-x:auto;
-
 }
 
 
-/* =====================================================
+/* =========================
    TABLE
-===================================================== */
+========================= */
 
 table{
 
@@ -577,16 +472,16 @@ table{
     border-collapse:collapse;
 
     min-width:850px;
-
 }
 
 
+/* =========================
+   TABLE HEADER
+========================= */
+
 thead{
-
-    background:#0f172a;
-
+    background:#2563eb;
     color:white;
-
 }
 
 
@@ -599,9 +494,12 @@ th{
     font-weight:600;
 
     white-space:nowrap;
-
 }
 
+
+/* =========================
+   TABLE BODY
+========================= */
 
 td{
 
@@ -614,27 +512,22 @@ td{
     font-size:13px;
 
     color:#334155;
-
 }
 
 
 tbody tr{
-
     transition:.2s;
-
 }
 
 
 tbody tr:hover{
-
     background:#f8fafc;
-
 }
 
 
-/* =====================================================
-   ACTION BUTTON
-===================================================== */
+/* =========================
+   EDIT BUTTON
+========================= */
 
 .edit-btn{
 
@@ -653,19 +546,16 @@ tbody tr:hover{
     font-size:12px;
 
     font-weight:600;
-
 }
 
 
 .edit-btn:hover{
-
     background:#1d4ed8;
-
 }
 
 
 /* =====================================================
-   MODAL
+   EDIT MODAL
 ===================================================== */
 
 .modal{
@@ -685,20 +575,17 @@ tbody tr:hover{
     padding:20px;
 
     z-index:9000;
-
 }
 
 
 .modal.show{
-
     display:flex;
-
 }
 
 
-/* =====================================================
-   EDIT POPUP
-===================================================== */
+/* =========================
+   POPUP
+========================= */
 
 .popup{
 
@@ -719,7 +606,6 @@ tbody tr:hover{
     border-radius:18px;
 
     box-shadow:0 20px 50px rgba(0,0,0,.30);
-
 }
 
 
@@ -732,13 +618,12 @@ tbody tr:hover{
     margin-bottom:20px;
 
     font-size:21px;
-
 }
 
 
-/* =====================================================
+/* =========================
    CLOSE BUTTON
-===================================================== */
+========================= */
 
 .close-btn{
 
@@ -756,7 +641,7 @@ tbody tr:hover{
 
     border-radius:50%;
 
-    background:#dc2626;
+    background:#2563eb;
 
     color:white;
 
@@ -769,20 +654,17 @@ tbody tr:hover{
     align-items:center;
 
     justify-content:center;
-
 }
 
 
 .close-btn:hover{
-
-    background:#b91c1c;
-
+    background:#1d4ed8;
 }
 
 
-/* =====================================================
+/* =========================
    FORM
-===================================================== */
+========================= */
 
 .popup label{
 
@@ -797,7 +679,6 @@ tbody tr:hover{
     font-size:13px;
 
     font-weight:600;
-
 }
 
 
@@ -817,7 +698,6 @@ tbody tr:hover{
     font-size:13px;
 
     resize:vertical;
-
 }
 
 
@@ -827,13 +707,12 @@ tbody tr:hover{
     border-color:#2563eb;
 
     box-shadow:0 0 0 2px rgba(37,99,235,.08);
-
 }
 
 
-/* =====================================================
+/* =========================
    POPUP BUTTONS
-===================================================== */
+========================= */
 
 .popup-buttons{
 
@@ -842,7 +721,6 @@ tbody tr:hover{
     gap:8px;
 
     margin-top:20px;
-
 }
 
 
@@ -863,61 +741,45 @@ tbody tr:hover{
     font-weight:600;
 
     transition:.2s;
-
 }
 
 
 /* SUBMIT */
 
 .submit-btn{
-
-    background:#16a34a;
-
+    background:#2563eb;
     color:white;
-
 }
 
 
 .submit-btn:hover{
-
-    background:#15803d;
-
+    background:#1d4ed8;
 }
 
 
 /* CANCEL */
 
 .cancel-btn{
-
     background:#64748b;
-
     color:white;
-
 }
 
 
 .cancel-btn:hover{
-
     background:#475569;
-
 }
 
 
 /* DELETE */
 
 .delete-btn{
-
     background:#dc2626;
-
     color:white;
-
 }
 
 
 .delete-btn:hover{
-
     background:#b91c1c;
-
 }
 
 
@@ -940,14 +802,11 @@ tbody tr:hover{
     justify-content:center;
 
     z-index:10000;
-
 }
 
 
 .message-modal.show{
-
     display:flex;
-
 }
 
 
@@ -966,7 +825,6 @@ tbody tr:hover{
     text-align:center;
 
     box-shadow:0 20px 50px rgba(0,0,0,.25);
-
 }
 
 
@@ -986,12 +844,11 @@ tbody tr:hover{
 
     justify-content:center;
 
-    background:#dcfce7;
+    background:#dbeafe;
 
-    color:#16a34a;
+    color:#2563eb;
 
     font-size:30px;
-
 }
 
 
@@ -1000,7 +857,6 @@ tbody tr:hover{
     color:#0f172a;
 
     margin-bottom:7px;
-
 }
 
 
@@ -1009,7 +865,6 @@ tbody tr:hover{
     color:#64748b;
 
     font-size:14px;
-
 }
 
 
@@ -1030,19 +885,16 @@ tbody tr:hover{
     cursor:pointer;
 
     font-weight:600;
-
 }
 
 
 .message-box button:hover{
-
     background:#1d4ed8;
-
 }
 
 
 /* =====================================================
-   CONFIRM MODAL
+   CONFIRM DELETE MODAL
 ===================================================== */
 
 .confirm-modal{
@@ -1060,14 +912,11 @@ tbody tr:hover{
     justify-content:center;
 
     z-index:11000;
-
 }
 
 
 .confirm-modal.show{
-
     display:flex;
-
 }
 
 
@@ -1086,7 +935,6 @@ tbody tr:hover{
     text-align:center;
 
     box-shadow:0 20px 50px rgba(0,0,0,.30);
-
 }
 
 
@@ -1100,9 +948,9 @@ tbody tr:hover{
 
     border-radius:50%;
 
-    background:#fef3c7;
+    background:#fee2e2;
 
-    color:#d97706;
+    color:#dc2626;
 
     display:flex;
 
@@ -1111,7 +959,6 @@ tbody tr:hover{
     justify-content:center;
 
     font-size:28px;
-
 }
 
 
@@ -1120,7 +967,6 @@ tbody tr:hover{
     color:#0f172a;
 
     margin-bottom:8px;
-
 }
 
 
@@ -1131,7 +977,6 @@ tbody tr:hover{
     font-size:13px;
 
     line-height:1.5;
-
 }
 
 
@@ -1142,7 +987,6 @@ tbody tr:hover{
     gap:10px;
 
     margin-top:20px;
-
 }
 
 
@@ -1161,43 +1005,36 @@ tbody tr:hover{
     font-size:13px;
 
     font-weight:600;
-
 }
 
 
-/* CONFIRM DELETE */
+/* DELETE */
 
 .confirm-delete{
 
     background:#dc2626;
 
     color:white;
-
 }
 
 
 .confirm-delete:hover{
-
     background:#b91c1c;
-
 }
 
 
-/* CONFIRM CANCEL */
+/* CANCEL */
 
 .confirm-cancel{
 
     background:#64748b;
 
     color:white;
-
 }
 
 
 .confirm-cancel:hover{
-
     background:#475569;
-
 }
 
 
@@ -1208,9 +1045,7 @@ tbody tr:hover{
 @media(max-width:900px){
 
     .header{
-
         width:94%;
-
     }
 
 
@@ -1224,9 +1059,7 @@ tbody tr:hover{
 
 
     .table-box{
-
         width:94%;
-
     }
 
 }
@@ -1266,9 +1099,11 @@ tbody tr:hover{
 
     .filter-toggle{
 
-        padding:6px 8px;
+        width:32px;
 
-        font-size:11px;
+        height:32px;
+
+        font-size:13px;
 
     }
 
@@ -1292,6 +1127,8 @@ tbody tr:hover{
 
     }
 
+
+    /* FILTER MOBILE */
 
     .filter-row{
 
@@ -1349,12 +1186,16 @@ tbody tr:hover{
     }
 
 
+    /* TABLE */
+
     .table-box{
 
         padding:10px;
 
     }
 
+
+    /* EDIT POPUP */
 
     .popup{
 
