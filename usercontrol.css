@@ -1,1616 +1,986 @@
-/* =========================================================
-   LINK 4 USER CONTROL
-   USERCONTROL.CSS
-   FULL FINAL VERSION
-========================================================= */
+*{
 
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-* {
-
-    margin: 0;
-
-    padding: 0;
-
-    box-sizing: border-box;
-
-    font-family: Arial, sans-serif;
-
-}
-
-
-body {
-
-    background: #4d7094;
-
-    color: #1f2937;
-
-    min-height: 100vh;
-
-}
-
-
-/* =========================================================
-   CONTAINER
-========================================================= */
-
-.container {
-
-    width: 92%;
-
-    max-width: 1400px;
-
-    margin: auto;
-
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header {
-
-    margin-top: 20px;
-
-    background: white;
-
-    padding: 12px 20px;
-
-    border-radius: 15px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, .20);
-
-}
-
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
-
-.back-btn {
-
-    width: 42px;
-
-    height: 42px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #2563eb;
-
-    color: white;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    transition: .2s ease;
-
-}
-
-
-.back-btn:hover {
-
-    background: #1d4ed8;
-
-    transform: translateX(-2px);
-
-}
-
-
-/* =========================================================
-   TITLE
-========================================================= */
-
-.title {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-}
-
-
-.title h2 {
-
-    color: #1e3a8a;
-
-    font-size: 22px;
-
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profile {
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    cursor: pointer;
-
-    user-select: none;
-
-}
-
-
-/* PROFILE IMAGE */
-
-.profile img {
-
-    width: 45px !important;
-
-    height: 45px !important;
-
-    min-width: 45px !important;
-
-    min-height: 45px !important;
-
-    max-width: 45px !important;
-
-    max-height: 45px !important;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    object-position: center;
-
-    border: 3px solid #2563eb;
-
-    display: block;
-
-}
-
-
-/* PROFILE INFO */
-
-.profile-info h4 {
-
-    font-size: 14px;
-
-    color: #111827;
-
-}
-
-
-.profile-info p {
-
-    font-size: 12px;
-
-    color: #16a34a;
-
-}
-
-
-/* =========================================================
-   PROFILE MENU
-========================================================= */
-
-.profile-menu {
-
-    display: none;
-
-    position: absolute;
-
-    right: 0;
-
-    top: 55px;
-
-    width: 170px;
-
-    background: white;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, .25);
-
-    overflow: hidden;
-
-    z-index: 1000;
-
-}
-
-
-.profile-menu div {
-
-    padding: 13px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    cursor: pointer;
-
-    font-size: 14px;
-
-    transition: .2s ease;
-
 }
 
 
-.profile-menu div:hover {
+body{
 
-    background: #eff6ff;
+background:#4d7094;
 
-    color: #2563eb;
+color:#1f2937;
 
 }
-
-
-/* =========================================================
-   USER BOX
-========================================================= */
-
-.user-box {
 
-    margin-top: 25px;
 
-    background: white;
 
-    padding: 20px;
+.container{
 
-    border-radius: 18px;
+width:92%;
 
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, .20);
+margin:auto;
 
 }
 
 
-/* =========================================================
-   TOP AREA
-========================================================= */
 
-.top {
+/* =====================
+HEADER
+===================== */
 
-    display: flex;
 
-    align-items: center;
+header{
 
-    justify-content: space-between;
+margin-top:20px;
 
-    gap: 15px;
+background:white;
 
-    margin-bottom: 20px;
+padding:12px 20px;
 
-}
+border-radius:15px;
 
+display:flex;
 
-.top h3 {
+align-items:center;
 
-    color: #1e3a8a;
+justify-content:space-between;
 
-    font-size: 18px;
+box-shadow:
+0 8px 25px rgba(0,0,0,.20);
 
 }
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search-box {
-
-    display: flex;
 
-    align-items: center;
 
-    gap: 8px;
+.back-btn{
 
-    background: #f3f4f6;
+width:42px;
 
-    padding: 10px 15px;
+height:42px;
 
-    border-radius: 10px;
+border:none;
 
-    transition: .2s ease;
+border-radius:50%;
 
-}
-
+background:#2563eb;
 
-.search-box:focus-within {
+color:white;
 
-    background: #eef2ff;
+font-size:18px;
 
-    box-shadow:
-        0 0 0 2px rgba(37, 99, 235, .15);
+cursor:pointer;
 
 }
 
 
-.search-box i {
+.back-btn:hover{
 
-    color: #475569;
+background:#1d4ed8;
 
-    font-size: 15px;
-
 }
-
-
-.search-box input {
 
-    border: none;
 
-    outline: none;
+.title h2{
 
-    background: none;
+color:#1e3a8a;
 
-    width: 200px;
+font-size:22px;
 
-    font-size: 14px;
-
-    color: #1f2937;
-
-}
-
-
-.search-box input::placeholder {
-
-    color: #94a3b8;
-
 }
-
-
-/* =========================================================
-   ADD USER BUTTON
-========================================================= */
-
-.top button {
 
-    background: #2563eb;
 
-    color: white;
 
-    border: none;
+/* =====================
+PROFILE
+===================== */
 
-    padding: 12px 18px;
 
-    border-radius: 10px;
+.profile{
 
-    cursor: pointer;
+position:relative;
 
-    font-size: 14px;
+display:flex;
 
-    display: inline-flex;
+align-items:center;
 
-    align-items: center;
+gap:10px;
 
-    justify-content: center;
+cursor:pointer;
 
-    gap: 6px;
-
-    transition: .2s ease;
-
 }
-
-
-.top button:hover {
-
-    background: #1d4ed8;
 
-    transform: translateY(-1px);
 
-}
-
+.profile img{
 
-/* =========================================================
-   TABLE AREA
-========================================================= */
+width:45px;
 
-.table-area {
+height:45px;
 
-    width: 100%;
+border-radius:50%;
 
-    overflow-x: auto;
+object-fit:cover;
 
-    border-radius: 10px;
+border:3px solid #2563eb;
 
 }
 
 
-/* =========================================================
-   TABLE
-========================================================= */
+.profile-info h4{
 
-table {
+font-size:14px;
 
-    width: 100%;
+color:#111827;
 
-    border-collapse: collapse;
-
-    table-layout: fixed;
-
 }
-
 
-/* =========================================================
-   TABLE HEADER
-========================================================= */
 
-thead {
+.profile-info p{
 
-    background: #2563eb;
+font-size:12px;
 
-    color: white;
+color:#16a34a;
 
 }
 
 
-th {
 
-    padding: 13px 10px;
+/* PROFILE MENU */
 
-    text-align: center;
 
-    font-size: 15px;
+.profile-menu{
 
-    font-weight: 600;
+display:none;
 
-    white-space: nowrap;
+position:absolute;
 
-}
-
-
-/* =========================================================
-   TABLE ROW
-========================================================= */
-
-#userTable tr {
-
-    height: 62px;
+right:0;
 
-}
-
+top:55px;
 
-#userTable tr:not(:last-child) {
+width:170px;
 
-    border-bottom: 1px solid #ddd;
+background:white;
 
-}
+border-radius:12px;
 
+box-shadow:
+0 10px 30px rgba(0,0,0,.25);
 
-#userTable tr:hover {
+overflow:hidden;
 
-    background: #f8fafc;
+z-index:1000;
 
 }
-
-
-/* =========================================================
-   TABLE CELL
-========================================================= */
 
-#userTable td {
 
-    padding: 8px 10px;
+.profile-menu div{
 
-    text-align: center;
+padding:13px;
 
-    vertical-align: middle;
+display:flex;
 
-    height: 62px;
+align-items:center;
 
-    font-size: 15px;
+gap:10px;
 
-    color: #1f2937;
+cursor:pointer;
 
-    box-sizing: border-box;
+font-size:14px;
 
 }
 
 
-/* =========================================================
-   COLUMN WIDTH
-========================================================= */
+.profile-menu div:hover{
 
-#userTable th:nth-child(1),
-#userTable td:nth-child(1) {
+background:#eff6ff;
 
-    width: 15%;
+color:#2563eb;
 
 }
 
 
-#userTable th:nth-child(2),
-#userTable td:nth-child(2) {
 
-    width: 17%;
+/* =====================
+USER BOX
+===================== */
 
-}
-
-
-#userTable th:nth-child(3),
-#userTable td:nth-child(3) {
-
-    width: 17%;
-
-}
 
+.user-box{
 
-#userTable th:nth-child(4),
-#userTable td:nth-child(4) {
+margin-top:25px;
 
-    width: 15%;
+background:white;
 
-}
+padding:20px;
 
+border-radius:18px;
 
-#userTable th:nth-child(5),
-#userTable td:nth-child(5) {
+box-shadow:
 
-    width: 15%;
+0 8px 25px rgba(0,0,0,.20);
 
 }
 
 
-#userTable th:nth-child(6),
-#userTable td:nth-child(6) {
-
-    width: 21%;
-
-}
 
+.top{
 
-/* =========================================================
-   PICTURE CELL
-========================================================= */
+display:flex;
 
-#userTable .picture-cell {
+align-items:center;
 
-    padding: 6px !important;
+justify-content:space-between;
 
-    text-align: center !important;
+gap:15px;
 
-    vertical-align: middle !important;
+margin-bottom:20px;
 
 }
-
-
-/* =========================================================
-   PICTURE WRAPPER
-========================================================= */
-
-#userTable .user-picture {
-
-    width: 46px !important;
-
-    height: 46px !important;
-
-    min-width: 46px !important;
-
-    min-height: 46px !important;
-
-    max-width: 46px !important;
-
-    max-height: 46px !important;
-
-    margin: 0 auto !important;
 
-    padding: 0 !important;
 
-    display: flex !important;
+.top h3{
 
-    align-items: center !important;
+color:#1e3a8a;
 
-    justify-content: center !important;
+font-size:18px;
 
-    overflow: hidden !important;
-
-    border-radius: 50% !important;
-
 }
-
-
-/* =========================================================
-   PROFILE IMAGE
-========================================================= */
-
-#userTable img.user-avatar {
 
-    width: 46px !important;
 
-    height: 46px !important;
 
-    min-width: 46px !important;
+/* SEARCH */
 
-    min-height: 46px !important;
 
-    max-width: 46px !important;
+.search-box{
 
-    max-height: 46px !important;
+display:flex;
 
-    display: block !important;
+align-items:center;
 
-    object-fit: cover !important;
+gap:8px;
 
-    object-position: center !important;
+background:#f3f4f6;
 
-    border-radius: 50% !important;
+padding:10px 15px;
 
-    border: 2px solid #e2e8f0 !important;
+border-radius:10px;
 
-    margin: 0 !important;
-
-    padding: 0 !important;
-
 }
-
-
-/* =========================================================
-   OLD PICTURE CLASS SUPPORT
-========================================================= */
-
-#userTable img.user-photo {
 
-    width: 46px !important;
 
-    height: 46px !important;
+.search-box input{
 
-    min-width: 46px !important;
+border:none;
 
-    min-height: 46px !important;
+outline:none;
 
-    max-width: 46px !important;
+background:none;
 
-    max-height: 46px !important;
+width:200px;
 
-    display: block !important;
-
-    object-fit: cover !important;
-
-    object-position: center !important;
-
-    border-radius: 50% !important;
-
-    border: 2px solid #e2e8f0 !important;
-
-    margin: 0 auto !important;
-
-    padding: 0 !important;
-
 }
-
-
-/* =========================================================
-   DEFAULT PROFILE ICON
-========================================================= */
-
-#userTable .user-avatar-fallback {
 
-    width: 46px !important;
 
-    height: 46px !important;
 
-    min-width: 46px !important;
+/* BUTTON */
 
-    min-height: 46px !important;
 
-    max-width: 46px !important;
+.top button{
 
-    max-height: 46px !important;
+background:#2563eb;
 
-    display: flex !important;
+color:white;
 
-    align-items: center !important;
+border:none;
 
-    justify-content: center !important;
+padding:12px 18px;
 
-    margin: 0 auto !important;
+border-radius:10px;
 
-    padding: 0 !important;
+cursor:pointer;
 
-    border-radius: 50% !important;
+font-size:14px;
 
-    background: #e5e7eb !important;
-
-    color: #64748b !important;
-
-    overflow: hidden !important;
-
-    font-size: 18px !important;
-
-}
-
-
-/* =========================================================
-   USERNAME / NAME / ROLE
-========================================================= */
-
-#userTable .username-cell,
-#userTable .name-cell,
-#userTable .role-cell {
-
-    font-weight: 500;
-
 }
 
 
-/* =========================================================
-   STATUS
-========================================================= */
+.top button:hover{
 
-#userTable .status-cell {
+background:#1d4ed8;
 
-    text-align: center !important;
-
 }
-
-
-/* COMMON STATUS */
-
-#userTable .user-status {
-
-    display: inline-flex !important;
 
-    align-items: center !important;
 
-    justify-content: center !important;
 
-    min-width: 65px !important;
+/* =====================
+TABLE
+===================== */
 
-    height: 30px !important;
 
-    padding: 4px 10px !important;
+.table-area{
 
-    border-radius: 7px !important;
+overflow-x:auto;
 
-    font-size: 13px !important;
-
-    font-weight: 600 !important;
-
-    box-sizing: border-box !important;
-
 }
-
-
-/* ACTIVE */
 
-#userTable .status-active {
 
-    background: #ecfdf5 !important;
+table{
 
-    color: #059669 !important;
+width:100%;
 
-    border: 1px solid #bbf7d0 !important;
+border-collapse:collapse;
 
 }
 
 
-/* BLOCK */
+thead{
 
-#userTable .status-block {
+background:#2563eb;
 
-    background: #fef2f2 !important;
+color:white;
 
-    color: #dc2626 !important;
-
-    border: 1px solid #fecaca !important;
-
 }
-
-
-/* INACTIVE */
-
-#userTable .status-inactive {
 
-    background: #f1f5f9 !important;
 
-    color: #64748b !important;
+th{
 
-    border: 1px solid #e2e8f0 !important;
+padding:13px;
 
 }
 
 
-/* =========================================================
-   ACTION CELL
-========================================================= */
+td{
 
-#userTable .action-cell {
+padding:12px;
 
-    text-align: center !important;
+text-align:center;
 
-    vertical-align: middle !important;
+border-bottom:1px solid #ddd;
 
-    white-space: nowrap !important;
-
 }
-
-
-/* =========================================================
-   ACTION BUTTON WRAPPER
-========================================================= */
-
-#userTable .action-buttons {
-
-    width: 100% !important;
 
-    display: flex !important;
 
-    flex-direction: row !important;
+tr:hover{
 
-    align-items: center !important;
+background:#f8fafc;
 
-    justify-content: center !important;
-
-    gap: 8px !important;
-
-    white-space: nowrap !important;
-
 }
-
-
-/* =========================================================
-   EDIT BUTTON
-========================================================= */
-
-#userTable .edit-btn {
-
-    width: auto !important;
-
-    min-width: 68px !important;
-
-    height: 32px !important;
-
-    margin: 0 !important;
 
-    padding: 6px 12px !important;
 
-    border: none !important;
+.user-photo{
 
-    border-radius: 7px !important;
+width:45px;
 
-    background: #2563eb !important;
+height:45px;
 
-    color: white !important;
+border-radius:50%;
 
-    display: inline-flex !important;
+object-fit:cover;
 
-    align-items: center !important;
-
-    justify-content: center !important;
-
-    gap: 5px !important;
-
-    font-size: 13px !important;
-
-    font-weight: 600 !important;
-
-    line-height: 1 !important;
-
-    cursor: pointer !important;
-
-    transition: .2s ease !important;
-
-    box-sizing: border-box !important;
-
-}
-
-
-#userTable .edit-btn:hover {
-
-    background: #1d4ed8 !important;
-
-    transform: translateY(-1px);
-
 }
-
-
-/* =========================================================
-   DELETE BUTTON
-========================================================= */
-
-#userTable .delete-btn {
-
-    width: auto !important;
-
-    min-width: 76px !important;
 
-    height: 32px !important;
 
-    margin: 0 !important;
 
-    padding: 6px 12px !important;
+/* ACTION BUTTONS */
 
-    border: none !important;
 
-    border-radius: 7px !important;
+td button{
 
-    background: #dc2626 !important;
+border:none;
 
-    color: white !important;
+padding:8px 14px;
 
-    display: inline-flex !important;
+border-radius:8px;
 
-    align-items: center !important;
+color:white;
 
-    justify-content: center !important;
+cursor:pointer;
 
-    gap: 5px !important;
+margin:2px;
 
-    font-size: 13px !important;
-
-    font-weight: 600 !important;
-
-    line-height: 1 !important;
-
-    cursor: pointer !important;
-
-    transition: .2s ease !important;
-
-    box-sizing: border-box !important;
-
-}
-
-
-#userTable .delete-btn:hover {
-
-    background: #b91c1c !important;
-
-    transform: translateY(-1px);
-
 }
 
 
-/* =========================================================
-   OLD BUTTON SUPPORT
-========================================================= */
+td button:first-child{
 
-#userTable td button {
+background:#16a34a;
 
-    margin: 0 !important;
-
 }
-
-
-/* =========================================================
-   NO USER
-========================================================= */
 
-#userTable .no-user {
 
-    padding: 40px !important;
+td button:last-child{
 
-    text-align: center !important;
+background:#dc2626;
 
-    color: #64748b !important;
-
-    font-size: 16px !important;
-
 }
 
 
-#userTable .no-user i {
+td button:hover{
 
-    margin-right: 8px;
+opacity:.85;
 
 }
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal {
 
-    display: none;
 
-    position: fixed;
 
-    top: 0;
+/* =====================
+MODAL
+===================== */
 
-    left: 0;
 
-    width: 100%;
+.modal{
 
-    height: 100%;
+display:none;
 
-    background: rgba(0, 0, 0, .45);
+position:fixed;
 
-    align-items: center;
+top:0;
 
-    justify-content: center;
+left:0;
 
-    z-index: 5000;
+width:100%;
 
-    padding: 20px;
+height:100%;
 
-}
-
-
-/* =========================================================
-   MODAL BOX
-========================================================= */
-
-.modal-box {
-
-    position: relative;
+background:rgba(0,0,0,.45);
 
-    background: white;
+align-items:center;
 
-    width: 380px;
+justify-content:center;
 
-    max-width: 100%;
+z-index:5000;
 
-    padding: 30px;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, .30);
-
-    animation: modalOpen .2s ease;
-
 }
-
 
-@keyframes modalOpen {
 
-    from {
+.modal-box{
 
-        opacity: 0;
+position:relative;
 
-        transform: scale(.95);
+background:white;
 
-    }
+width:380px;
 
-    to {
+padding:30px;
 
-        opacity: 1;
+border-radius:20px;
 
-        transform: scale(1);
+box-shadow:
 
-    }
+0 15px 40px rgba(0,0,0,.3);
 
 }
 
 
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
+.close-modal{
 
-.close-modal {
+position:absolute;
 
-    position: absolute;
+right:15px;
 
-    right: 15px;
+top:15px;
 
-    top: 15px;
+width:35px;
 
-    width: 35px;
+height:35px;
 
-    height: 35px;
+border:none;
 
-    border: none;
+border-radius:50%;
 
-    border-radius: 50%;
+background:#dc2626;
 
-    background: #dc2626;
+color:white;
 
-    color: white;
+cursor:pointer;
 
-    cursor: pointer;
+font-size:18px;
 
-    font-size: 18px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-}
-
-
-.close-modal:hover {
-
-    background: #b91c1c;
-
 }
 
 
-/* =========================================================
-   MODAL TITLE
-========================================================= */
+.modal-box h2{
 
-.modal-box h2 {
+text-align:center;
 
-    text-align: center;
+color:#1e3a8a;
 
-    color: #1e3a8a;
+margin-bottom:20px;
 
-    margin-bottom: 20px;
-
 }
-
 
-/* =========================================================
-   MODAL INPUT
-========================================================= */
 
 .modal-box input,
-.modal-box select {
+.modal-box select{
 
-    width: 100%;
+width:100%;
 
-    padding: 12px;
+padding:12px;
 
-    margin-bottom: 12px;
+margin-bottom:12px;
 
-    border: 1px solid #ddd;
+border:1px solid #ddd;
 
-    border-radius: 10px;
+border-radius:10px;
 
-    outline: none;
-
-    background: white;
-
-    color: #1f2937;
-
-    font-size: 14px;
+outline:none;
 
 }
 
 
-.modal-box input:focus,
-.modal-box select:focus {
+.form-buttons{
 
-    border-color: #2563eb;
+display:flex;
 
-    box-shadow:
-        0 0 0 2px rgba(37, 99, 235, .10);
+gap:10px;
 
 }
 
 
-/* =========================================================
-   PICTURE FILE INPUT
-========================================================= */
+.form-buttons button{
 
-#pictureFile {
+flex:1;
 
-    cursor: pointer;
+padding:12px;
 
-    padding: 10px !important;
+border:none;
 
-}
+border-radius:10px;
 
+background:#2563eb;
 
-/* =========================================================
-   PICTURE PREVIEW
-========================================================= */
+color:white;
 
-#picturePreview {
-
-    width: 100%;
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin-bottom: 15px;
+cursor:pointer;
 
 }
 
 
-#picturePreviewImg {
+.form-buttons button:last-child{
 
-    width: 90px !important;
-
-    height: 90px !important;
-
-    min-width: 90px !important;
-
-    min-height: 90px !important;
-
-    max-width: 90px !important;
-
-    max-height: 90px !important;
-
-    object-fit: cover !important;
-
-    object-position: center !important;
-
-    border-radius: 50% !important;
-
-    border: 3px solid #2563eb !important;
+background:#6b7280;
 
 }
 
 
-/* =========================================================
-   FORM BUTTONS
-========================================================= */
 
-.form-buttons {
-
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 5px;
-
-}
+/* =====================
+POPUP
+===================== */
 
 
-.form-buttons button {
+.popup{
 
-    flex: 1;
+display:none;
 
-    padding: 12px;
+position:fixed;
 
-    border: none;
+top:0;
 
-    border-radius: 10px;
+left:0;
 
-    background: #2563eb;
+width:100%;
 
-    color: white;
+height:100%;
 
-    cursor: pointer;
+background:rgba(0,0,0,.35);
 
-    font-size: 14px;
+align-items:center;
 
-    font-weight: 600;
+justify-content:center;
+
+z-index:9000;
 
 }
 
 
-.form-buttons button:hover {
+.popup-content{
 
-    background: #1d4ed8;
+width:320px;
 
-}
+background:white;
 
+padding:30px;
 
-.form-buttons button:last-child {
+border-radius:20px;
 
-    background: #6b7280;
+text-align:center;
 
-}
+box-shadow:
 
-
-.form-buttons button:last-child:hover {
-
-    background: #4b5563;
+0 15px 40px rgba(0,0,0,.3);
 
 }
 
 
-/* =========================================================
-   LOADING BOX
-========================================================= */
+.popup-content i{
 
-#loadingBox {
+font-size:50px;
 
-    display: none;
+color:#16a34a;
 
-    position: fixed;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    background: rgba(0, 0, 0, .35);
-
-    align-items: center;
-
-    justify-content: center;
-
-    z-index: 8000;
+margin-bottom:15px;
 
 }
 
 
-.loading-content {
+.popup-content button{
 
-    background: white;
+margin-top:15px;
 
-    padding: 25px 35px;
+padding:10px 35px;
 
-    border-radius: 15px;
+border:none;
 
-    text-align: center;
+border-radius:10px;
 
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, .25);
+background:#2563eb;
 
-}
+color:white;
 
-
-.loading-content i {
-
-    font-size: 30px;
-
-    color: #2563eb;
-
-    margin-bottom: 12px;
+cursor:pointer;
 
 }
 
 
-#loadingText {
 
-    color: #334155;
-
-    font-size: 14px;
-
-}
+/* =====================================================
+CUSTOM DELETE CONFIRMATION POPUP
+===================================================== */
 
 
-/* =========================================================
-   POPUP
-========================================================= */
+.delete-confirm-modal{
 
-.popup {
+display:none;
 
-    display: none;
+position:fixed;
 
-    position: fixed;
+top:0;
 
-    top: 0;
+left:0;
 
-    left: 0;
+width:100%;
 
-    width: 100%;
+height:100%;
 
-    height: 100%;
+background:rgba(0,0,0,.45);
 
-    background: rgba(0, 0, 0, .35);
+align-items:center;
 
-    align-items: center;
+justify-content:center;
 
-    justify-content: center;
-
-    z-index: 9000;
-
-    padding: 20px;
+z-index:10000;
 
 }
 
 
-/* =========================================================
-   POPUP CONTENT
-========================================================= */
+.delete-confirm-box{
 
-.popup-content {
+position:relative;
 
-    width: 320px;
+width:360px;
 
-    max-width: 100%;
+max-width:90%;
 
-    background: white;
+background:white;
 
-    padding: 30px;
+padding:30px;
 
-    border-radius: 20px;
+border-radius:20px;
 
-    text-align: center;
+text-align:center;
 
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, .30);
+box-shadow:
+0 20px 50px rgba(0,0,0,.30);
 
-}
-
-
-.popup-content i {
-
-    font-size: 50px;
-
-    color: #16a34a;
-
-    margin-bottom: 15px;
+animation:
+deletePopupIn .2s ease;
 
 }
 
 
-.popup-content h3 {
+@keyframes deletePopupIn{
 
-    color: #1f2937;
+from{
 
-    margin-bottom: 8px;
+opacity:0;
+
+transform:scale(.90);
+
+}
+
+to{
+
+opacity:1;
+
+transform:scale(1);
+
+}
 
 }
 
 
-.popup-content p {
 
-    color: #64748b;
-
-    font-size: 14px;
-
-    line-height: 1.5;
-
-}
+/* DELETE ICON */
 
 
-.popup-content button {
+.delete-confirm-icon{
 
-    margin-top: 15px;
+width:65px;
 
-    padding: 10px 35px;
+height:65px;
 
-    border: none;
+margin:0 auto 15px;
 
-    border-radius: 10px;
+border-radius:50%;
 
-    background: #2563eb;
+background:#fee2e2;
 
-    color: white;
+display:flex;
 
-    cursor: pointer;
+align-items:center;
+
+justify-content:center;
 
 }
 
 
-.popup-content button:hover {
+.delete-confirm-icon i{
 
-    background: #1d4ed8;
+font-size:28px;
+
+color:#dc2626;
 
 }
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
 
-@media (max-width: 700px) {
+/* DELETE TITLE */
 
 
-    .container {
+.delete-confirm-box h2{
 
-        width: 95%;
+margin:0 0 8px;
 
-    }
+font-size:21px;
 
+color:#1f2937;
 
-    header {
+}
 
-        padding: 12px;
 
-    }
 
+/* DELETE MESSAGE */
 
-    .title h2 {
 
-        font-size: 18px;
+.delete-confirm-box p{
 
-    }
+margin:0 0 22px;
 
+color:#6b7280;
 
-    .profile-info {
+font-size:14px;
 
-        display: none;
+line-height:1.5;
 
-    }
+}
 
 
-    .top {
 
-        flex-direction: column;
+/* DELETE BUTTON AREA */
 
-        align-items: stretch;
 
-    }
+.delete-confirm-buttons{
 
+display:flex;
 
-    .search-box {
+gap:10px;
 
-        width: 100%;
+}
 
-    }
 
 
-    .search-box input {
+/* DELETE BUTTONS */
 
-        width: 100%;
 
-    }
+.delete-confirm-buttons button{
 
+flex:1;
 
-    .top button {
+border:none;
 
-        width: 100%;
+padding:12px;
 
-    }
+border-radius:10px;
 
+cursor:pointer;
 
-    .table-area {
+font-size:14px;
 
-        overflow-x: auto;
+font-weight:600;
 
-    }
+transition:.2s ease;
 
+}
 
-    #userTable {
 
-        min-width: 850px;
 
-    }
+/* CANCEL */
 
 
-    #userTable .action-buttons {
+#deleteCancelBtn{
 
-        gap: 6px !important;
+background:#e5e7eb;
 
-    }
+color:#374151;
 
+}
 
-    #userTable .edit-btn {
 
-        min-width: 65px !important;
+#deleteCancelBtn:hover{
 
-        padding: 6px 9px !important;
+background:#d1d5db;
 
-    }
+}
 
 
-    #userTable .delete-btn {
 
-        min-width: 73px !important;
+/* DELETE */
 
-        padding: 6px 9px !important;
 
-    }
+#deleteConfirmBtn{
 
+background:#dc2626;
 
-    .modal {
+color:white;
 
-        padding: 15px;
+}
 
-    }
 
+#deleteConfirmBtn:hover{
 
-    .modal-box {
+background:#b91c1c;
 
-        width: 90%;
+}
 
-        padding: 25px;
 
-    }
+#deleteConfirmBtn i{
 
+margin-right:6px;
 
-    .popup-content {
+}
 
-        width: 90%;
 
-    }
+
+/* =====================
+PICTURE PREVIEW
+===================== */
+
+
+.picture-preview{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+margin-bottom:12px;
+
+}
+
+
+.picture-preview img{
+
+width:60px;
+
+height:60px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:3px solid #2563eb;
+
+}
+
+
+
+/* =====================
+MOBILE
+===================== */
+
+
+@media(max-width:700px){
+
+
+.container{
+
+width:95%;
+
+}
+
+
+header{
+
+padding:12px;
+
+}
+
+
+.profile-info{
+
+display:none;
+
+}
+
+
+.top{
+
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+
+.search-box input{
+
+width:100%;
+
+}
+
+
+.top button{
+
+width:100%;
+
+}
+
+
+.modal-box{
+
+width:90%;
+
+}
+
+
+.delete-confirm-box{
+
+width:90%;
+
+padding:25px 20px;
+
+}
+
+
+.delete-confirm-buttons{
+
+gap:8px;
+
+}
 
 }
