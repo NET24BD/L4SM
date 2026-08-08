@@ -6,7 +6,7 @@
 
 
 /* =========================================================
-   API URL
+   API
 ========================================================= */
 
 const API_URL =
@@ -51,23 +51,26 @@ if (
    PAGE LOAD
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    loadProfile();
+        loadProfile();
 
-    setupProfileMenu();
+        setupProfileMenu();
 
-    setupNavigation();
+        setupNavigation();
 
-    setupSearch();
+        setupSearch();
 
-    setupUserButtons();
+        setupUserButtons();
 
-    setupModal();
+        setupModal();
 
-    loadUsers();
+        loadUsers();
 
-});
+    }
+);
 
 
 /* =========================================================
@@ -92,7 +95,8 @@ function loadProfile() {
 
     if (userName) {
 
-        userName.textContent = name;
+        userName.textContent =
+            name;
 
     }
 
@@ -101,14 +105,8 @@ function loadProfile() {
 
         if (picture.trim() !== "") {
 
-            profileImg.src = picture;
-
-            profileImg.onerror = function () {
-
-                this.src =
-                    "https://via.placeholder.com/100?text=User";
-
-            };
+            profileImg.src =
+                picture;
 
         }
         else {
@@ -117,6 +115,15 @@ function loadProfile() {
                 "https://via.placeholder.com/100?text=User";
 
         }
+
+
+        profileImg.onerror =
+            function () {
+
+                this.src =
+                    "https://via.placeholder.com/100?text=User";
+
+            };
 
     }
 
@@ -130,52 +137,72 @@ function loadProfile() {
 function setupProfileMenu() {
 
     const profileBtn =
-        document.getElementById("profileBtn");
+        document.getElementById(
+            "profileBtn"
+        );
 
     const profileMenu =
-        document.getElementById("profileMenu");
+        document.getElementById(
+            "profileMenu"
+        );
 
 
-    if (!profileBtn || !profileMenu) {
+    if (
+        !profileBtn ||
+        !profileMenu
+    ) {
 
         return;
 
     }
 
 
-    profileBtn.addEventListener("click", function (e) {
+    profileBtn.addEventListener(
+        "click",
+        function (e) {
 
-        e.stopPropagation();
+            e.stopPropagation();
 
 
-        if (
-            profileMenu.style.display === "block"
-        ) {
+            if (
+                profileMenu.style.display ===
+                "block"
+            ) {
 
-            profileMenu.style.display = "none";
+                profileMenu.style.display =
+                    "none";
+
+            }
+            else {
+
+                profileMenu.style.display =
+                    "block";
+
+            }
 
         }
-        else {
+    );
 
-            profileMenu.style.display = "block";
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            profileMenu.style.display =
+                "none";
 
         }
-
-    });
-
-
-    document.addEventListener("click", function () {
-
-        profileMenu.style.display = "none";
-
-    });
+    );
 
 
-    profileMenu.addEventListener("click", function (e) {
+    profileMenu.addEventListener(
+        "click",
+        function (e) {
 
-        e.stopPropagation();
+            e.stopPropagation();
 
-    });
+        }
+    );
 
 }
 
@@ -192,17 +219,22 @@ function setupNavigation() {
     ========================= */
 
     const backBtn =
-        document.getElementById("backBtn");
+        document.getElementById(
+            "backBtn"
+        );
 
 
     if (backBtn) {
 
-        backBtn.addEventListener("click", function () {
+        backBtn.addEventListener(
+            "click",
+            function () {
 
-            window.location.href =
-                "dashboard.html";
+                window.location.href =
+                    "dashboard.html";
 
-        });
+            }
+        );
 
     }
 
@@ -212,17 +244,22 @@ function setupNavigation() {
     ========================= */
 
     const accountBtn =
-        document.getElementById("accountBtn");
+        document.getElementById(
+            "accountBtn"
+        );
 
 
     if (accountBtn) {
 
-        accountBtn.addEventListener("click", function () {
+        accountBtn.addEventListener(
+            "click",
+            function () {
 
-            window.location.href =
-                "my-account.html";
+                window.location.href =
+                    "my-account.html";
 
-        });
+            }
+        );
 
     }
 
@@ -232,16 +269,17 @@ function setupNavigation() {
     ========================= */
 
     const logoutBtn =
-        document.getElementById("logoutBtn");
+        document.getElementById(
+            "logoutBtn"
+        );
 
 
     if (logoutBtn) {
 
-        logoutBtn.addEventListener("click", function () {
-
-            logoutUser();
-
-        });
+        logoutBtn.addEventListener(
+            "click",
+            logoutUser
+        );
 
     }
 
@@ -266,7 +304,7 @@ function logoutUser() {
 
 
 /* =========================================================
-   BACK BUTTON PROTECTION
+   PAGE SHOW LOGIN PROTECTION
 ========================================================= */
 
 window.addEventListener(
@@ -274,15 +312,20 @@ window.addEventListener(
     function () {
 
         const login =
-            localStorage.getItem("isLogin");
+            localStorage.getItem(
+                "isLogin"
+            );
 
         const currentRole =
-            localStorage.getItem("role");
+            localStorage.getItem(
+                "role"
+            );
 
 
         if (
             login !== "true" ||
-            String(currentRole).toLowerCase() !== "admin"
+            String(currentRole).toLowerCase() !==
+            "admin"
         ) {
 
             window.location.replace(
@@ -302,7 +345,9 @@ window.addEventListener(
 function setupSearch() {
 
     const searchInput =
-        document.getElementById("searchUser");
+        document.getElementById(
+            "searchUser"
+        );
 
 
     if (!searchInput) {
@@ -332,38 +377,61 @@ function setupSearch() {
 
 
             const result =
-                users.filter(function (user) {
+                users.filter(
+                    function (user) {
 
-                    const username =
-                        String(user.username || "")
-                            .toLowerCase();
-
-                    const name =
-                        String(user.name || "")
-                            .toLowerCase();
-
-                    const role =
-                        String(user.role || "")
-                            .toLowerCase();
-
-                    const status =
-                        String(user.status || "")
-                            .toLowerCase();
+                        const username =
+                            String(
+                                user.username || ""
+                            ).toLowerCase();
 
 
-                    return (
+                        const name =
+                            String(
+                                user.name || ""
+                            ).toLowerCase();
 
-                        username.includes(value) ||
 
-                        name.includes(value) ||
+                        const userRole =
+                            String(
+                                user.role || ""
+                            ).toLowerCase();
 
-                        role.includes(value) ||
 
-                        status.includes(value)
+                        const status =
+                            String(
+                                user.status || ""
+                            ).toLowerCase();
 
-                    );
 
-                });
+                        return (
+
+                            username.includes(
+                                value
+                            )
+
+                            ||
+
+                            name.includes(
+                                value
+                            )
+
+                            ||
+
+                            userRole.includes(
+                                value
+                            )
+
+                            ||
+
+                            status.includes(
+                                value
+                            )
+
+                        );
+
+                    }
+                );
 
 
             showUsers(result);
@@ -381,7 +449,9 @@ function setupSearch() {
 function setupUserButtons() {
 
     const addUserBtn =
-        document.getElementById("addUserBtn");
+        document.getElementById(
+            "addUserBtn"
+        );
 
 
     if (!addUserBtn) {
@@ -403,7 +473,9 @@ function setupUserButtons() {
 
 
             const title =
-                document.getElementById("formTitle");
+                document.getElementById(
+                    "formTitle"
+                );
 
 
             if (title) {
@@ -423,25 +495,30 @@ function setupUserButtons() {
 
 
 /* =========================================================
-   MODAL SETUP
+   MODAL
 ========================================================= */
 
 function setupModal() {
 
     const closeBtn =
-        document.getElementById("closeModal");
-
+        document.getElementById(
+            "closeModal"
+        );
 
     const cancelBtn =
-        document.getElementById("cancelUser");
-
+        document.getElementById(
+            "cancelUser"
+        );
 
     const saveBtn =
-        document.getElementById("saveUser");
-
+        document.getElementById(
+            "saveUser"
+        );
 
     const modal =
-        document.getElementById("userModal");
+        document.getElementById(
+            "userModal"
+        );
 
 
     if (closeBtn) {
@@ -480,7 +557,9 @@ function setupModal() {
             "click",
             function (e) {
 
-                if (e.target === modal) {
+                if (
+                    e.target === modal
+                ) {
 
                     closeModal();
 
@@ -496,7 +575,9 @@ function setupModal() {
         "keydown",
         function (e) {
 
-            if (e.key === "Escape") {
+            if (
+                e.key === "Escape"
+            ) {
 
                 closeModal();
 
@@ -517,12 +598,15 @@ function setupModal() {
 function openModal() {
 
     const modal =
-        document.getElementById("userModal");
+        document.getElementById(
+            "userModal"
+        );
 
 
     if (modal) {
 
-        modal.style.display = "flex";
+        modal.style.display =
+            "flex";
 
     }
 
@@ -536,12 +620,15 @@ function openModal() {
 function closeModal() {
 
     const modal =
-        document.getElementById("userModal");
+        document.getElementById(
+            "userModal"
+        );
 
 
     if (modal) {
 
-        modal.style.display = "none";
+        modal.style.display =
+            "none";
 
     }
 
@@ -560,93 +647,100 @@ function loadUsers() {
 
 
     fetch(
-        API_URL + "?action=users",
+        API_URL +
+        "?action=users&t=" +
+        Date.now(),
         {
             method: "GET",
-            cache: "no-cache"
+            cache: "no-store"
         }
     )
 
+    .then(
+        function (response) {
 
-    .then(function (response) {
+            if (!response.ok) {
 
-        if (!response.ok) {
+                throw new Error(
+                    "HTTP Error " +
+                    response.status
+                );
+
+            }
+
+
+            return response.json();
+
+        }
+    )
+
+    .then(
+        function (data) {
+
+            hideLoading();
+
+
+            if (
+                Array.isArray(data)
+            ) {
+
+                users = data;
+
+                showUsers(users);
+
+                return;
+
+            }
+
+
+            if (
+                data &&
+                data.success === false
+            ) {
+
+                users = [];
+
+                showUsers([]);
+
+                showPopup(
+                    "Error",
+                    data.message ||
+                    "User Load Failed",
+                    "error"
+                );
+
+                return;
+
+            }
+
 
             throw new Error(
-                "HTTP Error " +
-                response.status
+                "Invalid API Response"
             );
 
         }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "User Load Error:",
+                error
+            );
 
 
-        return response.json();
+            hideLoading();
 
-    })
-
-
-    .then(function (data) {
-
-        hideLoading();
-
-
-        if (Array.isArray(data)) {
-
-            users = data;
-
-            showUsers(users);
-
-            return;
-
-        }
-
-
-        if (
-            data &&
-            data.success === false
-        ) {
-
-            users = [];
-
-            showUsers([]);
 
             showPopup(
                 "Error",
-                data.message ||
                 "User Load Failed",
                 "error"
             );
 
-            return;
-
         }
-
-
-        throw new Error(
-            "Invalid API Response"
-        );
-
-    })
-
-
-    .catch(function (error) {
-
-        console.error(
-            "User Load Error:",
-            error
-        );
-
-
-        hideLoading();
-
-
-        showPopup(
-            "Error",
-            "User Load Failed",
-            "error"
-        );
-
-    });
+    );
 
 }
 
@@ -658,7 +752,9 @@ function loadUsers() {
 function showUsers(data) {
 
     const table =
-        document.getElementById("userTable");
+        document.getElementById(
+            "userTable"
+        );
 
 
     if (!table) {
@@ -685,7 +781,9 @@ function showUsers(data) {
                     class="no-user"
                 >
 
-                    <i class="fa-solid fa-users-slash"></i>
+                    <i
+                        class="fa-solid fa-users-slash"
+                    ></i>
 
                     No User Found
 
@@ -700,236 +798,223 @@ function showUsers(data) {
     }
 
 
-    data.forEach(function (user) {
+    data.forEach(
+        function (user) {
+
+            const username =
+                String(
+                    user.username || ""
+                );
 
 
-        const username =
-            String(
-                user.username || ""
-            );
+            const password =
+                String(
+                    user.password || ""
+                );
 
 
-        const password =
-            String(
-                user.password || ""
-            );
+            const name =
+                String(
+                    user.name || ""
+                );
 
 
-        const name =
-            String(
-                user.name || ""
-            );
+            const userRole =
+                String(
+                    user.role || ""
+                );
 
 
-        const role =
-            String(
-                user.role || ""
-            );
+            const status =
+                String(
+                    user.status || ""
+                );
 
 
-        const status =
-            String(
-                user.status || ""
-            );
+            const picture =
+                String(
+                    user.picture || ""
+                );
 
 
-        const picture =
-            String(
-                user.picture || ""
-            );
+            /* =========================
+               STATUS CLASS
+            ========================= */
+
+            let statusClass =
+                "status-inactive";
 
 
-        /* =========================
-           STATUS
-        ========================= */
-
-        let statusClass =
-            "status-inactive";
+            const statusLower =
+                status
+                    .trim()
+                    .toLowerCase();
 
 
-        const statusLower =
-            status
-                .trim()
-                .toLowerCase();
+            if (
+                statusLower ===
+                "active"
+            ) {
+
+                statusClass =
+                    "status-active";
+
+            }
+            else if (
+                statusLower === "block" ||
+                statusLower === "blocked"
+            ) {
+
+                statusClass =
+                    "status-block";
+
+            }
 
 
-        if (
-            statusLower === "active"
-        ) {
+            /* =========================
+               USER PICTURE
+            ========================= */
 
-            statusClass =
-                "status-active";
-
-        }
-        else if (
-            statusLower === "block" ||
-            statusLower === "blocked"
-        ) {
-
-            statusClass =
-                "status-block";
-
-        }
+            let pictureHTML = "";
 
 
-        /* =========================
-           PICTURE
-        ========================= */
+            if (
+                picture.trim() !== ""
+            ) {
 
-        let pictureHTML = "";
+                pictureHTML = `
+
+                    <div class="user-picture">
+
+                        <img
+                            src="${escapeHTML(picture)}"
+                            class="user-avatar"
+                            alt="${escapeHTML(name)}"
+                            onerror="imageError(this)"
+                        >
+
+                    </div>
+
+                `;
+
+            }
+            else {
+
+                pictureHTML =
+                    createFallbackImage();
+
+            }
 
 
-        if (
-            picture.trim() !== ""
-        ) {
+            /* =========================
+               ORIGINAL INDEX
+            ========================= */
 
-            pictureHTML = `
+            const index =
+                users.indexOf(user);
 
-                <div class="user-picture">
 
-                    <img
+            /* =========================
+               TABLE ROW
+            ========================= */
 
-                        src="${escapeHTML(picture)}"
+            table.innerHTML += `
 
-                        class="user-avatar"
+                <tr>
 
-                        alt="${escapeHTML(name)}"
 
-                        onerror="imageError(this)"
+                    <td class="picture-cell">
 
-                    >
+                        ${pictureHTML}
 
-                </div>
+                    </td>
+
+
+                    <td class="username-cell">
+
+                        ${escapeHTML(username)}
+
+                    </td>
+
+
+                    <td class="name-cell">
+
+                        ${escapeHTML(name)}
+
+                    </td>
+
+
+                    <td class="role-cell">
+
+                        ${escapeHTML(userRole)}
+
+                    </td>
+
+
+                    <td class="status-cell">
+
+                        <span
+                            class="user-status
+                            ${statusClass}"
+                        >
+
+                            ${escapeHTML(status)}
+
+                        </span>
+
+                    </td>
+
+
+                    <td class="action-cell">
+
+                        <div class="action-buttons">
+
+
+                            <button
+                                type="button"
+                                class="edit-btn"
+                                onclick="
+                                    editUserByIndex(${index})
+                                "
+                            >
+
+                                <i
+                                    class="fa-solid fa-pen"
+                                ></i>
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="delete-btn"
+                                onclick="
+                                    deleteUserByIndex(${index})
+                                "
+                            >
+
+                                <i
+                                    class="fa-solid fa-trash"
+                                ></i>
+
+                                Delete
+
+                            </button>
+
+
+                        </div>
+
+                    </td>
+
+
+                </tr>
 
             `;
 
         }
-        else {
-
-            pictureHTML = createFallbackImage();
-
-        }
-
-
-        /* =========================
-           FIND ORIGINAL INDEX
-        ========================= */
-
-        const index =
-            users.indexOf(user);
-
-
-        /* =========================
-           ROW
-        ========================= */
-
-        table.innerHTML += `
-
-            <tr>
-
-
-                <!-- PICTURE -->
-
-                <td class="picture-cell">
-
-                    ${pictureHTML}
-
-                </td>
-
-
-                <!-- USERNAME -->
-
-                <td class="username-cell">
-
-                    ${escapeHTML(username)}
-
-                </td>
-
-
-                <!-- NAME -->
-
-                <td class="name-cell">
-
-                    ${escapeHTML(name)}
-
-                </td>
-
-
-                <!-- ROLE -->
-
-                <td class="role-cell">
-
-                    ${escapeHTML(role)}
-
-                </td>
-
-
-                <!-- STATUS -->
-
-                <td class="status-cell">
-
-                    <span
-                        class="user-status ${statusClass}"
-                    >
-
-                        ${escapeHTML(status)}
-
-                    </span>
-
-                </td>
-
-
-                <!-- ACTION -->
-
-                <td class="action-cell">
-
-                    <div class="action-buttons">
-
-
-                        <button
-
-                            type="button"
-
-                            class="edit-btn"
-
-                            onclick="editUserByIndex(${index})"
-
-                        >
-
-                            <i class="fa-solid fa-pen"></i>
-
-                            Edit
-
-                        </button>
-
-
-                        <button
-
-                            type="button"
-
-                            class="delete-btn"
-
-                            onclick="deleteUserByIndex(${index})"
-
-                        >
-
-                            <i class="fa-solid fa-trash"></i>
-
-                            Delete
-
-                        </button>
-
-
-                    </div>
-
-                </td>
-
-
-            </tr>
-
-        `;
-
-    });
+    );
 
 }
 
@@ -981,14 +1066,15 @@ function editUser(
     username,
     password,
     name,
-    role,
+    userRole,
     status,
     picture
 ) {
 
     editMode = true;
 
-    oldUsername = username;
+    oldUsername =
+        username;
 
 
     setValue(
@@ -1011,7 +1097,7 @@ function editUser(
 
     setValue(
         "role",
-        role || "Admin"
+        userRole || "Admin"
     );
 
 
@@ -1028,7 +1114,9 @@ function editUser(
 
 
     const title =
-        document.getElementById("formTitle");
+        document.getElementById(
+            "formTitle"
+        );
 
 
     if (title) {
@@ -1068,7 +1156,7 @@ function saveUser() {
         getValue("name");
 
 
-    const role =
+    const userRole =
         getValue("role");
 
 
@@ -1139,7 +1227,7 @@ function saveUser() {
             name,
 
         role:
-            role,
+            userRole,
 
         status:
             status,
@@ -1168,7 +1256,7 @@ function saveUser() {
 
 
     /* =========================
-       LOADING.HTML
+       LOADING
     ========================= */
 
     showLoading(
@@ -1183,13 +1271,11 @@ function saveUser() {
 
 
     /* =========================
-       API
+       API REQUEST
     ========================= */
 
     fetch(
-
         API_URL,
-
         {
 
             method:
@@ -1206,88 +1292,91 @@ function saveUser() {
                 JSON.stringify(data)
 
         }
-
     )
 
+    .then(
+        function (response) {
 
-    .then(function (response) {
+            if (!response.ok) {
 
-        if (!response.ok) {
+                throw new Error(
+                    "HTTP Error " +
+                    response.status
+                );
 
-            throw new Error(
-                "HTTP Error"
-            );
-
-        }
-
-
-        return response.json();
-
-    })
+            }
 
 
-    .then(function (result) {
-
-        hideLoading();
-
-
-        if (
-            result &&
-            result.success
-        ) {
-
-            closeModal();
-
-
-            showPopup(
-                "Success",
-                result.message ||
-                (
-                    editMode
-                        ?
-                        "User Updated Successfully"
-                        :
-                        "User Added Successfully"
-                ),
-                "success"
-            );
-
-
-            loadUsers();
+            return response.json();
 
         }
-        else {
+    )
+
+    .then(
+        function (result) {
+
+            hideLoading();
+
+
+            if (
+                result &&
+                result.success
+            ) {
+
+                closeModal();
+
+
+                showPopup(
+                    "Success",
+                    result.message ||
+                    (
+                        editMode
+                            ?
+                            "User Updated Successfully"
+                            :
+                            "User Added Successfully"
+                    ),
+                    "success"
+                );
+
+
+                loadUsers();
+
+            }
+            else {
+
+                showPopup(
+                    "Error",
+                    result.message ||
+                    "Operation Failed",
+                    "error"
+                );
+
+            }
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "Save User Error:",
+                error
+            );
+
+
+            hideLoading();
+
 
             showPopup(
                 "Error",
-                result.message ||
-                "Operation Failed",
+                "Server Error",
                 "error"
             );
 
         }
-
-    })
-
-
-    .catch(function (error) {
-
-        console.error(
-            "Save User Error:",
-            error
-        );
-
-
-        hideLoading();
-
-
-        showPopup(
-            "Error",
-            "Server Error",
-            "error"
-        );
-
-    });
+    );
 
 }
 
@@ -1312,7 +1401,9 @@ function deleteUserByIndex(index) {
         users[index].username || "";
 
 
-    deleteUser(username);
+    deleteUser(
+        username
+    );
 
 }
 
@@ -1347,9 +1438,7 @@ function deleteUser(username) {
 
 
     fetch(
-
         API_URL,
-
         {
 
             method:
@@ -1374,79 +1463,82 @@ function deleteUser(username) {
                 })
 
         }
-
     )
 
+    .then(
+        function (response) {
 
-    .then(function (response) {
+            if (!response.ok) {
 
-        if (!response.ok) {
+                throw new Error(
+                    "HTTP Error " +
+                    response.status
+                );
 
-            throw new Error(
-                "HTTP Error"
-            );
-
-        }
-
-
-        return response.json();
-
-    })
+            }
 
 
-    .then(function (result) {
-
-        hideLoading();
-
-
-        if (
-            result &&
-            result.success
-        ) {
-
-            showPopup(
-                "Success",
-                result.message ||
-                "User Deleted Successfully",
-                "success"
-            );
-
-
-            loadUsers();
+            return response.json();
 
         }
-        else {
+    )
+
+    .then(
+        function (result) {
+
+            hideLoading();
+
+
+            if (
+                result &&
+                result.success
+            ) {
+
+                showPopup(
+                    "Success",
+                    result.message ||
+                    "User Deleted Successfully",
+                    "success"
+                );
+
+
+                loadUsers();
+
+            }
+            else {
+
+                showPopup(
+                    "Error",
+                    result.message ||
+                    "Delete Failed",
+                    "error"
+                );
+
+            }
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "Delete User Error:",
+                error
+            );
+
+
+            hideLoading();
+
 
             showPopup(
                 "Error",
-                result.message ||
                 "Delete Failed",
                 "error"
             );
 
         }
-
-    })
-
-
-    .catch(function (error) {
-
-        console.error(
-            "Delete User Error:",
-            error
-        );
-
-
-        hideLoading();
-
-
-        showPopup(
-            "Error",
-            "Delete Failed",
-            "error"
-        );
-
-    });
+    );
 
 }
 
@@ -1493,7 +1585,9 @@ function clearForm() {
     );
 
 
-    updatePicturePreview("");
+    updatePicturePreview(
+        ""
+    );
 
 }
 
@@ -1566,7 +1660,7 @@ function updatePicturePreview(
 
 
 /* =========================================================
-   PICTURE INPUT PREVIEW
+   PICTURE INPUT
 ========================================================= */
 
 document.addEventListener(
@@ -1616,7 +1710,9 @@ function imageError(img) {
 
         <div class="user-avatar-fallback">
 
-            <i class="fa-solid fa-user"></i>
+            <i
+                class="fa-solid fa-user"
+            ></i>
 
         </div>
 
@@ -1626,7 +1722,7 @@ function imageError(img) {
 
 
 /* =========================================================
-   FALLBACK PICTURE
+   FALLBACK IMAGE
 ========================================================= */
 
 function createFallbackImage() {
@@ -1637,7 +1733,9 @@ function createFallbackImage() {
 
             <div class="user-avatar-fallback">
 
-                <i class="fa-solid fa-user"></i>
+                <i
+                    class="fa-solid fa-user"
+                ></i>
 
             </div>
 
@@ -1696,7 +1794,7 @@ function setValue(
 
 
 /* =========================================================
-   HTML ESCAPE
+   ESCAPE HTML
 ========================================================= */
 
 function escapeHTML(value) {
@@ -1734,7 +1832,7 @@ function escapeHTML(value) {
 
 
 /* =========================================================
-   LOADING.HTML
+   LOADING.HTML CONNECT
 ========================================================= */
 
 function showLoading(
@@ -1743,25 +1841,19 @@ function showLoading(
 
 
     /* =========================
-       IF ALREADY OPEN
+       ALREADY OPEN
     ========================= */
 
     if (loadingFrame) {
 
         const iframe =
-            loadingFrame.querySelector(
-                "iframe"
+            loadingFrame;
+
+        iframe.src =
+            "loding.html?message=" +
+            encodeURIComponent(
+                message
             );
-
-
-        if (iframe) {
-
-            iframe.src =
-                "loding.html?message=" +
-                encodeURIComponent(message);
-
-        }
-
 
         return;
 
@@ -1769,90 +1861,60 @@ function showLoading(
 
 
     /* =========================
-       OVERLAY
+       CREATE IFRAME
     ========================= */
 
     loadingFrame =
-        document.createElement("div");
+        document.createElement(
+            "iframe"
+        );
 
 
-    loadingFrame.id =
-        "externalLoadingScreen";
+    loadingFrame.src =
+        "loding.html?message=" +
+        encodeURIComponent(
+            message
+        );
 
+
+    /* =========================
+       IFRAME STYLE
+    ========================= */
 
     loadingFrame.style.position =
         "fixed";
 
-
     loadingFrame.style.top =
         "0";
-
 
     loadingFrame.style.left =
         "0";
 
-
     loadingFrame.style.width =
         "100%";
-
 
     loadingFrame.style.height =
         "100%";
 
+    loadingFrame.style.border =
+        "none";
+
+    loadingFrame.style.margin =
+        "0";
+
+    loadingFrame.style.padding =
+        "0";
 
     loadingFrame.style.background =
-        "rgba(255,255,255,0.92)";
-
-
-    loadingFrame.style.display =
-        "flex";
-
-
-    loadingFrame.style.alignItems =
-        "center";
-
-
-    loadingFrame.style.justifyContent =
-        "center";
-
+        "transparent";
 
     loadingFrame.style.zIndex =
         "999999";
 
 
     /* =========================
-       IFRAME
+       APPEND
     ========================= */
-
-    const iframe =
-        document.createElement("iframe");
-
-
-    iframe.src =
-        "loding.html?message=" +
-        encodeURIComponent(message);
-
-
-    iframe.style.width =
-        "100%";
-
-
-    iframe.style.height =
-        "100%";
-
-
-    iframe.style.border =
-        "none";
-
-
-    iframe.style.background =
-        "transparent";
-
-
-    loadingFrame.appendChild(
-        iframe
-    );
-
 
     document.body.appendChild(
         loadingFrame
@@ -1934,10 +1996,6 @@ function showPopup(
     if (icon) {
 
 
-        /* =========================
-           SUCCESS
-        ========================= */
-
         if (
             type === "success"
         ) {
@@ -1950,10 +2008,6 @@ function showPopup(
 
         }
 
-
-        /* =========================
-           ERROR
-        ========================= */
 
         else if (
             type === "error"
@@ -1968,10 +2022,6 @@ function showPopup(
         }
 
 
-        /* =========================
-           WARNING
-        ========================= */
-
         else if (
             type === "warning"
         ) {
@@ -1984,10 +2034,6 @@ function showPopup(
 
         }
 
-
-        /* =========================
-           LOGIN
-        ========================= */
 
         else if (
             type === "login"
@@ -2064,35 +2110,18 @@ document.addEventListener(
 
 
 /* =========================================================
-   LOGOUT BACK PROTECTION
+   PREVENT CACHE AFTER LOGOUT
 ========================================================= */
 
 window.addEventListener(
-    "popstate",
+    "beforeunload",
     function () {
 
-        const login =
-            localStorage.getItem(
-                "isLogin"
-            );
-
-
-        const currentRole =
-            localStorage.getItem(
-                "role"
-            );
-
-
-        if (
-            login !== "true" ||
-            String(currentRole).toLowerCase() !== "admin"
-        ) {
-
-            window.location.replace(
-                "login.html"
-            );
-
-        }
+        /*
+         * Nothing required here.
+         * Login protection is handled
+         * by pageshow + initial check.
+         */
 
     }
 );
