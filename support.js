@@ -1,7 +1,3 @@
-// =====================================
-// SUPPORT WEB - FINAL JS
-// =====================================
-
 // ===============================
 // API URL
 // ===============================
@@ -16,37 +12,28 @@ let currentRow = "";
 // ===============================
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ===============================
-    // LOAD USER
-    // ===============================
-    const user = localStorage.getItem("username");
+    let user =
+        localStorage.getItem("username");
 
     if (user) {
-        const usernameEl = document.getElementById("username");
 
-        if (usernameEl) {
-            usernameEl.innerHTML = user;
-        }
+        document.getElementById("username").innerHTML =
+            user;
+
     }
 
 
-    // ===============================
-    // LOAD PROFILE IMAGE
-    // ===============================
-    const img = localStorage.getItem("picture");
+    let img =
+        localStorage.getItem("picture");
 
     if (img) {
-        const profileImg = document.getElementById("profileImg");
 
-        if (profileImg) {
-            profileImg.src = img;
-        }
+        document.getElementById("profileImg").src =
+            img;
+
     }
 
 
-    // ===============================
-    // LOAD SUPPORT DATA
-    // ===============================
     loadSupport();
 
 });
@@ -57,11 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // ===============================
 function toggleProfile() {
 
-    const menu = document.getElementById("profileMenu");
-
-    if (menu) {
-        menu.classList.toggle("show");
-    }
+    document
+        .getElementById("profileMenu")
+        .classList
+        .toggle("show");
 
 }
 
@@ -94,30 +80,19 @@ function goBack() {
 // ===============================
 function loadSupport() {
 
-    const list = document.getElementById("supportList");
-
-    if (list) {
-
-        list.innerHTML = `
-            <div class="loading">
-                Loading...
-            </div>
-        `;
-
-    }
-
-
     fetch(API_URL, {
 
         method: "POST",
 
         headers: {
-            "Content-Type": "text/plain;charset=utf-8"
+            "Content-Type":
+                "text/plain;charset=utf-8"
         },
 
         body: JSON.stringify({
 
-            action: "getPendingSupport"
+            action:
+                "getPendingSupport"
 
         })
 
@@ -131,66 +106,30 @@ function loadSupport() {
 
     .then(function (data) {
 
-        if (!data || data.success === false) {
-
-            throw new Error(
-                data && data.message
-                    ? data.message
-                    : "Failed to load support data"
-            );
-
-        }
-
-
         let html = "";
 
 
-        // ===============================
-        // NO DATA
-        // ===============================
-        if (!data.data || data.data.length === 0) {
-
-            html = `
-                <div class="no-data">
-                    No Pending Support
-                </div>
-            `;
-
-        }
-
-        else {
+        if (data.data) {
 
             data.data.forEach(function (item) {
 
                 html += `
 
-                    <div class="support-item">
+                    ${item.customerId || ""}
 
-                        <div class="customer-id">
-                            ${escapeHTML(item.customerId)}
-                        </div>
+                    ${item.problem || ""}
 
-                        <div class="problem">
-                            ${escapeHTML(item.problem)}
-                        </div>
+                    ${item.reference || ""}
 
-                        <div class="reference">
-                            ${escapeHTML(item.reference)}
-                        </div>
+                    ${formatDate(item.date)}
 
-                        <div class="date">
-                            ${escapeHTML(item.date)}
-                        </div>
+                    <button
+                        class="edit-btn"
+                        onclick="editSupport('${item.row}')">
 
-                        <button
-                            class="edit-btn"
-                            onclick="editSupport(${Number(item.row)})">
+                        Edit
 
-                            Edit
-
-                        </button>
-
-                    </div>
+                    </button>
 
                 `;
 
@@ -199,48 +138,21 @@ function loadSupport() {
         }
 
 
-        if (list) {
-
-            list.innerHTML = html;
-
-        }
+        document
+            .getElementById("supportList")
+            .innerHTML =
+                html;
 
     })
 
     .catch(function (error) {
 
-        console.error("Support Load Error:", error);
-
-        if (list) {
-
-            list.innerHTML = `
-                <div class="error">
-                    Failed to load support data
-                </div>
-            `;
-
-        }
+        console.log(
+            "Server Error",
+            error
+        );
 
     });
-
-}
-
-
-// ===============================
-// HTML ESCAPE
-// ===============================
-function escapeHTML(value) {
-
-    if (value === null || value === undefined) {
-        return "";
-    }
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
 
 }
 
@@ -251,21 +163,26 @@ function escapeHTML(value) {
 function formatDate(date) {
 
     if (!date) {
+
         return "";
-    }
 
-    const d = new Date(date);
-
-    if (isNaN(d.getTime())) {
-        return String(date);
     }
 
 
-    const day =
-        String(d.getDate()).padStart(2, "0");
+    let d =
+        new Date(date);
 
 
-    const monthList = [
+    let day =
+        String(
+            d.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    let monthList = [
 
         "Jan",
         "Feb",
@@ -283,11 +200,13 @@ function formatDate(date) {
     ];
 
 
-    const month =
-        monthList[d.getMonth()];
+    let month =
+        monthList[
+            d.getMonth()
+        ];
 
 
-    const year =
+    let year =
         d.getFullYear();
 
 
@@ -297,11 +216,12 @@ function formatDate(date) {
 
 
 // ===============================
-// EDIT SUPPORT
+// EDIT OPEN
 // ===============================
 function editSupport(row) {
 
-    currentRow = Number(row);
+    currentRow =
+        row;
 
 
     fetch(API_URL, {
@@ -309,14 +229,19 @@ function editSupport(row) {
         method: "POST",
 
         headers: {
-            "Content-Type": "text/plain;charset=utf-8"
+
+            "Content-Type":
+                "text/plain;charset=utf-8"
+
         },
 
         body: JSON.stringify({
 
-            action: "getSingleSupport",
+            action:
+                "getSingleSupport",
 
-            row: currentRow
+            row:
+                row
 
         })
 
@@ -330,124 +255,71 @@ function editSupport(row) {
 
     .then(function (data) {
 
-        if (!data || data.success === false) {
 
-            throw new Error(
-                data && data.message
-                    ? data.message
-                    : "Unable to load record"
+        document
+            .getElementById("customerId")
+            .value =
+                data.customerId || "";
+
+
+        document
+            .getElementById("problem")
+            .value =
+                data.problem || "";
+
+
+        document
+            .getElementById("reference")
+            .value =
+                data.reference || "";
+
+
+        document
+            .getElementById("date")
+            .value =
+                convertDate(
+                    data.date
+                );
+
+
+        document
+            .getElementById("support")
+            .value =
+                data.support || "";
+
+
+        document
+            .getElementById("supportWork")
+            .value =
+                data.supportWork || "";
+
+
+        // Support Time
+        let supportTime =
+            document.getElementById(
+                "supportTime"
             );
 
-        }
+        if (supportTime) {
 
-
-        // ===============================
-        // CUSTOMER ID
-        // ===============================
-        setValue(
-            "customerId",
-            data.customerId
-        );
-
-
-        // ===============================
-        // PROBLEM
-        // ===============================
-        setValue(
-            "problem",
-            data.problem
-        );
-
-
-        // ===============================
-        // REFERENCE
-        // ===============================
-        setValue(
-            "reference",
-            data.reference
-        );
-
-
-        // ===============================
-        // DATE
-        // ===============================
-        setValue(
-            "date",
-            convertDate(data.date)
-        );
-
-
-        // ===============================
-        // SUPPORT
-        // ===============================
-        setValue(
-            "support",
-            data.support
-        );
-
-
-        // ===============================
-        // SUPPORT WORK
-        // ===============================
-        setValue(
-            "supportWork",
-            data.supportWork
-        );
-
-
-        // ===============================
-        // SUPPORT TIME
-        // ===============================
-        setValue(
-            "supportTime",
-            data.supportTime
-        );
-
-
-        // ===============================
-        // OPEN MODAL
-        // ===============================
-        const modal =
-            document.getElementById("editModal");
-
-        if (modal) {
-
-            modal.classList.add("show");
+            supportTime.value =
+                data.supportTime || "";
 
         }
+
+
+        document
+            .getElementById("editModal")
+            .classList
+            .add("show");
 
     })
 
-    .catch(function (error) {
+    .catch(function (err) {
 
-        console.error(
-            "Edit Support Error:",
-            error
-        );
-
-        alert(
-            "Unable to load support data."
-        );
+        console.log(err);
 
     });
-
-}
-
-
-// ===============================
-// SET VALUE
-// ===============================
-function setValue(id, value) {
-
-    const element =
-        document.getElementById(id);
-
-    if (element) {
-
-        element.value =
-            value || "";
-
-    }
 
 }
 
@@ -458,17 +330,14 @@ function setValue(id, value) {
 function convertDate(date) {
 
     if (!date) {
-        return "";
-    }
-
-
-    const d = new Date(date);
-
-    if (isNaN(d.getTime())) {
 
         return "";
 
     }
+
+
+    let d =
+        new Date(date);
 
 
     return d
@@ -483,112 +352,19 @@ function convertDate(date) {
 // ===============================
 function closeEdit() {
 
-    const modal =
-        document.getElementById("editModal");
-
-    if (modal) {
-
-        modal.classList.remove("show");
-
-    }
+    document
+        .getElementById("editModal")
+        .classList
+        .remove("show");
 
 }
 
 
 // ===============================
-// SUBMIT SUPPORT
-// ===============================
-// Support + Support Work পূরণ করে
-// এই function call হবে
+// UPDATE SUPPORT
 // ===============================
 function updateSupport() {
 
-    if (!currentRow) {
-
-        alert(
-            "No support record selected."
-        );
-
-        return;
-
-    }
-
-
-    const customerId =
-        getValue("customerId");
-
-
-    const problem =
-        getValue("problem");
-
-
-    const reference =
-        getValue("reference");
-
-
-    const date =
-        getValue("date");
-
-
-    const support =
-        getValue("support").trim();
-
-
-    const supportWork =
-        getValue("supportWork").trim();
-
-
-    const supportTime =
-        getValue("supportTime").trim();
-
-
-    // ===============================
-    // VALIDATION
-    // ===============================
-    if (!support) {
-
-        alert(
-            "Please enter Support."
-        );
-
-        return;
-
-    }
-
-
-    if (!supportWork) {
-
-        alert(
-            "Please enter Support Work."
-        );
-
-        return;
-
-    }
-
-
-    // ===============================
-    // BUTTON
-    // ===============================
-    const submitBtn =
-        document.querySelector(
-            "#editModal .submit-btn"
-        );
-
-
-    if (submitBtn) {
-
-        submitBtn.disabled = true;
-
-        submitBtn.innerText =
-            "Submitting...";
-
-    }
-
-
-    // ===============================
-    // SEND TO APPS SCRIPT
-    // ===============================
     fetch(API_URL, {
 
         method: "POST",
@@ -602,30 +378,64 @@ function updateSupport() {
 
         body: JSON.stringify({
 
-            action: "moveToCall",
+            action:
+                "updateSupport",
 
-            row: Number(currentRow),
+            row:
+                currentRow,
 
             customerId:
-                customerId,
+                document
+                    .getElementById(
+                        "customerId"
+                    )
+                    .value,
 
             problem:
-                problem,
+                document
+                    .getElementById(
+                        "problem"
+                    )
+                    .value,
 
             reference:
-                reference,
+                document
+                    .getElementById(
+                        "reference"
+                    )
+                    .value,
 
             date:
-                date,
+                document
+                    .getElementById(
+                        "date"
+                    )
+                    .value,
 
             support:
-                support,
+                document
+                    .getElementById(
+                        "support"
+                    )
+                    .value,
 
             supportWork:
-                supportWork,
+                document
+                    .getElementById(
+                        "supportWork"
+                    )
+                    .value,
 
             supportTime:
-                supportTime
+                document.getElementById(
+                    "supportTime"
+                )
+                ? document
+                    .getElementById(
+                        "supportTime"
+                    )
+                    .value
+                : ""
 
         })
 
@@ -639,62 +449,39 @@ function updateSupport() {
 
     .then(function (data) {
 
-        if (!data || data.success === false) {
+        if (
+            data.success === false
+        ) {
 
-            throw new Error(
-                data && data.message
-                    ? data.message
-                    : "Support submission failed"
+            alert(
+                data.message ||
+                "Update Failed"
             );
+
+            return;
 
         }
 
 
-        // ===============================
-        // SUCCESS
-        // ===============================
         alert(
-            "Support completed successfully."
+            "Updated Successfully"
         );
 
 
         closeEdit();
 
 
-        currentRow = "";
-
-
-        // ===============================
-        // RELOAD SUPPORT LIST
-        // ===============================
         loadSupport();
 
     })
 
-    .catch(function (error) {
+    .catch(function (err) {
 
-        console.error(
-            "Support Submit Error:",
-            error
-        );
+        console.log(err);
 
         alert(
-            "Support submit failed.\n\n" +
-            error.message
+            "Update Failed"
         );
-
-    })
-
-    .finally(function () {
-
-        if (submitBtn) {
-
-            submitBtn.disabled = false;
-
-            submitBtn.innerText =
-                "Submit";
-
-        }
 
     });
 
@@ -702,43 +489,13 @@ function updateSupport() {
 
 
 // ===============================
-// GET VALUE
-// ===============================
-function getValue(id) {
-
-    const element =
-        document.getElementById(id);
-
-    if (!element) {
-
-        return "";
-
-    }
-
-    return element.value || "";
-
-}
-
-
-// ===============================
-// DELETE SUPPORT
+// DELETE
 // ===============================
 function deleteSupport() {
 
-    if (!currentRow) {
-
-        alert(
-            "No support record selected."
-        );
-
-        return;
-
-    }
-
-
-    const confirmDelete =
+    let confirmDelete =
         confirm(
-            "Are you sure you want to delete this support?"
+            "Are you sure you want to delete?"
         );
 
 
@@ -766,7 +523,7 @@ function deleteSupport() {
                 "deleteSupport",
 
             row:
-                Number(currentRow)
+                currentRow
 
         })
 
@@ -780,13 +537,16 @@ function deleteSupport() {
 
     .then(function (data) {
 
-        if (!data || data.success === false) {
+        if (
+            data.success === false
+        ) {
 
-            throw new Error(
-                data && data.message
-                    ? data.message
-                    : "Delete failed"
+            alert(
+                data.message ||
+                "Delete Failed"
             );
+
+            return;
 
         }
 
@@ -799,19 +559,13 @@ function deleteSupport() {
         closeEdit();
 
 
-        currentRow = "";
-
-
         loadSupport();
 
     })
 
-    .catch(function (error) {
+    .catch(function (err) {
 
-        console.error(
-            "Delete Error:",
-            error
-        );
+        console.log(err);
 
         alert(
             "Delete Failed"
@@ -820,38 +574,3 @@ function deleteSupport() {
     });
 
 }
-
-
-// ===============================
-// CLOSE PROFILE WHEN CLICK OUTSIDE
-// ===============================
-document.addEventListener(
-    "click",
-    function (event) {
-
-        const profileMenu =
-            document.getElementById(
-                "profileMenu"
-            );
-
-        const profile =
-            document.querySelector(
-                ".profile"
-            );
-
-
-        if (
-            profileMenu &&
-            profile &&
-            !profile.contains(event.target)
-        ) {
-
-            profileMenu.classList.remove(
-                "show"
-            );
-
-        }
-
-    }
-);
-```
