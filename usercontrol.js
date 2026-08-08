@@ -1,54 +1,56 @@
-```javascript
-// ======================================================
-// USER CONTROL - usercontrol.js
-// ======================================================
+/* ==========================================
+   USER CONTROL JS
+   FINAL PART 1
+========================================== */
 
 
-// ======================================================
-// LOGIN CHECK
-// ======================================================
+/* ==========================================
+   LOGIN CHECK
+========================================== */
 
 const isLogin = localStorage.getItem("isLogin");
-const currentRole = localStorage.getItem("role");
+const role = localStorage.getItem("role");
 
-if (isLogin !== "true" || currentRole !== "Admin") {
+if (isLogin !== "true" || role !== "Admin") {
     window.location.replace("login.html");
 }
 
 
-// ======================================================
-// API URL
-// ======================================================
+/* ==========================================
+   GOOGLE APPS SCRIPT API
+========================================== */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
-// ======================================================
-// GLOBAL VARIABLES
-// ======================================================
+/* ==========================================
+   GLOBAL VARIABLES
+========================================== */
 
 let users = [];
+
 let editMode = false;
+
 let oldUsername = "";
 
 
-// ======================================================
-// PAGE LOAD
-// ======================================================
+/* ==========================================
+   PAGE LOAD
+========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
     loadProfile();
-    setupEvents();
+
     loadUsers();
 
 });
 
 
-// ======================================================
-// PROFILE
-// ======================================================
+/* ==========================================
+   PROFILE
+========================================== */
 
 function loadProfile() {
 
@@ -67,393 +69,201 @@ function loadProfile() {
 
 
     if (userName) {
+
         userName.textContent =
             name || "User";
+
     }
 
 
     if (profileImg && picture) {
+
         profileImg.src = picture;
+
     }
 
 }
 
 
-// ======================================================
-// SETUP EVENTS
-// ======================================================
+/* ==========================================
+   PROFILE MENU
+========================================== */
 
-function setupEvents() {
+const profileBtn =
+    document.getElementById("profileBtn");
 
-
-    // ==================================================
-    // PROFILE BUTTON
-    // ==================================================
-
-    const profileBtn =
-        document.getElementById("profileBtn");
+const profileMenu =
+    document.getElementById("profileMenu");
 
 
-    if (profileBtn) {
+if (profileBtn) {
 
-        profileBtn.onclick = function (e) {
+    profileBtn.addEventListener("click", function (e) {
 
-            e.stopPropagation();
+        e.stopPropagation();
 
+        if (!profileMenu) return;
 
-            const menu =
-                document.getElementById(
-                    "profileMenu"
-                );
-
-
-            if (!menu) return;
-
-
-            menu.style.display =
-                menu.style.display === "block"
-                    ? "none"
-                    : "block";
-
-        };
-
-    }
-
-
-    // ==================================================
-    // CLOSE PROFILE MENU
-    // ==================================================
-
-    document.addEventListener("click", function () {
-
-        const menu =
-            document.getElementById(
-                "profileMenu"
-            );
-
-
-        if (menu) {
-
-            menu.style.display =
-                "none";
-
-        }
+        profileMenu.style.display =
+            profileMenu.style.display === "block"
+                ? "none"
+                : "block";
 
     });
 
-
-    // ==================================================
-    // BACK BUTTON
-    // ==================================================
-
-    const backBtn =
-        document.getElementById(
-            "backBtn"
-        );
+}
 
 
-    if (backBtn) {
+document.addEventListener("click", function () {
 
-        backBtn.onclick = function () {
+    if (profileMenu) {
 
-            window.location.href =
-                "dashboard.html";
-
-        };
+        profileMenu.style.display = "none";
 
     }
 
+});
 
-    // ==================================================
-    // ACCOUNT BUTTON
-    // ==================================================
 
-    const accountBtn =
-        document.getElementById(
-            "accountBtn"
-        );
+/* ==========================================
+   BACK BUTTON
+========================================== */
 
+const backBtn =
+    document.getElementById("backBtn");
 
-    if (accountBtn) {
 
-        accountBtn.onclick = function () {
+if (backBtn) {
 
-            window.location.href =
-                "my-account.html";
+    backBtn.addEventListener("click", function () {
 
-        };
+        window.location.href =
+            "dashboard.html";
 
-    }
-
-
-    // ==================================================
-    // LOGOUT
-    // ==================================================
-
-    const logoutBtn =
-        document.getElementById(
-            "logoutBtn"
-        );
-
-
-    if (logoutBtn) {
-
-        logoutBtn.onclick = function () {
-
-            localStorage.clear();
-
-            window.location.replace(
-                "login.html"
-            );
-
-        };
-
-    }
-
-
-    // ==================================================
-    // SEARCH USER
-    // ==================================================
-
-    const searchUser =
-        document.getElementById(
-            "searchUser"
-        );
-
-
-    if (searchUser) {
-
-        searchUser.addEventListener(
-            "input",
-            function () {
-
-                const value =
-                    this.value
-                        .toLowerCase()
-                        .trim();
-
-
-                const filteredUsers =
-                    users.filter(
-                        function (user) {
-
-                            return (
-
-                                String(
-                                    user.username || ""
-                                )
-                                .toLowerCase()
-                                .includes(value)
-
-                                ||
-
-                                String(
-                                    user.name || ""
-                                )
-                                .toLowerCase()
-                                .includes(value)
-
-                                ||
-
-                                String(
-                                    user.role || ""
-                                )
-                                .toLowerCase()
-                                .includes(value)
-
-                                ||
-
-                                String(
-                                    user.status || ""
-                                )
-                                .toLowerCase()
-                                .includes(value)
-
-                            );
-
-                        }
-                    );
-
-
-                showUsers(
-                    filteredUsers
-                );
-
-            }
-        );
-
-    }
-
-
-    // ==================================================
-    // ADD USER BUTTON
-    // ==================================================
-
-    const addUserBtn =
-        document.getElementById(
-            "addUserBtn"
-        );
-
-
-    if (addUserBtn) {
-
-        addUserBtn.onclick = function () {
-
-            editMode = false;
-            oldUsername = "";
-
-
-            clearForm();
-
-
-            const formTitle =
-                document.getElementById(
-                    "formTitle"
-                );
-
-
-            const modal =
-                document.getElementById(
-                    "userModal"
-                );
-
-
-            if (formTitle) {
-
-                formTitle.textContent =
-                    "Add User";
-
-            }
-
-
-            if (modal) {
-
-                modal.style.display =
-                    "flex";
-
-            }
-
-        };
-
-    }
-
-
-    // ==================================================
-    // CLOSE MODAL
-    // ==================================================
-
-    const closeModalBtn =
-        document.getElementById(
-            "closeModal"
-        );
-
-
-    if (closeModalBtn) {
-
-        closeModalBtn.onclick =
-            closeModal;
-
-    }
-
-
-    // ==================================================
-    // CANCEL USER
-    // ==================================================
-
-    const cancelUser =
-        document.getElementById(
-            "cancelUser"
-        );
-
-
-    if (cancelUser) {
-
-        cancelUser.onclick =
-            closeModal;
-
-    }
-
-
-    // ==================================================
-    // SAVE USER
-    // ==================================================
-
-    const saveUser =
-        document.getElementById(
-            "saveUser"
-        );
-
-
-    if (saveUser) {
-
-        saveUser.onclick =
-            saveUserData;
-
-    }
+    });
 
 }
 
 
-// ======================================================
-// LOAD USERS
-// ======================================================
+/* ==========================================
+   ACCOUNT BUTTON
+========================================== */
 
-async function loadUsers() {
-
-    showLoading(
-        "Loading Users..."
-    );
+const accountBtn =
+    document.getElementById("accountBtn");
 
 
-    try {
+if (accountBtn) {
 
-        const response =
-            await fetch(
-                API_URL +
-                "?action=users&t=" +
-                Date.now()
-            );
+    accountBtn.addEventListener("click", function () {
 
+        window.location.href =
+            "my-account.html";
+
+    });
+
+}
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener("click", function () {
+
+        /*
+         * Clear all login information
+         */
+
+        localStorage.clear();
+
+
+        /*
+         * Prevent browser back access
+         */
+
+        window.location.replace(
+            "login.html"
+        );
+
+    });
+
+}
+
+
+/* ==========================================
+   LOAD USERS
+========================================== */
+
+function loadUsers() {
+
+    showLoading("Loading Users...");
+
+
+    fetch(
+        API_URL + "?action=users",
+        {
+            method: "GET",
+            cache: "no-store"
+        }
+    )
+
+    .then(function (response) {
 
         if (!response.ok) {
 
             throw new Error(
-                "HTTP Error: " +
-                response.status
+                "Server response error"
             );
 
         }
 
+        return response.json();
 
-        const data =
-            await response.json();
+    })
 
+    .then(function (data) {
 
-        console.log(
-            "Users API Response:",
-            data
-        );
+        /*
+         * Make sure data is an array
+         */
 
+        if (Array.isArray(data)) {
 
-        if (!Array.isArray(data)) {
-
-            throw new Error(
-                data.message ||
-                "Invalid users response"
-            );
+            users = data;
 
         }
 
+        else if (
+            data &&
+            Array.isArray(data.users)
+        ) {
 
-        users = data;
+            users = data.users;
+
+        }
+
+        else {
+
+            users = [];
+
+        }
+
 
         showUsers(users);
 
+    })
 
-    } catch (error) {
+    .catch(function (error) {
 
         console.error(
-            "Load Users Error:",
+            "User Load Error:",
             error
         );
 
@@ -464,37 +274,28 @@ async function loadUsers() {
             "error"
         );
 
+    })
 
-    } finally {
+    .finally(function () {
 
         hideLoading();
 
-    }
+    });
 
 }
 
 
-// ======================================================
-// SHOW USERS
-// ======================================================
+/* ==========================================
+   SHOW USERS
+========================================== */
 
 function showUsers(data) {
 
     const table =
-        document.getElementById(
-            "userTable"
-        );
+        document.getElementById("userTable");
 
 
-    if (!table) {
-
-        console.error(
-            "Element #userTable not found"
-        );
-
-        return;
-
-    }
+    if (!table) return;
 
 
     table.innerHTML = "";
@@ -506,18 +307,12 @@ function showUsers(data) {
     ) {
 
         table.innerHTML = `
-
             <tr>
-
-                <td
-                    colspan="6"
-                    style="text-align:center;"
-                >
+                <td colspan="6"
+                    style="text-align:center;">
                     No User Found
                 </td>
-
             </tr>
-
         `;
 
         return;
@@ -527,260 +322,587 @@ function showUsers(data) {
 
     data.forEach(function (user) {
 
-
         const username =
-            String(
-                user.username || ""
-            );
-
+            user.username || "";
 
         const password =
-            String(
-                user.password || ""
-            );
-
+            user.password || "";
 
         const name =
-            String(
-                user.name || ""
-            );
-
+            user.name || "";
 
         const role =
-            String(
-                user.role || ""
-            );
-
+            user.role || "";
 
         const status =
-            String(
-                user.status || ""
-            );
-
+            user.status || "";
 
         const picture =
-            String(
-                user.picture || ""
-            );
+            user.picture || "";
 
 
-        table.innerHTML += `
-
-            <tr>
-
-                <td>
-                    ${escapeHTML(username)}
-                </td>
+        const row =
+            document.createElement("tr");
 
 
-                <td>
-                    ${escapeHTML(name)}
-                </td>
+        row.innerHTML = `
 
+            <td>
+                ${escapeHTML(username)}
+            </td>
 
-                <td>
-                    ${escapeHTML(role)}
-                </td>
+            <td>
+                ${escapeHTML(name)}
+            </td>
 
+            <td>
+                ${escapeHTML(role)}
+            </td>
 
-                <td>
+            <td>
+                <span class="status ${status.toLowerCase()}">
+                    ${escapeHTML(status)}
+                </span>
+            </td>
 
-                    <span
-                        class="status-badge
-                        ${status.toLowerCase() === "active"
-                            ? "active"
-                            : "inactive"}"
-                    >
-                        ${escapeHTML(status)}
-                    </span>
+            <td>
+                <button
+                    class="edit-btn"
+                    onclick="editUser(
+                        '${escapeJS(username)}',
+                        '${escapeJS(password)}',
+                        '${escapeJS(name)}',
+                        '${escapeJS(role)}',
+                        '${escapeJS(status)}',
+                        '${escapeJS(picture)}'
+                    )">
 
-                </td>
+                    <i class="fa-solid fa-pen"></i>
+                    Edit
 
+                </button>
+            </td>
 
-                <td>
+            <td>
+                <button
+                    class="delete-btn"
+                    onclick="deleteUser(
+                        '${escapeJS(username)}'
+                    )">
 
-                    <button
-                        type="button"
-                        onclick='editUser(
-                            ${JSON.stringify(username)},
-                            ${JSON.stringify(password)},
-                            ${JSON.stringify(name)},
-                            ${JSON.stringify(role)},
-                            ${JSON.stringify(status)},
-                            ${JSON.stringify(picture)}
-                        )'
-                    >
-                        Edit
-                    </button>
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
 
-
-                    <button
-                        type="button"
-                        onclick='deleteUser(
-                            ${JSON.stringify(username)}
-                        )'
-                    >
-                        Delete
-                    </button>
-
-                </td>
-
-            </tr>
+                </button>
+            </td>
 
         `;
+
+
+        table.appendChild(row);
 
     });
 
 }
 
 
-// ======================================================
-// SAVE USER
-// ======================================================
+/* ==========================================
+   HTML SECURITY
+========================================== */
 
-async function saveUserData() {
+function escapeHTML(value) {
 
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-    const usernameInput =
-        document.getElementById(
-            "username"
-        );
-
-
-    const passwordInput =
-        document.getElementById(
-            "password"
-        );
+}
 
 
-    const nameInput =
-        document.getElementById(
-            "name"
-        );
+/* ==========================================
+   JAVASCRIPT STRING SECURITY
+========================================== */
+
+function escapeJS(value) {
+
+    return String(value || "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\r/g, "\\r")
+        .replace(/\n/g, "\\n");
+
+}
+/* ==========================================
+   USER CONTROL JS
+   FINAL PART 2
+========================================== */
 
 
-    const roleInput =
-        document.getElementById(
-            "role"
-        );
+/* ==========================================
+   SEARCH USER
+========================================== */
+
+const searchUser =
+    document.getElementById("searchUser");
 
 
-    const statusInput =
-        document.getElementById(
-            "status"
-        );
+if (searchUser) {
+
+    searchUser.addEventListener(
+        "keyup",
+        function () {
+
+            const value =
+                this.value
+                    .trim()
+                    .toLowerCase();
 
 
-    const pictureInput =
-        document.getElementById(
-            "picture"
-        );
+            /*
+             * Show all users when search is empty
+             */
+
+            if (value === "") {
+
+                showUsers(users);
+
+                return;
+
+            }
 
 
-    if (
-        !usernameInput ||
-        !passwordInput ||
-        !nameInput ||
-        !roleInput ||
-        !statusInput ||
-        !pictureInput
-    ) {
+            /*
+             * Filter users
+             */
 
-        showPopup(
-            "Error",
-            "User form element missing",
-            "error"
-        );
+            const result =
+                users.filter(function (user) {
 
-        return;
+                    const username =
+                        String(
+                            user.username || ""
+                        ).toLowerCase();
 
-    }
+                    const name =
+                        String(
+                            user.name || ""
+                        ).toLowerCase();
 
+                    const role =
+                        String(
+                            user.role || ""
+                        ).toLowerCase();
 
-    const data = {
-
-        username:
-            usernameInput.value.trim(),
-
-        password:
-            passwordInput.value.trim(),
-
-        name:
-            nameInput.value.trim(),
-
-        role:
-            roleInput.value,
-
-        status:
-            statusInput.value,
-
-        picture:
-            pictureInput.value.trim()
-
-    };
+                    const status =
+                        String(
+                            user.status || ""
+                        ).toLowerCase();
 
 
-    // ==================================================
-    // VALIDATION
-    // ==================================================
+                    return (
 
-    if (!data.username) {
+                        username.includes(value) ||
 
-        showPopup(
-            "Warning",
-            "Username Required",
-            "warning"
-        );
+                        name.includes(value) ||
 
-        return;
+                        role.includes(value) ||
 
-    }
+                        status.includes(value)
+
+                    );
+
+                });
 
 
-    if (!data.password) {
+            showUsers(result);
 
-        showPopup(
-            "Warning",
-            "Password Required",
-            "warning"
-        );
-
-        return;
-
-    }
-
-
-    // ==================================================
-    // ACTION
-    // ==================================================
-
-    if (editMode) {
-
-        data.action =
-            "update";
-
-        data.oldUsername =
-            oldUsername;
-
-    } else {
-
-        data.action =
-            "add";
-
-    }
-
-
-    showLoading(
-        editMode
-            ? "Updating User..."
-            : "Creating User..."
+        }
     );
 
+}
 
-    try {
 
-        const response =
-            await fetch(
+/* ==========================================
+   ADD USER BUTTON
+========================================== */
+
+const addUserBtn =
+    document.getElementById("addUserBtn");
+
+
+if (addUserBtn) {
+
+    addUserBtn.addEventListener(
+        "click",
+        function () {
+
+            /*
+             * New User Mode
+             */
+
+            editMode = false;
+
+            oldUsername = "";
+
+
+            /*
+             * Clear previous data
+             */
+
+            clearForm();
+
+
+            /*
+             * Change modal title
+             */
+
+            const formTitle =
+                document.getElementById("formTitle");
+
+
+            if (formTitle) {
+
+                formTitle.textContent =
+                    "Add User";
+
+            }
+
+
+            /*
+             * Show modal
+             */
+
+            const userModal =
+                document.getElementById("userModal");
+
+
+            if (userModal) {
+
+                userModal.style.display =
+                    "flex";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   CLOSE MODAL BUTTON
+========================================== */
+
+const closeModalBtn =
+    document.getElementById("closeModal");
+
+
+if (closeModalBtn) {
+
+    closeModalBtn.addEventListener(
+        "click",
+        function () {
+
+            closeModal();
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   CANCEL USER BUTTON
+========================================== */
+
+const cancelUser =
+    document.getElementById("cancelUser");
+
+
+if (cancelUser) {
+
+    cancelUser.addEventListener(
+        "click",
+        function () {
+
+            closeModal();
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   CLOSE MODAL FUNCTION
+========================================== */
+
+function closeModal() {
+
+    const userModal =
+        document.getElementById("userModal");
+
+
+    if (userModal) {
+
+        userModal.style.display =
+            "none";
+
+    }
+
+
+    /*
+     * Reset edit mode
+     */
+
+    editMode = false;
+
+    oldUsername = "";
+
+}
+
+
+/* ==========================================
+   CLOSE MODAL WHEN CLICK OUTSIDE
+========================================== */
+
+const userModal =
+    document.getElementById("userModal");
+
+
+if (userModal) {
+
+    userModal.addEventListener(
+        "click",
+        function (e) {
+
+            /*
+             * Only close when clicking
+             * the modal background
+             */
+
+            if (e.target === userModal) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   SAVE / UPDATE USER
+========================================== */
+
+const saveUser =
+    document.getElementById("saveUser");
+
+
+if (saveUser) {
+
+    saveUser.addEventListener(
+        "click",
+        function () {
+
+
+            /* ==============================
+               GET FORM DATA
+            ============================== */
+
+            const usernameInput =
+                document.getElementById("username");
+
+            const passwordInput =
+                document.getElementById("password");
+
+            const nameInput =
+                document.getElementById("name");
+
+            const roleInput =
+                document.getElementById("role");
+
+            const statusInput =
+                document.getElementById("status");
+
+            const pictureInput =
+                document.getElementById("picture");
+
+
+            const data = {
+
+                username:
+                    usernameInput
+                        ? usernameInput.value.trim()
+                        : "",
+
+                password:
+                    passwordInput
+                        ? passwordInput.value.trim()
+                        : "",
+
+                name:
+                    nameInput
+                        ? nameInput.value.trim()
+                        : "",
+
+                role:
+                    roleInput
+                        ? roleInput.value
+                        : "Admin",
+
+                status:
+                    statusInput
+                        ? statusInput.value
+                        : "Active",
+
+                picture:
+                    pictureInput
+                        ? pictureInput.value.trim()
+                        : ""
+
+            };
+
+
+            /* ==============================
+               VALIDATION
+            ============================== */
+
+            if (!data.username) {
+
+                showPopup(
+                    "Warning",
+                    "Username Required",
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+            if (!data.password) {
+
+                showPopup(
+                    "Warning",
+                    "Password Required",
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+            if (!data.name) {
+
+                showPopup(
+                    "Warning",
+                    "Name Required",
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+            if (!data.role) {
+
+                showPopup(
+                    "Warning",
+                    "Role Required",
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+            /* ==============================
+               CHECK DUPLICATE USERNAME
+            ============================== */
+
+            if (!editMode) {
+
+                const duplicate =
+                    users.some(function (user) {
+
+                        return String(
+                            user.username || ""
+                        ).toLowerCase()
+                        ===
+                        data.username.toLowerCase();
+
+                    });
+
+
+                if (duplicate) {
+
+                    showPopup(
+                        "Warning",
+                        "This Username Already Exists",
+                        "warning"
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            /* ==============================
+               ADD / UPDATE ACTION
+            ============================== */
+
+            if (editMode) {
+
+                data.action = "update";
+
+                data.oldUsername =
+                    oldUsername;
+
+            }
+
+            else {
+
+                data.action = "add";
+
+            }
+
+
+            /* ==============================
+               LOADING
+            ============================== */
+
+            showLoading(
+                editMode
+                    ? "Updating User..."
+                    : "Creating User..."
+            );
+
+
+            /*
+             * Disable button
+             * while saving
+             */
+
+            saveUser.disabled = true;
+
+
+            /* ==============================
+               SEND TO GOOGLE APPS SCRIPT
+            ============================== */
+
+            fetch(
                 API_URL,
                 {
 
@@ -797,82 +919,109 @@ async function saveUserData() {
                         JSON.stringify(data)
 
                 }
-            );
+            )
+
+            .then(function (response) {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Server Error"
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(function (result) {
 
 
-        if (!response.ok) {
+                hideLoading();
 
-            throw new Error(
-                "HTTP Error: " +
-                response.status
-            );
+
+                if (result.success) {
+
+
+                    showPopup(
+                        "Success",
+                        result.message ||
+                        (
+                            editMode
+                                ? "User Updated Successfully"
+                                : "User Created Successfully"
+                        ),
+                        "success"
+                    );
+
+
+                    /*
+                     * Close modal
+                     */
+
+                    closeModal();
+
+
+                    /*
+                     * Reload users
+                     */
+
+                    loadUsers();
+
+                }
+
+                else {
+
+                    showPopup(
+                        "Error",
+                        result.message ||
+                        "Operation Failed",
+                        "error"
+                    );
+
+                }
+
+            })
+
+            .catch(function (error) {
+
+                console.error(
+                    "Save User Error:",
+                    error
+                );
+
+
+                hideLoading();
+
+
+                showPopup(
+                    "Error",
+                    "Server Error",
+                    "error"
+                );
+
+            })
+
+            .finally(function () {
+
+                /*
+                 * Enable button again
+                 */
+
+                saveUser.disabled = false;
+
+            });
 
         }
-
-
-        const result =
-            await response.json();
-
-
-        console.log(
-            "Save User Response:",
-            result
-        );
-
-
-        hideLoading();
-
-
-        showPopup(
-
-            result.success
-                ? "Success"
-                : "Error",
-
-            result.message ||
-                "Operation completed",
-
-            result.success
-                ? "success"
-                : "error"
-
-        );
-
-
-        if (result.success) {
-
-            closeModal();
-
-            await loadUsers();
-
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            "Save User Error:",
-            error
-        );
-
-
-        hideLoading();
-
-
-        showPopup(
-            "Error",
-            "Server Error",
-            "error"
-        );
-
-    }
+    );
 
 }
 
 
-// ======================================================
-// EDIT USER
-// ======================================================
+/* ==========================================
+   EDIT USER
+========================================== */
 
 function editUser(
     username,
@@ -884,46 +1033,36 @@ function editUser(
 ) {
 
 
+    /* ==============================
+       EDIT MODE
+    ============================== */
+
     editMode = true;
 
-    oldUsername =
-        username;
+    oldUsername = username;
 
+
+    /* ==============================
+       FILL FORM
+    ============================== */
 
     const usernameInput =
-        document.getElementById(
-            "username"
-        );
-
+        document.getElementById("username");
 
     const passwordInput =
-        document.getElementById(
-            "password"
-        );
-
+        document.getElementById("password");
 
     const nameInput =
-        document.getElementById(
-            "name"
-        );
-
+        document.getElementById("name");
 
     const roleInput =
-        document.getElementById(
-            "role"
-        );
-
+        document.getElementById("role");
 
     const statusInput =
-        document.getElementById(
-            "status"
-        );
-
+        document.getElementById("status");
 
     const pictureInput =
-        document.getElementById(
-            "picture"
-        );
+        document.getElementById("picture");
 
 
     if (usernameInput) {
@@ -953,7 +1092,7 @@ function editUser(
     if (roleInput) {
 
         roleInput.value =
-            role || "User";
+            role || "Admin";
 
     }
 
@@ -974,16 +1113,12 @@ function editUser(
     }
 
 
+    /* ==============================
+       CHANGE TITLE
+    ============================== */
+
     const formTitle =
-        document.getElementById(
-            "formTitle"
-        );
-
-
-    const modal =
-        document.getElementById(
-            "userModal"
-        );
+        document.getElementById("formTitle");
 
 
     if (formTitle) {
@@ -994,9 +1129,17 @@ function editUser(
     }
 
 
-    if (modal) {
+    /* ==============================
+       OPEN MODAL
+    ============================== */
 
-        modal.style.display =
+    const userModal =
+        document.getElementById("userModal");
+
+
+    if (userModal) {
+
+        userModal.style.display =
             "flex";
 
     }
@@ -1004,107 +1147,135 @@ function editUser(
 }
 
 
-// ======================================================
-// DELETE USER
-// ======================================================
+/* ==========================================
+   DELETE USER
+========================================== */
 
-async function deleteUser(username) {
+function deleteUser(username) {
 
 
-    if (
-        !confirm(
-            "Delete this user?"
-        )
-    ) {
+    if (!username) {
+
+        showPopup(
+            "Error",
+            "Username Not Found",
+            "error"
+        );
 
         return;
 
     }
 
 
+    /* ==============================
+       CONFIRM DELETE
+    ============================== */
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this user?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    /* ==============================
+       LOADING
+    ============================== */
+
     showLoading(
         "Deleting User..."
     );
 
 
-    try {
+    /* ==============================
+       SEND DELETE REQUEST
+    ============================== */
 
-        const response =
-            await fetch(
-                API_URL,
-                {
+    fetch(
+        API_URL,
+        {
 
-                    method: "POST",
+            method: "POST",
 
-                    headers: {
+            headers: {
 
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
+                "Content-Type":
+                    "text/plain;charset=utf-8"
 
-                    },
+            },
 
-                    body:
-                        JSON.stringify({
+            body:
+                JSON.stringify({
 
-                            action:
-                                "delete",
+                    action: "delete",
 
-                            username:
-                                username
+                    username:
+                        username
 
-                        })
+                })
 
-                }
-            );
+        }
+    )
 
+    .then(function (response) {
 
         if (!response.ok) {
 
             throw new Error(
-                "HTTP Error: " +
-                response.status
+                "Server Error"
             );
 
         }
 
+        return response.json();
 
-        const result =
-            await response.json();
+    })
 
-
-        console.log(
-            "Delete Response:",
-            result
-        );
+    .then(function (result) {
 
 
         hideLoading();
 
 
-        showPopup(
-
-            result.success
-                ? "Success"
-                : "Error",
-
-            result.message ||
-                "Delete completed",
-
-            result.success
-                ? "success"
-                : "error"
-
-        );
-
-
         if (result.success) {
 
-            await loadUsers();
+
+            showPopup(
+                "Success",
+                result.message ||
+                "User Deleted Successfully",
+                "success"
+            );
+
+
+            /*
+             * Reload user list
+             */
+
+            loadUsers();
 
         }
 
+        else {
 
-    } catch (error) {
+            showPopup(
+                "Error",
+                result.message ||
+                "Delete Failed",
+                "error"
+            );
+
+        }
+
+    })
+
+    .catch(function (error) {
 
         console.error(
             "Delete User Error:",
@@ -1121,337 +1292,75 @@ async function deleteUser(username) {
             "error"
         );
 
-    }
+    });
 
 }
 
 
-// ======================================================
-// CLEAR FORM
-// ======================================================
+/* ==========================================
+   CLEAR FORM
+========================================== */
 
 function clearForm() {
 
-
     const username =
-        document.getElementById(
-            "username"
-        );
-
+        document.getElementById("username");
 
     const password =
-        document.getElementById(
-            "password"
-        );
-
+        document.getElementById("password");
 
     const name =
-        document.getElementById(
-            "name"
-        );
-
+        document.getElementById("name");
 
     const role =
-        document.getElementById(
-            "role"
-        );
-
+        document.getElementById("role");
 
     const status =
-        document.getElementById(
-            "status"
-        );
-
+        document.getElementById("status");
 
     const picture =
-        document.getElementById(
-            "picture"
-        );
+        document.getElementById("picture");
 
 
-    if (username)
+    if (username) {
+
         username.value = "";
 
+    }
 
-    if (password)
+
+    if (password) {
+
         password.value = "";
 
+    }
 
-    if (name)
+
+    if (name) {
+
         name.value = "";
 
-
-    if (role)
-        role.value = "User";
+    }
 
 
-    if (status)
+    if (role) {
+
+        role.value = "Admin";
+
+    }
+
+
+    if (status) {
+
         status.value = "Active";
 
+    }
 
-    if (picture)
+
+    if (picture) {
+
         picture.value = "";
 
-}
-
-
-// ======================================================
-// POPUP
-// ======================================================
-
-function showPopup(
-    title,
-    msg,
-    type = "success"
-) {
-
-
-    const icon =
-        document.getElementById(
-            "popupIcon"
-        );
-
-
-    const popupTitle =
-        document.getElementById(
-            "popupTitle"
-        );
-
-
-    const popupMessage =
-        document.getElementById(
-            "popupMessage"
-        );
-
-
-    const popupBox =
-        document.getElementById(
-            "popupBox"
-        );
-
-
-    if (popupTitle) {
-
-        popupTitle.textContent =
-            title;
-
-    }
-
-
-    if (popupMessage) {
-
-        popupMessage.textContent =
-            msg;
-
-    }
-
-
-    if (icon) {
-
-
-        if (type === "success") {
-
-            icon.className =
-                "fa-solid fa-circle-check";
-
-            icon.style.color =
-                "#16a34a";
-
-        }
-
-
-        else if (type === "error") {
-
-            icon.className =
-                "fa-solid fa-circle-xmark";
-
-            icon.style.color =
-                "#dc2626";
-
-        }
-
-
-        else if (type === "warning") {
-
-            icon.className =
-                "fa-solid fa-triangle-exclamation";
-
-            icon.style.color =
-                "#f59e0b";
-
-        }
-
-
-        else if (type === "login") {
-
-            icon.className =
-                "fa-solid fa-lock";
-
-            icon.style.color =
-                "#2563eb";
-
-        }
-
-    }
-
-
-    if (popupBox) {
-
-        popupBox.style.display =
-            "flex";
-
     }
 
 }
-
-
-// ======================================================
-// CLOSE POPUP
-// ======================================================
-
-function closePopup() {
-
-    const popupBox =
-        document.getElementById(
-            "popupBox"
-        );
-
-
-    if (popupBox) {
-
-        popupBox.style.display =
-            "none";
-
-    }
-
-}
-
-
-// ======================================================
-// LOADING
-// ======================================================
-
-function showLoading(
-    message = "Loading..."
-) {
-
-
-    const loading =
-        document.getElementById(
-            "loading"
-        );
-
-
-    const loadingText =
-        document.getElementById(
-            "loadingText"
-        );
-
-
-    if (loading) {
-
-        loading.style.display =
-            "flex";
-
-    }
-
-
-    if (loadingText) {
-
-        loadingText.textContent =
-            message;
-
-    }
-
-}
-
-
-function hideLoading() {
-
-
-    const loading =
-        document.getElementById(
-            "loading"
-        );
-
-
-    if (loading) {
-
-        loading.style.display =
-            "none";
-
-    }
-
-}
-
-
-// ======================================================
-// ESCAPE HTML
-// ======================================================
-
-function escapeHTML(value) {
-
-    return String(value ?? "")
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-// ======================================================
-// PAGE CACHE / LOGIN PROTECTION
-// ======================================================
-
-window.addEventListener(
-    "pageshow",
-    function () {
-
-        const login =
-            localStorage.getItem(
-                "isLogin"
-            );
-
-
-        const role =
-            localStorage.getItem(
-                "role"
-            );
-
-
-        if (
-            login !== "true" ||
-            role !== "Admin"
-        ) {
-
-            window.location.replace(
-                "login.html"
-            );
-
-        }
-
-    }
-);
-```
