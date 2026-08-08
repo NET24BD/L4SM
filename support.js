@@ -19,6 +19,8 @@ let currentRow = "";
 
 let supportData = [];
 
+let confirmCallback = null;
+
 
 // =====================================
 // PAGE START
@@ -26,51 +28,9 @@ let supportData = [];
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ===============================
-    // LOAD USERNAME
-    // ===============================
-
-    const username =
-        localStorage.getItem("username");
-
-    const usernameElement =
-        document.getElementById("username");
-
-    if (usernameElement && username) {
-
-        usernameElement.innerHTML =
-            escapeHTML(username);
-
-    }
-
-
-    // ===============================
-    // LOAD PROFILE IMAGE
-    // ===============================
-
-    const picture =
-        localStorage.getItem("picture");
-
-    const profileImg =
-        document.getElementById("profileImg");
-
-    if (profileImg && picture) {
-
-        profileImg.src = picture;
-
-    }
-
-
-    // ===============================
-    // LOAD SUPPORT
-    // ===============================
+    loadUserProfile();
 
     loadSupport();
-
-
-    // ===============================
-    // SEARCH
-    // ===============================
 
     const searchInput =
         document.getElementById("supportSearch");
@@ -88,13 +48,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // =====================================
-// PROFILE
+// LOAD USER PROFILE
+// =====================================
+
+function loadUserProfile() {
+
+    const username =
+        localStorage.getItem("username");
+
+    const picture =
+        localStorage.getItem("picture");
+
+
+    const usernameElement =
+        document.getElementById("username");
+
+    const profileImg =
+        document.getElementById("profileImg");
+
+
+    if (
+        usernameElement &&
+        username
+    ) {
+
+        usernameElement.innerText =
+            username;
+
+    }
+
+
+    if (
+        profileImg &&
+        picture
+    ) {
+
+        profileImg.src =
+            picture;
+
+    }
+
+}
+
+
+// =====================================
+// PROFILE MENU
 // =====================================
 
 function toggleProfile() {
 
     const menu =
-        document.getElementById("profileMenu");
+        document.getElementById(
+            "profileMenu"
+        );
 
     if (!menu) return;
 
@@ -130,7 +136,7 @@ function logout() {
 
 
 // =====================================
-// GO BACK
+// BACK
 // =====================================
 
 function goBack() {
@@ -148,12 +154,10 @@ function goBack() {
 function loadSupport() {
 
     const supportList =
-        document.getElementById("supportList");
+        document.getElementById(
+            "supportList"
+        );
 
-
-    // ===============================
-    // LOADING
-    // ===============================
 
     if (supportList) {
 
@@ -179,10 +183,6 @@ function loadSupport() {
 
     }
 
-
-    // ===============================
-    // API REQUEST
-    // ===============================
 
     fetch(API_URL, {
 
@@ -221,14 +221,10 @@ function loadSupport() {
     .then(function (data) {
 
         console.log(
-            "Support Data:",
+            "Support API:",
             data
         );
 
-
-        // ===============================
-        // CHECK RESPONSE
-        // ===============================
 
         if (
             !data ||
@@ -240,26 +236,18 @@ function loadSupport() {
                 data &&
                 data.message
                     ? data.message
-                    : "Unable to load support"
+                    : "Failed to load support"
 
             );
 
         }
 
 
-        // ===============================
-        // STORE DATA
-        // ===============================
-
         supportData =
             Array.isArray(data.data)
                 ? data.data
                 : [];
 
-
-        // ===============================
-        // SHOW DATA
-        // ===============================
 
         renderSupport(
             supportData
@@ -312,7 +300,9 @@ function loadSupport() {
 function renderSupport(data) {
 
     const supportList =
-        document.getElementById("supportList");
+        document.getElementById(
+            "supportList"
+        );
 
 
     if (!supportList) {
@@ -321,10 +311,6 @@ function renderSupport(data) {
 
     }
 
-
-    // ===============================
-    // NO DATA
-    // ===============================
 
     if (
         !Array.isArray(data) ||
@@ -357,10 +343,6 @@ function renderSupport(data) {
     }
 
 
-    // ===============================
-    // BUILD TABLE
-    // ===============================
-
     let html = "";
 
 
@@ -380,13 +362,11 @@ function renderSupport(data) {
                     )}
                 </td>
 
-
                 <td>
                     ${escapeHTML(
                         item.problem
                     )}
                 </td>
-
 
                 <td>
                     ${escapeHTML(
@@ -394,13 +374,11 @@ function renderSupport(data) {
                     )}
                 </td>
 
-
                 <td>
                     ${formatDate(
                         item.date
                     )}
                 </td>
-
 
                 <td>
 
@@ -411,6 +389,7 @@ function renderSupport(data) {
                     >
 
                         <i class="fa fa-pen"></i>
+
                         Edit
 
                     </button>
@@ -431,7 +410,7 @@ function renderSupport(data) {
 
 
 // =====================================
-// SEARCH SUPPORT
+// SEARCH
 // =====================================
 
 function searchSupport() {
@@ -455,10 +434,6 @@ function searchSupport() {
             .toLowerCase();
 
 
-    // ===============================
-    // EMPTY SEARCH
-    // ===============================
-
     if (!keyword) {
 
         renderSupport(
@@ -469,10 +444,6 @@ function searchSupport() {
 
     }
 
-
-    // ===============================
-    // FILTER
-    // ===============================
 
     const filtered =
         supportData.filter(
@@ -544,10 +515,6 @@ function searchSupport() {
         );
 
 
-    // ===============================
-    // SHOW RESULT
-    // ===============================
-
     if (filtered.length === 0) {
 
         const supportList =
@@ -596,10 +563,8 @@ function searchSupport() {
 // =====================================
 // EDIT SUPPORT
 // =====================================
-// IMPORTANT:
-// এখানে কোনো API request নেই.
-// Local supportData থেকে সরাসরি popup open হবে.
-// তাই Edit অনেক দ্রুত হবে.
+// No API request here.
+// Popup opens immediately.
 // =====================================
 
 function editSupport(row) {
@@ -613,7 +578,7 @@ function editSupport(row) {
         currentRow <= 1
     ) {
 
-        alert(
+        showErrorPopup(
             "Invalid support record."
         );
 
@@ -621,10 +586,6 @@ function editSupport(row) {
 
     }
 
-
-    // ===============================
-    // FIND EXISTING DATA
-    // ===============================
 
     const item =
         supportData.find(
@@ -638,13 +599,9 @@ function editSupport(row) {
         );
 
 
-    // ===============================
-    // DATA NOT FOUND
-    // ===============================
-
     if (!item) {
 
-        alert(
+        showErrorPopup(
             "Support record not found."
         );
 
@@ -652,10 +609,6 @@ function editSupport(row) {
 
     }
 
-
-    // ===============================
-    // FILL POPUP
-    // ===============================
 
     setValue(
         "customerId",
@@ -693,10 +646,6 @@ function editSupport(row) {
     );
 
 
-    // ===============================
-    // OPEN POPUP IMMEDIATELY
-    // ===============================
-
     const modal =
         document.getElementById(
             "editModal"
@@ -715,10 +664,13 @@ function editSupport(row) {
 
 
 // =====================================
-// SET INPUT VALUE
+// SET VALUE
 // =====================================
 
-function setValue(id, value) {
+function setValue(
+    id,
+    value
+) {
 
     const element =
         document.getElementById(id);
@@ -734,7 +686,7 @@ function setValue(id, value) {
 
 
 // =====================================
-// GET INPUT VALUE
+// GET VALUE
 // =====================================
 
 function getValue(id) {
@@ -768,7 +720,6 @@ function convertDate(date) {
     }
 
 
-    // Already YYYY-MM-DD
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
             String(date)
@@ -795,41 +746,35 @@ function convertDate(date) {
     }
 
 
-    const year =
-        d.getFullYear();
+    return (
 
+        d.getFullYear() +
 
-    const month =
+        "-" +
+
         String(
             d.getMonth() + 1
         ).padStart(
             2,
             "0"
-        );
+        ) +
 
+        "-" +
 
-    const day =
         String(
             d.getDate()
         ).padStart(
             2,
             "0"
-        );
+        )
 
-
-    return (
-        year +
-        "-" +
-        month +
-        "-" +
-        day
     );
 
 }
 
 
 // =====================================
-// DISPLAY DATE
+// FORMAT DATE
 // =====================================
 
 function formatDate(date) {
@@ -856,15 +801,6 @@ function formatDate(date) {
     }
 
 
-    const day =
-        String(
-            d.getDate()
-        ).padStart(
-            2,
-            "0"
-        );
-
-
     const months = [
 
         "Jan",
@@ -883,22 +819,25 @@ function formatDate(date) {
     ];
 
 
-    const month =
+    return (
+
+        String(
+            d.getDate()
+        ).padStart(
+            2,
+            "0"
+        ) +
+
+        " " +
+
         months[
             d.getMonth()
-        ];
+        ] +
 
-
-    const year =
-        d.getFullYear();
-
-
-    return (
-        day +
         " " +
-        month +
-        " " +
-        year
+
+        d.getFullYear()
+
     );
 
 }
@@ -907,21 +846,17 @@ function formatDate(date) {
 // =====================================
 // UPDATE SUPPORT
 // =====================================
-// Submit করলে Support -> Call যাবে.
+// Support -> Call
 // =====================================
 
 function updateSupport() {
-
-    // ===============================
-    // CHECK ROW
-    // ===============================
 
     if (
         !currentRow ||
         Number(currentRow) <= 1
     ) {
 
-        alert(
+        showErrorPopup(
             "No support record selected."
         );
 
@@ -929,10 +864,6 @@ function updateSupport() {
 
     }
 
-
-    // ===============================
-    // GET FORM DATA
-    // ===============================
 
     const customerId =
         getValue(
@@ -976,7 +907,7 @@ function updateSupport() {
 
     if (!support) {
 
-        alert(
+        showErrorPopup(
             "Please enter Support."
         );
 
@@ -987,7 +918,7 @@ function updateSupport() {
 
     if (!supportWork) {
 
-        alert(
+        showErrorPopup(
             "Please enter Support Work."
         );
 
@@ -997,7 +928,7 @@ function updateSupport() {
 
 
     // ===============================
-    // SUBMIT BUTTON
+    // BUTTON
     // ===============================
 
     const submitBtn =
@@ -1011,14 +942,16 @@ function updateSupport() {
         submitBtn.disabled =
             true;
 
-        submitBtn.innerText =
-            "Submitting...";
+        submitBtn.innerHTML =
+
+            '<i class="fa fa-spinner fa-spin"></i> ' +
+            'Submitting...';
 
     }
 
 
     // ===============================
-    // SEND TO APPS SCRIPT
+    // API
     // ===============================
 
     fetch(API_URL, {
@@ -1102,22 +1035,6 @@ function updateSupport() {
 
 
         // ===============================
-        // SUCCESS
-        // ===============================
-
-        alert(
-            "Support completed successfully.\nMoved to Call."
-        );
-
-
-        // ===============================
-        // CLOSE POPUP
-        // ===============================
-
-        closeEdit();
-
-
-        // ===============================
         // REMOVE FROM LOCAL DATA
         // ===============================
 
@@ -1135,20 +1052,25 @@ function updateSupport() {
             );
 
 
-        // ===============================
-        // REFRESH TABLE IMMEDIATELY
-        // ===============================
-
         renderSupport(
             supportData
         );
 
 
-        // ===============================
-        // RESET ROW
-        // ===============================
+        closeEdit();
+
+
+        const successMessage =
+            "Support completed successfully and moved to Call.";
+
 
         currentRow = "";
+
+
+        showSuccessPopup(
+            successMessage,
+            "Support Completed"
+        );
 
     })
 
@@ -1160,9 +1082,9 @@ function updateSupport() {
         );
 
 
-        alert(
-            "Support submit failed.\n\n" +
-            error.message
+        showErrorPopup(
+            error.message ||
+            "Support submit failed."
         );
 
     })
@@ -1174,8 +1096,9 @@ function updateSupport() {
             submitBtn.disabled =
                 false;
 
-            submitBtn.innerText =
-                "Submit";
+            submitBtn.innerHTML =
+
+                '<i class="fa fa-paper-plane"></i> Submit';
 
         }
 
@@ -1205,14 +1128,15 @@ function closeEdit() {
     }
 
 
-    currentRow =
-        "";
+    currentRow = "";
 
 }
 
 
 // =====================================
 // DELETE SUPPORT
+// =====================================
+// Opens custom confirmation popup.
 // =====================================
 
 function deleteSupport() {
@@ -1222,7 +1146,7 @@ function deleteSupport() {
         Number(currentRow) <= 1
     ) {
 
-        alert(
+        showErrorPopup(
             "No support record selected."
         );
 
@@ -1231,26 +1155,46 @@ function deleteSupport() {
     }
 
 
-    // ===============================
-    // CONFIRM
-    // ===============================
+    showConfirmPopup(
 
-    const confirmed =
-        confirm(
-            "Are you sure you want to delete this support?"
+        "Are you sure you want to delete this support?",
+
+        function () {
+
+            performDeleteSupport();
+
+        },
+
+        "Confirm Delete"
+
+    );
+
+}
+
+
+// =====================================
+// ACTUAL DELETE
+// =====================================
+
+function performDeleteSupport() {
+
+    if (
+        !currentRow ||
+        Number(currentRow) <= 1
+    ) {
+
+        showErrorPopup(
+            "Invalid support record."
         );
-
-
-    if (!confirmed) {
 
         return;
 
     }
 
 
-    // ===============================
-    // DELETE REQUEST
-    // ===============================
+    const rowToDelete =
+        Number(currentRow);
+
 
     fetch(API_URL, {
 
@@ -1269,7 +1213,7 @@ function deleteSupport() {
                 "deleteSupport",
 
             row:
-                Number(currentRow)
+                rowToDelete
 
         })
 
@@ -1315,15 +1259,6 @@ function deleteSupport() {
 
 
         // ===============================
-        // SUCCESS
-        // ===============================
-
-        alert(
-            "Deleted Successfully"
-        );
-
-
-        // ===============================
         // REMOVE LOCAL DATA
         // ===============================
 
@@ -1333,28 +1268,34 @@ function deleteSupport() {
 
                     return Number(
                         item.row
-                    ) !== Number(
-                        currentRow
-                    );
+                    ) !== rowToDelete;
 
                 }
             );
 
-
-        // ===============================
-        // REFRESH TABLE
-        // ===============================
 
         renderSupport(
             supportData
         );
 
 
+        closeEdit();
+
+
+        currentRow = "";
+
+
         // ===============================
-        // CLOSE
+        // SUCCESS POPUP
         // ===============================
 
-        closeEdit();
+        showSuccessPopup(
+
+            "Support deleted successfully.",
+
+            "Deleted Successfully"
+
+        );
 
     })
 
@@ -1366,12 +1307,272 @@ function deleteSupport() {
         );
 
 
-        alert(
-            "Delete Failed.\n\n" +
-            error.message
+        showErrorPopup(
+
+            error.message ||
+            "Delete failed."
+
         );
 
     });
+
+}
+
+
+// =====================================
+// CUSTOM CONFIRM POPUP
+// =====================================
+
+function showConfirmPopup(
+    message,
+    callback,
+    title
+) {
+
+    const popup =
+        document.getElementById(
+            "confirmPopup"
+        );
+
+
+    const titleElement =
+        document.getElementById(
+            "confirmTitle"
+        );
+
+
+    const messageElement =
+        document.getElementById(
+            "confirmMessage"
+        );
+
+
+    const actionButton =
+        document.getElementById(
+            "confirmActionBtn"
+        );
+
+
+    if (!popup) {
+
+        return;
+
+    }
+
+
+    titleElement.innerText =
+        title ||
+        "Confirm";
+
+
+    messageElement.innerText =
+        message ||
+        "Are you sure?";
+
+
+    confirmCallback =
+        callback;
+
+
+    actionButton.onclick =
+        function () {
+
+            const callbackToRun =
+                confirmCallback;
+
+
+            closeConfirmPopup();
+
+
+            if (
+                typeof callbackToRun ===
+                "function"
+            ) {
+
+                callbackToRun();
+
+            }
+
+        };
+
+
+    popup.classList.add(
+        "show"
+    );
+
+}
+
+
+// =====================================
+// CLOSE CONFIRM POPUP
+// =====================================
+
+function closeConfirmPopup() {
+
+    const popup =
+        document.getElementById(
+            "confirmPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    confirmCallback = null;
+
+}
+
+
+// =====================================
+// SUCCESS POPUP
+// =====================================
+
+function showSuccessPopup(
+    message,
+    title
+) {
+
+    const popup =
+        document.getElementById(
+            "successPopup"
+        );
+
+
+    const titleElement =
+        document.getElementById(
+            "successTitle"
+        );
+
+
+    const messageElement =
+        document.getElementById(
+            "successMessage"
+        );
+
+
+    if (!popup) {
+
+        return;
+
+    }
+
+
+    titleElement.innerText =
+        title ||
+        "Success";
+
+
+    messageElement.innerText =
+        message ||
+        "Operation completed successfully.";
+
+
+    popup.classList.add(
+        "show"
+    );
+
+}
+
+
+// =====================================
+// CLOSE SUCCESS
+// =====================================
+
+function closeSuccessPopup() {
+
+    const popup =
+        document.getElementById(
+            "successPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+// =====================================
+// ERROR POPUP
+// =====================================
+
+function showErrorPopup(
+    message,
+    title
+) {
+
+    const popup =
+        document.getElementById(
+            "errorPopup"
+        );
+
+
+    const titleElement =
+        document.getElementById(
+            "errorTitle"
+        );
+
+
+    const messageElement =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    if (!popup) {
+
+        return;
+
+    }
+
+
+    titleElement.innerText =
+        title ||
+        "Error";
+
+
+    messageElement.innerText =
+        message ||
+        "Something went wrong.";
+
+
+    popup.classList.add(
+        "show"
+    );
+
+}
+
+
+// =====================================
+// CLOSE ERROR
+// =====================================
+
+function closeErrorPopup() {
+
+    const popup =
+        document.getElementById(
+            "errorPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove(
+            "show"
+        );
+
+    }
 
 }
 
@@ -1423,7 +1624,7 @@ function escapeHTML(value) {
 
 
 // =====================================
-// CLOSE PROFILE OUTSIDE CLICK
+// CLOSE PROFILE WHEN CLICK OUTSIDE
 // =====================================
 
 document.addEventListener(
@@ -1461,7 +1662,7 @@ document.addEventListener(
 
 
 // =====================================
-// CLOSE MODAL OUTSIDE CLICK
+// CLOSE EDIT WHEN CLICK OUTSIDE
 // =====================================
 
 document.addEventListener(
@@ -1488,6 +1689,65 @@ document.addEventListener(
 
 
 // =====================================
+// CLOSE POPUPS BY CLICKING OUTSIDE
+// =====================================
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const confirmPopup =
+            document.getElementById(
+                "confirmPopup"
+            );
+
+
+        const successPopup =
+            document.getElementById(
+                "successPopup"
+            );
+
+
+        const errorPopup =
+            document.getElementById(
+                "errorPopup"
+            );
+
+
+        if (
+            confirmPopup &&
+            event.target === confirmPopup
+        ) {
+
+            closeConfirmPopup();
+
+        }
+
+
+        if (
+            successPopup &&
+            event.target === successPopup
+        ) {
+
+            closeSuccessPopup();
+
+        }
+
+
+        if (
+            errorPopup &&
+            event.target === errorPopup
+        ) {
+
+            closeErrorPopup();
+
+        }
+
+    }
+);
+
+
+// =====================================
 // ESC KEY
 // =====================================
 
@@ -1496,27 +1756,37 @@ document.addEventListener(
     function (event) {
 
         if (
-            event.key === "Escape"
+            event.key !== "Escape"
         ) {
 
-            const modal =
-                document.getElementById(
-                    "editModal"
-                );
-
-
-            if (
-                modal &&
-                modal.classList.contains(
-                    "show"
-                )
-            ) {
-
-                closeEdit();
-
-            }
+            return;
 
         }
+
+
+        const editModal =
+            document.getElementById(
+                "editModal"
+            );
+
+
+        if (
+            editModal &&
+            editModal.classList.contains(
+                "show"
+            )
+        ) {
+
+            closeEdit();
+
+        }
+
+
+        closeConfirmPopup();
+
+        closeSuccessPopup();
+
+        closeErrorPopup();
 
     }
 );
