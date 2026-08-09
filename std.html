@@ -10,12 +10,10 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Support Dashboard</title>
+    <title>L4SM Support Dashboard</title>
 
-    <!-- DASHBOARD CSS -->
     <link rel="stylesheet" href="std.css">
 
-    <!-- FONT AWESOME -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -30,9 +28,9 @@
 <div class="dashboard">
 
 
-    <!-- =====================================
+    <!-- ===============================
          TOPBAR
-    ====================================== -->
+    ================================ -->
 
     <header class="topbar">
 
@@ -51,11 +49,11 @@
             <div class="brand-text">
 
                 <h2>
-                    Support Center
+                    L4SM Support
                 </h2>
 
                 <span>
-                    Management Dashboard
+                    Support Management System
                 </span>
 
             </div>
@@ -64,19 +62,20 @@
 
 
 
-        <!-- USER PROFILE -->
+        <!-- PROFILE -->
 
-        <div class="profile">
+        <div class="profile"
+             onclick="toggleProfileMenu()">
 
 
             <div class="profile-info">
 
-                <strong id="userName">
-                    Loading...
+                <strong id="headerName">
+                    User
                 </strong>
 
-                <small id="userRole">
-                    User
+                <small>
+                    Support User
                 </small>
 
             </div>
@@ -84,23 +83,48 @@
 
             <div class="profile-photo">
 
-
                 <img
-                    id="userPhoto"
-                    src=""
-                    alt="User Profile"
+                    id="profileImg"
+                    src="assets/profile.png"
+                    alt="Profile"
                 >
 
+            </div>
+
+
+            <!-- PROFILE MENU -->
+
+            <div
+                class="profile-menu"
+                id="profileMenu"
+            >
 
                 <div
-                    class="profile-fallback"
-                    id="profileFallback"
+                    class="profile-menu-item"
+                    onclick="openMyAccount()"
                 >
 
                     <i class="fa-solid fa-user"></i>
 
+                    <span>
+                        My Account
+                    </span>
+
                 </div>
 
+
+                <div
+                    class="profile-menu-item logout-item"
+                    id="logoutBtn"
+                >
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>
+                        Logout
+                    </span>
+
+                </div>
 
             </div>
 
@@ -112,9 +136,9 @@
 
 
 
-    <!-- =====================================
-         MAIN CONTENT
-    ====================================== -->
+    <!-- ===============================
+         MAIN
+    ================================ -->
 
     <main class="main-content">
 
@@ -130,7 +154,13 @@
 
 
             <h1>
-                Welcome Back 👋
+
+                Welcome Back,
+                <span id="welcomeName">
+                    User
+                </span>
+                👋
+
             </h1>
 
 
@@ -144,25 +174,21 @@
 
 
 
-        <!-- =====================================
-             DASHBOARD CARDS
-        ====================================== -->
+        <!-- ===============================
+             CARDS
+        ================================ -->
 
         <section class="cards">
 
 
-            <!-- =================================
-                 NEW ENTRY
-            ================================== -->
+            <!-- NEW ENTRY -->
 
             <div
                 class="dashboard-card new-entry"
                 onclick="openPage('newentry.html')"
             >
 
-
                 <div class="card-top">
-
 
                     <div class="card-icon">
 
@@ -177,9 +203,7 @@
 
                     </span>
 
-
                 </div>
-
 
 
                 <div class="card-content">
@@ -196,7 +220,6 @@
                 </div>
 
 
-
                 <div class="card-footer">
 
                     <span>
@@ -207,23 +230,18 @@
 
                 </div>
 
-
             </div>
 
 
 
-            <!-- =================================
-                 PENDING SUPPORT
-            ================================== -->
+            <!-- PENDING SUPPORT -->
 
             <div
                 class="dashboard-card pending-support"
                 onclick="openPage('support.html')"
             >
 
-
                 <div class="card-top">
-
 
                     <div class="card-icon">
 
@@ -238,9 +256,7 @@
 
                     </span>
 
-
                 </div>
-
 
 
                 <div class="card-content">
@@ -257,7 +273,6 @@
                 </div>
 
 
-
                 <div class="card-footer">
 
                     <span>
@@ -268,23 +283,18 @@
 
                 </div>
 
-
             </div>
 
 
 
-            <!-- =================================
-                 HISTORY
-            ================================== -->
+            <!-- HISTORY -->
 
             <div
                 class="dashboard-card history"
                 onclick="openPage('history.html')"
             >
 
-
                 <div class="card-top">
-
 
                     <div class="card-icon">
 
@@ -299,9 +309,7 @@
 
                     </span>
 
-
                 </div>
-
 
 
                 <div class="card-content">
@@ -318,7 +326,6 @@
                 </div>
 
 
-
                 <div class="card-footer">
 
                     <span>
@@ -329,23 +336,18 @@
 
                 </div>
 
-
             </div>
 
 
 
-            <!-- =================================
-                 OFFLINE
-            ================================== -->
+            <!-- OFFLINE -->
 
             <div
                 class="dashboard-card offline"
                 onclick="openPage('offline.html')"
             >
 
-
                 <div class="card-top">
-
 
                     <div class="card-icon">
 
@@ -360,9 +362,7 @@
 
                     </span>
 
-
                 </div>
-
 
 
                 <div class="card-content">
@@ -379,7 +379,6 @@
                 </div>
 
 
-
                 <div class="card-footer">
 
                     <span>
@@ -390,7 +389,6 @@
 
                 </div>
 
-
             </div>
 
 
@@ -398,15 +396,12 @@
 
 
 
-        <!-- =====================================
-             FOOTER
-        ====================================== -->
+        <!-- FOOTER -->
 
         <footer>
 
-
             <span>
-                © 2026 Support Management System
+                © 2026 L4SM Support Management System
             </span>
 
 
@@ -418,7 +413,6 @@
 
             </span>
 
-
         </footer>
 
 
@@ -427,9 +421,6 @@
 
 </div>
 
-
-
-<!-- DASHBOARD JS -->
 
 <script src="std.js"></script>
 
