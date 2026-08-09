@@ -12,13 +12,15 @@
 
     <title>History</title>
 
-    <!-- HISTORY CSS -->
+
+    <!-- CSS -->
     <link
         rel="stylesheet"
-        href="history.css"
+        href="support.css"
     >
 
-    <!-- FONT AWESOME -->
+
+    <!-- Font Awesome -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -30,47 +32,41 @@
 <body>
 
 
-<!-- =====================================================
-     HEADER
-====================================================== -->
-
-<header class="header">
-
+    <!-- =========================
+         HEADER / TOP SECTION
+    ========================== -->
 
     <div class="left-section">
 
 
-        <!-- HISTORY FILTER BUTTON -->
-
         <button
             type="button"
-            class="history-filter-btn"
-            id="historyFilterBtn"
-            onclick="toggleFilter()"
-            title="History Filter"
+            class="back-btn"
+            onclick="goBack()"
         >
 
-            <i class="fa-solid fa-clock-rotate-left"></i>
+            <i class="fa fa-arrow-left"></i>
+
+            Back
 
         </button>
 
 
         <h2>
 
-            <i class="fa-solid fa-clock-rotate-left"></i>
+            <i class="fa fa-clock-rotate-left"></i>
 
-            <span>History</span>
+            History
 
         </h2>
-
 
     </div>
 
 
 
-    <!-- =================================================
+    <!-- =========================
          PROFILE
-    ================================================== -->
+    ========================== -->
 
     <div class="profile">
 
@@ -92,10 +88,9 @@
             </span>
 
 
-            <i class="fa-solid fa-angle-down"></i>
+            <i class="fa fa-angle-down"></i>
 
         </div>
-
 
 
         <div
@@ -109,7 +104,7 @@
                 onclick="myAccount()"
             >
 
-                <i class="fa-solid fa-user"></i>
+                <i class="fa fa-user"></i>
 
                 My Account
 
@@ -121,7 +116,7 @@
                 onclick="logout()"
             >
 
-                <i class="fa-solid fa-right-from-bracket"></i>
+                <i class="fa fa-sign-out"></i>
 
                 Logout
 
@@ -130,78 +125,24 @@
 
         </div>
 
-
-    </div>
-
-
-</header>
-
-
-
-<!-- =====================================================
-     FILTER PANEL
-====================================================== -->
-
-<div
-    class="filter-panel"
-    id="filterPanel"
->
-
-
-    <div class="filter-group">
-
-
-        <label for="fromDate">
-
-            From
-
-        </label>
-
-
-        <input
-            type="date"
-            id="fromDate"
-        >
-
-
     </div>
 
 
 
-    <div class="filter-group">
+    <!-- =========================
+         SEARCH
+    ========================== -->
+
+    <div class="search-box">
 
 
-        <label for="toDate">
-
-            To
-
-        </label>
-
-
-        <input
-            type="date"
-            id="toDate"
-        >
-
-
-    </div>
-
-
-
-    <div class="filter-group search-group">
-
-
-        <label for="historySearch">
-
-            Search
-
-        </label>
+        <i class="fa fa-search"></i>
 
 
         <input
             type="text"
             id="historySearch"
-            placeholder="Customer ID / Problem / Reference"
+            placeholder="Search Customer ID, Problem, Reference..."
             autocomplete="off"
         >
 
@@ -210,146 +151,60 @@
 
 
 
-</div>
-
-
-
-<!-- =====================================================
-     HISTORY TABLE
-====================================================== -->
-
-<div class="table-box">
-
+    <!-- =========================
+         HISTORY TABLE
+    ========================== -->
 
     <table>
 
-
         <thead>
-
 
             <tr>
 
+                <th>Customer ID</th>
 
-                <th>
-                    Customer ID
-                </th>
+                <th>Problem</th>
 
+                <th>Reference</th>
 
-                <th>
-                    Problem
-                </th>
+                <th>Date</th>
 
-
-                <th>
-                    Reference
-                </th>
-
-
-                <th>
-                    Date
-                </th>
-
-
-                <th>
-                    Action
-                </th>
-
+                <th>Action</th>
 
             </tr>
-
 
         </thead>
 
 
-
         <tbody id="historyList">
 
-
             <tr>
-
 
                 <td
                     colspan="5"
                     class="loading-cell"
                 >
 
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-
                     Loading...
 
                 </td>
 
-
             </tr>
 
-
         </tbody>
-
 
     </table>
 
 
-</div>
 
+    <!-- =========================
+         EDIT / VIEW POPUP
+    ========================== -->
 
-
-<!-- =====================================================
-     PAGINATION
-====================================================== -->
-
-<div class="pagination">
-
-
-    <button
-        type="button"
-        id="prevBtn"
-        onclick="previousPage()"
+    <div
+        class="popup"
+        id="editPopup"
     >
-
-        <i class="fa-solid fa-chevron-left"></i>
-
-        Previous
-
-    </button>
-
-
-
-    <span id="pageInfo">
-
-        Page 1 of 1
-
-    </span>
-
-
-
-    <button
-        type="button"
-        id="nextBtn"
-        onclick="nextPage()"
-    >
-
-        Next
-
-        <i class="fa-solid fa-chevron-right"></i>
-
-    </button>
-
-
-</div>
-
-
-
-<!-- =====================================================
-     EDIT HISTORY MODAL
-====================================================== -->
-
-<div
-    class="modal"
-    id="editModal"
->
-
-
-    <div class="popup">
 
 
         <button
@@ -363,12 +218,11 @@
         </button>
 
 
-
         <h2>
 
-            <i class="fa-solid fa-clock-rotate-left"></i>
+            <i class="fa fa-clock-rotate-left"></i>
 
-            History Details
+            Edit History
 
         </h2>
 
@@ -377,11 +231,8 @@
         <!-- CUSTOMER ID -->
 
         <label for="customerId">
-
             Customer ID
-
         </label>
-
 
         <input
             type="text"
@@ -393,15 +244,11 @@
         <!-- PROBLEM -->
 
         <label for="problem">
-
             Problem
-
         </label>
-
 
         <textarea
             id="problem"
-            rows="3"
         ></textarea>
 
 
@@ -409,11 +256,8 @@
         <!-- REFERENCE -->
 
         <label for="reference">
-
             Reference
-
         </label>
-
 
         <input
             type="text"
@@ -425,14 +269,11 @@
         <!-- DATE -->
 
         <label for="date">
-
             Date
-
         </label>
 
-
         <input
-            type="datetime-local"
+            type="date"
             id="date"
         >
 
@@ -441,11 +282,8 @@
         <!-- SUPPORT -->
 
         <label for="support">
-
             Support
-
         </label>
-
 
         <input
             type="text"
@@ -457,63 +295,11 @@
         <!-- SUPPORT WORK -->
 
         <label for="supportWork">
-
             Support Work
-
         </label>
-
 
         <textarea
             id="supportWork"
-            rows="3"
-        ></textarea>
-
-
-
-        <!-- SUPPORT TIME -->
-
-        <label for="supportTime">
-
-            Support Time
-
-        </label>
-
-
-        <input
-            type="text"
-            id="supportTime"
-        >
-
-
-
-        <!-- CALL -->
-
-        <label for="call">
-
-            Call
-
-        </label>
-
-
-        <input
-            type="text"
-            id="call"
-        >
-
-
-
-        <!-- CALL WORK -->
-
-        <label for="callWork">
-
-            Call Work
-
-        </label>
-
-
-        <textarea
-            id="callWork"
-            rows="3"
         ></textarea>
 
 
@@ -526,16 +312,14 @@
             <button
                 type="button"
                 class="submit-btn"
-                id="saveHistoryBtn"
-                onclick="updateHistory()"
+                onclick="updateSupport()"
             >
 
-                <i class="fa-solid fa-save"></i>
+                <i class="fa fa-paper-plane"></i>
 
-                Submit
+                Update
 
             </button>
-
 
 
             <button
@@ -544,61 +328,122 @@
                 onclick="closeEdit()"
             >
 
-                <i class="fa-solid fa-xmark"></i>
+                <i class="fa fa-xmark"></i>
 
                 Cancel
 
             </button>
 
 
-        </div>
+            <button
+                type="button"
+                class="delete-btn"
+                onclick="deleteSupport()"
+            >
 
+                <i class="fa fa-trash"></i>
+
+                Delete
+
+            </button>
+
+
+        </div>
 
     </div>
 
 
-</div>
+
+    <!-- =========================
+         CONFIRM DELETE POPUP
+    ========================== -->
+
+    <div
+        class="custom-popup"
+        id="confirmPopup"
+    >
+
+
+        <div class="popup-icon warning">
+
+            <i class="fa fa-triangle-exclamation"></i>
+
+        </div>
+
+
+        <h3 id="confirmTitle">
+            Confirm Delete
+        </h3>
+
+
+        <p id="confirmMessage">
+            Are you sure you want to delete this history?
+        </p>
+
+
+        <div class="custom-popup-buttons">
+
+
+            <button
+                type="button"
+                class="popup-cancel-btn"
+                onclick="closeConfirmPopup()"
+            >
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                class="popup-confirm-btn"
+                id="confirmActionBtn"
+            >
+
+                <i class="fa fa-trash"></i>
+
+                Delete
+
+            </button>
+
+
+        </div>
+
+    </div>
 
 
 
-<!-- =====================================================
-     SUCCESS MESSAGE
-====================================================== -->
+    <!-- =========================
+         SUCCESS POPUP
+    ========================== -->
 
-<div
-    class="custom-popup-overlay"
-    id="successPopup"
->
-
-
-    <div class="message-box">
+    <div
+        class="custom-popup"
+        id="successPopup"
+    >
 
 
-        <div class="message-icon">
+        <div class="popup-icon success">
 
-
-            <i class="fa-solid fa-circle-check"></i>
-
+            <i class="fa fa-check"></i>
 
         </div>
 
 
         <h3 id="successTitle">
-
             Success
-
         </h3>
 
 
         <p id="successMessage">
-
-            Done
-
+            Operation completed successfully.
         </p>
 
 
         <button
             type="button"
+            class="popup-ok-btn"
             onclick="closeSuccessPopup()"
         >
 
@@ -610,48 +455,37 @@
     </div>
 
 
-</div>
+
+    <!-- =========================
+         ERROR POPUP
+    ========================== -->
+
+    <div
+        class="custom-popup"
+        id="errorPopup"
+    >
 
 
+        <div class="popup-icon error">
 
-<!-- =====================================================
-     ERROR MESSAGE
-====================================================== -->
-
-<div
-    class="custom-popup-overlay"
-    id="errorPopup"
->
-
-
-    <div class="message-box error-message-box">
-
-
-        <div class="message-icon error-icon">
-
-
-            <i class="fa-solid fa-circle-xmark"></i>
-
+            <i class="fa fa-xmark"></i>
 
         </div>
 
 
         <h3 id="errorTitle">
-
             Error
-
         </h3>
 
 
         <p id="errorMessage">
-
             Something went wrong.
-
         </p>
 
 
         <button
             type="button"
+            class="popup-ok-btn error-btn"
             onclick="closeErrorPopup()"
         >
 
@@ -663,17 +497,12 @@
     </div>
 
 
-</div>
 
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
 
-
-<!-- =====================================================
-     JAVASCRIPT
-====================================================== -->
-
-<script
-    src="history.js"
-></script>
+    <script src="history.js"></script>
 
 
 </body>
