@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>L4SM CD Dashboard</title>
+
+    <link rel="stylesheet" href="cd.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+    <!-- =================================
+         TOPBAR
+    ================================== -->
+
+    <header class="topbar">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <i class="fa-solid fa-headset"></i>
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <h2>
+                    L4SM Support
+                </h2>
+
+                <span>
+                    Call & Support Dashboard
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PROFILE -->
+
+        <div
+            class="profile"
+            onclick="toggleProfileMenu()"
+        >
+
+            <div class="profile-info">
+
+                <strong id="headerName">
+                    User
+                </strong>
+
+                <small>
+                    Support User
+                </small>
+
+            </div>
+
+
+            <div class="profile-photo">
+
+                <img
+                    id="profileImg"
+                    src="assets/profile.png"
+                    alt="Profile"
+                >
+
+            </div>
+
+
+            <!-- PROFILE MENU -->
+
+            <div
+                class="profile-menu"
+                id="profileMenu"
+            >
+
+                <div
+                    class="profile-menu-item"
+                    onclick="openMyAccount()"
+                >
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <span>
+                        My Account
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="profile-menu-item logout-item"
+                    id="logoutBtn"
+                >
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>
+                        Logout
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =================================
+         MAIN
+    ================================== -->
+
+    <main class="main-content">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome">
+
+            <span class="small-title">
+                CD DASHBOARD
+            </span>
+
+
+            <h1>
+
+                Welcome Back,
+                <span id="welcomeName">
+                    User
+                </span>
+                👋
+
+            </h1>
+
+
+            <p>
+                Manage support, calls and offline
+                activities from one place.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================
+             CARDS
+        ================================== -->
+
+        <section class="cards">
+
+
+            <!-- =============================
+                 NEW ENTRY
+            ============================== -->
+
+            <div
+                class="dashboard-card new-entry"
+                onclick="openPage('newentry.html')"
+            >
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </div>
+
+
+                    <span class="arrow">
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </span>
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        New Entry
+                    </h3>
+
+                    <p>
+                        Create a new customer support
+                        entry quickly and easily.
+                    </p>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span>
+                        Open New Entry
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================
+                 PENDING SUPPORT
+            ============================== -->
+
+            <div
+                class="dashboard-card pending-support"
+                onclick="openPage('support.html')"
+            >
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-headset"></i>
+
+                    </div>
+
+
+                    <span class="arrow">
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </span>
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Pending Support
+                    </h3>
+
+                    <p>
+                        View and manage all pending
+                        customer support requests.
+                    </p>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span>
+                        View Pending Support
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================
+                 PENDING CALL
+            ============================== -->
+
+            <div
+                class="dashboard-card pending-call"
+                onclick="openPage('call.html')"
+            >
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                    </div>
+
+
+                    <span class="arrow">
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </span>
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Pending Call
+                    </h3>
+
+                    <p>
+                        View and manage customer calls
+                        waiting for action.
+                    </p>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span>
+                        View Pending Call
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================
+                 HISTORY
+            ============================== -->
+
+            <div
+                class="dashboard-card history"
+                onclick="openPage('history.html')"
+            >
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+
+                    </div>
+
+
+                    <span class="arrow">
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </span>
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        History
+                    </h3>
+
+                    <p>
+                        Check previous support and call
+                        activities and completed requests.
+                    </p>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span>
+                        View History
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================
+                 OFFLINE
+            ============================== -->
+
+            <div
+                class="dashboard-card offline"
+                onclick="openPage('offline.html')"
+            >
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-wifi"></i>
+
+                    </div>
+
+
+                    <span class="arrow">
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </span>
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Offline
+                    </h3>
+
+                    <p>
+                        Create and manage offline customer
+                        entries and support activities.
+                    </p>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span>
+                        Open Offline
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================
+                 OFFLINE HISTORY
+            ============================== -->
+
+            <div
+                class="dashboard-card offline-history"
+                onclick="openPage('offline-history.html')"
+            >
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-box-archive"></i>
+
+                    </div>
+
+
+                    <span class="arrow">
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </span>
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Offline History
+                    </h3>
+
+                    <p>
+                        View previous offline entries
+                        and completed offline activities.
+                    </p>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span>
+                        View Offline History
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================
+             FOOTER
+        ================================== -->
+
+        <footer>
+
+            <span>
+                © 2026 L4SM Support Management System
+            </span>
+
+
+            <span class="status">
+
+                <i class="fa-solid fa-circle"></i>
+
+                System Online
+
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+</div>
+
+
+<script src="cd.js"></script>
+
+</body>
+
+</html>
