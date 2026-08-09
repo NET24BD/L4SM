@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +13,17 @@
 
     <title>Pending Support</title>
 
-  
+
+    <!-- SUPPORT CSS -->
+
     <link
         rel="stylesheet"
         href="support.css"
     >
 
-   
+
+    <!-- FONT AWESOME -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -27,22 +31,15 @@
 
 </head>
 
+
 <body>
 
 
-<header class="header">
+    <!-- =========================================
+         HEADER LEFT SECTION
+    ========================================== -->
 
     <div class="left-section">
-
-        <button
-            type="button"
-            class="back-btn"
-            onclick="goBack()"
-        >
-
-
-        </button>
-
 
         <h2>
 
@@ -55,7 +52,11 @@
     </div>
 
 
-    
+
+
+    <!-- =========================================
+         PROFILE
+    ========================================== -->
 
     <div class="profile">
 
@@ -79,14 +80,19 @@
         </div>
 
 
+        <!-- PROFILE MENU -->
+
         <div
             class="profile-menu"
             id="profileMenu"
         >
 
+
+            <!-- MY ACCOUNT -->
+
             <button
                 type="button"
-                onclick="my-Account.html()"
+                onclick="window.location.href='my-account.html'"
             >
 
                 <i class="fa fa-user"></i>
@@ -96,9 +102,11 @@
             </button>
 
 
+            <!-- LOGOUT -->
+
             <button
                 type="button"
-                onclick="logout.html()"
+                onclick="window.location.href='logout.html'"
             >
 
                 <i class="fa fa-sign-out"></i>
@@ -107,14 +115,17 @@
 
             </button>
 
+
         </div>
 
     </div>
 
-</header>
 
 
-<div class="search-section">
+
+    <!-- =========================================
+         SEARCH BOX
+    ========================================== -->
 
     <div class="search-box">
 
@@ -129,10 +140,12 @@
 
     </div>
 
-</div>
 
 
-<div class="table-box">
+
+    <!-- =========================================
+         SUPPORT TABLE
+    ========================================== -->
 
     <table>
 
@@ -186,15 +199,17 @@
 
     </table>
 
-</div>
 
 
-<div
-    class="modal"
-    id="editModal"
->
+
+    <!-- =========================================
+         EDIT SUPPORT POPUP
+    ========================================== -->
 
     <div class="popup">
+
+
+        <!-- CLOSE BUTTON -->
 
         <button
             type="button"
@@ -207,6 +222,8 @@
         </button>
 
 
+        <!-- TITLE -->
+
         <h2>
 
             <i class="fa fa-headset"></i>
@@ -216,10 +233,14 @@
         </h2>
 
 
-        
+
+
+        <!-- CUSTOMER ID -->
 
         <label for="customerId">
+
             Customer ID
+
         </label>
 
         <input
@@ -229,10 +250,14 @@
         >
 
 
-     
+
+
+        <!-- PROBLEM -->
 
         <label for="problem">
+
             Problem
+
         </label>
 
         <textarea
@@ -241,10 +266,14 @@
         ></textarea>
 
 
-      
+
+
+        <!-- REFERENCE -->
 
         <label for="reference">
+
             Reference
+
         </label>
 
         <input
@@ -254,10 +283,14 @@
         >
 
 
-     
+
+
+        <!-- DATE -->
 
         <label for="date">
+
             Date
+
         </label>
 
         <input
@@ -267,10 +300,14 @@
         >
 
 
-      
+
+
+        <!-- SUPPORT -->
 
         <label for="support">
+
             Support
+
         </label>
 
         <input
@@ -279,10 +316,14 @@
         >
 
 
-        
+
+
+        <!-- SUPPORT WORK -->
 
         <label for="supportWork">
+
             Support Work
+
         </label>
 
         <textarea
@@ -290,9 +331,14 @@
         ></textarea>
 
 
-        <!-- BUTTONS -->
+
+
+        <!-- POPUP BUTTONS -->
 
         <div class="popup-buttons">
+
+
+            <!-- SUBMIT -->
 
             <button
                 type="button"
@@ -307,6 +353,8 @@
             </button>
 
 
+            <!-- CANCEL -->
+
             <button
                 type="button"
                 class="cancel-btn"
@@ -319,19 +367,21 @@
 
             </button>
 
+
         </div>
+
 
     </div>
 
-</div>
 
 
-<div
-    class="custom-popup-overlay"
-    id="confirmPopup"
->
+
+    <!-- =========================================
+         CONFIRM POPUP
+    ========================================== -->
 
     <div class="custom-popup">
+
 
         <div class="popup-icon warning">
 
@@ -341,16 +391,23 @@
 
 
         <h3 id="confirmTitle">
+
             Confirm
+
         </h3>
 
 
         <p id="confirmMessage">
+
             Are you sure?
+
         </p>
 
 
         <div class="custom-popup-buttons">
+
+
+            <!-- CANCEL -->
 
             <button
                 type="button"
@@ -363,6 +420,8 @@
             </button>
 
 
+            <!-- CONFIRM -->
+
             <button
                 type="button"
                 class="popup-confirm-btn"
@@ -373,19 +432,21 @@
 
             </button>
 
+
         </div>
+
 
     </div>
 
-</div>
 
 
-<div
-    class="custom-popup-overlay"
-    id="successPopup"
->
+
+    <!-- =========================================
+         SUCCESS POPUP
+    ========================================== -->
 
     <div class="custom-popup">
+
 
         <div class="popup-icon success">
 
@@ -395,12 +456,16 @@
 
 
         <h3 id="successTitle">
+
             Success
+
         </h3>
 
 
         <p id="successMessage">
+
             Operation completed successfully.
+
         </p>
 
 
@@ -414,17 +479,18 @@
 
         </button>
 
+
     </div>
 
-</div>
 
 
-<div
-    class="custom-popup-overlay"
-    id="errorPopup"
->
+
+    <!-- =========================================
+         ERROR POPUP
+    ========================================== -->
 
     <div class="custom-popup">
+
 
         <div class="popup-icon error">
 
@@ -434,12 +500,16 @@
 
 
         <h3 id="errorTitle">
+
             Error
+
         </h3>
 
 
         <p id="errorMessage">
+
             Something went wrong.
+
         </p>
 
 
@@ -453,14 +523,18 @@
 
         </button>
 
+
     </div>
 
-</div>
 
 
 
+    <!-- =========================================
+         SUPPORT JS
+    ========================================== -->
 
-<script src="support.js"></script>
+    <script src="support.js"></script>
+
 
 </body>
 
