@@ -1,10 +1,17 @@
 
-
 "use strict";
+
+/* =====================================================
+   API
+===================================================== */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
 
 let currentRow = null;
 
@@ -13,6 +20,10 @@ let supportData = [];
 let confirmCallback = null;
 
 
+/* =====================================================
+   LOGIN / URL PROTECTION
+===================================================== */
+
 (function () {
 
     function checkAuth() {
@@ -20,20 +31,36 @@ let confirmCallback = null;
         const auth =
             localStorage.getItem("auth");
 
-        if (auth !== "true") {
+        const username =
+            localStorage.getItem("username");
+
+
+        /*
+         * Login না থাকলে Login page
+         */
+
+        if (
+            auth !== "true" ||
+            !username ||
+            username.trim() === ""
+        ) {
 
             window.location.replace(
                 "login.html"
             );
 
             return false;
-
         }
+
 
         return true;
 
     }
 
+
+    /*
+     * Page open হওয়ার সময় auth check
+     */
 
     if (!checkAuth()) {
 
@@ -41,6 +68,10 @@ let confirmCallback = null;
 
     }
 
+
+    /*
+     * Browser history control
+     */
 
     history.pushState(
         null,
@@ -52,6 +83,10 @@ let confirmCallback = null;
     window.addEventListener(
         "popstate",
         function () {
+
+            /*
+             * Logout হয়ে গেলে Login page
+             */
 
             if (
                 localStorage.getItem("auth")
@@ -67,6 +102,10 @@ let confirmCallback = null;
             }
 
 
+            /*
+             * Browser Back আটকানো
+             */
+
             history.pushState(
                 null,
                 "",
@@ -76,6 +115,10 @@ let confirmCallback = null;
         }
     );
 
+
+    /*
+     * Back-forward cache protection
+     */
 
     window.addEventListener(
         "pageshow",
@@ -104,12 +147,64 @@ let confirmCallback = null;
         }
     );
 
+
+    /*
+     * Tab আবার active হলে auth check
+     */
+
+    document.addEventListener(
+        "visibilitychange",
+        function () {
+
+            if (
+                document.visibilityState ===
+                "visible"
+            ) {
+
+                if (
+                    localStorage.getItem("auth")
+                    !== "true"
+                ) {
+
+                    window.location.replace(
+                        "login.html"
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
 })();
 
+
+/* =====================================================
+   DOM READY
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
+        /*
+         * Extra auth check
+         */
+
+        if (
+            localStorage.getItem("auth")
+            !== "true"
+        ) {
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return;
+
+        }
+
 
         loadProfile();
 
@@ -134,6 +229,10 @@ document.addEventListener(
     }
 );
 
+
+/* =====================================================
+   PROFILE
+===================================================== */
 
 function loadProfile() {
 
@@ -207,6 +306,10 @@ function loadProfile() {
 }
 
 
+/* =====================================================
+   PROFILE MENU
+===================================================== */
+
 function toggleProfile() {
 
     const menu =
@@ -228,63 +331,115 @@ function toggleProfile() {
 
 }
 
-function my-Account() {
 
-    window.location.href=
+/* =====================================================
+   MY ACCOUNT
+===================================================== */
+
+function myAccount() {
+
+    /*
+     * Auth check
+     */
+
+    if (
+        localStorage.getItem("auth")
+        !== "true"
+    ) {
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
         "my-account.html";
 
 }
 
 
+/* =====================================================
+   LOGOUT
+===================================================== */
+
 function logout() {
+
+    /*
+     * Login information remove
+     */
 
     localStorage.removeItem(
         "auth"
     );
 
+
     localStorage.removeItem(
         "username"
     );
 
+
     localStorage.removeItem(
         "picture"
     );
+
 
     localStorage.removeItem(
         "role"
     );
 
 
+    localStorage.removeItem(
+        "token"
+    );
+
+
+    localStorage.removeItem(
+        "deviceToken"
+    );
+
+
+    /*
+     * Session clear
+     */
+
     sessionStorage.clear();
 
 
+    /*
+     * Login page
+     */
+
     window.location.replace(
         "login.html"
     );
 
 }
 
+
+/* =====================================================
+   BACK BUTTON
+   COMPLETELY DISABLED
+===================================================== */
 
 function goBack() {
 
+    /*
+     * Back button click করলে
+     * কোনো action হবে না.
+     */
 
-    if (
-        window.history.length > 1
-    ) {
-
-        window.history.back();
-
-        return;
-
-    }
-
-    window.location.replace(
-        "login.html"
-    );
+    return false;
 
 }
 
 
+/* =====================================================
+   LOAD SUPPORT
+===================================================== */
 
 function loadSupport() {
 
@@ -434,6 +589,10 @@ function loadSupport() {
 }
 
 
+/* =====================================================
+   RENDER SUPPORT
+===================================================== */
+
 function renderSupport(data) {
 
     const list =
@@ -496,11 +655,13 @@ function renderSupport(data) {
                         )}
                     </td>
 
+
                     <td>
                         ${escapeHTML(
                             item.problem
                         )}
                     </td>
+
 
                     <td>
                         ${escapeHTML(
@@ -508,11 +669,13 @@ function renderSupport(data) {
                         )}
                     </td>
 
+
                     <td>
                         ${formatDate(
                             item.date
                         )}
                     </td>
+
 
                     <td>
 
@@ -543,6 +706,10 @@ function renderSupport(data) {
 
 }
 
+
+/* =====================================================
+   SEARCH SUPPORT
+===================================================== */
 
 function searchSupport() {
 
@@ -696,6 +863,11 @@ function searchSupport() {
 
 }
 
+
+/* =====================================================
+   EDIT SUPPORT
+===================================================== */
+
 function editSupport(row) {
 
     currentRow =
@@ -737,7 +909,6 @@ function editSupport(row) {
     );
 
 
-
     setValue(
         "problem",
         item.problem
@@ -748,7 +919,6 @@ function editSupport(row) {
         "reference",
         item.reference
     );
-
 
 
     setValue(
@@ -776,7 +946,7 @@ function editSupport(row) {
 
     const modal =
         document.getElementById(
-            "editModal"
+            "editPopup"
         );
 
 
@@ -790,6 +960,10 @@ function editSupport(row) {
 
 }
 
+
+/* =====================================================
+   READ ONLY FIELDS
+===================================================== */
 
 function makeReadOnlyFields() {
 
@@ -851,6 +1025,10 @@ function makeReadOnlyFields() {
 }
 
 
+/* =====================================================
+   SET VALUE
+===================================================== */
+
 function setValue(
     id,
     value
@@ -872,6 +1050,10 @@ function setValue(
 }
 
 
+/* =====================================================
+   GET VALUE
+===================================================== */
+
 function getValue(id) {
 
     const element =
@@ -892,11 +1074,15 @@ function getValue(id) {
 }
 
 
+/* =====================================================
+   CLOSE EDIT
+===================================================== */
+
 function closeEdit() {
 
     const modal =
         document.getElementById(
-            "editModal"
+            "editPopup"
         );
 
 
@@ -914,6 +1100,10 @@ function closeEdit() {
 
 }
 
+
+/* =====================================================
+   UPDATE SUPPORT
+===================================================== */
 
 function updateSupport() {
 
@@ -967,7 +1157,7 @@ function updateSupport() {
 
     const button =
         document.querySelector(
-            "#editModal .submit-btn"
+            "#editPopup .submit-btn"
         );
 
 
@@ -1144,6 +1334,10 @@ function updateSupport() {
 }
 
 
+/* =====================================================
+   CONFIRM POPUP
+===================================================== */
+
 function showConfirmPopup(
     message,
     callback,
@@ -1236,6 +1430,11 @@ function showConfirmPopup(
 
 }
 
+
+/* =====================================================
+   CLOSE CONFIRM
+===================================================== */
+
 function closeConfirmPopup() {
 
     const popup =
@@ -1258,6 +1457,10 @@ function closeConfirmPopup() {
 
 }
 
+
+/* =====================================================
+   SUCCESS POPUP
+===================================================== */
 
 function showSuccessPopup(
     message,
@@ -1313,6 +1516,11 @@ function showSuccessPopup(
 
 }
 
+
+/* =====================================================
+   CLOSE SUCCESS
+===================================================== */
+
 function closeSuccessPopup() {
 
     const popup =
@@ -1330,6 +1538,11 @@ function closeSuccessPopup() {
     }
 
 }
+
+
+/* =====================================================
+   ERROR POPUP
+===================================================== */
 
 function showErrorPopup(
     message,
@@ -1386,6 +1599,10 @@ function showErrorPopup(
 }
 
 
+/* =====================================================
+   CLOSE ERROR
+===================================================== */
+
 function closeErrorPopup() {
 
     const popup =
@@ -1405,6 +1622,10 @@ function closeErrorPopup() {
 }
 
 
+/* =====================================================
+   CONVERT DATE
+===================================================== */
+
 function convertDate(date) {
 
     if (!date) {
@@ -1417,8 +1638,6 @@ function convertDate(date) {
     const text =
         String(date);
 
-
-   
 
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
@@ -1472,6 +1691,10 @@ function convertDate(date) {
 
 }
 
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
 
 function formatDate(date) {
 
@@ -1549,6 +1772,10 @@ function formatDate(date) {
 }
 
 
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
 function escapeHTML(value) {
 
     if (
@@ -1591,6 +1818,10 @@ function escapeHTML(value) {
 }
 
 
+/* =====================================================
+   CLOSE PROFILE MENU
+===================================================== */
+
 document.addEventListener(
     "click",
     function (event) {
@@ -1625,13 +1856,17 @@ document.addEventListener(
 );
 
 
+/* =====================================================
+   CLOSE EDIT POPUP
+===================================================== */
+
 document.addEventListener(
     "click",
     function (event) {
 
         const modal =
             document.getElementById(
-                "editModal"
+                "editPopup"
             );
 
 
@@ -1647,6 +1882,10 @@ document.addEventListener(
     }
 );
 
+
+/* =====================================================
+   CLOSE POPUPS
+===================================================== */
 
 document.addEventListener(
     "click",
@@ -1706,6 +1945,10 @@ document.addEventListener(
 );
 
 
+/* =====================================================
+   ESC KEY
+===================================================== */
+
 document.addEventListener(
     "keydown",
     function (event) {
@@ -1728,7 +1971,7 @@ document.addEventListener(
 
         const modal =
             document.getElementById(
-                "editModal"
+                "editPopup"
             );
 
 
@@ -1745,7 +1988,9 @@ document.addEventListener(
 
     }
 );
-// =====================================
-// END S.JS
-// =====================================
+
+
+/* =====================================================
+   END SUPPORT.JS
+===================================================== */
 
