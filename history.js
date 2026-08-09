@@ -1,82 +1,284 @@
 /* =====================================================
-   HISTORY DATA
-===================================================== */
+   HISTORY.JS
+   ===================================================== */
+
+
+/* =====================================================
+   1. HISTORY DATA
+   ===================================================== */
 
 let historyData = [
 
     {
         customerId: "ABMB020",
-
         problem: "উনার লাইনে এ কি সমস্যা দেখে আসতে হবে",
-
         reference: "Shemanto",
-
         date: "2026-08-01",
-
         support: "Shemanto",
-
-        supportWork: "Onu Change"
+        supportWork: "ONU Change"
     },
-
 
     {
         customerId: "AHSR073",
-
         problem: "উনার লাইনে এ কি সমস্যা দেখে আসতে হবে",
-
         reference: "Shemanto",
-
         date: "2026-08-04",
-
         support: "Shemanto",
-
-        supportWork: "Onu Change"
+        supportWork: "ONU Change"
     },
-
 
     {
         customerId: "ABMB028",
-
         problem: "উনার লাইনে এ কি সমস্যা দেখে আসতে হবে",
-
         reference: "Shemanto",
-
         date: "2026-08-07",
-
         support: "Shemanto",
+        supportWork: "ONU Change"
+    },
 
-        supportWork: "Onu Change"
+    {
+        customerId: "ABMB031",
+        problem: "ইন্টারনেট কানেকশন চেক করতে হবে",
+        reference: "Shemanto",
+        date: "2026-08-08",
+        support: "Shemanto",
+        supportWork: "ONU Check"
+    },
+
+    {
+        customerId: "ABMB045",
+        problem: "Router সমস্যা",
+        reference: "Rahim",
+        date: "2026-08-09",
+        support: "Rahim",
+        supportWork: "Router Reset"
+    },
+
+    {
+        customerId: "ABMB052",
+        problem: "Internet slow",
+        reference: "Karim",
+        date: "2026-08-10",
+        support: "Karim",
+        supportWork: "Line Check"
+    },
+
+    {
+        customerId: "ABMB067",
+        problem: "ONU Power সমস্যা",
+        reference: "Shemanto",
+        date: "2026-08-11",
+        support: "Shemanto",
+        supportWork: "ONU Replace"
+    },
+
+    {
+        customerId: "ABMB074",
+        problem: "Fiber cable সমস্যা",
+        reference: "Rahim",
+        date: "2026-08-12",
+        support: "Rahim",
+        supportWork: "Fiber Repair"
+    },
+
+    {
+        customerId: "ABMB081",
+        problem: "WiFi connection সমস্যা",
+        reference: "Karim",
+        date: "2026-08-13",
+        support: "Karim",
+        supportWork: "Router Check"
+    },
+
+    {
+        customerId: "ABMB093",
+        problem: "No internet connection",
+        reference: "Shemanto",
+        date: "2026-08-14",
+        support: "Shemanto",
+        supportWork: "Line Check"
+    },
+
+    {
+        customerId: "ABMB101",
+        problem: "ONU signal low",
+        reference: "Rahim",
+        date: "2026-08-15",
+        support: "Rahim",
+        supportWork: "Optical Check"
     }
 
 ];
 
 
 /* =====================================================
-   ELEMENTS
-===================================================== */
+   2. PAGINATION SETTINGS
+   ===================================================== */
 
-const historyList =
-    document.getElementById("historyList");
+const ITEMS_PER_PAGE = 10;
 
-const historySearch =
-    document.getElementById("historySearch");
+let currentPage = 1;
 
-const historyFilter =
-    document.getElementById("historyFilter");
-
-const editPopup =
-    document.getElementById("editPopup");
-
-const profileMenu =
-    document.getElementById("profileMenu");
-
+let filteredHistory = [];
 
 let currentEditIndex = null;
 
 
 /* =====================================================
-   LOAD HISTORY
-===================================================== */
+   3. GET HTML ELEMENTS
+   ===================================================== */
+
+const historyList =
+    document.getElementById("historyList");
+
+
+const historySearch =
+    document.getElementById("historySearch");
+
+
+const fromDate =
+    document.getElementById("fromDate");
+
+
+const toDate =
+    document.getElementById("toDate");
+
+
+const pagination =
+    document.getElementById("pagination");
+
+
+const editPopup =
+    document.getElementById("editPopup");
+
+
+const profileMenu =
+    document.getElementById("profileMenu");
+
+
+const profileImg =
+    document.getElementById("profileImg");
+
+
+const username =
+    document.getElementById("username");
+
+
+/* =====================================================
+   4. LOAD LOGGED-IN USER
+   ===================================================== */
+
+function loadLoggedInUser() {
+
+    try {
+
+        const savedUser =
+            localStorage.getItem(
+                "loggedInUser"
+            );
+
+
+        if (!savedUser) {
+
+            setDefaultUser();
+
+            return;
+
+        }
+
+
+        const user =
+            JSON.parse(savedUser);
+
+
+        /*
+         * Supported names:
+         *
+         * username
+         * name
+         * userName
+         * fullName
+         */
+
+        const userName =
+            user.username ||
+            user.name ||
+            user.userName ||
+            user.fullName ||
+            user.userId ||
+            "User";
+
+
+        /*
+         * Supported image names:
+         *
+         * profileImage
+         * profileImg
+         * image
+         * photo
+         */
+
+        const userImage =
+            user.profileImage ||
+            user.profileImg ||
+            user.image ||
+            user.photo ||
+            "assets/profile.png";
+
+
+        username.textContent =
+            userName;
+
+
+        profileImg.src =
+            userImage;
+
+
+        profileImg.onerror =
+            function () {
+
+                this.onerror = null;
+
+                this.src =
+                    "assets/profile.png";
+
+            };
+
+
+    } catch (error) {
+
+        console.error(
+            "User loading error:",
+            error
+        );
+
+
+        setDefaultUser();
+
+    }
+
+}
+
+
+/* =====================================================
+   5. DEFAULT USER
+   ===================================================== */
+
+function setDefaultUser() {
+
+    username.textContent =
+        "User";
+
+
+    profileImg.src =
+        "assets/profile.png";
+
+}
+
+
+/* =====================================================
+   6. LOAD HISTORY
+   ===================================================== */
 
 function loadHistory() {
 
@@ -86,8 +288,8 @@ function loadHistory() {
 
 
 /* =====================================================
-   APPLY SEARCH + FILTER
-===================================================== */
+   7. APPLY SEARCH + DATE FILTER
+   ===================================================== */
 
 function applyFilters() {
 
@@ -97,149 +299,255 @@ function applyFilters() {
             .toLowerCase();
 
 
-    const filterValue =
-        historyFilter.value;
+    const from =
+        fromDate.value
+            ? parseHistoryDate(
+                fromDate.value
+            )
+            : null;
 
 
-    const today =
-        new Date();
+    const to =
+        toDate.value
+            ? parseHistoryDate(
+                toDate.value
+            )
+            : null;
 
 
-    const filteredData =
-        historyData.filter(item => {
+    /*
+     * Check date
+     */
+
+    if (
+        from &&
+        to &&
+        from > to
+    ) {
+
+        showError(
+            "Invalid Date",
+            "From date cannot be greater than To date."
+        );
+
+        return;
+
+    }
 
 
-            /* SEARCH */
-
-            const matchesSearch =
-
-                String(item.customerId || "")
-                    .toLowerCase()
-                    .includes(searchText)
-
-                ||
-
-                String(item.problem || "")
-                    .toLowerCase()
-                    .includes(searchText)
-
-                ||
-
-                String(item.reference || "")
-                    .toLowerCase()
-                    .includes(searchText);
+    filteredHistory =
+        historyData.filter(
+            function (item) {
 
 
-            if (!matchesSearch) {
+                /*
+                 * SEARCH
+                 */
 
-                return false;
+                const customerId =
+                    String(
+                        item.customerId || ""
+                    ).toLowerCase();
 
-            }
+
+                const problem =
+                    String(
+                        item.problem || ""
+                    ).toLowerCase();
 
 
-            /* FILTER */
+                const reference =
+                    String(
+                        item.reference || ""
+                    ).toLowerCase();
 
-            if (filterValue === "all") {
+
+                const support =
+                    String(
+                        item.support || ""
+                    ).toLowerCase();
+
+
+                const supportWork =
+                    String(
+                        item.supportWork || ""
+                    ).toLowerCase();
+
+
+                const matchesSearch =
+
+                    customerId.includes(
+                        searchText
+                    )
+
+                    ||
+
+                    problem.includes(
+                        searchText
+                    )
+
+                    ||
+
+                    reference.includes(
+                        searchText
+                    )
+
+                    ||
+
+                    support.includes(
+                        searchText
+                    )
+
+                    ||
+
+                    supportWork.includes(
+                        searchText
+                    );
+
+
+                if (!matchesSearch) {
+
+                    return false;
+
+                }
+
+
+                /*
+                 * DATE
+                 */
+
+                const itemDate =
+                    parseHistoryDate(
+                        item.date
+                    );
+
+
+                if (!itemDate) {
+
+                    return false;
+
+                }
+
+
+                /*
+                 * FROM DATE
+                 */
+
+                if (
+                    from &&
+                    itemDate < from
+                ) {
+
+                    return false;
+
+                }
+
+
+                /*
+                 * TO DATE
+                 */
+
+                if (to) {
+
+                    const endDate =
+                        new Date(to);
+
+
+                    endDate.setHours(
+                        23,
+                        59,
+                        59,
+                        999
+                    );
+
+
+                    if (
+                        itemDate >
+                        endDate
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
 
                 return true;
 
             }
+        );
 
 
-            const itemDate =
-                parseHistoryDate(item.date);
+    /*
+     * Reset page
+     */
+
+    currentPage = 1;
 
 
-            if (!itemDate) {
-
-                return false;
-
-            }
-
-
-            /* TODAY */
-
-            if (filterValue === "today") {
-
-                return (
-
-                    itemDate.getFullYear() ===
-                    today.getFullYear()
-
-                    &&
-
-                    itemDate.getMonth() ===
-                    today.getMonth()
-
-                    &&
-
-                    itemDate.getDate() ===
-                    today.getDate()
-
-                );
-
-            }
-
-
-            /* LAST 7 DAYS */
-
-            if (filterValue === "7days") {
-
-                const sevenDaysAgo =
-                    new Date(today);
-
-                sevenDaysAgo.setDate(
-                    today.getDate() - 7
-                );
-
-
-                return (
-                    itemDate >= sevenDaysAgo &&
-                    itemDate <= today
-                );
-
-            }
-
-
-            /* THIS MONTH */
-
-            if (filterValue === "month") {
-
-                return (
-
-                    itemDate.getFullYear() ===
-                    today.getFullYear()
-
-                    &&
-
-                    itemDate.getMonth() ===
-                    today.getMonth()
-
-                );
-
-            }
-
-
-            return true;
-
-        });
-
-
-    renderHistory(filteredData);
+    renderPage();
 
 }
 
 
 /* =====================================================
-   RENDER TABLE
-===================================================== */
+   8. RENDER PAGE
+   ===================================================== */
 
-function renderHistory(data) {
+function renderPage() {
 
     historyList.innerHTML = "";
 
 
-    if (data.length === 0) {
+    const totalPages =
+        Math.ceil(
+            filteredHistory.length /
+            ITEMS_PER_PAGE
+        );
+
+
+    /*
+     * Fix current page
+     */
+
+    if (
+        totalPages > 0 &&
+        currentPage > totalPages
+    ) {
+
+        currentPage =
+            totalPages;
+
+    }
+
+
+    const startIndex =
+        (
+            currentPage - 1
+        ) *
+        ITEMS_PER_PAGE;
+
+
+    const endIndex =
+        startIndex +
+        ITEMS_PER_PAGE;
+
+
+    const pageData =
+        filteredHistory.slice(
+            startIndex,
+            endIndex
+        );
+
+
+    /*
+     * No data
+     */
+
+    if (
+        pageData.length === 0
+    ) {
 
         historyList.innerHTML = `
 
@@ -258,89 +566,374 @@ function renderHistory(data) {
 
         `;
 
+
+        renderPagination();
+
         return;
 
     }
 
 
-    data.forEach(item => {
+    /*
+     * Render data
+     */
+
+    pageData.forEach(
+        function (item) {
 
 
-        const originalIndex =
-            historyData.indexOf(item);
+            const originalIndex =
+                historyData.indexOf(
+                    item
+                );
 
 
-        const row =
-            document.createElement("tr");
+            const row =
+                document.createElement(
+                    "tr"
+                );
 
 
-        /*
-            IMPORTANT:
+            row.innerHTML = `
 
-            এখানে মাত্র ৫টি TD আছে।
-
-            Customer ID
-            Problem
-            Reference
-            Date
-            Action
-
-            Support এবং Support Work
-            table-এর বাইরে।
-        */
+                <td>
+                    ${escapeHTML(
+                        item.customerId
+                    )}
+                </td>
 
 
-        row.innerHTML = `
-
-            <td>
-                ${escapeHTML(item.customerId)}
-            </td>
-
-
-            <td class="problem-cell">
-                ${escapeHTML(item.problem)}
-            </td>
-
-
-            <td>
-                ${escapeHTML(item.reference)}
-            </td>
-
-
-            <td>
-                ${formatDate(item.date)}
-            </td>
-
-
-            <td>
-
-                <button
-                    type="button"
-                    class="view-btn"
-                    onclick="viewHistory(${originalIndex})"
+                <td class="problem-cell"
+                    title="${escapeHTML(
+                        item.problem
+                    )}"
                 >
-
-                    <i class="fa fa-eye"></i>
-
-                    View
-
-                </button>
-
-            </td>
-
-        `;
+                    ${escapeHTML(
+                        item.problem
+                    )}
+                </td>
 
 
-        historyList.appendChild(row);
+                <td>
+                    ${escapeHTML(
+                        item.reference
+                    )}
+                </td>
 
-    });
+
+                <td>
+                    ${formatDate(
+                        item.date
+                    )}
+                </td>
+
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="view-btn"
+                        onclick="viewHistory(${originalIndex})"
+                    >
+
+                        <i class="fa fa-eye"></i>
+
+                        View
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            historyList.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    renderPagination();
 
 }
 
 
 /* =====================================================
-   VIEW / EDIT HISTORY
-===================================================== */
+   9. PAGINATION
+   ===================================================== */
+
+function renderPagination() {
+
+    pagination.innerHTML = "";
+
+
+    const totalItems =
+        filteredHistory.length;
+
+
+    const totalPages =
+        Math.ceil(
+            totalItems /
+            ITEMS_PER_PAGE
+        );
+
+
+    /*
+     * No pagination needed
+     */
+
+    if (
+        totalPages <= 1
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * PREVIOUS
+     */
+
+    const previous =
+        document.createElement(
+            "button"
+        );
+
+
+    previous.type =
+        "button";
+
+
+    previous.className =
+        "page-btn";
+
+
+    previous.innerHTML =
+        '<i class="fa fa-angle-left"></i>';
+
+
+    previous.disabled =
+        currentPage === 1;
+
+
+    previous.onclick =
+        function () {
+
+            if (
+                currentPage > 1
+            ) {
+
+                currentPage--;
+
+                renderPage();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+
+        };
+
+
+    pagination.appendChild(
+        previous
+    );
+
+
+    /*
+     * PAGE NUMBERS
+     */
+
+    for (
+        let page = 1;
+        page <= totalPages;
+        page++
+    ) {
+
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.type =
+            "button";
+
+
+        button.className =
+            "page-btn";
+
+
+        if (
+            page === currentPage
+        ) {
+
+            button.classList.add(
+                "active"
+            );
+
+        }
+
+
+        button.textContent =
+            page;
+
+
+        button.onclick =
+            function () {
+
+                currentPage =
+                    page;
+
+
+                renderPage();
+
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            };
+
+
+        pagination.appendChild(
+            button
+        );
+
+    }
+
+
+    /*
+     * NEXT
+     */
+
+    const next =
+        document.createElement(
+            "button"
+        );
+
+
+    next.type =
+        "button";
+
+
+    next.className =
+        "page-btn";
+
+
+    next.innerHTML =
+        '<i class="fa fa-angle-right"></i>';
+
+
+    next.disabled =
+        currentPage === totalPages;
+
+
+    next.onclick =
+        function () {
+
+            if (
+                currentPage <
+                totalPages
+            ) {
+
+                currentPage++;
+
+                renderPage();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+
+        };
+
+
+    pagination.appendChild(
+        next
+    );
+
+
+    /*
+     * RECORD INFO
+     */
+
+    const info =
+        document.createElement(
+            "span"
+        );
+
+
+    info.className =
+        "page-info";
+
+
+    const start =
+        (
+            currentPage - 1
+        ) *
+        ITEMS_PER_PAGE +
+        1;
+
+
+    const end =
+        Math.min(
+            currentPage *
+            ITEMS_PER_PAGE,
+            totalItems
+        );
+
+
+    info.textContent =
+        `${start}-${end} of ${totalItems}`;
+
+
+    pagination.appendChild(
+        info
+    );
+
+}
+
+
+/* =====================================================
+   10. CLEAR FILTER
+   ===================================================== */
+
+function clearFilters() {
+
+    historySearch.value =
+        "";
+
+
+    fromDate.value =
+        "";
+
+
+    toDate.value =
+        "";
+
+
+    currentPage =
+        1;
+
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   11. VIEW / EDIT HISTORY
+   ===================================================== */
 
 function viewHistory(index) {
 
@@ -360,38 +953,55 @@ function viewHistory(index) {
     }
 
 
-    currentEditIndex = index;
-
-
-    document.getElementById("editIndex").value =
+    currentEditIndex =
         index;
 
 
-    document.getElementById("customerId").value =
+    document.getElementById(
+        "editIndex"
+    ).value =
+        index;
+
+
+    document.getElementById(
+        "customerId"
+    ).value =
         item.customerId || "";
 
 
-    document.getElementById("problem").value =
+    document.getElementById(
+        "problem"
+    ).value =
         item.problem || "";
 
 
-    document.getElementById("reference").value =
+    document.getElementById(
+        "reference"
+    ).value =
         item.reference || "";
 
 
-    document.getElementById("date").value =
+    document.getElementById(
+        "date"
+    ).value =
         item.date || "";
 
 
-    document.getElementById("support").value =
+    document.getElementById(
+        "support"
+    ).value =
         item.support || "";
 
 
-    document.getElementById("supportWork").value =
+    document.getElementById(
+        "supportWork"
+    ).value =
         item.supportWork || "";
 
 
-    editPopup.classList.add("show");
+    editPopup.classList.add(
+        "show"
+    );
 
 
     document.body.style.overflow =
@@ -401,17 +1011,14 @@ function viewHistory(index) {
 
 
 /* =====================================================
-   UPDATE HISTORY
-===================================================== */
+   12. UPDATE HISTORY
+   ===================================================== */
 
 function updateHistory() {
 
-    if (currentEditIndex === null) {
-
-        showError(
-            "Error",
-            "No history selected."
-        );
+    if (
+        currentEditIndex === null
+    ) {
 
         return;
 
@@ -419,41 +1026,44 @@ function updateHistory() {
 
 
     const customerId =
-        document.getElementById("customerId")
-            .value
-            .trim();
+        document.getElementById(
+            "customerId"
+        ).value.trim();
 
 
     const problem =
-        document.getElementById("problem")
-            .value
-            .trim();
+        document.getElementById(
+            "problem"
+        ).value.trim();
 
 
     const reference =
-        document.getElementById("reference")
-            .value
-            .trim();
+        document.getElementById(
+            "reference"
+        ).value.trim();
 
 
     const date =
-        document.getElementById("date")
-            .value;
+        document.getElementById(
+            "date"
+        ).value;
 
 
     const support =
-        document.getElementById("support")
-            .value
-            .trim();
+        document.getElementById(
+            "support"
+        ).value.trim();
 
 
     const supportWork =
-        document.getElementById("supportWork")
-            .value
-            .trim();
+        document.getElementById(
+            "supportWork"
+        ).value.trim();
 
 
-    /* VALIDATION */
+    /*
+     * VALIDATION
+     */
 
     if (!customerId) {
 
@@ -503,30 +1113,52 @@ function updateHistory() {
     }
 
 
-    /* UPDATE */
+    /*
+     * UPDATE DATA
+     */
 
-    historyData[currentEditIndex] = {
+    historyData[
+        currentEditIndex
+    ] = {
 
-        customerId,
+        customerId:
+            customerId,
 
-        problem,
+        problem:
+            problem,
 
-        reference,
+        reference:
+            reference,
 
-        date,
+        date:
+            date,
 
-        support,
+        support:
+            support,
 
-        supportWork
+        supportWork:
+            supportWork
 
     };
 
 
+    /*
+     * CLOSE EDIT
+     */
+
     closeEdit();
 
 
+    /*
+     * REFRESH TABLE
+     */
+
     applyFilters();
 
+
+    /*
+     * SUCCESS
+     */
 
     showSuccess(
         "Updated Successfully",
@@ -534,58 +1166,63 @@ function updateHistory() {
     );
 
 
-    currentEditIndex = null;
+    currentEditIndex =
+        null;
 
 }
 
 
 /* =====================================================
-   CLOSE EDIT POPUP
-===================================================== */
-
-function closeEdit() {
-
-    editPopup.classList.remove("show");
-
-    document.body.style.overflow = "";
-
-}
-
-
-/* =====================================================
-   ASK DELETE
-===================================================== */
+   13. ASK DELETE
+   ===================================================== */
 
 function askDelete() {
 
-    if (currentEditIndex === null) {
-
-        showError(
-            "Error",
-            "No history selected."
-        );
+    if (
+        currentEditIndex === null
+    ) {
 
         return;
 
     }
 
 
+    const item =
+        historyData[
+            currentEditIndex
+        ];
+
+
+    if (item) {
+
+        document.getElementById(
+            "confirmMessage"
+        ).textContent =
+            `Are you sure you want to delete ${item.customerId}?`;
+
+    }
+
+
     document
-        .getElementById("confirmPopup")
-        .classList.add("show");
+        .getElementById(
+            "confirmPopup"
+        )
+        .classList.add(
+            "show"
+        );
 
 }
 
 
 /* =====================================================
-   CONFIRM DELETE
-===================================================== */
+   14. CONFIRM DELETE
+   ===================================================== */
 
 function confirmDelete() {
 
-    if (currentEditIndex === null) {
-
-        closeConfirmPopup();
+    if (
+        currentEditIndex === null
+    ) {
 
         return;
 
@@ -598,16 +1235,15 @@ function confirmDelete() {
     );
 
 
-    const deletedIndex =
-        currentEditIndex;
-
-
-    currentEditIndex = null;
+    currentEditIndex =
+        null;
 
 
     closeConfirmPopup();
 
+
     closeEdit();
+
 
     applyFilters();
 
@@ -621,21 +1257,42 @@ function confirmDelete() {
 
 
 /* =====================================================
-   CLOSE CONFIRM POPUP
-===================================================== */
+   15. CLOSE EDIT
+   ===================================================== */
 
-function closeConfirmPopup() {
+function closeEdit() {
 
-    document
-        .getElementById("confirmPopup")
-        .classList.remove("show");
+    editPopup.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
 
 }
 
 
 /* =====================================================
-   SUCCESS POPUP
-===================================================== */
+   16. CLOSE DELETE POPUP
+   ===================================================== */
+
+function closeConfirmPopup() {
+
+    document
+        .getElementById(
+            "confirmPopup"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+/* =====================================================
+   17. SUCCESS POPUP
+   ===================================================== */
 
 function showSuccess(
     title,
@@ -645,35 +1302,46 @@ function showSuccess(
     document.getElementById(
         "successTitle"
     ).textContent =
-        title || "Success";
+        title;
 
 
     document.getElementById(
         "successMessage"
     ).textContent =
-        message ||
-        "Operation completed successfully.";
+        message;
 
 
     document
-        .getElementById("successPopup")
-        .classList.add("show");
-
-}
-
-
-function closeSuccessPopup() {
-
-    document
-        .getElementById("successPopup")
-        .classList.remove("show");
+        .getElementById(
+            "successPopup"
+        )
+        .classList.add(
+            "show"
+        );
 
 }
 
 
 /* =====================================================
-   ERROR POPUP
-===================================================== */
+   18. CLOSE SUCCESS POPUP
+   ===================================================== */
+
+function closeSuccessPopup() {
+
+    document
+        .getElementById(
+            "successPopup"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+/* =====================================================
+   19. ERROR POPUP
+   ===================================================== */
 
 function showError(
     title,
@@ -683,85 +1351,80 @@ function showError(
     document.getElementById(
         "errorTitle"
     ).textContent =
-        title || "Error";
+        title;
 
 
     document.getElementById(
         "errorMessage"
     ).textContent =
-        message ||
-        "Something went wrong.";
+        message;
 
 
     document
-        .getElementById("errorPopup")
-        .classList.add("show");
+        .getElementById(
+            "errorPopup"
+        )
+        .classList.add(
+            "show"
+        );
 
 }
 
+
+/* =====================================================
+   20. CLOSE ERROR POPUP
+   ===================================================== */
 
 function closeErrorPopup() {
 
     document
-        .getElementById("errorPopup")
-        .classList.remove("show");
+        .getElementById(
+            "errorPopup"
+        )
+        .classList.remove(
+            "show"
+        );
 
 }
 
 
 /* =====================================================
-   SEARCH
-===================================================== */
-
-historySearch.addEventListener(
-    "input",
-    function () {
-
-        applyFilters();
-
-    }
-);
-
-
-/* =====================================================
-   FILTER
-===================================================== */
-
-historyFilter.addEventListener(
-    "change",
-    function () {
-
-        applyFilters();
-
-    }
-);
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
+   21. PROFILE DROPDOWN
+   ===================================================== */
 
 function toggleProfile() {
 
-    profileMenu.classList.toggle("show");
+    profileMenu.classList.toggle(
+        "show"
+    );
 
 }
 
+
+/* =====================================================
+   22. CLOSE PROFILE WHEN CLICK OUTSIDE
+   ===================================================== */
 
 document.addEventListener(
     "click",
     function (event) {
 
         const profile =
-            document.querySelector(".profile");
+            document.querySelector(
+                ".profile"
+            );
 
 
         if (
             profile &&
-            !profile.contains(event.target)
+            !profile.contains(
+                event.target
+            )
         ) {
 
-            profileMenu.classList.remove("show");
+            profileMenu.classList.remove(
+                "show"
+            );
 
         }
 
@@ -770,67 +1433,96 @@ document.addEventListener(
 
 
 /* =====================================================
-   BACK
-===================================================== */
-
-function goBack() {
-
-    if (window.history.length > 1) {
-
-        window.history.back();
-
-    } else {
-
-        window.location.href =
-            "index.html";
-
-    }
-
-}
-
-
-/* =====================================================
-   MY ACCOUNT
-===================================================== */
+   23. MY ACCOUNT
+   ===================================================== */
 
 function myAccount() {
 
-    profileMenu.classList.remove("show");
+    profileMenu.classList.remove(
+        "show"
+    );
+
+
+    /*
+     * পরে এখানে আপনার
+     * account page দিতে পারবেন।
+     */
+
+    // window.location.href = "account.html";
 
 }
 
 
 /* =====================================================
-   LOGOUT
-===================================================== */
+   24. LOGOUT
+   ===================================================== */
 
 function logout() {
 
-    profileMenu.classList.remove("show");
+    profileMenu.classList.remove(
+        "show"
+    );
+
+
+    /*
+     * Login করা user-এর data remove
+     */
+
+    localStorage.removeItem(
+        "loggedInUser"
+    );
+
+
+    /*
+     * অন্যান্য login data থাকলে
+     * পরে এখানে remove করা যাবে।
+     */
+
+
+    /*
+     * Login page-এ পাঠানো
+     */
+
+    window.location.href =
+        "login.html";
 
 }
 
 
 /* =====================================================
-   FORMAT DATE
-===================================================== */
+   25. BACK BUTTON
+   ===================================================== */
 
-function formatDate(dateString) {
+function goBack() {
 
-    if (!dateString) {
+    /*
+     * Dashboard-এ ফিরে যাওয়ার
+     * জন্য সরাসরি dashboard.html
+     */
 
-        return "";
+    window.location.href =
+        "dashboard.html";
 
-    }
+}
 
+
+/* =====================================================
+   26. DATE FORMAT
+   ===================================================== */
+
+function formatDate(
+    dateString
+) {
 
     const date =
-        parseHistoryDate(dateString);
+        parseHistoryDate(
+            dateString
+        );
 
 
     if (!date) {
 
-        return dateString;
+        return dateString || "";
 
     }
 
@@ -855,16 +1547,26 @@ function formatDate(dateString) {
 
     return (
 
-        String(date.getDate())
-            .padStart(2, "0")
-
-        + " "
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        )
 
         +
 
-        months[date.getMonth()]
+        " "
 
-        + " "
+        +
+
+        months[
+            date.getMonth()
+        ]
+
+        +
+
+        " "
 
         +
 
@@ -876,10 +1578,12 @@ function formatDate(dateString) {
 
 
 /* =====================================================
-   PARSE DATE
-===================================================== */
+   27. DATE PARSER
+   ===================================================== */
 
-function parseHistoryDate(dateString) {
+function parseHistoryDate(
+    dateString
+) {
 
     if (!dateString) {
 
@@ -888,48 +1592,80 @@ function parseHistoryDate(dateString) {
     }
 
 
+    /*
+     * YYYY-MM-DD
+     */
+
     const parts =
-        dateString.split("-");
+        String(
+            dateString
+        ).split("-");
 
 
-    if (parts.length === 3) {
+    if (
+        parts.length === 3
+    ) {
+
+        const year =
+            Number(
+                parts[0]
+            );
+
+
+        const month =
+            Number(
+                parts[1]
+            ) - 1;
+
+
+        const day =
+            Number(
+                parts[2]
+            );
+
 
         return new Date(
-
-            Number(parts[0]),
-
-            Number(parts[1]) - 1,
-
-            Number(parts[2])
-
+            year,
+            month,
+            day
         );
 
     }
 
 
-    const parsed =
-        new Date(dateString);
+    const date =
+        new Date(
+            dateString
+        );
 
 
-    if (isNaN(parsed.getTime())) {
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
 
         return null;
 
     }
 
 
-    return parsed;
+    return date;
 
 }
 
 
 /* =====================================================
-   ESCAPE HTML
-===================================================== */
+   28. ESCAPE HTML
+   ===================================================== */
 
-function escapeHTML(value) {
+function escapeHTML(
+    value
+) {
 
-    return String(value ?? "")
+    return String(
+        value ?? ""
+    )
 
         .replace(
             /&/g,
@@ -960,14 +1696,143 @@ function escapeHTML(value) {
 
 
 /* =====================================================
-   ESC KEY
-===================================================== */
+   29. SEARCH EVENT
+   ===================================================== */
+
+historySearch.addEventListener(
+    "input",
+    function () {
+
+        applyFilters();
+
+    }
+);
+
+
+/* =====================================================
+   30. FROM DATE EVENT
+   ===================================================== */
+
+fromDate.addEventListener(
+    "change",
+    function () {
+
+        applyFilters();
+
+    }
+);
+
+
+/* =====================================================
+   31. TO DATE EVENT
+   ===================================================== */
+
+toDate.addEventListener(
+    "change",
+    function () {
+
+        applyFilters();
+
+    }
+);
+
+
+/* =====================================================
+   32. CLOSE POPUPS BY BACKDROP
+   ===================================================== */
+
+editPopup.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target ===
+            editPopup
+        ) {
+
+            closeEdit();
+
+        }
+
+    }
+);
+
+
+document
+    .getElementById(
+        "confirmPopup"
+    )
+    .addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeConfirmPopup();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "successPopup"
+    )
+    .addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeSuccessPopup();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "errorPopup"
+    )
+    .addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeErrorPopup();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   33. ESC KEY
+   ===================================================== */
 
 document.addEventListener(
     "keydown",
     function (event) {
 
-        if (event.key === "Escape") {
+        if (
+            event.key ===
+            "Escape"
+        ) {
 
             closeEdit();
 
@@ -977,6 +1842,10 @@ document.addEventListener(
 
             closeErrorPopup();
 
+            profileMenu.classList.remove(
+                "show"
+            );
+
         }
 
     }
@@ -984,12 +1853,23 @@ document.addEventListener(
 
 
 /* =====================================================
-   INITIAL LOAD
-===================================================== */
+   34. INITIAL LOAD
+   ===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
+        /*
+         * Login করা user load
+         */
+
+        loadLoggedInUser();
+
+
+        /*
+         * History load
+         */
 
         loadHistory();
 
