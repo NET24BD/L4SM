@@ -1,0 +1,1205 @@
+/* =========================================
+   L4SM CD DASHBOARD
+   COLORFUL PREMIUM RESPONSIVE UI
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(34,197,94,.13),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(59,130,246,.13),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 90%,
+            rgba(168,85,247,.12),
+            transparent 30%
+        ),
+
+        #f4f7fb;
+
+    color: #172033;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   TOPBAR
+========================================= */
+
+.topbar {
+
+    width: 100%;
+
+    height: 82px;
+
+    background:
+        rgba(255,255,255,.94);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    border-bottom:
+        1px solid #e2e8f0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 6%;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+.brand-icon {
+
+    width: 47px;
+
+    height: 47px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #06b6d4
+        );
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+
+    box-shadow:
+        0 10px 25px
+        rgba(16,185,129,.25);
+}
+
+
+.brand-text h2 {
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    color: #0f172a;
+}
+
+
+.brand-text span {
+
+    display: block;
+
+    font-size: 11px;
+
+    color: #64748b;
+
+    margin-top: 2px;
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+.profile {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    cursor: pointer;
+}
+
+
+.profile-info {
+
+    text-align: right;
+}
+
+
+.profile-info strong {
+
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 750;
+
+    color: #0f172a;
+
+    max-width: 180px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.profile-info small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   PROFILE IMAGE
+========================================= */
+
+.profile-photo {
+
+    width: 46px;
+
+    height: 46px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dcfce7,
+            #dbeafe
+        );
+
+    border:
+        2px solid white;
+
+    box-shadow:
+        0 7px 20px
+        rgba(15,23,42,.15);
+}
+
+
+.profile-photo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================
+   PROFILE MENU
+========================================= */
+
+.profile-menu {
+
+    display: none;
+
+    position: absolute;
+
+    right: 0;
+
+    top: 58px;
+
+    width: 190px;
+
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 8px;
+
+    box-shadow:
+        0 18px 45px
+        rgba(15,23,42,.15);
+
+    border:
+        1px solid #e2e8f0;
+
+    z-index: 999;
+}
+
+
+.profile-menu-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    transition: .2s;
+}
+
+
+.profile-menu-item:hover {
+
+    background:
+        #f1f5f9;
+}
+
+
+.profile-menu-item i {
+
+    width: 18px;
+
+    text-align: center;
+}
+
+
+.logout-item {
+
+    color:
+        #dc2626;
+}
+
+
+.logout-item:hover {
+
+    background:
+        #fef2f2;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main-content {
+
+    width: 88%;
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding:
+        50px 0 30px;
+}
+
+
+/* =========================================
+   WELCOME
+========================================= */
+
+.welcome {
+
+    margin-bottom: 35px;
+}
+
+
+.small-title {
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #16a34a;
+}
+
+
+.welcome h1 {
+
+    font-size:
+        clamp(28px, 4vw, 40px);
+
+    margin-top: 7px;
+
+    color: #0f172a;
+
+    font-weight: 800;
+}
+
+
+#welcomeName {
+
+    background:
+        linear-gradient(
+            90deg,
+            #16a34a,
+            #0891b2
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    -webkit-text-fill-color:
+        transparent;
+}
+
+
+.welcome p {
+
+    margin-top: 8px;
+
+    color: #64748b;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   CARDS
+========================================= */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 24px;
+}
+
+
+/* =========================================
+   BASE CARD
+========================================= */
+
+.dashboard-card {
+
+    position: relative;
+
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 27px;
+
+    min-height: 270px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    border:
+        1px solid #e2e8f0;
+
+    box-shadow:
+        0 10px 30px
+        rgba(15,23,42,.06);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+}
+
+
+.dashboard-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 210px;
+
+    height: 210px;
+
+    border-radius: 50%;
+
+    right: -90px;
+
+    bottom: -110px;
+
+    opacity: .15;
+
+    transition: .4s;
+}
+
+
+.dashboard-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+
+    height: 130px;
+
+    border-radius: 50%;
+
+    left: -70px;
+
+    top: -70px;
+
+    opacity: .08;
+}
+
+
+.dashboard-card:hover {
+
+    transform:
+        translateY(-9px);
+
+    box-shadow:
+        0 22px 50px
+        rgba(15,23,42,.13);
+}
+
+
+.dashboard-card:hover::before {
+
+    transform:
+        scale(1.35);
+
+    opacity: .22;
+}
+
+
+/* =========================================
+   CARD TOP
+========================================= */
+
+.card-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+
+.card-icon {
+
+    width: 62px;
+
+    height: 62px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+
+    color: white;
+
+    box-shadow:
+        0 10px 22px
+        rgba(0,0,0,.12);
+
+    transition: .3s;
+}
+
+
+.dashboard-card:hover .card-icon {
+
+    transform:
+        rotate(-5deg)
+        scale(1.08);
+}
+
+
+/* =========================================
+   NEW ENTRY - GREEN
+========================================= */
+
+.new-entry {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f0fdf4
+        );
+}
+
+
+.new-entry::before {
+
+    background:
+        #22c55e;
+}
+
+
+.new-entry .card-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #22c55e,
+            #16a34a
+        );
+}
+
+
+.new-entry .card-footer {
+
+    color:
+        #16a34a;
+}
+
+
+/* =========================================
+   PENDING SUPPORT - BLUE
+========================================= */
+
+.pending-support {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #eff6ff
+        );
+}
+
+
+.pending-support::before {
+
+    background:
+        #3b82f6;
+}
+
+
+.pending-support .card-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #2563eb
+        );
+}
+
+
+.pending-support .card-footer {
+
+    color:
+        #2563eb;
+}
+
+
+/* =========================================
+   PENDING CALL - RED
+========================================= */
+
+.pending-call {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff1f2
+        );
+}
+
+
+.pending-call::before {
+
+    background:
+        #ef4444;
+}
+
+
+.pending-call .card-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+}
+
+
+.pending-call .card-footer {
+
+    color:
+        #dc2626;
+}
+
+
+/* =========================================
+   HISTORY - ORANGE
+========================================= */
+
+.history {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7ed
+        );
+}
+
+
+.history::before {
+
+    background:
+        #f97316;
+}
+
+
+.history .card-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f97316,
+            #ea580c
+        );
+}
+
+
+.history .card-footer {
+
+    color:
+        #ea580c;
+}
+
+
+/* =========================================
+   OFFLINE - PURPLE
+========================================= */
+
+.offline {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #faf5ff
+        );
+}
+
+
+.offline::before {
+
+    background:
+        #8b5cf6;
+}
+
+
+.offline .card-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #7c3aed
+        );
+}
+
+
+.offline .card-footer {
+
+    color:
+        #7c3aed;
+}
+
+
+/* =========================================
+   OFFLINE HISTORY - YELLOW
+========================================= */
+
+.offline-history {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fffbeb
+        );
+}
+
+
+.offline-history::before {
+
+    background:
+        #eab308;
+}
+
+
+.offline-history .card-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #eab308,
+            #ca8a04
+        );
+}
+
+
+.offline-history .card-footer {
+
+    color:
+        #ca8a04;
+}
+
+
+/* =========================================
+   ARROW
+========================================= */
+
+.arrow {
+
+    width: 39px;
+
+    height: 39px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.8);
+
+    color:
+        #64748b;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 13px;
+
+    transition: .3s;
+}
+
+
+.dashboard-card:hover .arrow {
+
+    transform:
+        rotate(45deg);
+
+    color: white;
+}
+
+
+.new-entry:hover .arrow {
+
+    background:
+        #16a34a;
+}
+
+
+.pending-support:hover .arrow {
+
+    background:
+        #2563eb;
+}
+
+
+.pending-call:hover .arrow {
+
+    background:
+        #dc2626;
+}
+
+
+.history:hover .arrow {
+
+    background:
+        #ea580c;
+}
+
+
+.offline:hover .arrow {
+
+    background:
+        #7c3aed;
+}
+
+
+.offline-history:hover .arrow {
+
+    background:
+        #ca8a04;
+}
+
+
+/* =========================================
+   CARD CONTENT
+========================================= */
+
+.card-content {
+
+    margin-top: 25px;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+
+.card-content h3 {
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    color:
+        #0f172a;
+}
+
+
+.card-content p {
+
+    margin-top: 8px;
+
+    max-width: 430px;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+
+    color:
+        #64748b;
+}
+
+
+/* =========================================
+   CARD FOOTER
+========================================= */
+
+.card-footer {
+
+    position: absolute;
+
+    left: 27px;
+
+    right: 27px;
+
+    bottom: 24px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-size: 13px;
+
+    font-weight: 750;
+
+    z-index: 6;
+}
+
+
+.card-footer i {
+
+    transition: .25s;
+}
+
+
+.dashboard-card:hover
+.card-footer i {
+
+    transform:
+        translateX(6px);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+
+    margin-top: 38px;
+
+    padding-top: 22px;
+
+    border-top:
+        1px solid #e2e8f0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    font-size: 12px;
+
+    color:
+        #94a3b8;
+}
+
+
+.status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color:
+        #16a34a;
+}
+
+
+.status i {
+
+    font-size: 7px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .topbar {
+
+        height: 70px;
+
+        padding:
+            0 18px;
+    }
+
+
+    .brand-icon {
+
+        width: 40px;
+
+        height: 40px;
+
+        border-radius: 12px;
+
+        font-size: 17px;
+    }
+
+
+    .brand-text h2 {
+
+        font-size: 15px;
+    }
+
+
+    .brand-text span {
+
+        font-size: 9px;
+    }
+
+
+    .profile-info {
+
+        display: none;
+    }
+
+
+    .profile-photo {
+
+        width: 40px;
+
+        height: 40px;
+    }
+
+
+    .main-content {
+
+        width: 92%;
+
+        padding:
+            30px 0 20px;
+    }
+
+
+    .welcome {
+
+        margin-bottom: 25px;
+    }
+
+
+    .welcome h1 {
+
+        font-size: 27px;
+
+        line-height: 1.3;
+    }
+
+
+    .welcome p {
+
+        font-size: 13px;
+    }
+
+
+    .cards {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 17px;
+    }
+
+
+    .dashboard-card {
+
+        min-height: 235px;
+
+        border-radius: 20px;
+
+        padding: 21px;
+    }
+
+
+    .card-icon {
+
+        width: 54px;
+
+        height: 54px;
+
+        border-radius: 16px;
+
+        font-size: 21px;
+    }
+
+
+    .card-content {
+
+        margin-top: 22px;
+    }
+
+
+    .card-content h3 {
+
+        font-size: 20px;
+    }
+
+
+    .card-content p {
+
+        font-size: 13px;
+    }
+
+
+    .card-footer {
+
+        left: 21px;
+
+        right: 21px;
+
+        bottom: 20px;
+    }
+
+
+    .profile-menu {
+
+        right: -5px;
+
+        top: 52px;
+    }
+
+
+    footer {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        text-align: center;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+
+    .welcome h1 {
+
+        font-size: 24px;
+    }
+
+
+    .dashboard-card {
+
+        min-height: 225px;
+    }
+
+}
