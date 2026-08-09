@@ -1,56 +1,124 @@
-// =====================================
-// HISTORY.JS
-// L4SM SUPPORT SYSTEM
-// FINAL VERSION
-// =====================================
-
 "use strict";
 
+/* =========================================================
+   HISTORY.JS
+   L4SM SUPPORT SYSTEM
+   ========================================================= */
 
-// =====================================
-// CONFIG
-// =====================================
+
+/* =========================================================
+   API
+========================================================= */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
-// =====================================
-// GLOBAL VARIABLES
-// =====================================
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 let historyData = [];
 
-let filteredHistory = [];
+let filteredData = [];
 
 let currentRow = null;
 
+let currentPage = 1;
 
-// =====================================
-// AUTH CHECK
-// =====================================
+const rowsPerPage = 10;
 
-(function checkAuth() {
 
-    const auth =
-        localStorage.getItem("auth");
+/* =========================================================
+   AUTH
+========================================================= */
 
-    if (auth !== "true") {
+(function () {
 
-        window.location.replace(
-            "login.html"
-        );
+    function checkAuth() {
+
+        const auth =
+            localStorage.getItem("auth");
+
+        if (auth !== "true") {
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    if (!checkAuth()) {
 
         return;
-
     }
+
+
+    /*
+     * BACK BUTTON COMPLETELY DISABLED
+     *
+     * Browser back করলে History page থেকে
+     * অন্য page-এ যাওয়ার চেষ্টা আটকানো হবে।
+     */
+
+    history.pushState(
+        null,
+        "",
+        location.href
+    );
+
+
+    window.addEventListener(
+        "popstate",
+        function () {
+
+            history.pushState(
+                null,
+                "",
+                location.href
+            );
+
+        }
+    );
+
+
+    window.addEventListener(
+        "pageshow",
+        function (event) {
+
+            if (
+                localStorage.getItem("auth")
+                !== "true"
+            ) {
+
+                window.location.replace(
+                    "login.html"
+                );
+
+                return;
+            }
+
+
+            if (event.persisted) {
+
+                window.location.reload();
+
+            }
+
+        }
+    );
 
 })();
 
 
-// =====================================
-// PAGE LOAD
-// =====================================
+/* =========================================================
+   DOM READY
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -60,17 +128,29 @@ document.addEventListener(
 
         loadHistory();
 
-        setupSearch();
 
-        setupFilterInputs();
+        const search =
+            document.getElementById(
+                "historySearch"
+            );
+
+
+        if (search) {
+
+            search.addEventListener(
+                "input",
+                searchHistory
+            );
+
+        }
 
     }
 );
 
 
-// =====================================
-// PROFILE
-// =====================================
+/* =========================================================
+   PROFILE
+========================================================= */
 
 function loadProfile() {
 
@@ -120,7 +200,6 @@ function loadProfile() {
                 picture;
 
         }
-
         else {
 
             profileImg.src =
@@ -144,9 +223,9 @@ function loadProfile() {
 }
 
 
-// =====================================
-// PROFILE MENU
-// =====================================
+/* =========================================================
+   PROFILE TOGGLE
+========================================================= */
 
 function toggleProfile() {
 
@@ -159,7 +238,6 @@ function toggleProfile() {
     if (!menu) {
 
         return;
-
     }
 
 
@@ -170,9 +248,9 @@ function toggleProfile() {
 }
 
 
-// =====================================
-// MY ACCOUNT
-// =====================================
+/* =========================================================
+   MY ACCOUNT
+========================================================= */
 
 function myAccount() {
 
@@ -182,9 +260,9 @@ function myAccount() {
 }
 
 
-// =====================================
-// LOGOUT
-// =====================================
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 function logout() {
 
@@ -204,9 +282,6 @@ function logout() {
         "role"
     );
 
-    localStorage.removeItem(
-        "token"
-    );
 
     sessionStorage.clear();
 
@@ -218,35 +293,51 @@ function logout() {
 }
 
 
-// =====================================
-// FILTER TOGGLE
-// =====================================
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+function goBack() {
+
+    /*
+     * Intentionally disabled.
+     *
+     * Back button click করলে কিছুই হবে না।
+     */
+
+    return false;
+
+}
+
+
+/* =========================================================
+   FILTER TOGGLE
+========================================================= */
 
 function toggleFilter() {
 
-    const filterBar =
+    const filter =
         document.getElementById(
-            "filterBar"
+            "filterPanel"
         );
 
 
-    if (!filterBar) {
+    if (!filter) {
 
         return;
-
     }
 
 
-    filterBar.classList.toggle(
+    filter.classList.toggle(
         "show"
     );
 
 }
 
 
-// =====================================
-// LOAD HISTORY
-// =====================================
+/* =========================================================
+   LOAD HISTORY
+========================================================= */
 
 function loadHistory() {
 
@@ -263,7 +354,7 @@ function loadHistory() {
             <tr>
 
                 <td
-                    colspan="5"
+                    colspan="6"
                     class="loading-cell"
                 >
 
@@ -335,10 +426,8 @@ function loadHistory() {
             ) {
 
                 throw new Error(
-
                     data?.message ||
-                    "Unable to load History."
-
+                    "Unable to load history."
                 );
 
             }
@@ -352,13 +441,14 @@ function loadHistory() {
                     : [];
 
 
-            filteredHistory =
-                [...historyData];
+            filteredData =
+                historyData.slice();
 
 
-            renderHistory(
-                filteredHistory
-            );
+            currentPage = 1;
+
+
+            renderHistory();
 
         }
     )
@@ -379,19 +469,17 @@ function loadHistory() {
                     <tr>
 
                         <td
-                            colspan="5"
+                            colspan="6"
                             style="
                                 text-align:center;
-                                padding:35px;
-                                color:#ef4444;
+                                padding:40px;
+                                color:#dc2626;
                             "
                         >
 
-                            <i
-                                class="fa fa-circle-exclamation"
-                            ></i>
+                            <i class="fa fa-circle-exclamation"></i>
 
-                            Failed to load History
+                            Failed to load history
 
                         </td>
 
@@ -407,11 +495,11 @@ function loadHistory() {
 }
 
 
-// =====================================
-// RENDER HISTORY
-// =====================================
+/* =========================================================
+   RENDER HISTORY
+========================================================= */
 
-function renderHistory(data) {
+function renderHistory() {
 
     const list =
         document.getElementById(
@@ -422,13 +510,12 @@ function renderHistory(data) {
     if (!list) {
 
         return;
-
     }
 
 
     if (
-        !data ||
-        data.length === 0
+        !filteredData ||
+        filteredData.length === 0
     ) {
 
         list.innerHTML = `
@@ -436,17 +523,11 @@ function renderHistory(data) {
             <tr>
 
                 <td
-                    colspan="5"
-                    style="
-                        text-align:center;
-                        padding:35px;
-                        color:#64748b;
-                    "
+                    colspan="6"
+                    class="empty-cell"
                 >
 
-                    <i
-                        class="fa fa-folder-open"
-                    ></i>
+                    <i class="fa fa-clock-rotate-left"></i>
 
                     No History Found
 
@@ -456,15 +537,55 @@ function renderHistory(data) {
 
         `;
 
+
+        renderPagination();
+
         return;
+    }
+
+
+    const totalPages =
+        Math.ceil(
+            filteredData.length /
+            rowsPerPage
+        );
+
+
+    if (
+        currentPage >
+        totalPages
+    ) {
+
+        currentPage =
+            totalPages;
 
     }
+
+
+    const start =
+        (
+            currentPage -
+            1
+        ) *
+        rowsPerPage;
+
+
+    const end =
+        start +
+        rowsPerPage;
+
+
+    const pageData =
+        filteredData.slice(
+            start,
+            end
+        );
 
 
     let html = "";
 
 
-    data.forEach(
+    pageData.forEach(
         function (item) {
 
             html += `
@@ -478,24 +599,68 @@ function renderHistory(data) {
                     </td>
 
 
-                    <td>
+                    <td
+                        class="problem-cell"
+                        title="${escapeHTML(
+                            item.problem
+                        )}"
+                    >
+
                         ${escapeHTML(
                             item.problem
                         )}
+
                     </td>
 
 
-                    <td>
+                    <td
+                        class="reference-cell"
+                        title="${escapeHTML(
+                            item.reference
+                        )}"
+                    >
+
                         ${escapeHTML(
                             item.reference
                         )}
+
                     </td>
 
 
                     <td>
+
                         ${formatDate(
                             item.date
                         )}
+
+                    </td>
+
+
+                    <td
+                        class="support-cell"
+                        title="${escapeHTML(
+                            item.support
+                        )}"
+                    >
+
+                        ${escapeHTML(
+                            item.support
+                        )}
+
+                    </td>
+
+
+                    <td
+                        class="support-work-cell"
+                        title="${escapeHTML(
+                            item.supportWork
+                        )}"
+                    >
+
+                        ${escapeHTML(
+                            item.supportWork
+                        )}
+
                     </td>
 
 
@@ -504,12 +669,12 @@ function renderHistory(data) {
                         <button
                             type="button"
                             class="view-btn"
-                            onclick="viewHistory(${Number(item.row)})"
+                            onclick="viewHistory(${Number(
+                                item.row
+                            )})"
                         >
 
-                            <i
-                                class="fa fa-eye"
-                            ></i>
+                            <i class="fa fa-eye"></i>
 
                             View
 
@@ -528,132 +693,51 @@ function renderHistory(data) {
     list.innerHTML =
         html;
 
+
+    renderPagination();
+
 }
 
 
-// =====================================
-// SEARCH SETUP
-// =====================================
+/* =========================================================
+   SEARCH HISTORY
+========================================================= */
 
-function setupSearch() {
+function searchHistory() {
 
-    const search =
+    const input =
         document.getElementById(
             "historySearch"
         );
 
 
-    if (!search) {
+    if (!input) {
 
         return;
-
     }
-
-
-    search.addEventListener(
-        "input",
-        applyHistoryFilter
-    );
-
-}
-
-
-// =====================================
-// FILTER INPUT SETUP
-// =====================================
-
-function setupFilterInputs() {
-
-    const fromDate =
-        document.getElementById(
-            "fromDate"
-        );
-
-
-    const toDate =
-        document.getElementById(
-            "toDate"
-        );
-
-
-    if (fromDate) {
-
-        fromDate.addEventListener(
-            "change",
-            applyHistoryFilter
-        );
-
-    }
-
-
-    if (toDate) {
-
-        toDate.addEventListener(
-            "change",
-            applyHistoryFilter
-        );
-
-    }
-
-}
-
-
-// =====================================
-// APPLY FILTER
-// =====================================
-
-function applyFilter() {
-
-    applyHistoryFilter();
-
-}
-
-
-// =====================================
-// HISTORY FILTER
-// =====================================
-
-function applyHistoryFilter() {
-
-    const search =
-        document.getElementById(
-            "historySearch"
-        );
-
-
-    const fromDate =
-        document.getElementById(
-            "fromDate"
-        );
-
-
-    const toDate =
-        document.getElementById(
-            "toDate"
-        );
 
 
     const keyword =
-        search
-            ? search.value
-                .trim()
-                .toLowerCase()
-            : "";
+        input.value
+            .trim()
+            .toLowerCase();
 
 
-    const fromValue =
-        fromDate
-            ? fromDate.value
-            : "";
+    if (!keyword) {
+
+        filteredData =
+            historyData.slice();
+
+        currentPage =
+            1;
+
+        renderHistory();
+
+        return;
+    }
 
 
-    const toValue =
-        toDate
-            ? toDate.value
-            : "";
-
-
-    filteredHistory =
+    filteredData =
         historyData.filter(
             function (item) {
 
@@ -675,6 +759,19 @@ function applyHistoryFilter() {
                     String(
                         item.reference ||
                         ""
+                    ).toLowerCase();
+
+
+                const date =
+                    String(
+                        item.date ||
+                        ""
+                    ).toLowerCase();
+
+
+                const formattedDate =
+                    formatDate(
+                        item.date
                     ).toLowerCase();
 
 
@@ -706,23 +803,7 @@ function applyHistoryFilter() {
                     ).toLowerCase();
 
 
-                const rawDate =
-                    normalizeDate(
-                        item.date
-                    );
-
-
-                const formattedDate =
-                    formatDate(
-                        item.date
-                    ).toLowerCase();
-
-
-                const searchMatch =
-
-                    !keyword
-
-                    ||
+                return (
 
                     customerId.includes(
                         keyword
@@ -737,6 +818,18 @@ function applyHistoryFilter() {
                     ||
 
                     reference.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    date.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    formattedDate.includes(
                         keyword
                     )
 
@@ -764,114 +857,24 @@ function applyHistoryFilter() {
                         keyword
                     )
 
-                    ||
-
-                    formattedDate.includes(
-                        keyword
-                    );
-
-
-                let dateMatch = true;
-
-
-                if (
-                    fromValue
-                ) {
-
-                    dateMatch =
-                        rawDate >=
-                        fromValue;
-
-                }
-
-
-                if (
-                    toValue &&
-                    dateMatch
-                ) {
-
-                    dateMatch =
-                        rawDate <=
-                        toValue;
-
-                }
-
-
-                return (
-                    searchMatch &&
-                    dateMatch
                 );
 
             }
         );
 
 
-    renderHistory(
-        filteredHistory
-    );
+    currentPage =
+        1;
+
+
+    renderHistory();
 
 }
 
 
-// =====================================
-// RESET FILTER
-// =====================================
-
-function resetFilter() {
-
-    const search =
-        document.getElementById(
-            "historySearch"
-        );
-
-
-    const fromDate =
-        document.getElementById(
-            "fromDate"
-        );
-
-
-    const toDate =
-        document.getElementById(
-            "toDate"
-        );
-
-
-    if (search) {
-
-        search.value = "";
-
-    }
-
-
-    if (fromDate) {
-
-        fromDate.value = "";
-
-    }
-
-
-    if (toDate) {
-
-        toDate.value = "";
-
-    }
-
-
-    filteredHistory =
-        [...historyData];
-
-
-    renderHistory(
-        filteredHistory
-    );
-
-}
-
-
-// =====================================
-// VIEW HISTORY
-// =====================================
+/* =========================================================
+   VIEW / EDIT HISTORY
+========================================================= */
 
 function viewHistory(row) {
 
@@ -885,8 +888,7 @@ function viewHistory(row) {
 
                 return Number(
                     history.row
-                ) ===
-                currentRow;
+                ) === currentRow;
 
             }
         );
@@ -894,15 +896,17 @@ function viewHistory(row) {
 
     if (!item) {
 
-        showError(
-            "History record not found."
+        showErrorPopup(
+            "History record not found.",
+            "Error"
         );
+
 
         currentRow =
             null;
 
-        return;
 
+        return;
     }
 
 
@@ -945,6 +949,12 @@ function viewHistory(row) {
 
 
     setValue(
+        "supportTime",
+        item.supportTime
+    );
+
+
+    setValue(
         "call",
         item.call
     );
@@ -973,20 +983,95 @@ function viewHistory(row) {
 }
 
 
-// =====================================
-// UPDATE HISTORY
-// =====================================
+/* =========================================================
+   SET VALUE
+========================================================= */
+
+function setValue(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (element) {
+
+        element.value =
+            value || "";
+
+    }
+
+}
+
+
+/* =========================================================
+   GET VALUE
+========================================================= */
+
+function getValue(id) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (!element) {
+
+        return "";
+    }
+
+
+    return element.value.trim();
+
+}
+
+
+/* =========================================================
+   CLOSE EDIT
+========================================================= */
+
+function closeEdit() {
+
+    const modal =
+        document.getElementById(
+            "editModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    currentRow =
+        null;
+
+}
+
+
+/* =========================================================
+   UPDATE HISTORY
+========================================================= */
 
 function updateHistory() {
 
     if (!currentRow) {
 
-        showError(
-            "Please select a History record."
+        showErrorPopup(
+            "Please select a history record.",
+            "Error"
         );
 
         return;
-
     }
 
 
@@ -1026,6 +1111,12 @@ function updateHistory() {
         );
 
 
+    const supportTime =
+        getValue(
+            "supportTime"
+        );
+
+
     const call =
         getValue(
             "call"
@@ -1040,45 +1131,45 @@ function updateHistory() {
 
     if (!customerId) {
 
-        showError(
-            "Customer ID is required."
+        showErrorPopup(
+            "Customer ID is required.",
+            "Required"
         );
 
         return;
-
     }
 
 
     if (!problem) {
 
-        showError(
-            "Problem is required."
+        showErrorPopup(
+            "Problem is required.",
+            "Required"
         );
 
         return;
-
     }
 
 
     if (!call) {
 
-        showError(
-            "Call is required."
+        showErrorPopup(
+            "Call is required.",
+            "Required"
         );
 
         return;
-
     }
 
 
     if (!callWork) {
 
-        showError(
-            "Call Work is required."
+        showErrorPopup(
+            "Call Work is required.",
+            "Required"
         );
 
         return;
-
     }
 
 
@@ -1099,6 +1190,14 @@ function updateHistory() {
 
     }
 
+
+    /*
+     * IMPORTANT
+     *
+     * History row-কে update করার জন্য
+     * Apps Script-এ updateHistory action
+     * থাকতে হবে।
+     */
 
     fetch(
         API_URL,
@@ -1140,6 +1239,9 @@ function updateHistory() {
 
                 supportWork:
                     supportWork,
+
+                supportTime:
+                    supportTime,
 
                 call:
                     call,
@@ -1184,14 +1286,16 @@ function updateHistory() {
             ) {
 
                 throw new Error(
-
                     data?.message ||
                     "History update failed."
-
                 );
 
             }
 
+
+            /*
+             * Local data update
+             */
 
             const index =
                 historyData.findIndex(
@@ -1199,8 +1303,7 @@ function updateHistory() {
 
                         return Number(
                             item.row
-                        ) ===
-                        Number(
+                        ) === Number(
                             currentRow
                         );
 
@@ -1208,13 +1311,14 @@ function updateHistory() {
                 );
 
 
-            if (
-                index !== -1
-            ) {
+            if (index !== -1) {
 
                 historyData[index] = {
 
-                    ...historyData[index],
+                    row:
+                        Number(
+                            currentRow
+                        ),
 
                     customerId:
                         customerId,
@@ -1226,7 +1330,6 @@ function updateHistory() {
                         reference,
 
                     date:
-                        data.date ||
                         date,
 
                     support:
@@ -1234,6 +1337,9 @@ function updateHistory() {
 
                     supportWork:
                         supportWork,
+
+                    supportTime:
+                        supportTime,
 
                     call:
                         call,
@@ -1246,18 +1352,37 @@ function updateHistory() {
             }
 
 
-            filteredHistory =
-                [...historyData];
+            filteredData =
+                historyData.slice();
 
 
-            applyHistoryFilter();
+            const search =
+                document.getElementById(
+                    "historySearch"
+                );
+
+
+            if (
+                search &&
+                search.value.trim() !== ""
+            ) {
+
+                searchHistory();
+
+            }
+            else {
+
+                renderHistory();
+
+            }
 
 
             closeEdit();
 
 
-            showSuccess(
-                "History updated successfully."
+            showSuccessPopup(
+                "History updated successfully.",
+                "Update Successful"
             );
 
         }
@@ -1272,11 +1397,10 @@ function updateHistory() {
             );
 
 
-            showError(
-
+            showErrorPopup(
                 error.message ||
-                "History update failed."
-
+                "History update failed.",
+                "Update Failed"
             );
 
         }
@@ -1302,101 +1426,420 @@ function updateHistory() {
 }
 
 
-// =====================================
-// CLOSE EDIT POPUP
-// =====================================
+/* =========================================================
+   DELETE HISTORY
+========================================================= */
 
-function closeEdit() {
+function deleteHistory() {
 
-    const modal =
-        document.getElementById(
-            "editModal"
+    if (!currentRow) {
+
+        showErrorPopup(
+            "Please select a history record.",
+            "Error"
         );
 
-
-    if (modal) {
-
-        modal.classList.remove(
-            "show"
-        );
-
+        return;
     }
 
 
-    currentRow =
-        null;
+    showConfirmPopup(
+        "Are you sure you want to delete this history record?",
+        function () {
+
+            performDeleteHistory();
+
+        },
+        "Delete History"
+    );
 
 }
 
 
-// =====================================
-// SET VALUE
-// =====================================
+/* =========================================================
+   PERFORM DELETE
+========================================================= */
 
-function setValue(
-    id,
-    value
-) {
+function performDeleteHistory() {
 
-    const element =
-        document.getElementById(
-            id
+    const row =
+        Number(
+            currentRow
         );
 
 
-    if (element) {
-
-        element.value =
-            value || "";
-
-    }
-
-}
-
-
-// =====================================
-// GET VALUE
-// =====================================
-
-function getValue(id) {
-
-    const element =
+    const button =
         document.getElementById(
-            id
+            "confirmActionBtn"
         );
 
 
-    if (!element) {
+    if (button) {
 
-        return "";
+        button.disabled =
+            true;
+
+
+        button.innerHTML =
+            '<i class="fa fa-spinner fa-spin"></i> Deleting...';
 
     }
 
 
-    return element.value.trim();
+    fetch(
+        API_URL,
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+
+            },
+
+            body: JSON.stringify({
+
+                action:
+                    "deleteHistory",
+
+                row:
+                    row
+
+            })
+
+        }
+    )
+
+    .then(
+        function (response) {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Server Error"
+                );
+
+            }
+
+
+            return response.json();
+
+        }
+    )
+
+    .then(
+        function (data) {
+
+            if (
+                !data ||
+                data.success !== true
+            ) {
+
+                throw new Error(
+                    data?.message ||
+                    "Delete failed."
+                );
+
+            }
+
+
+            historyData =
+                historyData.filter(
+                    function (item) {
+
+                        return Number(
+                            item.row
+                        ) !== row;
+
+                    }
+                );
+
+
+            filteredData =
+                filteredData.filter(
+                    function (item) {
+
+                        return Number(
+                            item.row
+                        ) !== row;
+
+                    }
+                );
+
+
+            closeConfirmPopup();
+
+            closeEdit();
+
+
+            renderHistory();
+
+
+            showSuccessPopup(
+                "History deleted successfully.",
+                "Deleted"
+            );
+
+
+            /*
+             * Reload data after delete
+             * because Google Sheet row numbers
+             * may have shifted.
+             */
+
+            setTimeout(
+                function () {
+
+                    loadHistory();
+
+                },
+                500
+            );
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "DELETE HISTORY ERROR:",
+                error
+            );
+
+
+            showErrorPopup(
+                error.message ||
+                "Delete failed.",
+                "Delete Failed"
+            );
+
+        }
+    )
+
+    .finally(
+        function () {
+
+            if (button) {
+
+                button.disabled =
+                    false;
+
+
+                button.innerHTML =
+                    "Confirm";
+
+            }
+
+        }
+    );
 
 }
 
 
-// =====================================
-// FORMAT DATE
-// =====================================
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+function renderPagination() {
+
+    const container =
+        document.getElementById(
+            "pagination"
+        );
+
+
+    if (!container) {
+
+        return;
+    }
+
+
+    const totalPages =
+        Math.ceil(
+            filteredData.length /
+            rowsPerPage
+        );
+
+
+    if (
+        totalPages <= 1
+    ) {
+
+        container.innerHTML =
+            "";
+
+        return;
+    }
+
+
+    let html = "";
+
+
+    html += `
+
+        <button
+            type="button"
+            ${currentPage === 1 ? "disabled" : ""}
+            onclick="changePage(${currentPage - 1})"
+        >
+
+            <i class="fa fa-chevron-left"></i>
+
+        </button>
+
+    `;
+
+
+    /*
+     * Page numbers
+     */
+
+    for (
+        let page = 1;
+        page <= totalPages;
+        page++
+    ) {
+
+        html += `
+
+            <button
+                type="button"
+                class="${
+                    page === currentPage
+                        ? "active"
+                        : ""
+                }"
+                onclick="changePage(${page})"
+            >
+
+                ${page}
+
+            </button>
+
+        `;
+
+    }
+
+
+    html += `
+
+        <button
+            type="button"
+            ${
+                currentPage === totalPages
+                    ? "disabled"
+                    : ""
+            }
+            onclick="changePage(${currentPage + 1})"
+        >
+
+            <i class="fa fa-chevron-right"></i>
+
+        </button>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   CHANGE PAGE
+========================================================= */
+
+function changePage(page) {
+
+    const totalPages =
+        Math.ceil(
+            filteredData.length /
+            rowsPerPage
+        );
+
+
+    if (
+        page < 1 ||
+        page > totalPages
+    ) {
+
+        return;
+    }
+
+
+    currentPage =
+        page;
+
+
+    renderHistory();
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
 
 function formatDate(date) {
 
     if (!date) {
 
         return "";
-
     }
 
 
     const text =
-        String(date);
+        String(
+            date
+        );
+
+
+    /*
+     * yyyy-MM-dd
+     */
+
+    if (
+        /^\d{4}-\d{2}-\d{2}$/.test(
+            text
+        )
+    ) {
+
+        const parts =
+            text.split("-");
+
+
+        return (
+            parts[2] +
+            " " +
+            getMonthName(
+                Number(
+                    parts[1]
+                )
+            ) +
+            " " +
+            parts[0]
+        );
+
+    }
 
 
     const d =
-        new Date(date);
+        new Date(
+            date
+        );
 
 
     if (
@@ -1406,7 +1849,6 @@ function formatDate(date) {
     ) {
 
         return text;
-
     }
 
 
@@ -1460,22 +1902,62 @@ function formatDate(date) {
 }
 
 
-// =====================================
-// CONVERT DATE FOR INPUT
-// =====================================
+/* =========================================================
+   MONTH NAME
+========================================================= */
+
+function getMonthName(
+    month
+) {
+
+    const months = [
+
+        "",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+
+    ];
+
+
+    return (
+        months[month] ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   CONVERT DATE
+========================================================= */
 
 function convertDate(date) {
 
     if (!date) {
 
         return "";
-
     }
 
 
     const text =
-        String(date);
+        String(
+            date
+        );
 
+
+    /*
+     * Already yyyy-MM-dd
+     */
 
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
@@ -1484,12 +1966,13 @@ function convertDate(date) {
     ) {
 
         return text;
-
     }
 
 
     const d =
-        new Date(date);
+        new Date(
+            date
+        );
 
 
     if (
@@ -1499,7 +1982,6 @@ function convertDate(date) {
     ) {
 
         return "";
-
     }
 
 
@@ -1538,72 +2020,9 @@ function convertDate(date) {
 }
 
 
-// =====================================
-// NORMALIZE DATE
-// =====================================
-
-function normalizeDate(date) {
-
-    if (!date) {
-
-        return "";
-
-    }
-
-
-    const d =
-        new Date(date);
-
-
-    if (
-        isNaN(
-            d.getTime()
-        )
-    ) {
-
-        return "";
-
-    }
-
-
-    return (
-
-        d.getFullYear()
-
-        +
-
-        "-"
-
-        +
-
-        String(
-            d.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        )
-
-        +
-
-        "-"
-
-        +
-
-        String(
-            d.getDate()
-        ).padStart(
-            2,
-            "0"
-        )
-
-    );
-
-}
-
-
-// =====================================
-// ESCAPE HTML
-// =====================================
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHTML(value) {
 
@@ -1613,49 +2032,192 @@ function escapeHTML(value) {
     ) {
 
         return "";
-
     }
 
 
-    return String(value)
+    return String(
+        value
+    )
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
 
-// =====================================
-// SUCCESS POPUP
-// =====================================
+/* =========================================================
+   CONFIRM POPUP
+========================================================= */
 
-function showSuccess(message) {
+let confirmCallback =
+    null;
+
+
+function showConfirmPopup(
+    message,
+    callback,
+    title
+) {
+
+    const popup =
+        document.getElementById(
+            "confirmPopup"
+        );
+
+
+    const titleElement =
+        document.getElementById(
+            "confirmTitle"
+        );
+
+
+    const messageElement =
+        document.getElementById(
+            "confirmMessage"
+        );
+
+
+    const button =
+        document.getElementById(
+            "confirmActionBtn"
+        );
+
+
+    if (!popup) {
+
+        return;
+    }
+
+
+    if (titleElement) {
+
+        titleElement.textContent =
+            title ||
+            "Confirm";
+
+    }
+
+
+    if (messageElement) {
+
+        messageElement.textContent =
+            message ||
+            "Are you sure?";
+
+    }
+
+
+    confirmCallback =
+        callback;
+
+
+    if (button) {
+
+        button.disabled =
+            false;
+
+
+        button.innerHTML =
+            '<i class="fa fa-check"></i> Confirm';
+
+
+        button.onclick =
+            function () {
+
+                if (
+                    typeof confirmCallback ===
+                    "function"
+                ) {
+
+                    confirmCallback();
+
+                }
+
+            };
+
+    }
+
+
+    popup.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE CONFIRM
+========================================================= */
+
+function closeConfirmPopup() {
+
+    const popup =
+        document.getElementById(
+            "confirmPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    confirmCallback =
+        null;
+
+}
+
+
+/* =========================================================
+   SUCCESS POPUP
+========================================================= */
+
+function showSuccessPopup(
+    message,
+    title
+) {
 
     const popup =
         document.getElementById(
             "successPopup"
+        );
+
+
+    if (!popup) {
+
+        return;
+    }
+
+
+    const titleElement =
+        document.getElementById(
+            "successTitle"
         );
 
 
@@ -1665,9 +2227,11 @@ function showSuccess(message) {
         );
 
 
-    if (!popup) {
+    if (titleElement) {
 
-        return;
+        titleElement.textContent =
+            title ||
+            "Success";
 
     }
 
@@ -1688,9 +2252,9 @@ function showSuccess(message) {
 }
 
 
-// =====================================
-// CLOSE SUCCESS
-// =====================================
+/* =========================================================
+   CLOSE SUCCESS
+========================================================= */
 
 function closeSuccessPopup() {
 
@@ -1711,15 +2275,30 @@ function closeSuccessPopup() {
 }
 
 
-// =====================================
-// ERROR POPUP
-// =====================================
+/* =========================================================
+   ERROR POPUP
+========================================================= */
 
-function showError(message) {
+function showErrorPopup(
+    message,
+    title
+) {
 
     const popup =
         document.getElementById(
             "errorPopup"
+        );
+
+
+    if (!popup) {
+
+        return;
+    }
+
+
+    const titleElement =
+        document.getElementById(
+            "errorTitle"
         );
 
 
@@ -1729,14 +2308,11 @@ function showError(message) {
         );
 
 
-    if (!popup) {
+    if (titleElement) {
 
-        alert(
-            message ||
-            "Something went wrong."
-        );
-
-        return;
+        titleElement.textContent =
+            title ||
+            "Error";
 
     }
 
@@ -1757,9 +2333,9 @@ function showError(message) {
 }
 
 
-// =====================================
-// CLOSE ERROR
-// =====================================
+/* =========================================================
+   CLOSE ERROR
+========================================================= */
 
 function closeErrorPopup() {
 
@@ -1780,9 +2356,9 @@ function closeErrorPopup() {
 }
 
 
-// =====================================
-// OUTSIDE CLICK
-// =====================================
+/* =========================================================
+   OUTSIDE CLICK
+========================================================= */
 
 document.addEventListener(
     "click",
@@ -1814,17 +2390,6 @@ document.addEventListener(
 
         }
 
-    }
-);
-
-
-// =====================================
-// MODAL OUTSIDE CLICK
-// =====================================
-
-document.addEventListener(
-    "click",
-    function (event) {
 
         const modal =
             document.getElementById(
@@ -1834,25 +2399,19 @@ document.addEventListener(
 
         if (
             modal &&
-            event.target ===
-            modal
+            event.target === modal
         ) {
 
             closeEdit();
 
         }
 
-    }
-);
 
+        const confirmPopup =
+            document.getElementById(
+                "confirmPopup"
+            );
 
-// =====================================
-// POPUP OUTSIDE CLICK
-// =====================================
-
-document.addEventListener(
-    "click",
-    function (event) {
 
         const successPopup =
             document.getElementById(
@@ -1867,9 +2426,20 @@ document.addEventListener(
 
 
         if (
+            confirmPopup &&
+            event.target ===
+                confirmPopup
+        ) {
+
+            closeConfirmPopup();
+
+        }
+
+
+        if (
             successPopup &&
             event.target ===
-            successPopup
+                successPopup
         ) {
 
             closeSuccessPopup();
@@ -1880,7 +2450,7 @@ document.addEventListener(
         if (
             errorPopup &&
             event.target ===
-            errorPopup
+                errorPopup
         ) {
 
             closeErrorPopup();
@@ -1891,22 +2461,24 @@ document.addEventListener(
 );
 
 
-// =====================================
-// ESC KEY
-// =====================================
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
 
 document.addEventListener(
     "keydown",
     function (event) {
 
         if (
-            event.key !== "Escape"
+            event.key !==
+            "Escape"
         ) {
 
             return;
-
         }
 
+
+        closeConfirmPopup();
 
         closeSuccessPopup();
 
@@ -1932,8 +2504,3 @@ document.addEventListener(
 
     }
 );
-
-
-// =====================================
-// END HISTORY.JS
-// =====================================
