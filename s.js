@@ -1,21 +1,19 @@
-// =====================================
-// S.JS - PENDING SUPPORT
-// FULL FINAL
-// =====================================
 
 
-// =====================================
-// PAGE PROTECTION
-// =====================================
+"use strict";
+
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
+
+
+let currentRow = null;
+
+let supportData = [];
+
+let confirmCallback = null;
+
 
 (function () {
-
-    "use strict";
-
-
-    // =================================
-    // CHECK AUTH
-    // =================================
 
     function checkAuth() {
 
@@ -29,15 +27,13 @@
             );
 
             return false;
+
         }
 
         return true;
+
     }
 
-
-    // =================================
-    // INITIAL AUTH CHECK
-    // =================================
 
     if (!checkAuth()) {
 
@@ -45,10 +41,6 @@
 
     }
 
-
-    // =================================
-    // BACK BUTTON PROTECTION
-    // =================================
 
     history.pushState(
         null,
@@ -61,11 +53,19 @@
         "popstate",
         function () {
 
-            if (!checkAuth()) {
+            if (
+                localStorage.getItem("auth")
+                !== "true"
+            ) {
+
+                window.location.replace(
+                    "login.html"
+                );
 
                 return;
 
             }
+
 
             history.pushState(
                 null,
@@ -77,15 +77,18 @@
     );
 
 
-    // =================================
-    // BROWSER BACK/FORWARD CACHE
-    // =================================
-
     window.addEventListener(
         "pageshow",
         function (event) {
 
-            if (!checkAuth()) {
+            if (
+                localStorage.getItem("auth")
+                !== "true"
+            ) {
+
+                window.location.replace(
+                    "login.html"
+                );
 
                 return;
 
@@ -101,58 +104,8 @@
         }
     );
 
-
-    // =================================
-    // GLOBAL LOGOUT
-    // =================================
-
-    window.logout = function () {
-
-        localStorage.removeItem(
-            "auth"
-        );
-
-        localStorage.removeItem(
-            "username"
-        );
-
-        localStorage.removeItem(
-            "picture"
-        );
-
-        localStorage.removeItem(
-            "role"
-        );
-
-
-        sessionStorage.clear();
-
-
-        window.location.replace(
-            "login.html"
-        );
-
-    };
-
 })();
 
-
-// =====================================
-// CONFIG
-// =====================================
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
-
-
-let currentRow = null;
-
-let supportData = [];
-
-
-// =====================================
-// START
-// =====================================
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -181,10 +134,6 @@ document.addEventListener(
     }
 );
 
-
-// =====================================
-// PROFILE
-// =====================================
 
 function loadProfile() {
 
@@ -223,9 +172,7 @@ function loadProfile() {
     }
 
 
-    if (
-        profileImg
-    ) {
+    if (profileImg) {
 
         if (
             picture &&
@@ -260,10 +207,6 @@ function loadProfile() {
 }
 
 
-// =====================================
-// PROFILE MENU
-// =====================================
-
 function toggleProfile() {
 
     const menu =
@@ -285,11 +228,6 @@ function toggleProfile() {
 
 }
 
-
-// =====================================
-// MY ACCOUNT
-// =====================================
-
 function myAccount() {
 
     window.location.href =
@@ -297,10 +235,6 @@ function myAccount() {
 
 }
 
-
-// =====================================
-// LOGOUT
-// =====================================
 
 function logout() {
 
@@ -331,14 +265,8 @@ function logout() {
 }
 
 
-// =====================================
-// BACK
-// =====================================
-// আগের page-এ ফিরে যাবে
-// dashboard.html hardcoded নয়
-// =====================================
-
 function goBack() {
+
 
     if (
         window.history.length > 1
@@ -346,22 +274,17 @@ function goBack() {
 
         window.history.back();
 
-    }
-
-    else {
-
-        window.location.replace(
-            "login.html"
-        );
+        return;
 
     }
+
+    window.location.replace(
+        "dashboard.html"
+    );
 
 }
 
 
-// =====================================
-// LOAD SUPPORT
-// =====================================
 
 function loadSupport() {
 
@@ -419,7 +342,7 @@ function loadSupport() {
     )
 
     .then(
-        response => {
+        function (response) {
 
             if (!response.ok) {
 
@@ -429,13 +352,14 @@ function loadSupport() {
 
             }
 
+
             return response.json();
 
         }
     )
 
     .then(
-        data => {
+        function (data) {
 
             console.log(
                 "SUPPORT DATA:",
@@ -472,7 +396,7 @@ function loadSupport() {
     )
 
     .catch(
-        error => {
+        function (error) {
 
             console.error(
                 error
@@ -509,10 +433,6 @@ function loadSupport() {
 
 }
 
-
-// =====================================
-// RENDER SUPPORT
-// =====================================
 
 function renderSupport(data) {
 
@@ -623,10 +543,6 @@ function renderSupport(data) {
 
 }
 
-
-// =====================================
-// SEARCH
-// =====================================
 
 function searchSupport() {
 
@@ -780,11 +696,6 @@ function searchSupport() {
 
 }
 
-
-// =====================================
-// EDIT SUPPORT
-// =====================================
-
 function editSupport(row) {
 
     currentRow =
@@ -810,18 +721,15 @@ function editSupport(row) {
             "Error"
         );
 
+
         currentRow =
             null;
+
 
         return;
 
     }
 
-
-    // =================================
-    // CUSTOMER ID
-    // READ ONLY
-    // =================================
 
     setValue(
         "customerId",
@@ -829,10 +737,6 @@ function editSupport(row) {
     );
 
 
-    // =================================
-    // PROBLEM
-    // READ ONLY
-    // =================================
 
     setValue(
         "problem",
@@ -840,21 +744,12 @@ function editSupport(row) {
     );
 
 
-    // =================================
-    // REFERENCE
-    // READ ONLY
-    // =================================
-
     setValue(
         "reference",
         item.reference
     );
 
 
-    // =================================
-    // DATE
-    // READ ONLY
-    // =================================
 
     setValue(
         "date",
@@ -864,21 +759,11 @@ function editSupport(row) {
     );
 
 
-    // =================================
-    // SUPPORT
-    // EDITABLE
-    // =================================
-
     setValue(
         "support",
         item.support
     );
 
-
-    // =================================
-    // SUPPORT WORK
-    // EDITABLE
-    // =================================
 
     setValue(
         "supportWork",
@@ -886,57 +771,7 @@ function editSupport(row) {
     );
 
 
-    // =================================
-    // MAKE FIRST FOUR FIELDS READONLY
-    // =================================
-
-    const customerId =
-        document.getElementById(
-            "customerId"
-        );
-
-    const problem =
-        document.getElementById(
-            "problem"
-        );
-
-    const reference =
-        document.getElementById(
-            "reference"
-        );
-
-    const date =
-        document.getElementById(
-            "date"
-        );
-
-
-    if (customerId) {
-
-        customerId.readOnly = true;
-
-    }
-
-
-    if (problem) {
-
-        problem.readOnly = true;
-
-    }
-
-
-    if (reference) {
-
-        reference.readOnly = true;
-
-    }
-
-
-    if (date) {
-
-        date.readOnly = true;
-
-    }
+    makeReadOnlyFields();
 
 
     const modal =
@@ -956,9 +791,65 @@ function editSupport(row) {
 }
 
 
-// =====================================
-// SET VALUE
-// =====================================
+function makeReadOnlyFields() {
+
+    const customerId =
+        document.getElementById(
+            "customerId"
+        );
+
+
+    const problem =
+        document.getElementById(
+            "problem"
+        );
+
+
+    const reference =
+        document.getElementById(
+            "reference"
+        );
+
+
+    const date =
+        document.getElementById(
+            "date"
+        );
+
+
+    if (customerId) {
+
+        customerId.readOnly =
+            true;
+
+    }
+
+
+    if (problem) {
+
+        problem.readOnly =
+            true;
+
+    }
+
+
+    if (reference) {
+
+        reference.readOnly =
+            true;
+
+    }
+
+
+    if (date) {
+
+        date.readOnly =
+            true;
+
+    }
+
+}
+
 
 function setValue(
     id,
@@ -981,10 +872,6 @@ function setValue(
 }
 
 
-// =====================================
-// GET VALUE
-// =====================================
-
 function getValue(id) {
 
     const element =
@@ -1004,10 +891,6 @@ function getValue(id) {
 
 }
 
-
-// =====================================
-// CLOSE EDIT
-// =====================================
 
 function closeEdit() {
 
@@ -1031,11 +914,6 @@ function closeEdit() {
 
 }
 
-
-// =====================================
-// SUBMIT SUPPORT
-// SUPPORT → CALL
-// =====================================
 
 function updateSupport() {
 
@@ -1098,6 +976,7 @@ function updateSupport() {
         button.disabled =
             true;
 
+
         button.innerHTML =
             '<i class="fa fa-spinner fa-spin"></i> Submitting...';
 
@@ -1127,7 +1006,6 @@ function updateSupport() {
                         currentRow
                     ),
 
-                // READ ONLY DATA
                 customerId:
                     getValue(
                         "customerId"
@@ -1148,7 +1026,6 @@ function updateSupport() {
                         "date"
                     ),
 
-                // EDITABLE DATA
                 support:
                     support,
 
@@ -1161,7 +1038,7 @@ function updateSupport() {
     )
 
     .then(
-        response => {
+        function (response) {
 
             if (!response.ok) {
 
@@ -1171,13 +1048,14 @@ function updateSupport() {
 
             }
 
+
             return response.json();
 
         }
     )
 
     .then(
-        data => {
+        function (data) {
 
             console.log(
                 "MOVE TO CALL:",
@@ -1229,7 +1107,7 @@ function updateSupport() {
     )
 
     .catch(
-        error => {
+        function (error) {
 
             console.error(
                 "SUBMIT ERROR:",
@@ -1254,6 +1132,7 @@ function updateSupport() {
                 button.disabled =
                     false;
 
+
                 button.innerHTML =
                     '<i class="fa fa-paper-plane"></i> Submit';
 
@@ -1265,9 +1144,120 @@ function updateSupport() {
 }
 
 
-// =====================================
-// SUCCESS POPUP
-// =====================================
+function showConfirmPopup(
+    message,
+    callback,
+    title
+) {
+
+    const popup =
+        document.getElementById(
+            "confirmPopup"
+        );
+
+
+    const titleElement =
+        document.getElementById(
+            "confirmTitle"
+        );
+
+
+    const messageElement =
+        document.getElementById(
+            "confirmMessage"
+        );
+
+
+    const button =
+        document.getElementById(
+            "confirmActionBtn"
+        );
+
+
+    if (!popup) {
+
+        return;
+
+    }
+
+
+    if (titleElement) {
+
+        titleElement.textContent =
+            title ||
+            "Confirm";
+
+    }
+
+
+    if (messageElement) {
+
+        messageElement.textContent =
+            message ||
+            "Are you sure?";
+
+    }
+
+
+    confirmCallback =
+        callback;
+
+
+    if (button) {
+
+        button.disabled =
+            false;
+
+
+        button.innerHTML =
+            '<i class="fa fa-check"></i> Confirm';
+
+
+        button.onclick =
+            function () {
+
+                if (
+                    typeof confirmCallback ===
+                    "function"
+                ) {
+
+                    confirmCallback();
+
+                }
+
+            };
+
+    }
+
+
+    popup.classList.add(
+        "show"
+    );
+
+}
+
+function closeConfirmPopup() {
+
+    const popup =
+        document.getElementById(
+            "confirmPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    confirmCallback =
+        null;
+
+}
+
 
 function showSuccessPopup(
     message,
@@ -1323,11 +1313,6 @@ function showSuccessPopup(
 
 }
 
-
-// =====================================
-// CLOSE SUCCESS
-// =====================================
-
 function closeSuccessPopup() {
 
     const popup =
@@ -1345,11 +1330,6 @@ function closeSuccessPopup() {
     }
 
 }
-
-
-// =====================================
-// ERROR POPUP
-// =====================================
 
 function showErrorPopup(
     message,
@@ -1406,10 +1386,6 @@ function showErrorPopup(
 }
 
 
-// =====================================
-// CLOSE ERROR
-// =====================================
-
 function closeErrorPopup() {
 
     const popup =
@@ -1429,10 +1405,6 @@ function closeErrorPopup() {
 }
 
 
-// =====================================
-// DATE FOR INPUT
-// =====================================
-
 function convertDate(date) {
 
     if (!date) {
@@ -1446,7 +1418,7 @@ function convertDate(date) {
         String(date);
 
 
-    // Already YYYY-MM-DD
+   
 
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
@@ -1500,10 +1472,6 @@ function convertDate(date) {
 
 }
 
-
-// =====================================
-// DATE DISPLAY
-// =====================================
 
 function formatDate(date) {
 
@@ -1581,10 +1549,6 @@ function formatDate(date) {
 }
 
 
-// =====================================
-// ESCAPE HTML
-// =====================================
-
 function escapeHTML(value) {
 
     if (
@@ -1627,10 +1591,6 @@ function escapeHTML(value) {
 }
 
 
-// =====================================
-// PROFILE OUTSIDE CLICK
-// =====================================
-
 document.addEventListener(
     "click",
     function (event) {
@@ -1665,10 +1625,6 @@ document.addEventListener(
 );
 
 
-// =====================================
-// EDIT MODAL OUTSIDE CLICK
-// =====================================
-
 document.addEventListener(
     "click",
     function (event) {
@@ -1692,13 +1648,15 @@ document.addEventListener(
 );
 
 
-// =====================================
-// CUSTOM POPUP OUTSIDE CLICK
-// =====================================
-
 document.addEventListener(
     "click",
     function (event) {
+
+        const confirmPopup =
+            document.getElementById(
+                "confirmPopup"
+            );
+
 
         const successPopup =
             document.getElementById(
@@ -1710,6 +1668,17 @@ document.addEventListener(
             document.getElementById(
                 "errorPopup"
             );
+
+
+        if (
+            confirmPopup &&
+            event.target ===
+                confirmPopup
+        ) {
+
+            closeConfirmPopup();
+
+        }
 
 
         if (
@@ -1737,10 +1706,6 @@ document.addEventListener(
 );
 
 
-// =====================================
-// ESC KEY
-// =====================================
-
 document.addEventListener(
     "keydown",
     function (event) {
@@ -1753,6 +1718,8 @@ document.addEventListener(
 
         }
 
+
+        closeConfirmPopup();
 
         closeSuccessPopup();
 
@@ -1778,8 +1745,7 @@ document.addEventListener(
 
     }
 );
-
-
 // =====================================
 // END S.JS
 // =====================================
+
