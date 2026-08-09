@@ -14,6 +14,7 @@
 
 
     <!-- HISTORY CSS -->
+
     <link
         rel="stylesheet"
         href="history.css"
@@ -21,6 +22,7 @@
 
 
     <!-- FONT AWESOME -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -38,13 +40,9 @@
 
 <header class="header">
 
+
     <div class="left-section">
 
-
-        <!-- BACK BUTTON
-             IMPORTANT:
-             CLICK করলে কিছুই করবে না
-        -->
 
         <button
             type="button"
@@ -59,7 +57,9 @@
         </button>
 
 
-        <!-- HISTORY TITLE -->
+
+        <!-- HISTORY TITLE
+             CLICK = FILTER SHOW/HIDE -->
 
         <h2
             class="history-title"
@@ -72,6 +72,7 @@
 
         </h2>
 
+
     </div>
 
 
@@ -81,6 +82,7 @@
     ================================================== -->
 
     <div class="profile">
+
 
         <div
             class="profile-head"
@@ -104,10 +106,12 @@
         </div>
 
 
+
         <div
             class="profile-menu"
             id="profileMenu"
         >
+
 
             <button
                 type="button"
@@ -121,6 +125,7 @@
             </button>
 
 
+
             <button
                 type="button"
                 onclick="logout()"
@@ -132,9 +137,12 @@
 
             </button>
 
+
         </div>
 
+
     </div>
+
 
 </header>
 
@@ -142,7 +150,7 @@
 
 <!-- =================================================
      FILTER BAR
-     Hidden by default
+     HIDDEN BY DEFAULT
 ================================================== -->
 
 <div
@@ -189,34 +197,18 @@
 
     <div class="filter-group search-group">
 
-        <label for="historySearch">
+        <label for="searchHistory">
             Search
         </label>
 
         <input
             type="text"
-            id="historySearch"
+            id="searchHistory"
             placeholder="Customer ID / Problem / Reference"
             autocomplete="off"
         >
 
     </div>
-
-
-
-    <!-- FILTER -->
-
-    <button
-        type="button"
-        class="filter-btn"
-        onclick="applyDateFilter()"
-    >
-
-        <i class="fa-solid fa-filter"></i>
-
-        Filter
-
-    </button>
 
 
 
@@ -234,6 +226,7 @@
 
     </button>
 
+
 </div>
 
 
@@ -244,13 +237,14 @@
 
 <div class="table-box">
 
+
     <table>
+
 
         <thead>
 
             <tr>
 
-                <!-- MAIN INFORMATION ONLY -->
 
                 <th>
                     Customer ID
@@ -273,51 +267,47 @@
 
 
                 <th>
-                    Support
-                </th>
-
-
-                <th>
-                    Support Work
-                </th>
-
-
-                <th>
                     Action
                 </th>
+
 
             </tr>
 
         </thead>
 
 
+
         <tbody id="historyList">
+
 
             <tr>
 
                 <td
-                    colspan="7"
+                    colspan="5"
                     class="loading-cell"
                 >
 
                     <i class="fa fa-spinner fa-spin"></i>
 
-                    Loading History...
+                    Loading...
 
                 </td>
 
             </tr>
 
+
         </tbody>
 
+
     </table>
+
 
 </div>
 
 
 
 <!-- =================================================
-     HISTORY VIEW MODAL
+     HISTORY VIEW POPUP
 ================================================== -->
 
 <div
@@ -326,7 +316,7 @@
 >
 
 
-    <div class="popup history-popup">
+    <div class="history-popup">
 
 
         <!-- CLOSE -->
@@ -356,128 +346,75 @@
 
 
         <!-- =================================================
-             MAIN INFORMATION
+             BASIC INFORMATION
         ================================================== -->
 
         <div class="popup-section">
 
+
             <div class="section-title">
 
-                <i class="fa fa-user"></i>
+                <i class="fa fa-circle-info"></i>
 
-                Customer Information
+                Basic Information
 
             </div>
 
 
+
             <!-- CUSTOMER ID -->
 
-            <label for="customerId">
+            <label for="viewCustomerId">
                 Customer ID
             </label>
 
             <input
                 type="text"
-                id="customerId"
+                id="viewCustomerId"
                 readonly
             >
 
 
+
             <!-- PROBLEM -->
 
-            <label for="problem">
+            <label for="viewProblem">
                 Problem
             </label>
 
             <textarea
-                id="problem"
-                rows="3"
+                id="viewProblem"
                 readonly
             ></textarea>
 
 
+
             <!-- REFERENCE -->
 
-            <label for="reference">
+            <label for="viewReference">
                 Reference
             </label>
 
             <input
                 type="text"
-                id="reference"
+                id="viewReference"
                 readonly
             >
 
 
+
             <!-- DATE -->
 
-            <label for="date">
+            <label for="viewDate">
                 Date
             </label>
 
             <input
                 type="text"
-                id="date"
+                id="viewDate"
                 readonly
             >
 
-        </div>
-
-
-
-        <!-- =================================================
-             FROM / TO
-        ================================================== -->
-
-        <div class="popup-section">
-
-            <div class="section-title">
-
-                <i class="fa fa-calendar"></i>
-
-                Date Information
-
-            </div>
-
-
-            <div class="two-column">
-
-
-                <!-- FROM -->
-
-                <div>
-
-                    <label for="from">
-                        From
-                    </label>
-
-                    <input
-                        type="text"
-                        id="from"
-                        readonly
-                    >
-
-                </div>
-
-
-
-                <!-- TO -->
-
-                <div>
-
-                    <label for="to">
-                        To
-                    </label>
-
-                    <input
-                        type="text"
-                        id="to"
-                        readonly
-                    >
-
-                </div>
-
-            </div>
 
         </div>
 
@@ -489,6 +426,7 @@
 
         <div class="popup-section">
 
+
             <div class="section-title">
 
                 <i class="fa fa-headset"></i>
@@ -498,43 +436,32 @@
             </div>
 
 
+
             <!-- SUPPORT -->
 
-            <label for="support">
+            <label for="viewSupport">
                 Support
             </label>
 
             <input
                 type="text"
-                id="support"
+                id="viewSupport"
                 readonly
             >
+
 
 
             <!-- SUPPORT WORK -->
 
-            <label for="supportWork">
+            <label for="viewSupportWork">
                 Support Work
             </label>
 
             <textarea
-                id="supportWork"
-                rows="3"
+                id="viewSupportWork"
                 readonly
             ></textarea>
 
-
-            <!-- SUPPORT TIME -->
-
-            <label for="supportTime">
-                Support Time
-            </label>
-
-            <input
-                type="text"
-                id="supportTime"
-                readonly
-            >
 
         </div>
 
@@ -546,6 +473,7 @@
 
         <div class="popup-section">
 
+
             <div class="section-title">
 
                 <i class="fa fa-phone-volume"></i>
@@ -555,43 +483,32 @@
             </div>
 
 
+
             <!-- CALL -->
 
-            <label for="call">
+            <label for="viewCall">
                 Call
             </label>
 
             <input
                 type="text"
-                id="call"
+                id="viewCall"
                 readonly
             >
+
 
 
             <!-- CALL WORK -->
 
-            <label for="callWork">
+            <label for="viewCallWork">
                 Call Work
             </label>
 
             <textarea
-                id="callWork"
-                rows="3"
+                id="viewCallWork"
                 readonly
             ></textarea>
 
-
-            <!-- CALL TIME -->
-
-            <label for="callTime">
-                Call Time
-            </label>
-
-            <input
-                type="text"
-                id="callTime"
-                readonly
-            >
 
         </div>
 
@@ -601,77 +518,41 @@
              OTHER INFORMATION
         ================================================== -->
 
-        <div class="popup-section">
+        <div
+            class="popup-section"
+            id="otherInformationSection"
+        >
+
 
             <div class="section-title">
 
-                <i class="fa fa-circle-info"></i>
+                <i class="fa fa-list"></i>
 
                 Other Information
 
             </div>
 
 
-            <!-- STATUS -->
 
-            <label for="status">
-                Status
-            </label>
-
-            <input
-                type="text"
-                id="status"
-                readonly
-            >
+            <div id="otherInformation">
 
 
-            <!-- USERNAME -->
-
-            <label for="historyUsername">
-                Username
-            </label>
-
-            <input
-                type="text"
-                id="historyUsername"
-                readonly
-            >
+                <!-- JS WILL INSERT OTHER DATA -->
 
 
-            <!-- NAME -->
+            </div>
 
-            <label for="name">
-                Name
-            </label>
-
-            <input
-                type="text"
-                id="name"
-                readonly
-            >
-
-
-            <!-- ROLE -->
-
-            <label for="role">
-                Role
-            </label>
-
-            <input
-                type="text"
-                id="role"
-                readonly
-            >
 
         </div>
 
 
 
         <!-- =================================================
-             CLOSE BUTTON
+             POPUP BUTTON
         ================================================== -->
 
         <div class="popup-buttons">
+
 
             <button
                 type="button"
@@ -685,10 +566,12 @@
 
             </button>
 
+
         </div>
 
 
     </div>
+
 
 </div>
 
@@ -703,7 +586,9 @@
     id="errorPopup"
 >
 
+
     <div class="custom-popup">
+
 
         <div class="popup-icon error">
 
@@ -712,14 +597,17 @@
         </div>
 
 
+
         <h3 id="errorTitle">
             Error
         </h3>
 
 
+
         <p id="errorMessage">
             Something went wrong.
         </p>
+
 
 
         <button
@@ -732,7 +620,9 @@
 
         </button>
 
+
     </div>
+
 
 </div>
 
