@@ -1,123 +1,192 @@
 
-/* =====================================================
+/* =========================================================
    HISTORY.CSS
-===================================================== */
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
 }
 
 
+/* =========================================================
+   BODY
+========================================================= */
+
 body {
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
     background: #f1f5f9;
+
     color: #334155;
+
     min-height: 100vh;
+
     overflow-x: hidden;
 }
 
 
-/* =====================================================
+/* =========================================================
    HEADER
-===================================================== */
+========================================================= */
 
 .header {
+
     width: 100%;
+
     min-height: 72px;
+
     background: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     padding: 0 28px;
 
+    border-bottom: 1px solid #e2e8f0;
+
     position: relative;
+
     z-index: 100;
 }
 
 
+/* =========================================================
+   LEFT SECTION
+========================================================= */
+
 .left-section {
+
     display: flex;
+
     align-items: center;
+
     gap: 18px;
 }
 
 
-.left-section h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    color: #0f172a;
-    font-size: 21px;
-    font-weight: 700;
-
-    cursor: pointer;
-}
-
-
-.left-section h2 i {
-    color: #16a34a;
-}
-
-
-/* =====================================================
+/* =========================================================
    BACK BUTTON
-===================================================== */
+========================================================= */
 
 .back-btn {
+
     border: none;
+
     outline: none;
 
-    background: #f1f5f9;
-    color: #334155;
+    background: #0f766e;
 
-    padding: 10px 15px;
+    color: #ffffff;
+
+    padding: 10px 17px;
 
     border-radius: 9px;
 
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
     font-size: 14px;
+
     font-weight: 600;
 
     cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
 
     transition: 0.2s ease;
 }
 
 
 .back-btn:hover {
-    background: #e2e8f0;
+
+    background: #115e59;
+
+    transform: translateY(-1px);
 }
 
 
-.back-btn:active {
-    transform: scale(0.97);
+.back-btn i {
+
+    font-size: 14px;
 }
 
 
-/* =====================================================
+/* =========================================================
+   HISTORY TITLE
+========================================================= */
+
+.history-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 21px;
+
+    color: #0f172a;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    transition: 0.2s ease;
+}
+
+
+.history-title:hover {
+
+    color: #0f766e;
+}
+
+
+.history-title i {
+
+    color: #0f766e;
+
+    font-size: 21px;
+}
+
+
+/* =========================================================
    PROFILE
-===================================================== */
+========================================================= */
 
 .profile {
+
     position: relative;
 }
 
 
+/* PROFILE HEAD */
+
 .profile-head {
+
     display: flex;
+
     align-items: center;
+
     gap: 9px;
 
     cursor: pointer;
+
+    user-select: none;
 
     padding: 5px 8px;
 
@@ -128,50 +197,67 @@ body {
 
 
 .profile-head:hover {
+
     background: #f8fafc;
 }
 
 
+/* PROFILE IMAGE */
+
 .profile-head img {
-    width: 40px;
-    height: 40px;
+
+    width: 42px;
+
+    height: 42px;
 
     border-radius: 50%;
 
     object-fit: cover;
 
-    border: 2px solid #dcfce7;
+    border: 2px solid #0f766e;
+
+    background: #e2e8f0;
 }
 
 
+/* USERNAME */
+
 .profile-head span {
-    color: #1e293b;
 
     font-size: 14px;
+
     font-weight: 600;
 
-    max-width: 140px;
+    color: #334155;
+
+    max-width: 150px;
 
     overflow: hidden;
+
     text-overflow: ellipsis;
+
     white-space: nowrap;
 }
 
 
-.profile-head i {
-    color: #64748b;
+.profile-head > i {
+
     font-size: 13px;
+
+    color: #64748b;
 }
 
 
-/* =====================================================
+/* =========================================================
    PROFILE MENU
-===================================================== */
+========================================================= */
 
 .profile-menu {
+
     position: absolute;
 
-    top: calc(100% + 10px);
+    top: calc(100% + 9px);
+
     right: 0;
 
     width: 190px;
@@ -182,27 +268,38 @@ body {
 
     border-radius: 12px;
 
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.14);
+
     padding: 7px;
 
-    box-shadow:
-        0 15px 35px rgba(15, 23, 42, 0.12);
+    opacity: 0;
 
-    display: none;
+    visibility: hidden;
+
+    transform: translateY(-6px);
+
+    transition: 0.2s ease;
 
     z-index: 1000;
 }
 
 
 .profile-menu.show {
-    display: block;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
 }
 
 
 .profile-menu button {
+
     width: 100%;
 
     border: none;
-    outline: none;
 
     background: transparent;
 
@@ -210,15 +307,17 @@ body {
 
     border-radius: 8px;
 
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    text-align: left;
 
-    color: #334155;
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
 
     font-size: 14px;
 
-    text-align: left;
+    color: #334155;
 
     cursor: pointer;
 
@@ -227,95 +326,130 @@ body {
 
 
 .profile-menu button:hover {
+
     background: #f1f5f9;
+
+    color: #0f766e;
 }
 
 
 .profile-menu button i {
+
     width: 18px;
-    color: #16a34a;
+
+    color: #0f766e;
 }
 
 
-/* =====================================================
+/* =========================================================
    FILTER BAR
-===================================================== */
+========================================================= */
 
 .filter-bar {
-    width: calc(100% - 48px);
 
-    margin: 20px auto 0;
+    width: calc(100% - 56px);
 
-    padding: 15px;
+    margin: 18px auto 0;
 
     background: #ffffff;
 
     border: 1px solid #e2e8f0;
 
-    border-radius: 13px;
+    border-radius: 14px;
 
-    display: none;
+    padding: 16px;
+
+    display: flex;
 
     align-items: flex-end;
+
     gap: 14px;
 
     box-shadow:
         0 5px 18px rgba(15, 23, 42, 0.05);
 
-    animation: filterOpen 0.2s ease;
+    opacity: 0;
+
+    visibility: hidden;
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    padding-top: 0;
+
+    padding-bottom: 0;
+
+    border-width: 0;
+
+    margin-top: 0;
+
+    transition:
+        opacity 0.25s ease,
+        max-height 0.3s ease,
+        padding 0.3s ease,
+        margin 0.3s ease,
+        border-width 0.3s ease;
 }
 
+
+/* FILTER SHOW */
 
 .filter-bar.show {
-    display: flex;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    max-height: 180px;
+
+    padding-top: 16px;
+
+    padding-bottom: 16px;
+
+    margin-top: 18px;
+
+    border-width: 1px;
 }
 
 
-@keyframes filterOpen {
-
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
+/* =========================================================
+   FILTER GROUP
+========================================================= */
 
 .filter-group {
+
     display: flex;
 
     flex-direction: column;
 
     gap: 6px;
 
-    min-width: 150px;
+    min-width: 160px;
 }
 
 
 .filter-group label {
-    color: #475569;
 
     font-size: 12px;
 
     font-weight: 700;
+
+    color: #475569;
 }
 
 
 .filter-group input {
+
     height: 40px;
 
     border: 1px solid #cbd5e1;
 
     border-radius: 8px;
 
-    outline: none;
-
     padding: 0 11px;
+
+    outline: none;
 
     background: #ffffff;
 
@@ -328,78 +462,77 @@ body {
 
 
 .filter-group input:focus {
-    border-color: #16a34a;
+
+    border-color: #0f766e;
 
     box-shadow:
-        0 0 0 3px rgba(22, 163, 74, 0.10);
+        0 0 0 3px rgba(15, 118, 110, 0.10);
 }
 
+
+/* SEARCH */
 
 .search-group {
+
     flex: 1;
+
+    min-width: 230px;
 }
 
 
-.filter-btn,
+/* =========================================================
+   RESET BUTTON
+========================================================= */
+
 .reset-btn {
+
     height: 40px;
 
     border: none;
-    outline: none;
-
-    padding: 0 17px;
 
     border-radius: 8px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0 17px;
 
-    gap: 7px;
+    background: #e2e8f0;
+
+    color: #334155;
 
     font-size: 13px;
+
     font-weight: 600;
 
     cursor: pointer;
 
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
     transition: 0.2s ease;
-
-    white-space: nowrap;
-}
-
-
-.filter-btn {
-    background: #16a34a;
-    color: #ffffff;
-}
-
-
-.filter-btn:hover {
-    background: #15803d;
-}
-
-
-.reset-btn {
-    background: #f1f5f9;
-    color: #475569;
-
-    border: 1px solid #e2e8f0;
 }
 
 
 .reset-btn:hover {
-    background: #e2e8f0;
+
+    background: #cbd5e1;
+
+    color: #0f172a;
 }
 
 
-/* =====================================================
+/* =========================================================
    TABLE BOX
-===================================================== */
+========================================================= */
 
 .table-box {
-    width: calc(100% - 48px);
 
-    margin: 20px auto;
+    width: calc(100% - 56px);
+
+    margin: 22px auto;
 
     background: #ffffff;
 
@@ -407,182 +540,220 @@ body {
 
     border-radius: 14px;
 
-    overflow-x: auto;
+    overflow: auto;
 
     box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.05);
+        0 5px 18px rgba(15, 23, 42, 0.05);
 }
 
 
+/* =========================================================
+   TABLE
+========================================================= */
+
 table {
+
     width: 100%;
 
     border-collapse: collapse;
 
-    min-width: 900px;
+    min-width: 720px;
 }
 
 
+/* =========================================================
+   TABLE HEAD
+========================================================= */
+
 thead {
-    background: #f8fafc;
+
+    background: #0f766e;
+
+    color: #ffffff;
 }
 
 
 th {
-    padding: 15px 14px;
 
-    border-bottom: 1px solid #e2e8f0;
-
-    color: #475569;
-
-    font-size: 12px;
-
-    font-weight: 700;
+    padding: 15px 16px;
 
     text-align: left;
+
+    font-size: 13px;
+
+    font-weight: 700;
 
     white-space: nowrap;
 }
 
 
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
 td {
-    padding: 14px;
 
-    border-bottom: 1px solid #f1f5f9;
+    padding: 14px 16px;
 
-    color: #334155;
+    border-bottom: 1px solid #e2e8f0;
 
     font-size: 13px;
+
+    color: #475569;
 
     vertical-align: middle;
 }
 
 
 tbody tr {
-    transition: 0.15s ease;
+
+    transition: 0.2s ease;
 }
 
 
 tbody tr:hover {
+
     background: #f8fafc;
 }
 
 
 tbody tr:last-child td {
+
     border-bottom: none;
 }
 
 
-/* =====================================================
+/* =========================================================
    LOADING
-===================================================== */
+========================================================= */
 
 .loading-cell {
-    text-align: center !important;
+
+    text-align: center;
 
     padding: 45px !important;
 
     color: #64748b;
+
+    font-size: 14px;
 }
 
 
 .loading-cell i {
+
     margin-right: 7px;
 
-    color: #16a34a;
+    color: #0f766e;
 }
 
 
-/* =====================================================
+/* =========================================================
    VIEW BUTTON
-===================================================== */
+========================================================= */
 
 .view-btn {
+
     border: none;
+
     outline: none;
 
-    background: #eff6ff;
+    background: #0f766e;
 
-    color: #2563eb;
+    color: #ffffff;
 
-    padding: 8px 12px;
+    padding: 8px 13px;
 
     border-radius: 7px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 6px;
-
     font-size: 12px;
+
     font-weight: 600;
 
     cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
 
     transition: 0.2s ease;
 }
 
 
 .view-btn:hover {
-    background: #dbeafe;
+
+    background: #115e59;
 
     transform: translateY(-1px);
 }
 
 
-.view-btn:active {
-    transform: scale(0.97);
+.view-btn i {
+
+    font-size: 12px;
 }
 
 
-/* =====================================================
+/* =========================================================
    MODAL
-===================================================== */
+========================================================= */
 
 .modal {
+
     position: fixed;
 
     inset: 0;
 
     width: 100%;
+
     height: 100%;
 
-    background: rgba(15, 23, 42, 0.58);
+    background: rgba(15, 23, 42, 0.55);
 
-    display: none;
+    display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 20px;
 
-    z-index: 5000;
+    opacity: 0;
 
-    overflow-y: auto;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition: 0.25s ease;
+
+    z-index: 2000;
+
+    backdrop-filter: blur(3px);
 }
 
 
 .modal.show {
-    display: flex;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
 }
 
 
-body.modal-open {
-    overflow: hidden;
-}
-
-
-/* =====================================================
+/* =========================================================
    HISTORY POPUP
-===================================================== */
+========================================================= */
 
 .history-popup {
+
     width: 100%;
 
     max-width: 650px;
 
-    max-height: 92vh;
+    max-height: 90vh;
 
     overflow-y: auto;
 
@@ -590,189 +761,237 @@ body.modal-open {
 
     border-radius: 16px;
 
-    padding: 25px;
+    padding: 26px;
 
     position: relative;
 
     box-shadow:
-        0 25px 70px rgba(15, 23, 42, 0.25);
+        0 25px 60px rgba(15, 23, 42, 0.25);
 
-    animation: popupOpen 0.22s ease;
+    transform: translateY(15px) scale(0.98);
+
+    transition: 0.25s ease;
 }
 
 
-@keyframes popupOpen {
+.modal.show .history-popup {
 
-    from {
-        opacity: 0;
-        transform: translateY(12px) scale(0.98);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-
+    transform: translateY(0) scale(1);
 }
 
 
-/* =====================================================
+/* =========================================================
+   POPUP SCROLLBAR
+========================================================= */
+
+.history-popup::-webkit-scrollbar {
+
+    width: 7px;
+}
+
+
+.history-popup::-webkit-scrollbar-track {
+
+    background: #f1f5f9;
+
+    border-radius: 10px;
+}
+
+
+.history-popup::-webkit-scrollbar-thumb {
+
+    background: #cbd5e1;
+
+    border-radius: 10px;
+}
+
+
+.history-popup::-webkit-scrollbar-thumb:hover {
+
+    background: #94a3b8;
+}
+
+
+/* =========================================================
    CLOSE BUTTON
-===================================================== */
+========================================================= */
 
 .close-btn {
+
     position: absolute;
 
     top: 13px;
+
     right: 15px;
 
-    width: 34px;
-    height: 34px;
+    width: 35px;
+
+    height: 35px;
 
     border: none;
-    outline: none;
 
     border-radius: 50%;
 
     background: #f1f5f9;
 
-    color: #64748b;
+    color: #475569;
 
-    font-size: 22px;
+    font-size: 23px;
 
     line-height: 1;
 
     cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     transition: 0.2s ease;
 }
 
 
 .close-btn:hover {
+
     background: #fee2e2;
 
     color: #dc2626;
 }
 
 
-/* =====================================================
+/* =========================================================
    POPUP TITLE
-===================================================== */
+========================================================= */
 
-.popup h2 {
-    display: flex;
-    align-items: center;
-    gap: 9px;
+.history-popup > h2 {
 
-    padding-right: 45px;
+    padding-right: 40px;
 
-    margin-bottom: 20px;
-
-    color: #0f172a;
+    margin-bottom: 22px;
 
     font-size: 20px;
 
-    font-weight: 700;
+    color: #0f172a;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
 }
 
 
-.popup h2 i {
-    color: #16a34a;
+.history-popup > h2 i {
+
+    color: #0f766e;
 }
 
 
-/* =====================================================
+/* =========================================================
    POPUP SECTION
-===================================================== */
+========================================================= */
 
 .popup-section {
+
     background: #f8fafc;
 
     border: 1px solid #e2e8f0;
 
-    border-radius: 11px;
+    border-radius: 12px;
 
-    padding: 15px;
+    padding: 17px;
 
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
 .section-title {
+
     display: flex;
+
     align-items: center;
+
     gap: 8px;
-
-    margin-bottom: 13px;
-
-    color: #0f172a;
 
     font-size: 14px;
 
     font-weight: 700;
+
+    color: #0f172a;
+
+    padding-bottom: 11px;
+
+    margin-bottom: 13px;
+
+    border-bottom: 1px solid #e2e8f0;
 }
 
 
 .section-title i {
-    color: #16a34a;
+
+    color: #0f766e;
 }
 
 
-/* =====================================================
+/* =========================================================
    POPUP LABEL
-===================================================== */
+========================================================= */
 
-.popup label {
+.history-popup label {
+
     display: block;
-
-    margin: 10px 0 6px;
-
-    color: #475569;
 
     font-size: 12px;
 
     font-weight: 700;
+
+    color: #475569;
+
+    margin: 10px 0 6px;
 }
 
 
-.popup-section label:first-of-type {
-    margin-top: 0;
-}
+/* =========================================================
+   POPUP INPUT
+========================================================= */
 
+.history-popup input,
+.history-popup textarea {
 
-/* =====================================================
-   POPUP INPUTS
-===================================================== */
-
-.popup input,
-.popup textarea {
     width: 100%;
 
     border: 1px solid #cbd5e1;
 
-    outline: none;
-
     border-radius: 8px;
+
+    outline: none;
 
     background: #ffffff;
 
     color: #334155;
 
+    font-family: inherit;
+
     font-size: 13px;
 
     padding: 10px 11px;
-
-    transition: 0.2s ease;
 }
 
 
-.popup input {
+.history-popup input {
+
     height: 40px;
 }
 
 
-.popup textarea {
-    min-height: 80px;
+.history-popup textarea {
+
+    min-height: 78px;
 
     resize: vertical;
 
@@ -780,17 +999,20 @@ body.modal-open {
 }
 
 
-.popup input:focus,
-.popup textarea:focus {
-    border-color: #16a34a;
+.history-popup input:focus,
+.history-popup textarea:focus {
 
-    box-shadow:
-        0 0 0 3px rgba(22, 163, 74, 0.08);
+    border-color: #0f766e;
 }
 
 
-.popup input[readonly],
-.popup textarea[readonly] {
+/* =========================================================
+   READONLY
+========================================================= */
+
+.history-popup input[readonly],
+.history-popup textarea[readonly] {
+
     background: #f8fafc;
 
     color: #475569;
@@ -799,46 +1021,83 @@ body.modal-open {
 }
 
 
-/* =====================================================
-   TWO COLUMN
-===================================================== */
+/* =========================================================
+   OTHER INFORMATION
+========================================================= */
 
-.two-column {
-    display: grid;
+#otherInformation {
 
-    grid-template-columns: 1fr 1fr;
+    display: flex;
 
-    gap: 12px;
+    flex-direction: column;
+
+    gap: 10px;
 }
 
 
-.two-column label {
-    margin-top: 0;
+.other-info-item {
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 8px;
+
+    padding: 10px 12px;
 }
 
 
-/* =====================================================
+.other-info-label {
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #64748b;
+
+    margin-bottom: 4px;
+}
+
+
+.other-info-value {
+
+    font-size: 13px;
+
+    color: #334155;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
    POPUP BUTTONS
-===================================================== */
+========================================================= */
 
 .popup-buttons {
+
     display: flex;
 
     justify-content: flex-end;
 
     gap: 9px;
 
-    margin-top: 5px;
+    margin-top: 18px;
 }
 
 
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
 .cancel-btn {
+
     border: none;
+
     outline: none;
 
-    background: #f1f5f9;
+    background: #e2e8f0;
 
-    color: #475569;
+    color: #334155;
 
     padding: 10px 18px;
 
@@ -850,72 +1109,116 @@ body.modal-open {
 
     cursor: pointer;
 
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
     transition: 0.2s ease;
 }
 
 
 .cancel-btn:hover {
-    background: #e2e8f0;
+
+    background: #cbd5e1;
 }
 
 
-/* =====================================================
-   ERROR POPUP
-===================================================== */
+/* =========================================================
+   ERROR POPUP OVERLAY
+========================================================= */
 
 .custom-popup-overlay {
+
     position: fixed;
 
     inset: 0;
 
     width: 100%;
+
     height: 100%;
 
-    background: rgba(15, 23, 42, 0.58);
+    background: rgba(15, 23, 42, 0.55);
 
-    display: none;
+    display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 20px;
 
-    z-index: 7000;
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition: 0.25s ease;
+
+    z-index: 3000;
+
+    backdrop-filter: blur(3px);
 }
 
 
 .custom-popup-overlay.show {
-    display: flex;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
 }
 
 
+/* =========================================================
+   CUSTOM POPUP
+========================================================= */
+
 .custom-popup {
+
     width: 100%;
 
-    max-width: 380px;
+    max-width: 390px;
 
     background: #ffffff;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
-    padding: 25px;
+    padding: 27px;
 
     text-align: center;
 
     box-shadow:
-        0 25px 60px rgba(15, 23, 42, 0.20);
+        0 25px 60px rgba(15, 23, 42, 0.25);
 
-    animation: popupOpen 0.22s ease;
+    transform: scale(0.95);
+
+    transition: 0.25s ease;
 }
 
 
-.popup-icon {
-    width: 55px;
-    height: 55px;
+.custom-popup-overlay.show .custom-popup {
 
-    margin: 0 auto 13px;
+    transform: scale(1);
+}
+
+
+/* =========================================================
+   ERROR ICON
+========================================================= */
+
+.popup-icon {
+
+    width: 58px;
+
+    height: 58px;
 
     border-radius: 50%;
+
+    margin: 0 auto 14px;
 
     display: flex;
 
@@ -923,11 +1226,12 @@ body.modal-open {
 
     justify-content: center;
 
-    font-size: 24px;
+    font-size: 25px;
 }
 
 
 .popup-icon.error {
+
     background: #fee2e2;
 
     color: #dc2626;
@@ -935,36 +1239,44 @@ body.modal-open {
 
 
 .custom-popup h3 {
-    margin-bottom: 8px;
+
+    font-size: 18px;
 
     color: #0f172a;
 
-    font-size: 18px;
+    margin-bottom: 8px;
 }
 
 
 .custom-popup p {
-    color: #64748b;
 
     font-size: 13px;
 
     line-height: 1.6;
 
+    color: #64748b;
+
     margin-bottom: 18px;
 }
 
 
+/* =========================================================
+   OK BUTTON
+========================================================= */
+
 .popup-ok-btn {
+
+    min-width: 90px;
+
     border: none;
-    outline: none;
-
-    background: #16a34a;
-
-    color: #ffffff;
-
-    padding: 10px 25px;
 
     border-radius: 8px;
+
+    padding: 10px 18px;
+
+    background: #0f766e;
+
+    color: #ffffff;
 
     font-size: 13px;
 
@@ -977,130 +1289,77 @@ body.modal-open {
 
 
 .popup-ok-btn:hover {
-    background: #15803d;
+
+    background: #115e59;
 }
 
 
-.error-btn {
+.popup-ok-btn.error-btn {
+
     background: #dc2626;
 }
 
 
-.error-btn:hover {
+.popup-ok-btn.error-btn:hover {
+
     background: #b91c1c;
 }
 
 
-/* =====================================================
-   SCROLLBAR
-===================================================== */
+/* =========================================================
+   MOBILE
+========================================================= */
 
-.history-popup::-webkit-scrollbar,
-.table-box::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-}
+@media (max-width: 768px) {
 
-
-.history-popup::-webkit-scrollbar-track,
-.table-box::-webkit-scrollbar-track {
-    background: #f1f5f9;
-}
-
-
-.history-popup::-webkit-scrollbar-thumb,
-.table-box::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-
-    border-radius: 10px;
-}
-
-
-.history-popup::-webkit-scrollbar-thumb:hover,
-.table-box::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 900px) {
 
     .header {
-        padding: 0 18px;
-    }
 
-
-    .filter-bar {
-        width: calc(100% - 30px);
-
-        margin-top: 15px;
-
-        flex-wrap: wrap;
-    }
-
-
-    .filter-group {
-        flex: 1;
-
-        min-width: 140px;
-    }
-
-
-    .table-box {
-        width: calc(100% - 30px);
-
-        margin-top: 15px;
-    }
-
-}
-
-
-@media (max-width: 650px) {
-
-    .header {
         min-height: 65px;
 
-        padding: 0 12px;
+        padding: 0 15px;
     }
 
 
     .left-section {
-        gap: 9px;
+
+        gap: 10px;
     }
 
 
     .back-btn {
-        padding: 8px 10px;
+
+        padding: 9px 11px;
     }
 
 
     .back-btn span {
+
         display: none;
     }
 
 
-    .left-section h2 {
-        font-size: 17px;
+    .history-title {
+
+        font-size: 18px;
+    }
+
+
+    .history-title i {
+
+        font-size: 19px;
     }
 
 
     .profile-head span {
+
         display: none;
     }
 
 
-    .profile-head {
-        padding: 2px;
-    }
-
-
     .filter-bar {
-        width: calc(100% - 20px);
 
-        margin: 10px auto;
+        width: calc(100% - 30px);
 
         flex-direction: column;
 
@@ -1108,80 +1367,111 @@ body.modal-open {
     }
 
 
-    .filter-group {
-        width: 100%;
+    .filter-bar.show {
+
+        max-height: 500px;
     }
 
 
-    .filter-btn,
+    .filter-group,
+    .search-group {
+
+        width: 100%;
+
+        min-width: 100%;
+    }
+
+
     .reset-btn {
+
         width: 100%;
     }
 
 
     .table-box {
-        width: calc(100% - 20px);
 
-        margin: 10px auto;
+        width: calc(100% - 30px);
+
+        margin: 15px auto;
     }
 
 
     .history-popup {
-        padding: 18px;
 
-        max-height: 94vh;
+        max-height: 92vh;
+
+        padding: 21px;
 
         border-radius: 13px;
     }
 
 
-    .popup h2 {
+    .history-popup > h2 {
+
         font-size: 18px;
     }
 
 
-    .two-column {
-        grid-template-columns: 1fr;
-    }
+    .popup-section {
 
-
-    .popup-buttons {
-        width: 100%;
-    }
-
-
-    .cancel-btn {
-        width: 100%;
+        padding: 13px;
     }
 
 }
 
 
-@media (max-width: 400px) {
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
-    .left-section h2 span {
+@media (max-width: 480px) {
+
+
+    .header {
+
+        padding: 0 10px;
+    }
+
+
+    .history-title span {
+
         display: none;
     }
 
 
     .profile-head img {
-        width: 36px;
-        height: 36px;
+
+        width: 37px;
+
+        height: 37px;
+    }
+
+
+    .filter-bar,
+    .table-box {
+
+        width: calc(100% - 20px);
     }
 
 
     .history-popup {
-        padding: 15px;
+
+        padding: 17px;
     }
 
 
-    .popup-section {
-        padding: 12px;
+    .popup-buttons {
+
+        width: 100%;
+    }
+
+
+    .cancel-btn {
+
+        width: 100%;
+
+        justify-content: center;
     }
 
 }
 
-
-/* =====================================================
-   END HISTORY.CSS
-===================================================== */
