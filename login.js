@@ -273,7 +273,7 @@ else if(role==="Caller"){
 
 
 window.location.href =
-"call.html";
+"cd.html";
 
 
 }
