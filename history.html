@@ -34,15 +34,20 @@
 <body>
 
 
-<!-- =================================================
+<!-- =====================================================
      HEADER
-================================================== -->
+===================================================== -->
 
 <header class="header">
 
 
+    <!-- LEFT -->
+
     <div class="left-section">
 
+
+        <!-- BACK BUTTON
+             বর্তমানে Back button কোনো কাজ করবে না -->
 
         <button
             type="button"
@@ -57,9 +62,7 @@
         </button>
 
 
-
-        <!-- HISTORY TITLE
-             CLICK = FILTER SHOW/HIDE -->
+        <!-- HISTORY TITLE -->
 
         <h2
             class="history-title"
@@ -71,7 +74,6 @@
             <span>History</span>
 
         </h2>
-
 
     </div>
 
@@ -140,7 +142,6 @@
 
         </div>
 
-
     </div>
 
 
@@ -148,24 +149,29 @@
 
 
 
-<!-- =================================================
+<!-- =====================================================
      FILTER BAR
-     HIDDEN BY DEFAULT
-================================================== -->
+     
+     History icon/title click করলে show হবে।
+     আবার click করলে hide হবে।
+===================================================== -->
 
-<div
+<section
     class="filter-bar"
     id="filterBar"
 >
 
 
-    <!-- FROM -->
+    <!-- FROM DATE -->
 
     <div class="filter-group">
 
         <label for="fromDate">
+
             From
+
         </label>
+
 
         <input
             type="date"
@@ -176,13 +182,16 @@
 
 
 
-    <!-- TO -->
+    <!-- TO DATE -->
 
     <div class="filter-group">
 
         <label for="toDate">
+
             To
+
         </label>
+
 
         <input
             type="date"
@@ -198,15 +207,25 @@
     <div class="filter-group search-group">
 
         <label for="searchHistory">
+
             Search
+
         </label>
 
-        <input
-            type="text"
-            id="searchHistory"
-            placeholder="Customer ID / Problem / Reference"
-            autocomplete="off"
-        >
+
+        <div class="filter-search">
+
+            <i class="fa fa-search"></i>
+
+
+            <input
+                type="text"
+                id="searchHistory"
+                placeholder="Customer ID / Problem / Reference"
+                autocomplete="off"
+            >
+
+        </div>
 
     </div>
 
@@ -227,96 +246,127 @@
     </button>
 
 
-</div>
+</section>
 
 
 
-<!-- =================================================
+<!-- =====================================================
      HISTORY TABLE
-================================================== -->
+     
+     সামনে শুধু:
+     Customer ID
+     Problem
+     Reference
+     Date
+     Action
+===================================================== -->
 
-<div class="table-box">
-
-
-    <table>
-
-
-        <thead>
-
-            <tr>
-
-
-                <th>
-                    Customer ID
-                </th>
+<main class="history-container">
 
 
-                <th>
-                    Problem
-                </th>
+    <div class="table-box">
 
 
-                <th>
-                    Reference
-                </th>
+        <table>
 
 
-                <th>
-                    Date
-                </th>
+            <thead>
+
+                <tr>
 
 
-                <th>
-                    Action
-                </th>
+                    <th>
+                        Customer ID
+                    </th>
 
 
-            </tr>
-
-        </thead>
-
-
-
-        <tbody id="historyList">
+                    <th>
+                        Problem
+                    </th>
 
 
-            <tr>
-
-                <td
-                    colspan="5"
-                    class="loading-cell"
-                >
-
-                    <i class="fa fa-spinner fa-spin"></i>
-
-                    Loading...
-
-                </td>
-
-            </tr>
+                    <th>
+                        Reference
+                    </th>
 
 
-        </tbody>
+                    <th>
+                        Date
+                    </th>
 
 
-    </table>
+                    <th>
+                        Action
+                    </th>
 
 
-</div>
+                </tr>
+
+            </thead>
 
 
 
-<!-- =================================================
-     HISTORY VIEW POPUP
-================================================== -->
+            <tbody id="historyList">
+
+
+                <tr>
+
+
+                    <td
+                        colspan="5"
+                        class="loading-cell"
+                    >
+
+                        <i class="fa fa-spinner fa-spin"></i>
+
+                        Loading History...
+
+                    </td>
+
+
+                </tr>
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     VIEW HISTORY POPUP
+     
+     সামনে table-এ থাকবে:
+     Customer ID
+     Problem
+     Reference
+     Date
+
+     নিচের information popup-এর ভিতরে থাকবে:
+     Support
+     Support Work
+     Call
+     Call Work
+     Name
+     Number
+     Status
+     Created By
+===================================================== -->
 
 <div
     class="modal"
-    id="historyModal"
+    id="viewModal"
 >
 
 
-    <div class="history-popup">
+    <div class="popup">
 
 
         <!-- CLOSE -->
@@ -324,7 +374,7 @@
         <button
             type="button"
             class="close-btn"
-            onclick="closeHistory()"
+            onclick="closeView()"
         >
 
             ×
@@ -345,28 +395,32 @@
 
 
 
-        <!-- =================================================
-             BASIC INFORMATION
-        ================================================== -->
+        <!-- =============================================
+             MAIN INFORMATION
+        ============================================== -->
+
 
         <div class="popup-section">
 
 
-            <div class="section-title">
+            <h3>
 
                 <i class="fa fa-circle-info"></i>
 
                 Basic Information
 
-            </div>
+            </h3>
 
 
 
             <!-- CUSTOMER ID -->
 
             <label for="viewCustomerId">
+
                 Customer ID
+
             </label>
+
 
             <input
                 type="text"
@@ -379,11 +433,15 @@
             <!-- PROBLEM -->
 
             <label for="viewProblem">
+
                 Problem
+
             </label>
+
 
             <textarea
                 id="viewProblem"
+                rows="3"
                 readonly
             ></textarea>
 
@@ -392,8 +450,11 @@
             <!-- REFERENCE -->
 
             <label for="viewReference">
+
                 Reference
+
             </label>
+
 
             <input
                 type="text"
@@ -406,8 +467,11 @@
             <!-- DATE -->
 
             <label for="viewDate">
+
                 Date
+
             </label>
+
 
             <input
                 type="text"
@@ -420,28 +484,32 @@
 
 
 
-        <!-- =================================================
-             SUPPORT INFORMATION
-        ================================================== -->
+        <!-- =============================================
+             OTHER INFORMATION
+        ============================================== -->
+
 
         <div class="popup-section">
 
 
-            <div class="section-title">
+            <h3>
 
-                <i class="fa fa-headset"></i>
+                <i class="fa fa-layer-group"></i>
 
-                Support Information
+                Other Information
 
-            </div>
+            </h3>
 
 
 
             <!-- SUPPORT -->
 
             <label for="viewSupport">
+
                 Support
+
             </label>
+
 
             <input
                 type="text"
@@ -454,41 +522,28 @@
             <!-- SUPPORT WORK -->
 
             <label for="viewSupportWork">
+
                 Support Work
+
             </label>
+
 
             <textarea
                 id="viewSupportWork"
+                rows="3"
                 readonly
             ></textarea>
-
-
-        </div>
-
-
-
-        <!-- =================================================
-             CALL INFORMATION
-        ================================================== -->
-
-        <div class="popup-section">
-
-
-            <div class="section-title">
-
-                <i class="fa fa-phone-volume"></i>
-
-                Call Information
-
-            </div>
 
 
 
             <!-- CALL -->
 
             <label for="viewCall">
+
                 Call
+
             </label>
+
 
             <input
                 type="text"
@@ -501,55 +556,92 @@
             <!-- CALL WORK -->
 
             <label for="viewCallWork">
+
                 Call Work
+
             </label>
+
 
             <textarea
                 id="viewCallWork"
+                rows="3"
                 readonly
             ></textarea>
 
 
+
+            <!-- NAME -->
+
+            <label for="viewName">
+
+                Name
+
+            </label>
+
+
+            <input
+                type="text"
+                id="viewName"
+                readonly
+            >
+
+
+
+            <!-- NUMBER -->
+
+            <label for="viewNumber">
+
+                Number
+
+            </label>
+
+
+            <input
+                type="text"
+                id="viewNumber"
+                readonly
+            >
+
+
+
+            <!-- STATUS -->
+
+            <label for="viewStatus">
+
+                Status
+
+            </label>
+
+
+            <input
+                type="text"
+                id="viewStatus"
+                readonly
+            >
+
+
+
+            <!-- CREATED BY -->
+
+            <label for="viewCreatedBy">
+
+                Created By
+
+            </label>
+
+
+            <input
+                type="text"
+                id="viewCreatedBy"
+                readonly
+            >
+
+
         </div>
 
 
 
-        <!-- =================================================
-             OTHER INFORMATION
-        ================================================== -->
-
-        <div
-            class="popup-section"
-            id="otherInformationSection"
-        >
-
-
-            <div class="section-title">
-
-                <i class="fa fa-list"></i>
-
-                Other Information
-
-            </div>
-
-
-
-            <div id="otherInformation">
-
-
-                <!-- JS WILL INSERT OTHER DATA -->
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- =================================================
-             POPUP BUTTON
-        ================================================== -->
+        <!-- CLOSE BUTTON -->
 
         <div class="popup-buttons">
 
@@ -557,7 +649,7 @@
             <button
                 type="button"
                 class="cancel-btn"
-                onclick="closeHistory()"
+                onclick="closeView()"
             >
 
                 <i class="fa fa-xmark"></i>
@@ -577,9 +669,9 @@
 
 
 
-<!-- =================================================
+<!-- =====================================================
      ERROR POPUP
-================================================== -->
+===================================================== -->
 
 <div
     class="custom-popup-overlay"
@@ -599,13 +691,17 @@
 
 
         <h3 id="errorTitle">
+
             Error
+
         </h3>
 
 
 
         <p id="errorMessage">
+
             Something went wrong.
+
         </p>
 
 
@@ -628,11 +724,13 @@
 
 
 
-<!-- =================================================
+<!-- =====================================================
      JAVASCRIPT
-================================================== -->
+===================================================== -->
 
-<script src="history.js"></script>
+<script
+    src="history.js"
+></script>
 
 
 </body>
