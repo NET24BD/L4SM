@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Support Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-headset"></i>
+            </div>
+
+            <div>
+                <h2>Support Center</h2>
+                <span>Management Dashboard</span>
+            </div>
+        </div>
+
+        <div class="profile">
+
+            <div class="profile-info">
+                <strong>Admin</strong>
+                <small>Support Team</small>
+            </div>
+
+            <div class="profile-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <div class="welcome">
+
+            <div>
+                <span class="small-title">DASHBOARD</span>
+
+                <h1>Welcome Back 👋</h1>
+
+                <p>
+                    Manage your support activities from one place.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- ================= CARDS ================= -->
+
+        <section class="cards">
+
+
+            <!-- NEW ENTRY -->
+
+            <div class="dashboard-card new-entry"
+                 onclick="openPage('newentry.html')">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+
+                    <span class="arrow">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>New Entry</h3>
+
+                    <p>
+                        Create a new customer support entry
+                        quickly and easily.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>Open New Entry</span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+            </div>
+
+
+
+            <!-- PENDING SUPPORT -->
+
+            <div class="dashboard-card pending-support"
+                 onclick="openPage('support.html')">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+
+                    <span class="arrow">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Pending Support</h3>
+
+                    <p>
+                        View and manage all pending
+                        customer support requests.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>View Pending Support</span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+            </div>
+
+
+
+            <!-- HISTORY -->
+
+            <div class="dashboard-card history"
+                 onclick="openPage('history.html')">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+
+                    <span class="arrow">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>History</h3>
+
+                    <p>
+                        Check previous support activities
+                        and completed requests.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>View History</span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+            </div>
+
+
+
+            <!-- OFFLINE -->
+
+            <div class="dashboard-card offline"
+                 onclick="openPage('offline.html')">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+
+                    <span class="arrow">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Offline</h3>
+
+                    <p>
+                        Manage offline customer entries
+                        and support activities.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>Open Offline</span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <span>
+                © 2026 Support Management System
+            </span>
+
+            <span class="status">
+                <i class="fa-solid fa-circle"></i>
+                System Online
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="std.js"></script>
+
+</body>
+</html>
