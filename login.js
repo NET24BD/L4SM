@@ -260,7 +260,7 @@ else if(role==="Support"){
 
 
 window.location.href =
-"support.html";
+"std.html";
 
 
 }
