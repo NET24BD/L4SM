@@ -12,11 +12,15 @@
 
     <title>History</title>
 
+
+    <!-- HISTORY CSS -->
     <link
         rel="stylesheet"
         href="history.css"
     >
 
+
+    <!-- FONT AWESOME -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -36,10 +40,14 @@
 
     <div class="left-section">
 
+
+        <!-- BACK BUTTON
+             NO NAVIGATION -->
+
         <button
             type="button"
             class="back-btn"
-            onclick="disableBack()"
+            onclick="return false;"
         >
 
             <i class="fa fa-arrow-left"></i>
@@ -49,10 +57,11 @@
         </button>
 
 
+        <!-- HISTORY TITLE -->
+
         <h2
             class="history-title"
             onclick="toggleFilter()"
-            title="Show / Hide Filter"
         >
 
             <i class="fa fa-clock-rotate-left"></i>
@@ -65,7 +74,9 @@
 
 
 
-    <!-- PROFILE -->
+    <!-- =================================================
+         PROFILE
+    ================================================== -->
 
     <div class="profile">
 
@@ -80,9 +91,11 @@
                 alt="Profile"
             >
 
+
             <span id="username">
                 User
             </span>
+
 
             <i class="fa fa-angle-down"></i>
 
@@ -126,13 +139,15 @@
 
 
 <!-- =================================================
-     FILTER BAR
+     FILTER AREA
+     HIDDEN BY DEFAULT
 ================================================== -->
 
-<section
-    class="filter-panel"
-    id="filterPanel"
+<div
+    class="filter-bar"
+    id="filterBar"
 >
+
 
     <div class="filter-group">
 
@@ -146,6 +161,7 @@
         >
 
     </div>
+
 
 
     <div class="filter-group">
@@ -162,33 +178,28 @@
     </div>
 
 
-    <div class="filter-group search-group">
+
+    <div class="filter-group search-filter">
 
         <label for="historySearch">
             Search
         </label>
 
-        <input
-            type="text"
-            id="historySearch"
-            placeholder="Customer ID / Problem / Reference"
-            autocomplete="off"
-        >
+        <div class="filter-search-box">
+
+            <i class="fa fa-search"></i>
+
+            <input
+                type="text"
+                id="historySearch"
+                placeholder="Customer ID / Problem / Reference"
+                autocomplete="off"
+            >
+
+        </div>
 
     </div>
 
-
-    <button
-        type="button"
-        class="filter-btn"
-        onclick="applyFilter()"
-    >
-
-        <i class="fa-solid fa-filter"></i>
-
-        Filter
-
-    </button>
 
 
     <button
@@ -197,13 +208,13 @@
         onclick="resetFilter()"
     >
 
-        <i class="fa-solid fa-rotate-left"></i>
+        <i class="fa fa-rotate-left"></i>
 
         Reset
 
     </button>
 
-</section>
+</div>
 
 
 
@@ -211,7 +222,7 @@
      TABLE
 ================================================== -->
 
-<main class="table-box">
+<div class="table-box">
 
     <table>
 
@@ -219,19 +230,29 @@
 
             <tr>
 
-                <th>Customer ID</th>
+                <th>
+                    Customer ID
+                </th>
 
-                <th>Problem</th>
 
-                <th>Reference</th>
+                <th>
+                    Problem
+                </th>
 
-                <th>Date</th>
 
-                <th>Support</th>
+                <th>
+                    Reference
+                </th>
 
-                <th>Support Work</th>
 
-                <th>Action</th>
+                <th>
+                    Date
+                </th>
+
+
+                <th>
+                    Action
+                </th>
 
             </tr>
 
@@ -243,7 +264,7 @@
             <tr>
 
                 <td
-                    colspan="7"
+                    colspan="5"
                     class="loading-cell"
                 >
 
@@ -259,25 +280,70 @@
 
     </table>
 
-</main>
+</div>
 
 
 
 <!-- =================================================
-     EDIT / VIEW MODAL
+     PAGINATION
+================================================== -->
+
+<div
+    class="pagination"
+    id="pagination"
+>
+
+    <button
+        type="button"
+        id="prevPage"
+        onclick="previousPage()"
+    >
+
+        <i class="fa fa-chevron-left"></i>
+
+        Previous
+
+    </button>
+
+
+    <div
+        class="page-numbers"
+        id="pageNumbers"
+    ></div>
+
+
+    <button
+        type="button"
+        id="nextPage"
+        onclick="nextPage()"
+    >
+
+        Next
+
+        <i class="fa fa-chevron-right"></i>
+
+    </button>
+
+</div>
+
+
+
+<!-- =================================================
+     EDIT / VIEW POPUP
 ================================================== -->
 
 <div
     class="modal"
-    id="historyModal"
+    id="editModal"
 >
 
     <div class="popup">
 
+
         <button
             type="button"
             class="close-btn"
-            onclick="closeHistoryModal()"
+            onclick="closeEdit()"
         >
 
             ×
@@ -289,7 +355,7 @@
 
             <i class="fa fa-clock-rotate-left"></i>
 
-            Edit History
+            History Details
 
         </h2>
 
@@ -406,7 +472,6 @@
             <button
                 type="button"
                 class="submit-btn"
-                id="saveHistoryBtn"
                 onclick="updateHistory()"
             >
 
@@ -420,7 +485,7 @@
             <button
                 type="button"
                 class="cancel-btn"
-                onclick="closeHistoryModal()"
+                onclick="closeEdit()"
             >
 
                 <i class="fa fa-xmark"></i>
@@ -455,7 +520,7 @@
         </div>
 
 
-        <h3 id="successTitle">
+        <h3>
             Success
         </h3>
 
@@ -499,7 +564,7 @@
         </div>
 
 
-        <h3 id="errorTitle">
+        <h3>
             Error
         </h3>
 
@@ -529,7 +594,9 @@
      JAVASCRIPT
 ================================================== -->
 
-<script src="history.js"></script>
+<script
+    src="history.js"
+></script>
 
 
 </body>
