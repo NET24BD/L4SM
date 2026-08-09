@@ -13,16 +13,14 @@
     <title>History</title>
 
 
-    <!-- CSS -->
-
+    <!-- HISTORY CSS -->
     <link
         rel="stylesheet"
         href="history.css"
     >
 
 
-    <!-- Font Awesome -->
-
+    <!-- FONT AWESOME -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -34,121 +32,122 @@
 <body>
 
 
-
 <!-- =================================================
      HEADER
 ================================================== -->
 
-<div class="left-section">
+<header class="header">
+
+    <div class="left-section">
 
 
-    <button
-        class="back-btn"
-        type="button"
-        onclick="goBack()"
-    >
+        <!-- BACK BUTTON
+             IMPORTANT:
+             CLICK করলে কিছুই করবে না
+        -->
 
-        <i class="fa fa-arrow-left"></i>
-
-        Back
-
-    </button>
-
-
-    <!-- HISTORY TITLE / FILTER TOGGLE -->
-
-    <h2
-        class="history-title"
-        onclick="toggleFilter()"
-    >
-
-        <i class="fa fa-clock-rotate-left"></i>
-
-        History
-
-    </h2>
-
-
-</div>
-
-
-
-<!-- =================================================
-     PROFILE
-================================================== -->
-
-<div class="profile">
-
-
-    <div
-        class="profile-head"
-        onclick="toggleProfile()"
-    >
-
-        <img
-            id="profileImg"
-            src="assets/profile.png"
-            alt="Profile"
+        <button
+            type="button"
+            class="back-btn"
+            onclick="goBack()"
         >
 
+            <i class="fa fa-arrow-left"></i>
 
-        <span id="username">
-            User
-        </span>
+            <span>Back</span>
+
+        </button>
 
 
-        <i class="fa fa-angle-down"></i>
+        <!-- HISTORY TITLE -->
+
+        <h2
+            class="history-title"
+            onclick="toggleFilter()"
+        >
+
+            <i class="fa fa-clock-rotate-left"></i>
+
+            <span>History</span>
+
+        </h2>
 
     </div>
 
 
 
-    <div
-        class="profile-menu"
-        id="profileMenu"
-    >
+    <!-- =================================================
+         PROFILE
+    ================================================== -->
 
+    <div class="profile">
 
-        <button
-            type="button"
-            onclick="myAccount()"
+        <div
+            class="profile-head"
+            onclick="toggleProfile()"
         >
 
-            <i class="fa fa-user"></i>
+            <img
+                id="profileImg"
+                src="assets/profile.png"
+                alt="Profile"
+            >
 
-            My Account
 
-        </button>
+            <span id="username">
+                User
+            </span>
 
 
+            <i class="fa fa-angle-down"></i>
 
-        <button
-            type="button"
-            onclick="logout()"
+        </div>
+
+
+        <div
+            class="profile-menu"
+            id="profileMenu"
         >
 
-            <i class="fa fa-sign-out"></i>
+            <button
+                type="button"
+                onclick="myAccount()"
+            >
 
-            Logout
+                <i class="fa fa-user"></i>
 
-        </button>
+                My Account
 
+            </button>
+
+
+            <button
+                type="button"
+                onclick="logout()"
+            >
+
+                <i class="fa fa-sign-out"></i>
+
+                Logout
+
+            </button>
+
+        </div>
 
     </div>
 
-
-</div>
+</header>
 
 
 
 <!-- =================================================
-     FILTER
-     HIDDEN BY DEFAULT
+     FILTER BAR
+     Hidden by default
 ================================================== -->
 
 <div
-    class="filter-container"
-    id="filterContainer"
+    class="filter-bar"
+    id="filterBar"
 >
 
 
@@ -156,19 +155,14 @@
 
     <div class="filter-group">
 
-
         <label for="fromDate">
-
             From
-
         </label>
-
 
         <input
             type="date"
             id="fromDate"
         >
-
 
     </div>
 
@@ -178,19 +172,14 @@
 
     <div class="filter-group">
 
-
         <label for="toDate">
-
             To
-
         </label>
-
 
         <input
             type="date"
             id="toDate"
         >
-
 
     </div>
 
@@ -198,27 +187,36 @@
 
     <!-- SEARCH -->
 
-    <div
-        class="filter-group search-group"
-    >
+    <div class="filter-group search-group">
 
-
-        <label for="searchHistory">
-
+        <label for="historySearch">
             Search
-
         </label>
-
 
         <input
             type="text"
-            id="searchHistory"
+            id="historySearch"
             placeholder="Customer ID / Problem / Reference"
             autocomplete="off"
         >
 
-
     </div>
+
+
+
+    <!-- FILTER -->
+
+    <button
+        type="button"
+        class="filter-btn"
+        onclick="applyDateFilter()"
+    >
+
+        <i class="fa-solid fa-filter"></i>
+
+        Filter
+
+    </button>
 
 
 
@@ -236,7 +234,6 @@
 
     </button>
 
-
 </div>
 
 
@@ -245,124 +242,91 @@
      HISTORY TABLE
 ================================================== -->
 
-<div class="table-container">
-
+<div class="table-box">
 
     <table>
 
-
         <thead>
-
 
             <tr>
 
+                <!-- MAIN INFORMATION ONLY -->
 
                 <th>
-
                     Customer ID
-
                 </th>
 
 
-
                 <th>
-
                     Problem
-
                 </th>
 
 
-
                 <th>
-
                     Reference
-
                 </th>
 
 
-
                 <th>
-
                     Date
-
                 </th>
 
 
-
                 <th>
-
                     Support
-
                 </th>
 
 
-
                 <th>
-
                     Support Work
-
                 </th>
-
 
 
                 <th>
-
                     Action
-
                 </th>
-
 
             </tr>
-
 
         </thead>
 
 
-
         <tbody id="historyList">
-
 
             <tr>
 
+                <td
+                    colspan="7"
+                    class="loading-cell"
+                >
 
-                <td colspan="7">
+                    <i class="fa fa-spinner fa-spin"></i>
 
-
-                    <i
-                        class="fa fa-spinner fa-spin"
-                    ></i>
-
-
-                    Loading...
-
+                    Loading History...
 
                 </td>
 
-
             </tr>
-
 
         </tbody>
 
-
     </table>
-
 
 </div>
 
 
 
 <!-- =================================================
-     HISTORY DETAILS POPUP
+     HISTORY VIEW MODAL
 ================================================== -->
 
 <div
-    class="popup-overlay"
-    id="historyPopup"
+    class="modal"
+    id="historyModal"
 >
 
 
-    <div class="popup">
+    <div class="popup history-popup">
 
 
         <!-- CLOSE -->
@@ -370,7 +334,7 @@
         <button
             type="button"
             class="close-btn"
-            onclick="closeEdit()"
+            onclick="closeHistory()"
         >
 
             ×
@@ -379,321 +343,396 @@
 
 
 
+        <!-- TITLE -->
+
         <h2>
 
-
-            <i
-                class="fa fa-clock-rotate-left"
-            ></i>
-
+            <i class="fa fa-clock-rotate-left"></i>
 
             History Details
-
 
         </h2>
 
 
 
-        <!-- CUSTOMER ID -->
+        <!-- =================================================
+             MAIN INFORMATION
+        ================================================== -->
 
-        <label for="customerId">
+        <div class="popup-section">
 
-            Customer ID
+            <div class="section-title">
 
-        </label>
+                <i class="fa fa-user"></i>
 
+                Customer Information
 
-        <input
-            id="customerId"
-            type="text"
-            readonly
-        >
+            </div>
 
 
+            <!-- CUSTOMER ID -->
 
-        <!-- PROBLEM -->
+            <label for="customerId">
+                Customer ID
+            </label>
 
-        <label for="problem">
+            <input
+                type="text"
+                id="customerId"
+                readonly
+            >
 
-            Problem
 
-        </label>
+            <!-- PROBLEM -->
 
+            <label for="problem">
+                Problem
+            </label>
 
-        <textarea
-            id="problem"
-            rows="4"
-            readonly
-        ></textarea>
+            <textarea
+                id="problem"
+                rows="3"
+                readonly
+            ></textarea>
 
 
+            <!-- REFERENCE -->
 
-        <!-- REFERENCE -->
+            <label for="reference">
+                Reference
+            </label>
 
-        <label for="reference">
+            <input
+                type="text"
+                id="reference"
+                readonly
+            >
 
-            Reference
 
-        </label>
+            <!-- DATE -->
 
+            <label for="date">
+                Date
+            </label>
 
-        <input
-            id="reference"
-            type="text"
-            readonly
-        >
+            <input
+                type="text"
+                id="date"
+                readonly
+            >
 
+        </div>
 
 
-        <!-- DATE -->
 
-        <label for="date">
+        <!-- =================================================
+             FROM / TO
+        ================================================== -->
 
-            Date
+        <div class="popup-section">
 
-        </label>
+            <div class="section-title">
 
+                <i class="fa fa-calendar"></i>
 
-        <input
-            id="date"
-            type="date"
-            readonly
-        >
+                Date Information
 
+            </div>
 
 
-        <!-- SUPPORT -->
+            <div class="two-column">
 
-        <label for="support">
 
-            Support
+                <!-- FROM -->
 
-        </label>
+                <div>
 
+                    <label for="from">
+                        From
+                    </label>
 
-        <input
-            id="support"
-            type="text"
-            readonly
-        >
+                    <input
+                        type="text"
+                        id="from"
+                        readonly
+                    >
 
+                </div>
 
 
-        <!-- SUPPORT WORK -->
 
-        <label for="supportWork">
+                <!-- TO -->
 
-            Support Work
+                <div>
 
-        </label>
+                    <label for="to">
+                        To
+                    </label>
 
+                    <input
+                        type="text"
+                        id="to"
+                        readonly
+                    >
 
-        <textarea
-            id="supportWork"
-            rows="3"
-            readonly
-        ></textarea>
+                </div>
 
+            </div>
 
+        </div>
 
-        <!-- CALL -->
 
-        <label for="call">
 
-            Call
+        <!-- =================================================
+             SUPPORT INFORMATION
+        ================================================== -->
 
-        </label>
+        <div class="popup-section">
 
+            <div class="section-title">
 
-        <input
-            id="call"
-            type="text"
-            readonly
-        >
+                <i class="fa fa-headset"></i>
 
+                Support Information
 
+            </div>
 
-        <!-- CALL WORK -->
 
-        <label for="callWork">
+            <!-- SUPPORT -->
 
-            Call Work
+            <label for="support">
+                Support
+            </label>
 
-        </label>
+            <input
+                type="text"
+                id="support"
+                readonly
+            >
 
 
-        <textarea
-            id="callWork"
-            rows="3"
-            readonly
-        ></textarea>
+            <!-- SUPPORT WORK -->
 
+            <label for="supportWork">
+                Support Work
+            </label>
 
+            <textarea
+                id="supportWork"
+                rows="3"
+                readonly
+            ></textarea>
 
-        <!-- BUTTONS -->
+
+            <!-- SUPPORT TIME -->
+
+            <label for="supportTime">
+                Support Time
+            </label>
+
+            <input
+                type="text"
+                id="supportTime"
+                readonly
+            >
+
+        </div>
+
+
+
+        <!-- =================================================
+             CALL INFORMATION
+        ================================================== -->
+
+        <div class="popup-section">
+
+            <div class="section-title">
+
+                <i class="fa fa-phone-volume"></i>
+
+                Call Information
+
+            </div>
+
+
+            <!-- CALL -->
+
+            <label for="call">
+                Call
+            </label>
+
+            <input
+                type="text"
+                id="call"
+                readonly
+            >
+
+
+            <!-- CALL WORK -->
+
+            <label for="callWork">
+                Call Work
+            </label>
+
+            <textarea
+                id="callWork"
+                rows="3"
+                readonly
+            ></textarea>
+
+
+            <!-- CALL TIME -->
+
+            <label for="callTime">
+                Call Time
+            </label>
+
+            <input
+                type="text"
+                id="callTime"
+                readonly
+            >
+
+        </div>
+
+
+
+        <!-- =================================================
+             OTHER INFORMATION
+        ================================================== -->
+
+        <div class="popup-section">
+
+            <div class="section-title">
+
+                <i class="fa fa-circle-info"></i>
+
+                Other Information
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <label for="status">
+                Status
+            </label>
+
+            <input
+                type="text"
+                id="status"
+                readonly
+            >
+
+
+            <!-- USERNAME -->
+
+            <label for="historyUsername">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="historyUsername"
+                readonly
+            >
+
+
+            <!-- NAME -->
+
+            <label for="name">
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                readonly
+            >
+
+
+            <!-- ROLE -->
+
+            <label for="role">
+                Role
+            </label>
+
+            <input
+                type="text"
+                id="role"
+                readonly
+            >
+
+        </div>
+
+
+
+        <!-- =================================================
+             CLOSE BUTTON
+        ================================================== -->
 
         <div class="popup-buttons">
-
 
             <button
                 type="button"
                 class="cancel-btn"
-                onclick="closeEdit()"
+                onclick="closeHistory()"
             >
 
-                <i
-                    class="fa-solid fa-xmark"
-                ></i>
+                <i class="fa fa-xmark"></i>
 
                 Close
 
             </button>
-
 
         </div>
 
 
     </div>
 
-
 </div>
 
 
 
 <!-- =================================================
-     MESSAGE POPUP
+     ERROR POPUP
 ================================================== -->
 
 <div
-    class="message-overlay"
-    id="messagePopup"
+    class="custom-popup-overlay"
+    id="errorPopup"
 >
 
+    <div class="custom-popup">
 
-    <div class="message-box">
+        <div class="popup-icon error">
 
-
-        <div class="message-icon">
-
-
-            <i
-                class="fa-solid fa-circle-check"
-            ></i>
-
+            <i class="fa fa-xmark"></i>
 
         </div>
 
 
-
-        <h3 id="messageTitle">
-
-            Success
-
+        <h3 id="errorTitle">
+            Error
         </h3>
 
 
-
-        <p id="messageText">
-
-            Done
-
+        <p id="errorMessage">
+            Something went wrong.
         </p>
-
 
 
         <button
             type="button"
-            onclick="closeMessage()"
+            class="popup-ok-btn error-btn"
+            onclick="closeErrorPopup()"
         >
 
             OK
 
         </button>
 
-
     </div>
-
-
-</div>
-
-
-
-<!-- =================================================
-     CONFIRM POPUP
-================================================== -->
-
-<div
-    class="confirm-overlay"
-    id="confirmPopup"
->
-
-
-    <div class="confirm-box">
-
-
-        <div class="confirm-icon">
-
-
-            <i
-                class="fa-solid fa-triangle-exclamation"
-            ></i>
-
-
-        </div>
-
-
-
-        <h3>
-
-            Confirm?
-
-        </h3>
-
-
-
-        <p>
-
-            Are you sure you want to continue?
-
-        </p>
-
-
-
-        <div class="confirm-buttons">
-
-
-            <button
-                type="button"
-                class="confirm-delete"
-                onclick="confirmAction()"
-            >
-
-                <i
-                    class="fa-solid fa-check"
-                ></i>
-
-                Confirm
-
-            </button>
-
-
-
-            <button
-                type="button"
-                class="confirm-cancel"
-                onclick="closeConfirm()"
-            >
-
-                Cancel
-
-            </button>
-
-
-        </div>
-
-
-    </div>
-
 
 </div>
 
