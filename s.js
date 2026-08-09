@@ -1,6 +1,8 @@
 // =====================================
-// SUPPORT.JS - FULL FINAL
+// S.JS - PENDING SUPPORT
+// FULL FINAL
 // =====================================
+
 
 // =====================================
 // PAGE PROTECTION
@@ -9,6 +11,7 @@
 (function () {
 
     "use strict";
+
 
     // =================================
     // CHECK AUTH
@@ -122,6 +125,9 @@
         );
 
 
+        sessionStorage.clear();
+
+
         window.location.replace(
             "login.html"
         );
@@ -136,14 +142,12 @@
 // =====================================
 
 const API_URL =
-    "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
+"https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
 let currentRow = null;
 
 let supportData = [];
-
-let confirmCallback = null;
 
 
 // =====================================
@@ -220,12 +224,36 @@ function loadProfile() {
 
 
     if (
-        profileImg &&
-        picture
+        profileImg
     ) {
 
-        profileImg.src =
-            picture;
+        if (
+            picture &&
+            picture.trim() !== ""
+        ) {
+
+            profileImg.src =
+                picture;
+
+        }
+
+        else {
+
+            profileImg.src =
+                "assets/profile.png";
+
+        }
+
+
+        profileImg.onerror =
+            function () {
+
+                this.onerror = null;
+
+                this.src =
+                    "assets/profile.png";
+
+            };
 
     }
 
@@ -293,6 +321,9 @@ function logout() {
     );
 
 
+    sessionStorage.clear();
+
+
     window.location.replace(
         "login.html"
     );
@@ -303,12 +334,27 @@ function logout() {
 // =====================================
 // BACK
 // =====================================
+// আগের page-এ ফিরে যাবে
+// dashboard.html hardcoded নয়
+// =====================================
 
 function goBack() {
 
-    window.location.replace(
-        "dashboard.html"
-    );
+    if (
+        window.history.length > 1
+    ) {
+
+        window.history.back();
+
+    }
+
+    else {
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
 
 }
 
@@ -772,11 +818,21 @@ function editSupport(row) {
     }
 
 
+    // =================================
+    // CUSTOMER ID
+    // READ ONLY
+    // =================================
+
     setValue(
         "customerId",
         item.customerId
     );
 
+
+    // =================================
+    // PROBLEM
+    // READ ONLY
+    // =================================
 
     setValue(
         "problem",
@@ -784,11 +840,21 @@ function editSupport(row) {
     );
 
 
+    // =================================
+    // REFERENCE
+    // READ ONLY
+    // =================================
+
     setValue(
         "reference",
         item.reference
     );
 
+
+    // =================================
+    // DATE
+    // READ ONLY
+    // =================================
 
     setValue(
         "date",
@@ -798,16 +864,79 @@ function editSupport(row) {
     );
 
 
+    // =================================
+    // SUPPORT
+    // EDITABLE
+    // =================================
+
     setValue(
         "support",
         item.support
     );
 
 
+    // =================================
+    // SUPPORT WORK
+    // EDITABLE
+    // =================================
+
     setValue(
         "supportWork",
         item.supportWork
     );
+
+
+    // =================================
+    // MAKE FIRST FOUR FIELDS READONLY
+    // =================================
+
+    const customerId =
+        document.getElementById(
+            "customerId"
+        );
+
+    const problem =
+        document.getElementById(
+            "problem"
+        );
+
+    const reference =
+        document.getElementById(
+            "reference"
+        );
+
+    const date =
+        document.getElementById(
+            "date"
+        );
+
+
+    if (customerId) {
+
+        customerId.readOnly = true;
+
+    }
+
+
+    if (problem) {
+
+        problem.readOnly = true;
+
+    }
+
+
+    if (reference) {
+
+        reference.readOnly = true;
+
+    }
+
+
+    if (date) {
+
+        date.readOnly = true;
+
+    }
 
 
     const modal =
@@ -998,6 +1127,7 @@ function updateSupport() {
                         currentRow
                     ),
 
+                // READ ONLY DATA
                 customerId:
                     getValue(
                         "customerId"
@@ -1018,6 +1148,7 @@ function updateSupport() {
                         "date"
                     ),
 
+                // EDITABLE DATA
                 support:
                     support,
 
@@ -1130,359 +1261,6 @@ function updateSupport() {
 
         }
     );
-
-}
-
-
-// =====================================
-// DELETE SUPPORT
-// =====================================
-
-function deleteSupport() {
-
-    if (!currentRow) {
-
-        showErrorPopup(
-            "Please select a support record first.",
-            "Delete Error"
-        );
-
-        return;
-
-    }
-
-
-    showConfirmPopup(
-
-        "Are you sure you want to permanently delete this support?",
-
-        function () {
-
-            performDeleteSupport();
-
-        },
-
-        "Confirm Delete"
-
-    );
-
-}
-
-
-// =====================================
-// PERFORM DELETE
-// =====================================
-
-function performDeleteSupport() {
-
-    const row =
-        Number(
-            currentRow
-        );
-
-
-    if (
-        !row ||
-        row <= 1
-    ) {
-
-        showErrorPopup(
-            "Invalid support row.",
-            "Delete Error"
-        );
-
-        return;
-
-    }
-
-
-    const button =
-        document.getElementById(
-            "confirmActionBtn"
-        );
-
-
-    if (button) {
-
-        button.disabled =
-            true;
-
-        button.innerHTML =
-            '<i class="fa fa-spinner fa-spin"></i> Deleting...';
-
-    }
-
-
-    fetch(
-        API_URL,
-        {
-
-            method: "POST",
-
-            headers: {
-
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-
-            },
-
-            body: JSON.stringify({
-
-                action:
-                    "deleteSupport",
-
-                row:
-                    row
-
-            })
-
-        }
-    )
-
-    .then(
-        response => {
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Server Error"
-                );
-
-            }
-
-            return response.json();
-
-        }
-    )
-
-    .then(
-        data => {
-
-            console.log(
-                "DELETE RESPONSE:",
-                data
-            );
-
-
-            if (
-                !data ||
-                data.success !== true
-            ) {
-
-                throw new Error(
-                    data?.message ||
-                    "Delete failed."
-                );
-
-            }
-
-
-            // =========================
-            // REMOVE FROM LOCAL DATA
-            // =========================
-
-            supportData =
-                supportData.filter(
-                    function (item) {
-
-                        return Number(
-                            item.row
-                        ) !== row;
-
-                    }
-                );
-
-
-            // =========================
-            // REDRAW TABLE
-            // =========================
-
-            renderSupport(
-                supportData
-            );
-
-
-            // =========================
-            // CLOSE POPUPS
-            // =========================
-
-            closeConfirmPopup();
-
-            closeEdit();
-
-
-            currentRow =
-                null;
-
-
-            // =========================
-            // SUCCESS
-            // =========================
-
-            showSuccessPopup(
-                "Support deleted successfully.",
-                "Deleted Successfully"
-            );
-
-        }
-    )
-
-    .catch(
-        error => {
-
-            console.error(
-                "DELETE ERROR:",
-                error
-            );
-
-
-            showErrorPopup(
-                error.message ||
-                "Unable to delete support.",
-                "Delete Failed"
-            );
-
-        }
-    )
-
-    .finally(
-        function () {
-
-            if (button) {
-
-                button.disabled =
-                    false;
-
-                button.innerHTML =
-                    '<i class="fa fa-trash"></i> Delete';
-
-            }
-
-        }
-    );
-
-}
-
-
-// =====================================
-// CONFIRM POPUP
-// =====================================
-
-function showConfirmPopup(
-    message,
-    callback,
-    title
-) {
-
-    const popup =
-        document.getElementById(
-            "confirmPopup"
-        );
-
-
-    const titleElement =
-        document.getElementById(
-            "confirmTitle"
-        );
-
-
-    const messageElement =
-        document.getElementById(
-            "confirmMessage"
-        );
-
-
-    const button =
-        document.getElementById(
-            "confirmActionBtn"
-        );
-
-
-    if (!popup) {
-
-        return;
-
-    }
-
-
-    if (titleElement) {
-
-        titleElement.textContent =
-            title ||
-            "Confirm";
-
-    }
-
-
-    if (messageElement) {
-
-        messageElement.textContent =
-            message ||
-            "Are you sure?";
-
-    }
-
-
-    confirmCallback =
-        callback;
-
-
-    if (button) {
-
-        button.disabled =
-            false;
-
-        button.innerHTML =
-            '<i class="fa fa-trash"></i> Delete';
-
-
-        button.onclick =
-            function () {
-
-                if (
-                    typeof confirmCallback ===
-                    "function"
-                ) {
-
-                    confirmCallback();
-
-                }
-
-            };
-
-    }
-
-
-    popup.classList.add(
-        "show"
-    );
-
-}
-
-
-// =====================================
-// CLOSE CONFIRM POPUP
-// =====================================
-
-function closeConfirmPopup() {
-
-    const popup =
-        document.getElementById(
-            "confirmPopup"
-        );
-
-
-    if (popup) {
-
-        popup.classList.remove(
-            "show"
-        );
-
-    }
-
-
-    confirmCallback =
-        null;
 
 }
 
@@ -1922,12 +1700,6 @@ document.addEventListener(
     "click",
     function (event) {
 
-        const confirmPopup =
-            document.getElementById(
-                "confirmPopup"
-            );
-
-
         const successPopup =
             document.getElementById(
                 "successPopup"
@@ -1938,17 +1710,6 @@ document.addEventListener(
             document.getElementById(
                 "errorPopup"
             );
-
-
-        if (
-            confirmPopup &&
-            event.target ===
-                confirmPopup
-        ) {
-
-            closeConfirmPopup();
-
-        }
 
 
         if (
@@ -1993,8 +1754,6 @@ document.addEventListener(
         }
 
 
-        closeConfirmPopup();
-
         closeSuccessPopup();
 
         closeErrorPopup();
@@ -2020,3 +1779,7 @@ document.addEventListener(
     }
 );
 
+
+// =====================================
+// END S.JS
+// =====================================
