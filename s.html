@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,20 +14,14 @@
     <title>Pending Support</title>
 
 
-    <!-- ============================= -->
     <!-- CSS -->
-    <!-- ============================= -->
-
     <link
         rel="stylesheet"
-        href="s.css"
+        href="support.css"
     >
 
 
-    <!-- ============================= -->
-    <!-- FONT AWESOME -->
-    <!-- ============================= -->
-
+    <!-- Font Awesome -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -39,11 +33,30 @@
 <body>
 
 
-    <!-- ============================= -->
-    <!-- HEADER -->
-    <!-- ============================= -->
+<!-- =================================================
+     HEADER
+================================================== -->
+
+<header class="header">
 
     <div class="left-section">
+
+
+        <!-- BACK BUTTON
+             FUNCTIONALITY DISABLED -->
+
+        <button
+            type="button"
+            class="back-btn"
+            id="backButton"
+        >
+
+            <i class="fa fa-arrow-left"></i>
+
+            <span>Back</span>
+
+        </button>
+
 
         <h2>
 
@@ -57,9 +70,7 @@
 
 
 
-    <!-- ============================= -->
     <!-- PROFILE -->
-    <!-- ============================= -->
 
     <div class="profile">
 
@@ -85,9 +96,6 @@
         </div>
 
 
-
-        <!-- PROFILE MENU -->
-
         <div
             class="profile-menu"
             id="profileMenu"
@@ -108,7 +116,6 @@
             </button>
 
 
-
             <!-- LOGOUT -->
 
             <button
@@ -127,11 +134,15 @@
 
     </div>
 
+</header>
 
 
-    <!-- ============================= -->
-    <!-- SEARCH -->
-    <!-- ============================= -->
+
+<!-- =================================================
+     SEARCH
+================================================== -->
+
+<div class="search-section">
 
     <div class="search-box">
 
@@ -147,383 +158,215 @@
 
     </div>
 
-
-
-    <!-- ============================= -->
-    <!-- SUPPORT TABLE -->
-    <!-- ============================= -->
-
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Customer ID
-                    </th>
-
-
-                    <th>
-                        Problem
-                    </th>
-
-
-                    <th>
-                        Reference
-                    </th>
-
-
-                    <th>
-                        Date
-                    </th>
-
-
-                    <th>
-                        Action
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody id="supportList">
-
-                <tr>
-
-                    <td
-                        colspan="5"
-                        class="loading-cell"
-                    >
-
-                        <i class="fa fa-spinner fa-spin"></i>
-
-                        Loading...
-
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
+</div>
 
 
 
-    <!-- ============================= -->
-    <!-- EDIT SUPPORT POPUP -->
-    <!-- ============================= -->
+<!-- =================================================
+     TABLE
+================================================== -->
 
-    <div
-        class="popup-overlay"
-        id="editPopup"
-    >
+<div class="table-box">
 
-        <div class="popup">
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Customer ID
+                </th>
 
 
-            <!-- CLOSE -->
+                <th>
+                    Problem
+                </th>
+
+
+                <th>
+                    Reference
+                </th>
+
+
+                <th>
+                    Date
+                </th>
+
+
+                <th>
+                    Action
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="supportList">
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="loading-cell"
+                >
+
+                    <i class="fa fa-spinner fa-spin"></i>
+
+                    Loading...
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+<!-- =================================================
+     EDIT MODAL
+================================================== -->
+
+<div
+    class="modal"
+    id="editModal"
+>
+
+    <div class="popup">
+
+
+        <button
+            type="button"
+            class="close-btn"
+            onclick="closeEdit()"
+        >
+
+            ×
+
+        </button>
+
+
+        <h2>
+
+            <i class="fa fa-headset"></i>
+
+            Edit Support
+
+        </h2>
+
+
+        <!-- CUSTOMER ID -->
+
+        <label for="customerId">
+            Customer ID
+        </label>
+
+
+        <input
+            type="text"
+            id="customerId"
+            readonly
+        >
+
+
+        <!-- PROBLEM -->
+
+        <label for="problem">
+            Problem
+        </label>
+
+
+        <textarea
+            id="problem"
+            readonly
+        ></textarea>
+
+
+        <!-- REFERENCE -->
+
+        <label for="reference">
+            Reference
+        </label>
+
+
+        <input
+            type="text"
+            id="reference"
+            readonly
+        >
+
+
+        <!-- DATE -->
+
+        <label for="date">
+            Date
+        </label>
+
+
+        <input
+            type="date"
+            id="date"
+            readonly
+        >
+
+
+        <!-- SUPPORT -->
+
+        <label for="support">
+            Support
+        </label>
+
+
+        <input
+            type="text"
+            id="support"
+        >
+
+
+        <!-- SUPPORT WORK -->
+
+        <label for="supportWork">
+            Support Work
+        </label>
+
+
+        <textarea
+            id="supportWork"
+        ></textarea>
+
+
+        <!-- BUTTONS -->
+
+        <div class="popup-buttons">
+
 
             <button
                 type="button"
-                class="close-btn"
+                class="submit-btn"
+                onclick="updateSupport()"
+            >
+
+                <i class="fa fa-paper-plane"></i>
+
+                Submit
+
+            </button>
+
+
+            <button
+                type="button"
+                class="cancel-btn"
                 onclick="closeEdit()"
             >
 
-                ×
-
-            </button>
-
-
-
-            <!-- TITLE -->
-
-            <h2>
-
-                <i class="fa fa-headset"></i>
-
-                Edit Support
-
-            </h2>
-
-
-
-            <!-- CUSTOMER ID -->
-
-            <label for="customerId">
-                Customer ID
-            </label>
-
-
-            <input
-                type="text"
-                id="customerId"
-                readonly
-            >
-
-
-
-            <!-- PROBLEM -->
-
-            <label for="problem">
-                Problem
-            </label>
-
-
-            <textarea
-                id="problem"
-                readonly
-            ></textarea>
-
-
-
-            <!-- REFERENCE -->
-
-            <label for="reference">
-                Reference
-            </label>
-
-
-            <input
-                type="text"
-                id="reference"
-                readonly
-            >
-
-
-
-            <!-- DATE -->
-
-            <label for="date">
-                Date
-            </label>
-
-
-            <input
-                type="date"
-                id="date"
-                readonly
-            >
-
-
-
-            <!-- SUPPORT -->
-
-            <label for="support">
-                Support
-            </label>
-
-
-            <input
-                type="text"
-                id="support"
-                autocomplete="off"
-            >
-
-
-
-            <!-- SUPPORT WORK -->
-
-            <label for="supportWork">
-                Support Work
-            </label>
-
-
-            <textarea
-                id="supportWork"
-                autocomplete="off"
-            ></textarea>
-
-
-
-            <!-- BUTTONS -->
-
-            <div class="popup-buttons">
-
-
-                <button
-                    type="button"
-                    class="submit-btn"
-                    onclick="updateSupport()"
-                >
-
-                    <i class="fa fa-paper-plane"></i>
-
-                    Submit
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="cancel-btn"
-                    onclick="closeEdit()"
-                >
-
-                    <i class="fa fa-xmark"></i>
-
-                    Cancel
-
-                </button>
-
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ============================= -->
-    <!-- CONFIRM POPUP -->
-    <!-- ============================= -->
-
-    <div
-        class="popup-overlay"
-        id="confirmPopup"
-    >
-
-        <div class="custom-popup">
-
-
-            <div class="popup-icon warning">
-
-                <i class="fa fa-triangle-exclamation"></i>
-
-            </div>
-
-
-            <h3 id="confirmTitle">
-                Confirm
-            </h3>
-
-
-            <p id="confirmMessage">
-                Are you sure?
-            </p>
-
-
-            <div class="custom-popup-buttons">
-
-
-                <button
-                    type="button"
-                    class="popup-cancel-btn"
-                    onclick="closeConfirmPopup()"
-                >
-
-                    Cancel
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="popup-confirm-btn"
-                    id="confirmActionBtn"
-                >
-
-                    Confirm
-
-                </button>
-
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ============================= -->
-    <!-- SUCCESS POPUP -->
-    <!-- ============================= -->
-
-    <div
-        class="popup-overlay"
-        id="successPopup"
-    >
-
-        <div class="custom-popup">
-
-
-            <div class="popup-icon success">
-
-                <i class="fa fa-check"></i>
-
-            </div>
-
-
-            <h3 id="successTitle">
-                Success
-            </h3>
-
-
-            <p id="successMessage">
-                Operation completed successfully.
-            </p>
-
-
-            <button
-                type="button"
-                class="popup-ok-btn"
-                onclick="closeSuccessPopup()"
-            >
-
-                OK
-
-            </button>
-
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ============================= -->
-    <!-- ERROR POPUP -->
-    <!-- ============================= -->
-
-    <div
-        class="popup-overlay"
-        id="errorPopup"
-    >
-
-        <div class="custom-popup">
-
-
-            <div class="popup-icon error">
-
                 <i class="fa fa-xmark"></i>
 
-            </div>
-
-
-            <h3 id="errorTitle">
-                Error
-            </h3>
-
-
-            <p id="errorMessage">
-                Something went wrong.
-            </p>
-
-
-            <button
-                type="button"
-                class="popup-ok-btn error-btn"
-                onclick="closeErrorPopup()"
-            >
-
-                OK
+                Cancel
 
             </button>
 
@@ -532,16 +375,240 @@
 
     </div>
 
+</div>
 
 
-    <!-- ============================= -->
-    <!-- JAVASCRIPT -->
-    <!-- ============================= -->
 
-    <script src="s.js"></script>
+<!-- =================================================
+     CONFIRM POPUP
+================================================== -->
+
+<div
+    class="custom-popup-overlay"
+    id="confirmPopup"
+>
+
+    <div class="custom-popup">
+
+
+        <div class="popup-icon warning">
+
+            <i class="fa fa-triangle-exclamation"></i>
+
+        </div>
+
+
+        <h3 id="confirmTitle">
+            Confirm
+        </h3>
+
+
+        <p id="confirmMessage">
+            Are you sure?
+        </p>
+
+
+        <div class="custom-popup-buttons">
+
+
+            <button
+                type="button"
+                class="popup-cancel-btn"
+                onclick="closeConfirmPopup()"
+            >
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                class="popup-confirm-btn"
+                id="confirmActionBtn"
+            >
+
+                Confirm
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     SUCCESS POPUP
+================================================== -->
+
+<div
+    class="custom-popup-overlay"
+    id="successPopup"
+>
+
+    <div class="custom-popup">
+
+
+        <div class="popup-icon success">
+
+            <i class="fa fa-check"></i>
+
+        </div>
+
+
+        <h3 id="successTitle">
+            Success
+        </h3>
+
+
+        <p id="successMessage">
+            Operation completed successfully.
+        </p>
+
+
+        <button
+            type="button"
+            class="popup-ok-btn"
+            onclick="closeSuccessPopup()"
+        >
+
+            OK
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     ERROR POPUP
+================================================== -->
+
+<div
+    class="custom-popup-overlay"
+    id="errorPopup"
+>
+
+    <div class="custom-popup">
+
+
+        <div class="popup-icon error">
+
+            <i class="fa fa-xmark"></i>
+
+        </div>
+
+
+        <h3 id="errorTitle">
+            Error
+        </h3>
+
+
+        <p id="errorMessage">
+            Something went wrong.
+        </p>
+
+
+        <button
+            type="button"
+            class="popup-ok-btn error-btn"
+            onclick="closeErrorPopup()"
+        >
+
+            OK
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     JAVASCRIPT
+================================================== -->
+
+<script src="support.js"></script>
+
+
+
+<!-- =================================================
+     BACK BUTTON DISABLED
+================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const backButton =
+            document.getElementById(
+                "backButton"
+            );
+
+
+        if (!backButton) {
+
+            return;
+
+        }
+
+
+        backButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                event.stopImmediatePropagation();
+
+                event.stopPropagation();
+
+                return false;
+
+            },
+            true
+        );
+
+
+        backButton.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    event.stopImmediatePropagation();
+
+                    event.stopPropagation();
+
+                }
+
+            },
+            true
+        );
+
+    }
+);
+
+</script>
 
 
 </body>
 
 </html>
-```
+
