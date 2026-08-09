@@ -8,7 +8,10 @@
 // LOGIN PROTECTION
 // ===============================
 
-if (localStorage.getItem("isLogin") !== "true") {
+if (
+    localStorage.getItem("isLogin")
+    !== "true"
+) {
 
     window.location.replace("login.html");
 
@@ -55,7 +58,7 @@ document.addEventListener(
 
 
         // ===============================
-        // LOAD USER DATA
+        // LOAD EXISTING USER DATA
         // ===============================
 
         const name =
@@ -145,7 +148,9 @@ document.addEventListener(
             }
 
 
+            // ===========================
             // IMAGE ERROR FALLBACK
+            // ===========================
 
             profileImg.onerror =
                 function () {
@@ -180,10 +185,14 @@ document.addEventListener(
                     e.stopPropagation();
 
 
+                    // Clear Login
+
                     localStorage.clear();
 
                     sessionStorage.clear();
 
+
+                    // Redirect Login
 
                     window.location.replace(
                         "login.html"
@@ -193,7 +202,6 @@ document.addEventListener(
             );
 
         }
-
 
     }
 );
@@ -279,7 +287,14 @@ document.addEventListener(
             );
 
 
-        if (!profile || !menu) return;
+        if (
+            !profile ||
+            !menu
+        ) {
+
+            return;
+
+        }
 
 
         if (
