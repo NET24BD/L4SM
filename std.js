@@ -254,7 +254,7 @@ function toggleProfile() {
 function myAccount() {
 
     window.location.href =
-        "myaccount.html";
+        "my-account.html";
 
 }
 
