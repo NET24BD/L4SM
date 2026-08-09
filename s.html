@@ -13,11 +13,13 @@
 
     <title>Pending Support</title>
 
+
     <!-- CSS -->
     <link
         rel="stylesheet"
         href="support.css"
     >
+
 
     <!-- Font Awesome -->
     <link
@@ -27,14 +29,13 @@
 
 </head>
 
+
 <body>
 
 
-<!-- =================================================
-     HEADER
-================================================== -->
-
-<header class="header">
+    <!-- ============================= -->
+    <!-- HEADER -->
+    <!-- ============================= -->
 
     <div class="left-section">
 
@@ -62,7 +63,10 @@
     </div>
 
 
+
+    <!-- ============================= -->
     <!-- PROFILE -->
+    <!-- ============================= -->
 
     <div class="profile">
 
@@ -77,13 +81,16 @@
                 alt="Profile"
             >
 
+
             <span id="username">
                 User
             </span>
 
+
             <i class="fa fa-angle-down"></i>
 
         </div>
+
 
 
         <div
@@ -93,7 +100,7 @@
 
             <button
                 type="button"
-                onclick="my-Account()"
+                onclick="myAccount()"
             >
 
                 <i class="fa fa-user"></i>
@@ -118,19 +125,16 @@
 
     </div>
 
-</header>
 
 
-
-<!-- =================================================
-     SEARCH
-================================================== -->
-
-<div class="search-section">
+    <!-- ============================= -->
+    <!-- SEARCH -->
+    <!-- ============================= -->
 
     <div class="search-box">
 
         <i class="fa fa-search"></i>
+
 
         <input
             type="text"
@@ -141,262 +145,367 @@
 
     </div>
 
-</div>
 
 
+    <!-- ============================= -->
+    <!-- SUPPORT TABLE -->
+    <!-- ============================= -->
 
-<!-- =================================================
-     TABLE
-================================================== -->
+    <div class="table-container">
 
-<div class="table-box">
+        <table>
 
-    <table>
+            <thead>
 
-        <thead>
+                <tr>
 
-            <tr>
+                    <th>
+                        Customer ID
+                    </th>
 
-                <th>
-                    Customer ID
-                </th>
 
-                <th>
-                    Problem
-                </th>
+                    <th>
+                        Problem
+                    </th>
 
-                <th>
-                    Reference
-                </th>
 
-                <th>
-                    Date
-                </th>
+                    <th>
+                        Reference
+                    </th>
 
-                <th>
-                    Action
-                </th>
 
-            </tr>
+                    <th>
+                        Date
+                    </th>
 
-        </thead>
 
+                    <th>
+                        Action
+                    </th>
 
-        <tbody id="supportList">
+                </tr>
 
-            <tr>
+            </thead>
 
-                <td
-                    colspan="5"
-                    class="loading-cell"
-                >
 
-                    <i class="fa fa-spinner fa-spin"></i>
+            <tbody id="supportList">
 
-                    Loading...
+                <tr>
 
-                </td>
+                    <td
+                        colspan="5"
+                        class="loading-cell"
+                    >
 
-            </tr>
+                        <i class="fa fa-spinner fa-spin"></i>
 
-        </tbody>
+                        Loading...
 
-    </table>
+                    </td>
 
-</div>
+                </tr>
 
+            </tbody>
 
+        </table>
 
-<!-- =================================================
-     EDIT MODAL
-================================================== -->
+    </div>
 
-<div
-    class="modal"
-    id="editModal"
->
 
-    <div class="popup">
 
-        <button
-            type="button"
-            class="close-btn"
-            onclick="closeEdit()"
-        >
+    <!-- ============================= -->
+    <!-- EDIT SUPPORT POPUP -->
+    <!-- ============================= -->
 
-            ×
+    <div
+        class="popup-overlay"
+        id="editPopup"
+    >
 
-        </button>
-
-
-        <h2>
-
-            <i class="fa fa-headset"></i>
-
-            Edit Support
-
-        </h2>
-
-
-        <!-- CUSTOMER ID -->
-
-        <label for="customerId">
-            Customer ID
-        </label>
-
-        <input
-            type="text"
-            id="customerId"
-            readonly
-        >
-
-
-        <!-- PROBLEM -->
-
-        <label for="problem">
-            Problem
-        </label>
-
-        <textarea
-            id="problem"
-            readonly
-        ></textarea>
-
-
-        <!-- REFERENCE -->
-
-        <label for="reference">
-            Reference
-        </label>
-
-        <input
-            type="text"
-            id="reference"
-            readonly
-        >
-
-
-        <!-- DATE -->
-
-        <label for="date">
-            Date
-        </label>
-
-        <input
-            type="date"
-            id="date"
-            readonly
-        >
-
-
-        <!-- SUPPORT -->
-
-        <label for="support">
-            Support
-        </label>
-
-        <input
-            type="text"
-            id="support"
-        >
-
-
-        <!-- SUPPORT WORK -->
-
-        <label for="supportWork">
-            Support Work
-        </label>
-
-        <textarea
-            id="supportWork"
-        ></textarea>
-
-
-        <!-- BUTTONS -->
-
-        <div class="popup-buttons">
+        <div class="popup">
 
             <button
                 type="button"
-                class="submit-btn"
-                onclick="updateSupport()"
-            >
-
-                <i class="fa fa-paper-plane"></i>
-
-                Submit
-
-            </button>
-
-
-            <button
-                type="button"
-                class="cancel-btn"
+                class="close-btn"
                 onclick="closeEdit()"
             >
 
+                ×
+
+            </button>
+
+
+            <h2>
+
+                <i class="fa fa-headset"></i>
+
+                Edit Support
+
+            </h2>
+
+
+
+            <!-- CUSTOMER ID -->
+
+            <label for="customerId">
+                Customer ID
+            </label>
+
+
+            <input
+                type="text"
+                id="customerId"
+                readonly
+            >
+
+
+
+            <!-- PROBLEM -->
+
+            <label for="problem">
+                Problem
+            </label>
+
+
+            <textarea
+                id="problem"
+                readonly
+            ></textarea>
+
+
+
+            <!-- REFERENCE -->
+
+            <label for="reference">
+                Reference
+            </label>
+
+
+            <input
+                type="text"
+                id="reference"
+                readonly
+            >
+
+
+
+            <!-- DATE -->
+
+            <label for="date">
+                Date
+            </label>
+
+
+            <input
+                type="date"
+                id="date"
+                readonly
+            >
+
+
+
+            <!-- SUPPORT -->
+
+            <label for="support">
+                Support
+            </label>
+
+
+            <input
+                type="text"
+                id="support"
+            >
+
+
+
+            <!-- SUPPORT WORK -->
+
+            <label for="supportWork">
+                Support Work
+            </label>
+
+
+            <textarea
+                id="supportWork"
+            ></textarea>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="popup-buttons">
+
+                <button
+                    type="button"
+                    class="submit-btn"
+                    onclick="updateSupport()"
+                >
+
+                    <i class="fa fa-paper-plane"></i>
+
+                    Submit
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeEdit()"
+                >
+
+                    <i class="fa fa-xmark"></i>
+
+                    Cancel
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- CONFIRM POPUP -->
+    <!-- ============================= -->
+
+    <div
+        class="popup-overlay"
+        id="confirmPopup"
+    >
+
+        <div class="custom-popup">
+
+            <div class="popup-icon warning">
+
+                <i class="fa fa-triangle-exclamation"></i>
+
+            </div>
+
+
+            <h3 id="confirmTitle">
+                Confirm
+            </h3>
+
+
+            <p id="confirmMessage">
+                Are you sure?
+            </p>
+
+
+            <div class="custom-popup-buttons">
+
+                <button
+                    type="button"
+                    class="popup-cancel-btn"
+                    onclick="closeConfirmPopup()"
+                >
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="popup-confirm-btn"
+                    id="confirmActionBtn"
+                >
+
+                    Confirm
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- SUCCESS POPUP -->
+    <!-- ============================= -->
+
+    <div
+        class="popup-overlay"
+        id="successPopup"
+    >
+
+        <div class="custom-popup">
+
+            <div class="popup-icon success">
+
+                <i class="fa fa-check"></i>
+
+            </div>
+
+
+            <h3 id="successTitle">
+                Success
+            </h3>
+
+
+            <p id="successMessage">
+                Operation completed successfully.
+            </p>
+
+
+            <button
+                type="button"
+                class="popup-ok-btn"
+                onclick="closeSuccessPopup()"
+            >
+
+                OK
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- ERROR POPUP -->
+    <!-- ============================= -->
+
+    <div
+        class="popup-overlay"
+        id="errorPopup"
+    >
+
+        <div class="custom-popup">
+
+            <div class="popup-icon error">
+
                 <i class="fa fa-xmark"></i>
 
-                Cancel
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
+            </div>
 
 
-
-<!-- =================================================
-     CONFIRM POPUP
-================================================== -->
-
-<div
-    class="custom-popup-overlay"
-    id="confirmPopup"
->
-
-    <div class="custom-popup">
-
-        <div class="popup-icon warning">
-
-            <i class="fa fa-triangle-exclamation"></i>
-
-        </div>
+            <h3 id="errorTitle">
+                Error
+            </h3>
 
 
-        <h3 id="confirmTitle">
-            Confirm
-        </h3>
-
-
-        <p id="confirmMessage">
-            Are you sure?
-        </p>
-
-
-        <div class="custom-popup-buttons">
-
-            <button
-                type="button"
-                class="popup-cancel-btn"
-                onclick="closeConfirmPopup()"
-            >
-
-                Cancel
-
-            </button>
+            <p id="errorMessage">
+                Something went wrong.
+            </p>
 
 
             <button
                 type="button"
-                class="popup-confirm-btn"
-                id="confirmActionBtn"
+                class="popup-ok-btn error-btn"
+                onclick="closeErrorPopup()"
             >
 
-                Confirm
+                OK
 
             </button>
 
@@ -404,100 +513,14 @@
 
     </div>
 
-</div>
 
 
+    <!-- ============================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================= -->
 
-<!-- =================================================
-     SUCCESS POPUP
-================================================== -->
+    <script src="support.js"></script>
 
-<div
-    class="custom-popup-overlay"
-    id="successPopup"
->
-
-    <div class="custom-popup">
-
-        <div class="popup-icon success">
-
-            <i class="fa fa-check"></i>
-
-        </div>
-
-
-        <h3 id="successTitle">
-            Success
-        </h3>
-
-
-        <p id="successMessage">
-            Operation completed successfully.
-        </p>
-
-
-        <button
-            type="button"
-            class="popup-ok-btn"
-            onclick="closeSuccessPopup()"
-        >
-
-            OK
-
-        </button>
-
-    </div>
-
-</div>
-
-
-
-<!-- =================================================
-     ERROR POPUP
-================================================== -->
-
-<div
-    class="custom-popup-overlay"
-    id="errorPopup"
->
-
-    <div class="custom-popup">
-
-        <div class="popup-icon error">
-
-            <i class="fa fa-xmark"></i>
-
-        </div>
-
-
-        <h3 id="errorTitle">
-            Error
-        </h3>
-
-
-        <p id="errorMessage">
-            Something went wrong.
-        </p>
-
-
-        <button
-            type="button"
-            class="popup-ok-btn error-btn"
-            onclick="closeErrorPopup()"
-        >
-
-            OK
-
-        </button>
-
-    </div>
-
-</div>
-
-
-
-<!-- JS -->
-<script src="support.js"></script>
 
 </body>
 
