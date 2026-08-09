@@ -1,6 +1,7 @@
-/* =================================================
+
+/* =====================================================
    HISTORY.CSS
-================================================= */
+===================================================== */
 
 * {
     margin: 0;
@@ -11,214 +12,169 @@
 
 
 body {
-    min-height: 100vh;
-
     background: #f1f5f9;
-
     color: #334155;
-
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
 
-/* =================================================
+/* =====================================================
    HEADER
-================================================= */
+===================================================== */
 
-.left-section {
+.header {
     width: 100%;
     min-height: 72px;
-
-    padding: 0 28px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
-    gap: 18px;
+    padding: 0 28px;
 
-    background: #ffffff;
-
-    border-bottom: 1px solid #e2e8f0;
-
-    box-shadow:
-        0 2px 10px
-        rgba(15, 23, 42, 0.05);
+    position: relative;
+    z-index: 100;
 }
 
 
-/* =================================================
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.left-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #0f172a;
+    font-size: 21px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.left-section h2 i {
+    color: #16a34a;
+}
+
+
+/* =====================================================
    BACK BUTTON
-================================================= */
+===================================================== */
 
 .back-btn {
     border: none;
     outline: none;
 
-    cursor: pointer;
+    background: #f1f5f9;
+    color: #334155;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    padding: 10px 16px;
+    padding: 10px 15px;
 
     border-radius: 9px;
 
-    background: #16a34a;
-
-    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
     font-size: 14px;
     font-weight: 600;
+
+    cursor: pointer;
 
     transition: 0.2s ease;
 }
 
 
 .back-btn:hover {
-    background: #15803d;
-
-    transform: translateY(-1px);
+    background: #e2e8f0;
 }
 
 
 .back-btn:active {
-    transform: translateY(0);
+    transform: scale(0.97);
 }
 
 
-/* =================================================
-   HISTORY TITLE
-================================================= */
-
-.history-title {
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    color: #0f172a;
-
-    font-size: 22px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    user-select: none;
-
-    transition: 0.2s ease;
-}
-
-
-.history-title:hover {
-    color: #15803d;
-}
-
-
-.history-title i {
-    color: #16a34a;
-
-    transition: 0.2s ease;
-}
-
-
-/* =================================================
+/* =====================================================
    PROFILE
-================================================= */
+===================================================== */
 
 .profile {
-    position: absolute;
-
-    top: 14px;
-    right: 28px;
-
-    z-index: 1000;
+    position: relative;
 }
 
 
 .profile-head {
-    min-width: 150px;
-
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-
     gap: 9px;
 
-    padding: 7px 11px;
-
-    background: #ffffff;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 12px;
-
     cursor: pointer;
+
+    padding: 5px 8px;
+
+    border-radius: 10px;
 
     transition: 0.2s ease;
 }
 
 
 .profile-head:hover {
-    border-color: #bbf7d0;
-
-    box-shadow:
-        0 4px 14px
-        rgba(15, 23, 42, 0.08);
+    background: #f8fafc;
 }
 
 
 .profile-head img {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
 
     border-radius: 50%;
 
     object-fit: cover;
 
-    border: 2px solid #16a34a;
+    border: 2px solid #dcfce7;
 }
 
 
 .profile-head span {
-    max-width: 100px;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
+    color: #1e293b;
 
     font-size: 14px;
     font-weight: 600;
 
-    color: #334155;
+    max-width: 140px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 
-.profile-head > i {
+.profile-head i {
     color: #64748b;
-
     font-size: 13px;
 }
 
 
-/* =================================================
+/* =====================================================
    PROFILE MENU
-================================================= */
+===================================================== */
 
 .profile-menu {
     position: absolute;
 
-    top: calc(100% + 8px);
-
+    top: calc(100% + 10px);
     right: 0;
 
     width: 190px;
-
-    padding: 7px;
 
     background: #ffffff;
 
@@ -226,11 +182,14 @@ body {
 
     border-radius: 12px;
 
+    padding: 7px;
+
     box-shadow:
-        0 12px 30px
-        rgba(15, 23, 42, 0.14);
+        0 15px 35px rgba(15, 23, 42, 0.12);
 
     display: none;
+
+    z-index: 1000;
 }
 
 
@@ -242,131 +201,113 @@ body {
 .profile-menu button {
     width: 100%;
 
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 11px 12px;
-
     border: none;
+    outline: none;
 
     background: transparent;
 
+    padding: 11px 12px;
+
     border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
     color: #334155;
 
     font-size: 14px;
 
-    cursor: pointer;
-
     text-align: left;
+
+    cursor: pointer;
 
     transition: 0.2s ease;
 }
 
 
 .profile-menu button:hover {
-    background: #f0fdf4;
-
-    color: #15803d;
+    background: #f1f5f9;
 }
 
 
 .profile-menu button i {
     width: 18px;
-
-    text-align: center;
+    color: #16a34a;
 }
 
 
-/* =================================================
-   FILTER
-   HIDDEN BY DEFAULT
-================================================= */
+/* =====================================================
+   FILTER BAR
+===================================================== */
 
-.filter-container {
-    width: calc(100% - 56px);
+.filter-bar {
+    width: calc(100% - 48px);
 
-    margin: 22px auto 18px;
+    margin: 20px auto 0;
 
-    padding: 18px;
-
-    display: none;
-
-    align-items: flex-end;
-
-    flex-wrap: wrap;
-
-    gap: 15px;
+    padding: 15px;
 
     background: #ffffff;
 
     border: 1px solid #e2e8f0;
 
-    border-radius: 14px;
+    border-radius: 13px;
+
+    display: none;
+
+    align-items: flex-end;
+    gap: 14px;
 
     box-shadow:
-        0 5px 18px
-        rgba(15, 23, 42, 0.06);
+        0 5px 18px rgba(15, 23, 42, 0.05);
 
-    animation: filterSlide 0.2s ease;
+    animation: filterOpen 0.2s ease;
 }
 
 
-.filter-container.show {
+.filter-bar.show {
     display: flex;
 }
 
 
-@keyframes filterSlide {
+@keyframes filterOpen {
 
     from {
         opacity: 0;
-
-        transform:
-            translateY(-8px);
+        transform: translateY(-5px);
     }
 
     to {
         opacity: 1;
-
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 
 }
 
 
-/* =================================================
-   FILTER GROUP
-================================================= */
-
 .filter-group {
-    min-width: 180px;
-
     display: flex;
 
     flex-direction: column;
 
-    gap: 7px;
+    gap: 6px;
+
+    min-width: 150px;
 }
 
 
 .filter-group label {
     color: #475569;
 
-    font-size: 13px;
+    font-size: 12px;
 
-    font-weight: 600;
+    font-weight: 700;
 }
 
 
 .filter-group input {
-    height: 42px;
-
-    padding: 0 12px;
+    height: 40px;
 
     border: 1px solid #cbd5e1;
 
@@ -374,11 +315,13 @@ body {
 
     outline: none;
 
+    padding: 0 11px;
+
     background: #ffffff;
 
     color: #334155;
 
-    font-size: 14px;
+    font-size: 13px;
 
     transition: 0.2s ease;
 }
@@ -388,66 +331,75 @@ body {
     border-color: #16a34a;
 
     box-shadow:
-        0 0 0 3px
-        rgba(22, 163, 74, 0.10);
+        0 0 0 3px rgba(22, 163, 74, 0.10);
 }
 
 
 .search-group {
     flex: 1;
-
-    min-width: 260px;
 }
 
 
-/* =================================================
-   RESET BUTTON
-================================================= */
-
+.filter-btn,
 .reset-btn {
-    height: 42px;
+    height: 40px;
+
+    border: none;
+    outline: none;
 
     padding: 0 17px;
 
-    border: none;
-
     border-radius: 8px;
 
-    background: #64748b;
-
-    color: #ffffff;
-
-    display: inline-flex;
-
+    display: flex;
     align-items: center;
-
     justify-content: center;
 
-    gap: 8px;
+    gap: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
 
     cursor: pointer;
 
-    font-size: 14px;
-
-    font-weight: 600;
-
     transition: 0.2s ease;
+
+    white-space: nowrap;
+}
+
+
+.filter-btn {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+
+.filter-btn:hover {
+    background: #15803d;
+}
+
+
+.reset-btn {
+    background: #f1f5f9;
+    color: #475569;
+
+    border: 1px solid #e2e8f0;
 }
 
 
 .reset-btn:hover {
-    background: #475569;
+    background: #e2e8f0;
 }
 
 
-/* =================================================
-   TABLE CONTAINER
-================================================= */
+/* =====================================================
+   TABLE BOX
+===================================================== */
 
-.table-container {
-    width: calc(100% - 56px);
+.table-box {
+    width: calc(100% - 48px);
 
-    margin: 0 auto 30px;
+    margin: 20px auto;
 
     background: #ffffff;
 
@@ -458,234 +410,235 @@ body {
     overflow-x: auto;
 
     box-shadow:
-        0 5px 18px
-        rgba(15, 23, 42, 0.06);
+        0 5px 20px rgba(15, 23, 42, 0.05);
 }
 
 
-/* =================================================
-   TABLE
-================================================= */
-
-.table-container table {
+table {
     width: 100%;
 
-    min-width: 950px;
+    border-collapse: collapse;
 
-    border-collapse: separate;
-
-    border-spacing: 0;
+    min-width: 900px;
 }
 
 
-.table-container thead {
-    background: #14532d;
+thead {
+    background: #f8fafc;
 }
 
 
-.table-container th {
+th {
     padding: 15px 14px;
 
-    color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
 
-    font-size: 13px;
+    color: #475569;
+
+    font-size: 12px;
 
     font-weight: 700;
 
     text-align: left;
 
     white-space: nowrap;
-
-    border-bottom: 1px solid #166534;
 }
 
 
-.table-container td {
+td {
     padding: 14px;
 
-    color: #475569;
+    border-bottom: 1px solid #f1f5f9;
+
+    color: #334155;
 
     font-size: 13px;
-
-    border-bottom: 1px solid #e2e8f0;
 
     vertical-align: middle;
 }
 
 
-.table-container tbody tr {
-    transition: 0.18s ease;
+tbody tr {
+    transition: 0.15s ease;
 }
 
 
-.table-container tbody tr:hover {
+tbody tr:hover {
     background: #f8fafc;
 }
 
 
-.table-container tbody tr:last-child td {
+tbody tr:last-child td {
     border-bottom: none;
 }
 
 
-.table-container td[colspan] {
-    text-align: center;
+/* =====================================================
+   LOADING
+===================================================== */
 
-    padding: 35px 15px;
+.loading-cell {
+    text-align: center !important;
+
+    padding: 45px !important;
 
     color: #64748b;
 }
 
 
-/* =================================================
-   ACTION BUTTON
-================================================= */
+.loading-cell i {
+    margin-right: 7px;
 
-.view-btn,
-.edit-btn {
+    color: #16a34a;
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.view-btn {
     border: none;
-
     outline: none;
+
+    background: #eff6ff;
+
+    color: #2563eb;
 
     padding: 8px 12px;
 
     border-radius: 7px;
 
-    background: #16a34a;
-
-    color: #ffffff;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 6px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
 
     transition: 0.2s ease;
 }
 
 
-.view-btn:hover,
-.edit-btn:hover {
-    background: #15803d;
+.view-btn:hover {
+    background: #dbeafe;
 
     transform: translateY(-1px);
 }
 
 
-/* =================================================
-   POPUP OVERLAY
-================================================= */
+.view-btn:active {
+    transform: scale(0.97);
+}
 
-.popup-overlay {
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
     position: fixed;
 
     inset: 0;
 
-    z-index: 3000;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(15, 23, 42, 0.58);
 
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 20px;
 
-    background:
-        rgba(15, 23, 42, 0.58);
+    z-index: 5000;
 
-    backdrop-filter: blur(3px);
+    overflow-y: auto;
 }
 
 
-.popup-overlay.show {
+.modal.show {
     display: flex;
 }
 
 
-/* =================================================
-   POPUP
-================================================= */
+body.modal-open {
+    overflow: hidden;
+}
 
-.popup {
-    width: min(560px, 100%);
 
-    max-height: 90vh;
+/* =====================================================
+   HISTORY POPUP
+===================================================== */
+
+.history-popup {
+    width: 100%;
+
+    max-width: 650px;
+
+    max-height: 92vh;
 
     overflow-y: auto;
-
-    position: relative;
-
-    padding: 26px;
 
     background: #ffffff;
 
     border-radius: 16px;
 
-    border: 1px solid #e2e8f0;
+    padding: 25px;
+
+    position: relative;
 
     box-shadow:
-        0 25px 60px
-        rgba(15, 23, 42, 0.25);
+        0 25px 70px rgba(15, 23, 42, 0.25);
 
-    animation: popupShow 0.18s ease;
+    animation: popupOpen 0.22s ease;
 }
 
 
-@keyframes popupShow {
+@keyframes popupOpen {
 
     from {
         opacity: 0;
-
-        transform:
-            translateY(12px)
-            scale(0.98);
+        transform: translateY(12px) scale(0.98);
     }
 
     to {
         opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
+        transform: translateY(0) scale(1);
     }
 
 }
 
 
-/* =================================================
+/* =====================================================
    CLOSE BUTTON
-================================================= */
+===================================================== */
 
 .close-btn {
     position: absolute;
 
     top: 13px;
-
-    right: 14px;
+    right: 15px;
 
     width: 34px;
-
     height: 34px;
 
     border: none;
+    outline: none;
 
     border-radius: 50%;
 
     background: #f1f5f9;
 
-    color: #475569;
+    color: #64748b;
 
-    font-size: 23px;
+    font-size: 22px;
 
     line-height: 1;
 
@@ -702,22 +655,24 @@ body {
 }
 
 
-/* =================================================
+/* =====================================================
    POPUP TITLE
-================================================= */
+===================================================== */
 
 .popup h2 {
-    margin-bottom: 22px;
-
     display: flex;
-
     align-items: center;
-
     gap: 9px;
+
+    padding-right: 45px;
+
+    margin-bottom: 20px;
 
     color: #0f172a;
 
     font-size: 20px;
+
+    font-weight: 700;
 }
 
 
@@ -726,54 +681,102 @@ body {
 }
 
 
-/* =================================================
-   POPUP FORM
-================================================= */
+/* =====================================================
+   POPUP SECTION
+===================================================== */
+
+.popup-section {
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 11px;
+
+    padding: 15px;
+
+    margin-bottom: 15px;
+}
+
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 13px;
+
+    color: #0f172a;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+.section-title i {
+    color: #16a34a;
+}
+
+
+/* =====================================================
+   POPUP LABEL
+===================================================== */
 
 .popup label {
     display: block;
 
-    margin: 13px 0 6px;
+    margin: 10px 0 6px;
 
     color: #475569;
 
-    font-size: 13px;
+    font-size: 12px;
 
-    font-weight: 600;
+    font-weight: 700;
 }
 
+
+.popup-section label:first-of-type {
+    margin-top: 0;
+}
+
+
+/* =====================================================
+   POPUP INPUTS
+===================================================== */
 
 .popup input,
 .popup textarea {
     width: 100%;
 
-    padding: 11px 12px;
-
     border: 1px solid #cbd5e1;
 
-    border-radius: 8px;
-
     outline: none;
+
+    border-radius: 8px;
 
     background: #ffffff;
 
     color: #334155;
 
-    font-size: 14px;
+    font-size: 13px;
 
-    resize: vertical;
+    padding: 10px 11px;
 
     transition: 0.2s ease;
 }
 
 
 .popup input {
-    height: 42px;
+    height: 40px;
 }
 
 
 .popup textarea {
-    min-height: 82px;
+    min-height: 80px;
+
+    resize: vertical;
+
+    line-height: 1.5;
 }
 
 
@@ -782,8 +785,7 @@ body {
     border-color: #16a34a;
 
     box-shadow:
-        0 0 0 3px
-        rgba(22, 163, 74, 0.10);
+        0 0 0 3px rgba(22, 163, 74, 0.08);
 }
 
 
@@ -797,35 +799,50 @@ body {
 }
 
 
-/* =================================================
+/* =====================================================
+   TWO COLUMN
+===================================================== */
+
+.two-column {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+
+.two-column label {
+    margin-top: 0;
+}
+
+
+/* =====================================================
    POPUP BUTTONS
-================================================= */
+===================================================== */
 
 .popup-buttons {
-    margin-top: 22px;
-
     display: flex;
 
     justify-content: flex-end;
 
-    gap: 10px;
+    gap: 9px;
 
-    flex-wrap: wrap;
+    margin-top: 5px;
 }
 
 
 .cancel-btn {
-    min-height: 40px;
-
-    padding: 0 17px;
-
     border: none;
+    outline: none;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    padding: 10px 18px;
 
     border-radius: 8px;
-
-    background: #64748b;
-
-    color: #ffffff;
 
     font-size: 13px;
 
@@ -833,93 +850,70 @@ body {
 
     cursor: pointer;
 
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 7px;
-
     transition: 0.2s ease;
 }
 
 
 .cancel-btn:hover {
-    background: #475569;
+    background: #e2e8f0;
 }
 
 
-/* =================================================
-   MESSAGE / CONFIRM OVERLAY
-================================================= */
+/* =====================================================
+   ERROR POPUP
+===================================================== */
 
-.message-overlay,
-.confirm-overlay {
+.custom-popup-overlay {
     position: fixed;
 
     inset: 0;
 
-    z-index: 4000;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(15, 23, 42, 0.58);
 
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 20px;
 
-    background:
-        rgba(15, 23, 42, 0.58);
-
-    backdrop-filter: blur(3px);
+    z-index: 7000;
 }
 
 
-.message-overlay.show,
-.confirm-overlay.show {
+.custom-popup-overlay.show {
     display: flex;
 }
 
 
-/* =================================================
-   MESSAGE / CONFIRM BOX
-================================================= */
+.custom-popup {
+    width: 100%;
 
-.message-box,
-.confirm-box {
-    width: min(420px, 100%);
-
-    padding: 28px;
-
-    text-align: center;
+    max-width: 380px;
 
     background: #ffffff;
 
-    border-radius: 16px;
+    border-radius: 15px;
 
-    border: 1px solid #e2e8f0;
+    padding: 25px;
+
+    text-align: center;
 
     box-shadow:
-        0 25px 60px
-        rgba(15, 23, 42, 0.25);
+        0 25px 60px rgba(15, 23, 42, 0.20);
 
-    animation: popupShow 0.18s ease;
+    animation: popupOpen 0.22s ease;
 }
 
 
-/* =================================================
-   ICONS
-================================================= */
+.popup-icon {
+    width: 55px;
+    height: 55px;
 
-.message-icon,
-.confirm-icon {
-    width: 58px;
-
-    height: 58px;
-
-    margin: 0 auto 15px;
+    margin: 0 auto 13px;
 
     border-radius: 50%;
 
@@ -929,100 +923,46 @@ body {
 
     justify-content: center;
 
-    font-size: 26px;
+    font-size: 24px;
 }
 
 
-.message-icon {
-    background: #dcfce7;
+.popup-icon.error {
+    background: #fee2e2;
 
-    color: #16a34a;
+    color: #dc2626;
 }
 
 
-.confirm-icon {
-    background: #fef3c7;
-
-    color: #d97706;
-}
-
-
-/* =================================================
-   MESSAGE TEXT
-================================================= */
-
-.message-box h3,
-.confirm-box h3 {
-    margin-bottom: 9px;
+.custom-popup h3 {
+    margin-bottom: 8px;
 
     color: #0f172a;
 
-    font-size: 19px;
+    font-size: 18px;
 }
 
 
-.message-box p,
-.confirm-box p {
-    margin-bottom: 20px;
-
+.custom-popup p {
     color: #64748b;
 
-    font-size: 14px;
+    font-size: 13px;
 
     line-height: 1.6;
+
+    margin-bottom: 18px;
 }
 
 
-.message-box > button {
-    min-width: 90px;
-
-    height: 40px;
-
-    padding: 0 18px;
-
+.popup-ok-btn {
     border: none;
-
-    border-radius: 8px;
+    outline: none;
 
     background: #16a34a;
 
     color: #ffffff;
 
-    font-size: 13px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-
-.message-box > button:hover {
-    background: #15803d;
-}
-
-
-/* =================================================
-   CONFIRM BUTTONS
-================================================= */
-
-.confirm-buttons {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
-}
-
-
-.confirm-delete,
-.confirm-cancel {
-    min-height: 40px;
-
-    padding: 0 17px;
-
-    border: none;
+    padding: 10px 25px;
 
     border-radius: 8px;
 
@@ -1032,91 +972,87 @@ body {
 
     cursor: pointer;
 
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 7px;
+    transition: 0.2s ease;
 }
 
 
-.confirm-delete {
+.popup-ok-btn:hover {
+    background: #15803d;
+}
+
+
+.error-btn {
     background: #dc2626;
-
-    color: #ffffff;
 }
 
 
-.confirm-delete:hover {
+.error-btn:hover {
     background: #b91c1c;
 }
 
 
-.confirm-cancel {
-    background: #64748b;
+/* =====================================================
+   SCROLLBAR
+===================================================== */
 
-    color: #ffffff;
-}
-
-
-.confirm-cancel:hover {
-    background: #475569;
-}
-
-
-/* =================================================
-   POPUP SCROLLBAR
-================================================= */
-
-.popup::-webkit-scrollbar {
+.history-popup::-webkit-scrollbar,
+.table-box::-webkit-scrollbar {
     width: 7px;
+    height: 7px;
 }
 
 
-.popup::-webkit-scrollbar-track {
+.history-popup::-webkit-scrollbar-track,
+.table-box::-webkit-scrollbar-track {
     background: #f1f5f9;
-
-    border-radius: 10px;
 }
 
 
-.popup::-webkit-scrollbar-thumb {
+.history-popup::-webkit-scrollbar-thumb,
+.table-box::-webkit-scrollbar-thumb {
     background: #cbd5e1;
 
     border-radius: 10px;
 }
 
 
-.popup::-webkit-scrollbar-thumb:hover {
+.history-popup::-webkit-scrollbar-thumb:hover,
+.table-box::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
 
 
-/* =================================================
+/* =====================================================
    RESPONSIVE
-================================================= */
+===================================================== */
 
 @media (max-width: 900px) {
 
-    .left-section {
+    .header {
         padding: 0 18px;
     }
 
 
-    .profile {
-        right: 18px;
+    .filter-bar {
+        width: calc(100% - 30px);
+
+        margin-top: 15px;
+
+        flex-wrap: wrap;
     }
 
 
-    .filter-container {
-        width: calc(100% - 36px);
+    .filter-group {
+        flex: 1;
+
+        min-width: 140px;
     }
 
 
-    .table-container {
-        width: calc(100% - 36px);
+    .table-box {
+        width: calc(100% - 30px);
+
+        margin-top: 15px;
     }
 
 }
@@ -1124,17 +1060,20 @@ body {
 
 @media (max-width: 650px) {
 
-    .left-section {
+    .header {
         min-height: 65px;
 
-        padding: 10px 14px;
+        padding: 0 12px;
+    }
 
-        gap: 10px;
+
+    .left-section {
+        gap: 9px;
     }
 
 
     .back-btn {
-        padding: 8px 11px;
+        padding: 8px 10px;
     }
 
 
@@ -1143,22 +1082,8 @@ body {
     }
 
 
-    .history-title {
-        font-size: 18px;
-    }
-
-
-    .profile {
-        top: 11px;
-
-        right: 12px;
-    }
-
-
-    .profile-head {
-        min-width: auto;
-
-        padding: 4px 6px;
+    .left-section h2 {
+        font-size: 17px;
     }
 
 
@@ -1167,19 +1092,15 @@ body {
     }
 
 
-    .profile-head img {
-        width: 34px;
-
-        height: 34px;
+    .profile-head {
+        padding: 2px;
     }
 
 
-    .filter-container {
-        width: calc(100% - 24px);
+    .filter-bar {
+        width: calc(100% - 20px);
 
-        margin: 14px auto;
-
-        padding: 14px;
+        margin: 10px auto;
 
         flex-direction: column;
 
@@ -1187,57 +1108,80 @@ body {
     }
 
 
-    .filter-group,
-    .search-group {
+    .filter-group {
         width: 100%;
-
-        min-width: 100%;
     }
 
 
+    .filter-btn,
     .reset-btn {
         width: 100%;
     }
 
 
-    .table-container {
-        width: calc(100% - 24px);
+    .table-box {
+        width: calc(100% - 20px);
 
-        margin-bottom: 20px;
+        margin: 10px auto;
     }
 
 
-    .table-container th,
-    .table-container td {
-        padding: 11px 10px;
+    .history-popup {
+        padding: 18px;
 
-        font-size: 12px;
+        max-height: 94vh;
 
-        white-space: nowrap;
-    }
-
-
-    .popup {
-        padding: 21px;
-
-        max-height: 92vh;
+        border-radius: 13px;
     }
 
 
     .popup h2 {
         font-size: 18px;
+    }
 
-        padding-right: 35px;
+
+    .two-column {
+        grid-template-columns: 1fr;
     }
 
 
     .popup-buttons {
-        flex-direction: column;
+        width: 100%;
     }
 
 
-    .popup-buttons button {
+    .cancel-btn {
         width: 100%;
     }
 
 }
+
+
+@media (max-width: 400px) {
+
+    .left-section h2 span {
+        display: none;
+    }
+
+
+    .profile-head img {
+        width: 36px;
+        height: 36px;
+    }
+
+
+    .history-popup {
+        padding: 15px;
+    }
+
+
+    .popup-section {
+        padding: 12px;
+    }
+
+}
+
+
+/* =====================================================
+   END HISTORY.CSS
+===================================================== */
