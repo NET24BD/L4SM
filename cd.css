@@ -1,12 +1,16 @@
 /* =========================================
    L4SM CD DASHBOARD
-   COLORFUL PREMIUM RESPONSIVE UI
+   COMPACT COLORFUL RESPONSIVE DESIGN
 ========================================= */
 
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
+
 }
 
 
@@ -44,6 +48,7 @@ body {
     min-height: 100vh;
 
     overflow-x: hidden;
+
 }
 
 
@@ -55,10 +60,10 @@ body {
 
     width: 100%;
 
-    height: 82px;
+    height: 78px;
 
     background:
-        rgba(255,255,255,.94);
+        rgba(255,255,255,.95);
 
     backdrop-filter:
         blur(18px);
@@ -83,6 +88,7 @@ body {
     top: 0;
 
     z-index: 100;
+
 }
 
 
@@ -96,17 +102,18 @@ body {
 
     align-items: center;
 
-    gap: 13px;
+    gap: 12px;
+
 }
 
 
 .brand-icon {
 
-    width: 47px;
+    width: 44px;
 
-    height: 47px;
+    height: 44px;
 
-    border-radius: 14px;
+    border-radius: 13px;
 
     background:
         linear-gradient(
@@ -123,21 +130,23 @@ body {
 
     justify-content: center;
 
-    font-size: 21px;
+    font-size: 19px;
 
     box-shadow:
-        0 10px 25px
-        rgba(16,185,129,.25);
+        0 9px 22px
+        rgba(16,185,129,.24);
+
 }
 
 
 .brand-text h2 {
 
-    font-size: 18px;
+    font-size: 17px;
 
     font-weight: 800;
 
     color: #0f172a;
+
 }
 
 
@@ -145,11 +154,12 @@ body {
 
     display: block;
 
-    font-size: 11px;
+    font-size: 10px;
 
     color: #64748b;
 
     margin-top: 2px;
+
 }
 
 
@@ -165,15 +175,17 @@ body {
 
     align-items: center;
 
-    gap: 12px;
+    gap: 11px;
 
     cursor: pointer;
+
 }
 
 
 .profile-info {
 
     text-align: right;
+
 }
 
 
@@ -181,7 +193,7 @@ body {
 
     display: block;
 
-    font-size: 14px;
+    font-size: 13px;
 
     font-weight: 750;
 
@@ -194,6 +206,7 @@ body {
     overflow: hidden;
 
     text-overflow: ellipsis;
+
 }
 
 
@@ -205,7 +218,8 @@ body {
 
     color: #64748b;
 
-    font-size: 11px;
+    font-size: 10px;
+
 }
 
 
@@ -215,9 +229,9 @@ body {
 
 .profile-photo {
 
-    width: 46px;
+    width: 43px;
 
-    height: 46px;
+    height: 43px;
 
     border-radius: 50%;
 
@@ -234,8 +248,9 @@ body {
         2px solid white;
 
     box-shadow:
-        0 7px 20px
+        0 6px 18px
         rgba(15,23,42,.15);
+
 }
 
 
@@ -248,6 +263,7 @@ body {
     object-fit: cover;
 
     display: block;
+
 }
 
 
@@ -263,15 +279,15 @@ body {
 
     right: 0;
 
-    top: 58px;
+    top: 54px;
 
-    width: 190px;
+    width: 185px;
 
     background: white;
 
-    border-radius: 14px;
+    border-radius: 13px;
 
-    padding: 8px;
+    padding: 7px;
 
     box-shadow:
         0 18px 45px
@@ -281,6 +297,7 @@ body {
         1px solid #e2e8f0;
 
     z-index: 999;
+
 }
 
 
@@ -290,17 +307,18 @@ body {
 
     align-items: center;
 
-    gap: 12px;
+    gap: 11px;
 
-    padding: 12px;
+    padding: 11px;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
     color: #334155;
 
-    font-size: 13px;
+    font-size: 12px;
 
     transition: .2s;
+
 }
 
 
@@ -308,14 +326,16 @@ body {
 
     background:
         #f1f5f9;
+
 }
 
 
 .profile-menu-item i {
 
-    width: 18px;
+    width: 17px;
 
     text-align: center;
+
 }
 
 
@@ -323,6 +343,7 @@ body {
 
     color:
         #dc2626;
+
 }
 
 
@@ -330,6 +351,7 @@ body {
 
     background:
         #fef2f2;
+
 }
 
 
@@ -341,12 +363,13 @@ body {
 
     width: 88%;
 
-    max-width: 1250px;
+    max-width: 1200px;
 
     margin: auto;
 
     padding:
-        50px 0 30px;
+        42px 0 28px;
+
 }
 
 
@@ -356,32 +379,35 @@ body {
 
 .welcome {
 
-    margin-bottom: 35px;
+    margin-bottom: 27px;
+
 }
 
 
 .small-title {
 
-    font-size: 11px;
+    font-size: 10px;
 
     font-weight: 800;
 
     letter-spacing: 2px;
 
     color: #16a34a;
+
 }
 
 
 .welcome h1 {
 
     font-size:
-        clamp(28px, 4vw, 40px);
+        clamp(26px, 4vw, 36px);
 
-    margin-top: 7px;
+    margin-top: 6px;
 
     color: #0f172a;
 
     font-weight: 800;
+
 }
 
 
@@ -400,16 +426,18 @@ body {
 
     -webkit-text-fill-color:
         transparent;
+
 }
 
 
 .welcome p {
 
-    margin-top: 8px;
+    margin-top: 7px;
 
     color: #64748b;
 
-    font-size: 15px;
+    font-size: 13px;
+
 }
 
 
@@ -424,7 +452,8 @@ body {
     grid-template-columns:
         repeat(2, 1fr);
 
-    gap: 24px;
+    gap: 18px;
+
 }
 
 
@@ -438,11 +467,11 @@ body {
 
     background: white;
 
-    border-radius: 24px;
+    border-radius: 20px;
 
-    padding: 27px;
+    padding: 21px;
 
-    min-height: 270px;
+    min-height: 220px;
 
     cursor: pointer;
 
@@ -452,13 +481,13 @@ body {
         1px solid #e2e8f0;
 
     box-shadow:
-        0 10px 30px
+        0 8px 24px
         rgba(15,23,42,.06);
 
     transition:
         transform .3s ease,
-        box-shadow .3s ease,
-        border-color .3s ease;
+        box-shadow .3s ease;
+
 }
 
 
@@ -468,19 +497,20 @@ body {
 
     position: absolute;
 
-    width: 210px;
+    width: 180px;
 
-    height: 210px;
+    height: 180px;
 
     border-radius: 50%;
 
-    right: -90px;
+    right: -80px;
 
-    bottom: -110px;
+    bottom: -100px;
 
-    opacity: .15;
+    opacity: .14;
 
     transition: .4s;
+
 }
 
 
@@ -490,37 +520,40 @@ body {
 
     position: absolute;
 
-    width: 130px;
+    width: 110px;
 
-    height: 130px;
+    height: 110px;
 
     border-radius: 50%;
 
-    left: -70px;
+    left: -60px;
 
-    top: -70px;
+    top: -60px;
 
-    opacity: .08;
+    opacity: .07;
+
 }
 
 
 .dashboard-card:hover {
 
     transform:
-        translateY(-9px);
+        translateY(-6px);
 
     box-shadow:
-        0 22px 50px
-        rgba(15,23,42,.13);
+        0 18px 40px
+        rgba(15,23,42,.12);
+
 }
 
 
 .dashboard-card:hover::before {
 
     transform:
-        scale(1.35);
+        scale(1.3);
 
-    opacity: .22;
+    opacity: .20;
+
 }
 
 
@@ -539,16 +572,17 @@ body {
     position: relative;
 
     z-index: 5;
+
 }
 
 
 .card-icon {
 
-    width: 62px;
+    width: 52px;
 
-    height: 62px;
+    height: 52px;
 
-    border-radius: 18px;
+    border-radius: 15px;
 
     display: flex;
 
@@ -556,15 +590,16 @@ body {
 
     justify-content: center;
 
-    font-size: 24px;
+    font-size: 20px;
 
     color: white;
 
     box-shadow:
-        0 10px 22px
+        0 8px 18px
         rgba(0,0,0,.12);
 
     transition: .3s;
+
 }
 
 
@@ -572,12 +607,13 @@ body {
 
     transform:
         rotate(-5deg)
-        scale(1.08);
+        scale(1.07);
+
 }
 
 
 /* =========================================
-   NEW ENTRY - GREEN
+   NEW ENTRY
 ========================================= */
 
 .new-entry {
@@ -588,6 +624,7 @@ body {
             #ffffff,
             #f0fdf4
         );
+
 }
 
 
@@ -595,6 +632,7 @@ body {
 
     background:
         #22c55e;
+
 }
 
 
@@ -606,6 +644,7 @@ body {
             #22c55e,
             #16a34a
         );
+
 }
 
 
@@ -613,11 +652,12 @@ body {
 
     color:
         #16a34a;
+
 }
 
 
 /* =========================================
-   PENDING SUPPORT - BLUE
+   PENDING SUPPORT
 ========================================= */
 
 .pending-support {
@@ -628,6 +668,7 @@ body {
             #ffffff,
             #eff6ff
         );
+
 }
 
 
@@ -635,6 +676,7 @@ body {
 
     background:
         #3b82f6;
+
 }
 
 
@@ -646,6 +688,7 @@ body {
             #3b82f6,
             #2563eb
         );
+
 }
 
 
@@ -653,11 +696,12 @@ body {
 
     color:
         #2563eb;
+
 }
 
 
 /* =========================================
-   PENDING CALL - RED
+   PENDING CALL
 ========================================= */
 
 .pending-call {
@@ -668,6 +712,7 @@ body {
             #ffffff,
             #fff1f2
         );
+
 }
 
 
@@ -675,6 +720,7 @@ body {
 
     background:
         #ef4444;
+
 }
 
 
@@ -686,6 +732,7 @@ body {
             #ef4444,
             #dc2626
         );
+
 }
 
 
@@ -693,11 +740,12 @@ body {
 
     color:
         #dc2626;
+
 }
 
 
 /* =========================================
-   HISTORY - ORANGE
+   HISTORY
 ========================================= */
 
 .history {
@@ -708,6 +756,7 @@ body {
             #ffffff,
             #fff7ed
         );
+
 }
 
 
@@ -715,6 +764,7 @@ body {
 
     background:
         #f97316;
+
 }
 
 
@@ -726,6 +776,7 @@ body {
             #f97316,
             #ea580c
         );
+
 }
 
 
@@ -733,11 +784,12 @@ body {
 
     color:
         #ea580c;
+
 }
 
 
 /* =========================================
-   OFFLINE - PURPLE
+   OFFLINE
 ========================================= */
 
 .offline {
@@ -748,6 +800,7 @@ body {
             #ffffff,
             #faf5ff
         );
+
 }
 
 
@@ -755,6 +808,7 @@ body {
 
     background:
         #8b5cf6;
+
 }
 
 
@@ -766,6 +820,7 @@ body {
             #8b5cf6,
             #7c3aed
         );
+
 }
 
 
@@ -773,11 +828,12 @@ body {
 
     color:
         #7c3aed;
+
 }
 
 
 /* =========================================
-   OFFLINE HISTORY - YELLOW
+   OFFLINE HISTORY
 ========================================= */
 
 .offline-history {
@@ -788,6 +844,7 @@ body {
             #ffffff,
             #fffbeb
         );
+
 }
 
 
@@ -795,6 +852,7 @@ body {
 
     background:
         #eab308;
+
 }
 
 
@@ -806,6 +864,7 @@ body {
             #eab308,
             #ca8a04
         );
+
 }
 
 
@@ -813,6 +872,7 @@ body {
 
     color:
         #ca8a04;
+
 }
 
 
@@ -822,9 +882,9 @@ body {
 
 .arrow {
 
-    width: 39px;
+    width: 34px;
 
-    height: 39px;
+    height: 34px;
 
     border-radius: 50%;
 
@@ -840,9 +900,10 @@ body {
 
     justify-content: center;
 
-    font-size: 13px;
+    font-size: 11px;
 
     transition: .3s;
+
 }
 
 
@@ -852,6 +913,7 @@ body {
         rotate(45deg);
 
     color: white;
+
 }
 
 
@@ -859,6 +921,7 @@ body {
 
     background:
         #16a34a;
+
 }
 
 
@@ -866,6 +929,7 @@ body {
 
     background:
         #2563eb;
+
 }
 
 
@@ -873,6 +937,7 @@ body {
 
     background:
         #dc2626;
+
 }
 
 
@@ -880,6 +945,7 @@ body {
 
     background:
         #ea580c;
+
 }
 
 
@@ -887,6 +953,7 @@ body {
 
     background:
         #7c3aed;
+
 }
 
 
@@ -894,6 +961,7 @@ body {
 
     background:
         #ca8a04;
+
 }
 
 
@@ -903,37 +971,40 @@ body {
 
 .card-content {
 
-    margin-top: 25px;
+    margin-top: 18px;
 
     position: relative;
 
     z-index: 5;
+
 }
 
 
 .card-content h3 {
 
-    font-size: 22px;
+    font-size: 19px;
 
     font-weight: 800;
 
     color:
         #0f172a;
+
 }
 
 
 .card-content p {
 
-    margin-top: 8px;
+    margin-top: 6px;
 
-    max-width: 430px;
+    max-width: 400px;
 
-    line-height: 1.6;
+    line-height: 1.5;
 
-    font-size: 14px;
+    font-size: 13px;
 
     color:
         #64748b;
+
 }
 
 
@@ -945,11 +1016,11 @@ body {
 
     position: absolute;
 
-    left: 27px;
+    left: 21px;
 
-    right: 27px;
+    right: 21px;
 
-    bottom: 24px;
+    bottom: 18px;
 
     display: flex;
 
@@ -957,17 +1028,19 @@ body {
 
     align-items: center;
 
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 750;
 
     z-index: 6;
+
 }
 
 
 .card-footer i {
 
     transition: .25s;
+
 }
 
 
@@ -976,6 +1049,7 @@ body {
 
     transform:
         translateX(6px);
+
 }
 
 
@@ -985,9 +1059,9 @@ body {
 
 footer {
 
-    margin-top: 38px;
+    margin-top: 30px;
 
-    padding-top: 22px;
+    padding-top: 19px;
 
     border-top:
         1px solid #e2e8f0;
@@ -998,10 +1072,11 @@ footer {
 
     justify-content: space-between;
 
-    font-size: 12px;
+    font-size: 11px;
 
     color:
         #94a3b8;
+
 }
 
 
@@ -1011,16 +1086,18 @@ footer {
 
     align-items: center;
 
-    gap: 7px;
+    gap: 6px;
 
     color:
         #16a34a;
+
 }
 
 
 .status i {
 
-    font-size: 7px;
+    font-size: 6px;
+
 }
 
 
@@ -1030,50 +1107,57 @@ footer {
 
 @media (max-width: 600px) {
 
+
     .topbar {
 
-        height: 70px;
+        height: 68px;
 
         padding:
-            0 18px;
+            0 17px;
+
     }
 
 
     .brand-icon {
 
-        width: 40px;
+        width: 39px;
 
-        height: 40px;
+        height: 39px;
 
-        border-radius: 12px;
+        border-radius: 11px;
 
-        font-size: 17px;
+        font-size: 16px;
+
     }
 
 
     .brand-text h2 {
 
-        font-size: 15px;
+        font-size: 14px;
+
     }
 
 
     .brand-text span {
 
-        font-size: 9px;
+        font-size: 8px;
+
     }
 
 
     .profile-info {
 
         display: none;
+
     }
 
 
     .profile-photo {
 
-        width: 40px;
+        width: 39px;
 
-        height: 40px;
+        height: 39px;
+
     }
 
 
@@ -1082,86 +1166,111 @@ footer {
         width: 92%;
 
         padding:
-            30px 0 20px;
+            28px 0 20px;
+
     }
 
 
     .welcome {
 
-        margin-bottom: 25px;
+        margin-bottom: 22px;
+
     }
 
 
     .welcome h1 {
 
-        font-size: 27px;
+        font-size: 25px;
 
         line-height: 1.3;
+
     }
 
 
     .welcome p {
 
-        font-size: 13px;
+        font-size: 12px;
+
     }
 
 
     .cards {
 
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
 
-        gap: 17px;
+        gap: 15px;
+
     }
 
 
     .dashboard-card {
 
-        min-height: 235px;
+        min-height: 205px;
 
-        border-radius: 20px;
+        padding: 19px;
 
-        padding: 21px;
+        border-radius: 18px;
+
     }
 
 
     .card-icon {
 
-        width: 54px;
+        width: 48px;
 
-        height: 54px;
+        height: 48px;
 
-        border-radius: 16px;
+        border-radius: 14px;
 
-        font-size: 21px;
+        font-size: 19px;
+
     }
 
 
     .card-content {
 
-        margin-top: 22px;
+        margin-top: 17px;
+
     }
 
 
     .card-content h3 {
 
-        font-size: 20px;
+        font-size: 18px;
+
     }
 
 
     .card-content p {
 
-        font-size: 13px;
+        font-size: 12px;
+
+        line-height: 1.5;
+
     }
 
 
     .card-footer {
 
-        left: 21px;
+        left: 19px;
 
-        right: 21px;
+        right: 19px;
 
-        bottom: 20px;
+        bottom: 17px;
+
+        font-size: 11px;
+
+    }
+
+
+    .arrow {
+
+        width: 32px;
+
+        height: 32px;
+
+        font-size: 10px;
+
     }
 
 
@@ -1169,7 +1278,8 @@ footer {
 
         right: -5px;
 
-        top: 52px;
+        top: 50px;
+
     }
 
 
@@ -1177,9 +1287,10 @@ footer {
 
         flex-direction: column;
 
-        gap: 10px;
+        gap: 9px;
 
         text-align: center;
+
     }
 
 }
@@ -1191,15 +1302,18 @@ footer {
 
 @media (max-width: 360px) {
 
+
     .welcome h1 {
 
-        font-size: 24px;
+        font-size: 23px;
+
     }
 
 
     .dashboard-card {
 
-        min-height: 225px;
+        min-height: 195px;
+
     }
 
 }
