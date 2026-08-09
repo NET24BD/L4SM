@@ -65,8 +65,6 @@ body {
     color: #056b57;
 
     font-size: 23px;
-
-    font-weight: 700;
 }
 
 
@@ -81,8 +79,6 @@ body {
 
 .back-btn {
     border: none;
-
-    outline: none;
 
     background: #056b57;
 
@@ -104,19 +100,12 @@ body {
 
     gap: 7px;
 
-    transition: 0.2s ease;
+    transition: 0.2s;
 }
 
 
 .back-btn:hover {
     background: #045844;
-
-    transform: translateY(-1px);
-}
-
-
-.back-btn:active {
-    transform: scale(0.97);
 }
 
 
@@ -175,8 +164,6 @@ body {
 
 .profile-head i {
     color: #287366;
-
-    font-size: 14px;
 }
 
 
@@ -247,11 +234,19 @@ body {
 
 
 /* =====================================================
-   MAIN
+   SEARCH + FILTER
 ===================================================== */
 
-main {
-    width: 100%;
+.tools-row {
+    width: calc(100% - 40px);
+
+    margin: 0 20px 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
 }
 
 
@@ -260,13 +255,9 @@ main {
 ===================================================== */
 
 .search-box {
-    width: calc(100% - 40px);
-
-    max-width: 1100px;
-
-    margin: 0 20px 0;
-
     position: relative;
+
+    width: 420px;
 }
 
 
@@ -280,15 +271,11 @@ main {
     transform: translateY(-50%);
 
     color: #527f77;
-
-    font-size: 16px;
 }
 
 
 .search-box input {
-    width: 420px;
-
-    max-width: 100%;
+    width: 100%;
 
     height: 48px;
 
@@ -305,8 +292,6 @@ main {
     color: #17483f;
 
     font-size: 14px;
-
-    box-shadow: 0 2px 10px rgba(0, 80, 60, 0.04);
 }
 
 
@@ -316,14 +301,63 @@ main {
 
 
 .search-box input:focus {
-    box-shadow:
-        0 0 0 2px #8bd7c5,
-        0 4px 15px rgba(0, 80, 60, 0.08);
+    box-shadow: 0 0 0 2px #8bd7c5;
 }
 
 
 /* =====================================================
-   TABLE WRAPPER
+   FILTER
+===================================================== */
+
+.filter-box {
+    position: relative;
+
+    width: 180px;
+}
+
+
+.filter-box i {
+    position: absolute;
+
+    left: 13px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #527f77;
+
+    pointer-events: none;
+}
+
+
+.filter-box select {
+    width: 100%;
+
+    height: 48px;
+
+    padding: 0 12px 0 36px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 13px;
+
+    background: #ffffff;
+
+    color: #17483f;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    appearance: none;
+}
+
+
+/* =====================================================
+   TABLE
 ===================================================== */
 
 .table-wrapper {
@@ -335,30 +369,18 @@ main {
 }
 
 
-/* =====================================================
-   TABLE
-===================================================== */
-
 table {
     width: 100%;
 
     min-width: 900px;
 
-    margin-top: 0;
-
     border-collapse: separate;
 
     border-spacing: 0;
 
-    background: transparent;
-
     table-layout: fixed;
 }
 
-
-/* =====================================================
-   TABLE HEADER
-===================================================== */
 
 thead {
     background: #056b57;
@@ -372,8 +394,6 @@ th {
 
     font-size: 13px;
 
-    font-weight: 700;
-
     text-align: center;
 
     white-space: nowrap;
@@ -381,9 +401,9 @@ th {
 
 
 th:first-child {
-    border-radius: 10px 0 0 10px;
-
     width: 17%;
+
+    border-radius: 10px 0 0 10px;
 }
 
 
@@ -409,17 +429,6 @@ th:last-child {
 }
 
 
-/* =====================================================
-   TABLE BODY
-===================================================== */
-
-tbody tr {
-    background: transparent;
-
-    transition: 0.2s ease;
-}
-
-
 tbody tr:hover {
     background: rgba(255, 255, 255, 0.5);
 }
@@ -440,8 +449,6 @@ td {
 }
 
 
-/* Problem text */
-
 td.problem-cell {
     text-align: left;
 
@@ -453,18 +460,12 @@ td.problem-cell {
 }
 
 
-/* =====================================================
-   LOADING
-===================================================== */
-
 .loading-cell {
-    text-align: center !important;
-
     padding: 30px !important;
 
-    color: #688f88;
+    text-align: center !important;
 
-    font-size: 14px;
+    color: #688f88;
 }
 
 
@@ -479,9 +480,9 @@ td.problem-cell {
 
     color: #164c43;
 
-    padding: 5px 10px;
+    padding: 6px 11px;
 
-    border-radius: 4px;
+    border-radius: 5px;
 
     cursor: pointer;
 
@@ -492,8 +493,6 @@ td.problem-cell {
     align-items: center;
 
     gap: 5px;
-
-    transition: 0.2s ease;
 }
 
 
@@ -503,11 +502,6 @@ td.problem-cell {
     border-color: #056b57;
 
     color: #ffffff;
-}
-
-
-.view-btn i {
-    font-size: 12px;
 }
 
 
@@ -542,15 +536,15 @@ td.problem-cell {
 
 
 /* =====================================================
-   DETAILS POPUP
+   EDIT POPUP
 ===================================================== */
 
 .popup {
     width: 100%;
 
-    max-width: 520px;
+    max-width: 530px;
 
-    max-height: 90vh;
+    max-height: 92vh;
 
     overflow-y: auto;
 
@@ -581,10 +575,6 @@ td.problem-cell {
 }
 
 
-/* =====================================================
-   CLOSE BUTTON
-===================================================== */
-
 .close-btn {
     position: absolute;
 
@@ -605,8 +595,6 @@ td.problem-cell {
     color: #53746e;
 
     cursor: pointer;
-
-    font-size: 16px;
 }
 
 
@@ -644,13 +632,13 @@ td.problem-cell {
 
     border-radius: 7px;
 
-    background: #f8fbfa;
+    background: #ffffff;
 
     color: #284f48;
 
     padding: 10px 12px;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
 
     font-size: 14px;
 }
@@ -668,8 +656,16 @@ td.problem-cell {
 }
 
 
+.popup input:focus,
+.popup textarea:focus {
+    border-color: #0b9b68;
+
+    box-shadow: 0 0 0 2px rgba(11, 155, 104, 0.08);
+}
+
+
 /* =====================================================
-   POPUP BUTTON
+   POPUP BUTTONS
 ===================================================== */
 
 .popup-buttons {
@@ -677,18 +673,18 @@ td.problem-cell {
 
     justify-content: flex-end;
 
-    margin-top: 20px;
+    gap: 8px;
+
+    margin-top: 22px;
+
+    flex-wrap: wrap;
 }
 
 
-.cancel-btn {
+.popup-buttons button {
     border: none;
 
-    background: #056b57;
-
-    color: #ffffff;
-
-    padding: 10px 18px;
+    padding: 10px 15px;
 
     border-radius: 7px;
 
@@ -697,11 +693,54 @@ td.problem-cell {
     font-size: 13px;
 
     font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+/* Submit */
+
+.submit-btn {
+    background: #056b57;
+
+    color: #ffffff;
+}
+
+
+.submit-btn:hover {
+    background: #045844;
+}
+
+
+/* Cancel */
+
+.cancel-btn {
+    background: #edf2f1;
+
+    color: #34534d;
 }
 
 
 .cancel-btn:hover {
-    background: #045844;
+    background: #dfe9e7;
+}
+
+
+/* Delete */
+
+.delete-btn {
+    background: #dc3030;
+
+    color: #ffffff;
+}
+
+
+.delete-btn:hover {
+    background: #b91c1c;
 }
 
 
@@ -786,14 +825,8 @@ td.problem-cell {
 }
 
 
-/* =====================================================
-   CUSTOM POPUP BUTTONS
-===================================================== */
-
 .custom-popup-buttons {
     display: flex;
-
-    align-items: center;
 
     justify-content: center;
 
@@ -865,29 +898,24 @@ td.problem-cell {
     }
 
 
-    .back-btn {
-        padding: 9px 11px;
-    }
-
-
     .profile-head span {
         display: none;
     }
 
 
-    .profile-head {
-        padding: 2px;
-    }
-
-
-    .search-box {
+    .tools-row {
         width: calc(100% - 30px);
 
         margin-left: 15px;
+
+        flex-direction: column;
+
+        align-items: stretch;
     }
 
 
-    .search-box input {
+    .search-box,
+    .filter-box {
         width: 100%;
     }
 
@@ -901,6 +929,18 @@ td.problem-cell {
 
     .popup {
         padding: 20px;
+    }
+
+
+    .popup-buttons {
+        flex-direction: column;
+    }
+
+
+    .popup-buttons button {
+        width: 100%;
+
+        justify-content: center;
     }
 
 }
