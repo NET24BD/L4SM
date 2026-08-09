@@ -228,7 +228,7 @@ function toggleProfile() {
 
 }
 
-function my-Account() {
+function myAccount() {
 
     window.location.replace(
         "my-account.html";
