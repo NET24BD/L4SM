@@ -12,13 +12,11 @@
 
     <title>History</title>
 
-
     <!-- HISTORY CSS -->
     <link
         rel="stylesheet"
         href="history.css"
     >
-
 
     <!-- FONT AWESOME -->
     <link
@@ -32,43 +30,39 @@
 <body>
 
 
-<!-- =================================================
+<!-- =====================================================
      HEADER
-================================================== -->
+====================================================== -->
 
 <header class="header">
+
 
     <div class="left-section">
 
 
-        <!-- BACK BUTTON
-             NO NAVIGATION -->
+        <!-- HISTORY FILTER BUTTON -->
 
         <button
             type="button"
-            class="back-btn"
-            onclick="return false;"
+            class="history-filter-btn"
+            id="historyFilterBtn"
+            onclick="toggleFilter()"
+            title="History Filter"
         >
 
-            <i class="fa fa-arrow-left"></i>
-
-            <span>Back</span>
+            <i class="fa-solid fa-clock-rotate-left"></i>
 
         </button>
 
 
-        <!-- HISTORY TITLE -->
+        <h2>
 
-        <h2
-            class="history-title"
-            onclick="toggleFilter()"
-        >
-
-            <i class="fa fa-clock-rotate-left"></i>
+            <i class="fa-solid fa-clock-rotate-left"></i>
 
             <span>History</span>
 
         </h2>
+
 
     </div>
 
@@ -79,6 +73,7 @@
     ================================================== -->
 
     <div class="profile">
+
 
         <div
             class="profile-head"
@@ -97,9 +92,10 @@
             </span>
 
 
-            <i class="fa fa-angle-down"></i>
+            <i class="fa-solid fa-angle-down"></i>
 
         </div>
+
 
 
         <div
@@ -107,12 +103,13 @@
             id="profileMenu"
         >
 
+
             <button
                 type="button"
                 onclick="myAccount()"
             >
 
-                <i class="fa fa-user"></i>
+                <i class="fa-solid fa-user"></i>
 
                 My Account
 
@@ -124,111 +121,114 @@
                 onclick="logout()"
             >
 
-                <i class="fa fa-sign-out"></i>
+                <i class="fa-solid fa-right-from-bracket"></i>
 
                 Logout
 
             </button>
 
+
         </div>
 
+
     </div>
+
 
 </header>
 
 
 
-<!-- =================================================
-     FILTER AREA
-     HIDDEN BY DEFAULT
-================================================== -->
+<!-- =====================================================
+     FILTER PANEL
+====================================================== -->
 
 <div
-    class="filter-bar"
-    id="filterBar"
+    class="filter-panel"
+    id="filterPanel"
 >
 
 
     <div class="filter-group">
 
+
         <label for="fromDate">
+
             From
+
         </label>
+
 
         <input
             type="date"
             id="fromDate"
         >
 
+
     </div>
 
 
 
     <div class="filter-group">
 
+
         <label for="toDate">
+
             To
+
         </label>
+
 
         <input
             type="date"
             id="toDate"
         >
 
+
     </div>
 
 
 
-    <div class="filter-group search-filter">
+    <div class="filter-group search-group">
+
 
         <label for="historySearch">
+
             Search
+
         </label>
 
-        <div class="filter-search-box">
 
-            <i class="fa fa-search"></i>
+        <input
+            type="text"
+            id="historySearch"
+            placeholder="Customer ID / Problem / Reference"
+            autocomplete="off"
+        >
 
-            <input
-                type="text"
-                id="historySearch"
-                placeholder="Customer ID / Problem / Reference"
-                autocomplete="off"
-            >
-
-        </div>
 
     </div>
 
 
-
-    <button
-        type="button"
-        class="reset-btn"
-        onclick="resetFilter()"
-    >
-
-        <i class="fa fa-rotate-left"></i>
-
-        Reset
-
-    </button>
 
 </div>
 
 
 
-<!-- =================================================
-     TABLE
-================================================== -->
+<!-- =====================================================
+     HISTORY TABLE
+====================================================== -->
 
 <div class="table-box">
 
+
     <table>
+
 
         <thead>
 
+
             <tr>
+
 
                 <th>
                     Customer ID
@@ -254,88 +254,100 @@
                     Action
                 </th>
 
+
             </tr>
+
 
         </thead>
 
 
+
         <tbody id="historyList">
 
+
             <tr>
+
 
                 <td
                     colspan="5"
                     class="loading-cell"
                 >
 
-                    <i class="fa fa-spinner fa-spin"></i>
+                    <i class="fa-solid fa-spinner fa-spin"></i>
 
-                    Loading History...
+                    Loading...
 
                 </td>
 
+
             </tr>
+
 
         </tbody>
 
+
     </table>
+
 
 </div>
 
 
 
-<!-- =================================================
+<!-- =====================================================
      PAGINATION
-================================================== -->
+====================================================== -->
 
-<div
-    class="pagination"
-    id="pagination"
->
+<div class="pagination">
+
 
     <button
         type="button"
-        id="prevPage"
+        id="prevBtn"
         onclick="previousPage()"
     >
 
-        <i class="fa fa-chevron-left"></i>
+        <i class="fa-solid fa-chevron-left"></i>
 
         Previous
 
     </button>
 
 
-    <div
-        class="page-numbers"
-        id="pageNumbers"
-    ></div>
+
+    <span id="pageInfo">
+
+        Page 1 of 1
+
+    </span>
+
 
 
     <button
         type="button"
-        id="nextPage"
+        id="nextBtn"
         onclick="nextPage()"
     >
 
         Next
 
-        <i class="fa fa-chevron-right"></i>
+        <i class="fa-solid fa-chevron-right"></i>
 
     </button>
+
 
 </div>
 
 
 
-<!-- =================================================
-     EDIT / VIEW POPUP
-================================================== -->
+<!-- =====================================================
+     EDIT HISTORY MODAL
+====================================================== -->
 
 <div
     class="modal"
     id="editModal"
 >
+
 
     <div class="popup">
 
@@ -351,9 +363,10 @@
         </button>
 
 
+
         <h2>
 
-            <i class="fa fa-clock-rotate-left"></i>
+            <i class="fa-solid fa-clock-rotate-left"></i>
 
             History Details
 
@@ -364,8 +377,11 @@
         <!-- CUSTOMER ID -->
 
         <label for="customerId">
+
             Customer ID
+
         </label>
+
 
         <input
             type="text"
@@ -377,8 +393,11 @@
         <!-- PROBLEM -->
 
         <label for="problem">
+
             Problem
+
         </label>
+
 
         <textarea
             id="problem"
@@ -390,8 +409,11 @@
         <!-- REFERENCE -->
 
         <label for="reference">
+
             Reference
+
         </label>
+
 
         <input
             type="text"
@@ -403,11 +425,14 @@
         <!-- DATE -->
 
         <label for="date">
+
             Date
+
         </label>
 
+
         <input
-            type="date"
+            type="datetime-local"
             id="date"
         >
 
@@ -416,8 +441,11 @@
         <!-- SUPPORT -->
 
         <label for="support">
+
             Support
+
         </label>
+
 
         <input
             type="text"
@@ -429,8 +457,11 @@
         <!-- SUPPORT WORK -->
 
         <label for="supportWork">
+
             Support Work
+
         </label>
+
 
         <textarea
             id="supportWork"
@@ -439,11 +470,30 @@
 
 
 
+        <!-- SUPPORT TIME -->
+
+        <label for="supportTime">
+
+            Support Time
+
+        </label>
+
+
+        <input
+            type="text"
+            id="supportTime"
+        >
+
+
+
         <!-- CALL -->
 
         <label for="call">
+
             Call
+
         </label>
+
 
         <input
             type="text"
@@ -455,8 +505,11 @@
         <!-- CALL WORK -->
 
         <label for="callWork">
+
             Call Work
+
         </label>
+
 
         <textarea
             id="callWork"
@@ -469,17 +522,20 @@
 
         <div class="popup-buttons">
 
+
             <button
                 type="button"
                 class="submit-btn"
+                id="saveHistoryBtn"
                 onclick="updateHistory()"
             >
 
-                <i class="fa fa-save"></i>
+                <i class="fa-solid fa-save"></i>
 
                 Submit
 
             </button>
+
 
 
             <button
@@ -488,51 +544,61 @@
                 onclick="closeEdit()"
             >
 
-                <i class="fa fa-xmark"></i>
+                <i class="fa-solid fa-xmark"></i>
 
                 Cancel
 
             </button>
 
+
         </div>
 
+
     </div>
+
 
 </div>
 
 
 
-<!-- =================================================
-     SUCCESS POPUP
-================================================== -->
+<!-- =====================================================
+     SUCCESS MESSAGE
+====================================================== -->
 
 <div
     class="custom-popup-overlay"
     id="successPopup"
 >
 
-    <div class="custom-popup">
 
-        <div class="popup-icon success">
+    <div class="message-box">
 
-            <i class="fa fa-check"></i>
+
+        <div class="message-icon">
+
+
+            <i class="fa-solid fa-circle-check"></i>
+
 
         </div>
 
 
-        <h3>
+        <h3 id="successTitle">
+
             Success
+
         </h3>
 
 
         <p id="successMessage">
-            Operation completed successfully.
+
+            Done
+
         </p>
 
 
         <button
             type="button"
-            class="popup-ok-btn"
             onclick="closeSuccessPopup()"
         >
 
@@ -540,43 +606,52 @@
 
         </button>
 
+
     </div>
+
 
 </div>
 
 
 
-<!-- =================================================
-     ERROR POPUP
-================================================== -->
+<!-- =====================================================
+     ERROR MESSAGE
+====================================================== -->
 
 <div
     class="custom-popup-overlay"
     id="errorPopup"
 >
 
-    <div class="custom-popup">
 
-        <div class="popup-icon error">
+    <div class="message-box error-message-box">
 
-            <i class="fa fa-xmark"></i>
+
+        <div class="message-icon error-icon">
+
+
+            <i class="fa-solid fa-circle-xmark"></i>
+
 
         </div>
 
 
-        <h3>
+        <h3 id="errorTitle">
+
             Error
+
         </h3>
 
 
         <p id="errorMessage">
+
             Something went wrong.
+
         </p>
 
 
         <button
             type="button"
-            class="popup-ok-btn error-btn"
             onclick="closeErrorPopup()"
         >
 
@@ -584,15 +659,17 @@
 
         </button>
 
+
     </div>
+
 
 </div>
 
 
 
-<!-- =================================================
+<!-- =====================================================
      JAVASCRIPT
-================================================== -->
+====================================================== -->
 
 <script
     src="history.js"
