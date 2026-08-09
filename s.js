@@ -231,7 +231,7 @@ function toggleProfile() {
 function myAccount() {
 
     window.location.href =
-        "myaccount.html";
+        "my-account.html";
 
 }
 
@@ -279,7 +279,7 @@ function goBack() {
     }
 
     window.location.replace(
-        "dashboard.html"
+        "login.html"
     );
 
 }
