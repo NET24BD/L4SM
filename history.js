@@ -1,30 +1,25 @@
 "use strict";
 
-
-/* =================================================
-   API
-================================================= */
+/* =====================================================
+   HISTORY SYSTEM
+   ===================================================== */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
-/* =================================================
-   GLOBAL VARIABLES
-================================================= */
-
 let historyData = [];
-
-let filteredHistory = [];
 
 let currentRow = null;
 
+let filterVisible = false;
 
-/* =================================================
+
+/* =====================================================
    AUTH PROTECTION
-================================================= */
+   ===================================================== */
 
-(function protectPage() {
+(function () {
 
     function checkAuth() {
 
@@ -45,19 +40,38 @@ let currentRow = null;
 
 
     if (!checkAuth()) {
+
         return;
     }
 
 
     /*
-     * Back button থেকে dashboard-এ যাওয়ার
-     * কোনো custom connection রাখা হয়নি।
-     *
-     * Browser history naturally কাজ করবে।
-     *
-     * তবে logout হয়ে গেলে protected page
-     * পুনরায় দেখা যাবে না।
+     * Back button disabled.
+     * History page থেকে Dashboard বা
+     * আগের page-এ যাওয়ার জন্য browser back
+     * ব্যবহার করা যাবে না।
      */
+
+    history.pushState(
+        null,
+        "",
+        location.href
+    );
+
+
+    window.addEventListener(
+        "popstate",
+        function () {
+
+            history.pushState(
+                null,
+                "",
+                location.href
+            );
+
+        }
+    );
+
 
     window.addEventListener(
         "pageshow",
@@ -80,9 +94,9 @@ let currentRow = null;
 })();
 
 
-/* =================================================
+/* =====================================================
    PAGE LOAD
-================================================= */
+   ===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -92,61 +106,15 @@ document.addEventListener(
 
         loadHistory();
 
-
-        /* FILTER INPUT */
-
-        const fromDate =
-            document.getElementById(
-                "fromDate"
-            );
-
-        const toDate =
-            document.getElementById(
-                "toDate"
-            );
-
-        const search =
-            document.getElementById(
-                "searchHistory"
-            );
-
-
-        if (fromDate) {
-
-            fromDate.addEventListener(
-                "change",
-                applyFilter
-            );
-
-        }
-
-
-        if (toDate) {
-
-            toDate.addEventListener(
-                "change",
-                applyFilter
-            );
-
-        }
-
-
-        if (search) {
-
-            search.addEventListener(
-                "input",
-                applyFilter
-            );
-
-        }
+        setupSearch();
 
     }
 );
 
 
-/* =================================================
+/* =====================================================
    PROFILE
-================================================= */
+   ===================================================== */
 
 function loadProfile() {
 
@@ -220,9 +188,9 @@ function loadProfile() {
 }
 
 
-/* =================================================
-   PROFILE TOGGLE
-================================================= */
+/* =====================================================
+   PROFILE MENU
+   ===================================================== */
 
 function toggleProfile() {
 
@@ -233,6 +201,7 @@ function toggleProfile() {
 
 
     if (!menu) {
+
         return;
     }
 
@@ -244,34 +213,6 @@ function toggleProfile() {
 }
 
 
-/* =================================================
-   HISTORY FILTER TOGGLE
-================================================= */
-
-function toggleFilter() {
-
-    const filter =
-        document.getElementById(
-            "filterContainer"
-        );
-
-
-    if (!filter) {
-        return;
-    }
-
-
-    filter.classList.toggle(
-        "show"
-    );
-
-}
-
-
-/* =================================================
-   MY ACCOUNT
-================================================= */
-
 function myAccount() {
 
     window.location.href =
@@ -279,10 +220,6 @@ function myAccount() {
 
 }
 
-
-/* =================================================
-   LOGOUT
-================================================= */
 
 function logout() {
 
@@ -303,9 +240,8 @@ function logout() {
     );
 
     localStorage.removeItem(
-        "deviceToken"
+        "deviceId"
     );
-
 
     sessionStorage.clear();
 
@@ -317,27 +253,67 @@ function logout() {
 }
 
 
-/* =================================================
+/* =====================================================
    BACK BUTTON
-   NO CONNECTION
-================================================= */
+   ===================================================== */
+
+/*
+ * IMPORTANT:
+ * History page-এর Back button থাকলে
+ * কোনো page-এ যাবে না।
+ */
 
 function goBack() {
-
-    /*
-     * Back button intentionally disabled.
-     *
-     * Clicking it will do NOTHING.
-     */
 
     return false;
 
 }
 
 
-/* =================================================
+/* =====================================================
+   FILTER TOGGLE
+   ===================================================== */
+
+function toggleFilter() {
+
+    const filterBar =
+        document.getElementById(
+            "filterBar"
+        );
+
+
+    if (!filterBar) {
+
+        return;
+    }
+
+
+    filterVisible =
+        !filterVisible;
+
+
+    if (filterVisible) {
+
+        filterBar.classList.add(
+            "show"
+        );
+
+    }
+
+    else {
+
+        filterBar.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    LOAD HISTORY
-================================================= */
+   ===================================================== */
 
 function loadHistory() {
 
@@ -360,7 +336,7 @@ function loadHistory() {
 
                     <i class="fa fa-spinner fa-spin"></i>
 
-                    Loading...
+                    Loading History...
 
                 </td>
 
@@ -426,8 +402,10 @@ function loadHistory() {
             ) {
 
                 throw new Error(
+
                     data?.message ||
-                    "Unable to load history."
+                    "Unable to load History."
+
                 );
 
             }
@@ -441,12 +419,8 @@ function loadHistory() {
                     : [];
 
 
-            filteredHistory =
-                [...historyData];
-
-
             renderHistory(
-                filteredHistory
+                historyData
             );
 
         }
@@ -456,7 +430,7 @@ function loadHistory() {
         function (error) {
 
             console.error(
-                "HISTORY LOAD ERROR:",
+                "HISTORY ERROR:",
                 error
             );
 
@@ -476,7 +450,9 @@ function loadHistory() {
                             "
                         >
 
-                            Failed to load history
+                            <i class="fa fa-triangle-exclamation"></i>
+
+                            Failed to load History
 
                         </td>
 
@@ -492,9 +468,9 @@ function loadHistory() {
 }
 
 
-/* =================================================
+/* =====================================================
    RENDER HISTORY
-================================================= */
+   ===================================================== */
 
 function renderHistory(data) {
 
@@ -505,6 +481,7 @@ function renderHistory(data) {
 
 
     if (!list) {
+
         return;
     }
 
@@ -526,6 +503,8 @@ function renderHistory(data) {
                         color:#64748b;
                     "
                 >
+
+                    <i class="fa fa-clock-rotate-left"></i>
 
                     No History Found
 
@@ -551,44 +530,56 @@ function renderHistory(data) {
                 <tr>
 
                     <td>
+
                         ${escapeHTML(
                             item.customerId
                         )}
+
                     </td>
 
 
                     <td>
+
                         ${escapeHTML(
                             item.problem
                         )}
+
                     </td>
 
 
                     <td>
+
                         ${escapeHTML(
                             item.reference
                         )}
+
                     </td>
 
 
                     <td>
+
                         ${formatDate(
                             item.date
                         )}
+
                     </td>
 
 
                     <td>
+
                         ${escapeHTML(
                             item.support
                         )}
+
                     </td>
 
 
                     <td>
+
                         ${escapeHTML(
                             item.supportWork
                         )}
+
                     </td>
 
 
@@ -597,9 +588,7 @@ function renderHistory(data) {
                         <button
                             type="button"
                             class="view-btn"
-                            onclick="viewHistory(${Number(
-                                item.row
-                            )})"
+                            onclick="viewHistory(${Number(item.row)})"
                         >
 
                             <i class="fa fa-eye"></i>
@@ -624,11 +613,215 @@ function renderHistory(data) {
 }
 
 
-/* =================================================
-   FILTER
-================================================= */
+/* =====================================================
+   SEARCH
+   ===================================================== */
 
-function applyFilter() {
+function setupSearch() {
+
+    const search =
+        document.getElementById(
+            "historySearch"
+        );
+
+
+    if (!search) {
+
+        return;
+    }
+
+
+    search.addEventListener(
+        "input",
+        searchHistory
+    );
+
+}
+
+
+function searchHistory() {
+
+    const search =
+        document.getElementById(
+            "historySearch"
+        );
+
+
+    if (!search) {
+
+        return;
+    }
+
+
+    const keyword =
+        search.value
+            .trim()
+            .toLowerCase();
+
+
+    if (!keyword) {
+
+        renderHistory(
+            historyData
+        );
+
+        return;
+
+    }
+
+
+    const result =
+        historyData.filter(
+            function (item) {
+
+                const customerId =
+                    String(
+                        item.customerId ||
+                        ""
+                    ).toLowerCase();
+
+
+                const problem =
+                    String(
+                        item.problem ||
+                        ""
+                    ).toLowerCase();
+
+
+                const reference =
+                    String(
+                        item.reference ||
+                        ""
+                    ).toLowerCase();
+
+
+                const date =
+                    String(
+                        item.date ||
+                        ""
+                    ).toLowerCase();
+
+
+                const formattedDate =
+                    formatDate(
+                        item.date
+                    ).toLowerCase();
+
+
+                const support =
+                    String(
+                        item.support ||
+                        ""
+                    ).toLowerCase();
+
+
+                const supportWork =
+                    String(
+                        item.supportWork ||
+                        ""
+                    ).toLowerCase();
+
+
+                return (
+
+                    customerId.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    problem.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    reference.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    date.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    formattedDate.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    support.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    supportWork.includes(
+                        keyword
+                    )
+
+                );
+
+            }
+        );
+
+
+    if (
+        result.length === 0
+    ) {
+
+        const list =
+            document.getElementById(
+                "historyList"
+            );
+
+
+        if (list) {
+
+            list.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        style="
+                            text-align:center;
+                            padding:35px;
+                            color:#64748b;
+                        "
+                    >
+
+                        No matching history found
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+        return;
+
+    }
+
+
+    renderHistory(
+        result
+    );
+
+}
+
+
+/* =====================================================
+   DATE FILTER
+   ===================================================== */
+
+function applyDateFilter() {
 
     const fromInput =
         document.getElementById(
@@ -639,12 +832,6 @@ function applyFilter() {
     const toInput =
         document.getElementById(
             "toDate"
-        );
-
-
-    const searchInput =
-        document.getElementById(
-            "searchHistory"
         );
 
 
@@ -660,31 +847,39 @@ function applyFilter() {
             : "";
 
 
-    const keyword =
-        searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
-            : "";
+    if (
+        !fromDate &&
+        !toDate
+    ) {
+
+        renderHistory(
+            historyData
+        );
+
+        return;
+
+    }
 
 
-    filteredHistory =
+    const filtered =
         historyData.filter(
             function (item) {
 
-                let itemDate =
+                const itemDate =
                     convertDate(
                         item.date
                     );
 
 
-                /*
-                 * DATE FILTER
-                 */
+                if (!itemDate) {
+
+                    return false;
+
+                }
+
 
                 if (
                     fromDate &&
-                    itemDate &&
                     itemDate < fromDate
                 ) {
 
@@ -695,143 +890,10 @@ function applyFilter() {
 
                 if (
                     toDate &&
-                    itemDate &&
                     itemDate > toDate
                 ) {
 
                     return false;
-
-                }
-
-
-                /*
-                 * SEARCH FILTER
-                 */
-
-                if (keyword) {
-
-                    const customerId =
-                        String(
-                            item.customerId ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const problem =
-                        String(
-                            item.problem ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const reference =
-                        String(
-                            item.reference ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const support =
-                        String(
-                            item.support ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const supportWork =
-                        String(
-                            item.supportWork ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const call =
-                        String(
-                            item.call ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const callWork =
-                        String(
-                            item.callWork ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const date =
-                        String(
-                            item.date ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const formattedDate =
-                        formatDate(
-                            item.date
-                        ).toLowerCase();
-
-
-                    const matched =
-
-                        customerId.includes(
-                            keyword
-                        )
-
-                        ||
-
-                        problem.includes(
-                            keyword
-                        )
-
-                        ||
-
-                        reference.includes(
-                            keyword
-                        )
-
-                        ||
-
-                        support.includes(
-                            keyword
-                        )
-
-                        ||
-
-                        supportWork.includes(
-                            keyword
-                        )
-
-                        ||
-
-                        call.includes(
-                            keyword
-                        )
-
-                        ||
-
-                        callWork.includes(
-                            keyword
-                        )
-
-                        ||
-
-                        date.includes(
-                            keyword
-                        )
-
-                        ||
-
-                        formattedDate.includes(
-                            keyword
-                        );
-
-
-                    if (!matched) {
-
-                        return false;
-
-                    }
 
                 }
 
@@ -843,15 +905,15 @@ function applyFilter() {
 
 
     renderHistory(
-        filteredHistory
+        filtered
     );
 
 }
 
 
-/* =================================================
+/* =====================================================
    RESET FILTER
-================================================= */
+   ===================================================== */
 
 function resetFilter() {
 
@@ -867,9 +929,9 @@ function resetFilter() {
         );
 
 
-    const searchInput =
+    const search =
         document.getElementById(
-            "searchHistory"
+            "historySearch"
         );
 
 
@@ -889,28 +951,24 @@ function resetFilter() {
     }
 
 
-    if (searchInput) {
+    if (search) {
 
-        searchInput.value =
+        search.value =
             "";
 
     }
 
 
-    filteredHistory =
-        [...historyData];
-
-
     renderHistory(
-        filteredHistory
+        historyData
     );
 
 }
 
 
-/* =================================================
+/* =====================================================
    VIEW HISTORY
-================================================= */
+   ===================================================== */
 
 function viewHistory(row) {
 
@@ -932,8 +990,7 @@ function viewHistory(row) {
 
     if (!item) {
 
-        showMessage(
-            "Error",
+        showError(
             "History record not found."
         );
 
@@ -984,6 +1041,12 @@ function viewHistory(row) {
 
 
     setValue(
+        "supportTime",
+        item.supportTime
+    );
+
+
+    setValue(
         "call",
         item.call
     );
@@ -995,16 +1058,9 @@ function viewHistory(row) {
     );
 
 
-    /*
-     * History data should normally be readonly.
-     */
-
-    makeReadOnlyFields();
-
-
     const modal =
         document.getElementById(
-            "editModal"
+            "historyModal"
         );
 
 
@@ -1019,58 +1075,36 @@ function viewHistory(row) {
 }
 
 
-/* =================================================
-   READONLY FIELDS
-================================================= */
+/* =====================================================
+   CLOSE HISTORY
+   ===================================================== */
 
-function makeReadOnlyFields() {
+function closeHistory() {
 
-    const ids = [
-
-        "customerId",
-
-        "problem",
-
-        "reference",
-
-        "date",
-
-        "support",
-
-        "supportWork",
-
-        "call",
-
-        "callWork"
-
-    ];
+    const modal =
+        document.getElementById(
+            "historyModal"
+        );
 
 
-    ids.forEach(
-        function (id) {
+    if (modal) {
 
-            const element =
-                document.getElementById(
-                    id
-                );
+        modal.classList.remove(
+            "show"
+        );
+
+    }
 
 
-            if (element) {
-
-                element.readOnly =
-                    true;
-
-            }
-
-        }
-    );
+    currentRow =
+        null;
 
 }
 
 
-/* =================================================
+/* =====================================================
    SET VALUE
-================================================= */
+   ===================================================== */
 
 function setValue(
     id,
@@ -1093,250 +1127,9 @@ function setValue(
 }
 
 
-/* =================================================
-   GET VALUE
-================================================= */
-
-function getValue(id) {
-
-    const element =
-        document.getElementById(
-            id
-        );
-
-
-    if (!element) {
-
-        return "";
-
-    }
-
-
-    return element.value.trim();
-
-}
-
-
-/* =================================================
-   CLOSE EDIT
-================================================= */
-
-function closeEdit() {
-
-    const modal =
-        document.getElementById(
-            "editModal"
-        );
-
-
-    if (modal) {
-
-        modal.classList.remove(
-            "show"
-        );
-
-    }
-
-
-    currentRow =
-        null;
-
-}
-
-
-/* =================================================
-   MESSAGE POPUP
-================================================= */
-
-function showMessage(
-    title,
-    message
-) {
-
-    const overlay =
-        document.getElementById(
-            "messageOverlay"
-        );
-
-
-    const titleElement =
-        document.getElementById(
-            "messageTitle"
-        );
-
-
-    const textElement =
-        document.getElementById(
-            "messageText"
-        );
-
-
-    if (!overlay) {
-        return;
-    }
-
-
-    if (titleElement) {
-
-        titleElement.textContent =
-            title || "Message";
-
-    }
-
-
-    if (textElement) {
-
-        textElement.textContent =
-            message || "Done";
-
-    }
-
-
-    overlay.classList.add(
-        "show"
-    );
-
-}
-
-
-/* =================================================
-   CLOSE MESSAGE
-================================================= */
-
-function closeMessage() {
-
-    const overlay =
-        document.getElementById(
-            "messageOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "show"
-        );
-
-    }
-
-}
-
-
-/* =================================================
-   CLOSE POPUP WHEN CLICK OUTSIDE
-================================================= */
-
-document.addEventListener(
-    "click",
-    function (event) {
-
-        const profile =
-            document.querySelector(
-                ".profile"
-            );
-
-
-        const menu =
-            document.getElementById(
-                "profileMenu"
-            );
-
-
-        if (
-            profile &&
-            menu &&
-            !profile.contains(
-                event.target
-            )
-        ) {
-
-            menu.classList.remove(
-                "show"
-            );
-
-        }
-
-
-        const modal =
-            document.getElementById(
-                "editModal"
-            );
-
-
-        if (
-            modal &&
-            event.target === modal
-        ) {
-
-            closeEdit();
-
-        }
-
-
-        const messageOverlay =
-            document.getElementById(
-                "messageOverlay"
-            );
-
-
-        if (
-            messageOverlay &&
-            event.target ===
-                messageOverlay
-        ) {
-
-            closeMessage();
-
-        }
-
-    }
-);
-
-
-/* =================================================
-   ESCAPE KEY
-================================================= */
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.key !== "Escape"
-        ) {
-
-            return;
-
-        }
-
-
-        closeMessage();
-
-
-        const modal =
-            document.getElementById(
-                "editModal"
-            );
-
-
-        if (
-            modal &&
-            modal.classList.contains(
-                "show"
-            )
-        ) {
-
-            closeEdit();
-
-        }
-
-    }
-);
-
-
-/* =================================================
-   DATE CONVERT
-================================================= */
+/* =====================================================
+   CONVERT DATE
+   ===================================================== */
 
 function convertDate(date) {
 
@@ -1348,7 +1141,7 @@ function convertDate(date) {
 
 
     const text =
-        String(date).trim();
+        String(date);
 
 
     if (
@@ -1412,9 +1205,9 @@ function convertDate(date) {
 }
 
 
-/* =================================================
+/* =====================================================
    FORMAT DATE
-================================================= */
+   ===================================================== */
 
 function formatDate(date) {
 
@@ -1492,9 +1285,9 @@ function formatDate(date) {
 }
 
 
-/* =================================================
+/* =====================================================
    ESCAPE HTML
-================================================= */
+   ===================================================== */
 
 function escapeHTML(value) {
 
@@ -1538,17 +1331,184 @@ function escapeHTML(value) {
 }
 
 
-/* =================================================
-   AUTO REFRESH
-================================================= */
+/* =====================================================
+   ERROR
+   ===================================================== */
 
-function refreshHistory() {
+function showError(message) {
 
-    loadHistory();
+    const popup =
+        document.getElementById(
+            "errorPopup"
+        );
+
+
+    const messageElement =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    if (messageElement) {
+
+        messageElement.textContent =
+            message ||
+            "Something went wrong.";
+
+    }
+
+
+    if (popup) {
+
+        popup.classList.add(
+            "show"
+        );
+
+    }
 
 }
 
 
-/* =================================================
+/* =====================================================
+   CLOSE ERROR
+   ===================================================== */
+
+function closeErrorPopup() {
+
+    const popup =
+        document.getElementById(
+            "errorPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CLICK OUTSIDE PROFILE
+   ===================================================== */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const profile =
+            document.querySelector(
+                ".profile"
+            );
+
+
+        const menu =
+            document.getElementById(
+                "profileMenu"
+            );
+
+
+        if (
+            profile &&
+            menu &&
+            !profile.contains(
+                event.target
+            )
+        ) {
+
+            menu.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CLICK OUTSIDE HISTORY MODAL
+   ===================================================== */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const modal =
+            document.getElementById(
+                "historyModal"
+            );
+
+
+        if (
+            modal &&
+            event.target === modal
+        ) {
+
+            closeHistory();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CLICK OUTSIDE ERROR
+   ===================================================== */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const popup =
+            document.getElementById(
+                "errorPopup"
+            );
+
+
+        if (
+            popup &&
+            event.target === popup
+        ) {
+
+            closeErrorPopup();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE KEY
+   ===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key !== "Escape"
+        ) {
+
+            return;
+
+        }
+
+
+        closeErrorPopup();
+
+        closeHistory();
+
+    }
+);
+
+
+/* =====================================================
    END HISTORY.JS
-================================================= */
+   ===================================================== */
