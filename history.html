@@ -12,16 +12,10 @@
 
     <title>History</title>
 
-
-    <!-- HISTORY CSS -->
-
     <link
         rel="stylesheet"
         href="history.css"
     >
-
-
-    <!-- FONT AWESOME -->
 
     <link
         rel="stylesheet"
@@ -34,25 +28,18 @@
 <body>
 
 
-<!-- =====================================================
+<!-- =================================================
      HEADER
-===================================================== -->
+================================================== -->
 
 <header class="header">
 
-
-    <!-- LEFT -->
-
     <div class="left-section">
-
-
-        <!-- BACK BUTTON
-             বর্তমানে Back button কোনো কাজ করবে না -->
 
         <button
             type="button"
             class="back-btn"
-            onclick="goBack()"
+            onclick="disableBack()"
         >
 
             <i class="fa fa-arrow-left"></i>
@@ -62,11 +49,10 @@
         </button>
 
 
-        <!-- HISTORY TITLE -->
-
         <h2
             class="history-title"
             onclick="toggleFilter()"
+            title="Show / Hide Filter"
         >
 
             <i class="fa fa-clock-rotate-left"></i>
@@ -79,12 +65,9 @@
 
 
 
-    <!-- =================================================
-         PROFILE
-    ================================================== -->
+    <!-- PROFILE -->
 
     <div class="profile">
-
 
         <div
             class="profile-head"
@@ -97,23 +80,19 @@
                 alt="Profile"
             >
 
-
             <span id="username">
                 User
             </span>
-
 
             <i class="fa fa-angle-down"></i>
 
         </div>
 
 
-
         <div
             class="profile-menu"
             id="profileMenu"
         >
-
 
             <button
                 type="button"
@@ -127,7 +106,6 @@
             </button>
 
 
-
             <button
                 type="button"
                 onclick="logout()"
@@ -139,39 +117,28 @@
 
             </button>
 
-
         </div>
 
     </div>
-
 
 </header>
 
 
 
-<!-- =====================================================
+<!-- =================================================
      FILTER BAR
-     
-     History icon/title click করলে show হবে।
-     আবার click করলে hide হবে।
-===================================================== -->
+================================================== -->
 
 <section
-    class="filter-bar"
-    id="filterBar"
+    class="filter-panel"
+    id="filterPanel"
 >
-
-
-    <!-- FROM DATE -->
 
     <div class="filter-group">
 
         <label for="fromDate">
-
             From
-
         </label>
-
 
         <input
             type="date"
@@ -181,17 +148,11 @@
     </div>
 
 
-
-    <!-- TO DATE -->
-
     <div class="filter-group">
 
         <label for="toDate">
-
             To
-
         </label>
-
 
         <input
             type="date"
@@ -201,37 +162,34 @@
     </div>
 
 
-
-    <!-- SEARCH -->
-
     <div class="filter-group search-group">
 
-        <label for="searchHistory">
-
+        <label for="historySearch">
             Search
-
         </label>
 
-
-        <div class="filter-search">
-
-            <i class="fa fa-search"></i>
-
-
-            <input
-                type="text"
-                id="searchHistory"
-                placeholder="Customer ID / Problem / Reference"
-                autocomplete="off"
-            >
-
-        </div>
+        <input
+            type="text"
+            id="historySearch"
+            placeholder="Customer ID / Problem / Reference"
+            autocomplete="off"
+        >
 
     </div>
 
 
+    <button
+        type="button"
+        class="filter-btn"
+        onclick="applyFilter()"
+    >
 
-    <!-- RESET -->
+        <i class="fa-solid fa-filter"></i>
+
+        Filter
+
+    </button>
+
 
     <button
         type="button"
@@ -245,136 +203,81 @@
 
     </button>
 
-
 </section>
 
 
 
-<!-- =====================================================
-     HISTORY TABLE
-     
-     সামনে শুধু:
-     Customer ID
-     Problem
-     Reference
-     Date
-     Action
-===================================================== -->
+<!-- =================================================
+     TABLE
+================================================== -->
 
-<main class="history-container">
+<main class="table-box">
 
+    <table>
 
-    <div class="table-box">
+        <thead>
 
+            <tr>
 
-        <table>
+                <th>Customer ID</th>
 
+                <th>Problem</th>
 
-            <thead>
+                <th>Reference</th>
 
-                <tr>
+                <th>Date</th>
 
+                <th>Support</th>
 
-                    <th>
-                        Customer ID
-                    </th>
+                <th>Support Work</th>
 
+                <th>Action</th>
 
-                    <th>
-                        Problem
-                    </th>
+            </tr>
+
+        </thead>
 
 
-                    <th>
-                        Reference
-                    </th>
+        <tbody id="historyList">
 
+            <tr>
 
-                    <th>
-                        Date
-                    </th>
+                <td
+                    colspan="7"
+                    class="loading-cell"
+                >
 
+                    <i class="fa fa-spinner fa-spin"></i>
 
-                    <th>
-                        Action
-                    </th>
+                    Loading History...
 
+                </td>
 
-                </tr>
+            </tr>
 
-            </thead>
+        </tbody>
 
-
-
-            <tbody id="historyList">
-
-
-                <tr>
-
-
-                    <td
-                        colspan="5"
-                        class="loading-cell"
-                    >
-
-                        <i class="fa fa-spinner fa-spin"></i>
-
-                        Loading History...
-
-                    </td>
-
-
-                </tr>
-
-
-            </tbody>
-
-
-        </table>
-
-
-    </div>
-
+    </table>
 
 </main>
 
 
 
-<!-- =====================================================
-     VIEW HISTORY POPUP
-     
-     সামনে table-এ থাকবে:
-     Customer ID
-     Problem
-     Reference
-     Date
-
-     নিচের information popup-এর ভিতরে থাকবে:
-     Support
-     Support Work
-     Call
-     Call Work
-     Name
-     Number
-     Status
-     Created By
-===================================================== -->
+<!-- =================================================
+     EDIT / VIEW MODAL
+================================================== -->
 
 <div
     class="modal"
-    id="viewModal"
+    id="historyModal"
 >
 
-
     <div class="popup">
-
-
-        <!-- CLOSE -->
 
         <button
             type="button"
             class="close-btn"
-            onclick="closeView()"
+            onclick="closeHistoryModal()"
         >
 
             ×
@@ -382,305 +285,212 @@
         </button>
 
 
-
-        <!-- TITLE -->
-
         <h2>
 
             <i class="fa fa-clock-rotate-left"></i>
 
-            History Details
+            Edit History
 
         </h2>
 
 
 
-        <!-- =============================================
-             MAIN INFORMATION
-        ============================================== -->
+        <!-- CUSTOMER ID -->
 
+        <label for="customerId">
+            Customer ID
+        </label>
 
-        <div class="popup-section">
+        <input
+            type="text"
+            id="customerId"
+        >
 
 
-            <h3>
 
-                <i class="fa fa-circle-info"></i>
+        <!-- PROBLEM -->
 
-                Basic Information
+        <label for="problem">
+            Problem
+        </label>
 
-            </h3>
+        <textarea
+            id="problem"
+            rows="3"
+        ></textarea>
 
 
 
-            <!-- CUSTOMER ID -->
+        <!-- REFERENCE -->
 
-            <label for="viewCustomerId">
+        <label for="reference">
+            Reference
+        </label>
 
-                Customer ID
+        <input
+            type="text"
+            id="reference"
+        >
 
-            </label>
 
 
-            <input
-                type="text"
-                id="viewCustomerId"
-                readonly
-            >
+        <!-- DATE -->
 
+        <label for="date">
+            Date
+        </label>
 
+        <input
+            type="date"
+            id="date"
+        >
 
-            <!-- PROBLEM -->
 
-            <label for="viewProblem">
 
-                Problem
+        <!-- SUPPORT -->
 
-            </label>
+        <label for="support">
+            Support
+        </label>
 
+        <input
+            type="text"
+            id="support"
+        >
 
-            <textarea
-                id="viewProblem"
-                rows="3"
-                readonly
-            ></textarea>
 
 
+        <!-- SUPPORT WORK -->
 
-            <!-- REFERENCE -->
+        <label for="supportWork">
+            Support Work
+        </label>
 
-            <label for="viewReference">
+        <textarea
+            id="supportWork"
+            rows="3"
+        ></textarea>
 
-                Reference
 
-            </label>
 
+        <!-- CALL -->
 
-            <input
-                type="text"
-                id="viewReference"
-                readonly
-            >
+        <label for="call">
+            Call
+        </label>
 
+        <input
+            type="text"
+            id="call"
+        >
 
 
-            <!-- DATE -->
 
-            <label for="viewDate">
+        <!-- CALL WORK -->
 
-                Date
+        <label for="callWork">
+            Call Work
+        </label>
 
-            </label>
+        <textarea
+            id="callWork"
+            rows="3"
+        ></textarea>
 
 
-            <input
-                type="text"
-                id="viewDate"
-                readonly
-            >
 
-
-        </div>
-
-
-
-        <!-- =============================================
-             OTHER INFORMATION
-        ============================================== -->
-
-
-        <div class="popup-section">
-
-
-            <h3>
-
-                <i class="fa fa-layer-group"></i>
-
-                Other Information
-
-            </h3>
-
-
-
-            <!-- SUPPORT -->
-
-            <label for="viewSupport">
-
-                Support
-
-            </label>
-
-
-            <input
-                type="text"
-                id="viewSupport"
-                readonly
-            >
-
-
-
-            <!-- SUPPORT WORK -->
-
-            <label for="viewSupportWork">
-
-                Support Work
-
-            </label>
-
-
-            <textarea
-                id="viewSupportWork"
-                rows="3"
-                readonly
-            ></textarea>
-
-
-
-            <!-- CALL -->
-
-            <label for="viewCall">
-
-                Call
-
-            </label>
-
-
-            <input
-                type="text"
-                id="viewCall"
-                readonly
-            >
-
-
-
-            <!-- CALL WORK -->
-
-            <label for="viewCallWork">
-
-                Call Work
-
-            </label>
-
-
-            <textarea
-                id="viewCallWork"
-                rows="3"
-                readonly
-            ></textarea>
-
-
-
-            <!-- NAME -->
-
-            <label for="viewName">
-
-                Name
-
-            </label>
-
-
-            <input
-                type="text"
-                id="viewName"
-                readonly
-            >
-
-
-
-            <!-- NUMBER -->
-
-            <label for="viewNumber">
-
-                Number
-
-            </label>
-
-
-            <input
-                type="text"
-                id="viewNumber"
-                readonly
-            >
-
-
-
-            <!-- STATUS -->
-
-            <label for="viewStatus">
-
-                Status
-
-            </label>
-
-
-            <input
-                type="text"
-                id="viewStatus"
-                readonly
-            >
-
-
-
-            <!-- CREATED BY -->
-
-            <label for="viewCreatedBy">
-
-                Created By
-
-            </label>
-
-
-            <input
-                type="text"
-                id="viewCreatedBy"
-                readonly
-            >
-
-
-        </div>
-
-
-
-        <!-- CLOSE BUTTON -->
+        <!-- BUTTONS -->
 
         <div class="popup-buttons">
+
+            <button
+                type="button"
+                class="submit-btn"
+                id="saveHistoryBtn"
+                onclick="updateHistory()"
+            >
+
+                <i class="fa fa-save"></i>
+
+                Submit
+
+            </button>
 
 
             <button
                 type="button"
                 class="cancel-btn"
-                onclick="closeView()"
+                onclick="closeHistoryModal()"
             >
 
                 <i class="fa fa-xmark"></i>
 
-                Close
+                Cancel
 
             </button>
 
-
         </div>
 
-
     </div>
-
 
 </div>
 
 
 
-<!-- =====================================================
+<!-- =================================================
+     SUCCESS POPUP
+================================================== -->
+
+<div
+    class="custom-popup-overlay"
+    id="successPopup"
+>
+
+    <div class="custom-popup">
+
+        <div class="popup-icon success">
+
+            <i class="fa fa-check"></i>
+
+        </div>
+
+
+        <h3 id="successTitle">
+            Success
+        </h3>
+
+
+        <p id="successMessage">
+            Operation completed successfully.
+        </p>
+
+
+        <button
+            type="button"
+            class="popup-ok-btn"
+            onclick="closeSuccessPopup()"
+        >
+
+            OK
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
      ERROR POPUP
-===================================================== -->
+================================================== -->
 
 <div
     class="custom-popup-overlay"
     id="errorPopup"
 >
 
-
     <div class="custom-popup">
-
 
         <div class="popup-icon error">
 
@@ -689,21 +499,14 @@
         </div>
 
 
-
         <h3 id="errorTitle">
-
             Error
-
         </h3>
 
 
-
         <p id="errorMessage">
-
             Something went wrong.
-
         </p>
-
 
 
         <button
@@ -716,21 +519,17 @@
 
         </button>
 
-
     </div>
-
 
 </div>
 
 
 
-<!-- =====================================================
+<!-- =================================================
      JAVASCRIPT
-===================================================== -->
+================================================== -->
 
-<script
-    src="history.js"
-></script>
+<script src="history.js"></script>
 
 
 </body>
