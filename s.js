@@ -230,7 +230,7 @@ function toggleProfile() {
 
 function myAccount() {
 
-    window.location.replace(
+    window.location.href=
         "my-account.html";
 
 }
