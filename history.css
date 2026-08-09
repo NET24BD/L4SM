@@ -25,13 +25,16 @@
 
 body {
 
-    min-height: 100vh;
-
     background:
         #f1f5f9;
 
     color:
         #334155;
+
+    min-height: 100vh;
+
+    padding:
+        20px;
 
     overflow-x: hidden;
 
@@ -39,43 +42,7 @@ body {
 
 
 /* =================================================
-   HEADER
-================================================== */
-
-.header {
-
-    width: 100%;
-
-    min-height: 76px;
-
-    background:
-        #ffffff;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding:
-        0 28px;
-
-    border-bottom:
-        1px solid #e2e8f0;
-
-    box-shadow:
-        0 2px 10px rgba(
-            15,
-            23,
-            42,
-            0.05
-        );
-
-}
-
-
-/* =================================================
-   LEFT SECTION
+   HEADER LEFT SECTION
 ================================================== */
 
 .left-section {
@@ -84,7 +51,9 @@ body {
 
     align-items: center;
 
-    gap: 14px;
+    gap: 15px;
+
+    margin-bottom: 20px;
 
 }
 
@@ -97,12 +66,12 @@ body {
 
     gap: 10px;
 
-    font-size: 21px;
-
-    font-weight: 700;
+    font-size: 22px;
 
     color:
         #0f172a;
+
+    cursor: pointer;
 
 }
 
@@ -112,7 +81,69 @@ body {
     color:
         #16a34a;
 
-    font-size: 22px;
+}
+
+
+/* =================================================
+   BACK BUTTON
+================================================== */
+
+.back-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    border: none;
+
+    background:
+        #ffffff;
+
+    color:
+        #334155;
+
+    padding:
+        10px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 2px 8px
+        rgba(
+            15,
+            23,
+            42,
+            0.08
+        );
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.back-btn:hover {
+
+    background:
+        #16a34a;
+
+    color:
+        #ffffff;
+
+}
+
+
+.back-btn i {
+
+    font-size: 14px;
 
 }
 
@@ -123,7 +154,13 @@ body {
 
 .profile {
 
-    position: relative;
+    position: absolute;
+
+    top: 20px;
+
+    right: 20px;
+
+    z-index: 1000;
 
 }
 
@@ -134,7 +171,7 @@ body {
 
     align-items: center;
 
-    gap: 10px;
+    gap: 9px;
 
     cursor: pointer;
 
@@ -149,9 +186,9 @@ body {
 
     height: 42px;
 
-    border-radius: 50%;
-
     object-fit: cover;
+
+    border-radius: 50%;
 
     border:
         2px solid #16a34a;
@@ -173,10 +210,10 @@ body {
 
 .profile-head i {
 
-    font-size: 13px;
-
     color:
         #64748b;
+
+    font-size: 13px;
 
 }
 
@@ -189,9 +226,9 @@ body {
 
     position: absolute;
 
-    top: 56px;
-
     right: 0;
+
+    top: 52px;
 
     width: 180px;
 
@@ -216,8 +253,6 @@ body {
 
     display: none;
 
-    z-index: 1000;
-
 }
 
 
@@ -234,10 +269,13 @@ body {
 
     border: none;
 
-    background: transparent;
+    background:
+        transparent;
 
     padding:
         11px 12px;
+
+    border-radius: 7px;
 
     display: flex;
 
@@ -245,16 +283,14 @@ body {
 
     gap: 10px;
 
-    text-align: left;
-
-    border-radius: 7px;
-
-    cursor: pointer;
-
     color:
         #334155;
 
     font-size: 14px;
+
+    cursor: pointer;
+
+    text-align: left;
 
 }
 
@@ -278,121 +314,31 @@ body {
 
 
 /* =================================================
-   SEARCH SECTION
+   FILTER CONTAINER
 ================================================== */
 
-.search-section {
-
-    width: 100%;
-
-    padding:
-        22px 28px 16px;
-
-}
-
-
-.search-box {
-
-    width: 100%;
-
-    max-width: 500px;
-
-    height: 46px;
-
-    background:
-        #ffffff;
-
-    border:
-        1px solid #dbe2ea;
-
-    border-radius: 9px;
+.filter-container {
 
     display: flex;
 
-    align-items: center;
+    align-items: flex-end;
 
-    padding:
-        0 14px;
+    flex-wrap: wrap;
 
-    transition:
-        0.2s ease;
-
-}
-
-
-.search-box:focus-within {
-
-    border-color:
-        #16a34a;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(
-            22,
-            163,
-            74,
-            0.10
-        );
-
-}
-
-
-.search-box i {
-
-    color:
-        #94a3b8;
-
-    margin-right: 10px;
-
-}
-
-
-.search-box input {
-
-    width: 100%;
-
-    height: 100%;
-
-    border: none;
-
-    outline: none;
-
-    background: transparent;
-
-    color:
-        #334155;
-
-    font-size: 14px;
-
-}
-
-
-.search-box input::placeholder {
-
-    color:
-        #94a3b8;
-
-}
-
-
-/* =================================================
-   TABLE BOX
-================================================== */
-
-.table-box {
-
-    margin:
-        0 28px 30px;
+    gap: 12px;
 
     background:
         #ffffff;
+
+    padding:
+        16px;
 
     border:
         1px solid #e2e8f0;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    overflow-x: auto;
+    margin-bottom: 18px;
 
     box-shadow:
         0 3px 12px
@@ -407,6 +353,183 @@ body {
 
 
 /* =================================================
+   FILTER GROUP
+================================================== */
+
+.filter-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.filter-group label {
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color:
+        #475569;
+
+}
+
+
+.filter-group input {
+
+    height: 40px;
+
+    min-width: 150px;
+
+    border:
+        1px solid #dbe2ea;
+
+    border-radius: 7px;
+
+    padding:
+        0 10px;
+
+    outline: none;
+
+    color:
+        #334155;
+
+    background:
+        #ffffff;
+
+    font-size: 13px;
+
+}
+
+
+.filter-group input:focus {
+
+    border-color:
+        #16a34a;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            22,
+            163,
+            74,
+            0.08
+        );
+
+}
+
+
+.search-group {
+
+    flex: 1;
+
+}
+
+
+.search-group input {
+
+    min-width: 230px;
+
+}
+
+
+/* =================================================
+   FILTER BUTTON
+================================================== */
+
+.filter-btn {
+
+    height: 40px;
+
+    border: none;
+
+    background:
+        #16a34a;
+
+    color:
+        #ffffff;
+
+    padding:
+        0 16px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+}
+
+
+.filter-btn:hover {
+
+    background:
+        #15803d;
+
+}
+
+
+/* =================================================
+   RESET BUTTON
+================================================== */
+
+.reset-btn {
+
+    height: 40px;
+
+    border: none;
+
+    background:
+        #64748b;
+
+    color:
+        #ffffff;
+
+    padding:
+        0 16px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+}
+
+
+.reset-btn:hover {
+
+    background:
+        #475569;
+
+}
+
+
+/* =================================================
    TABLE
 ================================================== */
 
@@ -416,7 +539,23 @@ table {
 
     border-collapse: collapse;
 
-    min-width: 1000px;
+    background:
+        #ffffff;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 3px 12px
+        rgba(
+            15,
+            23,
+            42,
+            0.06
+        );
+
+    min-width: 1100px;
 
 }
 
@@ -432,18 +571,13 @@ thead {
 th {
 
     padding:
-        15px 14px;
+        14px 12px;
 
     text-align: left;
 
     font-size: 12px;
 
     font-weight: 700;
-
-    text-transform: uppercase;
-
-    letter-spacing:
-        0.3px;
 
     color:
         #475569;
@@ -459,7 +593,7 @@ th {
 td {
 
     padding:
-        14px;
+        13px 12px;
 
     font-size: 13px;
 
@@ -490,34 +624,21 @@ tbody tr:last-child td {
 
 
 /* =================================================
-   LOADING
+   TABLE RESPONSIVE WRAPPER
 ================================================== */
 
-.loading-cell {
+body {
 
-    text-align: center;
-
-    padding:
-        45px !important;
-
-    color:
-        #64748b;
-
-}
-
-
-.loading-cell i {
-
-    margin-right: 8px;
+    overflow-x: auto;
 
 }
 
 
 /* =================================================
-   DETAILS BUTTON
+   ACTION BUTTON
 ================================================== */
 
-.details-btn {
+.action-btn {
 
     border: none;
 
@@ -528,7 +649,7 @@ tbody tr:last-child td {
         #ffffff;
 
     padding:
-        7px 11px;
+        7px 12px;
 
     border-radius: 6px;
 
@@ -538,10 +659,16 @@ tbody tr:last-child td {
 
     font-weight: 600;
 
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
 }
 
 
-.details-btn:hover {
+.action-btn:hover {
 
     background:
         #15803d;
@@ -550,10 +677,10 @@ tbody tr:last-child td {
 
 
 /* =================================================
-   MODAL
+   POPUP OVERLAY
 ================================================== */
 
-.modal {
+.popup-overlay {
 
     position: fixed;
 
@@ -580,7 +707,7 @@ tbody tr:last-child td {
 }
 
 
-.modal.show {
+.popup-overlay.show {
 
     display: flex;
 
@@ -588,7 +715,7 @@ tbody tr:last-child td {
 
 
 /* =================================================
-   POPUP
+   HISTORY POPUP
 ================================================== */
 
 .popup {
@@ -604,9 +731,9 @@ tbody tr:last-child td {
     background:
         #ffffff;
 
-    border-radius: 14px;
+    border-radius: 13px;
 
-    padding: 25px;
+    padding: 24px;
 
     position: relative;
 
@@ -630,12 +757,12 @@ tbody tr:last-child td {
 
     gap: 9px;
 
-    margin-bottom: 22px;
-
     color:
         #0f172a;
 
     font-size: 19px;
+
+    margin-bottom: 20px;
 
 }
 
@@ -656,9 +783,9 @@ tbody tr:last-child td {
 
     position: absolute;
 
-    top: 14px;
+    top: 13px;
 
-    right: 15px;
+    right: 14px;
 
     width: 32px;
 
@@ -675,8 +802,6 @@ tbody tr:last-child td {
         #64748b;
 
     font-size: 22px;
-
-    line-height: 1;
 
     cursor: pointer;
 
@@ -695,7 +820,7 @@ tbody tr:last-child td {
 
 
 /* =================================================
-   FORM
+   POPUP FORM
 ================================================== */
 
 .popup label {
@@ -703,7 +828,7 @@ tbody tr:last-child td {
     display: block;
 
     margin:
-        13px 0 6px;
+        12px 0 6px;
 
     font-size: 13px;
 
@@ -726,7 +851,7 @@ tbody tr:last-child td {
     border-radius: 7px;
 
     padding:
-        10px 11px;
+        10px;
 
     outline: none;
 
@@ -736,16 +861,16 @@ tbody tr:last-child td {
         #334155;
 
     background:
-        #ffffff;
+        #f8fafc;
 
 }
 
 
 .popup textarea {
 
-    min-height: 75px;
-
     resize: vertical;
+
+    min-height: 70px;
 
 }
 
@@ -759,14 +884,394 @@ tbody tr:last-child td {
 }
 
 
-.popup input[readonly],
-.popup textarea[readonly] {
+/* =================================================
+   POPUP BUTTONS
+================================================== */
+
+.popup-buttons {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 9px;
+
+    margin-top: 20px;
+
+}
+
+
+/* =================================================
+   CANCEL BUTTON
+================================================== */
+
+.cancel-btn {
+
+    border: none;
 
     background:
-        #f8fafc;
+        #64748b;
+
+    color:
+        #ffffff;
+
+    padding:
+        9px 17px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+.cancel-btn:hover {
+
+    background:
+        #475569;
+
+}
+
+
+/* =================================================
+   MESSAGE OVERLAY
+================================================== */
+
+.message-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(
+            15,
+            23,
+            42,
+            0.55
+        );
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 3000;
+
+}
+
+
+.message-overlay.show {
+
+    display: flex;
+
+}
+
+
+/* =================================================
+   MESSAGE BOX
+================================================== */
+
+.message-box {
+
+    width: 100%;
+
+    max-width: 380px;
+
+    background:
+        #ffffff;
+
+    border-radius: 14px;
+
+    padding:
+        28px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 60px
+        rgba(
+            15,
+            23,
+            42,
+            0.25
+        );
+
+}
+
+
+.message-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    margin:
+        0 auto 15px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        #dcfce7;
+
+    color:
+        #16a34a;
+
+    font-size: 28px;
+
+}
+
+
+.message-box h3 {
+
+    color:
+        #0f172a;
+
+    margin-bottom: 8px;
+
+}
+
+
+.message-box p {
 
     color:
         #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.message-box button {
+
+    border: none;
+
+    background:
+        #16a34a;
+
+    color:
+        #ffffff;
+
+    padding:
+        9px 25px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+
+.message-box button:hover {
+
+    background:
+        #15803d;
+
+}
+
+
+/* =================================================
+   CONFIRM OVERLAY
+================================================== */
+
+.confirm-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(
+            15,
+            23,
+            42,
+            0.55
+        );
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 3000;
+
+}
+
+
+.confirm-overlay.show {
+
+    display: flex;
+
+}
+
+
+/* =================================================
+   CONFIRM BOX
+================================================== */
+
+.confirm-box {
+
+    width: 100%;
+
+    max-width: 400px;
+
+    background:
+        #ffffff;
+
+    border-radius: 14px;
+
+    padding:
+        28px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 60px
+        rgba(
+            15,
+            23,
+            42,
+            0.25
+        );
+
+}
+
+
+.confirm-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    margin:
+        0 auto 15px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        #fef3c7;
+
+    color:
+        #f59e0b;
+
+    font-size: 26px;
+
+}
+
+
+.confirm-box h3 {
+
+    color:
+        #0f172a;
+
+    margin-bottom: 8px;
+
+}
+
+
+.confirm-box p {
+
+    color:
+        #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+
+.confirm-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+}
+
+
+.confirm-delete {
+
+    border: none;
+
+    background:
+        #ef4444;
+
+    color:
+        #ffffff;
+
+    padding:
+        9px 18px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+
+.confirm-delete:hover {
+
+    background:
+        #dc2626;
+
+}
+
+
+.confirm-cancel {
+
+    border: none;
+
+    background:
+        #64748b;
+
+    color:
+        #ffffff;
+
+    padding:
+        9px 18px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+
+.confirm-cancel:hover {
+
+    background:
+        #475569;
 
 }
 
@@ -776,20 +1281,22 @@ tbody tr:last-child td {
 ================================================== */
 
 @media (
-    max-width: 700px
+    max-width: 800px
 ) {
 
-    .header {
+    body {
 
         padding:
-            0 15px;
+            15px;
 
     }
 
 
-    .left-section h2 {
+    .profile {
 
-        font-size: 18px;
+        top: 15px;
+
+        right: 15px;
 
     }
 
@@ -801,23 +1308,49 @@ tbody tr:last-child td {
     }
 
 
-    .search-section {
+    .left-section {
 
-        padding:
-            16px 15px;
+        padding-right: 90px;
 
     }
 
 
-    .table-box {
+    .filter-container {
 
-        margin:
-            0 15px 20px;
+        align-items: stretch;
+
+    }
+
+
+    .filter-group,
+    .search-group {
+
+        width: 100%;
+
+    }
+
+
+    .filter-group input,
+    .search-group input {
+
+        width: 100%;
+
+        min-width: 0;
+
+    }
+
+
+    .filter-btn,
+    .reset-btn {
+
+        flex: 1;
 
     }
 
 
     .popup {
+
+        max-height: 92vh;
 
         padding:
             20px;
