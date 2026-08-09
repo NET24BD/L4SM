@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,28 +6,22 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Support History</title>
+    <title>History</title>
 
 
-    <!-- CSS -->
+    <!-- HISTORY CSS -->
 
-    <link
-        rel="stylesheet"
-        href="history.css"
-    >
+    <link rel="stylesheet"
+          href="history.css">
 
 
-    <!-- Font Awesome -->
+    <!-- FONT AWESOME -->
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    >
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
@@ -38,107 +33,83 @@
      HEADER
 ================================================== -->
 
-<header class="header">
-
-    <div class="left-section">
-
-        <h2>
-
-            <i class="fa fa-clock-rotate-left"></i>
-
-            <span>Support History</span>
-
-        </h2>
-
-    </div>
+<div class="left-section">
 
 
+    <button class="back-btn"
+            onclick="goBack()">
 
-    <!-- PROFILE -->
+        <i class="fa fa-arrow-left"></i>
 
-    <div class="profile">
+        Back
 
-        <div
-            class="profile-head"
-            onclick="toggleProfile()"
-        >
-
-            <img
-                id="profileImg"
-                src="assets/profile.png"
-                alt="Profile"
-            >
+    </button>
 
 
-            <span id="username">
-                User
-            </span>
+    <!-- CLICK HISTORY ICON / TITLE TO SHOW FILTER -->
 
+    <h2 class="history-title"
+        onclick="toggleFilter()">
 
-            <i class="fa fa-angle-down"></i>
+        <i class="fa fa-clock-rotate-left"></i>
 
-        </div>
+        History
 
+    </h2>
 
-        <div
-            class="profile-menu"
-            id="profileMenu"
-        >
-
-
-            <!-- MY ACCOUNT -->
-
-            <button
-                type="button"
-                onclick="myAccount()"
-            >
-
-                <i class="fa fa-user"></i>
-
-                My Account
-
-            </button>
-
-
-            <!-- LOGOUT -->
-
-            <button
-                type="button"
-                onclick="logout()"
-            >
-
-                <i class="fa fa-sign-out"></i>
-
-                Logout
-
-            </button>
-
-
-        </div>
-
-    </div>
-
-</header>
+</div>
 
 
 
 <!-- =================================================
-     SEARCH
+     PROFILE
 ================================================== -->
 
-<div class="search-section">
+<div class="profile">
 
-    <div class="search-box">
+    <div class="profile-head"
+         onclick="toggleProfile()">
 
-        <i class="fa fa-search"></i>
+        <img id="profileImg"
+             src="assets/profile.png"
+             alt="Profile">
 
 
-        <input
-            type="text"
-            id="historySearch"
-            placeholder="Search Customer ID, Problem, Reference..."
-            autocomplete="off"
-        >
+        <span id="username">
+
+            User
+
+        </span>
+
+
+        <i class="fa fa-angle-down"></i>
+
+    </div>
+
+
+    <div class="profile-menu"
+         id="profileMenu">
+
+
+        <button type="button"
+                onclick="myAccount()">
+
+            <i class="fa fa-user"></i>
+
+            My Account
+
+        </button>
+
+
+        <button type="button"
+                onclick="logout()">
+
+            <i class="fa fa-sign-out"></i>
+
+            Logout
+
+        </button>
+
 
     </div>
 
@@ -147,118 +118,209 @@
 
 
 <!-- =================================================
-     TABLE
+     FILTER
 ================================================== -->
 
-<div class="table-box">
-
-    <table>
-
-        <thead>
-
-            <tr>
-
-                <th>
-                    Customer ID
-                </th>
+<div class="filter-container"
+     id="filterContainer">
 
 
-                <th>
-                    Problem
-                </th>
+    <div class="filter-group">
+
+        <label for="fromDate">
+
+            From
+
+        </label>
 
 
-                <th>
-                    Reference
-                </th>
+        <input type="date"
+               id="fromDate">
+
+    </div>
 
 
-                <th>
-                    Date
-                </th>
+
+    <div class="filter-group">
+
+        <label for="toDate">
+
+            To
+
+        </label>
 
 
-                <th>
-                    Support
-                </th>
+        <input type="date"
+               id="toDate">
+
+    </div>
 
 
-                <th>
-                    Support Work
-                </th>
+
+    <div class="filter-group">
+
+        <label for="lastDays">
+
+            Last Days
+
+        </label>
 
 
-                <th>
-                    Call
-                </th>
+        <input type="number"
+               id="lastDays"
+               min="1"
+               placeholder="7">
+
+    </div>
 
 
-                <th>
-                    Call Work
-                </th>
 
-            </tr>
+    <div class="filter-group search-group">
 
-        </thead>
+        <label for="searchHistory">
+
+            Search
+
+        </label>
 
 
-        <tbody id="historyList">
+        <input type="text"
+               id="searchHistory"
+               placeholder="Customer ID / Problem / Reference">
 
-            <tr>
+    </div>
 
-                <td
-                    colspan="8"
-                    class="loading-cell"
-                >
 
-                    <i class="fa fa-spinner fa-spin"></i>
 
-                    Loading...
+    <button type="button"
+            class="filter-btn"
+            onclick="applyFilter()">
 
-                </td>
+        <i class="fa-solid fa-filter"></i>
 
-            </tr>
+        Apply
 
-        </tbody>
+    </button>
 
-    </table>
+
+
+    <button type="button"
+            class="reset-btn"
+            onclick="resetFilter()">
+
+        <i class="fa-solid fa-rotate-left"></i>
+
+        Reset
+
+    </button>
+
 
 </div>
 
 
 
 <!-- =================================================
-     DETAILS MODAL
+     HISTORY TABLE
 ================================================== -->
 
-<div
-    class="modal"
-    id="detailsModal"
->
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>
+                Customer ID
+            </th>
+
+
+            <th>
+                Problem
+            </th>
+
+
+            <th>
+                Reference
+            </th>
+
+
+            <th>
+                Date
+            </th>
+
+
+            <th>
+                Support
+            </th>
+
+
+            <th>
+                Support Work
+            </th>
+
+
+            <th>
+                Call
+            </th>
+
+
+            <th>
+                Call Work
+            </th>
+
+
+            <th>
+                Action
+            </th>
+
+        </tr>
+
+    </thead>
+
+
+    <tbody id="historyList">
+
+        <tr>
+
+            <td colspan="9">
+
+                Loading...
+
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
+
+
+
+<!-- =================================================
+     HISTORY DETAILS POPUP
+================================================== -->
+
+<div class="popup-overlay"
+     id="historyPopup">
+
 
     <div class="popup">
 
 
-        <!-- CLOSE -->
-
-        <button
-            type="button"
-            class="close-btn"
-            onclick="closeDetails()"
-        >
+        <button type="button"
+                class="close-btn"
+                onclick="closeEdit()">
 
             ×
 
         </button>
 
 
-        <!-- TITLE -->
-
         <h2>
 
-            <i class="fa fa-clock-rotate-left"></i>
+            <i class="fa-solid fa-clock-rotate-left"></i>
 
-            Support History Details
+            History Details
 
         </h2>
 
@@ -266,134 +328,246 @@
 
         <!-- CUSTOMER ID -->
 
-        <label for="historyCustomerId">
+        <label>
 
             Customer ID
 
         </label>
 
 
-        <input
-            type="text"
-            id="historyCustomerId"
-            readonly
-        >
+        <input id="customerId"
+               type="text"
+               readonly>
 
 
 
         <!-- PROBLEM -->
 
-        <label for="historyProblem">
+        <label>
 
             Problem
 
         </label>
 
 
-        <textarea
-            id="historyProblem"
-            readonly
-        ></textarea>
+        <textarea id="problem"
+                  rows="4"
+                  readonly></textarea>
 
 
 
         <!-- REFERENCE -->
 
-        <label for="historyReference">
+        <label>
 
             Reference
 
         </label>
 
 
-        <input
-            type="text"
-            id="historyReference"
-            readonly
-        >
+        <input id="reference"
+               type="text"
+               readonly>
 
 
 
         <!-- DATE -->
 
-        <label for="historyDate">
+        <label>
 
             Date
 
         </label>
 
 
-        <input
-            type="text"
-            id="historyDate"
-            readonly
-        >
+        <input id="date"
+               type="date"
+               readonly>
 
 
 
         <!-- SUPPORT -->
 
-        <label for="historySupport">
+        <label>
 
             Support
 
         </label>
 
 
-        <input
-            type="text"
-            id="historySupport"
-            readonly
-        >
+        <input id="support"
+               type="text"
+               readonly>
 
 
 
         <!-- SUPPORT WORK -->
 
-        <label for="historySupportWork">
+        <label>
 
             Support Work
 
         </label>
 
 
-        <textarea
-            id="historySupportWork"
-            readonly
-        ></textarea>
+        <textarea id="supportWork"
+                  rows="3"
+                  readonly></textarea>
 
 
 
         <!-- CALL -->
 
-        <label for="historyCall">
+        <label>
 
             Call
 
         </label>
 
 
-        <input
-            type="text"
-            id="historyCall"
-            readonly
-        >
+        <input id="call"
+               type="text"
+               readonly>
 
 
 
         <!-- CALL WORK -->
 
-        <label for="historyCallWork">
+        <label>
 
             Call Work
 
         </label>
 
 
-        <textarea
-            id="historyCallWork"
-            readonly
-        ></textarea>
+        <textarea id="callWork"
+                  rows="3"
+                  readonly></textarea>
+
+
+        <div class="popup-buttons">
+
+
+            <button type="button"
+                    class="cancel-btn"
+                    onclick="closeEdit()">
+
+                Close
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     MESSAGE POPUP
+================================================== -->
+
+<div class="message-overlay"
+     id="messagePopup">
+
+
+    <div class="message-box">
+
+
+        <div class="message-icon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+
+        <h3 id="messageTitle">
+
+            Success
+
+        </h3>
+
+
+        <p id="messageText">
+
+            Done
+
+        </p>
+
+
+        <button type="button"
+                onclick="closeMessage()">
+
+            OK
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     CONFIRM POPUP
+================================================== -->
+
+<div class="confirm-overlay"
+     id="confirmPopup">
+
+
+    <div class="confirm-box">
+
+
+        <div class="confirm-icon">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+        </div>
+
+
+        <h3>
+
+            Confirm?
+
+        </h3>
+
+
+        <p>
+
+            Are you sure you want to continue?
+
+        </p>
+
+
+        <div class="confirm-buttons">
+
+
+            <button type="button"
+                    class="confirm-delete"
+                    onclick="confirmAction()">
+
+                <i class="fa-solid fa-check"></i>
+
+                Confirm
+
+            </button>
+
+
+            <button type="button"
+                    class="confirm-cancel"
+                    onclick="closeConfirm()">
+
+                Cancel
+
+            </button>
+
+
+        </div>
 
 
     </div>
@@ -412,3 +586,4 @@
 </body>
 
 </html>
+
