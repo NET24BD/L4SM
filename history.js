@@ -2,21 +2,7 @@
    HISTORY DATA
 ===================================================== */
 
-/*
-   IMPORTANT:
-
-   সামনে table-এ শুধু থাকবে:
-
-   Customer ID
-   Problem
-   Reference
-   Date
-   Action
-
-   Support এবং Support Work শুধু popup-এর ভিতরে থাকবে।
-*/
-
-const historyData = [
+let historyData = [
 
     {
         customerId: "ABMB020",
@@ -25,7 +11,7 @@ const historyData = [
 
         reference: "Shemanto",
 
-        date: "01 Aug 2026",
+        date: "2026-08-01",
 
         support: "Shemanto",
 
@@ -40,7 +26,7 @@ const historyData = [
 
         reference: "Shemanto",
 
-        date: "04 Aug 2026",
+        date: "2026-08-04",
 
         support: "Shemanto",
 
@@ -55,7 +41,7 @@ const historyData = [
 
         reference: "Shemanto",
 
-        date: "07 Aug 2026",
+        date: "2026-08-07",
 
         support: "Shemanto",
 
@@ -72,29 +58,188 @@ const historyData = [
 const historyList =
     document.getElementById("historyList");
 
-
 const historySearch =
     document.getElementById("historySearch");
 
+const historyFilter =
+    document.getElementById("historyFilter");
 
 const editPopup =
     document.getElementById("editPopup");
 
-
 const profileMenu =
     document.getElementById("profileMenu");
+
+
+let currentEditIndex = null;
 
 
 /* =====================================================
    LOAD HISTORY
 ===================================================== */
 
-function loadHistory(data = historyData) {
+function loadHistory() {
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   APPLY SEARCH + FILTER
+===================================================== */
+
+function applyFilters() {
+
+    const searchText =
+        historySearch.value
+            .trim()
+            .toLowerCase();
+
+
+    const filterValue =
+        historyFilter.value;
+
+
+    const today =
+        new Date();
+
+
+    const filteredData =
+        historyData.filter(item => {
+
+
+            /* SEARCH */
+
+            const matchesSearch =
+
+                String(item.customerId || "")
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                String(item.problem || "")
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                String(item.reference || "")
+                    .toLowerCase()
+                    .includes(searchText);
+
+
+            if (!matchesSearch) {
+
+                return false;
+
+            }
+
+
+            /* FILTER */
+
+            if (filterValue === "all") {
+
+                return true;
+
+            }
+
+
+            const itemDate =
+                parseHistoryDate(item.date);
+
+
+            if (!itemDate) {
+
+                return false;
+
+            }
+
+
+            /* TODAY */
+
+            if (filterValue === "today") {
+
+                return (
+
+                    itemDate.getFullYear() ===
+                    today.getFullYear()
+
+                    &&
+
+                    itemDate.getMonth() ===
+                    today.getMonth()
+
+                    &&
+
+                    itemDate.getDate() ===
+                    today.getDate()
+
+                );
+
+            }
+
+
+            /* LAST 7 DAYS */
+
+            if (filterValue === "7days") {
+
+                const sevenDaysAgo =
+                    new Date(today);
+
+                sevenDaysAgo.setDate(
+                    today.getDate() - 7
+                );
+
+
+                return (
+                    itemDate >= sevenDaysAgo &&
+                    itemDate <= today
+                );
+
+            }
+
+
+            /* THIS MONTH */
+
+            if (filterValue === "month") {
+
+                return (
+
+                    itemDate.getFullYear() ===
+                    today.getFullYear()
+
+                    &&
+
+                    itemDate.getMonth() ===
+                    today.getMonth()
+
+                );
+
+            }
+
+
+            return true;
+
+        });
+
+
+    renderHistory(filteredData);
+
+}
+
+
+/* =====================================================
+   RENDER TABLE
+===================================================== */
+
+function renderHistory(data) {
 
     historyList.innerHTML = "";
 
 
-    if (!data || data.length === 0) {
+    if (data.length === 0) {
 
         historyList.innerHTML = `
 
@@ -114,26 +259,34 @@ function loadHistory(data = historyData) {
         `;
 
         return;
+
     }
 
 
-    data.forEach((item, index) => {
+    data.forEach(item => {
 
-        const row = document.createElement("tr");
+
+        const originalIndex =
+            historyData.indexOf(item);
+
+
+        const row =
+            document.createElement("tr");
 
 
         /*
-           IMPORTANT:
+            IMPORTANT:
 
-           এখানে মাত্র ৫টি <td> আছে।
+            এখানে মাত্র ৫টি TD আছে।
 
-           1. Customer ID
-           2. Problem
-           3. Reference
-           4. Date
-           5. Action
+            Customer ID
+            Problem
+            Reference
+            Date
+            Action
 
-           Support এবং Support Work এখানে নেই।
+            Support এবং Support Work
+            table-এর বাইরে।
         */
 
 
@@ -155,220 +308,7 @@ function loadHistory(data = historyData) {
 
 
             <td>
-                ${escapeHTML(item.date)}
-            </td>
-
-
-            <td>
-
-                <button
-                    type="button"
-                    class="view-btn"
-                    onclick="viewHistory(${index})"
-                >
-
-                    <i class="fa fa-eye"></i>
-
-                    View
-
-                </button>
-
-            </td>
-
-        `;
-
-
-        historyList.appendChild(row);
-
-    });
-
-}
-
-
-/* =====================================================
-   VIEW HISTORY
-===================================================== */
-
-function viewHistory(index) {
-
-    const item = historyData[index];
-
-
-    if (!item) {
-
-        showError(
-            "Error",
-            "History information was not found."
-        );
-
-        return;
-    }
-
-
-    document.getElementById("customerId").value =
-        item.customerId || "";
-
-
-    document.getElementById("problem").value =
-        item.problem || "";
-
-
-    document.getElementById("reference").value =
-        item.reference || "";
-
-
-    document.getElementById("date").value =
-        item.date || "";
-
-
-    document.getElementById("support").value =
-        item.support || "";
-
-
-    document.getElementById("supportWork").value =
-        item.supportWork || "";
-
-
-    editPopup.classList.add("show");
-
-
-    document.body.style.overflow = "hidden";
-}
-
-
-/* =====================================================
-   CLOSE DETAILS POPUP
-===================================================== */
-
-function closeEdit() {
-
-    editPopup.classList.remove("show");
-
-    document.body.style.overflow = "";
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-historySearch.addEventListener(
-    "input",
-    function () {
-
-        const searchText =
-            this.value
-                .trim()
-                .toLowerCase();
-
-
-        if (searchText === "") {
-
-            loadHistory(historyData);
-
-            return;
-        }
-
-
-        const filteredData =
-            historyData.filter(item => {
-
-                return (
-
-                    String(item.customerId || "")
-                        .toLowerCase()
-                        .includes(searchText)
-
-                    ||
-
-                    String(item.problem || "")
-                        .toLowerCase()
-                        .includes(searchText)
-
-                    ||
-
-                    String(item.reference || "")
-                        .toLowerCase()
-                        .includes(searchText)
-
-                    ||
-
-                    String(item.date || "")
-                        .toLowerCase()
-                        .includes(searchText)
-
-                );
-
-            });
-
-
-        renderSearchResults(filteredData);
-
-    }
-);
-
-
-/* =====================================================
-   RENDER SEARCH RESULTS
-===================================================== */
-
-function renderSearchResults(data) {
-
-    historyList.innerHTML = "";
-
-
-    if (data.length === 0) {
-
-        historyList.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="5"
-                    class="loading-cell"
-                >
-
-                    No matching history found.
-
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-    }
-
-
-    data.forEach(item => {
-
-        const originalIndex =
-            historyData.indexOf(item);
-
-
-        const row =
-            document.createElement("tr");
-
-
-        row.innerHTML = `
-
-            <td>
-                ${escapeHTML(item.customerId)}
-            </td>
-
-
-            <td class="problem-cell">
-                ${escapeHTML(item.problem)}
-            </td>
-
-
-            <td>
-                ${escapeHTML(item.reference)}
-            </td>
-
-
-            <td>
-                ${escapeHTML(item.date)}
+                ${formatDate(item.date)}
             </td>
 
 
@@ -399,7 +339,406 @@ function renderSearchResults(data) {
 
 
 /* =====================================================
-   PROFILE MENU
+   VIEW / EDIT HISTORY
+===================================================== */
+
+function viewHistory(index) {
+
+    const item =
+        historyData[index];
+
+
+    if (!item) {
+
+        showError(
+            "Error",
+            "History information was not found."
+        );
+
+        return;
+
+    }
+
+
+    currentEditIndex = index;
+
+
+    document.getElementById("editIndex").value =
+        index;
+
+
+    document.getElementById("customerId").value =
+        item.customerId || "";
+
+
+    document.getElementById("problem").value =
+        item.problem || "";
+
+
+    document.getElementById("reference").value =
+        item.reference || "";
+
+
+    document.getElementById("date").value =
+        item.date || "";
+
+
+    document.getElementById("support").value =
+        item.support || "";
+
+
+    document.getElementById("supportWork").value =
+        item.supportWork || "";
+
+
+    editPopup.classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =====================================================
+   UPDATE HISTORY
+===================================================== */
+
+function updateHistory() {
+
+    if (currentEditIndex === null) {
+
+        showError(
+            "Error",
+            "No history selected."
+        );
+
+        return;
+
+    }
+
+
+    const customerId =
+        document.getElementById("customerId")
+            .value
+            .trim();
+
+
+    const problem =
+        document.getElementById("problem")
+            .value
+            .trim();
+
+
+    const reference =
+        document.getElementById("reference")
+            .value
+            .trim();
+
+
+    const date =
+        document.getElementById("date")
+            .value;
+
+
+    const support =
+        document.getElementById("support")
+            .value
+            .trim();
+
+
+    const supportWork =
+        document.getElementById("supportWork")
+            .value
+            .trim();
+
+
+    /* VALIDATION */
+
+    if (!customerId) {
+
+        showError(
+            "Missing Information",
+            "Customer ID is required."
+        );
+
+        return;
+
+    }
+
+
+    if (!problem) {
+
+        showError(
+            "Missing Information",
+            "Problem is required."
+        );
+
+        return;
+
+    }
+
+
+    if (!reference) {
+
+        showError(
+            "Missing Information",
+            "Reference is required."
+        );
+
+        return;
+
+    }
+
+
+    if (!date) {
+
+        showError(
+            "Missing Information",
+            "Date is required."
+        );
+
+        return;
+
+    }
+
+
+    /* UPDATE */
+
+    historyData[currentEditIndex] = {
+
+        customerId,
+
+        problem,
+
+        reference,
+
+        date,
+
+        support,
+
+        supportWork
+
+    };
+
+
+    closeEdit();
+
+
+    applyFilters();
+
+
+    showSuccess(
+        "Updated Successfully",
+        "History information has been updated successfully."
+    );
+
+
+    currentEditIndex = null;
+
+}
+
+
+/* =====================================================
+   CLOSE EDIT POPUP
+===================================================== */
+
+function closeEdit() {
+
+    editPopup.classList.remove("show");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* =====================================================
+   ASK DELETE
+===================================================== */
+
+function askDelete() {
+
+    if (currentEditIndex === null) {
+
+        showError(
+            "Error",
+            "No history selected."
+        );
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("confirmPopup")
+        .classList.add("show");
+
+}
+
+
+/* =====================================================
+   CONFIRM DELETE
+===================================================== */
+
+function confirmDelete() {
+
+    if (currentEditIndex === null) {
+
+        closeConfirmPopup();
+
+        return;
+
+    }
+
+
+    historyData.splice(
+        currentEditIndex,
+        1
+    );
+
+
+    const deletedIndex =
+        currentEditIndex;
+
+
+    currentEditIndex = null;
+
+
+    closeConfirmPopup();
+
+    closeEdit();
+
+    applyFilters();
+
+
+    showSuccess(
+        "Deleted Successfully",
+        "History has been deleted successfully."
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE CONFIRM POPUP
+===================================================== */
+
+function closeConfirmPopup() {
+
+    document
+        .getElementById("confirmPopup")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   SUCCESS POPUP
+===================================================== */
+
+function showSuccess(
+    title,
+    message
+) {
+
+    document.getElementById(
+        "successTitle"
+    ).textContent =
+        title || "Success";
+
+
+    document.getElementById(
+        "successMessage"
+    ).textContent =
+        message ||
+        "Operation completed successfully.";
+
+
+    document
+        .getElementById("successPopup")
+        .classList.add("show");
+
+}
+
+
+function closeSuccessPopup() {
+
+    document
+        .getElementById("successPopup")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   ERROR POPUP
+===================================================== */
+
+function showError(
+    title,
+    message
+) {
+
+    document.getElementById(
+        "errorTitle"
+    ).textContent =
+        title || "Error";
+
+
+    document.getElementById(
+        "errorMessage"
+    ).textContent =
+        message ||
+        "Something went wrong.";
+
+
+    document
+        .getElementById("errorPopup")
+        .classList.add("show");
+
+}
+
+
+function closeErrorPopup() {
+
+    document
+        .getElementById("errorPopup")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+historySearch.addEventListener(
+    "input",
+    function () {
+
+        applyFilters();
+
+    }
+);
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+historyFilter.addEventListener(
+    "change",
+    function () {
+
+        applyFilters();
+
+    }
+);
+
+
+/* =====================================================
+   PROFILE
 ===================================================== */
 
 function toggleProfile() {
@@ -408,8 +747,6 @@ function toggleProfile() {
 
 }
 
-
-/* Close profile menu when clicking outside */
 
 document.addEventListener(
     "click",
@@ -444,7 +781,8 @@ function goBack() {
 
     } else {
 
-        window.location.href = "index.html";
+        window.location.href =
+            "index.html";
 
     }
 
@@ -459,15 +797,6 @@ function myAccount() {
 
     profileMenu.classList.remove("show");
 
-
-    /*
-       পরে এখানে তোমার account page-এর URL দিতে পারবে।
-
-       Example:
-
-       window.location.href = "account.html";
-    */
-
 }
 
 
@@ -479,108 +808,159 @@ function logout() {
 
     profileMenu.classList.remove("show");
 
-
-    /*
-       পরে তোমার existing logout system
-       এখানে connect করবে।
-    */
-
 }
 
 
 /* =====================================================
-   CONFIRM POPUP
+   FORMAT DATE
 ===================================================== */
 
-function closeConfirmPopup() {
+function formatDate(dateString) {
 
-    const popup =
-        document.getElementById("confirmPopup");
+    if (!dateString) {
+
+        return "";
+
+    }
 
 
-    popup.classList.remove("show");
+    const date =
+        parseHistoryDate(dateString);
+
+
+    if (!date) {
+
+        return dateString;
+
+    }
+
+
+    const months = [
+
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+
+    ];
+
+
+    return (
+
+        String(date.getDate())
+            .padStart(2, "0")
+
+        + " "
+
+        +
+
+        months[date.getMonth()]
+
+        + " "
+
+        +
+
+        date.getFullYear()
+
+    );
 
 }
 
 
 /* =====================================================
-   SUCCESS POPUP
+   PARSE DATE
 ===================================================== */
 
-function showSuccess(title, message) {
+function parseHistoryDate(dateString) {
 
-    document.getElementById("successTitle").textContent =
-        title || "Success";
+    if (!dateString) {
 
+        return null;
 
-    document.getElementById("successMessage").textContent =
-        message || "Operation completed successfully.";
-
-
-    document
-        .getElementById("successPopup")
-        .classList.add("show");
-
-}
+    }
 
 
-function closeSuccessPopup() {
-
-    document
-        .getElementById("successPopup")
-        .classList.remove("show");
-
-}
+    const parts =
+        dateString.split("-");
 
 
-/* =====================================================
-   ERROR POPUP
-===================================================== */
+    if (parts.length === 3) {
 
-function showError(title, message) {
+        return new Date(
 
-    document.getElementById("errorTitle").textContent =
-        title || "Error";
+            Number(parts[0]),
 
+            Number(parts[1]) - 1,
 
-    document.getElementById("errorMessage").textContent =
-        message || "Something went wrong.";
+            Number(parts[2])
 
+        );
 
-    document
-        .getElementById("errorPopup")
-        .classList.add("show");
-
-}
+    }
 
 
-function closeErrorPopup() {
+    const parsed =
+        new Date(dateString);
 
-    document
-        .getElementById("errorPopup")
-        .classList.remove("show");
+
+    if (isNaN(parsed.getTime())) {
+
+        return null;
+
+    }
+
+
+    return parsed;
 
 }
 
 
 /* =====================================================
-   HTML ESCAPE
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value) {
 
     return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 /* =====================================================
-   CLOSE POPUP WITH ESC KEY
+   ESC KEY
 ===================================================== */
 
 document.addEventListener(
