@@ -33,7 +33,7 @@
 
 
     <!-- =========================
-         HEADER / TOP SECTION
+         HEADER
     ========================== -->
 
     <div class="left-section">
@@ -98,7 +98,6 @@
             id="profileMenu"
         >
 
-
             <button
                 type="button"
                 onclick="myAccount()"
@@ -122,7 +121,6 @@
 
             </button>
 
-
         </div>
 
     </div>
@@ -135,9 +133,7 @@
 
     <div class="search-box">
 
-
         <i class="fa fa-search"></i>
-
 
         <input
             type="text"
@@ -145,7 +141,6 @@
             placeholder="Search Customer ID, Problem, Reference..."
             autocomplete="off"
         >
-
 
     </div>
 
@@ -198,7 +193,7 @@
 
 
     <!-- =========================
-         EDIT / VIEW POPUP
+         DETAILS POPUP
     ========================== -->
 
     <div
@@ -222,7 +217,7 @@
 
             <i class="fa fa-clock-rotate-left"></i>
 
-            Edit History
+            History Details
 
         </h2>
 
@@ -237,6 +232,7 @@
         <input
             type="text"
             id="customerId"
+            readonly
         >
 
 
@@ -249,6 +245,7 @@
 
         <textarea
             id="problem"
+            readonly
         ></textarea>
 
 
@@ -262,6 +259,7 @@
         <input
             type="text"
             id="reference"
+            readonly
         >
 
 
@@ -275,6 +273,7 @@
         <input
             type="date"
             id="date"
+            readonly
         >
 
 
@@ -288,6 +287,7 @@
         <input
             type="text"
             id="support"
+            readonly
         >
 
 
@@ -300,27 +300,14 @@
 
         <textarea
             id="supportWork"
+            readonly
         ></textarea>
 
 
 
-        <!-- BUTTONS -->
+        <!-- POPUP BUTTON -->
 
         <div class="popup-buttons">
-
-
-            <button
-                type="button"
-                class="submit-btn"
-                onclick="updateSupport()"
-            >
-
-                <i class="fa fa-paper-plane"></i>
-
-                Update
-
-            </button>
-
 
             <button
                 type="button"
@@ -330,23 +317,9 @@
 
                 <i class="fa fa-xmark"></i>
 
-                Cancel
+                Close
 
             </button>
-
-
-            <button
-                type="button"
-                class="delete-btn"
-                onclick="deleteSupport()"
-            >
-
-                <i class="fa fa-trash"></i>
-
-                Delete
-
-            </button>
-
 
         </div>
 
@@ -362,7 +335,6 @@
         class="custom-popup"
         id="confirmPopup"
     >
-
 
         <div class="popup-icon warning">
 
@@ -382,7 +354,6 @@
 
 
         <div class="custom-popup-buttons">
-
 
             <button
                 type="button"
@@ -407,7 +378,6 @@
 
             </button>
 
-
         </div>
 
     </div>
@@ -422,7 +392,6 @@
         class="custom-popup"
         id="successPopup"
     >
-
 
         <div class="popup-icon success">
 
@@ -451,7 +420,6 @@
 
         </button>
 
-
     </div>
 
 
@@ -464,7 +432,6 @@
         class="custom-popup"
         id="errorPopup"
     >
-
 
         <div class="popup-icon error">
 
@@ -492,7 +459,6 @@
             OK
 
         </button>
-
 
     </div>
 
