@@ -1,12 +1,17 @@
 "use strict";
 
+
 /* =====================================================
-   HISTORY SYSTEM
-   ===================================================== */
+   HISTORY API
+===================================================== */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
 
 let historyData = [];
 
@@ -17,7 +22,7 @@ let filterVisible = false;
 
 /* =====================================================
    AUTH PROTECTION
-   ===================================================== */
+===================================================== */
 
 (function () {
 
@@ -26,6 +31,7 @@ let filterVisible = false;
         const auth =
             localStorage.getItem("auth");
 
+
         if (auth !== "true") {
 
             window.location.replace(
@@ -33,23 +39,24 @@ let filterVisible = false;
             );
 
             return false;
+
         }
 
+
         return true;
+
     }
 
 
     if (!checkAuth()) {
 
         return;
+
     }
 
 
     /*
-     * Back button disabled.
-     * History page থেকে Dashboard বা
-     * আগের page-এ যাওয়ার জন্য browser back
-     * ব্যবহার করা যাবে না।
+     * Browser Back Button OFF
      */
 
     history.pushState(
@@ -96,7 +103,7 @@ let filterVisible = false;
 
 /* =====================================================
    PAGE LOAD
-   ===================================================== */
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -108,13 +115,15 @@ document.addEventListener(
 
         setupSearch();
 
+        setupDateFilters();
+
     }
 );
 
 
 /* =====================================================
    PROFILE
-   ===================================================== */
+===================================================== */
 
 function loadProfile() {
 
@@ -190,7 +199,7 @@ function loadProfile() {
 
 /* =====================================================
    PROFILE MENU
-   ===================================================== */
+===================================================== */
 
 function toggleProfile() {
 
@@ -203,6 +212,7 @@ function toggleProfile() {
     if (!menu) {
 
         return;
+
     }
 
 
@@ -255,15 +265,13 @@ function logout() {
 
 /* =====================================================
    BACK BUTTON
-   ===================================================== */
-
-/*
- * IMPORTANT:
- * History page-এর Back button থাকলে
- * কোনো page-এ যাবে না।
- */
+===================================================== */
 
 function goBack() {
+
+    /*
+     * Back button intentionally disabled.
+     */
 
     return false;
 
@@ -272,7 +280,7 @@ function goBack() {
 
 /* =====================================================
    FILTER TOGGLE
-   ===================================================== */
+===================================================== */
 
 function toggleFilter() {
 
@@ -285,6 +293,7 @@ function toggleFilter() {
     if (!filterBar) {
 
         return;
+
     }
 
 
@@ -313,7 +322,7 @@ function toggleFilter() {
 
 /* =====================================================
    LOAD HISTORY
-   ===================================================== */
+===================================================== */
 
 function loadHistory() {
 
@@ -391,7 +400,7 @@ function loadHistory() {
         function (data) {
 
             console.log(
-                "HISTORY DATA:",
+                "HISTORY RESPONSE:",
                 data
             );
 
@@ -430,7 +439,7 @@ function loadHistory() {
         function (error) {
 
             console.error(
-                "HISTORY ERROR:",
+                "HISTORY LOAD ERROR:",
                 error
             );
 
@@ -470,7 +479,7 @@ function loadHistory() {
 
 /* =====================================================
    RENDER HISTORY
-   ===================================================== */
+===================================================== */
 
 function renderHistory(data) {
 
@@ -483,11 +492,12 @@ function renderHistory(data) {
     if (!list) {
 
         return;
+
     }
 
 
     if (
-        !data ||
+        !Array.isArray(data) ||
         data.length === 0
     ) {
 
@@ -530,56 +540,46 @@ function renderHistory(data) {
                 <tr>
 
                     <td>
-
                         ${escapeHTML(
-                            item.customerId
+                            getCustomerId(item)
                         )}
-
                     </td>
 
 
                     <td>
-
                         ${escapeHTML(
-                            item.problem
+                            getProblem(item)
                         )}
-
                     </td>
 
 
                     <td>
-
                         ${escapeHTML(
-                            item.reference
+                            getReference(item)
                         )}
-
                     </td>
 
 
                     <td>
-
-                        ${formatDate(
-                            item.date
+                        ${escapeHTML(
+                            formatDate(
+                                getDate(item)
+                            )
                         )}
-
                     </td>
 
 
                     <td>
-
                         ${escapeHTML(
-                            item.support
+                            getSupport(item)
                         )}
-
                     </td>
 
 
                     <td>
-
                         ${escapeHTML(
-                            item.supportWork
+                            getSupportWork(item)
                         )}
-
                     </td>
 
 
@@ -614,8 +614,8 @@ function renderHistory(data) {
 
 
 /* =====================================================
-   SEARCH
-   ===================================================== */
+   SEARCH SETUP
+===================================================== */
 
 function setupSearch() {
 
@@ -628,6 +628,7 @@ function setupSearch() {
     if (!search) {
 
         return;
+
     }
 
 
@@ -638,6 +639,10 @@ function setupSearch() {
 
 }
 
+
+/* =====================================================
+   SEARCH HISTORY
+===================================================== */
 
 function searchHistory() {
 
@@ -650,6 +655,7 @@ function searchHistory() {
     if (!search) {
 
         return;
+
     }
 
 
@@ -674,96 +680,51 @@ function searchHistory() {
         historyData.filter(
             function (item) {
 
-                const customerId =
-                    String(
-                        item.customerId ||
-                        ""
-                    ).toLowerCase();
+                const values = [
+
+                    getCustomerId(item),
+
+                    getProblem(item),
+
+                    getReference(item),
+
+                    getDate(item),
+
+                    getSupport(item),
+
+                    getSupportWork(item),
+
+                    getCall(item),
+
+                    getCallWork(item),
+
+                    getStatus(item),
+
+                    getUsername(item),
+
+                    getName(item),
+
+                    getRole(item),
+
+                    getFrom(item),
+
+                    getTo(item)
+
+                ];
 
 
-                const problem =
-                    String(
-                        item.problem ||
-                        ""
-                    ).toLowerCase();
+                return values.some(
+                    function (value) {
 
+                        return String(
+                            value || ""
+                        )
+                        .toLowerCase()
+                        .includes(
+                            keyword
+                        );
 
-                const reference =
-                    String(
-                        item.reference ||
-                        ""
-                    ).toLowerCase();
-
-
-                const date =
-                    String(
-                        item.date ||
-                        ""
-                    ).toLowerCase();
-
-
-                const formattedDate =
-                    formatDate(
-                        item.date
-                    ).toLowerCase();
-
-
-                const support =
-                    String(
-                        item.support ||
-                        ""
-                    ).toLowerCase();
-
-
-                const supportWork =
-                    String(
-                        item.supportWork ||
-                        ""
-                    ).toLowerCase();
-
-
-                return (
-
-                    customerId.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    problem.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    reference.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    date.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    formattedDate.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    support.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    supportWork.includes(
-                        keyword
-                    )
-
+                    }
                 );
 
             }
@@ -818,8 +779,48 @@ function searchHistory() {
 
 
 /* =====================================================
-   DATE FILTER
-   ===================================================== */
+   DATE FILTER SETUP
+===================================================== */
+
+function setupDateFilters() {
+
+    const fromDate =
+        document.getElementById(
+            "fromDate"
+        );
+
+
+    const toDate =
+        document.getElementById(
+            "toDate"
+        );
+
+
+    if (fromDate) {
+
+        fromDate.addEventListener(
+            "change",
+            applyDateFilter
+        );
+
+    }
+
+
+    if (toDate) {
+
+        toDate.addEventListener(
+            "change",
+            applyDateFilter
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   APPLY DATE FILTER
+===================================================== */
 
 function applyDateFilter() {
 
@@ -847,18 +848,18 @@ function applyDateFilter() {
             : "";
 
 
-    if (
-        !fromDate &&
-        !toDate
-    ) {
-
-        renderHistory(
-            historyData
+    const search =
+        document.getElementById(
+            "historySearch"
         );
 
-        return;
 
-    }
+    const keyword =
+        search
+            ? search.value
+                .trim()
+                .toLowerCase()
+            : "";
 
 
     const filtered =
@@ -867,7 +868,7 @@ function applyDateFilter() {
 
                 const itemDate =
                     convertDate(
-                        item.date
+                        getDate(item)
                     );
 
 
@@ -898,6 +899,60 @@ function applyDateFilter() {
                 }
 
 
+                if (keyword) {
+
+                    const values = [
+
+                        getCustomerId(item),
+
+                        getProblem(item),
+
+                        getReference(item),
+
+                        getSupport(item),
+
+                        getSupportWork(item),
+
+                        getCall(item),
+
+                        getCallWork(item),
+
+                        getStatus(item),
+
+                        getUsername(item),
+
+                        getName(item),
+
+                        getRole(item)
+
+                    ];
+
+
+                    const matched =
+                        values.some(
+                            function (value) {
+
+                                return String(
+                                    value || ""
+                                )
+                                .toLowerCase()
+                                .includes(
+                                    keyword
+                                );
+
+                            }
+                        );
+
+
+                    if (!matched) {
+
+                        return false;
+
+                    }
+
+                }
+
+
                 return true;
 
             }
@@ -913,17 +968,17 @@ function applyDateFilter() {
 
 /* =====================================================
    RESET FILTER
-   ===================================================== */
+===================================================== */
 
 function resetFilter() {
 
-    const fromInput =
+    const fromDate =
         document.getElementById(
             "fromDate"
         );
 
 
-    const toInput =
+    const toDate =
         document.getElementById(
             "toDate"
         );
@@ -935,17 +990,17 @@ function resetFilter() {
         );
 
 
-    if (fromInput) {
+    if (fromDate) {
 
-        fromInput.value =
+        fromDate.value =
             "";
 
     }
 
 
-    if (toInput) {
+    if (toDate) {
 
-        toInput.value =
+        toDate.value =
             "";
 
     }
@@ -968,7 +1023,7 @@ function resetFilter() {
 
 /* =====================================================
    VIEW HISTORY
-   ===================================================== */
+===================================================== */
 
 function viewHistory(row) {
 
@@ -1002,61 +1057,133 @@ function viewHistory(row) {
     }
 
 
+    console.log(
+        "VIEW RECORD:",
+        item
+    );
+
+
+    /* ================================================
+       CUSTOMER INFORMATION
+    ================================================ */
+
     setValue(
         "customerId",
-        item.customerId
+        getCustomerId(item)
     );
 
 
     setValue(
         "problem",
-        item.problem
+        getProblem(item)
     );
 
 
     setValue(
         "reference",
-        item.reference
+        getReference(item)
     );
 
 
     setValue(
         "date",
-        convertDate(
-            item.date
+        formatDate(
+            getDate(item)
         )
     );
 
 
+    /* ================================================
+       FROM / TO
+    ================================================ */
+
+    setValue(
+        "from",
+        getFrom(item)
+    );
+
+
+    setValue(
+        "to",
+        getTo(item)
+    );
+
+
+    /* ================================================
+       SUPPORT
+    ================================================ */
+
     setValue(
         "support",
-        item.support
+        getSupport(item)
     );
 
 
     setValue(
         "supportWork",
-        item.supportWork
+        getSupportWork(item)
     );
 
 
     setValue(
         "supportTime",
-        item.supportTime
+        getSupportTime(item)
     );
 
 
+    /* ================================================
+       CALL
+    ================================================ */
+
     setValue(
         "call",
-        item.call
+        getCall(item)
     );
 
 
     setValue(
         "callWork",
-        item.callWork
+        getCallWork(item)
     );
 
+
+    setValue(
+        "callTime",
+        getCallTime(item)
+    );
+
+
+    /* ================================================
+       OTHER
+    ================================================ */
+
+    setValue(
+        "status",
+        getStatus(item)
+    );
+
+
+    setValue(
+        "historyUsername",
+        getUsername(item)
+    );
+
+
+    setValue(
+        "name",
+        getName(item)
+    );
+
+
+    setValue(
+        "role",
+        getRole(item)
+    );
+
+
+    /* ================================================
+       OPEN POPUP
+    ================================================ */
 
     const modal =
         document.getElementById(
@@ -1070,14 +1197,18 @@ function viewHistory(row) {
             "show"
         );
 
+        document.body.classList.add(
+            "modal-open"
+        );
+
     }
 
 }
 
 
 /* =====================================================
-   CLOSE HISTORY
-   ===================================================== */
+   CLOSE HISTORY POPUP
+===================================================== */
 
 function closeHistory() {
 
@@ -1096,6 +1227,11 @@ function closeHistory() {
     }
 
 
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+
     currentRow =
         null;
 
@@ -1104,7 +1240,7 @@ function closeHistory() {
 
 /* =====================================================
    SET VALUE
-   ===================================================== */
+===================================================== */
 
 function setValue(
     id,
@@ -1117,19 +1253,246 @@ function setValue(
         );
 
 
-    if (element) {
+    if (!element) {
 
-        element.value =
-            value || "";
+        return;
 
     }
+
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        element.value =
+            "";
+
+        return;
+
+    }
+
+
+    element.value =
+        String(value);
 
 }
 
 
 /* =====================================================
-   CONVERT DATE
-   ===================================================== */
+   DATA FIELD HELPERS
+===================================================== */
+
+function getCustomerId(item) {
+
+    return (
+        item.customerId ??
+        item.customerID ??
+        item.CustomerID ??
+        item.customer ??
+        item.Customer ??
+        ""
+    );
+
+}
+
+
+function getProblem(item) {
+
+    return (
+        item.problem ??
+        item.Problem ??
+        item.issue ??
+        item.Issue ??
+        ""
+    );
+
+}
+
+
+function getReference(item) {
+
+    return (
+        item.reference ??
+        item.Reference ??
+        item.ref ??
+        item.Ref ??
+        ""
+    );
+
+}
+
+
+function getDate(item) {
+
+    return (
+        item.date ??
+        item.Date ??
+        item.entryDate ??
+        item.EntryDate ??
+        item.createdDate ??
+        item.CreatedDate ??
+        ""
+    );
+
+}
+
+
+function getFrom(item) {
+
+    return (
+        item.from ??
+        item.From ??
+        item.fromDate ??
+        item.FromDate ??
+        item.startDate ??
+        item.StartDate ??
+        item.start ??
+        item.Start ??
+        ""
+    );
+
+}
+
+
+function getTo(item) {
+
+    return (
+        item.to ??
+        item.To ??
+        item.toDate ??
+        item.ToDate ??
+        item.endDate ??
+        item.EndDate ??
+        item.end ??
+        item.End ??
+        ""
+    );
+
+}
+
+
+function getSupport(item) {
+
+    return (
+        item.support ??
+        item.Support ??
+        ""
+    );
+
+}
+
+
+function getSupportWork(item) {
+
+    return (
+        item.supportWork ??
+        item.SupportWork ??
+        item.support_work ??
+        item.Support_Work ??
+        ""
+    );
+
+}
+
+
+function getSupportTime(item) {
+
+    return (
+        item.supportTime ??
+        item.SupportTime ??
+        item.support_time ??
+        ""
+    );
+
+}
+
+
+function getCall(item) {
+
+    return (
+        item.call ??
+        item.Call ??
+        ""
+    );
+
+}
+
+
+function getCallWork(item) {
+
+    return (
+        item.callWork ??
+        item.CallWork ??
+        item.call_work ??
+        item.Call_Work ??
+        ""
+    );
+
+}
+
+
+function getCallTime(item) {
+
+    return (
+        item.callTime ??
+        item.CallTime ??
+        item.call_time ??
+        ""
+    );
+
+}
+
+
+function getStatus(item) {
+
+    return (
+        item.status ??
+        item.Status ??
+        ""
+    );
+
+}
+
+
+function getUsername(item) {
+
+    return (
+        item.username ??
+        item.Username ??
+        item.user ??
+        item.User ??
+        ""
+    );
+
+}
+
+
+function getName(item) {
+
+    return (
+        item.name ??
+        item.Name ??
+        ""
+    );
+
+}
+
+
+function getRole(item) {
+
+    return (
+        item.role ??
+        item.Role ??
+        ""
+    );
+
+}
+
+
+/* =====================================================
+   DATE CONVERT
+===================================================== */
 
 function convertDate(date) {
 
@@ -1141,7 +1504,7 @@ function convertDate(date) {
 
 
     const text =
-        String(date);
+        String(date).trim();
 
 
     if (
@@ -1207,7 +1570,7 @@ function convertDate(date) {
 
 /* =====================================================
    FORMAT DATE
-   ===================================================== */
+===================================================== */
 
 function formatDate(date) {
 
@@ -1228,9 +1591,7 @@ function formatDate(date) {
         )
     ) {
 
-        return String(
-            date
-        );
+        return String(date);
 
     }
 
@@ -1287,7 +1648,7 @@ function formatDate(date) {
 
 /* =====================================================
    ESCAPE HTML
-   ===================================================== */
+===================================================== */
 
 function escapeHTML(value) {
 
@@ -1332,8 +1693,8 @@ function escapeHTML(value) {
 
 
 /* =====================================================
-   ERROR
-   ===================================================== */
+   ERROR POPUP
+===================================================== */
 
 function showError(message) {
 
@@ -1371,7 +1732,7 @@ function showError(message) {
 
 /* =====================================================
    CLOSE ERROR
-   ===================================================== */
+===================================================== */
 
 function closeErrorPopup() {
 
@@ -1393,8 +1754,8 @@ function closeErrorPopup() {
 
 
 /* =====================================================
-   CLICK OUTSIDE PROFILE
-   ===================================================== */
+   PROFILE OUTSIDE CLICK
+===================================================== */
 
 document.addEventListener(
     "click",
@@ -1431,8 +1792,8 @@ document.addEventListener(
 
 
 /* =====================================================
-   CLICK OUTSIDE HISTORY MODAL
-   ===================================================== */
+   MODAL OUTSIDE CLICK
+===================================================== */
 
 document.addEventListener(
     "click",
@@ -1453,27 +1814,16 @@ document.addEventListener(
 
         }
 
-    }
-);
 
-
-/* =====================================================
-   CLICK OUTSIDE ERROR
-   ===================================================== */
-
-document.addEventListener(
-    "click",
-    function (event) {
-
-        const popup =
+        const errorPopup =
             document.getElementById(
                 "errorPopup"
             );
 
 
         if (
-            popup &&
-            event.target === popup
+            errorPopup &&
+            event.target === errorPopup
         ) {
 
             closeErrorPopup();
@@ -1485,8 +1835,8 @@ document.addEventListener(
 
 
 /* =====================================================
-   ESCAPE KEY
-   ===================================================== */
+   ESC KEY
+===================================================== */
 
 document.addEventListener(
     "keydown",
@@ -1501,9 +1851,9 @@ document.addEventListener(
         }
 
 
-        closeErrorPopup();
-
         closeHistory();
+
+        closeErrorPopup();
 
     }
 );
@@ -1511,4 +1861,4 @@ document.addEventListener(
 
 /* =====================================================
    END HISTORY.JS
-   ===================================================== */
+===================================================== */
