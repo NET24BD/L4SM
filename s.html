@@ -1,597 +1,500 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>Pending Support</title>
+<title>Pending Support</title>
 
+<!-- CSS -->
+<link
+    rel="stylesheet"
+    href="s.css"
+>
 
-    <!-- CSS -->
-    <link
-        rel="stylesheet"
-        href="s.css"
-    >
-
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    >
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+>
+```
 
 </head>
 
-
 <body>
 
+```
+<!-- =====================================
+     HEADER
+====================================== -->
 
-    <!-- =====================================
-         HEADER
-    ====================================== -->
+<div class="header">
 
-    <div class="header">
+    <div class="left-section">
+
+        <button
+            type="button"
+            class="back-btn"
+            onclick="goBack()"
+        >
+
+            <i class="fa fa-arrow-left"></i>
+
+            Back
+
+        </button>
 
 
-        <div class="left-section">
+        <h2>
 
+            <i class="fa fa-headset"></i>
+
+            Pending Support
+
+        </h2>
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div class="profile">
+
+        <div
+            class="profile-head"
+            onclick="toggleProfile()"
+        >
+
+            <img
+                id="profileImg"
+                src="assets/profile.png"
+                alt="Profile"
+            >
+
+            <span id="username">
+                User
+            </span>
+
+            <i class="fa fa-angle-down"></i>
+
+        </div>
+
+
+        <div
+            class="profile-menu"
+            id="profileMenu"
+        >
 
             <button
                 type="button"
-                class="back-btn"
-                onclick="goBack()"
+                onclick="myAccount()"
             >
 
-                <i class="fa fa-arrow-left"></i>
+                <i class="fa fa-user"></i>
 
-                Back
+                My Account
 
             </button>
 
 
-            <h2>
+            <button
+                type="button"
+                onclick="logout()"
+            >
 
-                <i class="fa fa-headset"></i>
+                <i class="fa fa-sign-out"></i>
 
-                Pending Support
+                Logout
 
-            </h2>
+            </button>
 
         </div>
 
+    </div>
+
+</div>
 
 
-        <!-- =================================
-             PROFILE
-        ================================== -->
+<!-- =====================================
+     SEARCH
+====================================== -->
 
-        <div class="profile">
+<div class="search-section">
 
+    <div class="search-box">
 
-            <div
-                class="profile-head"
-                onclick="toggleProfile()"
-            >
+        <i class="fa fa-search"></i>
 
-
-                <img
-                    id="profileImg"
-                    src="assets/profile.png"
-                    alt="Profile"
-                >
-
-
-                <span id="username">
-                    User
-                </span>
-
-
-                <i class="fa fa-angle-down"></i>
-
-
-            </div>
-
-
-
-            <div
-                class="profile-menu"
-                id="profileMenu"
-            >
-
-
-                <button
-                    type="button"
-                    onclick="myAccount()"
-                >
-
-                    <i class="fa fa-user"></i>
-
-                    My Account
-
-                </button>
-
-
-
-                <button
-                    type="button"
-                    onclick="logout()"
-                >
-
-                    <i class="fa fa-sign-out"></i>
-
-                    Logout
-
-                </button>
-
-
-            </div>
-
-
-        </div>
-
+        <input
+            type="text"
+            id="supportSearch"
+            placeholder="Search Customer ID, Problem, Reference..."
+            autocomplete="off"
+        >
 
     </div>
 
+</div>
 
 
-    <!-- =====================================
-         SEARCH
-    ====================================== -->
+<!-- =====================================
+     TABLE
+====================================== -->
 
-    <div class="search-section">
+<div class="table-box">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Customer ID
+                </th>
+
+                <th>
+                    Problem
+                </th>
+
+                <th>
+                    Reference
+                </th>
+
+                <th>
+                    Date
+                </th>
+
+                <th>
+                    Action
+                </th>
+
+            </tr>
+
+        </thead>
 
 
-        <div class="search-box">
+        <tbody id="supportList">
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="loading-cell"
+                >
+
+                    <i class="fa fa-spinner fa-spin"></i>
+
+                    Loading...
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
 
 
-            <i class="fa fa-search"></i>
+<!-- =====================================
+     EDIT MODAL
+====================================== -->
+
+<div
+    class="modal"
+    id="editModal"
+>
+
+    <div class="popup">
+
+        <button
+            type="button"
+            class="close-btn"
+            onclick="closeEdit()"
+        >
+
+            ×
+
+        </button>
 
 
-            <input
-                type="text"
-                id="supportSearch"
-                placeholder="Search Customer ID, Problem, Reference..."
-                autocomplete="off"
+        <h2>
+
+            <i class="fa fa-headset"></i>
+
+            Edit Support
+
+        </h2>
+
+
+        <!-- CUSTOMER ID -->
+
+        <label for="customerId">
+            Customer ID
+        </label>
+
+        <input
+            type="text"
+            id="customerId"
+            readonly
+        >
+
+
+        <!-- PROBLEM -->
+
+        <label for="problem">
+            Problem
+        </label>
+
+        <textarea
+            id="problem"
+            readonly
+        ></textarea>
+
+
+        <!-- REFERENCE -->
+
+        <label for="reference">
+            Reference
+        </label>
+
+        <input
+            type="text"
+            id="reference"
+            readonly
+        >
+
+
+        <!-- DATE -->
+
+        <label for="date">
+            Date
+        </label>
+
+        <input
+            type="date"
+            id="date"
+            readonly
+        >
+
+
+        <!-- SUPPORT -->
+
+        <label for="support">
+            Support
+        </label>
+
+        <input
+            type="text"
+            id="support"
+        >
+
+
+        <!-- SUPPORT WORK -->
+
+        <label for="supportWork">
+            Support Work
+        </label>
+
+        <textarea
+            id="supportWork"
+        ></textarea>
+
+
+        <!-- BUTTONS -->
+
+        <div class="popup-buttons">
+
+            <button
+                type="button"
+                class="submit-btn"
+                onclick="updateSupport()"
             >
 
+                <i class="fa fa-paper-plane"></i>
 
-        </div>
+                Submit
 
-
-    </div>
-
-
-
-    <!-- =====================================
-         TABLE
-    ====================================== -->
-
-    <div class="table-box">
-
-
-        <table>
-
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Customer ID
-                    </th>
-
-                    <th>
-                        Problem
-                    </th>
-
-                    <th>
-                        Reference
-                    </th>
-
-                    <th>
-                        Date
-                    </th>
-
-                    <th>
-                        Action
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-
-            <tbody id="supportList">
-
-
-                <tr>
-
-                    <td
-                        colspan="5"
-                        class="loading-cell"
-                    >
-
-                        <i class="fa fa-spinner fa-spin"></i>
-
-                        Loading...
-
-                    </td>
-
-                </tr>
-
-
-            </tbody>
-
-
-        </table>
-
-
-    </div>
-
-
-
-    <!-- =====================================
-         EDIT MODAL
-    ====================================== -->
-
-    <div
-        class="modal"
-        id="editModal"
-    >
-
-
-        <div class="popup">
+            </button>
 
 
             <button
                 type="button"
-                class="close-btn"
+                class="cancel-btn"
                 onclick="closeEdit()"
             >
 
-                ×
-
-            </button>
-
-
-
-            <h2>
-
-                <i class="fa fa-headset"></i>
-
-                Edit Support
-
-            </h2>
-
-
-
-            <!-- =================================
-                 CUSTOMER ID - READ ONLY
-            ================================== -->
-
-            <label for="customerId">
-                Customer ID
-            </label>
-
-
-            <input
-                type="text"
-                id="customerId"
-                readonly
-            >
-
-
-
-            <!-- =================================
-                 PROBLEM - READ ONLY
-            ================================== -->
-
-            <label for="problem">
-                Problem
-            </label>
-
-
-            <textarea
-                id="problem"
-                readonly
-            ></textarea>
-
-
-
-            <!-- =================================
-                 REFERENCE - READ ONLY
-            ================================== -->
-
-            <label for="reference">
-                Reference
-            </label>
-
-
-            <input
-                type="text"
-                id="reference"
-                readonly
-            >
-
-
-
-            <!-- =================================
-                 DATE - READ ONLY
-            ================================== -->
-
-            <label for="date">
-                Date
-            </label>
-
-
-            <input
-                type="date"
-                id="date"
-                readonly
-            >
-
-
-
-            <!-- =================================
-                 SUPPORT - EDITABLE
-            ================================== -->
-
-            <label for="support">
-                Support
-            </label>
-
-
-            <input
-                type="text"
-                id="support"
-            >
-
-
-
-            <!-- =================================
-                 SUPPORT WORK - EDITABLE
-            ================================== -->
-
-            <label for="supportWork">
-                Support Work
-            </label>
-
-
-            <textarea
-                id="supportWork"
-            ></textarea>
-
-
-
-            <!-- =================================
-                 BUTTONS
-            ================================== -->
-
-            <div class="popup-buttons">
-
-
-                <button
-                    type="button"
-                    class="submit-btn"
-                    onclick="updateSupport()"
-                >
-
-                    <i class="fa fa-paper-plane"></i>
-
-                    Submit
-
-                </button>
-
-
-
-                <button
-                    type="button"
-                    class="cancel-btn"
-                    onclick="closeEdit()"
-                >
-
-                    <i class="fa fa-xmark"></i>
-
-                    Cancel
-
-                </button>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =====================================
-         CONFIRM POPUP
-    ====================================== -->
-
-    <div
-        class="custom-popup-overlay"
-        id="confirmPopup"
-    >
-
-
-        <div class="custom-popup">
-
-
-            <div class="popup-icon warning">
-
-                <i class="fa fa-triangle-exclamation"></i>
-
-            </div>
-
-
-
-            <h3 id="confirmTitle">
-                Confirm
-            </h3>
-
-
-
-            <p id="confirmMessage">
-                Are you sure?
-            </p>
-
-
-
-            <div class="custom-popup-buttons">
-
-
-                <button
-                    type="button"
-                    class="popup-cancel-btn"
-                    onclick="closeConfirmPopup()"
-                >
-
-                    Cancel
-
-                </button>
-
-
-
-                <button
-                    type="button"
-                    class="popup-confirm-btn"
-                    id="confirmActionBtn"
-                >
-
-                    Confirm
-
-                </button>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =====================================
-         SUCCESS POPUP
-    ====================================== -->
-
-    <div
-        class="custom-popup-overlay"
-        id="successPopup"
-    >
-
-
-        <div class="custom-popup">
-
-
-            <div class="popup-icon success">
-
-                <i class="fa fa-check"></i>
-
-            </div>
-
-
-
-            <h3 id="successTitle">
-                Success
-            </h3>
-
-
-
-            <p id="successMessage">
-                Operation completed successfully.
-            </p>
-
-
-
-            <button
-                type="button"
-                class="popup-ok-btn"
-                onclick="closeSuccessPopup()"
-            >
-
-                OK
-
-            </button>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =====================================
-         ERROR POPUP
-    ====================================== -->
-
-    <div
-        class="custom-popup-overlay"
-        id="errorPopup"
-    >
-
-
-        <div class="custom-popup">
-
-
-            <div class="popup-icon error">
-
                 <i class="fa fa-xmark"></i>
 
-            </div>
-
-
-
-            <h3 id="errorTitle">
-                Error
-            </h3>
-
-
-
-            <p id="errorMessage">
-                Something went wrong.
-            </p>
-
-
-
-            <button
-                type="button"
-                class="popup-ok-btn error-btn"
-                onclick="closeErrorPopup()"
-            >
-
-                OK
+                Cancel
 
             </button>
 
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     CONFIRM POPUP
+====================================== -->
+
+<div
+    class="custom-popup-overlay"
+    id="confirmPopup"
+>
+
+    <div class="custom-popup">
+
+        <div class="popup-icon warning">
+
+            <i class="fa fa-triangle-exclamation"></i>
 
         </div>
 
 
+        <h3 id="confirmTitle">
+            Confirm
+        </h3>
+
+
+        <p id="confirmMessage">
+            Are you sure?
+        </p>
+
+
+        <div class="custom-popup-buttons">
+
+            <button
+                type="button"
+                class="popup-cancel-btn"
+                onclick="closeConfirmPopup()"
+            >
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                class="popup-confirm-btn"
+                id="confirmActionBtn"
+            >
+
+                Confirm
+
+            </button>
+
+        </div>
+
     </div>
 
+</div>
 
 
-    <!-- =====================================
-         JAVASCRIPT
-    ====================================== -->
+<!-- =====================================
+     SUCCESS POPUP
+====================================== -->
 
-    <script src="s.js"></script>
+<div
+    class="custom-popup-overlay"
+    id="successPopup"
+>
 
+    <div class="custom-popup">
+
+        <div class="popup-icon success">
+
+            <i class="fa fa-check"></i>
+
+        </div>
+
+
+        <h3 id="successTitle">
+            Success
+        </h3>
+
+
+        <p id="successMessage">
+            Operation completed successfully.
+        </p>
+
+
+        <button
+            type="button"
+            class="popup-ok-btn"
+            onclick="closeSuccessPopup()"
+        >
+
+            OK
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     ERROR POPUP
+====================================== -->
+
+<div
+    class="custom-popup-overlay"
+    id="errorPopup"
+>
+
+    <div class="custom-popup">
+
+        <div class="popup-icon error">
+
+            <i class="fa fa-xmark"></i>
+
+        </div>
+
+
+        <h3 id="errorTitle">
+            Error
+        </h3>
+
+
+        <p id="errorMessage">
+            Something went wrong.
+        </p>
+
+
+        <button
+            type="button"
+            class="popup-ok-btn error-btn"
+            onclick="closeErrorPopup()"
+        >
+
+            OK
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- JS -->
+
+<script src="s.js"></script>
+```
 
 </body>
 
