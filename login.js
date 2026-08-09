@@ -1,455 +1,430 @@
 const API_URL =
-"https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
-
+    "https://script.google.com/macros/s/AKfycbx2-w0CK4IXldQfzUxjOTpN2m2knTH858fr8vMmcowbecL6UQ9oJVcAyoMMLb8GYbY/exec";
 
 
 const loginForm =
-document.getElementById("loginForm");
-
+    document.getElementById("loginForm");
 
 const message =
-document.getElementById("message");
-
+    document.getElementById("message");
 
 const loginBtn =
-document.getElementById("loginBtn");
+    document.getElementById("loginBtn");
 
 
-
-
-
-// =================================
+// =====================================================
 // LOGIN
-// =================================
+// =====================================================
+
+if (loginForm) {
+
+    loginForm.addEventListener(
+        "submit",
+        function (e) {
+
+            e.preventDefault();
 
 
-loginForm.addEventListener("submit",function(e){
+            const usernameInput =
+                document.getElementById(
+                    "username"
+                );
+
+            const passwordInput =
+                document.getElementById(
+                    "password"
+                );
 
 
-e.preventDefault();
+            const username =
+                usernameInput.value.trim();
+
+            const password =
+                passwordInput.value.trim();
 
 
+            // =============================================
+            // VALIDATION
+            // =============================================
+
+            if (
+                username === "" ||
+                password === ""
+            ) {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Enter Username and Password";
+
+                return;
+
+            }
 
 
-let username =
-document.getElementById("username")
-.value
-.trim();
+            // =============================================
+            // LOGIN BUTTON
+            // =============================================
+
+            loginBtn.disabled = true;
+
+            loginBtn.innerHTML =
+                "CHECKING...";
 
 
+            // =============================================
+            // SEND LOGIN REQUEST
+            // =============================================
+
+            fetch(
+                API_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+                    },
+
+                    body: JSON.stringify({
+
+                        action: "login",
+
+                        username:
+                            username,
+
+                        password:
+                            String(password)
+
+                    })
+                }
+            )
+
+            .then(
+                response => {
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Server response error"
+                        );
+
+                    }
+
+                    return response.json();
+
+                }
+            )
+
+            .then(
+                data => {
+
+                    console.log(
+                        "LOGIN RESPONSE:",
+                        data
+                    );
 
 
-let password =
-document.getElementById("password")
-.value
-.trim();
+                    // =====================================
+                    // LOGIN SUCCESS
+                    // =====================================
+
+                    if (
+                        data.success === true
+                    ) {
 
 
+                        // =================================
+                        // GET USER INFORMATION
+                        // =================================
+
+                        const savedUsername =
+                            data.username ||
+                            username;
 
 
-
-if(username==="" || password===""){
-
-
-
-message.style.color="red";
+                        const savedName =
+                            data.name ||
+                            data.username ||
+                            username;
 
 
-message.innerHTML =
-"Enter Username and Password";
+                        const savedRole =
+                            data.role ||
+                            "";
 
 
-return;
+                        const savedPicture =
+                            data.picture ||
+                            "assets/profile.png";
 
+
+                        // =================================
+                        // OLD LOGIN DATA
+                        // =================================
+
+                        localStorage.setItem(
+                            "auth",
+                            "true"
+                        );
+
+
+                        localStorage.setItem(
+                            "isLogin",
+                            "true"
+                        );
+
+
+                        localStorage.setItem(
+                            "username",
+                            savedUsername
+                        );
+
+
+                        localStorage.setItem(
+                            "name",
+                            savedName
+                        );
+
+
+                        localStorage.setItem(
+                            "role",
+                            savedRole
+                        );
+
+
+                        localStorage.setItem(
+                            "picture",
+                            savedPicture
+                        );
+
+
+                        // =================================
+                        // NEW USER OBJECT
+                        // =================================
+
+                        const loggedInUser = {
+
+                            userId:
+                                savedUsername,
+
+                            username:
+                                savedUsername,
+
+                            name:
+                                savedName,
+
+                            role:
+                                savedRole,
+
+                            profileImage:
+                                savedPicture
+
+                        };
+
+
+                        // =================================
+                        // SAVE USER OBJECT
+                        // =================================
+
+                        localStorage.setItem(
+                            "loggedInUser",
+                            JSON.stringify(
+                                loggedInUser
+                            )
+                        );
+
+
+                        // =================================
+                        // SESSION TIMER
+                        // =================================
+
+                        localStorage.setItem(
+                            "lastActivity",
+                            Date.now()
+                        );
+
+
+                        // =================================
+                        // SUCCESS MESSAGE
+                        // =================================
+
+                        message.style.color =
+                            "green";
+
+
+                        message.innerHTML =
+                            "Login Successful";
+
+
+                        // =================================
+                        // ROLE REDIRECT
+                        // =================================
+
+                        setTimeout(
+                            function () {
+
+                                const role =
+                                    savedRole;
+
+
+                                if (
+                                    role === "Admin"
+                                ) {
+
+                                    window.location.href =
+                                        "dashboard.html";
+
+                                }
+
+                                else if (
+                                    role === "Support"
+                                ) {
+
+                                    window.location.href =
+                                        "std.html";
+
+                                }
+
+                                else if (
+                                    role === "Caller"
+                                ) {
+
+                                    window.location.href =
+                                        "cd.html";
+
+                                }
+
+                                else if (
+                                    role === "Manager"
+                                ) {
+
+                                    window.location.href =
+                                        "manager.html";
+
+                                }
+
+                                else {
+
+                                    /*
+                                     * Unknown role
+                                     */
+
+                                    window.location.href =
+                                        "dashboard.html";
+
+                                }
+
+                            },
+                            800
+                        );
+
+                    }
+
+
+                    // =====================================
+                    // LOGIN FAILED
+                    // =====================================
+
+                    else {
+
+                        message.style.color =
+                            "red";
+
+
+                        message.innerHTML =
+                            data.message ||
+                            "Login Failed";
+
+                    }
+
+                }
+            )
+
+            .catch(
+                error => {
+
+                    console.error(
+                        "LOGIN ERROR:",
+                        error
+                    );
+
+
+                    message.style.color =
+                        "red";
+
+
+                    message.innerHTML =
+                        "Server Connection Error";
+
+                }
+            )
+
+            .finally(
+                () => {
+
+                    loginBtn.disabled =
+                        false;
+
+
+                    loginBtn.innerHTML =
+                        "LOGIN";
+
+                }
+            );
+
+        }
+    );
 
 }
 
 
-
-
-
-
-loginBtn.disabled=true;
-
-
-loginBtn.innerHTML =
-"CHECKING...";
-
-
-
-
-
-
-
-
-
-fetch(API_URL,{
-
-
-method:"POST",
-
-
-headers:{
-
-
-"Content-Type":
-"text/plain;charset=utf-8"
-
-
-},
-
-
-
-body:JSON.stringify({
-
-
-
-action:"login",
-
-
-username:username,
-
-
-password:String(password)
-
-
-
-})
-
-
-
-})
-
-
-
-
-
-
-
-
-
-.then(response=>response.json())
-
-
-
-
-
-
-.then(data=>{
-
-
-
-console.log(
-"LOGIN RESPONSE:",
-data
-);
-
-
-
-
-
-
-if(data.success === true){
-
-
-
-
-
-// ===============================
-// SAVE LOGIN DATA
-// ===============================
-
-
-localStorage.setItem(
-"auth",
-"true"
-);
-
-localStorage.setItem(
-"isLogin",
-"true"
-);
-
-
-
-localStorage.setItem(
-"username",
-data.username
-);
-
-
-
-localStorage.setItem(
-"name",
-data.name
-);
-
-
-
-localStorage.setItem(
-"role",
-data.role
-);
-
-
-
-localStorage.setItem(
-"picture",
-data.picture || ""
-);
-
-
-
-// Session Timer Start
-
-localStorage.setItem(
-"lastActivity",
-Date.now()
-);
-
-
-
-
-
-
-
-
-
-message.style.color="green";
-
-
-message.innerHTML =
-"Login Successful";
-
-
-
-
-
-
-
-// ===============================
-// ROLE REDIRECT
-// ===============================
-
-
-setTimeout(function(){
-
-
-
-let role =
-data.role;
-
-
-
-
-
-if(role==="Admin"){
-
-
-window.location.href =
-"dashboard.html";
-
-
-}
-
-
-
-
-
-else if(role==="Support"){
-
-
-window.location.href =
-"std.html";
-
-
-}
-
-
-
-
-
-else if(role==="Caller"){
-
-
-window.location.href =
-"cd.html";
-
-
-}
-
-
-
-
-
-else if(role==="Manager"){
-
-
-window.location.href =
-"manager.html";
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-},800);
-
-
-
-
-
-
-
-}
-
-else{
-
-
-
-message.style.color="red";
-
-
-message.innerHTML =
-data.message || "Login Failed";
-
-
-
-}
-
-
-
-
-
-})
-
-
-
-
-
-
-
-
-
-.catch(error=>{
-
-
-console.log(error);
-
-
-
-message.style.color="red";
-
-
-message.innerHTML =
-"Server Connection Error";
-
-
-
-})
-
-
-
-
-
-
-
-
-
-.finally(()=>{
-
-
-
-loginBtn.disabled=false;
-
-
-loginBtn.innerHTML =
-"LOGIN";
-
-
-
-});
-
-
-
-});
-
-
-
-
-
-
-
-
-
-// =================================
+// =====================================================
 // PASSWORD SHOW / HIDE
-// =================================
-
+// =====================================================
 
 const togglePassword =
-document.getElementById("togglePassword");
+    document.getElementById(
+        "togglePassword"
+    );
 
 
+if (togglePassword) {
+
+    togglePassword.onclick =
+        function () {
+
+            const password =
+                document.getElementById(
+                    "password"
+                );
 
 
-if(togglePassword){
+            if (
+                password.type ===
+                "password"
+            ) {
+
+                password.type =
+                    "text";
 
 
+                togglePassword.innerHTML =
+                    '<i class="fa fa-eye-slash"></i>';
 
-togglePassword.onclick=function(){
+            }
 
+            else {
 
-
-const password =
-document.getElementById("password");
-
-
-
-
+                password.type =
+                    "password";
 
 
-if(password.type==="password"){
+                togglePassword.innerHTML =
+                    '<i class="fa fa-eye"></i>';
 
+            }
 
-
-password.type="text";
-
-
-togglePassword.innerHTML =
-'<i class="fa-solid fa-eye-slash"></i>';
-
-
-
-}
-
-else{
-
-
-
-password.type="password";
-
-
-togglePassword.innerHTML =
-'<i class="fa-solid fa-eye"></i>';
-
-
-
-}
-
-
-
-
-};
-
-
+        };
 
 }
