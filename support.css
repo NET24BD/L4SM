@@ -1,12 +1,50 @@
-/* =========================================================
-   RESET
-========================================================= */
+/* =====================================================
+   SUPPORT.CSS - FULL FINAL
+   ===================================================== */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+
+    --success: #16a34a;
+    --success-dark: #15803d;
+    --success-light: #f0fdf4;
+
+    --danger: #dc2626;
+    --danger-dark: #b91c1c;
+    --danger-light: #fef2f2;
+
+    --warning: #f59e0b;
+    --warning-light: #fffbeb;
+
+    --dark: #0f172a;
+    --text: #334155;
+    --muted: #64748b;
+
+    --border: #e2e8f0;
+    --background: #f1f5f9;
+    --white: #ffffff;
+
+    --shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
+
+    --shadow-lg:
+        0 20px 60px rgba(15, 23, 42, 0.18);
+
+    --radius: 14px;
+}
+
+
+/* =====================================================
+   BODY
+   ===================================================== */
 
 html,
 body {
@@ -20,731 +58,60 @@ body {
         Helvetica,
         sans-serif;
 
-    background: #f3f7fc;
-
-    color: #172033;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.left-section {
-    width: 100%;
-    height: 72px;
-
-    padding: 0 27px;
-
-    display: flex;
-    align-items: center;
-    gap: 17px;
-
-    background: #ffffff;
-
-    border-bottom: 1px solid #dce5ef;
-
-    position: relative;
-    z-index: 20;
-}
-
-
-.back-btn {
-    height: 40px;
-
-    padding: 0 15px;
-
-    border: 0;
-    border-radius: 9px;
-
-    background: #edf2f8;
-
-    color: #334155;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-
-.back-btn:hover {
-    background: #dce8f7;
-    color: #1d4ed8;
-}
-
-
-.left-section h2 {
-    margin: 0;
-
-    display: flex;
-    align-items: center;
-
-    gap: 9px;
-
-    color: #172033;
-
-    font-size: 21px;
-    font-weight: 700;
-}
-
-
-.left-section h2 i {
-    color: #2563eb;
-    font-size: 22px;
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profile {
-    position: absolute;
-
-    right: 24px;
-    top: 14px;
-
-    z-index: 100;
-}
-
-
-.profile-head {
-    min-height: 44px;
-
-    padding: 3px 7px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
-
-    border-radius: 25px;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-
-.profile-head:hover {
-    background: #f0f6ff;
-}
-
-
-.profile-head img {
-    width: 38px;
-    height: 38px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    border: 2px solid #d6e4f5;
-
-    background: #edf4ff;
-}
-
-
-.profile-head span {
-    color: #172033;
-
-    font-size: 14px;
-    font-weight: 700;
-}
-
-
-.profile-head > i {
-    color: #64748b;
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   PROFILE MENU
-========================================================= */
-
-.profile-menu {
-    position: absolute;
-
-    top: 48px;
-    right: 0;
-
-    width: 180px;
-
-    padding: 6px;
-
-    background: #ffffff;
-
-    border: 1px solid #dbe4ef;
-
-    border-radius: 10px;
-
-    box-shadow:
-        0 15px 35px rgba(15, 23, 42, 0.16);
-
-    display: none;
-
-    z-index: 500;
-}
-
-
-.profile-menu.show {
-    display: block;
-}
-
-
-.profile-menu button {
-    width: 100%;
-    height: 40px;
-
-    padding: 0 12px;
-
-    border: 0;
-    border-radius: 7px;
-
-    background: transparent;
-
-    color: #334155;
-
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    font-size: 13px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    text-align: left;
-}
-
-
-.profile-menu button:hover {
-    background: #eef5ff;
-    color: #2563eb;
-}
-
-
-.profile-menu button i {
-    width: 18px;
-
-    color: #2563eb;
-
-    text-align: center;
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search-box {
-    width: calc(100% - 54px);
-    max-width: 1400px;
-
-    height: 46px;
-
-    margin: 22px auto 18px;
-
-    padding: 0 14px;
-
-    display: flex;
-    align-items: center;
-
-    background: #ffffff;
-
-    border: 1px solid #cbd8e8;
-
-    border-radius: 10px;
-
-    transition: 0.2s;
-}
-
-
-.search-box:focus-within {
-    border-color: #2563eb;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.08);
-}
-
-
-.search-box i {
-    margin-right: 10px;
-
-    color: #2563eb;
-
-    font-size: 15px;
-}
-
-
-.search-box input {
-    width: 100%;
-    height: 100%;
-
-    border: 0;
-    outline: 0;
-
-    background: transparent;
-
-    color: #172033;
-
-    font-size: 14px;
-}
-
-
-.search-box input::placeholder {
-    color: #8ca0b8;
-}
-
-
-/* =========================================================
-   TABLE
-========================================================= */
-
-table {
-    width: calc(100% - 54px);
-    max-width: 1400px;
-
-    margin: 0 auto;
-
-    border-collapse: separate;
-    border-spacing: 0;
-
-    background: #ffffff;
-
-    border: 1px solid #d8e3ef;
-
-    border-radius: 14px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 7px 25px rgba(30, 64, 175, 0.07);
-}
-
-
-/* =========================================================
-   TABLE HEADER
-========================================================= */
-
-thead {
-    background:
-        linear-gradient(
-            90deg,
-            #2558db,
-            #2563eb,
-            #117c96
-        );
-}
-
-
-th {
-    height: 53px;
-
-    padding: 0 16px;
-
-    color: #ffffff;
-
-    text-align: left;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    border-right:
-        1px solid rgba(255, 255, 255, 0.15);
-}
-
-
-th:last-child {
-    text-align: center;
-    border-right: 0;
-}
-
-
-/* =========================================================
-   TABLE BODY
-========================================================= */
-
-tbody tr {
-    background: #ffffff;
-
-    transition: 0.15s;
-}
-
-
-tbody tr:nth-child(even) {
-    background: #f1f7ff;
-}
-
-
-tbody tr:hover {
-    background: #e3efff;
-}
-
-
-td {
-    height: 64px;
-
-    padding: 9px 16px;
-
-    border-bottom: 1px solid #dce7f2;
-
-    color: #334155;
-
-    font-size: 13px;
-
-    vertical-align: middle;
-}
-
-
-tbody tr:last-child td {
-    border-bottom: 0;
-}
-
-
-td:first-child {
-    color: #174dd3;
-    font-weight: 700;
-}
-
-
-td:nth-child(2) {
-    color: #334155;
-}
-
-
-td:nth-child(3) {
-    color: #6d3fc1;
-    font-weight: 600;
-}
-
-
-td:nth-child(4) {
-    color: #07805d;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-
-td:last-child {
-    text-align: center;
-}
-
-
-/* =========================================================
-   TABLE ACTION BUTTON
-========================================================= */
-
-td button {
-    min-height: 36px;
-
-    padding: 0 13px;
-
-    border: 1px solid #bfdbfe;
-
-    border-radius: 8px;
-
-    background: #eff6ff;
-
-    color: #2563eb;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 6px;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-
-td button:hover {
-    background: #2563eb;
-
-    color: #ffffff;
-
-    border-color: #2563eb;
-
-    box-shadow:
-        0 5px 12px rgba(37, 99, 235, 0.2);
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading-cell {
-    height: 90px !important;
-
-    text-align: center !important;
-
-    color: #2563eb !important;
-
-    font-weight: 700 !important;
-
-    background: #ffffff !important;
-}
-
-
-/* =========================================================
-   IMPORTANT:
-   EDIT POPUP DEFAULT HIDDEN
-========================================================= */
-
-.popup {
-    display: none;
-
-    position: fixed;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-    width: 94%;
-    max-width: 570px;
-
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    padding: 25px;
-
-    background: #ffffff;
-
-    border: 1px solid #d9e4f0;
-
-    border-radius: 15px;
-
-    box-shadow:
-        0 25px 70px
-        rgba(15, 23, 42, 0.30);
-
-    z-index: 1000;
-}
-
-
-/*
-   JS যদি class "show" ব্যবহার করে
-*/
-.popup.show {
-    display: block;
-}
-
-
-/*
-   JS যদি inline display ব্যবহার করে
-   সেটাও কাজ করবে
-*/
-
-
-/* =========================================================
-   POPUP CLOSE BUTTON
-========================================================= */
-
-.close-btn {
-    position: absolute;
-
-    right: 14px;
-    top: 14px;
-
-    width: 34px;
-    height: 34px;
-
-    border: 0;
-
-    border-radius: 8px;
-
-    background: #fee2e2;
-
-    color: #dc2626;
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-
-.close-btn:hover {
-    background: #fecaca;
-
-    transform: scale(1.04);
-}
-
-
-/* =========================================================
-   EDIT POPUP TITLE
-========================================================= */
-
-.popup h2 {
-    margin: 0 0 14px;
-
-    padding-bottom: 14px;
-
-    border-bottom: 1px solid #dce5ef;
-
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    color: #172033;
-
-    font-size: 19px;
-}
-
-
-.popup h2 i {
-    width: 43px;
-    height: 43px;
-
-    border-radius: 11px;
-
     background:
         linear-gradient(
             135deg,
-            #2563eb,
-            #3b5bea
+            #eef4ff 0%,
+            #f8fbff 50%,
+            #f1f5f9 100%
         );
 
-    color: #ffffff;
+    color: var(--text);
+    min-height: 100vh;
 
+    padding: 24px;
+}
+
+
+/* =====================================================
+   BODY WHEN MODAL OPEN
+   ===================================================== */
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   MAIN PAGE HEADER
+   ===================================================== */
+
+.left-section {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 18px;
 
-    font-size: 17px;
+    background: var(--white);
+
+    padding: 18px 22px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 18px;
 }
 
 
-/* =========================================================
-   POPUP FORM
-========================================================= */
+/* =====================================================
+   BACK BUTTON
+   ===================================================== */
 
-.popup label {
-    display: block;
+.back-btn {
+    border: none;
 
-    margin:
-        12px 0 6px;
-
-    color: #334155;
-
-    font-size: 12px;
-    font-weight: 700;
-}
-
-
-.popup input,
-.popup textarea {
-    width: 100%;
-
-    border: 1px solid #cbd8e8;
-
-    border-radius: 8px;
-
-    outline: none;
-
-    background: #ffffff;
-
-    color: #172033;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    font-size: 14px;
-
-    transition: 0.2s;
-}
-
-
-.popup input {
-    height: 42px;
-
-    padding: 0 12px;
-}
-
-
-.popup textarea {
-    min-height: 78px;
-
-    padding: 10px 12px;
-
-    resize: vertical;
-}
-
-
-.popup input:focus,
-.popup textarea:focus {
-    border-color: #2563eb;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(37, 99, 235, 0.08);
-}
-
-
-/* =========================================================
-   POPUP BUTTONS
-========================================================= */
-
-.popup-buttons {
-    margin-top: 20px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 9px;
-
-    flex-wrap: wrap;
-}
-
-
-.popup-buttons button {
-    height: 42px;
-
-    padding: 0 16px;
-
-    border: 0;
-
-    border-radius: 8px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-
-/* SUBMIT */
-
-.submit-btn {
     background:
         linear-gradient(
             135deg,
@@ -752,34 +119,816 @@ td button:hover {
             #1d4ed8
         );
 
-    color: #ffffff;
-}
+    color: white;
 
+    padding: 11px 18px;
 
-.submit-btn:hover {
-    transform: translateY(-1px);
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition:
+        0.2s ease;
 
     box-shadow:
-        0 6px 14px
+        0 5px 14px
         rgba(37, 99, 235, 0.22);
 }
 
+.back-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #1e40af
+        );
 
-/* CANCEL */
+    transform: translateY(-1px);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   PAGE TITLE
+   ===================================================== */
+
+.left-section h2 {
+    color: var(--dark);
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.left-section h2 i {
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   PROFILE
+   ===================================================== */
+
+.profile {
+    position: relative;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: -68px;
+
+    margin-bottom: 32px;
+}
+
+.profile-head {
+    min-width: 160px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 30px;
+
+    padding: 7px 13px 7px 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    cursor: pointer;
+
+    box-shadow: var(--shadow);
+
+    transition: 0.2s ease;
+}
+
+.profile-head:hover {
+    border-color: #bfdbfe;
+
+    box-shadow:
+        0 8px 22px
+        rgba(37, 99, 235, 0.12);
+}
+
+.profile-head img {
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid #dbeafe;
+
+    background: #eff6ff;
+}
+
+.profile-head span {
+    flex: 1;
+
+    color: var(--dark);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+.profile-head > i {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PROFILE MENU
+   ===================================================== */
+
+.profile-menu {
+    position: absolute;
+
+    top: 52px;
+
+    right: 0;
+
+    width: 180px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 7px;
+
+    box-shadow: var(--shadow-lg);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(-8px);
+
+    transition:
+        0.2s ease;
+
+    z-index: 1000;
+}
+
+.profile-menu.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0);
+}
+
+.profile-menu button {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    padding: 11px 12px;
+
+    border-radius: 8px;
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    transition: 0.2s ease;
+}
+
+.profile-menu button:hover {
+    background: var(--primary-light);
+
+    color: var(--primary);
+}
+
+.profile-menu button i {
+    width: 18px;
+
+    text-align: center;
+}
+
+.profile-menu button:last-child:hover {
+    background: var(--danger-light);
+
+    color: var(--danger);
+}
+
+
+/* =====================================================
+   SEARCH BOX
+   ===================================================== */
+
+.search-box {
+    width: 100%;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 4px 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 18px;
+}
+
+.search-box i {
+    color: var(--primary);
+
+    font-size: 16px;
+}
+
+.search-box input {
+    width: 100%;
+
+    height: 46px;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: var(--dark);
+
+    font-size: 14px;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* =====================================================
+   TABLE CONTAINER
+   ===================================================== */
+
+table {
+    width: 100%;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+}
+
+
+/* =====================================================
+   TABLE HEADER
+   ===================================================== */
+
+thead th {
+    background:
+        linear-gradient(
+            135deg,
+            #1e3a8a,
+            #2563eb
+        );
+
+    color: white;
+
+    padding: 15px 16px;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    border: none;
+}
+
+
+/* =====================================================
+   TABLE BODY
+   ===================================================== */
+
+tbody td {
+    padding: 14px 16px;
+
+    border-bottom: 1px solid #eef2f7;
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    vertical-align: middle;
+}
+
+tbody tr {
+    transition: 0.2s ease;
+}
+
+tbody tr:hover {
+    background: #f8fbff;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   CUSTOMER ID
+   ===================================================== */
+
+tbody td:first-child {
+    color: var(--primary);
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   LOADING CELL
+   ===================================================== */
+
+.loading-cell {
+    text-align: center;
+
+    padding: 45px !important;
+
+    color: var(--primary) !important;
+
+    font-weight: 600;
+}
+
+.loading-cell i {
+    margin-right: 7px;
+}
+
+
+/* =====================================================
+   EDIT BUTTON
+   ===================================================== */
+
+.edit-btn {
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: white;
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    transition: 0.2s ease;
+
+    box-shadow:
+        0 4px 10px
+        rgba(37, 99, 235, 0.18);
+}
+
+.edit-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #1e40af
+        );
+
+    transform: translateY(-1px);
+}
+
+.edit-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   EDIT MODAL BACKDROP
+   ===================================================== */
+
+.popup {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    background:
+        rgba(15, 23, 42, 0.58);
+
+    backdrop-filter:
+        blur(5px);
+
+    -webkit-backdrop-filter:
+        blur(5px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+.popup.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* =====================================================
+   EDIT POPUP CONTENT
+   ===================================================== */
+
+.popup > h2,
+.popup > label,
+.popup > input,
+.popup > textarea,
+.popup > .popup-buttons,
+.popup > .close-btn {
+    position: relative;
+}
+
+
+/* Create actual popup card effect */
+
+.popup {
+    flex-direction: column;
+}
+
+
+/* =====================================================
+   POPUP INTERNAL CARD
+   ===================================================== */
+
+/*
+   Since your HTML has .popup as the modal itself,
+   the modal is styled as a card when .show is active.
+*/
+
+.popup.show {
+    background:
+        rgba(15, 23, 42, 0.58);
+}
+
+
+/* =====================================================
+   EDIT POPUP CARD
+   ===================================================== */
+
+#editModal {
+    overflow-y: auto;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+#editModal > h2,
+#editModal > label,
+#editModal > input,
+#editModal > textarea,
+#editModal > .popup-buttons,
+#editModal > .close-btn {
+    width: min(560px, 92vw);
+}
+
+#editModal > h2 {
+    margin: 0;
+
+    padding:
+        22px
+        52px
+        15px
+        22px;
+
+    background: white;
+
+    border-radius:
+        16px
+        16px
+        0
+        0;
+
+    color: var(--dark);
+
+    font-size: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(15, 23, 42, 0.18);
+}
+
+#editModal > h2 i {
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   POPUP LABEL
+   ===================================================== */
+
+#editModal > label {
+    display: block;
+
+    background: white;
+
+    padding:
+        5px
+        22px
+        6px;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   POPUP INPUT
+   ===================================================== */
+
+#editModal > input,
+#editModal > textarea {
+    display: block;
+
+    border: none;
+
+    border-left: 1px solid white;
+
+    border-right: 1px solid white;
+
+    outline: none;
+
+    background: white;
+
+    padding:
+        8px
+        22px
+        12px;
+
+    color: var(--dark);
+
+    font-family: inherit;
+
+    font-size: 14px;
+}
+
+#editModal > input {
+    height: 44px;
+}
+
+#editModal > textarea {
+    min-height: 78px;
+
+    resize: vertical;
+}
+
+#editModal > input:focus,
+#editModal > textarea:focus {
+    box-shadow:
+        inset 0 0 0 2px
+        #dbeafe;
+}
+
+
+/* =====================================================
+   LAST FIELD ROUNDING
+   ===================================================== */
+
+#editModal > #supportWork {
+    border-radius:
+        0
+        0
+        16px
+        16px;
+
+    padding-bottom: 20px;
+}
+
+
+/* =====================================================
+   POPUP BUTTONS
+   ===================================================== */
+
+.popup-buttons {
+    width: min(560px, 92vw);
+
+    background: white;
+
+    padding:
+        16px
+        22px
+        22px;
+
+    display: flex;
+
+    gap: 9px;
+
+    border-radius:
+        0
+        0
+        16px
+        16px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(15, 23, 42, 0.18);
+}
+
+.popup-buttons button {
+    flex: 1;
+
+    min-height: 43px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    transition: 0.2s ease;
+}
+
+.popup-buttons button:hover {
+    transform: translateY(-1px);
+}
+
+.popup-buttons button:disabled {
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =====================================================
+   SUBMIT
+   ===================================================== */
+
+.submit-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #15803d
+        );
+
+    color: white;
+
+    box-shadow:
+        0 4px 12px
+        rgba(22, 163, 74, 0.2);
+}
+
+.submit-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #166534
+        );
+}
+
+
+/* =====================================================
+   CANCEL
+   ===================================================== */
 
 .cancel-btn {
-    background: #dbe3ed;
+    background: #f1f5f9;
 
     color: #475569;
-}
 
+    border: 1px solid #e2e8f0 !important;
+}
 
 .cancel-btn:hover {
-    background: #cbd5e1;
+    background: #e2e8f0;
 }
 
 
-/* DELETE */
+/* =====================================================
+   DELETE
+   ===================================================== */
 
 .delete-btn {
     background:
@@ -789,185 +938,328 @@ td button:hover {
             #dc2626
         );
 
-    color: #ffffff;
-}
+    color: white;
 
+    box-shadow:
+        0 4px 12px
+        rgba(220, 38, 38, 0.2);
+}
 
 .delete-btn:hover {
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 6px 14px
-        rgba(220, 38, 38, 0.22);
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #b91c1c
+        );
 }
 
 
-/* =========================================================
-   IMPORTANT:
-   CUSTOM POPUPS DEFAULT HIDDEN
-========================================================= */
+/* =====================================================
+   CLOSE BUTTON
+   ===================================================== */
 
-.custom-popup {
-    display: none;
+.close-btn {
+    position: fixed !important;
 
-    width: 94%;
-    max-width: 390px;
+    z-index: 5100;
 
-    position: fixed;
+    width: 38px !important;
 
-    left: 50%;
-    top: 50%;
+    height: 38px;
 
-    transform:
-        translate(-50%, -50%);
-
-    padding: 28px;
-
-    text-align: center;
-
-    background: #ffffff;
-
-    border: 1px solid #d7e1ed;
-
-    border-radius: 16px;
-
-    box-shadow:
-        0 25px 70px
-        rgba(15, 23, 42, 0.30);
-
-    z-index: 1200;
-}
-
-
-/*
-   JS যদি show class ব্যবহার করে
-*/
-
-.custom-popup.show {
-    display: block;
-}
-
-
-/*
-   যদি JavaScript সরাসরি
-   style.display = "block"
-   করে, সেটাও কাজ করবে।
-*/
-
-
-/* =========================================================
-   POPUP ICON
-========================================================= */
-
-.popup-icon {
-    width: 62px;
-    height: 62px;
-
-    margin: 0 auto 14px;
+    border: none;
 
     border-radius: 50%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 25px;
-}
-
-
-.popup-icon.warning {
-    background: #fff4d6;
-
-    color: #d97706;
-
-    border: 5px solid #fff9e8;
-}
-
-
-.popup-icon.success {
-    background: #dcfce7;
-
-    color: #16a34a;
-
-    border: 5px solid #f0fdf4;
-}
-
-
-.popup-icon.error {
     background: #fee2e2;
 
     color: #dc2626;
 
-    border: 5px solid #fff1f1;
+    font-size: 25px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-left: 480px;
+
+    margin-top: -500px;
+
+    transition: 0.2s ease;
+}
+
+.close-btn:hover {
+    background: #dc2626;
+
+    color: white;
+
+    transform: rotate(90deg);
 }
 
 
-/* =========================================================
-   CUSTOM POPUP TEXT
-========================================================= */
+/* =====================================================
+   CUSTOM POPUP BACKDROP
+   ===================================================== */
+
+.custom-popup {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 6000;
+
+    background:
+        rgba(15, 23, 42, 0.58);
+
+    backdrop-filter:
+        blur(5px);
+
+    -webkit-backdrop-filter:
+        blur(5px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+.custom-popup.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* =====================================================
+   CUSTOM POPUP CARD
+   ===================================================== */
+
+.custom-popup > * {
+    width: min(430px, 92vw);
+}
+
+.custom-popup .popup-icon {
+    width: min(430px, 92vw);
+
+    padding-top: 28px;
+
+    background: white;
+
+    border-radius:
+        16px
+        16px
+        0
+        0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.popup-icon i {
+    width: 64px;
+
+    height: 64px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 27px;
+}
+
+
+/* =====================================================
+   WARNING
+   ===================================================== */
+
+.popup-icon.warning {
+    color: var(--warning);
+}
+
+.popup-icon.warning i {
+    background: var(--warning-light);
+
+    color: var(--warning);
+}
+
+
+/* =====================================================
+   SUCCESS
+   ===================================================== */
+
+.popup-icon.success {
+    color: var(--success);
+}
+
+.popup-icon.success i {
+    background: var(--success-light);
+
+    color: var(--success);
+}
+
+
+/* =====================================================
+   ERROR
+   ===================================================== */
+
+.popup-icon.error {
+    color: var(--danger);
+}
+
+.popup-icon.error i {
+    background: var(--danger-light);
+
+    color: var(--danger);
+}
+
+
+/* =====================================================
+   CUSTOM POPUP TITLE
+   ===================================================== */
 
 .custom-popup h3 {
-    margin-bottom: 8px;
+    background: white;
 
-    color: #172033;
+    color: var(--dark);
+
+    text-align: center;
 
     font-size: 19px;
+
+    padding:
+        17px
+        24px
+        8px;
 }
 
 
-.custom-popup p {
-    margin-bottom: 20px;
+/* =====================================================
+   CUSTOM POPUP MESSAGE
+   ===================================================== */
 
-    color: #64748b;
+.custom-popup p {
+    background: white;
+
+    color: var(--muted);
+
+    text-align: center;
 
     font-size: 14px;
 
     line-height: 1.6;
+
+    padding:
+        0
+        28px
+        22px;
 }
 
 
-/* =========================================================
-   CONFIRM BUTTONS
-========================================================= */
+/* =====================================================
+   CUSTOM POPUP BUTTON AREA
+   ===================================================== */
 
 .custom-popup-buttons {
+    background: white;
+
+    padding:
+        0
+        24px
+        24px;
+
     display: flex;
-    align-items: center;
-    justify-content: center;
 
     gap: 10px;
+
+    border-radius:
+        0
+        0
+        16px
+        16px;
 }
 
-
 .custom-popup-buttons button {
-    height: 40px;
+    flex: 1;
 
-    padding: 0 18px;
+    min-height: 43px;
 
-    border: 0;
+    border: none;
 
-    border-radius: 8px;
-
-    font-size: 13px;
-    font-weight: 700;
+    border-radius: 9px;
 
     cursor: pointer;
 
-    transition: 0.2s;
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
 }
 
+.custom-popup-buttons button:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   CONFIRM CANCEL
+   ===================================================== */
 
 .popup-cancel-btn {
-    background: #e2e8f0;
+    background: #f1f5f9;
 
-    color: #334155;
+    color: #475569;
+
+    border: 1px solid #e2e8f0 !important;
 }
-
 
 .popup-cancel-btn:hover {
-    background: #cbd5e1;
+    background: #e2e8f0;
 }
 
+
+/* =====================================================
+   CONFIRM DELETE
+   ===================================================== */
 
 .popup-confirm-btn {
     background:
@@ -977,49 +1269,90 @@ td button:hover {
             #dc2626
         );
 
-    color: #ffffff;
+    color: white;
 }
-
 
 .popup-confirm-btn:hover {
-    box-shadow:
-        0 6px 14px
-        rgba(220, 38, 38, 0.22);
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #b91c1c
+        );
 }
 
 
-/* =========================================================
+/* =====================================================
    OK BUTTON
-========================================================= */
+   ===================================================== */
 
 .popup-ok-btn {
-    min-width: 80px;
+    width: min(430px, 92vw) !important;
 
-    height: 40px;
+    background: white;
 
-    padding: 0 18px;
+    color: white;
 
-    border: 0;
+    border: none;
 
-    border-radius: 8px;
+    padding:
+        0
+        24px
+        24px;
+
+    min-height: 48px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+.popup-ok-btn::before {
+    content: "OK";
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    height: 43px;
+
+    border-radius: 9px;
 
     background:
         linear-gradient(
             135deg,
-            #16a34a,
-            #15803d
+            #2563eb,
+            #1d4ed8
         );
 
-    color: #ffffff;
+    color: white;
+}
 
-    font-size: 13px;
-    font-weight: 700;
+.popup-ok-btn {
+    font-size: 0;
+}
 
-    cursor: pointer;
+.popup-ok-btn:hover::before {
+    background:
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #1e40af
+        );
 }
 
 
-.error-btn {
+/* =====================================================
+   ERROR OK BUTTON
+   ===================================================== */
+
+.error-btn::before {
     background:
         linear-gradient(
             135deg,
@@ -1028,154 +1361,195 @@ td button:hover {
         );
 }
 
-
-/* =========================================================
-   POPUP SCROLLBAR
-========================================================= */
-
-.popup::-webkit-scrollbar {
-    width: 7px;
+.error-btn:hover::before {
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #b91c1c
+        );
 }
 
 
-.popup::-webkit-scrollbar-track {
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
     background: #f1f5f9;
+}
 
-    border-radius: 10px;
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
 
 
-.popup::-webkit-scrollbar-thumb {
-    background: #aebed1;
+/* =====================================================
+   TABLE MOBILE SCROLL
+   ===================================================== */
 
-    border-radius: 10px;
-}
+@media (max-width: 800px) {
 
-
-.popup::-webkit-scrollbar-thumb:hover {
-    background: #8da3bc;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .left-section {
-        height: 64px;
-
-        padding: 0 12px;
-
-        gap: 9px;
+    body {
+        padding: 14px;
     }
 
+    .left-section {
+        padding: 15px;
+
+        gap: 12px;
+    }
 
     .left-section h2 {
         font-size: 18px;
     }
 
-
-    .left-section h2 i {
-        font-size: 19px;
-    }
-
-
-    .back-btn {
-        width: 40px;
-
-        padding: 0;
-    }
-
-
-    .back-btn {
-        font-size: 0;
-    }
-
-
-    .back-btn i {
-        font-size: 14px;
-    }
-
-
     .profile {
-        right: 8px;
-        top: 10px;
+        margin-top: 0;
+
+        margin-bottom: 18px;
+
+        justify-content: flex-end;
     }
 
-
-    .profile-head span {
-        display: none;
+    .profile-menu {
+        top: 52px;
     }
-
-
-    .profile-head img {
-        width: 36px;
-        height: 36px;
-    }
-
 
     .search-box {
-        width: calc(100% - 20px);
-
-        margin:
-            15px auto;
+        margin-bottom: 14px;
     }
-
 
     table {
-        width: calc(100% - 20px);
+        display: block;
 
-        min-width: 800px;
+        overflow-x: auto;
+
+        white-space: nowrap;
     }
 
-
-    .popup {
-        width: 94%;
-
-        max-height: 88vh;
-
-        padding: 20px;
+    thead th,
+    tbody td {
+        padding:
+            12px
+            13px;
     }
 
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+   ===================================================== */
+
+@media (max-width: 560px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .left-section {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .back-btn {
+        width: 100%;
+    }
+
+    .left-section h2 {
+        width: 100%;
+
+        font-size: 17px;
+    }
+
+    .profile {
+        justify-content: stretch;
+    }
+
+    .profile-head {
+        width: 100%;
+    }
+
+    .profile-menu {
+        width: 100%;
+    }
 
     .popup-buttons {
         flex-direction: column;
     }
 
-
     .popup-buttons button {
         width: 100%;
     }
 
-
-    .custom-popup {
-        width: 92%;
-
-        padding: 23px;
+    .custom-popup-buttons {
+        flex-direction: column;
     }
+
+    .custom-popup-buttons button {
+        width: 100%;
+    }
+
+    #editModal > h2,
+    #editModal > label,
+    #editModal > input,
+    #editModal > textarea,
+    #editModal > .popup-buttons {
+        width: 94vw;
+    }
+
+    .close-btn {
+        margin-left: 0;
+
+        margin-top: 0;
+
+        top: 10px;
+
+        right: 10px;
+
+        position: fixed !important;
+    }
+
 }
 
 
-/* =========================================================
+/* =====================================================
    VERY SMALL SCREEN
-========================================================= */
+   ===================================================== */
 
-@media (max-width: 430px) {
+@media (max-width: 380px) {
 
     .left-section h2 {
         font-size: 16px;
     }
 
-
     .profile-head img {
         width: 34px;
+
         height: 34px;
     }
 
-
-    .popup h2 {
-        font-size: 17px;
+    .search-box input {
+        font-size: 13px;
     }
+
+    tbody td,
+    thead th {
+        font-size: 12px;
+    }
+
 }
