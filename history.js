@@ -1,11 +1,11 @@
 /* =====================================================
    HISTORY.JS
-   ===================================================== */
+===================================================== */
 
 
 /* =====================================================
-   1. HISTORY DATA
-   ===================================================== */
+   DATA
+===================================================== */
 
 let historyData = [
 
@@ -112,8 +112,8 @@ let historyData = [
 
 
 /* =====================================================
-   2. PAGINATION SETTINGS
-   ===================================================== */
+   SETTINGS
+===================================================== */
 
 const ITEMS_PER_PAGE = 10;
 
@@ -125,50 +125,63 @@ let currentEditIndex = null;
 
 
 /* =====================================================
-   3. GET HTML ELEMENTS
-   ===================================================== */
+   ELEMENTS
+===================================================== */
 
 const historyList =
-    document.getElementById("historyList");
-
+    document.getElementById(
+        "historyList"
+    );
 
 const historySearch =
-    document.getElementById("historySearch");
-
+    document.getElementById(
+        "historySearch"
+    );
 
 const fromDate =
-    document.getElementById("fromDate");
-
+    document.getElementById(
+        "fromDate"
+    );
 
 const toDate =
-    document.getElementById("toDate");
-
+    document.getElementById(
+        "toDate"
+    );
 
 const pagination =
-    document.getElementById("pagination");
-
+    document.getElementById(
+        "pagination"
+    );
 
 const editPopup =
-    document.getElementById("editPopup");
-
+    document.getElementById(
+        "editPopup"
+    );
 
 const profileMenu =
-    document.getElementById("profileMenu");
-
+    document.getElementById(
+        "profileMenu"
+    );
 
 const profileImg =
-    document.getElementById("profileImg");
-
+    document.getElementById(
+        "profileImg"
+    );
 
 const username =
-    document.getElementById("username");
+    document.getElementById(
+        "username"
+    );
 
 
 /* =====================================================
-   4. LOAD LOGGED-IN USER
-   ===================================================== */
+   USER
+===================================================== */
 
 function loadLoggedInUser() {
+
+    let user = null;
+
 
     try {
 
@@ -178,82 +191,182 @@ function loadLoggedInUser() {
             );
 
 
-        if (!savedUser) {
+        if (savedUser) {
 
-            setDefaultUser();
-
-            return;
+            user =
+                JSON.parse(
+                    savedUser
+                );
 
         }
 
+    }
 
-        const user =
-            JSON.parse(savedUser);
+    catch (error) {
 
+        console.error(
+            "User data error:",
+            error
+        );
 
-        /*
-         * Supported names:
-         *
-         * username
-         * name
-         * userName
-         * fullName
-         */
-
-        const userName =
-            user.username ||
-            user.name ||
-            user.userName ||
-            user.fullName ||
-            user.userId ||
-            "User";
+    }
 
 
-        /*
-         * Supported image names:
-         *
-         * profileImage
-         * profileImg
-         * image
-         * photo
-         */
+    /*
+     * Fallback for existing login system
+     */
 
-        const userImage =
-            user.profileImage ||
-            user.profileImg ||
-            user.image ||
-            user.photo ||
+    if (!user) {
+
+        user = {
+
+            userId:
+                localStorage.getItem(
+                    "username"
+                ) || "",
+
+            username:
+                localStorage.getItem(
+                    "username"
+                ) || "",
+
+            name:
+                localStorage.getItem(
+                    "name"
+                ) || "",
+
+            role:
+                localStorage.getItem(
+                    "role"
+                ) || "",
+
+            profileImage:
+                localStorage.getItem(
+                    "picture"
+                ) || ""
+
+        };
+
+    }
+
+
+    const userName =
+        user.name ||
+        user.username ||
+        user.userId ||
+        "User";
+
+
+    let userPicture =
+        user.profileImage ||
+        user.picture ||
+        localStorage.getItem(
+            "picture"
+        ) ||
+        "assets/profile.png";
+
+
+    if (
+        !userPicture ||
+        String(userPicture).trim() === ""
+    ) {
+
+        userPicture =
             "assets/profile.png";
 
+    }
+
+
+    if (username) {
 
         username.textContent =
             userName;
 
+    }
+
+
+    if (profileImg) {
 
         profileImg.src =
-            userImage;
+            userPicture;
 
 
         profileImg.onerror =
             function () {
 
-                this.onerror = null;
+                this.onerror =
+                    null;
 
                 this.src =
                     "assets/profile.png";
 
             };
 
+    }
 
-    } catch (error) {
 
-        console.error(
-            "User loading error:",
-            error
+    console.log(
+        "CURRENT USER:",
+        user
+    );
+
+}
+
+
+/* =====================================================
+   FILTER TOGGLE
+===================================================== */
+
+function toggleHistoryFilter() {
+
+    const filter =
+        document.getElementById(
+            "historyFilter"
+        );
+
+    const button =
+        document.getElementById(
+            "historyFilterBtn"
         );
 
 
-        setDefaultUser();
+    if (!filter) {
+
+        return;
+
+    }
+
+
+    filter.classList.toggle(
+        "show"
+    );
+
+
+    if (
+        filter.classList.contains(
+            "show"
+        )
+    ) {
+
+        if (button) {
+
+            button.classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+    else {
+
+        if (button) {
+
+            button.classList.remove(
+                "active"
+            );
+
+        }
 
     }
 
@@ -261,24 +374,8 @@ function loadLoggedInUser() {
 
 
 /* =====================================================
-   5. DEFAULT USER
-   ===================================================== */
-
-function setDefaultUser() {
-
-    username.textContent =
-        "User";
-
-
-    profileImg.src =
-        "assets/profile.png";
-
-}
-
-
-/* =====================================================
-   6. LOAD HISTORY
-   ===================================================== */
+   LOAD HISTORY
+===================================================== */
 
 function loadHistory() {
 
@@ -288,19 +385,21 @@ function loadHistory() {
 
 
 /* =====================================================
-   7. APPLY SEARCH + DATE FILTER
-   ===================================================== */
+   APPLY FILTER
+===================================================== */
 
 function applyFilters() {
 
     const searchText =
-        historySearch.value
-            .trim()
-            .toLowerCase();
+        historySearch
+            ? historySearch.value
+                .trim()
+                .toLowerCase()
+            : "";
 
 
     const from =
-        fromDate.value
+        fromDate && fromDate.value
             ? parseHistoryDate(
                 fromDate.value
             )
@@ -308,16 +407,12 @@ function applyFilters() {
 
 
     const to =
-        toDate.value
+        toDate && toDate.value
             ? parseHistoryDate(
                 toDate.value
             )
             : null;
 
-
-    /*
-     * Check date
-     */
 
     if (
         from &&
@@ -338,11 +433,6 @@ function applyFilters() {
     filteredHistory =
         historyData.filter(
             function (item) {
-
-
-                /*
-                 * SEARCH
-                 */
 
                 const customerId =
                     String(
@@ -412,10 +502,6 @@ function applyFilters() {
                 }
 
 
-                /*
-                 * DATE
-                 */
-
                 const itemDate =
                     parseHistoryDate(
                         item.date
@@ -429,10 +515,6 @@ function applyFilters() {
                 }
 
 
-                /*
-                 * FROM DATE
-                 */
-
                 if (
                     from &&
                     itemDate < from
@@ -443,14 +525,12 @@ function applyFilters() {
                 }
 
 
-                /*
-                 * TO DATE
-                 */
-
                 if (to) {
 
                     const endDate =
-                        new Date(to);
+                        new Date(
+                            to
+                        );
 
 
                     endDate.setHours(
@@ -462,8 +542,7 @@ function applyFilters() {
 
 
                     if (
-                        itemDate >
-                        endDate
+                        itemDate > endDate
                     ) {
 
                         return false;
@@ -479,12 +558,7 @@ function applyFilters() {
         );
 
 
-    /*
-     * Reset page
-     */
-
     currentPage = 1;
-
 
     renderPage();
 
@@ -492,12 +566,20 @@ function applyFilters() {
 
 
 /* =====================================================
-   8. RENDER PAGE
-   ===================================================== */
+   RENDER
+===================================================== */
 
 function renderPage() {
 
-    historyList.innerHTML = "";
+    if (!historyList) {
+
+        return;
+
+    }
+
+
+    historyList.innerHTML =
+        "";
 
 
     const totalPages =
@@ -506,10 +588,6 @@ function renderPage() {
             ITEMS_PER_PAGE
         );
 
-
-    /*
-     * Fix current page
-     */
 
     if (
         totalPages > 0 &&
@@ -541,10 +619,6 @@ function renderPage() {
         );
 
 
-    /*
-     * No data
-     */
-
     if (
         pageData.length === 0
     ) {
@@ -574,13 +648,8 @@ function renderPage() {
     }
 
 
-    /*
-     * Render data
-     */
-
     pageData.forEach(
         function (item) {
-
 
             const originalIndex =
                 historyData.indexOf(
@@ -602,8 +671,8 @@ function renderPage() {
                     )}
                 </td>
 
-
-                <td class="problem-cell"
+                <td
+                    class="problem-cell"
                     title="${escapeHTML(
                         item.problem
                     )}"
@@ -613,20 +682,17 @@ function renderPage() {
                     )}
                 </td>
 
-
                 <td>
                     ${escapeHTML(
                         item.reference
                     )}
                 </td>
 
-
                 <td>
                     ${formatDate(
                         item.date
                     )}
                 </td>
-
 
                 <td>
 
@@ -661,12 +727,20 @@ function renderPage() {
 
 
 /* =====================================================
-   9. PAGINATION
-   ===================================================== */
+   PAGINATION
+===================================================== */
 
 function renderPagination() {
 
-    pagination.innerHTML = "";
+    if (!pagination) {
+
+        return;
+
+    }
+
+
+    pagination.innerHTML =
+        "";
 
 
     const totalItems =
@@ -680,10 +754,6 @@ function renderPagination() {
         );
 
 
-    /*
-     * No pagination needed
-     */
-
     if (
         totalPages <= 1
     ) {
@@ -694,7 +764,7 @@ function renderPagination() {
 
 
     /*
-     * PREVIOUS
+     * Previous
      */
 
     const previous =
@@ -730,11 +800,6 @@ function renderPagination() {
 
                 renderPage();
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
             }
 
         };
@@ -746,7 +811,7 @@ function renderPagination() {
 
 
     /*
-     * PAGE NUMBERS
+     * Pages
      */
 
     for (
@@ -754,7 +819,6 @@ function renderPagination() {
         page <= totalPages;
         page++
     ) {
-
 
         const button =
             document.createElement(
@@ -791,14 +855,7 @@ function renderPagination() {
                 currentPage =
                     page;
 
-
                 renderPage();
-
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
 
             };
 
@@ -811,7 +868,7 @@ function renderPagination() {
 
 
     /*
-     * NEXT
+     * Next
      */
 
     const next =
@@ -848,11 +905,6 @@ function renderPagination() {
 
                 renderPage();
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
             }
 
         };
@@ -864,7 +916,7 @@ function renderPagination() {
 
 
     /*
-     * RECORD INFO
+     * Info
      */
 
     const info =
@@ -905,21 +957,33 @@ function renderPagination() {
 
 
 /* =====================================================
-   10. CLEAR FILTER
-   ===================================================== */
+   CLEAR FILTER
+===================================================== */
 
 function clearFilters() {
 
-    historySearch.value =
-        "";
+    if (historySearch) {
+
+        historySearch.value =
+            "";
+
+    }
 
 
-    fromDate.value =
-        "";
+    if (fromDate) {
+
+        fromDate.value =
+            "";
+
+    }
 
 
-    toDate.value =
-        "";
+    if (toDate) {
+
+        toDate.value =
+            "";
+
+    }
 
 
     currentPage =
@@ -932,8 +996,8 @@ function clearFilters() {
 
 
 /* =====================================================
-   11. VIEW / EDIT HISTORY
-   ===================================================== */
+   VIEW
+===================================================== */
 
 function viewHistory(index) {
 
@@ -1011,8 +1075,8 @@ function viewHistory(index) {
 
 
 /* =====================================================
-   12. UPDATE HISTORY
-   ===================================================== */
+   UPDATE
+===================================================== */
 
 function updateHistory() {
 
@@ -1060,10 +1124,6 @@ function updateHistory() {
             "supportWork"
         ).value.trim();
 
-
-    /*
-     * VALIDATION
-     */
 
     if (!customerId) {
 
@@ -1113,10 +1173,6 @@ function updateHistory() {
     }
 
 
-    /*
-     * UPDATE DATA
-     */
-
     historyData[
         currentEditIndex
     ] = {
@@ -1142,23 +1198,10 @@ function updateHistory() {
     };
 
 
-    /*
-     * CLOSE EDIT
-     */
-
     closeEdit();
-
-
-    /*
-     * REFRESH TABLE
-     */
 
     applyFilters();
 
-
-    /*
-     * SUCCESS
-     */
 
     showSuccess(
         "Updated Successfully",
@@ -1173,8 +1216,8 @@ function updateHistory() {
 
 
 /* =====================================================
-   13. ASK DELETE
-   ===================================================== */
+   DELETE ASK
+===================================================== */
 
 function askDelete() {
 
@@ -1215,8 +1258,8 @@ function askDelete() {
 
 
 /* =====================================================
-   14. CONFIRM DELETE
-   ===================================================== */
+   DELETE CONFIRM
+===================================================== */
 
 function confirmDelete() {
 
@@ -1241,9 +1284,7 @@ function confirmDelete() {
 
     closeConfirmPopup();
 
-
     closeEdit();
-
 
     applyFilters();
 
@@ -1257,14 +1298,18 @@ function confirmDelete() {
 
 
 /* =====================================================
-   15. CLOSE EDIT
-   ===================================================== */
+   CLOSE EDIT
+===================================================== */
 
 function closeEdit() {
 
-    editPopup.classList.remove(
-        "show"
-    );
+    if (editPopup) {
+
+        editPopup.classList.remove(
+            "show"
+        );
+
+    }
 
 
     document.body.style.overflow =
@@ -1274,8 +1319,8 @@ function closeEdit() {
 
 
 /* =====================================================
-   16. CLOSE DELETE POPUP
-   ===================================================== */
+   CONFIRM CLOSE
+===================================================== */
 
 function closeConfirmPopup() {
 
@@ -1291,8 +1336,8 @@ function closeConfirmPopup() {
 
 
 /* =====================================================
-   17. SUCCESS POPUP
-   ===================================================== */
+   SUCCESS
+===================================================== */
 
 function showSuccess(
     title,
@@ -1323,8 +1368,8 @@ function showSuccess(
 
 
 /* =====================================================
-   18. CLOSE SUCCESS POPUP
-   ===================================================== */
+   CLOSE SUCCESS
+===================================================== */
 
 function closeSuccessPopup() {
 
@@ -1340,8 +1385,8 @@ function closeSuccessPopup() {
 
 
 /* =====================================================
-   19. ERROR POPUP
-   ===================================================== */
+   ERROR
+===================================================== */
 
 function showError(
     title,
@@ -1372,8 +1417,8 @@ function showError(
 
 
 /* =====================================================
-   20. CLOSE ERROR POPUP
-   ===================================================== */
+   CLOSE ERROR
+===================================================== */
 
 function closeErrorPopup() {
 
@@ -1389,10 +1434,17 @@ function closeErrorPopup() {
 
 
 /* =====================================================
-   21. PROFILE DROPDOWN
-   ===================================================== */
+   PROFILE
+===================================================== */
 
 function toggleProfile() {
+
+    if (!profileMenu) {
+
+        return;
+
+    }
+
 
     profileMenu.classList.toggle(
         "show"
@@ -1402,8 +1454,8 @@ function toggleProfile() {
 
 
 /* =====================================================
-   22. CLOSE PROFILE WHEN CLICK OUTSIDE
-   ===================================================== */
+   OUTSIDE CLICK
+===================================================== */
 
 document.addEventListener(
     "click",
@@ -1422,9 +1474,13 @@ document.addEventListener(
             )
         ) {
 
-            profileMenu.classList.remove(
-                "show"
-            );
+            if (profileMenu) {
+
+                profileMenu.classList.remove(
+                    "show"
+                );
+
+            }
 
         }
 
@@ -1433,55 +1489,64 @@ document.addEventListener(
 
 
 /* =====================================================
-   23. MY ACCOUNT
-   ===================================================== */
+   MY ACCOUNT
+===================================================== */
 
 function myAccount() {
 
-    profileMenu.classList.remove(
-        "show"
-    );
+    if (profileMenu) {
+
+        profileMenu.classList.remove(
+            "show"
+        );
+
+    }
 
 
-    /*
-     * পরে এখানে আপনার
-     * account page দিতে পারবেন।
-     */
-
+    // আপনার account page থাকলে এখানে দিন:
     // window.location.href = "account.html";
 
 }
 
 
 /* =====================================================
-   24. LOGOUT
-   ===================================================== */
+   LOGOUT
+===================================================== */
 
 function logout() {
 
-    profileMenu.classList.remove(
-        "show"
+    localStorage.removeItem(
+        "auth"
     );
 
+    localStorage.removeItem(
+        "isLogin"
+    );
 
-    /*
-     * Login করা user-এর data remove
-     */
+    localStorage.removeItem(
+        "username"
+    );
+
+    localStorage.removeItem(
+        "name"
+    );
+
+    localStorage.removeItem(
+        "role"
+    );
+
+    localStorage.removeItem(
+        "picture"
+    );
 
     localStorage.removeItem(
         "loggedInUser"
     );
 
+    localStorage.removeItem(
+        "lastActivity"
+    );
 
-    /*
-     * অন্যান্য login data থাকলে
-     * পরে এখানে remove করা যাবে।
-     */
-
-
-    /*
-     * Login page-এ পাঠানো
-     */
 
     window.location.href =
         "login.html";
@@ -1490,15 +1555,10 @@ function logout() {
 
 
 /* =====================================================
-   25. BACK BUTTON
-   ===================================================== */
+   BACK
+===================================================== */
 
 function goBack() {
-
-    /*
-     * Dashboard-এ ফিরে যাওয়ার
-     * জন্য সরাসরি dashboard.html
-     */
 
     window.location.href =
         "dashboard.html";
@@ -1507,8 +1567,8 @@ function goBack() {
 
 
 /* =====================================================
-   26. DATE FORMAT
-   ===================================================== */
+   DATE FORMAT
+===================================================== */
 
 function formatDate(
     dateString
@@ -1578,8 +1638,8 @@ function formatDate(
 
 
 /* =====================================================
-   27. DATE PARSER
-   ===================================================== */
+   DATE PARSER
+===================================================== */
 
 function parseHistoryDate(
     dateString
@@ -1592,10 +1652,6 @@ function parseHistoryDate(
     }
 
 
-    /*
-     * YYYY-MM-DD
-     */
-
     const parts =
         String(
             dateString
@@ -1606,28 +1662,20 @@ function parseHistoryDate(
         parts.length === 3
     ) {
 
-        const year =
+        return new Date(
+
             Number(
                 parts[0]
-            );
+            ),
 
-
-        const month =
             Number(
                 parts[1]
-            ) - 1;
+            ) - 1,
 
-
-        const day =
             Number(
                 parts[2]
-            );
+            )
 
-
-        return new Date(
-            year,
-            month,
-            day
         );
 
     }
@@ -1656,8 +1704,8 @@ function parseHistoryDate(
 
 
 /* =====================================================
-   28. ESCAPE HTML
-   ===================================================== */
+   ESCAPE HTML
+===================================================== */
 
 function escapeHTML(
     value
@@ -1696,79 +1744,103 @@ function escapeHTML(
 
 
 /* =====================================================
-   29. SEARCH EVENT
-   ===================================================== */
+   SEARCH
+===================================================== */
 
-historySearch.addEventListener(
-    "input",
-    function () {
+if (historySearch) {
 
-        applyFilters();
+    historySearch.addEventListener(
+        "input",
+        function () {
 
-    }
-);
-
-
-/* =====================================================
-   30. FROM DATE EVENT
-   ===================================================== */
-
-fromDate.addEventListener(
-    "change",
-    function () {
-
-        applyFilters();
-
-    }
-);
-
-
-/* =====================================================
-   31. TO DATE EVENT
-   ===================================================== */
-
-toDate.addEventListener(
-    "change",
-    function () {
-
-        applyFilters();
-
-    }
-);
-
-
-/* =====================================================
-   32. CLOSE POPUPS BY BACKDROP
-   ===================================================== */
-
-editPopup.addEventListener(
-    "click",
-    function (event) {
-
-        if (
-            event.target ===
-            editPopup
-        ) {
-
-            closeEdit();
+            applyFilters();
 
         }
+    );
 
-    }
-);
+}
 
 
-document
-    .getElementById(
-        "confirmPopup"
-    )
-    .addEventListener(
+/* =====================================================
+   FROM DATE
+===================================================== */
+
+if (fromDate) {
+
+    fromDate.addEventListener(
+        "change",
+        function () {
+
+            applyFilters();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   TO DATE
+===================================================== */
+
+if (toDate) {
+
+    toDate.addEventListener(
+        "change",
+        function () {
+
+            applyFilters();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   EDIT BACKDROP
+===================================================== */
+
+if (editPopup) {
+
+    editPopup.addEventListener(
         "click",
         function (event) {
 
             if (
                 event.target ===
-                this
+                editPopup
+            ) {
+
+                closeEdit();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CONFIRM BACKDROP
+===================================================== */
+
+const confirmPopup =
+    document.getElementById(
+        "confirmPopup"
+    );
+
+
+if (confirmPopup) {
+
+    confirmPopup.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target ===
+                confirmPopup
             ) {
 
                 closeConfirmPopup();
@@ -1778,18 +1850,28 @@ document
         }
     );
 
+}
 
-document
-    .getElementById(
+
+/* =====================================================
+   SUCCESS BACKDROP
+===================================================== */
+
+const successPopup =
+    document.getElementById(
         "successPopup"
-    )
-    .addEventListener(
+    );
+
+
+if (successPopup) {
+
+    successPopup.addEventListener(
         "click",
         function (event) {
 
             if (
                 event.target ===
-                this
+                successPopup
             ) {
 
                 closeSuccessPopup();
@@ -1799,18 +1881,28 @@ document
         }
     );
 
+}
 
-document
-    .getElementById(
+
+/* =====================================================
+   ERROR BACKDROP
+===================================================== */
+
+const errorPopup =
+    document.getElementById(
         "errorPopup"
-    )
-    .addEventListener(
+    );
+
+
+if (errorPopup) {
+
+    errorPopup.addEventListener(
         "click",
         function (event) {
 
             if (
                 event.target ===
-                this
+                errorPopup
             ) {
 
                 closeErrorPopup();
@@ -1820,10 +1912,12 @@ document
         }
     );
 
+}
+
 
 /* =====================================================
-   33. ESC KEY
-   ===================================================== */
+   ESC KEY
+===================================================== */
 
 document.addEventListener(
     "keydown",
@@ -1842,9 +1936,14 @@ document.addEventListener(
 
             closeErrorPopup();
 
-            profileMenu.classList.remove(
-                "show"
-            );
+
+            if (profileMenu) {
+
+                profileMenu.classList.remove(
+                    "show"
+                );
+
+            }
 
         }
 
@@ -1853,23 +1952,14 @@ document.addEventListener(
 
 
 /* =====================================================
-   34. INITIAL LOAD
-   ===================================================== */
+   INITIAL LOAD
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-        /*
-         * Login করা user load
-         */
-
         loadLoggedInUser();
-
-
-        /*
-         * History load
-         */
 
         loadHistory();
 
