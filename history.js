@@ -1,7 +1,7 @@
 // ============================================================
 // HISTORY.JS - FINAL
 // L4SM SUPPORT SYSTEM
-// Google Sheet History Connection
+// GOOGLE SHEET HISTORY CONNECTION
 // ============================================================
 
 "use strict";
@@ -30,7 +30,7 @@ const recordsPerPage = 10;
 
 
 // ============================================================
-// PAGE AUTH PROTECTION
+// AUTH
 // ============================================================
 
 (function () {
@@ -54,9 +54,7 @@ const recordsPerPage = 10;
 
 
     if (!checkAuth()) {
-
         return;
-
     }
 
 
@@ -72,9 +70,7 @@ const recordsPerPage = 10;
         function () {
 
             if (!checkAuth()) {
-
                 return;
-
             }
 
             history.pushState(
@@ -92,9 +88,7 @@ const recordsPerPage = 10;
         function (event) {
 
             if (!checkAuth()) {
-
                 return;
-
             }
 
             if (event.persisted) {
@@ -131,6 +125,10 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+        prepareHistoryPopup();
+
+        prepareCustomPopups();
+
         loadProfile();
 
         loadHistory();
@@ -153,7 +151,6 @@ function loadProfile() {
         localStorage.getItem(
             "username"
         );
-
 
     const picture =
         localStorage.getItem(
@@ -210,9 +207,7 @@ function toggleProfile() {
 
 
     if (!menu) {
-
         return;
-
     }
 
 
@@ -267,9 +262,7 @@ function toggleHistoryFilter() {
 
 
     if (!filter) {
-
         return;
-
     }
 
 
@@ -290,7 +283,68 @@ function toggleHistoryFilter() {
 
 
 // ============================================================
-// LOAD HISTORY FROM GOOGLE SHEET
+// API REQUEST
+// ============================================================
+
+function apiRequest(payload) {
+
+    return fetch(
+        API_URL,
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+            },
+
+            body:
+                JSON.stringify(payload)
+        }
+    )
+    .then(
+        function (response) {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Server Error: " +
+                    response.status
+                );
+
+            }
+
+            return response.json();
+
+        }
+    )
+    .then(
+        function (data) {
+
+            if (
+                !data ||
+                data.success !== true
+            ) {
+
+                throw new Error(
+                    data &&
+                    data.message
+                        ? data.message
+                        : "API request failed."
+                );
+
+            }
+
+            return data;
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// LOAD HISTORY
 // ============================================================
 
 function loadHistory() {
@@ -325,45 +379,12 @@ function loadHistory() {
     }
 
 
-    fetch(
-        API_URL,
-        {
+    apiRequest({
 
-            method: "POST",
+        action:
+            "getHistory"
 
-            headers: {
-
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-
-            },
-
-            body: JSON.stringify({
-
-                action:
-                    "getHistory"
-
-            })
-
-        }
-    )
-
-    .then(
-        function (response) {
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Server Error"
-                );
-
-            }
-
-            return response.json();
-
-        }
-    )
-
+    })
     .then(
         function (data) {
 
@@ -373,24 +394,9 @@ function loadHistory() {
             );
 
 
-            if (
-                !data ||
-                data.success !== true
-            ) {
-
-                throw new Error(
-                    data?.message ||
-                    "Unable to load history."
-                );
-
-            }
-
-
             historyData =
-                Array.isArray(
-                    data.data
-                )
-                    ? data.data
+                Array.isArray(data.data)
+                    ? data.data.map(normalizeHistoryItem)
                     : [];
 
 
@@ -405,7 +411,6 @@ function loadHistory() {
 
         }
     )
-
     .catch(
         function (error) {
 
@@ -460,6 +465,49 @@ function loadHistory() {
 
 
 // ============================================================
+// NORMALIZE HISTORY ITEM
+// ============================================================
+
+function normalizeHistoryItem(item) {
+
+    return {
+
+        row:
+            Number(item.row) || 0,
+
+        customerId:
+            String(item.customerId || ""),
+
+        problem:
+            String(item.problem || ""),
+
+        reference:
+            String(item.reference || ""),
+
+        date:
+            String(item.date || ""),
+
+        support:
+            String(item.support || ""),
+
+        supportWork:
+            String(item.supportWork || ""),
+
+        supportTime:
+            String(item.supportTime || ""),
+
+        call:
+            String(item.call || ""),
+
+        callWork:
+            String(item.callWork || "")
+
+    };
+
+}
+
+
+// ============================================================
 // RENDER HISTORY
 // ============================================================
 
@@ -472,9 +520,7 @@ function renderHistory() {
 
 
     if (!list) {
-
         return;
-
     }
 
 
@@ -557,13 +603,11 @@ function renderHistory() {
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHTML(
                             item.problem
                         )}
                     </td>
-
 
                     <td>
                         ${escapeHTML(
@@ -571,13 +615,13 @@ function renderHistory() {
                         )}
                     </td>
 
-
                     <td>
-                        ${formatDisplayDate(
-                            item.date
+                        ${escapeHTML(
+                            formatDisplayDate(
+                                item.date
+                            )
                         )}
                     </td>
-
 
                     <td>
 
@@ -627,21 +671,15 @@ function updateRecordLabel() {
 
 
     if (!label) {
-
         return;
-
     }
-
-
-    const count =
-        filteredHistory.length;
 
 
     label.innerHTML = `
 
         <i class="fa fa-database"></i>
 
-        ${count} Records
+        ${filteredHistory.length} Records
 
     `;
 
@@ -649,7 +687,7 @@ function updateRecordLabel() {
 
 
 // ============================================================
-// SEARCH SETUP
+// SEARCH
 // ============================================================
 
 function setupSearch() {
@@ -661,9 +699,7 @@ function setupSearch() {
 
 
     if (!search) {
-
         return;
-
     }
 
 
@@ -676,7 +712,7 @@ function setupSearch() {
 
 
 // ============================================================
-// DATE FILTER SETUP
+// DATE FILTER
 // ============================================================
 
 function setupDateFilters() {
@@ -716,7 +752,7 @@ function setupDateFilters() {
 
 
 // ============================================================
-// SEARCH + DATE FILTER
+// APPLY FILTER
 // ============================================================
 
 function applyHistoryFilters() {
@@ -763,127 +799,38 @@ function applyHistoryFilters() {
         historyData.filter(
             function (item) {
 
-                const customerId =
-                    String(
-                        item.customerId || ""
-                    ).toLowerCase();
+                const searchableText = [
 
+                    item.customerId,
 
-                const problem =
-                    String(
-                        item.problem || ""
-                    ).toLowerCase();
+                    item.problem,
 
+                    item.reference,
 
-                const reference =
-                    String(
-                        item.reference || ""
-                    ).toLowerCase();
+                    item.date,
 
+                    item.support,
 
-                const support =
-                    String(
-                        item.support || ""
-                    ).toLowerCase();
+                    item.supportWork,
 
+                    item.supportTime,
 
-                const supportWork =
-                    String(
-                        item.supportWork || ""
-                    ).toLowerCase();
+                    item.call,
 
+                    item.callWork,
 
-                const supportTime =
-                    String(
-                        item.supportTime || ""
-                    ).toLowerCase();
-
-
-                const call =
-                    String(
-                        item.call || ""
-                    ).toLowerCase();
-
-
-                const callWork =
-                    String(
-                        item.callWork || ""
-                    ).toLowerCase();
-
-
-                const dateText =
-                    String(
-                        item.date || ""
-                    ).toLowerCase();
-
-
-                const formattedDate =
                     formatDisplayDate(
                         item.date
-                    ).toLowerCase();
+                    )
+
+                ]
+                .join(" ")
+                .toLowerCase();
 
 
                 const searchMatch =
-
-                    !keyword
-
-                    ||
-
-                    customerId.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    problem.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    reference.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    support.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    supportWork.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    supportTime.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    call.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    callWork.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    dateText.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    formattedDate.includes(
+                    !keyword ||
+                    searchableText.includes(
                         keyword
                     );
 
@@ -949,23 +896,17 @@ function clearFilters() {
 
 
     if (search) {
-
         search.value = "";
-
     }
 
 
     if (fromDate) {
-
         fromDate.value = "";
-
     }
 
 
     if (toDate) {
-
         toDate.value = "";
-
     }
 
 
@@ -994,9 +935,7 @@ function renderPagination() {
 
 
     if (!pagination) {
-
         return;
-
     }
 
 
@@ -1011,9 +950,7 @@ function renderPagination() {
         );
 
 
-    if (
-        totalPages <= 1
-    ) {
+    if (totalPages <= 1) {
 
         pagination.innerHTML =
             "";
@@ -1128,6 +1065,199 @@ function changePage(page) {
 
 
 // ============================================================
+// PREPARE EDIT POPUP
+// ============================================================
+
+function prepareHistoryPopup() {
+
+    const popup =
+        document.querySelector(
+            ".popup"
+        );
+
+
+    if (!popup) {
+        return;
+    }
+
+
+    // Hidden row
+    let editIndex =
+        document.getElementById(
+            "editIndex"
+        );
+
+
+    if (!editIndex) {
+
+        editIndex =
+            document.createElement(
+                "input"
+            );
+
+        editIndex.type =
+            "hidden";
+
+        editIndex.id =
+            "editIndex";
+
+        popup.prepend(
+            editIndex
+        );
+
+    }
+
+
+    /*
+     * Existing HTML already contains:
+     * customerId
+     * problem
+     * reference
+     * date
+     * support
+     * supportWork
+     *
+     * The following fields are added automatically
+     * if they are missing.
+     */
+
+    ensureHistoryField(
+        popup,
+        "supportTime",
+        "Support Time",
+        "input"
+    );
+
+
+    ensureHistoryField(
+        popup,
+        "call",
+        "Call",
+        "input"
+    );
+
+
+    ensureHistoryField(
+        popup,
+        "callWork",
+        "Call Work",
+        "textarea"
+    );
+
+}
+
+
+// ============================================================
+// ENSURE HISTORY FIELD
+// ============================================================
+
+function ensureHistoryField(
+    popup,
+    id,
+    labelText,
+    type
+) {
+
+    if (
+        document.getElementById(id)
+    ) {
+
+        return;
+
+    }
+
+
+    const buttons =
+        popup.querySelector(
+            ".popup-buttons"
+        );
+
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "dynamic-history-field";
+
+
+    const label =
+        document.createElement(
+            "label"
+        );
+
+
+    label.htmlFor =
+        id;
+
+    label.textContent =
+        labelText;
+
+
+    let input;
+
+
+    if (type === "textarea") {
+
+        input =
+            document.createElement(
+                "textarea"
+            );
+
+    }
+    else {
+
+        input =
+            document.createElement(
+                "input"
+            );
+
+        input.type =
+            "text";
+
+    }
+
+
+    input.id =
+        id;
+
+
+    input.autocomplete =
+        "off";
+
+
+    wrapper.appendChild(
+        label
+    );
+
+
+    wrapper.appendChild(
+        input
+    );
+
+
+    if (buttons) {
+
+        popup.insertBefore(
+            wrapper,
+            buttons
+        );
+
+    }
+    else {
+
+        popup.appendChild(
+            wrapper
+        );
+
+    }
+
+}
+
+
+// ============================================================
 // EDIT HISTORY
 // ============================================================
 
@@ -1153,7 +1283,7 @@ function editHistory(row) {
 
         showErrorPopup(
             "History record not found.",
-            "Error"
+            "Edit Error"
         );
 
         currentRow =
@@ -1208,6 +1338,24 @@ function editHistory(row) {
     );
 
 
+    setValue(
+        "supportTime",
+        item.supportTime
+    );
+
+
+    setValue(
+        "call",
+        item.call
+    );
+
+
+    setValue(
+        "callWork",
+        item.callWork
+    );
+
+
     const popup =
         document.querySelector(
             ".popup"
@@ -1240,15 +1388,16 @@ function setValue(
         );
 
 
-    if (element) {
-
-        element.value =
-            value === null ||
-            value === undefined
-                ? ""
-                : value;
-
+    if (!element) {
+        return;
     }
+
+
+    element.value =
+        value === null ||
+        value === undefined
+            ? ""
+            : value;
 
 }
 
@@ -1266,13 +1415,13 @@ function getValue(id) {
 
 
     if (!element) {
-
         return "";
-
     }
 
 
-    return element.value.trim();
+    return String(
+        element.value || ""
+    ).trim();
 
 }
 
@@ -1322,6 +1471,10 @@ function updateHistory() {
     }
 
 
+    const row =
+        Number(currentRow);
+
+
     const customerId =
         getValue(
             "customerId"
@@ -1357,6 +1510,28 @@ function updateHistory() {
             "supportWork"
         );
 
+
+    const supportTime =
+        getValue(
+            "supportTime"
+        );
+
+
+    const call =
+        getValue(
+            "call"
+        );
+
+
+    const callWork =
+        getValue(
+            "callWork"
+        );
+
+
+    // ----------------------------------------
+    // VALIDATION
+    // ----------------------------------------
 
     if (!customerId) {
 
@@ -1399,88 +1574,49 @@ function updateHistory() {
     }
 
 
-    fetch(
-        API_URL,
-        {
+    apiRequest({
 
-            method: "POST",
+        action:
+            "updateHistory",
 
-            headers: {
+        row:
+            row,
 
-                "Content-Type":
-                    "text/plain;charset=utf-8"
+        customerId:
+            customerId,
 
-            },
+        problem:
+            problem,
 
-            body: JSON.stringify({
+        reference:
+            reference,
 
-                action:
-                    "updateHistory",
+        date:
+            date,
 
-                row:
-                    Number(
-                        currentRow
-                    ),
+        support:
+            support,
 
-                customerId:
-                    customerId,
+        supportWork:
+            supportWork,
 
-                problem:
-                    problem,
+        supportTime:
+            supportTime,
 
-                reference:
-                    reference,
+        call:
+            call,
 
-                date:
-                    date,
+        callWork:
+            callWork
 
-                support:
-                    support,
-
-                supportWork:
-                    supportWork
-
-            })
-
-        }
-    )
-
-    .then(
-        function (response) {
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Server Error"
-                );
-
-            }
-
-            return response.json();
-
-        }
-    )
-
+    })
     .then(
         function (data) {
 
             console.log(
-                "UPDATE HISTORY:",
+                "UPDATE HISTORY SUCCESS:",
                 data
             );
-
-
-            if (
-                !data ||
-                data.success !== true
-            ) {
-
-                throw new Error(
-                    data?.message ||
-                    "History update failed."
-                );
-
-            }
 
 
             const index =
@@ -1489,9 +1625,7 @@ function updateHistory() {
 
                         return Number(
                             item.row
-                        ) === Number(
-                            currentRow
-                        );
+                        ) === row;
 
                     }
                 );
@@ -1519,15 +1653,20 @@ function updateHistory() {
                         support,
 
                     supportWork:
-                        supportWork
+                        supportWork,
+
+                    supportTime:
+                        supportTime,
+
+                    call:
+                        call,
+
+                    callWork:
+                        callWork
 
                 };
 
             }
-
-
-            filteredHistory =
-                [...historyData];
 
 
             applyHistoryFilters();
@@ -1543,7 +1682,6 @@ function updateHistory() {
 
         }
     )
-
     .catch(
         function (error) {
 
@@ -1561,7 +1699,6 @@ function updateHistory() {
 
         }
     )
-
     .finally(
         function () {
 
@@ -1643,6 +1780,88 @@ function askDelete() {
 
 
 // ============================================================
+// PREPARE CUSTOM POPUPS
+// ============================================================
+
+function prepareCustomPopups() {
+
+    const popups =
+        document.querySelectorAll(
+            ".custom-popup"
+        );
+
+
+    popups.forEach(
+        function (popup, index) {
+
+            const heading =
+                popup.querySelector(
+                    "h3"
+                );
+
+
+            const text =
+                heading
+                    ? heading.textContent
+                        .trim()
+                        .toLowerCase()
+                    : "";
+
+
+            if (
+                text.includes("confirm")
+            ) {
+
+                popup.id =
+                    "confirmPopup";
+
+            }
+            else if (
+                text.includes("success")
+            ) {
+
+                popup.id =
+                    "successPopup";
+
+            }
+            else if (
+                text.includes("error")
+            ) {
+
+                popup.id =
+                    "errorPopup";
+
+            }
+            else {
+
+                if (index === 0) {
+
+                    popup.id =
+                        "confirmPopup";
+
+                }
+                else if (index === 1) {
+
+                    popup.id =
+                        "successPopup";
+
+                }
+                else if (index === 2) {
+
+                    popup.id =
+                        "errorPopup";
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+// ============================================================
 // CONFIRM DELETE
 // ============================================================
 
@@ -1652,10 +1871,12 @@ function confirmDelete() {
 
         closeConfirmPopup();
 
+
         showErrorPopup(
             "Invalid history record.",
             "Delete Error"
         );
+
 
         return;
 
@@ -1663,9 +1884,7 @@ function confirmDelete() {
 
 
     const row =
-        Number(
-            currentRow
-        );
+        Number(currentRow);
 
 
     if (
@@ -1675,10 +1894,12 @@ function confirmDelete() {
 
         closeConfirmPopup();
 
+
         showErrorPopup(
             "Invalid history row.",
             "Delete Error"
         );
+
 
         return;
 
@@ -1702,69 +1923,27 @@ function confirmDelete() {
     }
 
 
-    fetch(
-        API_URL,
-        {
+    apiRequest({
 
-            method: "POST",
+        action:
+            "deleteHistory",
 
-            headers: {
+        row:
+            row
 
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-
-            },
-
-            body: JSON.stringify({
-
-                action:
-                    "deleteHistory",
-
-                row:
-                    row
-
-            })
-
-        }
-    )
-
-    .then(
-        function (response) {
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Server Error"
-                );
-
-            }
-
-            return response.json();
-
-        }
-    )
-
+    })
     .then(
         function (data) {
 
             console.log(
-                "DELETE HISTORY:",
+                "DELETE HISTORY SUCCESS:",
                 data
             );
 
 
-            if (
-                !data ||
-                data.success !== true
-            ) {
-
-                throw new Error(
-                    data?.message ||
-                    "Delete failed."
-                );
-
-            }
-
+            // ----------------------------------
+            // Remove deleted record
+            // ----------------------------------
 
             historyData =
                 historyData.filter(
@@ -1778,15 +1957,22 @@ function confirmDelete() {
                 );
 
 
-            // Google Sheet deleteRow()
-            // করার কারণে নিচের row numbers
-            // automatically shift করে।
+            // ----------------------------------
+            // Google Sheet row shift
+            // ----------------------------------
+
             historyData =
                 historyData.map(
                     function (item) {
 
+                        const itemRow =
+                            Number(
+                                item.row
+                            );
+
+
                         if (
-                            Number(item.row) > row
+                            itemRow > row
                         ) {
 
                             return {
@@ -1794,13 +1980,12 @@ function confirmDelete() {
                                 ...item,
 
                                 row:
-                                    Number(
-                                        item.row
-                                    ) - 1
+                                    itemRow - 1
 
                             };
 
                         }
+
 
                         return item;
 
@@ -1808,7 +1993,32 @@ function confirmDelete() {
                 );
 
 
-            applyHistoryFilters();
+            filteredHistory =
+                [...historyData];
+
+
+            const totalPages =
+                Math.max(
+                    1,
+                    Math.ceil(
+                        filteredHistory.length /
+                        recordsPerPage
+                    )
+                );
+
+
+            if (
+                currentPage >
+                totalPages
+            ) {
+
+                currentPage =
+                    totalPages;
+
+            }
+
+
+            renderHistory();
 
 
             closeConfirmPopup();
@@ -1828,7 +2038,6 @@ function confirmDelete() {
 
         }
     )
-
     .catch(
         function (error) {
 
@@ -1846,7 +2055,6 @@ function confirmDelete() {
 
         }
     )
-
     .finally(
         function () {
 
@@ -1867,21 +2075,19 @@ function confirmDelete() {
 
 
 // ============================================================
-// FIND CONFIRM POPUP
+// GET CONFIRM POPUP
 // ============================================================
 
 function getConfirmPopup() {
 
-    const popup =
+    let popup =
         document.getElementById(
             "confirmPopup"
         );
 
 
     if (popup) {
-
         return popup;
-
     }
 
 
@@ -1891,9 +2097,20 @@ function getConfirmPopup() {
         );
 
 
-    return popups.length > 0
-        ? popups[0]
-        : null;
+    if (popups.length > 0) {
+
+        popup =
+            popups[0];
+
+        popup.id =
+            "confirmPopup";
+
+        return popup;
+
+    }
+
+
+    return null;
 
 }
 
@@ -1916,23 +2133,6 @@ function closeConfirmPopup() {
             "show"
         );
 
-        return;
-
-    }
-
-
-    const popups =
-        document.querySelectorAll(
-            ".custom-popup"
-        );
-
-
-    if (popups.length > 0) {
-
-        popups[0].classList.remove(
-            "show"
-        );
-
     }
 
 }
@@ -1947,7 +2147,7 @@ function showSuccessPopup(
     title
 ) {
 
-    const popup =
+    let popup =
         document.getElementById(
             "successPopup"
         );
@@ -1955,20 +2155,53 @@ function showSuccessPopup(
 
     if (!popup) {
 
-        return;
+        const popups =
+            document.querySelectorAll(
+                ".custom-popup"
+            );
+
+
+        for (
+            let i = 0;
+            i < popups.length;
+            i++
+        ) {
+
+            if (
+                popups[i].querySelector(
+                    ".popup-icon.success"
+                )
+            ) {
+
+                popup =
+                    popups[i];
+
+                popup.id =
+                    "successPopup";
+
+                break;
+
+            }
+
+        }
 
     }
 
 
+    if (!popup) {
+        return;
+    }
+
+
     const titleElement =
-        document.getElementById(
-            "successTitle"
+        popup.querySelector(
+            "#successTitle"
         );
 
 
     const messageElement =
-        document.getElementById(
-            "successMessage"
+        popup.querySelector(
+            "#successMessage"
         );
 
 
@@ -2029,7 +2262,7 @@ function showErrorPopup(
     title
 ) {
 
-    const popup =
+    let popup =
         document.getElementById(
             "errorPopup"
         );
@@ -2037,20 +2270,53 @@ function showErrorPopup(
 
     if (!popup) {
 
-        return;
+        const popups =
+            document.querySelectorAll(
+                ".custom-popup"
+            );
+
+
+        for (
+            let i = 0;
+            i < popups.length;
+            i++
+        ) {
+
+            if (
+                popups[i].querySelector(
+                    ".popup-icon.error"
+                )
+            ) {
+
+                popup =
+                    popups[i];
+
+                popup.id =
+                    "errorPopup";
+
+                break;
+
+            }
+
+        }
 
     }
 
 
+    if (!popup) {
+        return;
+    }
+
+
     const titleElement =
-        document.getElementById(
-            "errorTitle"
+        popup.querySelector(
+            "#errorTitle"
         );
 
 
     const messageElement =
-        document.getElementById(
-            "errorMessage"
+        popup.querySelector(
+            "#errorMessage"
         );
 
 
@@ -2103,15 +2369,13 @@ function closeErrorPopup() {
 
 
 // ============================================================
-// DATE → INPUT
+// DATE -> INPUT
 // ============================================================
 
 function convertDateForInput(date) {
 
     if (!date) {
-
         return "";
-
     }
 
 
@@ -2119,7 +2383,6 @@ function convertDateForInput(date) {
         String(date);
 
 
-    // yyyy-MM-dd
     const directMatch =
         text.match(
             /^(\d{4})-(\d{2})-(\d{2})/
@@ -2188,9 +2451,7 @@ function convertDateForInput(date) {
 function formatDisplayDate(date) {
 
     if (!date) {
-
         return "";
-
     }
 
 
@@ -2279,23 +2540,15 @@ function formatDisplayDate(date) {
         ).padStart(
             2,
             "0"
-        )
+        ) +
 
-        +
-
-        " "
-
-        +
+        " " +
 
         months[
             d.getMonth()
-        ]
+        ] +
 
-        +
-
-        " "
-
-        +
+        " " +
 
         d.getFullYear()
 
@@ -2311,9 +2564,7 @@ function formatDisplayDate(date) {
 function getDateOnly(date) {
 
     if (!date) {
-
         return "";
-
     }
 
 
