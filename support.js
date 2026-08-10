@@ -1,28 +1,29 @@
-// =====================================
+// =====================================================
 // SUPPORT.JS - FULL FINAL
-// =====================================
+// =====================================================
 
 "use strict";
 
-
-// =====================================
-// CONFIG
-// =====================================
+// =====================================================
+// API CONFIG
+// =====================================================
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
+// =====================================================
+// GLOBAL VARIABLES
+// =====================================================
+
 let currentRow = null;
-
 let supportData = [];
-
 let confirmCallback = null;
 
 
-// =====================================
-// PAGE PROTECTION
-// =====================================
+// =====================================================
+// PAGE AUTH PROTECTION
+// =====================================================
 
 (function () {
 
@@ -44,15 +45,12 @@ let confirmCallback = null;
     }
 
 
-    // Initial check
-
     if (!checkAuth()) {
         return;
     }
 
 
-    // Back protection
-
+    // Browser back protection
     history.pushState(
         null,
         "",
@@ -78,8 +76,7 @@ let confirmCallback = null;
     );
 
 
-    // Browser cache protection
-
+    // BFCache protection
     window.addEventListener(
         "pageshow",
         function (event) {
@@ -89,9 +86,7 @@ let confirmCallback = null;
             }
 
             if (event.persisted) {
-
                 window.location.reload();
-
             }
 
         }
@@ -100,49 +95,123 @@ let confirmCallback = null;
 })();
 
 
-// =====================================
-// DOM READY
-// =====================================
+// =====================================================
+// INITIALIZE
+// =====================================================
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+        initializePopupIds();
+
         loadProfile();
 
         loadSupport();
 
+        setupSearch();
 
-        // Search
+        setupOutsideClicks();
 
-        const search =
-            document.getElementById(
-                "supportSearch"
-            );
-
-
-        if (search) {
-
-            search.addEventListener(
-                "input",
-                searchSupport
-            );
-
-        }
+        setupEscapeKey();
 
     }
 );
 
 
-// =====================================
+// =====================================================
+// CREATE/ASSIGN POPUP IDS
+// IMPORTANT
+// =====================================================
+
+function initializePopupIds() {
+
+    // -----------------------------------------
+    // EDIT MODAL
+    // -----------------------------------------
+
+    const editPopup =
+        document.querySelector(
+            ".popup"
+        );
+
+    if (
+        editPopup &&
+        !editPopup.id
+    ) {
+
+        editPopup.id =
+            "editModal";
+
+    }
+
+
+    // -----------------------------------------
+    // CUSTOM POPUPS
+    // -----------------------------------------
+
+    const customPopups =
+        document.querySelectorAll(
+            ".custom-popup"
+        );
+
+
+    if (
+        customPopups.length >= 1 &&
+        !document.getElementById(
+            "confirmPopup"
+        )
+    ) {
+
+        customPopups[0].id =
+            "confirmPopup";
+
+    }
+
+
+    if (
+        customPopups.length >= 2 &&
+        !document.getElementById(
+            "successPopup"
+        )
+    ) {
+
+        customPopups[1].id =
+            "successPopup";
+
+    }
+
+
+    if (
+        customPopups.length >= 3 &&
+        !document.getElementById(
+            "errorPopup"
+        )
+    ) {
+
+        customPopups[2].id =
+            "errorPopup";
+
+    }
+
+}
+
+
+// =====================================================
 // PROFILE
-// =====================================
+// =====================================================
 
 function loadProfile() {
 
     const username =
         localStorage.getItem(
             "username"
+        );
+
+
+    const name =
+        localStorage.getItem(
+            "name"
         );
 
 
@@ -164,20 +233,20 @@ function loadProfile() {
         );
 
 
-    if (
-        usernameElement &&
-        username
-    ) {
+    if (usernameElement) {
 
         usernameElement.textContent =
-            username;
+            username ||
+            name ||
+            "User";
 
     }
 
 
     if (
         profileImg &&
-        picture
+        picture &&
+        picture.trim() !== ""
     ) {
 
         profileImg.src =
@@ -185,12 +254,27 @@ function loadProfile() {
 
     }
 
+
+    if (profileImg) {
+
+        profileImg.onerror =
+            function () {
+
+                this.onerror = null;
+
+                this.src =
+                    "assets/profile.png";
+
+            };
+
+    }
+
 }
 
 
-// =====================================
+// =====================================================
 // PROFILE MENU
-// =====================================
+// =====================================================
 
 function toggleProfile() {
 
@@ -212,9 +296,9 @@ function toggleProfile() {
 }
 
 
-// =====================================
+// =====================================================
 // MY ACCOUNT
-// =====================================
+// =====================================================
 
 function myAccount() {
 
@@ -224,26 +308,19 @@ function myAccount() {
 }
 
 
-// =====================================
+// =====================================================
 // LOGOUT
-// =====================================
+// =====================================================
 
 function logout() {
 
     localStorage.removeItem("auth");
-
     localStorage.removeItem("isLogin");
-
     localStorage.removeItem("username");
-
     localStorage.removeItem("name");
-
     localStorage.removeItem("picture");
-
     localStorage.removeItem("role");
-
     localStorage.removeItem("lastActivity");
-
 
     window.location.replace(
         "login.html"
@@ -252,9 +329,9 @@ function logout() {
 }
 
 
-// =====================================
+// =====================================================
 // BACK
-// =====================================
+// =====================================================
 
 function goBack() {
 
@@ -265,9 +342,34 @@ function goBack() {
 }
 
 
-// =====================================
+// =====================================================
+// SEARCH SETUP
+// =====================================================
+
+function setupSearch() {
+
+    const search =
+        document.getElementById(
+            "supportSearch"
+        );
+
+
+    if (!search) {
+        return;
+    }
+
+
+    search.addEventListener(
+        "input",
+        searchSupport
+    );
+
+}
+
+
+// =====================================================
 // LOAD SUPPORT
-// =====================================
+// =====================================================
 
 function loadSupport() {
 
@@ -396,10 +498,12 @@ function loadSupport() {
                             colspan="5"
                             style="
                                 text-align:center;
-                                padding:35px;
+                                padding:40px;
                                 color:#ef4444;
                             "
                         >
+
+                            <i class="fa fa-circle-exclamation"></i>
 
                             Failed to load data
 
@@ -417,9 +521,9 @@ function loadSupport() {
 }
 
 
-// =====================================
+// =====================================================
 // RENDER SUPPORT
-// =====================================
+// =====================================================
 
 function renderSupport(data) {
 
@@ -447,10 +551,12 @@ function renderSupport(data) {
                     colspan="5"
                     style="
                         text-align:center;
-                        padding:35px;
+                        padding:40px;
                         color:#64748b;
                     "
                 >
+
+                    <i class="fa fa-inbox"></i>
 
                     No Pending Support
 
@@ -494,10 +600,8 @@ function renderSupport(data) {
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            formatDate(
-                                item.date
-                            )
+                        ${formatDate(
+                            item.date
                         )}
                     </td>
 
@@ -531,9 +635,9 @@ function renderSupport(data) {
 }
 
 
-// =====================================
+// =====================================================
 // SEARCH
-// =====================================
+// =====================================================
 
 function searchSupport() {
 
@@ -571,29 +675,25 @@ function searchSupport() {
 
                 const customerId =
                     String(
-                        item.customerId ||
-                        ""
+                        item.customerId || ""
                     ).toLowerCase();
 
 
                 const problem =
                     String(
-                        item.problem ||
-                        ""
+                        item.problem || ""
                     ).toLowerCase();
 
 
                 const reference =
                     String(
-                        item.reference ||
-                        ""
+                        item.reference || ""
                     ).toLowerCase();
 
 
                 const date =
                     String(
-                        item.date ||
-                        ""
+                        item.date || ""
                     ).toLowerCase();
 
 
@@ -659,10 +759,12 @@ function searchSupport() {
                         colspan="5"
                         style="
                             text-align:center;
-                            padding:35px;
+                            padding:40px;
                             color:#64748b;
                         "
                     >
+
+                        <i class="fa fa-search"></i>
 
                         No matching support found
 
@@ -686,9 +788,9 @@ function searchSupport() {
 }
 
 
-// =====================================
+// =====================================================
 // EDIT SUPPORT
-// =====================================
+// =====================================================
 
 function editSupport(row) {
 
@@ -773,14 +875,18 @@ function editSupport(row) {
             "show"
         );
 
+        document.body.classList.add(
+            "modal-open"
+        );
+
     }
 
 }
 
 
-// =====================================
+// =====================================================
 // SET VALUE
-// =====================================
+// =====================================================
 
 function setValue(
     id,
@@ -796,16 +902,18 @@ function setValue(
     if (element) {
 
         element.value =
-            value || "";
+            value == null
+                ? ""
+                : value;
 
     }
 
 }
 
 
-// =====================================
+// =====================================================
 // GET VALUE
-// =====================================
+// =====================================================
 
 function getValue(id) {
 
@@ -825,9 +933,9 @@ function getValue(id) {
 }
 
 
-// =====================================
+// =====================================================
 // CLOSE EDIT
-// =====================================
+// =====================================================
 
 function closeEdit() {
 
@@ -846,15 +954,20 @@ function closeEdit() {
     }
 
 
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+
     currentRow =
         null;
 
 }
 
 
-// =====================================
-// UPDATE SUPPORT
-// =====================================
+// =====================================================
+// UPDATE / SUBMIT SUPPORT
+// =====================================================
 
 function updateSupport() {
 
@@ -923,6 +1036,10 @@ function updateSupport() {
     }
 
 
+    const rowToMove =
+        Number(currentRow);
+
+
     fetch(
         API_URL,
         {
@@ -942,9 +1059,7 @@ function updateSupport() {
                     "moveToCall",
 
                 row:
-                    Number(
-                        currentRow
-                    ),
+                    rowToMove,
 
                 customerId:
                     getValue(
@@ -1021,9 +1136,7 @@ function updateSupport() {
 
                         return Number(
                             item.row
-                        ) !== Number(
-                            currentRow
-                        );
+                        ) !== rowToMove;
 
                     }
                 );
@@ -1082,9 +1195,9 @@ function updateSupport() {
 }
 
 
-// =====================================
+// =====================================================
 // DELETE SUPPORT
-// =====================================
+// =====================================================
 
 function deleteSupport() {
 
@@ -1117,21 +1230,19 @@ function deleteSupport() {
 }
 
 
-// =====================================
+// =====================================================
 // PERFORM DELETE
-// =====================================
+// =====================================================
 
 function performDeleteSupport() {
 
     const row =
-        Number(
-            currentRow
-        );
+        Number(currentRow);
 
 
     if (
         !row ||
-        row < 1
+        row <= 1
     ) {
 
         showErrorPopup(
@@ -1225,8 +1336,7 @@ function performDeleteSupport() {
             }
 
 
-            // Remove from local data
-
+            // Remove local record
             supportData =
                 supportData.filter(
                     function (item) {
@@ -1239,20 +1349,17 @@ function performDeleteSupport() {
                 );
 
 
-            // Redraw table
-
+            // Refresh table
             renderSupport(
                 supportData
             );
 
 
-            // Close confirm popup
-
+            // Close confirm
             closeConfirmPopup();
 
 
-            // Close edit popup
-
+            // Close edit
             closeEdit();
 
 
@@ -1260,8 +1367,7 @@ function performDeleteSupport() {
                 null;
 
 
-            // Success popup
-
+            // Success
             showSuccessPopup(
                 "Support deleted successfully.",
                 "Deleted Successfully"
@@ -1277,9 +1383,6 @@ function performDeleteSupport() {
                 "DELETE ERROR:",
                 error
             );
-
-
-            closeConfirmPopup();
 
 
             showErrorPopup(
@@ -1310,9 +1413,9 @@ function performDeleteSupport() {
 }
 
 
-// =====================================
-// SHOW CONFIRM POPUP
-// =====================================
+// =====================================================
+// CONFIRM POPUP
+// =====================================================
 
 function showConfirmPopup(
     message,
@@ -1346,9 +1449,24 @@ function showConfirmPopup(
 
     if (!popup) {
 
-        console.error(
-            "confirmPopup not found."
-        );
+        // Fallback
+        if (
+            confirm(
+                message ||
+                "Are you sure?"
+            )
+        ) {
+
+            if (
+                typeof callback ===
+                "function"
+            ) {
+
+                callback();
+
+            }
+
+        }
 
         return;
 
@@ -1359,7 +1477,7 @@ function showConfirmPopup(
 
         titleElement.textContent =
             title ||
-            "Confirm Delete";
+            "Confirm";
 
     }
 
@@ -1381,6 +1499,7 @@ function showConfirmPopup(
 
         button.disabled =
             false;
+
 
         button.innerHTML =
             '<i class="fa fa-trash"></i> Delete';
@@ -1407,12 +1526,16 @@ function showConfirmPopup(
         "show"
     );
 
+    document.body.classList.add(
+        "modal-open"
+    );
+
 }
 
 
-// =====================================
+// =====================================================
 // CLOSE CONFIRM POPUP
-// =====================================
+// =====================================================
 
 function closeConfirmPopup() {
 
@@ -1434,12 +1557,17 @@ function closeConfirmPopup() {
     confirmCallback =
         null;
 
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
 }
 
 
-// =====================================
+// =====================================================
 // SUCCESS POPUP
-// =====================================
+// =====================================================
 
 function showSuccessPopup(
     message,
@@ -1453,13 +1581,7 @@ function showSuccessPopup(
 
 
     if (!popup) {
-
-        console.error(
-            "successPopup not found."
-        );
-
         return;
-
     }
 
 
@@ -1497,12 +1619,17 @@ function showSuccessPopup(
         "show"
     );
 
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
 }
 
 
-// =====================================
+// =====================================================
 // CLOSE SUCCESS
-// =====================================
+// =====================================================
 
 function closeSuccessPopup() {
 
@@ -1520,12 +1647,17 @@ function closeSuccessPopup() {
 
     }
 
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
 }
 
 
-// =====================================
+// =====================================================
 // ERROR POPUP
-// =====================================
+// =====================================================
 
 function showErrorPopup(
     message,
@@ -1540,8 +1672,9 @@ function showErrorPopup(
 
     if (!popup) {
 
-        console.error(
-            "errorPopup not found."
+        alert(
+            message ||
+            "Something went wrong."
         );
 
         return;
@@ -1583,12 +1716,17 @@ function showErrorPopup(
         "show"
     );
 
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
 }
 
 
-// =====================================
+// =====================================================
 // CLOSE ERROR
-// =====================================
+// =====================================================
 
 function closeErrorPopup() {
 
@@ -1606,12 +1744,17 @@ function closeErrorPopup() {
 
     }
 
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
 }
 
 
-// =====================================
-// CONVERT DATE
-// =====================================
+// =====================================================
+// DATE → INPUT
+// =====================================================
 
 function convertDate(date) {
 
@@ -1621,11 +1764,10 @@ function convertDate(date) {
 
 
     const text =
-        String(date);
+        String(date).trim();
 
 
-    // YYYY-MM-DD
-
+    // Already YYYY-MM-DD
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
             text
@@ -1633,6 +1775,26 @@ function convertDate(date) {
     ) {
 
         return text;
+
+    }
+
+
+    // DD/MM/YYYY
+    let match =
+        text.match(
+            /^(\d{2})\/(\d{2})\/(\d{4})$/
+        );
+
+
+    if (match) {
+
+        return (
+            match[3] +
+            "-" +
+            match[2] +
+            "-" +
+            match[1]
+        );
 
     }
 
@@ -1654,26 +1816,18 @@ function convertDate(date) {
 
     return (
 
-        d.getFullYear()
+        d.getFullYear() +
 
-        +
-
-        "-"
-
-        +
+        "-" +
 
         String(
             d.getMonth() + 1
         ).padStart(
             2,
             "0"
-        )
+        ) +
 
-        +
-
-        "-"
-
-        +
+        "-" +
 
         String(
             d.getDate()
@@ -1687,14 +1841,60 @@ function convertDate(date) {
 }
 
 
-// =====================================
-// FORMAT DATE
-// =====================================
+// =====================================================
+// DATE DISPLAY
+// =====================================================
 
 function formatDate(date) {
 
     if (!date) {
         return "";
+    }
+
+
+    const text =
+        String(date).trim();
+
+
+    // YYYY-MM-DD
+    let match =
+        text.match(
+            /^(\d{4})-(\d{2})-(\d{2})$/
+        );
+
+
+    if (match) {
+
+        const months = [
+
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+
+        ];
+
+
+        return (
+
+            match[3] +
+            " " +
+            months[
+                Number(match[2]) - 1
+            ] +
+            " " +
+            match[1]
+
+        );
+
     }
 
 
@@ -1708,9 +1908,7 @@ function formatDate(date) {
         )
     ) {
 
-        return String(
-            date
-        );
+        return text;
 
     }
 
@@ -1765,9 +1963,9 @@ function formatDate(date) {
 }
 
 
-// =====================================
+// =====================================================
 // ESCAPE HTML
-// =====================================
+// =====================================================
 
 function escapeHTML(value) {
 
@@ -1811,212 +2009,165 @@ function escapeHTML(value) {
 }
 
 
-// =====================================
-// PROFILE OUTSIDE CLICK
-// =====================================
+// =====================================================
+// OUTSIDE CLICK
+// =====================================================
 
-document.addEventListener(
-    "click",
-    function (event) {
+function setupOutsideClicks() {
 
-        const profile =
-            document.querySelector(
-                ".profile"
-            );
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            // -------------------------------
+            // PROFILE
+            // -------------------------------
+
+            const profile =
+                document.querySelector(
+                    ".profile"
+                );
 
 
-        const menu =
-            document.getElementById(
-                "profileMenu"
-            );
+            const profileMenu =
+                document.getElementById(
+                    "profileMenu"
+                );
 
 
-        if (
-            profile &&
-            menu &&
-            !profile.contains(
-                event.target
-            )
-        ) {
+            if (
+                profile &&
+                profileMenu &&
+                !profile.contains(
+                    event.target
+                )
+            ) {
 
-            menu.classList.remove(
-                "show"
-            );
+                profileMenu.classList.remove(
+                    "show"
+                );
+
+            }
+
+
+            // -------------------------------
+            // EDIT MODAL
+            // -------------------------------
+
+            const editModal =
+                document.getElementById(
+                    "editModal"
+                );
+
+
+            if (
+                editModal &&
+                event.target ===
+                    editModal
+            ) {
+
+                closeEdit();
+
+            }
+
+
+            // -------------------------------
+            // CONFIRM
+            // -------------------------------
+
+            const confirmPopup =
+                document.getElementById(
+                    "confirmPopup"
+                );
+
+
+            if (
+                confirmPopup &&
+                event.target ===
+                    confirmPopup
+            ) {
+
+                closeConfirmPopup();
+
+            }
+
+
+            // -------------------------------
+            // SUCCESS
+            // -------------------------------
+
+            const successPopup =
+                document.getElementById(
+                    "successPopup"
+                );
+
+
+            if (
+                successPopup &&
+                event.target ===
+                    successPopup
+            ) {
+
+                closeSuccessPopup();
+
+            }
+
+
+            // -------------------------------
+            // ERROR
+            // -------------------------------
+
+            const errorPopup =
+                document.getElementById(
+                    "errorPopup"
+                );
+
+
+            if (
+                errorPopup &&
+                event.target ===
+                    errorPopup
+            ) {
+
+                closeErrorPopup();
+
+            }
 
         }
+    );
 
-    }
-);
-
-
-// =====================================
-// EDIT MODAL OUTSIDE CLICK
-// =====================================
-
-document.addEventListener(
-    "click",
-    function (event) {
-
-        const modal =
-            document.getElementById(
-                "editModal"
-            );
+}
 
 
-        if (
-            modal &&
-            event.target === modal
-        ) {
+// =====================================================
+// ESC KEY
+// =====================================================
 
-            closeEdit();
+function setupEscapeKey() {
 
-        }
+    document.addEventListener(
+        "keydown",
+        function (event) {
 
-    }
-);
+            if (
+                event.key !==
+                "Escape"
+            ) {
 
+                return;
 
-// =====================================
-// POPUP OUTSIDE CLICK
-// =====================================
+            }
 
-document.addEventListener(
-    "click",
-    function (event) {
-
-        const confirmPopup =
-            document.getElementById(
-                "confirmPopup"
-            );
-
-
-        const successPopup =
-            document.getElementById(
-                "successPopup"
-            );
-
-
-        const errorPopup =
-            document.getElementById(
-                "errorPopup"
-            );
-
-
-        if (
-            confirmPopup &&
-            event.target ===
-                confirmPopup
-        ) {
 
             closeConfirmPopup();
 
-        }
-
-
-        if (
-            successPopup &&
-            event.target ===
-                successPopup
-        ) {
-
             closeSuccessPopup();
 
-        }
-
-
-        if (
-            errorPopup &&
-            event.target ===
-                errorPopup
-        ) {
-
             closeErrorPopup();
-
-        }
-
-    }
-);
-
-
-// =====================================
-// ESC KEY
-// =====================================
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.key !== "Escape"
-        ) {
-
-            return;
-
-        }
-
-
-        closeConfirmPopup();
-
-        closeSuccessPopup();
-
-        closeErrorPopup();
-
-
-        const modal =
-            document.getElementById(
-                "editModal"
-            );
-
-
-        if (
-            modal &&
-            modal.classList.contains(
-                "show"
-            )
-        ) {
 
             closeEdit();
 
         }
+    );
 
-    }
-);
-
-
-// =====================================
-// MAKE FUNCTIONS GLOBAL
-// For inline onclick HTML
-// =====================================
-
-window.toggleProfile =
-    toggleProfile;
-
-window.myAccount =
-    myAccount;
-
-window.logout =
-    logout;
-
-window.goBack =
-    goBack;
-
-window.editSupport =
-    editSupport;
-
-window.closeEdit =
-    closeEdit;
-
-window.updateSupport =
-    updateSupport;
-
-window.deleteSupport =
-    deleteSupport;
-
-window.closeConfirmPopup =
-    closeConfirmPopup;
-
-window.closeSuccessPopup =
-    closeSuccessPopup;
-
-window.closeErrorPopup =
-    closeErrorPopup;
+}
