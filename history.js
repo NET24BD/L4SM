@@ -1,10 +1,11 @@
 // ============================================================
 // HISTORY.JS - FINAL
 // L4SM SUPPORT SYSTEM
-// GOOGLE SHEET HISTORY CONNECTION
+// Google Sheet History Connection
 // ============================================================
 
 "use strict";
+
 
 // ============================================================
 // CONFIG
@@ -19,7 +20,6 @@ const API_URL =
 // ============================================================
 
 let historyData = [];
-
 let filteredHistory = [];
 
 let currentRow = null;
@@ -33,18 +33,15 @@ const recordsPerPage = 10;
 // AUTH
 // ============================================================
 
-(function () {
+(function protectPage() {
 
     function checkAuth() {
 
-        const auth =
-            localStorage.getItem("auth");
+        const auth = localStorage.getItem("auth");
 
         if (auth !== "true") {
 
-            window.location.replace(
-                "login.html"
-            );
+            window.location.replace("login.html");
 
             return false;
         }
@@ -58,49 +55,6 @@ const recordsPerPage = 10;
     }
 
 
-    history.pushState(
-        null,
-        "",
-        location.href
-    );
-
-
-    window.addEventListener(
-        "popstate",
-        function () {
-
-            if (!checkAuth()) {
-                return;
-            }
-
-            history.pushState(
-                null,
-                "",
-                location.href
-            );
-
-        }
-    );
-
-
-    window.addEventListener(
-        "pageshow",
-        function (event) {
-
-            if (!checkAuth()) {
-                return;
-            }
-
-            if (event.persisted) {
-
-                window.location.reload();
-
-            }
-
-        }
-    );
-
-
     window.logout = function () {
 
         localStorage.removeItem("auth");
@@ -108,11 +62,21 @@ const recordsPerPage = 10;
         localStorage.removeItem("picture");
         localStorage.removeItem("role");
 
-        window.location.replace(
-            "login.html"
-        );
-
+        window.location.replace("login.html");
     };
+
+
+    window.addEventListener("pageshow", function (event) {
+
+        if (!checkAuth()) {
+            return;
+        }
+
+        if (event.persisted) {
+            window.location.reload();
+        }
+
+    });
 
 })();
 
@@ -121,24 +85,19 @@ const recordsPerPage = 10;
 // DOM READY
 // ============================================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener("DOMContentLoaded", function () {
 
-        prepareHistoryPopup();
+    loadProfile();
 
-        prepareCustomPopups();
+    loadHistory();
 
-        loadProfile();
+    setupSearch();
 
-        loadHistory();
+    setupDateFilters();
 
-        setupSearch();
+    setupGlobalEvents();
 
-        setupDateFilters();
-
-    }
-);
+});
 
 
 // ============================================================
@@ -148,32 +107,20 @@ document.addEventListener(
 function loadProfile() {
 
     const username =
-        localStorage.getItem(
-            "username"
-        );
+        localStorage.getItem("username");
 
     const picture =
-        localStorage.getItem(
-            "picture"
-        );
+        localStorage.getItem("picture");
 
 
     const usernameElement =
-        document.getElementById(
-            "username"
-        );
-
+        document.getElementById("username");
 
     const profileImg =
-        document.getElementById(
-            "profileImg"
-        );
+        document.getElementById("profileImg");
 
 
-    if (
-        usernameElement &&
-        username
-    ) {
+    if (usernameElement && username) {
 
         usernameElement.textContent =
             username;
@@ -181,10 +128,7 @@ function loadProfile() {
     }
 
 
-    if (
-        profileImg &&
-        picture
-    ) {
+    if (profileImg && picture) {
 
         profileImg.src =
             picture;
@@ -201,19 +145,13 @@ function loadProfile() {
 function toggleProfile() {
 
     const menu =
-        document.getElementById(
-            "profileMenu"
-        );
-
+        document.getElementById("profileMenu");
 
     if (!menu) {
         return;
     }
 
-
-    menu.classList.toggle(
-        "show"
-    );
+    menu.classList.toggle("show");
 
 }
 
@@ -250,15 +188,10 @@ function goBack() {
 function toggleHistoryFilter() {
 
     const filter =
-        document.getElementById(
-            "historyFilter"
-        );
-
+        document.getElementById("historyFilter");
 
     const button =
-        document.getElementById(
-            "historyFilterBtn"
-        );
+        document.getElementById("historyFilterBtn");
 
 
     if (!filter) {
@@ -266,9 +199,7 @@ function toggleHistoryFilter() {
     }
 
 
-    filter.classList.toggle(
-        "show"
-    );
+    filter.classList.toggle("show");
 
 
     if (button) {
@@ -283,183 +214,141 @@ function toggleHistoryFilter() {
 
 
 // ============================================================
-// API REQUEST
-// ============================================================
-
-function apiRequest(payload) {
-
-    return fetch(
-        API_URL,
-        {
-            method: "POST",
-
-            headers: {
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-            },
-
-            body:
-                JSON.stringify(payload)
-        }
-    )
-    .then(
-        function (response) {
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Server Error: " +
-                    response.status
-                );
-
-            }
-
-            return response.json();
-
-        }
-    )
-    .then(
-        function (data) {
-
-            if (
-                !data ||
-                data.success !== true
-            ) {
-
-                throw new Error(
-                    data &&
-                    data.message
-                        ? data.message
-                        : "API request failed."
-                );
-
-            }
-
-            return data;
-
-        }
-    );
-
-}
-
-
-// ============================================================
 // LOAD HISTORY
 // ============================================================
 
-function loadHistory() {
+async function loadHistory() {
 
     const list =
-        document.getElementById(
-            "historyList"
-        );
+        document.getElementById("historyList");
 
 
     if (list) {
 
         list.innerHTML = `
-
             <tr>
-
                 <td
                     colspan="5"
                     class="loading-cell"
                 >
-
                     <i class="fa fa-spinner fa-spin"></i>
-
                     Loading...
-
                 </td>
-
             </tr>
-
         `;
 
     }
 
 
-    apiRequest({
+    try {
 
-        action:
-            "getHistory"
+        const response =
+            await fetch(API_URL, {
 
-    })
-    .then(
-        function (data) {
+                method: "POST",
 
-            console.log(
-                "HISTORY DATA:",
-                data
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body: JSON.stringify({
+                    action: "getHistory"
+                })
+
+            });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server Error: " +
+                response.status
             );
 
-
-            historyData =
-                Array.isArray(data.data)
-                    ? data.data.map(normalizeHistoryItem)
-                    : [];
-
-
-            filteredHistory =
-                [...historyData];
-
-
-            currentPage = 1;
-
-
-            renderHistory();
-
         }
-    )
-    .catch(
-        function (error) {
 
-            console.error(
-                "HISTORY LOAD ERROR:",
-                error
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "GET HISTORY RESPONSE:",
+            data
+        );
+
+
+        if (
+            !data ||
+            data.success !== true
+        ) {
+
+            throw new Error(
+                data?.message ||
+                "Unable to load history."
             );
 
-
-            historyData = [];
-
-            filteredHistory = [];
+        }
 
 
-            if (list) {
-
-                list.innerHTML = `
-
-                    <tr>
-
-                        <td
-                            colspan="5"
-                            style="
-                                text-align:center;
-                                padding:40px;
-                                color:#ef4444;
-                            "
-                        >
-
-                            <i
-                                class="fa fa-circle-exclamation"
-                                style="margin-right:8px;"
-                            ></i>
-
-                            Failed to load history
-
-                        </td>
-
-                    </tr>
-
-                `;
-
-            }
+        historyData =
+            Array.isArray(data.data)
+                ? data.data.map(normalizeHistoryItem)
+                : [];
 
 
-            updateRecordLabel();
+        filteredHistory =
+            [...historyData];
+
+
+        currentPage = 1;
+
+
+        renderHistory();
+
+
+    } catch (error) {
+
+        console.error(
+            "HISTORY LOAD ERROR:",
+            error
+        );
+
+
+        historyData = [];
+
+        filteredHistory = [];
+
+
+        if (list) {
+
+            list.innerHTML = `
+                <tr>
+                    <td
+                        colspan="5"
+                        style="
+                            text-align:center;
+                            padding:40px;
+                            color:#ef4444;
+                        "
+                    >
+                        <i
+                            class="fa fa-circle-exclamation"
+                            style="margin-right:8px;"
+                        ></i>
+
+                        Failed to load history
+                    </td>
+                </tr>
+            `;
 
         }
-    );
+
+
+        updateRecordLabel();
+
+    }
 
 }
 
@@ -470,37 +359,80 @@ function loadHistory() {
 
 function normalizeHistoryItem(item) {
 
+    if (!item || typeof item !== "object") {
+
+        return {
+            row: null,
+            customerId: "",
+            problem: "",
+            reference: "",
+            date: "",
+            support: "",
+            supportWork: "",
+            supportTime: "",
+            call: "",
+            callWork: ""
+        };
+
+    }
+
+
     return {
 
+        ...item,
+
         row:
-            Number(item.row) || 0,
+            item.row !== undefined &&
+            item.row !== null &&
+            item.row !== ""
+                ? Number(item.row)
+                : null,
 
         customerId:
-            String(item.customerId || ""),
+            item.customerId ??
+            item.customerID ??
+            item["Customer ID"] ??
+            "",
 
         problem:
-            String(item.problem || ""),
+            item.problem ??
+            item.Problem ??
+            "",
 
         reference:
-            String(item.reference || ""),
+            item.reference ??
+            item.Reference ??
+            "",
 
         date:
-            String(item.date || ""),
+            item.date ??
+            item.Date ??
+            "",
 
         support:
-            String(item.support || ""),
+            item.support ??
+            item.Support ??
+            "",
 
         supportWork:
-            String(item.supportWork || ""),
+            item.supportWork ??
+            item["Support Work"] ??
+            "",
 
         supportTime:
-            String(item.supportTime || ""),
+            item.supportTime ??
+            item["Support Time"] ??
+            "",
 
         call:
-            String(item.call || ""),
+            item.call ??
+            item.Call ??
+            "",
 
         callWork:
-            String(item.callWork || "")
+            item.callWork ??
+            item["Call Work"] ??
+            ""
 
     };
 
@@ -514,9 +446,7 @@ function normalizeHistoryItem(item) {
 function renderHistory() {
 
     const list =
-        document.getElementById(
-            "historyList"
-        );
+        document.getElementById("historyList");
 
 
     if (!list) {
@@ -530,9 +460,7 @@ function renderHistory() {
     ) {
 
         list.innerHTML = `
-
             <tr>
-
                 <td
                     colspan="5"
                     style="
@@ -555,9 +483,7 @@ function renderHistory() {
                     No History Records Found
 
                 </td>
-
             </tr>
-
         `;
 
 
@@ -590,65 +516,59 @@ function renderHistory() {
     let html = "";
 
 
-    pageData.forEach(
-        function (item) {
+    pageData.forEach(function (item) {
 
-            html += `
-
-                <tr>
-
-                    <td>
-                        ${escapeHTML(
-                            item.customerId
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            item.problem
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            item.reference
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            formatDisplayDate(
-                                item.date
-                            )
-                        )}
-                    </td>
-
-                    <td>
-
-                        <button
-                            type="button"
-                            class="edit-btn"
-                            onclick="editHistory(${Number(item.row)})"
-                        >
-
-                            <i class="fa fa-pen"></i>
-
-                            Edit
-
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }
-    );
+        const row =
+            Number(item.row);
 
 
-    list.innerHTML =
-        html;
+        html += `
+            <tr>
+
+                <td>
+                    ${escapeHTML(item.customerId)}
+                </td>
+
+
+                <td class="problem-cell">
+                    ${escapeHTML(item.problem)}
+                </td>
+
+
+                <td>
+                    ${escapeHTML(item.reference)}
+                </td>
+
+
+                <td>
+                    ${formatDisplayDate(item.date)}
+                </td>
+
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="edit-btn view-btn"
+                        data-row="${Number.isFinite(row) ? row : ""}"
+                        onclick="editHistoryByButton(this)"
+                    >
+
+                        <i class="fa fa-pen"></i>
+
+                        Edit
+
+                    </button>
+
+                </td>
+
+            </tr>
+        `;
+
+    });
+
+
+    list.innerHTML = html;
 
 
     renderPagination();
@@ -659,29 +579,1215 @@ function renderHistory() {
 
 
 // ============================================================
-// RECORD LABEL
+// EDIT BUTTON HANDLER
 // ============================================================
 
-function updateRecordLabel() {
+function editHistoryByButton(button) {
 
-    const label =
-        document.querySelector(
-            ".record-label"
-        );
-
-
-    if (!label) {
+    if (!button) {
         return;
     }
 
 
-    label.innerHTML = `
+    const row =
+        Number(
+            button.getAttribute("data-row")
+        );
 
-        <i class="fa fa-database"></i>
 
-        ${filteredHistory.length} Records
+    console.log(
+        "EDIT BUTTON ROW:",
+        row
+    );
 
-    `;
+
+    if (
+        !Number.isFinite(row) ||
+        row <= 0
+    ) {
+
+        showErrorPopup(
+            "This history record has no valid Google Sheet row number.",
+            "Edit Error"
+        );
+
+        return;
+
+    }
+
+
+    editHistory(row);
+
+}
+
+
+// ============================================================
+// EDIT HISTORY
+// ============================================================
+
+function editHistory(row) {
+
+    const numericRow =
+        Number(row);
+
+
+    console.log(
+        "EDIT HISTORY ROW:",
+        numericRow
+    );
+
+
+    if (
+        !Number.isFinite(numericRow) ||
+        numericRow <= 0
+    ) {
+
+        showErrorPopup(
+            "Invalid history row.",
+            "Edit Error"
+        );
+
+        return;
+
+    }
+
+
+    const item =
+        historyData.find(function (history) {
+
+            return Number(history.row) === numericRow;
+
+        });
+
+
+    if (!item) {
+
+        console.error(
+            "History record not found. Row:",
+            numericRow,
+            historyData
+        );
+
+
+        showErrorPopup(
+            "History record not found. Please reload the page.",
+            "Edit Error"
+        );
+
+        return;
+
+    }
+
+
+    currentRow =
+        numericRow;
+
+
+    setValue(
+        "editIndex",
+        numericRow
+    );
+
+
+    setValue(
+        "customerId",
+        item.customerId
+    );
+
+
+    setValue(
+        "problem",
+        item.problem
+    );
+
+
+    setValue(
+        "reference",
+        item.reference
+    );
+
+
+    setValue(
+        "date",
+        convertDateForInput(item.date)
+    );
+
+
+    setValue(
+        "support",
+        item.support
+    );
+
+
+    setValue(
+        "supportWork",
+        item.supportWork
+    );
+
+
+    openEditPopup();
+
+
+}
+
+
+// ============================================================
+// OPEN EDIT POPUP
+// ============================================================
+
+function openEditPopup() {
+
+    const popup =
+        document.querySelector(".popup");
+
+
+    const overlay =
+        document.querySelector(".popup-overlay");
+
+
+    if (overlay) {
+
+        overlay.classList.add("show");
+
+    }
+
+
+    if (popup) {
+
+        popup.classList.add("show");
+
+        /*
+         * তোমার CSS-এ .popup-overlay system আছে।
+         * কিন্তু যদি HTML-এ overlay না থাকে,
+         * তাহলে সরাসরি popup visible করে দিচ্ছি।
+         */
+
+        if (!overlay) {
+
+            popup.style.display =
+                "block";
+
+        }
+
+    }
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+// ============================================================
+// CLOSE EDIT
+// ============================================================
+
+function closeEdit() {
+
+    const popup =
+        document.querySelector(".popup");
+
+
+    const overlay =
+        document.querySelector(".popup-overlay");
+
+
+    if (popup) {
+
+        popup.classList.remove("show");
+
+        popup.style.display = "";
+
+    }
+
+
+    if (overlay) {
+
+        overlay.classList.remove("show");
+
+    }
+
+
+    document.body.style.overflow =
+        "";
+
+
+    currentRow = null;
+
+
+    const editIndex =
+        document.getElementById("editIndex");
+
+
+    if (editIndex) {
+
+        editIndex.value = "";
+
+    }
+
+}
+
+
+// ============================================================
+// SET VALUE
+// ============================================================
+
+function setValue(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+
+        console.warn(
+            "Element not found:",
+            id
+        );
+
+        return;
+
+    }
+
+
+    element.value =
+        value === null ||
+        value === undefined
+            ? ""
+            : String(value);
+
+}
+
+
+// ============================================================
+// GET VALUE
+// ============================================================
+
+function getValue(id) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+        return "";
+    }
+
+
+    return element.value.trim();
+
+}
+
+
+// ============================================================
+// UPDATE HISTORY
+// ============================================================
+
+async function updateHistory() {
+
+    if (
+        currentRow === null ||
+        !Number.isFinite(Number(currentRow))
+    ) {
+
+        showErrorPopup(
+            "Please select a history record.",
+            "Update Error"
+        );
+
+        return;
+
+    }
+
+
+    const row =
+        Number(currentRow);
+
+
+    const customerId =
+        getValue("customerId");
+
+
+    const problem =
+        getValue("problem");
+
+
+    const reference =
+        getValue("reference");
+
+
+    const date =
+        getValue("date");
+
+
+    const support =
+        getValue("support");
+
+
+    const supportWork =
+        getValue("supportWork");
+
+
+    if (!customerId) {
+
+        showErrorPopup(
+            "Customer ID is required.",
+            "Required"
+        );
+
+        return;
+
+    }
+
+
+    if (!problem) {
+
+        showErrorPopup(
+            "Problem is required.",
+            "Required"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.querySelector(
+            ".popup .submit-btn"
+        );
+
+
+    setButtonLoading(
+        button,
+        true,
+        '<i class="fa fa-spinner fa-spin"></i> Updating...'
+    );
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body: JSON.stringify({
+
+                    action:
+                        "updateHistory",
+
+                    row:
+                        row,
+
+                    customerId:
+                        customerId,
+
+                    problem:
+                        problem,
+
+                    reference:
+                        reference,
+
+                    date:
+                        date,
+
+                    support:
+                        support,
+
+                    supportWork:
+                        supportWork
+
+                })
+
+            });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server Error: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "UPDATE HISTORY RESPONSE:",
+            data
+        );
+
+
+        if (
+            !data ||
+            data.success !== true
+        ) {
+
+            throw new Error(
+                data?.message ||
+                "History update failed."
+            );
+
+        }
+
+
+        /*
+         * Local data update
+         */
+
+        const index =
+            historyData.findIndex(
+                function (item) {
+
+                    return Number(item.row) === row;
+
+                }
+            );
+
+
+        if (index !== -1) {
+
+            historyData[index] = {
+
+                ...historyData[index],
+
+                customerId:
+                    customerId,
+
+                problem:
+                    problem,
+
+                reference:
+                    reference,
+
+                date:
+                    date,
+
+                support:
+                    support,
+
+                supportWork:
+                    supportWork
+
+            };
+
+        }
+
+
+        /*
+         * Re-apply current filters
+         */
+
+        applyHistoryFilters();
+
+
+        closeEdit();
+
+
+        showSuccessPopup(
+            "History updated successfully.",
+            "Updated Successfully"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "UPDATE HISTORY ERROR:",
+            error
+        );
+
+
+        showErrorPopup(
+            error.message ||
+            "Unable to update history.",
+            "Update Failed"
+        );
+
+
+    } finally {
+
+        setButtonLoading(
+            button,
+            false,
+            '<i class="fa fa-check"></i> Submit'
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// ASK DELETE
+// ============================================================
+
+function askDelete() {
+
+    if (
+        currentRow === null ||
+        !Number.isFinite(Number(currentRow))
+    ) {
+
+        showErrorPopup(
+            "Please select a history record first.",
+            "Delete Error"
+        );
+
+        return;
+
+    }
+
+
+    const title =
+        document.getElementById(
+            "confirmTitle"
+        );
+
+
+    const message =
+        document.getElementById(
+            "confirmMessage"
+        );
+
+
+    if (title) {
+
+        title.textContent =
+            "Confirm Delete";
+
+    }
+
+
+    if (message) {
+
+        message.textContent =
+            "Are you sure you want to permanently delete this history?";
+
+    }
+
+
+    const popup =
+        getConfirmPopup();
+
+
+    if (popup) {
+
+        popup.classList.add("show");
+
+        document.body.style.overflow =
+            "hidden";
+
+    } else {
+
+        showErrorPopup(
+            "Delete confirmation popup was not found.",
+            "Delete Error"
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// CONFIRM DELETE
+// ============================================================
+
+async function confirmDelete() {
+
+    if (
+        currentRow === null ||
+        !Number.isFinite(Number(currentRow))
+    ) {
+
+        closeConfirmPopup();
+
+        showErrorPopup(
+            "Invalid history record.",
+            "Delete Error"
+        );
+
+        return;
+
+    }
+
+
+    const row =
+        Number(currentRow);
+
+
+    if (row <= 1) {
+
+        closeConfirmPopup();
+
+        showErrorPopup(
+            "Invalid history row.",
+            "Delete Error"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.querySelector(
+            "#confirmPopup .popup-confirm-btn"
+        ) ||
+        getConfirmPopup()?.querySelector(
+            ".popup-confirm-btn"
+        );
+
+
+    setButtonLoading(
+        button,
+        true,
+        '<i class="fa fa-spinner fa-spin"></i> Deleting...'
+    );
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body: JSON.stringify({
+
+                    action:
+                        "deleteHistory",
+
+                    row:
+                        row
+
+                })
+
+            });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server Error: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "DELETE HISTORY RESPONSE:",
+            data
+        );
+
+
+        if (
+            !data ||
+            data.success !== true
+        ) {
+
+            throw new Error(
+                data?.message ||
+                "Delete failed."
+            );
+
+        }
+
+
+        closeConfirmPopup();
+
+        closeEdit();
+
+
+        /*
+         * Best solution:
+         * Google Sheet থেকে আবার load করি।
+         *
+         * কারণ deleteRow() করার পরে
+         * নিচের সব row number shift করে।
+         */
+
+        await loadHistory();
+
+
+        showSuccessPopup(
+            "History deleted successfully.",
+            "Deleted Successfully"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "DELETE HISTORY ERROR:",
+            error
+        );
+
+
+        closeConfirmPopup();
+
+
+        showErrorPopup(
+            error.message ||
+            "Unable to delete history.",
+            "Delete Failed"
+        );
+
+
+    } finally {
+
+        setButtonLoading(
+            button,
+            false,
+            '<i class="fa fa-trash"></i> Delete'
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// CONFIRM POPUP
+// ============================================================
+
+function getConfirmPopup() {
+
+    const direct =
+        document.getElementById(
+            "confirmPopup"
+        );
+
+
+    if (direct) {
+        return direct;
+    }
+
+
+    /*
+     * Fallback:
+     * প্রথম custom popup = confirm
+     */
+
+    const popups =
+        document.querySelectorAll(
+            ".custom-popup"
+        );
+
+
+    return popups.length > 0
+        ? popups[0]
+        : null;
+
+}
+
+
+// ============================================================
+// CLOSE CONFIRM POPUP
+// ============================================================
+
+function closeConfirmPopup() {
+
+    const popup =
+        document.getElementById(
+            "confirmPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove("show");
+
+    } else {
+
+        const popups =
+            document.querySelectorAll(
+                ".custom-popup"
+            );
+
+
+        if (popups.length > 0) {
+
+            popups[0].classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+// ============================================================
+// SUCCESS POPUP
+// ============================================================
+
+function showSuccessPopup(
+    message,
+    title
+) {
+
+    const popup =
+        document.getElementById(
+            "successPopup"
+        );
+
+
+    /*
+     * If ID exists, use it.
+     */
+
+    if (popup) {
+
+        setPopupText(
+            "successTitle",
+            title || "Success"
+        );
+
+        setPopupText(
+            "successMessage",
+            message ||
+            "Operation completed successfully."
+        );
+
+
+        popup.classList.add("show");
+
+        document.body.style.overflow =
+            "hidden";
+
+        return;
+
+    }
+
+
+    /*
+     * Fallback:
+     * custom popup containing success icon.
+     */
+
+    const popups =
+        document.querySelectorAll(
+            ".custom-popup"
+        );
+
+
+    let successPopup = null;
+
+
+    popups.forEach(function (item) {
+
+        if (
+            item.querySelector(
+                ".popup-icon.success"
+            )
+        ) {
+
+            successPopup = item;
+
+        }
+
+    });
+
+
+    if (!successPopup) {
+        return;
+    }
+
+
+    const titleElement =
+        successPopup.querySelector(
+            "#successTitle"
+        ) ||
+        successPopup.querySelector("h3");
+
+
+    const messageElement =
+        successPopup.querySelector(
+            "#successMessage"
+        ) ||
+        successPopup.querySelector("p");
+
+
+    if (titleElement) {
+
+        titleElement.textContent =
+            title || "Success";
+
+    }
+
+
+    if (messageElement) {
+
+        messageElement.textContent =
+            message ||
+            "Operation completed successfully.";
+
+    }
+
+
+    successPopup.classList.add("show");
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+// ============================================================
+// CLOSE SUCCESS
+// ============================================================
+
+function closeSuccessPopup() {
+
+    const popup =
+        document.getElementById(
+            "successPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove("show");
+
+    } else {
+
+        const popups =
+            document.querySelectorAll(
+                ".custom-popup"
+            );
+
+
+        popups.forEach(function (item) {
+
+            if (
+                item.querySelector(
+                    ".popup-icon.success"
+                )
+            ) {
+
+                item.classList.remove(
+                    "show"
+                );
+
+            }
+
+        });
+
+    }
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+// ============================================================
+// ERROR POPUP
+// ============================================================
+
+function showErrorPopup(
+    message,
+    title
+) {
+
+    const popup =
+        document.getElementById(
+            "errorPopup"
+        );
+
+
+    if (popup) {
+
+        setPopupText(
+            "errorTitle",
+            title || "Error"
+        );
+
+        setPopupText(
+            "errorMessage",
+            message ||
+            "Something went wrong."
+        );
+
+
+        popup.classList.add("show");
+
+        document.body.style.overflow =
+            "hidden";
+
+        return;
+
+    }
+
+
+    /*
+     * Fallback
+     */
+
+    const popups =
+        document.querySelectorAll(
+            ".custom-popup"
+        );
+
+
+    let errorPopup = null;
+
+
+    popups.forEach(function (item) {
+
+        if (
+            item.querySelector(
+                ".popup-icon.error"
+            )
+        ) {
+
+            errorPopup = item;
+
+        }
+
+    });
+
+
+    if (!errorPopup) {
+        return;
+    }
+
+
+    const titleElement =
+        errorPopup.querySelector(
+            "#errorTitle"
+        ) ||
+        errorPopup.querySelector("h3");
+
+
+    const messageElement =
+        errorPopup.querySelector(
+            "#errorMessage"
+        ) ||
+        errorPopup.querySelector("p");
+
+
+    if (titleElement) {
+
+        titleElement.textContent =
+            title || "Error";
+
+    }
+
+
+    if (messageElement) {
+
+        messageElement.textContent =
+            message ||
+            "Something went wrong.";
+
+    }
+
+
+    errorPopup.classList.add("show");
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+// ============================================================
+// CLOSE ERROR
+// ============================================================
+
+function closeErrorPopup() {
+
+    const popup =
+        document.getElementById(
+            "errorPopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove("show");
+
+    } else {
+
+        const popups =
+            document.querySelectorAll(
+                ".custom-popup"
+            );
+
+
+        popups.forEach(function (item) {
+
+            if (
+                item.querySelector(
+                    ".popup-icon.error"
+                )
+            ) {
+
+                item.classList.remove(
+                    "show"
+                );
+
+            }
+
+        });
+
+    }
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+// ============================================================
+// POPUP TEXT
+// ============================================================
+
+function setPopupText(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.textContent =
+            value;
+
+    }
 
 }
 
@@ -752,7 +1858,7 @@ function setupDateFilters() {
 
 
 // ============================================================
-// APPLY FILTER
+// APPLY FILTERS
 // ============================================================
 
 function applyHistoryFilters() {
@@ -796,71 +1902,75 @@ function applyHistoryFilters() {
 
 
     filteredHistory =
-        historyData.filter(
-            function (item) {
+        historyData.filter(function (item) {
 
-                const searchableText = [
+            const searchableText = [
 
-                    item.customerId,
+                item.customerId,
 
-                    item.problem,
+                item.problem,
 
-                    item.reference,
+                item.reference,
 
-                    item.date,
+                item.support,
 
-                    item.support,
+                item.supportWork,
 
-                    item.supportWork,
+                item.supportTime,
 
-                    item.supportTime,
+                item.call,
 
-                    item.call,
+                item.callWork,
 
-                    item.callWork,
+                item.date,
 
-                    formatDisplayDate(
-                        item.date
-                    )
+                formatDisplayDate(item.date)
 
-                ]
-                .join(" ")
-                .toLowerCase();
+            ]
+                .map(function (value) {
 
+                    return String(
+                        value ?? ""
+                    ).toLowerCase();
 
-                const searchMatch =
-                    !keyword ||
-                    searchableText.includes(
-                        keyword
-                    );
+                })
+                .join(" ");
 
 
-                const recordDate =
-                    getDateOnly(
-                        item.date
-                    );
-
-
-                const fromMatch =
-                    !fromDate ||
-                    !recordDate ||
-                    recordDate >= fromDate;
-
-
-                const toMatch =
-                    !toDate ||
-                    !recordDate ||
-                    recordDate <= toDate;
-
-
-                return (
-                    searchMatch &&
-                    fromMatch &&
-                    toMatch
+            const searchMatch =
+                !keyword ||
+                searchableText.includes(
+                    keyword
                 );
 
-            }
-        );
+
+            const recordDate =
+                getDateOnly(item.date);
+
+
+            const fromMatch =
+                !fromDate ||
+                (
+                    recordDate &&
+                    recordDate >= fromDate
+                );
+
+
+            const toMatch =
+                !toDate ||
+                (
+                    recordDate &&
+                    recordDate <= toDate
+                );
+
+
+            return (
+                searchMatch &&
+                fromMatch &&
+                toMatch
+            );
+
+        });
 
 
     currentPage = 1;
@@ -923,6 +2033,35 @@ function clearFilters() {
 
 
 // ============================================================
+// RECORD LABEL
+// ============================================================
+
+function updateRecordLabel() {
+
+    const label =
+        document.querySelector(
+            ".record-label"
+        );
+
+
+    if (!label) {
+        return;
+    }
+
+
+    const count =
+        filteredHistory.length;
+
+
+    label.innerHTML = `
+        <i class="fa fa-database"></i>
+        ${count} Records
+    `;
+
+}
+
+
+// ============================================================
 // PAGINATION
 // ============================================================
 
@@ -945,15 +2084,13 @@ function renderPagination() {
 
     const totalPages =
         Math.ceil(
-            total /
-            recordsPerPage
+            total / recordsPerPage
         );
 
 
     if (totalPages <= 1) {
 
-        pagination.innerHTML =
-            "";
+        pagination.innerHTML = "";
 
         return;
 
@@ -964,18 +2101,14 @@ function renderPagination() {
 
 
     html += `
-
         <button
             type="button"
             class="page-btn"
             ${currentPage === 1 ? "disabled" : ""}
             onclick="changePage(${currentPage - 1})"
         >
-
             <i class="fa fa-angle-left"></i>
-
         </button>
-
     `;
 
 
@@ -986,7 +2119,6 @@ function renderPagination() {
     ) {
 
         html += `
-
             <button
                 type="button"
                 class="page-btn ${
@@ -996,18 +2128,14 @@ function renderPagination() {
                 }"
                 onclick="changePage(${i})"
             >
-
                 ${i}
-
             </button>
-
         `;
 
     }
 
 
     html += `
-
         <button
             type="button"
             class="page-btn"
@@ -1018,11 +2146,8 @@ function renderPagination() {
             }
             onclick="changePage(${currentPage + 1})"
         >
-
             <i class="fa fa-angle-right"></i>
-
         </button>
-
     `;
 
 
@@ -1065,1311 +2190,7 @@ function changePage(page) {
 
 
 // ============================================================
-// PREPARE EDIT POPUP
-// ============================================================
-
-function prepareHistoryPopup() {
-
-    const popup =
-        document.querySelector(
-            ".popup"
-        );
-
-
-    if (!popup) {
-        return;
-    }
-
-
-    // Hidden row
-    let editIndex =
-        document.getElementById(
-            "editIndex"
-        );
-
-
-    if (!editIndex) {
-
-        editIndex =
-            document.createElement(
-                "input"
-            );
-
-        editIndex.type =
-            "hidden";
-
-        editIndex.id =
-            "editIndex";
-
-        popup.prepend(
-            editIndex
-        );
-
-    }
-
-
-    /*
-     * Existing HTML already contains:
-     * customerId
-     * problem
-     * reference
-     * date
-     * support
-     * supportWork
-     *
-     * The following fields are added automatically
-     * if they are missing.
-     */
-
-    ensureHistoryField(
-        popup,
-        "supportTime",
-        "Support Time",
-        "input"
-    );
-
-
-    ensureHistoryField(
-        popup,
-        "call",
-        "Call",
-        "input"
-    );
-
-
-    ensureHistoryField(
-        popup,
-        "callWork",
-        "Call Work",
-        "textarea"
-    );
-
-}
-
-
-// ============================================================
-// ENSURE HISTORY FIELD
-// ============================================================
-
-function ensureHistoryField(
-    popup,
-    id,
-    labelText,
-    type
-) {
-
-    if (
-        document.getElementById(id)
-    ) {
-
-        return;
-
-    }
-
-
-    const buttons =
-        popup.querySelector(
-            ".popup-buttons"
-        );
-
-
-    const wrapper =
-        document.createElement(
-            "div"
-        );
-
-
-    wrapper.className =
-        "dynamic-history-field";
-
-
-    const label =
-        document.createElement(
-            "label"
-        );
-
-
-    label.htmlFor =
-        id;
-
-    label.textContent =
-        labelText;
-
-
-    let input;
-
-
-    if (type === "textarea") {
-
-        input =
-            document.createElement(
-                "textarea"
-            );
-
-    }
-    else {
-
-        input =
-            document.createElement(
-                "input"
-            );
-
-        input.type =
-            "text";
-
-    }
-
-
-    input.id =
-        id;
-
-
-    input.autocomplete =
-        "off";
-
-
-    wrapper.appendChild(
-        label
-    );
-
-
-    wrapper.appendChild(
-        input
-    );
-
-
-    if (buttons) {
-
-        popup.insertBefore(
-            wrapper,
-            buttons
-        );
-
-    }
-    else {
-
-        popup.appendChild(
-            wrapper
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// EDIT HISTORY
-// ============================================================
-
-function editHistory(row) {
-
-    currentRow =
-        Number(row);
-
-
-    const item =
-        historyData.find(
-            function (history) {
-
-                return Number(
-                    history.row
-                ) === currentRow;
-
-            }
-        );
-
-
-    if (!item) {
-
-        showErrorPopup(
-            "History record not found.",
-            "Edit Error"
-        );
-
-        currentRow =
-            null;
-
-        return;
-
-    }
-
-
-    setValue(
-        "editIndex",
-        item.row
-    );
-
-
-    setValue(
-        "customerId",
-        item.customerId
-    );
-
-
-    setValue(
-        "problem",
-        item.problem
-    );
-
-
-    setValue(
-        "reference",
-        item.reference
-    );
-
-
-    setValue(
-        "date",
-        convertDateForInput(
-            item.date
-        )
-    );
-
-
-    setValue(
-        "support",
-        item.support
-    );
-
-
-    setValue(
-        "supportWork",
-        item.supportWork
-    );
-
-
-    setValue(
-        "supportTime",
-        item.supportTime
-    );
-
-
-    setValue(
-        "call",
-        item.call
-    );
-
-
-    setValue(
-        "callWork",
-        item.callWork
-    );
-
-
-    const popup =
-        document.querySelector(
-            ".popup"
-        );
-
-
-    if (popup) {
-
-        popup.classList.add(
-            "show"
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// SET VALUE
-// ============================================================
-
-function setValue(
-    id,
-    value
-) {
-
-    const element =
-        document.getElementById(
-            id
-        );
-
-
-    if (!element) {
-        return;
-    }
-
-
-    element.value =
-        value === null ||
-        value === undefined
-            ? ""
-            : value;
-
-}
-
-
-// ============================================================
-// GET VALUE
-// ============================================================
-
-function getValue(id) {
-
-    const element =
-        document.getElementById(
-            id
-        );
-
-
-    if (!element) {
-        return "";
-    }
-
-
-    return String(
-        element.value || ""
-    ).trim();
-
-}
-
-
-// ============================================================
-// CLOSE EDIT
-// ============================================================
-
-function closeEdit() {
-
-    const popup =
-        document.querySelector(
-            ".popup"
-        );
-
-
-    if (popup) {
-
-        popup.classList.remove(
-            "show"
-        );
-
-    }
-
-
-    currentRow =
-        null;
-
-}
-
-
-// ============================================================
-// UPDATE HISTORY
-// ============================================================
-
-function updateHistory() {
-
-    if (!currentRow) {
-
-        showErrorPopup(
-            "Please select a history record.",
-            "Update Error"
-        );
-
-        return;
-
-    }
-
-
-    const row =
-        Number(currentRow);
-
-
-    const customerId =
-        getValue(
-            "customerId"
-        );
-
-
-    const problem =
-        getValue(
-            "problem"
-        );
-
-
-    const reference =
-        getValue(
-            "reference"
-        );
-
-
-    const date =
-        getValue(
-            "date"
-        );
-
-
-    const support =
-        getValue(
-            "support"
-        );
-
-
-    const supportWork =
-        getValue(
-            "supportWork"
-        );
-
-
-    const supportTime =
-        getValue(
-            "supportTime"
-        );
-
-
-    const call =
-        getValue(
-            "call"
-        );
-
-
-    const callWork =
-        getValue(
-            "callWork"
-        );
-
-
-    // ----------------------------------------
-    // VALIDATION
-    // ----------------------------------------
-
-    if (!customerId) {
-
-        showErrorPopup(
-            "Customer ID is required.",
-            "Required"
-        );
-
-        return;
-
-    }
-
-
-    if (!problem) {
-
-        showErrorPopup(
-            "Problem is required.",
-            "Required"
-        );
-
-        return;
-
-    }
-
-
-    const button =
-        document.querySelector(
-            ".popup .submit-btn"
-        );
-
-
-    if (button) {
-
-        button.disabled =
-            true;
-
-        button.innerHTML =
-            '<i class="fa fa-spinner fa-spin"></i> Updating...';
-
-    }
-
-
-    apiRequest({
-
-        action:
-            "updateHistory",
-
-        row:
-            row,
-
-        customerId:
-            customerId,
-
-        problem:
-            problem,
-
-        reference:
-            reference,
-
-        date:
-            date,
-
-        support:
-            support,
-
-        supportWork:
-            supportWork,
-
-        supportTime:
-            supportTime,
-
-        call:
-            call,
-
-        callWork:
-            callWork
-
-    })
-    .then(
-        function (data) {
-
-            console.log(
-                "UPDATE HISTORY SUCCESS:",
-                data
-            );
-
-
-            const index =
-                historyData.findIndex(
-                    function (item) {
-
-                        return Number(
-                            item.row
-                        ) === row;
-
-                    }
-                );
-
-
-            if (index !== -1) {
-
-                historyData[index] = {
-
-                    ...historyData[index],
-
-                    customerId:
-                        customerId,
-
-                    problem:
-                        problem,
-
-                    reference:
-                        reference,
-
-                    date:
-                        date,
-
-                    support:
-                        support,
-
-                    supportWork:
-                        supportWork,
-
-                    supportTime:
-                        supportTime,
-
-                    call:
-                        call,
-
-                    callWork:
-                        callWork
-
-                };
-
-            }
-
-
-            applyHistoryFilters();
-
-
-            closeEdit();
-
-
-            showSuccessPopup(
-                "History updated successfully.",
-                "Updated Successfully"
-            );
-
-        }
-    )
-    .catch(
-        function (error) {
-
-            console.error(
-                "UPDATE HISTORY ERROR:",
-                error
-            );
-
-
-            showErrorPopup(
-                error.message ||
-                "Unable to update history.",
-                "Update Failed"
-            );
-
-        }
-    )
-    .finally(
-        function () {
-
-            if (button) {
-
-                button.disabled =
-                    false;
-
-                button.innerHTML =
-                    '<i class="fa fa-check"></i> Submit';
-
-            }
-
-        }
-    );
-
-}
-
-
-// ============================================================
-// ASK DELETE
-// ============================================================
-
-function askDelete() {
-
-    if (!currentRow) {
-
-        showErrorPopup(
-            "Please select a history record first.",
-            "Delete Error"
-        );
-
-        return;
-
-    }
-
-
-    const title =
-        document.getElementById(
-            "confirmTitle"
-        );
-
-
-    const message =
-        document.getElementById(
-            "confirmMessage"
-        );
-
-
-    if (title) {
-
-        title.textContent =
-            "Confirm Delete";
-
-    }
-
-
-    if (message) {
-
-        message.textContent =
-            "Are you sure you want to permanently delete this history?";
-
-    }
-
-
-    const popup =
-        getConfirmPopup();
-
-
-    if (popup) {
-
-        popup.classList.add(
-            "show"
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// PREPARE CUSTOM POPUPS
-// ============================================================
-
-function prepareCustomPopups() {
-
-    const popups =
-        document.querySelectorAll(
-            ".custom-popup"
-        );
-
-
-    popups.forEach(
-        function (popup, index) {
-
-            const heading =
-                popup.querySelector(
-                    "h3"
-                );
-
-
-            const text =
-                heading
-                    ? heading.textContent
-                        .trim()
-                        .toLowerCase()
-                    : "";
-
-
-            if (
-                text.includes("confirm")
-            ) {
-
-                popup.id =
-                    "confirmPopup";
-
-            }
-            else if (
-                text.includes("success")
-            ) {
-
-                popup.id =
-                    "successPopup";
-
-            }
-            else if (
-                text.includes("error")
-            ) {
-
-                popup.id =
-                    "errorPopup";
-
-            }
-            else {
-
-                if (index === 0) {
-
-                    popup.id =
-                        "confirmPopup";
-
-                }
-                else if (index === 1) {
-
-                    popup.id =
-                        "successPopup";
-
-                }
-                else if (index === 2) {
-
-                    popup.id =
-                        "errorPopup";
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-// ============================================================
-// CONFIRM DELETE
-// ============================================================
-
-function confirmDelete() {
-
-    if (!currentRow) {
-
-        closeConfirmPopup();
-
-
-        showErrorPopup(
-            "Invalid history record.",
-            "Delete Error"
-        );
-
-
-        return;
-
-    }
-
-
-    const row =
-        Number(currentRow);
-
-
-    if (
-        !row ||
-        row <= 1
-    ) {
-
-        closeConfirmPopup();
-
-
-        showErrorPopup(
-            "Invalid history row.",
-            "Delete Error"
-        );
-
-
-        return;
-
-    }
-
-
-    const button =
-        document.querySelector(
-            "#confirmPopup .popup-confirm-btn"
-        );
-
-
-    if (button) {
-
-        button.disabled =
-            true;
-
-        button.innerHTML =
-            '<i class="fa fa-spinner fa-spin"></i> Deleting...';
-
-    }
-
-
-    apiRequest({
-
-        action:
-            "deleteHistory",
-
-        row:
-            row
-
-    })
-    .then(
-        function (data) {
-
-            console.log(
-                "DELETE HISTORY SUCCESS:",
-                data
-            );
-
-
-            // ----------------------------------
-            // Remove deleted record
-            // ----------------------------------
-
-            historyData =
-                historyData.filter(
-                    function (item) {
-
-                        return Number(
-                            item.row
-                        ) !== row;
-
-                    }
-                );
-
-
-            // ----------------------------------
-            // Google Sheet row shift
-            // ----------------------------------
-
-            historyData =
-                historyData.map(
-                    function (item) {
-
-                        const itemRow =
-                            Number(
-                                item.row
-                            );
-
-
-                        if (
-                            itemRow > row
-                        ) {
-
-                            return {
-
-                                ...item,
-
-                                row:
-                                    itemRow - 1
-
-                            };
-
-                        }
-
-
-                        return item;
-
-                    }
-                );
-
-
-            filteredHistory =
-                [...historyData];
-
-
-            const totalPages =
-                Math.max(
-                    1,
-                    Math.ceil(
-                        filteredHistory.length /
-                        recordsPerPage
-                    )
-                );
-
-
-            if (
-                currentPage >
-                totalPages
-            ) {
-
-                currentPage =
-                    totalPages;
-
-            }
-
-
-            renderHistory();
-
-
-            closeConfirmPopup();
-
-
-            closeEdit();
-
-
-            currentRow =
-                null;
-
-
-            showSuccessPopup(
-                "History deleted successfully.",
-                "Deleted Successfully"
-            );
-
-        }
-    )
-    .catch(
-        function (error) {
-
-            console.error(
-                "DELETE HISTORY ERROR:",
-                error
-            );
-
-
-            showErrorPopup(
-                error.message ||
-                "Unable to delete history.",
-                "Delete Failed"
-            );
-
-        }
-    )
-    .finally(
-        function () {
-
-            if (button) {
-
-                button.disabled =
-                    false;
-
-                button.innerHTML =
-                    '<i class="fa fa-trash"></i> Delete';
-
-            }
-
-        }
-    );
-
-}
-
-
-// ============================================================
-// GET CONFIRM POPUP
-// ============================================================
-
-function getConfirmPopup() {
-
-    let popup =
-        document.getElementById(
-            "confirmPopup"
-        );
-
-
-    if (popup) {
-        return popup;
-    }
-
-
-    const popups =
-        document.querySelectorAll(
-            ".custom-popup"
-        );
-
-
-    if (popups.length > 0) {
-
-        popup =
-            popups[0];
-
-        popup.id =
-            "confirmPopup";
-
-        return popup;
-
-    }
-
-
-    return null;
-
-}
-
-
-// ============================================================
-// CLOSE CONFIRM POPUP
-// ============================================================
-
-function closeConfirmPopup() {
-
-    const popup =
-        document.getElementById(
-            "confirmPopup"
-        );
-
-
-    if (popup) {
-
-        popup.classList.remove(
-            "show"
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// SUCCESS POPUP
-// ============================================================
-
-function showSuccessPopup(
-    message,
-    title
-) {
-
-    let popup =
-        document.getElementById(
-            "successPopup"
-        );
-
-
-    if (!popup) {
-
-        const popups =
-            document.querySelectorAll(
-                ".custom-popup"
-            );
-
-
-        for (
-            let i = 0;
-            i < popups.length;
-            i++
-        ) {
-
-            if (
-                popups[i].querySelector(
-                    ".popup-icon.success"
-                )
-            ) {
-
-                popup =
-                    popups[i];
-
-                popup.id =
-                    "successPopup";
-
-                break;
-
-            }
-
-        }
-
-    }
-
-
-    if (!popup) {
-        return;
-    }
-
-
-    const titleElement =
-        popup.querySelector(
-            "#successTitle"
-        );
-
-
-    const messageElement =
-        popup.querySelector(
-            "#successMessage"
-        );
-
-
-    if (titleElement) {
-
-        titleElement.textContent =
-            title ||
-            "Success";
-
-    }
-
-
-    if (messageElement) {
-
-        messageElement.textContent =
-            message ||
-            "Operation completed successfully.";
-
-    }
-
-
-    popup.classList.add(
-        "show"
-    );
-
-}
-
-
-// ============================================================
-// CLOSE SUCCESS
-// ============================================================
-
-function closeSuccessPopup() {
-
-    const popup =
-        document.getElementById(
-            "successPopup"
-        );
-
-
-    if (popup) {
-
-        popup.classList.remove(
-            "show"
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// ERROR POPUP
-// ============================================================
-
-function showErrorPopup(
-    message,
-    title
-) {
-
-    let popup =
-        document.getElementById(
-            "errorPopup"
-        );
-
-
-    if (!popup) {
-
-        const popups =
-            document.querySelectorAll(
-                ".custom-popup"
-            );
-
-
-        for (
-            let i = 0;
-            i < popups.length;
-            i++
-        ) {
-
-            if (
-                popups[i].querySelector(
-                    ".popup-icon.error"
-                )
-            ) {
-
-                popup =
-                    popups[i];
-
-                popup.id =
-                    "errorPopup";
-
-                break;
-
-            }
-
-        }
-
-    }
-
-
-    if (!popup) {
-        return;
-    }
-
-
-    const titleElement =
-        popup.querySelector(
-            "#errorTitle"
-        );
-
-
-    const messageElement =
-        popup.querySelector(
-            "#errorMessage"
-        );
-
-
-    if (titleElement) {
-
-        titleElement.textContent =
-            title ||
-            "Error";
-
-    }
-
-
-    if (messageElement) {
-
-        messageElement.textContent =
-            message ||
-            "Something went wrong.";
-
-    }
-
-
-    popup.classList.add(
-        "show"
-    );
-
-}
-
-
-// ============================================================
-// CLOSE ERROR
-// ============================================================
-
-function closeErrorPopup() {
-
-    const popup =
-        document.getElementById(
-            "errorPopup"
-        );
-
-
-    if (popup) {
-
-        popup.classList.remove(
-            "show"
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// DATE -> INPUT
+// DATE → INPUT
 // ============================================================
 
 function convertDateForInput(date) {
@@ -2380,8 +2201,12 @@ function convertDateForInput(date) {
 
 
     const text =
-        String(date);
+        String(date).trim();
 
+
+    /*
+     * yyyy-MM-dd
+     */
 
     const directMatch =
         text.match(
@@ -2402,6 +2227,33 @@ function convertDateForInput(date) {
     }
 
 
+    /*
+     * dd/MM/yyyy
+     */
+
+    const slashMatch =
+        text.match(
+            /^(\d{1,2})\/(\d{1,2})\/(\d{4})/
+        );
+
+
+    if (slashMatch) {
+
+        return (
+            slashMatch[3] +
+            "-" +
+            String(
+                slashMatch[2]
+            ).padStart(2, "0") +
+            "-" +
+            String(
+                slashMatch[1]
+            ).padStart(2, "0")
+        );
+
+    }
+
+
     const d =
         new Date(date);
 
@@ -2420,24 +2272,14 @@ function convertDateForInput(date) {
     return (
 
         d.getFullYear() +
-
         "-" +
-
         String(
             d.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        ) +
-
+        ).padStart(2, "0") +
         "-" +
-
         String(
             d.getDate()
-        ).padStart(
-            2,
-            "0"
-        )
+        ).padStart(2, "0")
 
     );
 
@@ -2456,63 +2298,13 @@ function formatDisplayDate(date) {
 
 
     const text =
-        String(date);
+        String(date).trim();
 
 
-    const match =
+    const directMatch =
         text.match(
             /^(\d{4})-(\d{2})-(\d{2})/
         );
-
-
-    if (match) {
-
-        const months = [
-
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-
-        ];
-
-
-        return (
-
-            match[3] +
-            " " +
-            months[
-                Number(match[2]) - 1
-            ] +
-            " " +
-            match[1]
-
-        );
-
-    }
-
-
-    const d =
-        new Date(date);
-
-
-    if (
-        isNaN(
-            d.getTime()
-        )
-    ) {
-
-        return text;
-
-    }
 
 
     const months = [
@@ -2533,23 +2325,46 @@ function formatDisplayDate(date) {
     ];
 
 
+    if (directMatch) {
+
+        return (
+            directMatch[3] +
+            " " +
+            months[
+                Number(directMatch[2]) - 1
+            ] +
+            " " +
+            directMatch[1]
+        );
+
+    }
+
+
+    const d =
+        new Date(date);
+
+
+    if (
+        isNaN(
+            d.getTime()
+        )
+    ) {
+
+        return text;
+
+    }
+
+
     return (
 
         String(
             d.getDate()
-        ).padStart(
-            2,
-            "0"
-        ) +
-
+        ).padStart(2, "0") +
         " " +
-
         months[
             d.getMonth()
         ] +
-
         " " +
-
         d.getFullYear()
 
     );
@@ -2569,7 +2384,7 @@ function getDateOnly(date) {
 
 
     const text =
-        String(date);
+        String(date).trim();
 
 
     const match =
@@ -2581,13 +2396,34 @@ function getDateOnly(date) {
     if (match) {
 
         return (
-
             match[1] +
             "-" +
             match[2] +
             "-" +
             match[3]
+        );
 
+    }
+
+
+    const slashMatch =
+        text.match(
+            /^(\d{1,2})\/(\d{1,2})\/(\d{4})/
+        );
+
+
+    if (slashMatch) {
+
+        return (
+            slashMatch[3] +
+            "-" +
+            String(
+                slashMatch[2]
+            ).padStart(2, "0") +
+            "-" +
+            String(
+                slashMatch[1]
+            ).padStart(2, "0")
         );
 
     }
@@ -2611,24 +2447,14 @@ function getDateOnly(date) {
     return (
 
         d.getFullYear() +
-
         "-" +
-
         String(
             d.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        ) +
-
+        ).padStart(2, "0") +
         "-" +
-
         String(
             d.getDate()
-        ).padStart(
-            2,
-            "0"
-        )
+        ).padStart(2, "0")
 
     );
 
@@ -2682,146 +2508,202 @@ function escapeHTML(value) {
 
 
 // ============================================================
-// PROFILE OUTSIDE CLICK
+// BUTTON LOADING
 // ============================================================
 
-document.addEventListener(
-    "click",
-    function (event) {
+function setButtonLoading(
+    button,
+    loading,
+    html
+) {
 
-        const profile =
-            document.querySelector(
-                ".profile"
-            );
-
-
-        const menu =
-            document.getElementById(
-                "profileMenu"
-            );
+    if (!button) {
+        return;
+    }
 
 
-        if (
-            profile &&
-            menu &&
-            !profile.contains(
-                event.target
-            )
-        ) {
+    if (loading) {
 
-            menu.classList.remove(
-                "show"
-            );
+        button.disabled = true;
 
-        }
+        button.dataset.originalHTML =
+            button.innerHTML;
+
+        button.innerHTML =
+            html;
+
+    } else {
+
+        button.disabled = false;
+
+        button.innerHTML =
+            button.dataset.originalHTML ||
+            html;
 
     }
-);
+
+}
 
 
 // ============================================================
-// EDIT POPUP OUTSIDE CLICK
+// GLOBAL EVENTS
 // ============================================================
 
-document.addEventListener(
-    "click",
-    function (event) {
+function setupGlobalEvents() {
 
-        const popup =
-            document.querySelector(
-                ".popup"
-            );
+    /*
+     * Profile outside click
+     */
 
+    document.addEventListener(
+        "click",
+        function (event) {
 
-        if (
-            popup &&
-            event.target === popup
-        ) {
-
-            closeEdit();
-
-        }
-
-    }
-);
+            const profile =
+                document.querySelector(
+                    ".profile"
+                );
 
 
-// ============================================================
-// CUSTOM POPUP OUTSIDE CLICK
-// ============================================================
-
-document.addEventListener(
-    "click",
-    function (event) {
-
-        const popups =
-            document.querySelectorAll(
-                ".custom-popup"
-            );
+            const menu =
+                document.getElementById(
+                    "profileMenu"
+                );
 
 
-        popups.forEach(
-            function (popup) {
+            if (
+                profile &&
+                menu &&
+                !profile.contains(
+                    event.target
+                )
+            ) {
 
-                if (
-                    event.target ===
-                    popup
-                ) {
-
-                    popup.classList.remove(
-                        "show"
-                    );
-
-                }
+                menu.classList.remove(
+                    "show"
+                );
 
             }
-        );
-
-    }
-);
-
-
-// ============================================================
-// ESC KEY
-// ============================================================
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.key !==
-            "Escape"
-        ) {
-
-            return;
 
         }
+    );
 
 
-        closeConfirmPopup();
+    /*
+     * Edit popup outside click
+     */
 
-        closeSuccessPopup();
+    document.addEventListener(
+        "click",
+        function (event) {
 
-        closeErrorPopup();
+            const overlay =
+                document.querySelector(
+                    ".popup-overlay"
+                );
 
 
-        const popup =
-            document.querySelector(
-                ".popup"
+            if (
+                overlay &&
+                event.target === overlay
+            ) {
+
+                closeEdit();
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Custom popup outside click
+     */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const popups =
+                document.querySelectorAll(
+                    ".custom-popup"
+                );
+
+
+            popups.forEach(
+                function (popup) {
+
+                    if (
+                        event.target === popup
+                    ) {
+
+                        popup.classList.remove(
+                            "show"
+                        );
+
+                        document.body.style.overflow =
+                            "";
+
+                    }
+
+                }
             );
 
+        }
+    );
 
-        if (
-            popup &&
-            popup.classList.contains(
-                "show"
-            )
-        ) {
 
-            closeEdit();
+    /*
+     * Escape
+     */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key !== "Escape"
+            ) {
+
+                return;
+
+            }
+
+
+            closeConfirmPopup();
+
+            closeSuccessPopup();
+
+            closeErrorPopup();
+
+
+            const editPopup =
+                document.querySelector(
+                    ".popup"
+                );
+
+
+            if (
+                editPopup &&
+                (
+                    editPopup.classList.contains(
+                        "show"
+                    ) ||
+                    editPopup.style.display ===
+                        "block"
+                )
+            ) {
+
+                closeEdit();
+
+            }
 
         }
+    );
 
-    }
-);
+}
+
+
+// ============================================================
+// END
+// ============================================================
