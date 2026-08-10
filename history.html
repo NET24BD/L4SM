@@ -11,13 +11,579 @@
 <title>Support History</title>
 
 
-<link rel="stylesheet" href="history.css">
 
-
-<link
+<link 
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+
+
+<style>
+
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+
+}
+
+
+
+body{
+
+background:#f1f5f9;
+
+color:#334155;
+
+}
+
+
+
+
+
+
+/* ================= HEADER ================= */
+
+
+header{
+
+
+height:80px;
+
+background:white;
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+padding:0 30px;
+
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+
+
+}
+
+
+
+
+
+
+.back-btn{
+
+
+background:#064e3b;
+
+color:white;
+
+border:none;
+
+padding:12px 18px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+
+}
+
+
+
+.back-btn:hover{
+
+
+background:#10b981;
+
+
+}
+
+
+
+
+
+
+.history-title{
+
+
+flex:1;
+
+color:#064e3b;
+
+font-size:25px;
+
+cursor:pointer;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ================= PROFILE ================= */
+
+
+.profile{
+
+
+position:relative;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+cursor:pointer;
+
+
+}
+
+
+
+.profile img{
+
+
+width:48px;
+
+height:48px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:3px solid #10b981;
+
+
+}
+
+
+
+.user-info h4{
+
+
+font-size:16px;
+
+color:#0f172a;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* PROFILE MENU */
+
+
+.profile-menu{
+
+
+display:none;
+
+position:absolute;
+
+right:0;
+
+top:60px;
+
+width:190px;
+
+background:white;
+
+border-radius:12px;
+
+overflow:hidden;
+
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+z-index:999;
+
+
+}
+
+
+
+
+.profile-menu a,
+.profile-menu button{
+
+
+width:100%;
+
+padding:14px;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+border:none;
+
+background:white;
+
+text-decoration:none;
+
+color:#334155;
+
+cursor:pointer;
+
+
+}
+
+
+
+
+.profile-menu a:hover,
+.profile-menu button:hover{
+
+
+background:#f1f5f9;
+
+
+}
+
+
+
+
+.profile-menu button{
+
+
+color:#dc2626;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ================= MAIN ================= */
+
+
+.container{
+
+
+padding:30px;
+
+
+}
+
+
+
+
+
+.card{
+
+
+background:white;
+
+padding:25px;
+
+border-radius:18px;
+
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ================= FILTER ================= */
+
+
+.filter-box{
+
+
+display:none;
+
+gap:15px;
+
+align-items:end;
+
+margin-bottom:25px;
+
+
+}
+
+
+
+.filter-box.show{
+
+
+display:flex;
+
+
+}
+
+
+
+
+
+.filter-item{
+
+
+display:flex;
+
+flex-direction:column;
+
+gap:7px;
+
+
+}
+
+
+
+
+
+.filter-item label{
+
+
+font-size:13px;
+
+color:#64748b;
+
+
+}
+
+
+
+
+
+.filter-item input{
+
+
+height:42px;
+
+padding:10px;
+
+border:1px solid #ddd;
+
+border-radius:8px;
+
+
+}
+
+
+
+
+.search-box{
+
+
+flex:1;
+
+
+}
+
+
+
+
+.search-box input{
+
+
+width:100%;
+
+
+}
+
+
+
+
+
+.filter-btn{
+
+
+display:flex;
+
+gap:10px;
+
+
+}
+
+
+
+
+
+.filter-btn button{
+
+
+height:42px;
+
+padding:0 18px;
+
+background:#064e3b;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+
+}
+
+
+
+.filter-btn .reset{
+
+
+background:#64748b;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ================= TABLE ================= */
+
+
+.table-box{
+
+
+overflow-x:auto;
+
+
+}
+
+
+
+
+table{
+
+
+width:100%;
+
+border-collapse:collapse;
+
+
+}
+
+
+
+
+thead{
+
+
+background:#064e3b;
+
+color:white;
+
+
+}
+
+
+
+th{
+
+
+padding:15px;
+
+text-align:left;
+
+
+}
+
+
+
+
+td{
+
+
+padding:14px;
+
+border-bottom:1px solid #eee;
+
+
+}
+
+
+
+
+.action button{
+
+
+padding:8px 12px;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+
+}
+
+
+
+
+.view{
+
+
+background:#dbeafe;
+
+color:#1d4ed8;
+
+
+}
+
+
+
+
+
+.delete{
+
+
+background:#fee2e2;
+
+color:#dc2626;
+
+
+}
+
+
+
+
+
+
+
+</style>
 
 </head>
 
@@ -26,20 +592,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 
-<!-- ================= HEADER ================= -->
-
 
 <header>
 
 
 
-<button 
-class="back-btn"
+<button class="back-btn"
 onclick="goBack()">
+
 
 <i class="fa fa-arrow-left"></i>
 
 Back
+
 
 </button>
 
@@ -47,11 +612,9 @@ Back
 
 
 
-
-
-<h2 
-class="history-title"
+<h2 class="history-title"
 onclick="toggleFilter()">
+
 
 
 <i class="fa fa-history"></i>
@@ -66,30 +629,20 @@ History
 
 
 
-
-
-
-<!-- USER PROFILE -->
-
-
-<div 
-class="profile"
+<div class="profile"
 onclick="toggleProfile()">
 
 
 
 <img 
 id="userPhoto"
-src="https://i.pravatar.cc/100"
-alt="Profile">
-
+src="https://ui-avatars.com/api/?name=User">
 
 
 
 
 
 <div class="user-info">
-
 
 <h4 id="userName">
 
@@ -98,15 +651,6 @@ Loading...
 </h4>
 
 
-
-<p id="userRole">
-
-User
-
-</p>
-
-
-
 </div>
 
 
@@ -115,64 +659,38 @@ User
 
 
 
-
-
-<!-- PROFILE MENU -->
-
-
-<div 
-class="profile-menu"
+<div class="profile-menu"
 id="profileMenu">
-
-
 
 
 
 <a href="my-account.html">
 
-
 <i class="fa fa-user"></i>
 
-
 My Account
-
 
 </a>
 
 
 
 
-
-
-
 <button onclick="logout()">
-
-
 
 <i class="fa fa-sign-out"></i>
 
-
-
 Logout
-
-
 
 </button>
 
 
 
-
-
 </div>
 
 
 
 
-
-
-
 </div>
-
 
 
 
@@ -182,103 +700,59 @@ Logout
 
 
 
-
-
-
-
-<!-- ================= MAIN ================= -->
-
-
 <div class="container">
-
 
 
 <div class="card">
 
 
 
-
-
-
-
-<!-- FILTER BOX -->
-
-
-<div 
-class="filter-box"
+<div class="filter-box"
 id="filterBox">
 
 
 
-
-
 <div class="filter-item">
 
-
 <label>
-
 From Date
-
 </label>
 
-
-<input 
-type="date"
-id="fromDate">
+<input type="date" id="fromDate">
 
 
 </div>
-
-
-
-
 
 
 
 
 <div class="filter-item">
 
-
 <label>
-
 To Date
-
 </label>
 
-
-<input 
-type="date"
-id="toDate">
+<input type="date" id="toDate">
 
 
 </div>
-
-
-
-
 
 
 
 
 <div class="filter-item search-box">
 
-
 <label>
-
 Search
-
 </label>
-
 
 <input 
 type="text"
 id="search"
-placeholder="Customer ID / Problem / Reference">
+placeholder="Search Customer ID / Problem">
 
 
 </div>
-
-
 
 
 
@@ -287,40 +761,28 @@ placeholder="Customer ID / Problem / Reference">
 <div class="filter-btn">
 
 
-
 <button onclick="filterData()">
-
 
 <i class="fa fa-filter"></i>
 
-
 Filter
-
 
 </button>
 
 
 
-
-
-
-
-<button 
-class="reset"
+<button class="reset"
 onclick="resetFilter()">
-
-
 
 <i class="fa fa-refresh"></i>
 
-
 Reset
-
 
 </button>
 
 
 
+</div>
 
 
 
@@ -328,20 +790,6 @@ Reset
 
 
 
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- HISTORY TABLE -->
 
 
 <div class="table-box">
@@ -350,65 +798,26 @@ Reset
 <table>
 
 
-
 <thead>
 
 
 <tr>
 
+<th>Customer ID</th>
 
+<th>Problem</th>
 
-<th>
+<th>Reference</th>
 
-Customer ID
+<th>Date</th>
 
-</th>
-
-
-
-<th>
-
-Problem
-
-</th>
-
-
-
-<th>
-
-Reference
-
-</th>
-
-
-
-<th>
-
-Date
-
-</th>
-
-
-
-<th>
-
-Action
-
-</th>
-
+<th>Action</th>
 
 
 </tr>
 
 
-
 </thead>
-
-
-
-
-
-
 
 
 
@@ -416,216 +825,43 @@ Action
 
 
 
+<tr>
 
 
+<td>CUS-1001</td>
 
-<tr
+<td>Internet Problem</td>
 
-data-support="Support Team"
+<td>Router Issue</td>
 
-data-support-work="Internet Checked"
-
-data-call="Call Team"
-
-data-call-work="Customer Confirmed"
-
->
-
-
-
-
-<td>
-
-CUS-1001
-
-</td>
-
-
-
-<td>
-
-Internet Problem
-
-</td>
-
-
-
-<td>
-
-Router Issue
-
-</td>
-
-
-
-<td>
-
-10-08-2026
-
-</td>
-
-
-
-
+<td>10-08-2026</td>
 
 
 <td class="action">
 
 
-
-<button
-class="view"
-onclick="openModal(this)">
-
-
+<button class="view">
 
 <i class="fa fa-eye"></i>
 
-
 View
-
 
 </button>
 
 
-
-
-
-
-<button
-class="delete"
-onclick="deleteRow(this)">
-
-
+<button class="delete">
 
 <i class="fa fa-trash"></i>
 
-
 Delete
-
 
 </button>
 
 
-
-
 </td>
-
-
-
 
 
 </tr>
-
-
-
-
-
-
-
-
-<tr
-
-data-support="Support Team"
-
-data-support-work="Line Checked"
-
-data-call="Call Team"
-
-data-call-work="Customer Called"
-
->
-
-
-
-
-<td>
-
-CUS-1002
-
-</td>
-
-
-
-<td>
-
-Slow Speed
-
-</td>
-
-
-
-<td>
-
-Line Issue
-
-</td>
-
-
-
-<td>
-
-08-08-2026
-
-</td>
-
-
-
-
-
-
-<td class="action">
-
-
-
-<button
-class="view"
-onclick="openModal(this)">
-
-
-
-<i class="fa fa-eye"></i>
-
-
-View
-
-
-</button>
-
-
-
-
-
-
-
-<button
-class="delete"
-onclick="deleteRow(this)">
-
-
-
-<i class="fa fa-trash"></i>
-
-
-Delete
-
-
-</button>
-
-
-
-
-
-</td>
-
-
-
-
-
-</tr>
-
-
-
 
 
 
@@ -633,33 +869,15 @@ Delete
 </tbody>
 
 
-
-
-
 </table>
 
 
-
 </div>
 
 
 
-
-
-
-
-<!-- PAGINATION -->
-
-
-<div 
-class="pagination"
-id="pagination">
-
-
-</div>
-
-
-
+<div id="pagination"
+class="pagination"></div>
 
 
 
@@ -667,28 +885,14 @@ id="pagination">
 
 
 </div>
-<!-- ==========================
-VIEW DETAILS POPUP
-========================== -->
+<!-- ================= VIEW POPUP ================= -->
 
 
-<div 
-class="modal"
-id="viewModal">
-
-
-
+<div class="modal" id="viewModal">
 
 
 <div class="modal-box">
 
-
-
-
-
-
-
-<!-- POPUP HEADER -->
 
 
 <div class="modal-header">
@@ -704,21 +908,12 @@ History Details
 
 
 
-
-
-
-<button
-class="close-btn"
+<button class="close-btn"
 onclick="closeModal()">
-
-
 
 <i class="fa fa-times"></i>
 
-
-
 </button>
-
 
 
 </div>
@@ -726,36 +921,19 @@ onclick="closeModal()">
 
 
 
-
-
-
-
-
-<!-- DETAILS FORM -->
 
 
 <div class="form-grid">
 
 
 
-
-
-
 <div>
 
-
 <label>
-
 Customer ID
-
 </label>
 
-
-<input
-type="text"
-id="mCustomer">
-
-
+<input id="mCustomer">
 
 </div>
 
@@ -763,24 +941,13 @@ id="mCustomer">
 
 
 
-
-
-
 <div>
 
-
 <label>
-
 Date
-
 </label>
 
-
-<input
-type="text"
-id="mDate">
-
-
+<input id="mDate">
 
 </div>
 
@@ -788,29 +955,15 @@ id="mDate">
 
 
 
-
-
-
 <div class="full">
 
-
 <label>
-
 Problem
-
 </label>
 
-
-<input
-type="text"
-id="mProblem">
-
-
+<input id="mProblem">
 
 </div>
-
-
-
 
 
 
@@ -818,19 +971,11 @@ id="mProblem">
 
 <div class="full">
 
-
 <label>
-
 Reference
-
 </label>
 
-
-<input
-type="text"
-id="mReference">
-
-
+<input id="mReference">
 
 </div>
 
@@ -839,24 +984,13 @@ id="mReference">
 
 
 
-
-
-
 <div>
 
-
 <label>
-
 Support
-
 </label>
 
-
-<input
-type="text"
-id="mSupport">
-
-
+<input id="mSupport">
 
 </div>
 
@@ -865,23 +999,13 @@ id="mSupport">
 
 
 
-
-
 <div>
 
-
 <label>
-
 Support Work
-
 </label>
 
-
-<input
-type="text"
-id="mSupportWork">
-
-
+<input id="mSupportWork">
 
 </div>
 
@@ -890,27 +1014,15 @@ id="mSupportWork">
 
 
 
-
-
 <div>
 
-
 <label>
-
 Call
-
 </label>
 
-
-<input
-type="text"
-id="mCall">
-
-
+<input id="mCall">
 
 </div>
-
-
 
 
 
@@ -919,17 +1031,13 @@ id="mCall">
 
 <div>
 
-
 <label>
-
 Call Work
-
 </label>
 
+<input id="mCallWork">
 
-<input
-type="text"
-id="mCallWork">
+</div>
 
 
 
@@ -939,87 +1047,51 @@ id="mCallWork">
 
 
 
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- BUTTON AREA -->
 
 
 <div class="modal-buttons">
 
 
-
-
-
-
-<button
-class="submit-btn"
+<button class="submit-btn"
 onclick="submitData()">
-
-
 
 <i class="fa fa-check"></i>
 
-
 Submit
-
 
 </button>
 
 
 
 
-
-
-
-<button
-class="cancel-btn"
+<button class="cancel-btn"
 onclick="closeModal()">
-
-
 
 <i class="fa fa-times"></i>
 
-
 Cancel
-
 
 </button>
 
 
 
 
-
-
-
-<button
-class="delete-btn"
+<button class="delete-btn"
 onclick="deleteData()">
-
-
 
 <i class="fa fa-trash"></i>
 
-
 Delete
-
 
 </button>
 
 
 
+</div>
 
 
 
+</div>
 
 </div>
 
@@ -1030,30 +1102,750 @@ Delete
 
 
 
+<style>
 
-</div>
 
-
-</div>
-
+/* ================= POPUP ================= */
 
 
 
+.modal{
+
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.55);
+
+align-items:center;
+
+justify-content:center;
+
+z-index:9999;
+
+
+}
 
 
 
 
 
-<!-- JS FILE -->
+.modal-box{
 
 
-<script src="history.js"></script>
+width:650px;
+
+max-width:95%;
+
+background:white;
+
+padding:25px;
+
+border-radius:18px;
 
 
+}
+
+
+
+
+
+.modal-header{
+
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+
+}
+
+
+
+
+.close-btn{
+
+
+width:35px;
+
+height:35px;
+
+border:none;
+
+border-radius:50%;
+
+background:#fee2e2;
+
+color:red;
+
+cursor:pointer;
+
+
+}
+
+
+
+
+
+
+.form-grid{
+
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:15px;
+
+
+}
+
+
+
+
+
+.form-grid div{
+
+
+display:flex;
+
+flex-direction:column;
+
+
+}
+
+
+
+
+
+.form-grid .full{
+
+
+grid-column:1/3;
+
+
+}
+
+
+
+
+.form-grid label{
+
+
+font-size:13px;
+
+margin-bottom:5px;
+
+color:#64748b;
+
+
+}
+
+
+
+
+.form-grid input{
+
+
+height:42px;
+
+border:1px solid #ddd;
+
+border-radius:8px;
+
+padding:10px;
+
+
+}
+
+
+
+
+
+
+
+.modal-buttons{
+
+
+display:flex;
+
+justify-content:flex-end;
+
+gap:10px;
+
+margin-top:25px;
+
+
+}
+
+
+
+
+.modal-buttons button{
+
+
+padding:11px 18px;
+
+border:none;
+
+border-radius:8px;
+
+color:white;
+
+cursor:pointer;
+
+
+}
+
+
+
+
+.submit-btn{
+
+background:#064e3b;
+
+}
+
+
+
+.cancel-btn{
+
+background:#64748b;
+
+}
+
+
+
+.delete-btn{
+
+background:#dc2626;
+
+}
+
+
+
+
+
+
+.pagination{
+
+
+display:flex;
+
+justify-content:center;
+
+gap:8px;
+
+margin-top:20px;
+
+
+}
+
+
+
+
+.pagination button{
+
+
+width:36px;
+
+height:36px;
+
+border:none;
+
+border-radius:8px;
+
+background:#064e3b;
+
+color:white;
+
+cursor:pointer;
+
+
+}
+
+
+
+.pagination button:hover{
+
+
+background:#10b981;
+
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+.form-grid{
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+.form-grid .full{
+
+
+grid-column:auto;
+
+
+}
+
+
+}
+
+
+
+</style>
+
+
+
+
+
+
+
+<script>
+
+
+"use strict";
+
+
+
+let selectedRow=null;
+
+
+let page=1;
+
+
+let limit=10;
+
+
+
+
+
+
+
+// LOAD USER
+
+
+window.onload=function(){
+
+
+let name=
+localStorage.getItem("name")
+||
+localStorage.getItem("username")
+||
+"User";
+
+
+
+let photo=
+localStorage.getItem("photo");
+
+
+
+document.getElementById("userName")
+.innerText=name;
+
+
+
+if(photo){
+
+
+document.getElementById("userPhoto")
+.src=photo;
+
+
+}
+
+
+
+createPagination();
+
+
+showPage(1);
+
+
+
+};
+
+
+
+
+
+
+
+
+// BACK
+
+
+function goBack(){
+
+
+history.back();
+
+
+}
+
+
+
+
+
+
+
+
+
+// PROFILE MENU
+
+
+function toggleProfile(){
+
+
+let menu=
+document.getElementById("profileMenu");
+
+
+
+menu.style.display=
+menu.style.display==="block"
+?
+"none"
+:
+"block";
+
+
+}
+
+
+
+
+
+
+
+// FILTER SHOW
+
+
+function toggleFilter(){
+
+
+document
+.getElementById("filterBox")
+.classList.toggle("show");
+
+
+}
+
+
+
+
+
+
+
+// LOGOUT
+
+
+function logout(){
+
+
+localStorage.clear();
+
+
+sessionStorage.clear();
+
+
+location.href="login.html";
+
+
+}
+
+
+
+
+
+
+
+// VIEW POPUP
+
+
+document.querySelectorAll(".view")
+.forEach(btn=>{
+
+
+btn.onclick=function(){
+
+
+selectedRow=
+this.closest("tr");
+
+
+let d=
+selectedRow.children;
+
+
+
+mCustomer.value=d[0].innerText;
+
+mProblem.value=d[1].innerText;
+
+mReference.value=d[2].innerText;
+
+mDate.value=d[3].innerText;
+
+
+
+viewModal.style.display="flex";
+
+
+
+}
+
+
+});
+
+
+
+
+
+
+
+
+
+function closeModal(){
+
+
+viewModal.style.display="none";
+
+
+}
+
+
+
+
+
+
+
+
+
+// DELETE
+
+
+document.querySelectorAll(".delete")
+.forEach(btn=>{
+
+
+btn.onclick=function(){
+
+
+if(confirm("Delete this history?")){
+
+
+this.closest("tr").remove();
+
+
+createPagination();
+
+
+}
+
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+
+
+// PAGINATION
+
+
+function showPage(p){
+
+
+let rows=
+document.querySelectorAll("#historyTable tr");
+
+
+rows.forEach((r,i)=>{
+
+
+r.style.display=
+(
+i>=((p-1)*limit)
+&&
+i<p*limit
+)
+?
+""
+:
+"none";
+
+
+
+});
+
+
+page=p;
+
+
+
+}
+
+
+
+
+
+
+
+function createPagination(){
+
+
+let rows=
+document.querySelectorAll("#historyTable tr");
+
+
+let total=
+Math.ceil(rows.length/limit);
+
+
+let box=
+document.getElementById("pagination");
+
+
+
+box.innerHTML="";
+
+
+
+for(let i=1;i<=total;i++){
+
+
+let b=
+document.createElement("button");
+
+
+b.innerText=i;
+
+
+b.onclick=function(){
+
+showPage(i);
+
+};
+
+
+box.appendChild(b);
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+// SUBMIT UPDATE
+
+
+function submitData(){
+
+
+if(selectedRow){
+
+
+let d=
+selectedRow.children;
+
+
+d[0].innerText=mCustomer.value;
+
+d[1].innerText=mProblem.value;
+
+d[2].innerText=mReference.value;
+
+d[3].innerText=mDate.value;
+
+
+
+alert("Updated Successfully");
+
+
+closeModal();
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+function deleteData(){
+
+
+if(selectedRow){
+
+
+selectedRow.remove();
+
+
+closeModal();
+
+
+createPagination();
+
+
+}
+
+
+}
+
+
+
+
+</script>
 
 
 
 </body>
-
 
 </html>
