@@ -42,10 +42,11 @@ gap:20px;
 
 padding:0 30px;
 
-box-shadow:0 3px 15px rgba(0,0,0,.08);
+box-shadow:0 4px 15px rgba(0,0,0,.08);
 
 
 }
+
 
 
 
@@ -77,6 +78,7 @@ gap:8px;
 
 
 
+
 .back-btn:hover{
 
 
@@ -91,12 +93,13 @@ background:#10b981;
 
 
 
+
 .history-title{
 
 
 flex:1;
 
-font-size:24px;
+font-size:25px;
 
 color:#064e3b;
 
@@ -107,14 +110,14 @@ cursor:pointer;
 
 
 
-.history-title:hover{
+
+.history-title i{
 
 
-color:#10b981;
+margin-right:8px;
 
 
 }
-
 
 
 
@@ -126,6 +129,7 @@ color:#10b981;
 /* ================= PROFILE ================= */
 
 
+
 .profile{
 
 
@@ -135,7 +139,7 @@ display:flex;
 
 align-items:center;
 
-gap:10px;
+gap:12px;
 
 cursor:pointer;
 
@@ -144,16 +148,20 @@ cursor:pointer;
 
 
 
+
+
 .profile img{
 
 
-width:45px;
+width:48px;
 
-height:45px;
+height:48px;
 
 border-radius:50%;
 
 object-fit:cover;
+
+border:3px solid #10b981;
 
 
 }
@@ -166,6 +174,8 @@ object-fit:cover;
 
 
 font-size:15px;
+
+color:#0f172a;
 
 
 }
@@ -190,6 +200,8 @@ color:#64748b;
 
 
 
+/* PROFILE MENU */
+
 
 .profile-menu{
 
@@ -208,9 +220,9 @@ background:white;
 
 border-radius:12px;
 
-overflow:hidden;
-
 box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+overflow:hidden;
 
 z-index:999;
 
@@ -227,7 +239,7 @@ z-index:999;
 
 width:100%;
 
-padding:13px 15px;
+padding:14px;
 
 display:flex;
 
@@ -235,9 +247,9 @@ align-items:center;
 
 gap:10px;
 
-background:white;
-
 border:none;
+
+background:white;
 
 text-decoration:none;
 
@@ -278,6 +290,7 @@ color:#dc2626;
 
 
 
+
 /* ================= MAIN ================= */
 
 
@@ -288,6 +301,7 @@ padding:30px;
 
 
 }
+
 
 
 
@@ -314,6 +328,7 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 
 
+
 /* ================= FILTER ================= */
 
 
@@ -330,6 +345,7 @@ margin-bottom:25px;
 
 
 }
+
 
 
 
@@ -360,6 +376,7 @@ gap:7px;
 
 
 
+
 .filter-item label{
 
 
@@ -373,6 +390,7 @@ color:#64748b;
 
 
 
+
 .filter-item input{
 
 
@@ -380,7 +398,7 @@ height:42px;
 
 padding:10px;
 
-border:1px solid #ddd;
+border:1px solid #d1d5db;
 
 border-radius:8px;
 
@@ -388,6 +406,7 @@ outline:none;
 
 
 }
+
 
 
 
@@ -416,6 +435,7 @@ flex:1;
 
 
 
+
 .search-box input{
 
 
@@ -423,7 +443,6 @@ width:100%;
 
 
 }
-
 
 
 
@@ -444,7 +463,6 @@ gap:10px;
 
 
 
-
 .filter-btn button{
 
 
@@ -452,19 +470,18 @@ height:42px;
 
 padding:0 18px;
 
-border:none;
-
-border-radius:8px;
-
 background:#064e3b;
 
 color:white;
+
+border:none;
+
+border-radius:8px;
 
 cursor:pointer;
 
 
 }
-
 
 
 
@@ -497,7 +514,6 @@ background:#64748b;
 
 
 
-
 /* ================= TABLE ================= */
 
 
@@ -508,6 +524,8 @@ overflow-x:auto;
 
 
 }
+
+
 
 
 
@@ -538,7 +556,6 @@ color:white;
 
 
 
-
 th{
 
 
@@ -552,13 +569,12 @@ text-align:left;
 
 
 
-
 td{
 
 
 padding:14px;
 
-border-bottom:1px solid #eee;
+border-bottom:1px solid #e5e7eb;
 
 
 }
@@ -581,10 +597,7 @@ background:#f8fafc;
 
 
 
-
-
-
-/* ACTION BUTTON */
+/* ACTION */
 
 
 .action button{
@@ -606,6 +619,7 @@ margin-right:5px;
 
 
 
+
 .view{
 
 
@@ -615,7 +629,6 @@ color:#1d4ed8;
 
 
 }
-
 
 
 
@@ -662,9 +675,9 @@ margin-top:20px;
 .pagination button{
 
 
-width:35px;
+width:36px;
 
-height:35px;
+height:36px;
 
 border:none;
 
@@ -678,6 +691,7 @@ cursor:pointer;
 
 
 }
+
 
 
 
@@ -732,7 +746,6 @@ z-index:9999;
 
 
 
-
 .modal-box{
 
 
@@ -750,10 +763,6 @@ box-shadow:0 15px 40px rgba(0,0,0,.25);
 
 
 }
-
-
-
-
 
 
 
@@ -792,8 +801,6 @@ color:#064e3b;
 
 
 
-
-
 .close-btn{
 
 
@@ -822,7 +829,7 @@ cursor:pointer;
 
 
 
-/* FORM */
+/* FORM GRID */
 
 
 .form-grid{
@@ -854,6 +861,7 @@ flex-direction:column;
 
 
 
+
 .form-grid .full{
 
 
@@ -881,6 +889,7 @@ margin-bottom:6px;
 
 
 
+
 .form-grid input{
 
 
@@ -888,7 +897,7 @@ height:42px;
 
 padding:10px;
 
-border:1px solid #ddd;
+border:1px solid #d1d5db;
 
 border-radius:8px;
 
@@ -898,6 +907,12 @@ border-radius:8px;
 
 
 
+
+
+
+
+
+/* BUTTON */
 
 
 .modal-buttons{
@@ -913,7 +928,6 @@ margin-top:25px;
 
 
 }
-
 
 
 
@@ -984,7 +998,7 @@ background:#dc2626;
 
 
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 
 @media(max-width:768px){
@@ -1011,6 +1025,7 @@ font-size:18px;
 
 
 
+
 .user-info{
 
 
@@ -1018,6 +1033,8 @@ display:none;
 
 
 }
+
+
 
 
 
@@ -1045,6 +1062,18 @@ align-items:stretch;
 
 
 
+
+.filter-btn{
+
+
+width:100%;
+
+
+}
+
+
+
+
 .filter-btn button{
 
 
@@ -1052,6 +1081,7 @@ flex:1;
 
 
 }
+
 
 
 
@@ -1068,6 +1098,7 @@ grid-template-columns:1fr;
 
 
 
+
 .form-grid .full{
 
 
@@ -1075,6 +1106,7 @@ grid-column:auto;
 
 
 }
+
 
 
 
