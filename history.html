@@ -13,15 +13,11 @@
     <title>History</title>
 
 
-    <!-- CSS -->
-
     <link
         rel="stylesheet"
         href="history.css"
     >
 
-
-    <!-- Font Awesome -->
 
     <link
         rel="stylesheet"
@@ -41,8 +37,6 @@
 <header class="top-header">
 
 
-    <!-- LEFT -->
-
     <div class="left-section">
 
 
@@ -54,7 +48,7 @@
 
             <i class="fa fa-arrow-left"></i>
 
-            Back
+            <span>Back</span>
 
         </button>
 
@@ -67,16 +61,15 @@
 
         </h2>
 
+
     </div>
 
 
 
-    <!-- RIGHT -->
-
     <div class="header-right">
 
 
-        <!-- FILTER BUTTON -->
+        <!-- FILTER -->
 
         <button
             type="button"
@@ -102,7 +95,6 @@
                 onclick="toggleProfile()"
             >
 
-
                 <img
                     id="profileImg"
                     src="assets/profile.png"
@@ -126,7 +118,6 @@
                 id="profileMenu"
             >
 
-
                 <button
                     type="button"
                     onclick="myAccount()"
@@ -144,12 +135,11 @@
                     onclick="logout()"
                 >
 
-                    <i class="fa fa-sign-out"></i>
+                    <i class="fa fa-right-from-bracket"></i>
 
                     Logout
 
                 </button>
-
 
             </div>
 
@@ -168,100 +158,129 @@
 <main class="main-container">
 
 
-
     <!-- =================================================
          FILTER
     ================================================== -->
 
-    <div
+    <section
         class="history-filter"
         id="historyFilter"
     >
 
 
-        <!-- SEARCH -->
+        <div class="filter-title">
 
-        <div class="search-box">
+            <div class="filter-title-left">
 
+                <span class="filter-icon">
 
-            <i class="fa fa-search"></i>
+                    <i class="fa fa-sliders"></i>
 
+                </span>
 
-            <input
-                type="text"
-                id="historySearch"
-                placeholder="Search Customer ID, Problem, Reference..."
-                autocomplete="off"
-            >
+                <div>
 
+                    <h3>
+                        History Filter
+                    </h3>
+
+                    <p>
+                        Search and filter history records
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
 
 
-        <!-- DATE FILTER -->
-
-        <div class="date-filter">
+        <div class="filter-content">
 
 
-            <!-- FROM -->
+            <!-- SEARCH -->
 
-            <div class="date-field">
+            <div class="search-box">
 
 
-                <label for="fromDate">
-                    From
-                </label>
+                <i class="fa fa-search"></i>
 
 
                 <input
-                    type="date"
-                    id="fromDate"
+                    type="text"
+                    id="historySearch"
+                    placeholder="Search Customer ID, Problem, Reference..."
+                    autocomplete="off"
                 >
-
 
             </div>
 
 
 
-            <!-- TO -->
+            <!-- DATE -->
 
-            <div class="date-field">
-
-
-                <label for="toDate">
-                    To
-                </label>
+            <div class="date-filter">
 
 
-                <input
-                    type="date"
-                    id="toDate"
+                <div class="date-field">
+
+                    <label for="fromDate">
+
+                        <i class="fa fa-calendar"></i>
+
+                        From Date
+
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="fromDate"
+                    >
+
+                </div>
+
+
+
+                <div class="date-field">
+
+                    <label for="toDate">
+
+                        <i class="fa fa-calendar"></i>
+
+                        To Date
+
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="toDate"
+                    >
+
+                </div>
+
+
+
+                <button
+                    type="button"
+                    class="clear-filter-btn"
+                    onclick="clearFilters()"
                 >
+
+                    <i class="fa fa-rotate-left"></i>
+
+                    Clear
+
+                </button>
 
 
             </div>
-
-
-
-            <!-- CLEAR -->
-
-            <button
-                type="button"
-                class="clear-filter-btn"
-                onclick="clearFilters()"
-            >
-
-                <i class="fa fa-xmark"></i>
-
-                Clear
-
-            </button>
-
 
         </div>
 
-    </div>
+    </section>
 
 
 
@@ -269,7 +288,45 @@
          TABLE
     ================================================== -->
 
-    <div class="table-card">
+    <section class="table-card">
+
+
+        <div class="table-top-bar">
+
+            <div class="table-title">
+
+                <span class="table-title-icon">
+
+                    <i class="fa fa-clock-rotate-left"></i>
+
+                </span>
+
+
+                <div>
+
+                    <h3>
+                        History Records
+                    </h3>
+
+                    <p>
+                        Customer support history
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="record-label">
+
+                <i class="fa fa-database"></i>
+
+                Records
+
+            </div>
+
+        </div>
+
 
 
         <div class="table-wrapper">
@@ -283,26 +340,31 @@
                     <tr>
 
                         <th>
+                            <i class="fa fa-id-card"></i>
                             Customer ID
                         </th>
 
 
                         <th>
+                            <i class="fa fa-circle-exclamation"></i>
                             Problem
                         </th>
 
 
                         <th>
+                            <i class="fa fa-link"></i>
                             Reference
                         </th>
 
 
                         <th>
+                            <i class="fa fa-calendar-days"></i>
                             Date
                         </th>
 
 
-                        <th>
+                        <th class="action-heading">
+                            <i class="fa fa-gear"></i>
                             Action
                         </th>
 
@@ -322,6 +384,8 @@
                             class="loading-cell"
                         >
 
+                            <i class="fa fa-spinner fa-spin"></i>
+
                             Loading...
 
                         </td>
@@ -333,7 +397,6 @@
 
 
             </table>
-
 
         </div>
 
@@ -347,7 +410,7 @@
         ></div>
 
 
-    </div>
+    </section>
 
 
 </main>
@@ -367,30 +430,38 @@
     <div class="popup">
 
 
-        <!-- CLOSE -->
-
         <button
             type="button"
             class="close-btn"
             onclick="closeEdit()"
         >
 
-            ×
+            <i class="fa fa-xmark"></i>
 
         </button>
 
 
+        <div class="popup-heading">
 
-        <!-- TITLE -->
+            <div class="popup-heading-icon">
 
-        <h2>
+                <i class="fa fa-clock-rotate-left"></i>
 
-            <i class="fa fa-clock-rotate-left"></i>
+            </div>
 
-            Edit History
+            <div>
 
-        </h2>
+                <h2>
+                    Edit History
+                </h2>
 
+                <p>
+                    Update history information
+                </p>
+
+            </div>
+
+        </div>
 
 
         <input
@@ -400,12 +471,9 @@
 
 
 
-        <!-- CUSTOMER ID -->
-
         <label for="customerId">
             Customer ID
         </label>
-
 
         <input
             type="text"
@@ -414,12 +482,9 @@
 
 
 
-        <!-- PROBLEM -->
-
         <label for="problem">
             Problem
         </label>
-
 
         <textarea
             id="problem"
@@ -427,12 +492,9 @@
 
 
 
-        <!-- REFERENCE -->
-
         <label for="reference">
             Reference
         </label>
-
 
         <input
             type="text"
@@ -441,12 +503,9 @@
 
 
 
-        <!-- DATE -->
-
         <label for="date">
             Date
         </label>
-
 
         <input
             type="date"
@@ -455,12 +514,9 @@
 
 
 
-        <!-- SUPPORT -->
-
         <label for="support">
             Support
         </label>
-
 
         <input
             type="text"
@@ -469,20 +525,15 @@
 
 
 
-        <!-- SUPPORT WORK -->
-
         <label for="supportWork">
             Support Work
         </label>
-
 
         <textarea
             id="supportWork"
         ></textarea>
 
 
-
-        <!-- BUTTONS -->
 
         <div class="popup-buttons">
 
@@ -493,12 +544,11 @@
                 onclick="updateHistory()"
             >
 
-                <i class="fa fa-paper-plane"></i>
+                <i class="fa fa-check"></i>
 
                 Submit
 
             </button>
-
 
 
             <button
@@ -512,7 +562,6 @@
                 Cancel
 
             </button>
-
 
 
             <button
@@ -538,7 +587,7 @@
 
 
 <!-- =====================================================
-     CONFIRM DELETE POPUP
+     CONFIRM
 ===================================================== -->
 
 <div
@@ -567,7 +616,6 @@
         </p>
 
 
-
         <div class="custom-popup-buttons">
 
 
@@ -580,7 +628,6 @@
                 Cancel
 
             </button>
-
 
 
             <button
@@ -606,7 +653,7 @@
 
 
 <!-- =====================================================
-     SUCCESS POPUP
+     SUCCESS
 ===================================================== -->
 
 <div
@@ -653,7 +700,7 @@
 
 
 <!-- =====================================================
-     ERROR POPUP
+     ERROR
 ===================================================== -->
 
 <div
@@ -698,8 +745,6 @@
 </div>
 
 
-
-<!-- JS -->
 
 <script src="history.js"></script>
 
