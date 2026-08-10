@@ -12,9 +12,12 @@ font-family:"Segoe UI",sans-serif;
 body{
 
 background:#f1f5f9;
+
 color:#334155;
 
 }
+
+
 
 
 
@@ -24,6 +27,7 @@ color:#334155;
 
 
 header{
+
 
 height:80px;
 
@@ -37,14 +41,14 @@ gap:20px;
 
 padding:0 30px;
 
-box-shadow:0 5px 20px rgba(0,0,0,.08);
+box-shadow:0 4px 15px rgba(0,0,0,.08);
 
 }
 
 
 
-
 .back-btn{
+
 
 background:#064e3b;
 
@@ -80,8 +84,8 @@ background:#10b981;
 
 
 
-
 .history-title{
+
 
 flex:1;
 
@@ -90,6 +94,7 @@ font-size:26px;
 color:#064e3b;
 
 cursor:pointer;
+
 
 }
 
@@ -114,6 +119,7 @@ margin-right:8px;
 
 .profile{
 
+
 position:relative;
 
 display:flex;
@@ -128,7 +134,9 @@ cursor:pointer;
 
 
 
+
 .profile img{
+
 
 width:50px;
 
@@ -138,20 +146,28 @@ border-radius:50%;
 
 object-fit:cover;
 
-border:3px solid #10b981;
+border:3px solid #064e3b;
+
+background:#e2e8f0;
+
 
 }
+
 
 
 
 
 .user-info h4{
 
+
 font-size:16px;
 
 color:#0f172a;
 
+
 }
+
+
 
 
 
@@ -164,7 +180,9 @@ color:#0f172a;
 /* ================= PROFILE MENU ================= */
 
 
+
 .profile-menu{
+
 
 display:none;
 
@@ -180,11 +198,12 @@ background:white;
 
 border-radius:12px;
 
-box-shadow:0 10px 30px rgba(0,0,0,.15);
-
 overflow:hidden;
 
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+
 z-index:999;
+
 
 }
 
@@ -195,19 +214,20 @@ z-index:999;
 .profile-menu a,
 .profile-menu button{
 
+
 width:100%;
 
 padding:14px;
-
-border:none;
-
-background:white;
 
 display:flex;
 
 align-items:center;
 
 gap:10px;
+
+background:white;
+
+border:none;
 
 text-decoration:none;
 
@@ -217,6 +237,7 @@ cursor:pointer;
 
 font-size:14px;
 
+
 }
 
 
@@ -224,15 +245,21 @@ font-size:14px;
 .profile-menu a:hover,
 .profile-menu button:hover{
 
+
 background:#f1f5f9;
 
+
 }
+
+
 
 
 
 .profile-menu button{
 
+
 color:#dc2626;
+
 
 }
 
@@ -244,12 +271,15 @@ color:#dc2626;
 
 
 
-/* ================= CONTAINER ================= */
+/* ================= MAIN ================= */
+
 
 
 .container{
 
+
 padding:30px;
+
 
 }
 
@@ -259,6 +289,7 @@ padding:30px;
 
 .history-card{
 
+
 background:white;
 
 padding:25px;
@@ -266,6 +297,7 @@ padding:25px;
 border-radius:18px;
 
 box-shadow:0 5px 20px rgba(0,0,0,.08);
+
 
 }
 
@@ -282,6 +314,7 @@ box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 .filter-box{
 
+
 display:none;
 
 gap:15px;
@@ -290,20 +323,27 @@ align-items:end;
 
 margin-bottom:25px;
 
+
 }
+
+
 
 
 
 .filter-box.show{
 
+
 display:flex;
+
 
 }
 
 
 
 
+
 .filter-item{
+
 
 display:flex;
 
@@ -311,39 +351,50 @@ flex-direction:column;
 
 gap:7px;
 
+
 }
+
 
 
 
 .filter-item label{
 
+
 font-size:13px;
 
 color:#64748b;
 
+
 }
+
+
 
 
 
 .filter-item input{
 
+
 height:42px;
 
 padding:10px;
 
-border:1px solid #d1d5db;
+border:1px solid #cbd5e1;
 
 border-radius:8px;
 
 outline:none;
 
+
 }
+
 
 
 
 .filter-item input:focus{
 
+
 border-color:#10b981;
+
 
 }
 
@@ -353,19 +404,23 @@ border-color:#10b981;
 
 .search-box{
 
+
 flex:1;
 
+
 }
+
+
 
 
 
 .search-box input{
 
+
 width:100%;
 
+
 }
-
-
 
 
 
@@ -373,9 +428,11 @@ width:100%;
 
 .filter-buttons{
 
+
 display:flex;
 
 gap:10px;
+
 
 }
 
@@ -384,36 +441,44 @@ gap:10px;
 
 .filter-buttons button{
 
+
 height:42px;
 
 padding:0 18px;
 
 background:#064e3b;
 
+color:white;
+
 border:none;
 
 border-radius:8px;
 
-color:white;
-
 cursor:pointer;
 
+
 }
+
 
 
 
 .filter-buttons button:hover{
 
+
 background:#10b981;
+
 
 }
 
 
 
 
-.filter-buttons .reset-btn{
 
-background:#64748b;
+.reset-btn{
+
+
+background:#64748b!important;
+
 
 }
 
@@ -430,57 +495,101 @@ background:#64748b;
 
 .table-box{
 
+
 overflow-x:auto;
 
+
 }
+
 
 
 
 
 table{
 
+
 width:100%;
 
 border-collapse:collapse;
 
+
 }
+
 
 
 
 thead{
 
+
 background:#064e3b;
 
 color:white;
 
+
 }
+
+
+
+thead th:first-child{
+
+
+border-radius:10px 0 0 10px;
+
+
+}
+
+
+
+thead th:last-child{
+
+
+border-radius:0 10px 10px 0;
+
+
+}
+
 
 
 
 th{
 
-padding:15px;
 
-text-align:left;
+padding:16px;
+
+text-align:center;
+
+font-size:14px;
+
 
 }
+
 
 
 
 td{
 
-padding:14px;
 
-border-bottom:1px solid #e5e7eb;
+padding:16px;
+
+border-bottom:1px solid #e2e8f0;
+
+text-align:center;
+
+font-size:14px;
+
 
 }
+
+
 
 
 
 tbody tr:hover{
 
+
 background:#f8fafc;
 
+
 }
 
 
@@ -491,60 +600,40 @@ background:#f8fafc;
 
 
 
-/* ================= ACTION BUTTON ================= */
+/* ================= EDIT BUTTON ================= */
 
 
-.view-btn{
+.edit-btn{
 
-background:#dbeafe;
 
-color:#1d4ed8;
+background:#2563eb;
+
+color:white;
 
 border:none;
 
-padding:8px 14px;
+padding:9px 18px;
 
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-
-
-.delete-btn{
-
-background:#fee2e2;
-
-color:#dc2626;
-
-border:none;
-
-padding:8px 14px;
-
-border-radius:8px;
+border-radius:10px;
 
 cursor:pointer;
 
-margin-left:5px;
+display:inline-flex;
+
+align-items:center;
+
+gap:7px;
+
 
 }
 
 
 
+.edit-btn:hover{
 
 
-.view-btn:hover{
+background:#1d4ed8;
 
-background:#bfdbfe;
-
-}
-
-
-
-.delete-btn:hover{
-
-background:#fecaca;
 
 }
 
@@ -561,20 +650,24 @@ background:#fecaca;
 
 .pagination{
 
+
 display:flex;
 
 justify-content:center;
 
 gap:8px;
 
-margin-top:20px;
+margin-top:25px;
+
 
 }
 
 
 
 
+
 .pagination button{
+
 
 width:38px;
 
@@ -590,13 +683,29 @@ color:white;
 
 cursor:pointer;
 
+
 }
+
+
 
 
 
 .pagination button:hover{
 
+
 background:#10b981;
+
+
+}
+
+
+
+
+.pagination .active{
+
+
+background:#10b981;
+
 
 }
 
@@ -604,21 +713,12 @@ background:#10b981;
 
 
 
-.pagination button.active{
-
-background:#10b981;
-
-}
 
 
 
 
+/* ================= RESPONSIVE ================= */
 
-
-
-
-
-/* ================= MOBILE ================= */
 
 
 @media(max-width:768px){
@@ -626,68 +726,91 @@ background:#10b981;
 
 header{
 
+
 padding:0 15px;
 
+
 }
+
 
 
 
 .history-title{
 
+
 font-size:20px;
 
+
 }
+
 
 
 
 .user-info{
 
+
 display:none;
 
+
 }
+
 
 
 
 .container{
 
+
 padding:15px;
 
+
 }
+
 
 
 
 .filter-box.show{
 
+
 flex-direction:column;
 
 align-items:stretch;
 
+
 }
+
 
 
 
 .filter-buttons{
 
+
 width:100%;
 
+
 }
+
 
 
 
 .filter-buttons button{
 
+
 flex:1;
 
+
 }
+
+
 
 
 
 table{
 
+
 min-width:700px;
 
-}
 
+}
 
 
 }
