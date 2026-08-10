@@ -11,12 +11,15 @@
 <title>Support History</title>
 
 
+
 <link rel="stylesheet" href="history.css">
 
 
+
 <link 
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-rel="stylesheet">
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 
 </head>
@@ -25,15 +28,12 @@ rel="stylesheet">
 <body>
 
 
-
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 
 <header>
 
 
-<button 
-class="back-btn"
-onclick="goBack()">
+<button class="back-btn" onclick="goBack()">
 
 <i class="fa fa-arrow-left"></i>
 
@@ -45,9 +45,7 @@ Back
 
 
 
-<h2 
-class="history-title"
-onclick="toggleFilter()">
+<h2 class="history-title" onclick="toggleFilter()">
 
 <i class="fa fa-history"></i>
 
@@ -61,13 +59,9 @@ History
 
 
 
-
 <!-- PROFILE -->
 
-
-<div 
-class="profile"
-onclick="toggleProfile()">
+<div class="profile" onclick="toggleProfile()">
 
 
 
@@ -83,9 +77,7 @@ alt="Profile">
 <div class="user-info">
 
 <h4 id="userName">
-
 Loading...
-
 </h4>
 
 
@@ -98,14 +90,7 @@ Loading...
 
 
 
-
-<!-- PROFILE MENU -->
-
-
-<div 
-class="profile-menu"
-id="profileMenu">
-
+<div class="profile-menu" id="profileMenu">
 
 
 <a href="my-account.html">
@@ -120,24 +105,17 @@ My Account
 
 
 
-
-
 <button onclick="logout()">
-
 
 <i class="fa fa-sign-out"></i>
 
-
 Logout
-
 
 </button>
 
 
 
-
 </div>
-
 
 
 
@@ -155,15 +133,10 @@ Logout
 
 
 
-
-
-
-<!-- ================= MAIN ================= -->
-
+<!-- MAIN -->
 
 
 <div class="container">
-
 
 
 <div class="history-card">
@@ -172,38 +145,23 @@ Logout
 
 
 
-
-
 <!-- FILTER -->
 
 
-<div 
-class="filter-box"
-id="filterBox">
-
-
-
+<div class="filter-box" id="filterBox">
 
 
 <div class="filter-item">
 
-
 <label>
-
 From Date
-
 </label>
-
 
 <input 
 type="date"
 id="fromDate">
 
-
 </div>
-
-
-
 
 
 
@@ -211,23 +169,15 @@ id="fromDate">
 
 <div class="filter-item">
 
-
 <label>
-
 To Date
-
 </label>
-
 
 <input 
 type="date"
 id="toDate">
 
-
 </div>
-
-
-
 
 
 
@@ -235,11 +185,8 @@ id="toDate">
 
 <div class="filter-item search-box">
 
-
 <label>
-
 Search
-
 </label>
 
 
@@ -250,7 +197,6 @@ placeholder="Search Customer ID / Problem / Reference">
 
 
 </div>
-
 
 
 
@@ -271,11 +217,7 @@ Filter
 
 
 
-
-
-<button 
-class="reset-btn"
-onclick="resetFilter()">
+<button class="reset-btn" onclick="resetFilter()">
 
 <i class="fa fa-refresh"></i>
 
@@ -289,10 +231,6 @@ Reset
 
 
 
-
-
-
-
 </div>
 
 
@@ -302,16 +240,13 @@ Reset
 
 
 
-
-<!-- ================= TABLE ================= -->
-
+<!-- TABLE -->
 
 
 <div class="table-box">
 
 
 <table>
-
 
 
 <thead>
@@ -345,14 +280,10 @@ Action
 </th>
 
 
-
 </tr>
 
 
-
 </thead>
-
-
 
 
 
@@ -363,41 +294,29 @@ Action
 
 
 
-
-
-
-
 <tr>
 
 
 <td>
-
 ABMB029
-
 </td>
 
 
 
 <td>
-
-উনার লাইনে কি সমস্যা দেখা আসছে হবে
-
+Internet Problem
 </td>
 
 
 
 <td>
-
 Shemanto
-
 </td>
 
 
 
 <td>
-
 08 Aug 2026
-
 </td>
 
 
@@ -411,77 +330,9 @@ class="edit-btn"
 onclick="openModal(this)">
 
 
-<i class="fa fa-pen"></i>
+<i class="fa fa-eye"></i>
 
-Edit
-
-
-</button>
-
-
-
-</td>
-
-
-
-</tr>
-
-
-
-
-
-
-
-
-
-
-<tr>
-
-
-<td>
-
-AHSR024
-
-</td>
-
-
-
-<td>
-
-উনার লাইনে কি সমস্যা দেখা আসছে হবে
-
-</td>
-
-
-
-<td>
-
-Shemanto
-
-</td>
-
-
-
-<td>
-
-09 Aug 2026
-
-</td>
-
-
-
-
-<td>
-
-
-<button 
-class="edit-btn"
-onclick="openModal(this)">
-
-
-<i class="fa fa-pen"></i>
-
-Edit
+View
 
 
 </button>
@@ -493,8 +344,6 @@ Edit
 
 
 </tr>
-
-
 
 
 
@@ -506,14 +355,10 @@ Edit
 
 
 
-
 </table>
 
 
-
 </div>
-
-
 
 
 
@@ -524,9 +369,258 @@ Edit
 <!-- PAGINATION -->
 
 
-<div 
-class="pagination"
-id="pagination">
+<div class="pagination" id="pagination">
+
+</div>
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= POPUP ================= -->
+
+
+
+<div class="modal" id="viewModal">
+
+
+<div class="modal-box">
+
+
+
+
+
+<div class="modal-header">
+
+
+<h3>
+
+<i class="fa fa-history"></i>
+
+History Details
+
+</h3>
+
+
+
+
+<button 
+class="close-btn"
+onclick="closeModal()">
+
+<i class="fa fa-times"></i>
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="form-grid">
+
+
+
+
+
+<div>
+
+<label>
+Customer ID
+</label>
+
+<input id="mCustomer">
+
+</div>
+
+
+
+
+
+
+<div>
+
+<label>
+Date
+</label>
+
+<input id="mDate">
+
+</div>
+
+
+
+
+
+
+
+<div class="full">
+
+<label>
+Problem
+</label>
+
+<input id="mProblem">
+
+</div>
+
+
+
+
+
+
+<div class="full">
+
+<label>
+Reference
+</label>
+
+<input id="mReference">
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+<label>
+Support
+</label>
+
+<input id="mSupport">
+
+</div>
+
+
+
+
+
+
+<div>
+
+<label>
+Support Work
+</label>
+
+<input id="mSupportWork">
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+<label>
+Call
+</label>
+
+<input id="mCall">
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+<label>
+Call Work
+</label>
+
+<input id="mCallWork">
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal-buttons">
+
+
+<button 
+class="submit-btn"
+onclick="submitData()">
+
+<i class="fa fa-check"></i>
+
+Submit
+
+</button>
+
+
+
+
+
+<button 
+class="cancel-btn"
+onclick="closeModal()">
+
+
+<i class="fa fa-times"></i>
+
+Cancel
+
+
+</button>
+
+
+
+
+
+
+<button 
+class="delete-btn"
+onclick="deleteData()">
+
+
+<i class="fa fa-trash"></i>
+
+Delete
+
+
+</button>
+
 
 
 </div>
@@ -545,20 +639,12 @@ id="pagination">
 
 
 
-
-
-
-
-
-
-<!-- POPUP PART-2 এ থাকবে -->
 
 
 
 
 
 <script src="history.js"></script>
-
 
 
 </body>
