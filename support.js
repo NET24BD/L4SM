@@ -2,18 +2,29 @@
 // SUPPORT.JS - FULL FINAL
 // =====================================
 
+"use strict";
+
+
+// =====================================
+// CONFIG
+// =====================================
+
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
+
+
+let currentRow = null;
+
+let supportData = [];
+
+let confirmCallback = null;
+
 
 // =====================================
 // PAGE PROTECTION
 // =====================================
 
 (function () {
-
-    "use strict";
-
-    // =================================
-    // CHECK AUTH
-    // =================================
 
     function checkAuth() {
 
@@ -33,20 +44,14 @@
     }
 
 
-    // =================================
-    // INITIAL AUTH CHECK
-    // =================================
+    // Initial check
 
     if (!checkAuth()) {
-
         return;
-
     }
 
 
-    // =================================
-    // BACK BUTTON PROTECTION
-    // =================================
+    // Back protection
 
     history.pushState(
         null,
@@ -60,9 +65,7 @@
         function () {
 
             if (!checkAuth()) {
-
                 return;
-
             }
 
             history.pushState(
@@ -75,20 +78,15 @@
     );
 
 
-    // =================================
-    // BROWSER BACK/FORWARD CACHE
-    // =================================
+    // Browser cache protection
 
     window.addEventListener(
         "pageshow",
         function (event) {
 
             if (!checkAuth()) {
-
                 return;
-
             }
-
 
             if (event.persisted) {
 
@@ -99,56 +97,11 @@
         }
     );
 
-
-    // =================================
-    // GLOBAL LOGOUT
-    // =================================
-
-    window.logout = function () {
-
-        localStorage.removeItem(
-            "auth"
-        );
-
-        localStorage.removeItem(
-            "username"
-        );
-
-        localStorage.removeItem(
-            "picture"
-        );
-
-        localStorage.removeItem(
-            "role"
-        );
-
-
-        window.location.replace(
-            "login.html"
-        );
-
-    };
-
 })();
 
 
 // =====================================
-// CONFIG
-// =====================================
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
-
-
-let currentRow = null;
-
-let supportData = [];
-
-let confirmCallback = null;
-
-
-// =====================================
-// START
+// DOM READY
 // =====================================
 
 document.addEventListener(
@@ -159,6 +112,8 @@ document.addEventListener(
 
         loadSupport();
 
+
+        // Search
 
         const search =
             document.getElementById(
@@ -246,9 +201,7 @@ function toggleProfile() {
 
 
     if (!menu) {
-
         return;
-
     }
 
 
@@ -277,21 +230,19 @@ function myAccount() {
 
 function logout() {
 
-    localStorage.removeItem(
-        "auth"
-    );
+    localStorage.removeItem("auth");
 
-    localStorage.removeItem(
-        "username"
-    );
+    localStorage.removeItem("isLogin");
 
-    localStorage.removeItem(
-        "picture"
-    );
+    localStorage.removeItem("username");
 
-    localStorage.removeItem(
-        "role"
-    );
+    localStorage.removeItem("name");
+
+    localStorage.removeItem("picture");
+
+    localStorage.removeItem("role");
+
+    localStorage.removeItem("lastActivity");
 
 
     window.location.replace(
@@ -430,6 +381,7 @@ function loadSupport() {
         error => {
 
             console.error(
+                "LOAD SUPPORT ERROR:",
                 error
             );
 
@@ -478,9 +430,7 @@ function renderSupport(data) {
 
 
     if (!list) {
-
         return;
-
     }
 
 
@@ -544,8 +494,10 @@ function renderSupport(data) {
                     </td>
 
                     <td>
-                        ${formatDate(
-                            item.date
+                        ${escapeHTML(
+                            formatDate(
+                                item.date
+                            )
                         )}
                     </td>
 
@@ -592,9 +544,7 @@ function searchSupport() {
 
 
     if (!input) {
-
         return;
-
     }
 
 
@@ -866,9 +816,7 @@ function getValue(id) {
 
 
     if (!element) {
-
         return "";
-
     }
 
 
@@ -905,8 +853,7 @@ function closeEdit() {
 
 
 // =====================================
-// SUBMIT SUPPORT
-// SUPPORT → CALL
+// UPDATE SUPPORT
 // =====================================
 
 function updateSupport() {
@@ -1184,7 +1131,7 @@ function performDeleteSupport() {
 
     if (
         !row ||
-        row <= 1
+        row < 1
     ) {
 
         showErrorPopup(
@@ -1278,9 +1225,7 @@ function performDeleteSupport() {
             }
 
 
-            // =========================
-            // REMOVE FROM LOCAL DATA
-            // =========================
+            // Remove from local data
 
             supportData =
                 supportData.filter(
@@ -1294,20 +1239,19 @@ function performDeleteSupport() {
                 );
 
 
-            // =========================
-            // REDRAW TABLE
-            // =========================
+            // Redraw table
 
             renderSupport(
                 supportData
             );
 
 
-            // =========================
-            // CLOSE POPUPS
-            // =========================
+            // Close confirm popup
 
             closeConfirmPopup();
+
+
+            // Close edit popup
 
             closeEdit();
 
@@ -1316,9 +1260,7 @@ function performDeleteSupport() {
                 null;
 
 
-            // =========================
-            // SUCCESS
-            // =========================
+            // Success popup
 
             showSuccessPopup(
                 "Support deleted successfully.",
@@ -1335,6 +1277,9 @@ function performDeleteSupport() {
                 "DELETE ERROR:",
                 error
             );
+
+
+            closeConfirmPopup();
 
 
             showErrorPopup(
@@ -1366,7 +1311,7 @@ function performDeleteSupport() {
 
 
 // =====================================
-// CONFIRM POPUP
+// SHOW CONFIRM POPUP
 // =====================================
 
 function showConfirmPopup(
@@ -1401,6 +1346,10 @@ function showConfirmPopup(
 
     if (!popup) {
 
+        console.error(
+            "confirmPopup not found."
+        );
+
         return;
 
     }
@@ -1410,7 +1359,7 @@ function showConfirmPopup(
 
         titleElement.textContent =
             title ||
-            "Confirm";
+            "Confirm Delete";
 
     }
 
@@ -1505,6 +1454,10 @@ function showSuccessPopup(
 
     if (!popup) {
 
+        console.error(
+            "successPopup not found."
+        );
+
         return;
 
     }
@@ -1587,6 +1540,10 @@ function showErrorPopup(
 
     if (!popup) {
 
+        console.error(
+            "errorPopup not found."
+        );
+
         return;
 
     }
@@ -1653,15 +1610,13 @@ function closeErrorPopup() {
 
 
 // =====================================
-// DATE FOR INPUT
+// CONVERT DATE
 // =====================================
 
 function convertDate(date) {
 
     if (!date) {
-
         return "";
-
     }
 
 
@@ -1669,7 +1624,7 @@ function convertDate(date) {
         String(date);
 
 
-    // Already YYYY-MM-DD
+    // YYYY-MM-DD
 
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
@@ -1699,18 +1654,26 @@ function convertDate(date) {
 
     return (
 
-        d.getFullYear() +
+        d.getFullYear()
 
-        "-" +
+        +
+
+        "-"
+
+        +
 
         String(
             d.getMonth() + 1
         ).padStart(
             2,
             "0"
-        ) +
+        )
 
-        "-" +
+        +
+
+        "-"
+
+        +
 
         String(
             d.getDate()
@@ -1725,15 +1688,13 @@ function convertDate(date) {
 
 
 // =====================================
-// DATE DISPLAY
+// FORMAT DATE
 // =====================================
 
 function formatDate(date) {
 
     if (!date) {
-
         return "";
-
     }
 
 
@@ -1916,7 +1877,7 @@ document.addEventListener(
 
 
 // =====================================
-// CUSTOM POPUP OUTSIDE CLICK
+// POPUP OUTSIDE CLICK
 // =====================================
 
 document.addEventListener(
@@ -2020,3 +1981,42 @@ document.addEventListener(
 
     }
 );
+
+
+// =====================================
+// MAKE FUNCTIONS GLOBAL
+// For inline onclick HTML
+// =====================================
+
+window.toggleProfile =
+    toggleProfile;
+
+window.myAccount =
+    myAccount;
+
+window.logout =
+    logout;
+
+window.goBack =
+    goBack;
+
+window.editSupport =
+    editSupport;
+
+window.closeEdit =
+    closeEdit;
+
+window.updateSupport =
+    updateSupport;
+
+window.deleteSupport =
+    deleteSupport;
+
+window.closeConfirmPopup =
+    closeConfirmPopup;
+
+window.closeSuccessPopup =
+    closeSuccessPopup;
+
+window.closeErrorPopup =
+    closeErrorPopup;
