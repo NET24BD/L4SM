@@ -1,2072 +1,1864 @@
-/\* =====================================================
+/* =====================================================
 RESET
-\===================================================== \*/
+===================================================== */
 
-- {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  }
-
-body {
-font-family:
-Arial,
-Helvetica,
-sans-serif;
-
-```
-background:
-    linear-gradient(
-        135deg,
-        #eef5ff 0%,
-        #f7faff 45%,
-        #eefcf8 100%
-    );
-
-color: #172033;
-
-min-height: 100vh;
-```
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/\* =====================================================
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        linear-gradient(
+            135deg,
+            #eef5ff 0%,
+            #f7faff 45%,
+            #eefcf8 100%
+        );
+
+    color: #172033;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
 HEADER
-\===================================================== \*/
+===================================================== */
 
 .top-header {
 
-```
-width: 100%;
+    width: 100%;
+    min-height: 72px;
 
-min-height: 72px;
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #f8fbff
+        );
 
-background:
-    linear-gradient(
-        90deg,
-        #ffffff,
-        #f8fbff
-    );
+    border-bottom: 1px solid #dbe5f2;
 
-border-bottom:
-    1px solid #dbe5f2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-display: flex;
+    padding: 11px 28px;
 
-align-items: center;
+    position: sticky;
+    top: 0;
 
-justify-content: space-between;
+    z-index: 100;
 
-padding: 11px 28px;
-
-position: sticky;
-
-top: 0;
-
-z-index: 100;
-
-box-shadow:
-    0 3px 15px
-    rgba(37, 99, 235, .07);
-```
-
+    box-shadow:
+        0 3px 15px rgba(37,99,235,.07);
 }
 
-/\* =====================================================
-LEFT
-\===================================================== \*/
+
+/* =====================================================
+LEFT SECTION
+===================================================== */
 
 .left-section {
 
-```
-display: flex;
-
-align-items: center;
-
-gap: 18px;
-```
-
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
+
 
 .left-section h2 {
 
-```
-font-size: 21px;
+    font-size: 21px;
+    color: #172033;
 
-color: #172033;
-
-display: flex;
-
-align-items: center;
-
-gap: 9px;
-```
-
+    display: flex;
+    align-items: center;
+    gap: 9px;
 }
+
 
 .left-section h2 i {
 
-```
-color: #2563eb;
-
-font-size: 22px;
-```
-
+    color:#2563eb;
+    font-size:22px;
 }
 
-/\* =====================================================
-BACK
-\===================================================== \*/
+
+/* =====================================================
+BACK BUTTON
+===================================================== */
 
 .back-btn {
 
-```
-height: 40px;
+    height:40px;
 
-padding: 0 15px;
+    padding:0 15px;
 
-border: none;
+    border:none;
+    border-radius:9px;
 
-border-radius: 9px;
+    background:
+        linear-gradient(
+            135deg,
+            #f1f5f9,
+            #e8eef7
+        );
 
-background:
-    linear-gradient(
-        135deg,
-        #f1f5f9,
-        #e8eef7
-    );
+    color:#334155;
 
-color: #334155;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-display: flex;
+    gap:7px;
 
-align-items: center;
+    font-weight:600;
 
-justify-content: center;
+    cursor:pointer;
 
-gap: 7px;
-
-font-weight: 600;
-
-cursor: pointer;
-
-transition: .2s;
-```
-
+    transition:.2s;
 }
 
-.back-btn\:hover {
 
-```
-background:
-    linear-gradient(
-        135deg,
-        #dbeafe,
-        #e0f2fe
-    );
+.back-btn:hover {
 
-color: #1d4ed8;
-```
+    background:
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #e0f2fe
+        );
 
+    color:#1d4ed8;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 HEADER RIGHT
-\===================================================== \*/
+===================================================== */
 
 .header-right {
 
-```
-display: flex;
-
-align-items: center;
-
-gap: 13px;
-```
-
+    display:flex;
+    align-items:center;
+    gap:13px;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 FILTER BUTTON
-\===================================================== \*/
+===================================================== */
 
 .history-filter-btn {
 
-```
-width: 43px;
+    width:43px;
+    height:43px;
 
-height: 43px;
+    border:none;
+    border-radius:11px;
 
-border: none;
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
 
-border-radius: 11px;
+    color:white;
 
-background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #1d4ed8
-    );
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-color: white;
+    font-size:17px;
 
-display: flex;
+    cursor:pointer;
 
-align-items: center;
+    box-shadow:
+        0 5px 14px rgba(37,99,235,.25);
 
-justify-content: center;
-
-font-size: 17px;
-
-cursor: pointer;
-
-box-shadow:
-    0 5px 14px
-    rgba(37, 99, 235, .25);
-
-transition: .25s;
-```
-
+    transition:.25s;
 }
 
-.history-filter-btn\:hover {
 
-```
-transform: translateY(-2px);
+.history-filter-btn:hover {
 
-box-shadow:
-    0 8px 18px
-    rgba(37, 99, 235, .35);
-```
+    transform:translateY(-2px);
 
+    box-shadow:
+        0 8px 18px rgba(37,99,235,.35);
 }
+
 
 .history-filter-btn.active {
 
-```
-background:
-    linear-gradient(
-        135deg,
-        #0f3da8,
-        #172554
-    );
-```
-
+    background:
+        linear-gradient(
+            135deg,
+            #0f3da8,
+            #172554
+        );
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 PROFILE
-\===================================================== \*/
+===================================================== */
 
 .profile {
 
-```
-position: relative;
-```
-
+    position:relative;
 }
+
 
 .profile-head {
 
-```
-min-height: 44px;
+    min-height:44px;
 
-padding: 3px 9px 3px 5px;
+    padding:3px 9px 3px 5px;
 
-border-radius: 25px;
+    border-radius:25px;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-gap: 8px;
+    gap:8px;
 
-cursor: pointer;
+    cursor:pointer;
 
-transition: .2s;
-```
-
+    transition:.2s;
 }
 
-.profile-head\:hover {
 
-```
-background: #eef5ff;
-```
+.profile-head:hover {
 
+    background:#eef5ff;
 }
+
+
 
 .profile-head img {
 
-```
-width: 37px;
+    width:37px;
+    height:37px;
 
-height: 37px;
+    border-radius:50%;
 
-border-radius: 50%;
+    object-fit:cover;
 
-object-fit: cover;
+    border:2px solid #bfdbfe;
 
-border:
-    2px solid #bfdbfe;
-
-box-shadow:
-    0 2px 7px
-    rgba(37, 99, 235, .18);
-```
-
+    box-shadow:
+        0 2px 7px rgba(37,99,235,.18);
 }
+
+
 
 .profile-head span {
 
-```
-color: #172033;
+    color:#172033;
 
-font-size: 14px;
+    font-size:14px;
 
-font-weight: 700;
-```
-
+    font-weight:700;
 }
+
+
 
 .profile-head > i {
 
-```
-color: #64748b;
+    color:#64748b;
 
-font-size: 12px;
-```
-
+    font-size:12px;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 PROFILE MENU
-\===================================================== \*/
+===================================================== */
+
 
 .profile-menu {
 
-```
-position: absolute;
+    position:absolute;
 
-right: 0;
+    right:0;
 
-top: calc(100% + 8px);
+    top:calc(100% + 8px);
 
-width: 180px;
+    width:180px;
 
-background: #ffffff;
+    background:#ffffff;
 
-border:
-    1px solid #dbe5f2;
+    border:1px solid #dbe5f2;
 
-border-radius: 11px;
+    border-radius:11px;
 
-box-shadow:
-    0 15px 40px
-    rgba(15, 23, 42, .15);
+    box-shadow:
+        0 15px 40px rgba(15,23,42,.15);
 
-padding: 6px;
+    padding:6px;
 
-display: none;
+    display:none;
 
-z-index: 500;
-```
-
+    z-index:500;
 }
+
 
 .profile-menu.show {
 
-```
-display: block;
+    display:block;
 
-animation:
-    menuShow .18s ease;
-```
-
+    animation:
+        menuShow .18s ease;
 }
+
+
 
 @keyframes menuShow {
 
-```
-from {
+    from {
 
-    opacity: 0;
+        opacity:0;
+        transform:translateY(-6px);
 
-    transform: translateY(-6px);
+    }
 
+    to {
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
 }
 
-to {
 
-    opacity: 1;
-
-    transform: translateY(0);
-
-}
-```
-
-}
 
 .profile-menu button {
 
-```
-width: 100%;
+    width:100%;
 
-height: 41px;
+    height:41px;
 
-border: none;
+    border:none;
 
-border-radius: 8px;
+    border-radius:8px;
 
-background: transparent;
+    background:transparent;
 
-color: #334155;
+    color:#334155;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-gap: 10px;
+    gap:10px;
 
-padding: 0 12px;
+    padding:0 12px;
 
-cursor: pointer;
+    cursor:pointer;
 
-text-align: left;
+    font-weight:600;
 
-font-weight: 600;
-```
-
+    text-align:left;
 }
 
-.profile-menu button\:hover {
 
-```
-background: #eff6ff;
+.profile-menu button:hover {
 
-color: #2563eb;
-```
+    background:#eff6ff;
 
+    color:#2563eb;
 }
-
-/\* =====================================================
+/* =====================================================
 MAIN
-\===================================================== \*/
+===================================================== */
 
 .main-container {
 
-```
-max-width: 1400px;
+    max-width:1400px;
 
-width: 100%;
+    width:100%;
 
-margin: auto;
+    margin:auto;
 
-padding:
-    25px 28px 40px;
-```
-
+    padding:
+        25px 28px 40px;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 FILTER PANEL
-\===================================================== \*/
+===================================================== */
 
 .history-filter {
 
-```
-display: none;
+    display:none;
 
-opacity: 0;
+    opacity:0;
 
-margin-bottom: 18px;
+    margin-bottom:18px;
 
-background:
-    linear-gradient(
-        135deg,
-        #ffffff,
-        #f1f7ff
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f1f7ff
+        );
 
-border:
-    1px solid #cfe0ff;
+    border:1px solid #cfe0ff;
 
-border-radius: 14px;
+    border-radius:14px;
 
-overflow: hidden;
+    overflow:hidden;
 
-box-shadow:
-    0 8px 25px
-    rgba(37, 99, 235, .08);
-```
-
+    box-shadow:
+        0 8px 25px rgba(37,99,235,.08);
 }
+
+
 
 .history-filter.show {
 
-```
-display: block;
+    display:block;
 
-animation:
-    filterShow .25s ease forwards;
-```
-
+    animation:
+        filterShow .25s ease forwards;
 }
+
+
 
 @keyframes filterShow {
 
-```
-from {
+    from {
 
-    opacity: 0;
+        opacity:0;
 
-    transform: translateY(-8px);
+        transform:translateY(-8px);
 
+    }
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
 }
 
-to {
 
-    opacity: 1;
 
-    transform: translateY(0);
-
-}
-```
-
-}
-
-/\* =====================================================
+/* =====================================================
 FILTER TITLE
-\===================================================== \*/
+===================================================== */
+
 
 .filter-title {
 
-```
-padding:
-    14px 18px;
+    padding:14px 18px;
 
-background:
-    linear-gradient(
-        90deg,
-        #eff6ff,
-        #f0fdf4
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #eff6ff,
+            #f0fdf4
+        );
 
-border-bottom:
-    1px solid #dbeafe;
-```
-
+    border-bottom:
+        1px solid #dbeafe;
 }
+
+
 
 .filter-title-left {
 
-```
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-gap: 11px;
-```
-
+    gap:11px;
 }
+
+
 
 .filter-icon {
 
-```
-width: 39px;
+    width:39px;
 
-height: 39px;
+    height:39px;
 
-border-radius: 10px;
+    border-radius:10px;
 
-background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #0891b2
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #0891b2
+        );
 
-color: #fff;
+    color:white;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: center;
-```
-
+    justify-content:center;
 }
+
+
 
 .filter-title h3 {
 
-```
-color: #172033;
+    color:#172033;
 
-font-size: 15px;
+    font-size:15px;
 
-margin-bottom: 3px;
-```
-
+    margin-bottom:3px;
 }
+
+
 
 .filter-title p {
 
-```
-color: #64748b;
+    color:#64748b;
 
-font-size: 12px;
-```
-
+    font-size:12px;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 FILTER CONTENT
-\===================================================== \*/
+===================================================== */
+
 
 .filter-content {
 
-```
-padding: 15px 18px;
-```
-
+    padding:15px 18px;
 }
 
-/\* =====================================================
-SEARCH
-\===================================================== \*/
+
+
+/* =====================================================
+SEARCH BOX
+===================================================== */
+
 
 .search-box {
 
-```
-width: 100%;
+    width:100%;
 
-height: 45px;
+    height:45px;
 
-background: #ffffff;
+    background:#ffffff;
 
-border:
-    1px solid #cbd5e1;
+    border:1px solid #cbd5e1;
 
-border-radius: 9px;
+    border-radius:9px;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-padding: 0 13px;
+    padding:0 13px;
 
-margin-bottom: 14px;
+    margin-bottom:14px;
 
-transition: .2s;
-```
-
+    transition:.2s;
 }
+
+
 
 .search-box i {
 
-```
-color: #2563eb;
+    color:#2563eb;
 
-margin-right: 10px;
-```
-
+    margin-right:10px;
 }
+
+
 
 .search-box input {
 
-```
-width: 100%;
+    width:100%;
 
-height: 100%;
+    height:100%;
 
-border: none;
+    border:none;
 
-outline: none;
+    outline:none;
 
-background: transparent;
+    background:transparent;
 
-color: #172033;
+    color:#172033;
 
-font-size: 14px;
-```
-
+    font-size:14px;
 }
 
-.search-box\:focus-within {
 
-```
-border-color: #2563eb;
 
-box-shadow:
-    0 0 0 3px
-    rgba(37, 99, 235, .10);
-```
+.search-box:focus-within {
 
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.10);
 }
 
-/\* =====================================================
-DATE
-\===================================================== \*/
+
+
+/* =====================================================
+DATE FILTER
+===================================================== */
+
 
 .date-filter {
 
-```
-display: flex;
+    display:flex;
 
-align-items: flex-end;
+    align-items:flex-end;
 
-gap: 12px;
+    gap:12px;
 
-flex-wrap: wrap;
-```
-
+    flex-wrap:wrap;
 }
+
+
 
 .date-field {
 
-```
-display: flex;
+    display:flex;
 
-flex-direction: column;
+    flex-direction:column;
 
-gap: 6px;
-```
-
+    gap:6px;
 }
+
+
 
 .date-field label {
 
-```
-color: #334155;
+    color:#334155;
 
-font-size: 12px;
+    font-size:12px;
 
-font-weight: 700;
-```
-
+    font-weight:700;
 }
+
+
 
 .date-field label i {
 
-```
-color: #2563eb;
+    color:#2563eb;
 
-margin-right: 4px;
-```
-
+    margin-right:4px;
 }
+
+
 
 .date-field input {
 
-```
-width: 190px;
+    width:190px;
 
-height: 40px;
+    height:40px;
 
-border:
-    1px solid #cbd5e1;
+    border:1px solid #cbd5e1;
 
-border-radius: 8px;
+    border-radius:8px;
 
-padding: 0 10px;
+    padding:0 10px;
 
-outline: none;
+    outline:none;
 
-color: #172033;
+    background:white;
 
-background: white;
-```
-
+    color:#172033;
 }
 
-.date-field input\:focus {
 
-```
-border-color: #2563eb;
 
-box-shadow:
-    0 0 0 3px
-    rgba(37, 99, 235, .08);
-```
+.date-field input:focus {
 
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.08);
 }
+
+
 
 .clear-filter-btn {
 
-```
-height: 40px;
+    height:40px;
 
-padding: 0 16px;
+    padding:0 16px;
 
-border: none;
+    border:none;
 
-border-radius: 8px;
+    border-radius:8px;
 
-background:
-    linear-gradient(
-        135deg,
-        #64748b,
-        #475569
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #64748b,
+            #475569
+        );
 
-color: #ffffff;
+    color:white;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: center;
+    justify-content:center;
 
-gap: 7px;
+    gap:7px;
 
-font-weight: 700;
+    font-weight:700;
 
-cursor: pointer;
-```
-
+    cursor:pointer;
 }
 
-.clear-filter-btn\:hover {
 
-```
-background:
-    linear-gradient(
-        135deg,
-        #475569,
-        #334155
-    );
-```
 
+.clear-filter-btn:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #475569,
+            #334155
+        );
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 TABLE CARD
-\===================================================== \*/
+===================================================== */
+
 
 .table-card {
 
-```
-width: 100%;
+    width:100%;
 
-background: #ffffff;
+    background:#ffffff;
 
-border:
-    1px solid #d7e2ef;
+    border:1px solid #d7e2ef;
 
-border-radius: 15px;
+    border-radius:15px;
 
-overflow: hidden;
+    overflow:hidden;
 
-box-shadow:
-    0 10px 30px
-    rgba(30, 64, 175, .09);
-```
-
+    box-shadow:
+        0 10px 30px rgba(30,64,175,.09);
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 TABLE TOP BAR
-\===================================================== \*/
+===================================================== */
+
 
 .table-top-bar {
 
-```
-min-height: 68px;
+    min-height:68px;
 
-padding: 11px 17px;
+    padding:11px 17px;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: space-between;
+    justify-content:space-between;
 
-background:
-    linear-gradient(
-        90deg,
-        #ffffff,
-        #f5f9ff
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #f5f9ff
+        );
 
-border-bottom:
-    1px solid #dbeafe;
-```
-
+    border-bottom:
+        1px solid #dbeafe;
 }
+
+
 
 .table-title {
 
-```
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-gap: 11px;
-```
-
+    gap:11px;
 }
+
+
 
 .table-title-icon {
 
-```
-width: 41px;
+    width:41px;
 
-height: 41px;
+    height:41px;
 
-border-radius: 10px;
+    border-radius:10px;
 
-background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #4f46e5
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
 
-color: white;
+    color:white;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: center;
+    justify-content:center;
 
-box-shadow:
-    0 5px 12px
-    rgba(37, 99, 235, .22);
-```
-
+    box-shadow:
+        0 5px 12px rgba(37,99,235,.22);
 }
+
+
 
 .table-title h3 {
 
-```
-font-size: 15px;
+    font-size:15px;
 
-color: #172033;
+    color:#172033;
 
-margin-bottom: 3px;
-```
-
+    margin-bottom:3px;
 }
+
+
 
 .table-title p {
 
-```
-font-size: 12px;
+    font-size:12px;
 
-color: #64748b;
-```
-
+    color:#64748b;
 }
+
+
 
 .record-label {
 
-```
-padding:
-    7px 12px;
+    padding:7px 12px;
 
-border-radius: 20px;
+    border-radius:20px;
 
-background: #ecfdf5;
+    background:#ecfdf5;
 
-color: #047857;
+    color:#047857;
 
-border:
-    1px solid #a7f3d0;
+    border:1px solid #a7f3d0;
 
-font-size: 12px;
+    font-size:12px;
 
-font-weight: 700;
-```
-
+    font-weight:700;
 }
+
+
 
 .record-label i {
 
-```
-margin-right: 5px;
-```
-
+    margin-right:5px;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 TABLE
-\===================================================== \*/
+===================================================== */
+
 
 .table-wrapper {
 
-```
-width: 100%;
+    width:100%;
 
-overflow-x: auto;
-```
-
+    overflow-x:auto;
 }
+
+
 
 table {
 
-```
-width: 100%;
+    width:100%;
 
-min-width: 800px;
+    min-width:800px;
 
-border-collapse: collapse;
-```
-
+    border-collapse:collapse;
 }
 
-/\* =====================================================
-TABLE HEADER
-\===================================================== \*/
+
 
 thead {
 
-```
-background:
-    linear-gradient(
-        90deg,
-        #1d4ed8,
-        #2563eb 50%,
-        #0e7490
-    );
-```
-
+    background:
+        linear-gradient(
+            90deg,
+            #1d4ed8,
+            #2563eb 50%,
+            #0e7490
+        );
 }
+
+
 
 th {
 
-```
-height: 52px;
+    height:52px;
 
-padding:
-    0 16px;
+    padding:0 16px;
 
-text-align: left;
+    text-align:left;
 
-color: #ffffff;
+    color:white;
 
-font-size: 12px;
+    font-size:12px;
 
-font-weight: 700;
+    font-weight:700;
 
-letter-spacing: .2px;
+    letter-spacing:.2px;
 
-border-right:
-    1px solid
-    rgba(255,255,255,.16);
+    border-right:
+        1px solid rgba(255,255,255,.16);
 
-white-space: nowrap;
-```
-
+    white-space:nowrap;
 }
 
-th\:last-child {
 
-```
-border-right: none;
-```
 
+th:last-child {
+
+    border-right:none;
 }
+
+
 
 th i {
 
-```
-margin-right: 6px;
+    margin-right:6px;
 
-color: #bfdbfe;
-```
-
+    color:#bfdbfe;
 }
+
+
 
 .action-heading {
 
-```
-text-align: center;
-```
-
+    text-align:center;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 TABLE BODY
-\===================================================== \*/
+===================================================== */
+
 
 tbody tr {
 
-```
-transition: .2s;
-```
-
+    transition:.2s;
 }
 
-/\* alternate colors \*/
 
-tbody tr\:nth-child(odd) {
 
-```
-background:
-    #ffffff;
-```
+tbody tr:nth-child(odd) {
 
+    background:#ffffff;
 }
 
-tbody tr\:nth-child(even) {
 
-```
-background:
-    #f0f7ff;
-```
 
+tbody tr:nth-child(even) {
+
+    background:#f0f7ff;
 }
 
-tbody tr\:hover {
 
-```
-background:
-    #dbeafe;
 
-box-shadow:
-    inset 4px 0 0 #2563eb;
-```
+tbody tr:hover {
 
+    background:#dbeafe;
+
+    box-shadow:
+        inset 4px 0 0 #2563eb;
 }
+
+
 
 td {
 
-```
-height: 64px;
+    height:64px;
 
-padding:
-    9px 16px;
+    padding:9px 16px;
 
-color: #334155;
+    color:#334155;
 
-font-size: 13px;
+    font-size:13px;
 
-border-bottom:
-    1px solid #dbe7f3;
+    border-bottom:
+        1px solid #dbe7f3;
 
-vertical-align: middle;
-```
-
+    vertical-align:middle;
 }
 
-tbody tr\:last-child td {
 
-```
-border-bottom: none;
-```
 
+tbody tr:last-child td {
+
+    border-bottom:none;
 }
 
-/\* =====================================================
-CUSTOMER ID
-\===================================================== \*/
 
-td\:first-child {
 
-```
-color: #1d4ed8;
+td:first-child {
 
-font-weight: 700;
-```
+    color:#1d4ed8;
 
+    font-weight:700;
 }
 
-/\* =====================================================
-PROBLEM
-\===================================================== \*/
+
 
 .problem-cell {
 
-```
-max-width: 390px;
+    max-width:390px;
 
-color: #334155;
+    color:#334155;
 
-font-weight: 500;
+    font-weight:500;
 
-white-space: nowrap;
+    white-space:nowrap;
 
-overflow: hidden;
+    overflow:hidden;
 
-text-overflow: ellipsis;
-```
-
+    text-overflow:ellipsis;
 }
 
-/\* =====================================================
-REFERENCE
-\===================================================== \*/
 
-td\:nth-child(3) {
 
-```
-color: #7c3aed;
+td:nth-child(3) {
 
-font-weight: 700;
-```
+    color:#7c3aed;
 
+    font-weight:700;
 }
 
-/\* =====================================================
-DATE
-\===================================================== \*/
 
-td\:nth-child(4) {
 
-```
-color: #047857;
+td:nth-child(4) {
 
-font-weight: 700;
-```
+    color:#047857;
 
+    font-weight:700;
 }
 
-/\* =====================================================
-ACTION
-\===================================================== \*/
 
-td\:last-child {
 
-```
-text-align: center;
-```
+td:last-child {
 
+    text-align:center;
 }
+
+
+
+/* =====================================================
+VIEW BUTTON
+===================================================== */
+
 
 .view-btn {
 
-```
-height: 35px;
+    height:35px;
 
-padding: 0 13px;
+    padding:0 13px;
 
-border: 1px solid #bfdbfe;
+    border:1px solid #bfdbfe;
 
-border-radius: 8px;
+    border-radius:8px;
 
-background:
-    linear-gradient(
-        135deg,
-        #eff6ff,
-        #dbeafe
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #dbeafe
+        );
 
-color: #1d4ed8;
+    color:#1d4ed8;
 
-font-weight: 700;
+    font-weight:700;
 
-display: inline-flex;
+    display:inline-flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: center;
+    justify-content:center;
 
-gap: 6px;
+    gap:6px;
 
-cursor: pointer;
+    cursor:pointer;
 
-transition: .2s;
-```
-
+    transition:.2s;
 }
 
-.view-btn\:hover {
 
-```
-color: #ffffff;
 
-background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #1d4ed8
-    );
+.view-btn:hover {
 
-border-color: #2563eb;
+    color:white;
 
-transform: translateY(-1px);
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
 
-box-shadow:
-    0 5px 12px
-    rgba(37, 99, 235, .22);
-```
+    border-color:#2563eb;
 
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(37,99,235,.22);
 }
 
-/\* =====================================================
-LOADING
-\===================================================== \*/
 
-.loading-cell {
 
-```
-text-align: center !important;
-
-padding: 40px !important;
-
-color: #2563eb !important;
-
-font-weight: 700 !important;
-```
-
-}
-
-.loading-cell i {
-
-```
-margin-right: 7px;
-```
-
-}
-
-/\* =====================================================
+/* =====================================================
 PAGINATION
-\===================================================== \*/
+===================================================== */
+
 
 .pagination {
 
-```
-min-height: 64px;
+    min-height:64px;
 
-padding: 12px 16px;
+    padding:12px 16px;
 
-background:
-    linear-gradient(
-        90deg,
-        #f8fbff,
-        #f0fdf9
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #f8fbff,
+            #f0fdf9
+        );
 
-border-top:
-    1px solid #dbe7f3;
+    border-top:
+        1px solid #dbe7f3;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: flex-end;
+    justify-content:flex-end;
 
-gap: 6px;
-```
-
+    gap:6px;
 }
+
+
 
 .page-btn {
 
-```
-min-width: 34px;
+    min-width:34px;
 
-height: 34px;
+    height:34px;
 
-border:
-    1px solid #cbd5e1;
+    border:1px solid #cbd5e1;
 
-border-radius: 7px;
+    border-radius:7px;
 
-background: #ffffff;
+    background:white;
 
-color: #334155;
+    color:#334155;
 
-cursor: pointer;
+    cursor:pointer;
 
-font-weight: 600;
-```
-
+    font-weight:600;
 }
 
-.page-btn\:hover\:not(\:disabled) {
 
-```
-border-color: #2563eb;
 
-color: #2563eb;
+.page-btn:hover:not(:disabled) {
 
-background: #eff6ff;
-```
+    border-color:#2563eb;
 
+    color:#2563eb;
+
+    background:#eff6ff;
 }
+
+
 
 .page-btn.active {
 
-```
-color: white;
+    color:white;
 
-border-color: #2563eb;
+    border-color:#2563eb;
 
-background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #1d4ed8
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
 
-box-shadow:
-    0 4px 10px
-    rgba(37, 99, 235, .22);
-```
-
+    box-shadow:
+        0 4px 10px rgba(37,99,235,.22);
 }
 
-.page-btn\:disabled {
 
-```
-opacity: .4;
 
-cursor: not-allowed;
-```
+.page-btn:disabled {
 
+    opacity:.4;
+
+    cursor:not-allowed;
 }
+
+
 
 .page-info {
 
-```
-margin-left: 8px;
+    margin-left:8px;
 
-color: #64748b;
+    color:#64748b;
 
-font-size: 12px;
+    font-size:12px;
 
-font-weight: 600;
-```
-
+    font-weight:600;
 }
+/* =====================================================
+POPUP OVERLAY
+===================================================== */
 
-/\* =====================================================
-POPUP
-\===================================================== \*/
 
 .popup-overlay {
 
-```
-position: fixed;
+    position:fixed;
 
-inset: 0;
+    inset:0;
 
-background:
-    rgba(15, 23, 42, .58);
+    background:
+        rgba(15,23,42,.58);
 
-backdrop-filter:
-    blur(3px);
+    backdrop-filter:blur(3px);
 
-display: none;
+    display:none;
 
-align-items: center;
+    align-items:center;
 
-justify-content: center;
+    justify-content:center;
 
-padding: 20px;
+    padding:20px;
 
-z-index: 1000;
-```
-
+    z-index:1000;
 }
+
+
 
 .popup-overlay.show {
 
-```
-display: flex;
+    display:flex;
 
-animation:
-    overlayShow .2s ease;
-```
-
+    animation:
+        overlayShow .2s ease;
 }
+
+
 
 @keyframes overlayShow {
 
-```
-from {
-    opacity: 0;
+    from {
+
+        opacity:0;
+
+    }
+
+    to {
+
+        opacity:1;
+
+    }
 }
 
-to {
-    opacity: 1;
-}
-```
 
-}
+
+/* =====================================================
+MAIN POPUP
+===================================================== */
+
 
 .popup {
 
-```
-width: 100%;
+    width:100%;
 
-max-width: 570px;
+    max-width:570px;
 
-max-height: 92vh;
+    max-height:92vh;
 
-overflow-y: auto;
+    overflow-y:auto;
 
-background:
-    linear-gradient(
-        135deg,
-        #ffffff,
-        #f8fbff
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fbff
+        );
 
-border-radius: 16px;
+    border-radius:16px;
 
-padding: 25px;
+    padding:25px;
 
-position: relative;
+    position:relative;
 
-box-shadow:
-    0 25px 70px
-    rgba(15, 23, 42, .28);
+    box-shadow:
+        0 25px 70px rgba(15,23,42,.28);
 
-border:
-    1px solid #dbeafe;
-```
-
+    border:1px solid #dbeafe;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 POPUP HEADING
-\===================================================== \*/
+===================================================== */
+
 
 .popup-heading {
 
-```
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-gap: 11px;
+    gap:11px;
 
-padding-bottom: 15px;
+    padding-bottom:15px;
 
-margin-bottom: 5px;
+    margin-bottom:5px;
 
-border-bottom:
-    1px solid #e2e8f0;
-```
-
+    border-bottom:
+        1px solid #e2e8f0;
 }
+
+
 
 .popup-heading-icon {
 
-```
-width: 43px;
+    width:43px;
 
-height: 43px;
+    height:43px;
 
-border-radius: 11px;
+    border-radius:11px;
 
-background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #4f46e5
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
 
-color: white;
+    color:white;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: center;
-```
-
+    justify-content:center;
 }
+
+
 
 .popup h2 {
 
-```
-color: #172033;
+    color:#172033;
 
-font-size: 19px;
+    font-size:19px;
 
-margin-bottom: 3px;
-```
-
+    margin-bottom:3px;
 }
+
+
 
 .popup-heading p {
 
-```
-color: #64748b;
+    color:#64748b;
 
-font-size: 12px;
-```
-
+    font-size:12px;
 }
 
-/\* =====================================================
-CLOSE
-\===================================================== \*/
+
+
+/* =====================================================
+CLOSE BUTTON
+===================================================== */
+
 
 .close-btn {
 
-```
-position: absolute;
+    position:absolute;
 
-right: 14px;
+    right:14px;
 
-top: 14px;
+    top:14px;
 
-width: 34px;
+    width:34px;
 
-height: 34px;
+    height:34px;
 
-border: none;
+    border:none;
 
-border-radius: 8px;
+    border-radius:8px;
 
-background: #fee2e2;
+    background:#fee2e2;
 
-color: #dc2626;
+    color:#dc2626;
 
-cursor: pointer;
-```
-
+    cursor:pointer;
 }
 
-.close-btn\:hover {
 
-```
-background: #fecaca;
-```
 
+.close-btn:hover {
+
+    background:#fecaca;
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 FORM
-\===================================================== \*/
+===================================================== */
+
 
 .popup label {
 
-```
-display: block;
+    display:block;
 
-margin:
-    13px 0 6px;
+    margin:
+        13px 0 6px;
 
-color: #334155;
+    color:#334155;
 
-font-size: 12px;
+    font-size:12px;
 
-font-weight: 700;
-```
-
+    font-weight:700;
 }
+
+
 
 .popup input,
 .popup textarea {
 
-```
-width: 100%;
+    width:100%;
 
-border:
-    1px solid #cbd5e1;
+    border:1px solid #cbd5e1;
 
-border-radius: 8px;
+    border-radius:8px;
 
-outline: none;
+    outline:none;
 
-background: white;
+    background:white;
 
-color: #172033;
+    color:#172033;
 
-font-family: inherit;
+    font-family:inherit;
 
-font-size: 14px;
-```
-
+    font-size:14px;
 }
+
+
 
 .popup input {
 
-```
-height: 42px;
+    height:42px;
 
-padding: 0 12px;
-```
-
+    padding:0 12px;
 }
+
+
 
 .popup textarea {
 
-```
-min-height: 78px;
+    min-height:78px;
 
-padding: 10px 12px;
+    padding:10px 12px;
 
-resize: vertical;
-```
-
+    resize:vertical;
 }
 
-.popup input\:focus,
-.popup textarea\:focus {
 
-```
-border-color: #2563eb;
 
-box-shadow:
-    0 0 0 3px
-    rgba(37, 99, 235, .09);
-```
+.popup input:focus,
+.popup textarea:focus {
 
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.09);
 }
 
-/\* =====================================================
+
+
+/* =====================================================
 POPUP BUTTONS
-\===================================================== \*/
+===================================================== */
+
 
 .popup-buttons {
 
-```
-display: flex;
+    display:flex;
 
-gap: 9px;
+    gap:9px;
 
-margin-top: 21px;
+    margin-top:21px;
 
-flex-wrap: wrap;
-```
-
+    flex-wrap:wrap;
 }
+
+
 
 .popup-buttons button {
 
-```
-height: 42px;
+    height:42px;
 
-padding: 0 16px;
+    padding:0 16px;
 
-border: none;
+    border:none;
 
-border-radius: 8px;
+    border-radius:8px;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: center;
+    justify-content:center;
 
-gap: 7px;
+    gap:7px;
 
-cursor: pointer;
+    cursor:pointer;
 
-font-weight: 700;
-```
-
+    font-weight:700;
 }
+
+
 
 .submit-btn {
 
-```
-background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #1d4ed8
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
 
-color: white;
-```
-
+    color:white;
 }
 
-.submit-btn\:hover {
 
-```
-box-shadow:
-    0 6px 15px
-    rgba(37, 99, 235, .25);
-```
 
+.submit-btn:hover {
+
+    box-shadow:
+        0 6px 15px rgba(37,99,235,.25);
 }
+
+
 
 .cancel-btn {
 
-```
-background: #e2e8f0;
+    background:#e2e8f0;
 
-color: #334155;
-```
-
+    color:#334155;
 }
 
-.cancel-btn\:hover {
 
-```
-background: #cbd5e1;
-```
 
+.cancel-btn:hover {
+
+    background:#cbd5e1;
 }
+
+
 
 .delete-btn {
 
-```
-background:
-    linear-gradient(
-        135deg,
-        #ef4444,
-        #dc2626
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
 
-color: white;
-```
-
+    color:white;
 }
 
-.delete-btn\:hover {
 
-```
-box-shadow:
-    0 6px 15px
-    rgba(220, 38, 38, .23);
-```
 
+.delete-btn:hover {
+
+    box-shadow:
+        0 6px 15px rgba(220,38,38,.23);
 }
 
-/\* =====================================================
-CUSTOM POPUPS
-\===================================================== \*/
+
+
+/* =====================================================
+CUSTOM POPUP
+===================================================== */
+
 
 .custom-popup {
 
-```
-width: 100%;
+    width:100%;
 
-max-width: 390px;
+    max-width:390px;
 
-background: #ffffff;
+    background:white;
 
-border-radius: 16px;
+    border-radius:16px;
 
-padding: 28px;
+    padding:28px;
 
-text-align: center;
+    text-align:center;
 
-box-shadow:
-    0 25px 70px
-    rgba(15, 23, 42, .25);
-```
-
+    box-shadow:
+        0 25px 70px rgba(15,23,42,.25);
 }
+
+
 
 .popup-icon {
 
-```
-width: 62px;
+    width:62px;
 
-height: 62px;
+    height:62px;
 
-border-radius: 50%;
+    border-radius:50%;
 
-margin:
-    0 auto 15px;
+    margin:
+        0 auto 15px;
 
-display: flex;
+    display:flex;
 
-align-items: center;
+    align-items:center;
 
-justify-content: center;
+    justify-content:center;
 
-font-size: 25px;
-```
-
+    font-size:25px;
 }
+
+
 
 .popup-icon.warning {
 
-```
-background: #fef3c7;
+    background:#fef3c7;
 
-color: #d97706;
-```
-
+    color:#d97706;
 }
+
+
 
 .popup-icon.success {
 
-```
-background: #dcfce7;
+    background:#dcfce7;
 
-color: #16a34a;
-```
-
+    color:#16a34a;
 }
+
+
 
 .popup-icon.error {
 
-```
-background: #fee2e2;
+    background:#fee2e2;
 
-color: #dc2626;
-```
-
+    color:#dc2626;
 }
+
+
 
 .custom-popup h3 {
 
-```
-color: #172033;
+    color:#172033;
 
-font-size: 19px;
+    font-size:19px;
 
-margin-bottom: 8px;
-```
-
+    margin-bottom:8px;
 }
+
+
 
 .custom-popup p {
 
-```
-color: #64748b;
+    color:#64748b;
 
-font-size: 14px;
+    font-size:14px;
 
-line-height: 1.6;
+    line-height:1.6;
 
-margin-bottom: 20px;
-```
-
+    margin-bottom:20px;
 }
 
-/\* =====================================================
-CUSTOM BUTTONS
-\===================================================== \*/
+
+
+/* =====================================================
+CUSTOM POPUP BUTTONS
+===================================================== */
+
 
 .custom-popup-buttons {
 
-```
-display: flex;
+    display:flex;
 
-justify-content: center;
+    justify-content:center;
 
-gap: 10px;
-```
-
+    gap:10px;
 }
+
+
 
 .custom-popup-buttons button,
 .popup-ok-btn {
 
-```
-height: 40px;
+    height:40px;
 
-padding: 0 18px;
+    padding:0 18px;
 
-border: none;
+    border:none;
 
-border-radius: 8px;
+    border-radius:8px;
 
-cursor: pointer;
+    cursor:pointer;
 
-font-weight: 700;
-```
-
+    font-weight:700;
 }
+
+
 
 .popup-cancel-btn {
 
-```
-background: #e2e8f0;
+    background:#e2e8f0;
 
-color: #334155;
-```
-
+    color:#334155;
 }
+
+
 
 .popup-confirm-btn {
 
-```
-background:
-    linear-gradient(
-        135deg,
-        #ef4444,
-        #dc2626
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
 
-color: white;
-```
-
+    color:white;
 }
+
+
 
 .popup-ok-btn {
 
-```
-min-width: 80px;
+    min-width:80px;
 
-background:
-    linear-gradient(
-        135deg,
-        #16a34a,
-        #15803d
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #15803d
+        );
 
-color: white;
-```
-
+    color:white;
 }
+
+
 
 .error-btn {
 
-```
-background:
-    linear-gradient(
-        135deg,
-        #ef4444,
-        #dc2626
-    );
-```
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
 
+    color:white;
 }
 
-/\* =====================================================
-MOBILE
-\===================================================== \*/
 
-@media (max-width: 700px) {
 
-```
+/* =====================================================
+MOBILE RESPONSIVE
+===================================================== */
+
+
+@media(max-width:700px){
+
+
 .top-header {
 
-    padding: 10px 13px;
+    padding:10px 13px;
 
 }
+
 
 
 .left-section {
 
-    gap: 9px;
+    gap:9px;
 
 }
+
 
 
 .left-section h2 {
 
-    font-size: 18px;
+    font-size:18px;
 
 }
+
 
 
 .back-btn span {
 
-    display: none;
+    display:none;
 
 }
+
 
 
 .back-btn {
 
-    width: 40px;
+    width:40px;
 
-    padding: 0;
+    padding:0;
 
 }
+
 
 
 .profile-head span {
 
-    display: none;
+    display:none;
 
 }
+
 
 
 .main-container {
@@ -2077,82 +1869,93 @@ MOBILE
 }
 
 
+
 .table-top-bar {
 
-    padding: 10px 12px;
+    padding:
+        10px 12px;
 
 }
+
 
 
 .record-label {
 
-    display: none;
+    display:none;
 
 }
+
 
 
 .date-filter {
 
-    flex-direction: column;
+    flex-direction:column;
 
-    align-items: stretch;
+    align-items:stretch;
 
 }
+
 
 
 .date-field input {
 
-    width: 100%;
+    width:100%;
 
 }
+
 
 
 .clear-filter-btn {
 
-    width: 100%;
+    width:100%;
 
 }
+
 
 
 .pagination {
 
-    justify-content: center;
+    justify-content:center;
 
-    flex-wrap: wrap;
+    flex-wrap:wrap;
 
 }
+
 
 
 .page-info {
 
-    width: 100%;
+    width:100%;
 
-    text-align: center;
+    text-align:center;
 
-    margin: 4px 0 0;
+    margin:4px 0 0;
 
 }
+
 
 
 .popup {
 
-    padding: 20px;
+    padding:20px;
 
 }
+
 
 
 .popup-buttons {
 
-    flex-direction: column;
+    flex-direction:column;
 
 }
+
 
 
 .popup-buttons button {
 
-    width: 100%;
+    width:100%;
 
 }
-```
+
 
 }
