@@ -11,7 +11,6 @@
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
-
 // =====================================================
 // GLOBAL
 // =====================================================
