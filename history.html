@@ -11,19 +11,15 @@
 <title>Support History</title>
 
 
-
 <link rel="stylesheet" href="history.css">
 
 
-
 <link 
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+rel="stylesheet">
 
 
 </head>
-
 
 
 <body>
@@ -35,16 +31,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <header>
 
 
-
 <button 
 class="back-btn"
 onclick="goBack()">
 
-
 <i class="fa fa-arrow-left"></i>
 
 Back
-
 
 </button>
 
@@ -56,13 +49,9 @@ Back
 class="history-title"
 onclick="toggleFilter()">
 
-
-
 <i class="fa fa-history"></i>
 
-
 History
-
 
 </h2>
 
@@ -73,8 +62,7 @@ History
 
 
 
-
-<!-- USER PROFILE -->
+<!-- PROFILE -->
 
 
 <div 
@@ -83,9 +71,9 @@ onclick="toggleProfile()">
 
 
 
-<img
+<img 
 id="userPhoto"
-src="assets/profile.png"
+src=""
 alt="Profile">
 
 
@@ -93,7 +81,6 @@ alt="Profile">
 
 
 <div class="user-info">
-
 
 <h4 id="userName">
 
@@ -123,12 +110,9 @@ id="profileMenu">
 
 <a href="my-account.html">
 
-
 <i class="fa fa-user"></i>
 
-
 My Account
-
 
 </a>
 
@@ -141,13 +125,10 @@ My Account
 <button onclick="logout()">
 
 
-
 <i class="fa fa-sign-out"></i>
 
 
-
 Logout
-
 
 
 </button>
@@ -155,7 +136,6 @@ Logout
 
 
 
-
 </div>
 
 
@@ -163,7 +143,6 @@ Logout
 
 
 </div>
-
 
 
 
@@ -177,7 +156,10 @@ Logout
 
 
 
+
+
 <!-- ================= MAIN ================= -->
+
 
 
 <div class="container">
@@ -185,7 +167,6 @@ Logout
 
 
 <div class="history-card">
-
 
 
 
@@ -265,11 +246,10 @@ Search
 <input 
 type="text"
 id="search"
-placeholder="Customer ID / Problem / Reference">
+placeholder="Search Customer ID / Problem / Reference">
 
 
 </div>
-
 
 
 
@@ -280,20 +260,13 @@ placeholder="Customer ID / Problem / Reference">
 <div class="filter-buttons">
 
 
-
-<button 
-onclick="filterData()">
-
-
+<button onclick="filterData()">
 
 <i class="fa fa-filter"></i>
 
-
 Filter
 
-
 </button>
-
 
 
 
@@ -304,18 +277,19 @@ Filter
 class="reset-btn"
 onclick="resetFilter()">
 
-
-
 <i class="fa fa-refresh"></i>
 
-
 Reset
-
 
 </button>
 
 
 
+</div>
+
+
+
+
 
 
 
@@ -326,17 +300,11 @@ Reset
 
 
 
-</div>
 
 
 
+<!-- ================= TABLE ================= -->
 
-
-
-
-
-
-<!-- HISTORY TABLE -->
 
 
 <div class="table-box">
@@ -352,43 +320,28 @@ Reset
 <tr>
 
 
-
 <th>
-
 Customer ID
-
 </th>
 
 
-
 <th>
-
 Problem
-
 </th>
 
 
-
 <th>
-
 Reference
-
 </th>
 
 
-
 <th>
-
 Date
-
 </th>
 
 
-
 <th>
-
 Action
-
 </th>
 
 
@@ -406,8 +359,74 @@ Action
 
 
 
-
 <tbody id="historyTable">
+
+
+
+
+
+
+
+<tr>
+
+
+<td>
+
+ABMB029
+
+</td>
+
+
+
+<td>
+
+উনার লাইনে কি সমস্যা দেখা আসছে হবে
+
+</td>
+
+
+
+<td>
+
+Shemanto
+
+</td>
+
+
+
+<td>
+
+08 Aug 2026
+
+</td>
+
+
+
+
+<td>
+
+
+<button 
+class="edit-btn"
+onclick="openModal(this)">
+
+
+<i class="fa fa-pen"></i>
+
+Edit
+
+
+</button>
+
+
+
+</td>
+
+
+
+</tr>
+
+
 
 
 
@@ -421,7 +440,7 @@ Action
 
 <td>
 
-CUS-1001
+AHSR024
 
 </td>
 
@@ -429,7 +448,7 @@ CUS-1001
 
 <td>
 
-Internet Problem
+উনার লাইনে কি সমস্যা দেখা আসছে হবে
 
 </td>
 
@@ -437,7 +456,7 @@ Internet Problem
 
 <td>
 
-Router Issue
+Shemanto
 
 </td>
 
@@ -445,11 +464,9 @@ Router Issue
 
 <td>
 
-10-08-2026
+09 Aug 2026
 
 </td>
-
-
 
 
 
@@ -457,36 +474,14 @@ Router Issue
 <td>
 
 
-<button
-class="view-btn"
+<button 
+class="edit-btn"
 onclick="openModal(this)">
 
 
+<i class="fa fa-pen"></i>
 
-<i class="fa fa-eye"></i>
-
-
-View
-
-
-</button>
-
-
-
-
-
-
-
-<button
-class="delete-btn"
-onclick="deleteRow(this)">
-
-
-
-<i class="fa fa-trash"></i>
-
-
-Delete
+Edit
 
 
 </button>
@@ -494,7 +489,6 @@ Delete
 
 
 </td>
-
 
 
 
@@ -535,6 +529,16 @@ class="pagination"
 id="pagination">
 
 
+</div>
+
+
+
+
+
+
+
+</div>
+
 
 </div>
 
@@ -542,22 +546,22 @@ id="pagination">
 
 
 
-</div>
-
-
-</div>
 
 
 
 
 
-<!-- POPUP PART NEXT -->
+<!-- POPUP PART-2 এ থাকবে -->
+
+
 
 
 
 <script src="history.js"></script>
 
 
+
 </body>
+
 
 </html>
