@@ -3,22 +3,30 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-
-<title>History</title>
-
-
-<link rel="stylesheet" href="history.css">
+    <title>History</title>
 
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- CSS -->
 
+    <link
+        rel="stylesheet"
+        href="support.css"
+    >
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
 
 </head>
 
@@ -26,553 +34,718 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
-<!-- ================= HEADER ================= -->
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
+    <header class="top-header">
 
-<header>
 
+        <div class="header-left">
 
-<div class="left-section">
 
+            <!-- BACK BUTTON -->
 
-<button
-class="back-btn"
-onclick="goBack()">
+            <button
+                type="button"
+                class="back-btn"
+                onclick="goBack()"
+            >
 
-<i class="fa fa-arrow-left"></i>
+                <i class="fa fa-arrow-left"></i>
 
-Back
+                Back
 
-</button>
+            </button>
 
 
-<h2>
+            <!-- PAGE TITLE -->
 
-<i class="fa fa-clock-rotate-left"></i>
+            <h2>
 
-History
+                <i class="fa fa-clock-rotate-left"></i>
 
-</h2>
+                History
 
+            </h2>
 
-</div>
 
+        </div>
 
 
 
-<!-- PROFILE -->
+        <!-- =================================================
+             USER PROFILE
+        ================================================== -->
 
+        <div class="profile">
 
-<div class="profile">
 
+            <!-- PROFILE HEAD -->
 
-<div class="profile-head"
-onclick="toggleProfile()">
+            <div
+                class="profile-head"
+                onclick="toggleProfile()"
+            >
 
 
-<img
-id="profileImg"
-src="assets/profile.png">
+                <img
+                    id="profileImg"
+                    src="assets/profile.png"
+                    alt="Profile"
+                >
 
 
-<span id="username">
-User
-</span>
+                <span id="username">
+                    User
+                </span>
 
 
-<i class="fa fa-angle-down"></i>
+                <i class="fa fa-angle-down"></i>
 
 
-</div>
+            </div>
 
 
 
-<div
-id="profileMenu"
-class="profile-menu">
+            <!-- PROFILE MENU -->
 
+            <div
+                class="profile-menu"
+                id="profileMenu"
+            >
 
-<button onclick="myAccount()">
 
-<i class="fa fa-user"></i>
+                <!-- MY ACCOUNT -->
 
-My Account
+                <button
+                    type="button"
+                    onclick="myAccount()"
+                >
 
-</button>
+                    <i class="fa fa-user"></i>
 
+                    My Account
 
-<button onclick="logout()">
+                </button>
 
-<i class="fa fa-sign-out"></i>
 
-Logout
 
-</button>
+                <!-- LOGOUT -->
 
+                <button
+                    type="button"
+                    onclick="logout()"
+                >
 
-</div>
+                    <i class="fa fa-sign-out"></i>
 
+                    Logout
 
-</div>
+                </button>
 
 
-</header>
+            </div>
 
 
+        </div>
 
 
+    </header>
 
-<!-- ================= FILTER ================= -->
 
 
-<section class="filter-area">
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
 
+    <main>
 
 
-<div class="search-box">
+        <!-- =================================================
+             SEARCH + DATE FILTER
+        ================================================== -->
 
+        <div class="tools-row">
 
-<i class="fa fa-search"></i>
 
+            <!-- SEARCH -->
 
-<input
-id="historySearch"
-type="text"
-placeholder="Search Customer ID, Problem, Reference">
+            <div class="search-box">
 
 
-</div>
+                <i class="fa fa-search"></i>
 
 
+                <input
+                    type="text"
+                    id="historySearch"
+                    placeholder="Search Customer ID, Problem, Reference..."
+                    autocomplete="off"
+                >
 
 
-<div class="date-filter">
+            </div>
 
 
-<label>
-From
-</label>
 
+            <!-- FROM DATE -->
 
-<input
-type="date"
-id="fromDate">
+            <div class="date-filter">
 
 
+                <label for="fromDate">
+                    From
+                </label>
 
-<label>
-To
-</label>
 
+                <input
+                    type="date"
+                    id="fromDate"
+                >
 
-<input
-type="date"
-id="toDate">
 
+            </div>
 
 
-</div>
 
+            <!-- TO DATE -->
 
-</section>
+            <div class="date-filter">
 
 
+                <label for="toDate">
+                    To
+                </label>
 
 
+                <input
+                    type="date"
+                    id="toDate"
+                >
 
 
-<!-- ================= TABLE ================= -->
+            </div>
 
 
-<div class="table-box">
 
+            <!-- CLEAR -->
 
-<table>
+            <button
+                type="button"
+                class="clear-filter-btn"
+                onclick="clearFilters()"
+            >
 
+                <i class="fa fa-rotate-left"></i>
 
-<thead>
+                Clear
 
-<tr>
+            </button>
 
 
-<th>
-Customer ID
-</th>
+        </div>
 
 
-<th>
-Problem
-</th>
 
+        <!-- =================================================
+             TABLE
+        ================================================== -->
 
-<th>
-Reference
-</th>
+        <div class="table-wrapper">
 
 
-<th>
-Date
-</th>
+            <table>
 
 
-<th>
-Action
-</th>
+                <thead>
 
 
-</tr>
+                    <tr>
 
-</thead>
 
+                        <th>
+                            Customer ID
+                        </th>
 
 
-<tbody id="historyList">
+                        <th>
+                            Problem
+                        </th>
 
 
-<tr>
+                        <th>
+                            Reference
+                        </th>
 
-<td colspan="5">
 
-Loading...
+                        <th>
+                            Date
+                        </th>
 
-</td>
 
-</tr>
+                        <th>
+                            Action
+                        </th>
 
 
-</tbody>
+                    </tr>
 
 
+                </thead>
 
-</table>
 
 
-</div>
+                <tbody id="historyList">
 
 
+                    <tr>
 
 
+                        <td
+                            colspan="5"
+                            class="loading-cell"
+                        >
 
-<!-- PAGINATION -->
+                            Loading...
 
 
-<div
-id="pagination"
-class="pagination">
+                        </td>
 
-</div>
 
+                    </tr>
 
 
+                </tbody>
 
 
+            </table>
 
 
+        </div>
 
 
-<!-- ================= EDIT POPUP ================= -->
 
+        <!-- =================================================
+             PAGINATION
+        ================================================== -->
 
-<div
-class="popup-overlay"
-id="editPopup">
+        <div
+            class="pagination"
+            id="pagination"
+        ></div>
 
 
-<div class="popup">
+    </main>
 
 
 
-<button
-class="close-btn"
-onclick="closeEdit()">
+    <!-- =====================================================
+         EDIT POPUP
+    ====================================================== -->
 
-×
+    <div
+        class="popup-overlay"
+        id="editPopup"
+    >
 
-</button>
 
+        <div class="popup">
 
 
-<h2>
+            <!-- CLOSE -->
 
-<i class="fa fa-pen"></i>
+            <button
+                type="button"
+                class="close-btn"
+                onclick="closeEdit()"
+            >
 
-Edit History
+                <i class="fa fa-xmark"></i>
 
-</h2>
+            </button>
 
 
 
+            <!-- TITLE -->
 
-<label>
-Customer ID
-</label>
+            <h2>
 
+                <i class="fa fa-pen-to-square"></i>
 
-<input
-id="customerId"
-type="text">
+                Edit History
 
+            </h2>
 
 
 
+            <!-- HIDDEN INDEX -->
 
-<label>
-Problem
-</label>
+            <input
+                type="hidden"
+                id="editIndex"
+            >
 
 
-<textarea
-id="problem"></textarea>
 
+            <!-- CUSTOMER ID -->
 
+            <label for="customerId">
 
+                Customer ID
 
+            </label>
 
-<label>
-Reference
-</label>
 
+            <input
+                type="text"
+                id="customerId"
+            >
 
-<input
-id="reference"
-type="text">
 
 
+            <!-- PROBLEM -->
 
+            <label for="problem">
 
+                Problem
 
-<label>
-Date
-</label>
+            </label>
 
 
-<input
-id="date"
-type="date">
+            <textarea
+                id="problem"
+            ></textarea>
 
 
 
+            <!-- REFERENCE -->
 
+            <label for="reference">
 
-<label>
-Support
-</label>
+                Reference
 
+            </label>
 
-<input
-id="support"
-type="text">
 
+            <input
+                type="text"
+                id="reference"
+            >
 
 
 
+            <!-- DATE -->
 
-<label>
-Support Work
-</label>
+            <label for="date">
 
+                Date
 
-<textarea
-id="supportWork"></textarea>
+            </label>
 
 
+            <input
+                type="date"
+                id="date"
+            >
 
 
 
+            <!-- SUPPORT -->
 
+            <label for="support">
 
-<div class="popup-buttons">
+                Support
 
+            </label>
 
-<button
-class="submit-btn"
-onclick="updateSupport()">
 
+            <input
+                type="text"
+                id="support"
+            >
 
-<i class="fa fa-check"></i>
 
-Submit
 
+            <!-- SUPPORT WORK -->
 
-</button>
+            <label for="supportWork">
 
+                Support Work
 
+            </label>
 
 
-<button
-class="cancel-btn"
-onclick="closeEdit()">
+            <textarea
+                id="supportWork"
+            ></textarea>
 
 
-Cancel
 
+            <!-- BUTTONS -->
 
-</button>
+            <div class="popup-buttons">
 
 
+                <!-- SUBMIT -->
 
+                <button
+                    type="button"
+                    class="submit-btn"
+                    onclick="updateHistory()"
+                >
 
-<button
-class="delete-btn"
-onclick="deleteSupport()">
+                    <i class="fa fa-paper-plane"></i>
 
+                    Submit
 
-<i class="fa fa-trash"></i>
+                </button>
 
-Delete
 
 
-</button>
+                <!-- CANCEL -->
 
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeEdit()"
+                >
 
+                    <i class="fa fa-xmark"></i>
 
-</div>
+                    Cancel
 
+                </button>
 
 
-</div>
 
-</div>
+                <!-- DELETE -->
 
+                <button
+                    type="button"
+                    class="delete-btn"
+                    onclick="askDelete()"
+                >
 
+                    <i class="fa fa-trash"></i>
 
+                    Delete
 
+                </button>
 
 
+            </div>
 
 
+        </div>
 
-<!-- ================= DELETE CONFIRM ================= -->
 
+    </div>
 
 
-<div
-class="popup-overlay"
-id="confirmPopup">
 
+    <!-- =====================================================
+         DELETE CONFIRM POPUP
+    ====================================================== -->
 
-<div class="confirm-box">
+    <div
+        class="custom-popup-overlay"
+        id="confirmPopup"
+    >
 
 
-<div class="icon warning">
+        <div class="custom-popup">
 
-<i class="fa fa-triangle-exclamation"></i>
 
-</div>
+            <!-- ICON -->
 
+            <div class="popup-icon warning">
 
+                <i class="fa fa-triangle-exclamation"></i>
 
-<h3>
-Confirm Delete
-</h3>
+            </div>
 
 
 
-<p>
-Are you sure you want to delete?
-</p>
+            <!-- TITLE -->
 
+            <h3 id="confirmTitle">
 
+                Confirm Delete
 
+            </h3>
 
-<div>
 
 
-<button
-onclick="closeConfirmPopup()"
-class="cancel-btn">
+            <!-- MESSAGE -->
 
-Cancel
+            <p id="confirmMessage">
 
-</button>
+                Are you sure you want to delete this history?
 
+            </p>
 
 
 
-<button
-onclick="confirmDelete()"
-class="delete-btn">
+            <!-- BUTTONS -->
 
-Delete
+            <div class="custom-popup-buttons">
 
-</button>
 
+                <!-- CANCEL -->
 
+                <button
+                    type="button"
+                    class="popup-cancel-btn"
+                    onclick="closeConfirmPopup()"
+                >
 
-</div>
+                    Cancel
 
+                </button>
 
 
-</div>
 
-</div>
+                <!-- DELETE -->
 
+                <button
+                    type="button"
+                    class="popup-confirm-btn"
+                    onclick="confirmDelete()"
+                >
 
+                    <i class="fa fa-trash"></i>
 
+                    Delete
 
+                </button>
 
 
+            </div>
 
 
+        </div>
 
-<!-- ================= SUCCESS ================= -->
 
+    </div>
 
-<div
-class="popup-overlay"
-id="successPopup">
 
 
-<div class="confirm-box">
+    <!-- =====================================================
+         SUCCESS POPUP
+    ====================================================== -->
 
+    <div
+        class="custom-popup-overlay"
+        id="successPopup"
+    >
 
-<div class="icon success">
 
-<i class="fa fa-check"></i>
+        <div class="custom-popup">
 
-</div>
 
+            <div class="popup-icon success">
 
+                <i class="fa fa-check"></i>
 
-<h3>
-Success
-</h3>
+            </div>
 
 
-<p id="successMessage">
 
-Operation completed successfully.
+            <h3 id="successTitle">
 
-</p>
+                Success
 
+            </h3>
 
 
-<button
-onclick="closeSuccessPopup()"
-class="submit-btn">
 
-OK
+            <p id="successMessage">
 
-</button>
+                Operation completed successfully.
 
+            </p>
 
-</div>
 
 
-</div>
+            <button
+                type="button"
+                class="popup-ok-btn"
+                onclick="closeSuccessPopup()"
+            >
 
+                OK
 
+            </button>
 
 
+        </div>
 
 
+    </div>
 
 
 
-<!-- JS -->
+    <!-- =====================================================
+         ERROR POPUP
+    ====================================================== -->
 
+    <div
+        class="custom-popup-overlay"
+        id="errorPopup"
+    >
 
-<script src="history.js"></script>
+
+        <div class="custom-popup">
+
+
+            <div class="popup-icon error">
+
+                <i class="fa fa-xmark"></i>
+
+            </div>
+
+
+
+            <h3 id="errorTitle">
+
+                Error
+
+            </h3>
+
+
+
+            <p id="errorMessage">
+
+                Something went wrong.
+
+            </p>
+
+
+
+            <button
+                type="button"
+                class="popup-ok-btn error-btn"
+                onclick="closeErrorPopup()"
+            >
+
+                OK
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="history.js"></script>
 
 
 </body>
