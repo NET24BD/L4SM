@@ -1,23 +1,105 @@
 "use strict";
 
 
-// ============================
-// GLOBAL VARIABLE
-// ============================
+// ===============================
+// USER DATA LOAD
+// ===============================
+
+
+window.addEventListener("load",function(){
+
+
+    let name =
+    localStorage.getItem("name");
+
+
+    let username =
+    localStorage.getItem("username");
+
+
+    let role =
+    localStorage.getItem("role");
+
+
+    let photo =
+    localStorage.getItem("photo");
+
+
+
+    if(name){
+
+        document.getElementById("userName").innerText =
+        name;
+
+    }
+    else if(username){
+
+        document.getElementById("userName").innerText =
+        username;
+
+    }
+
+
+
+    if(role){
+
+        document.getElementById("userRole").innerText =
+        role;
+
+    }
+
+
+
+    if(photo){
+
+        document.getElementById("userPhoto").src =
+        photo;
+
+    }
+
+
+
+    createPagination();
+
+    showPage(1);
+
+
+});
+
+
+
+
+
+
+// ===============================
+// GLOBAL
+// ===============================
+
 
 let selectedRow = null;
 
 
+let currentPage = 1;
+
+
+let rowsPerPage = 10;
 
 
 
-// ============================
+
+
+
+
+
+
+// ===============================
 // BACK BUTTON
-// ============================
+// ===============================
+
 
 function goBack(){
 
-    window.history.back();
+    history.back();
 
 }
 
@@ -27,17 +109,19 @@ function goBack(){
 
 
 
-// ============================
-// FILTER SHOW / HIDE
-// ============================
+
+
+// ===============================
+// FILTER SHOW HIDE
+// ===============================
+
 
 function toggleFilter(){
 
-    let filter =
-    document.getElementById("filterBox");
 
-
-    filter.classList.toggle("show");
+    document
+    .getElementById("filterBox")
+    .classList.toggle("show");
 
 
 }
@@ -48,26 +132,33 @@ function toggleFilter(){
 
 
 
-// ============================
-// PROFILE MENU
-// ============================
 
-function toggleProfileMenu(){
+
+// ===============================
+// PROFILE MENU
+// ===============================
+
+
+function toggleProfile(){
 
 
     let menu =
     document.getElementById("profileMenu");
 
 
-    if(menu.style.display === "block"){
+
+    if(menu.style.display==="block"){
+
 
         menu.style.display="none";
 
-    }
 
+    }
     else{
 
+
         menu.style.display="block";
+
 
     }
 
@@ -79,15 +170,16 @@ function toggleProfileMenu(){
 
 
 
-// CLOSE PROFILE OUTSIDE CLICK
 
 document.addEventListener(
 "click",
 function(e){
 
 
+
     let profile =
     document.querySelector(".profile");
+
 
 
     let menu =
@@ -100,7 +192,9 @@ function(e){
         !profile.contains(e.target)
     ){
 
+
         menu.style.display="none";
+
 
     }
 
@@ -114,21 +208,22 @@ function(e){
 
 
 
-// ============================
+
+// ===============================
 // LOGOUT
-// ============================
+// ===============================
 
 
 function logout(){
 
 
-    let confirmLogout =
+    let ok =
     confirm(
-        "Are you sure you want to logout?"
+    "Are you sure you want to logout?"
     );
 
 
-    if(confirmLogout){
+    if(ok){
 
 
         localStorage.clear();
@@ -136,9 +231,7 @@ function logout(){
         sessionStorage.clear();
 
 
-
-        window.location.href =
-        "login.html";
+        location.href="login.html";
 
 
     }
@@ -153,16 +246,18 @@ function logout(){
 
 
 
-// ============================
-// OPEN VIEW POPUP
-// ============================
+
+// ===============================
+// OPEN POPUP
+// ===============================
 
 
-function openModal(button){
+function openModal(btn){
+
 
 
     selectedRow =
-    button.closest("tr");
+    btn.closest("tr");
 
 
 
@@ -172,23 +267,22 @@ function openModal(button){
 
 
     document.getElementById("mCustomer").value =
-    data[0].innerText.trim();
+    data[0].innerText;
 
 
 
     document.getElementById("mProblem").value =
-    data[1].innerText.trim();
+    data[1].innerText;
 
 
 
     document.getElementById("mReference").value =
-    data[2].innerText.trim();
+    data[2].innerText;
 
 
 
     document.getElementById("mDate").value =
-    data[3].innerText.trim();
-
+    data[3].innerText;
 
 
 
@@ -219,6 +313,7 @@ function openModal(button){
     .style.display="flex";
 
 
+
 }
 
 
@@ -227,9 +322,10 @@ function openModal(button){
 
 
 
-// ============================
+
+// ===============================
 // CLOSE POPUP
-// ============================
+// ===============================
 
 
 function closeModal(){
@@ -249,37 +345,11 @@ function closeModal(){
 
 
 
-// CLOSE CLICK OUTSIDE
-
-window.onclick=function(e){
 
 
-    let modal =
-    document.getElementById("viewModal");
-
-
-
-    if(e.target === modal){
-
-
-        closeModal();
-
-
-    }
-
-
-}
-
-
-
-
-
-
-
-
-// ============================
+// ===============================
 // SUBMIT UPDATE
-// ============================
+// ===============================
 
 
 function submitData(){
@@ -315,9 +385,6 @@ function submitData(){
 
 
 
-
-
-
     selectedRow.dataset.support =
     document.getElementById("mSupport").value;
 
@@ -341,7 +408,7 @@ function submitData(){
 
 
     alert(
-        "History Updated Successfully"
+    "Updated Successfully"
     );
 
 
@@ -358,16 +425,17 @@ function submitData(){
 
 
 
-// ============================
-// DELETE TABLE ROW
-// ============================
+
+// ===============================
+// DELETE ROW
+// ===============================
 
 
-function deleteRow(button){
+function deleteRow(btn){
 
 
     let row =
-    button.closest("tr");
+    btn.closest("tr");
 
 
 
@@ -381,6 +449,9 @@ function deleteRow(button){
         row.remove();
 
 
+        createPagination();
+
+
     }
 
 
@@ -391,36 +462,31 @@ function deleteRow(button){
 
 
 
-
-
-// ============================
-// DELETE FROM POPUP
-// ============================
 
 
 function deleteData(){
 
 
-
-    if(!selectedRow){
-
-        return;
-
-    }
+    if(selectedRow){
 
 
-
-    if(
+        if(
         confirm(
         "Delete this history?"
         )
-    ){
+        ){
 
 
-        selectedRow.remove();
+            selectedRow.remove();
 
 
-        closeModal();
+            closeModal();
+
+
+            createPagination();
+
+
+        }
 
 
     }
@@ -435,26 +501,21 @@ function deleteData(){
 
 
 
-// ============================
-// FILTER FUNCTION
-// ============================
+
+// ===============================
+// FILTER
+// ===============================
 
 
 function filterData(){
 
 
-
-    let fromDate =
-    document.getElementById("fromDate")
-    .value;
+    let from =
+    document.getElementById("fromDate").value;
 
 
-
-    let toDate =
-    document.getElementById("toDate")
-    .value;
-
-
+    let to =
+    document.getElementById("toDate").value;
 
 
     let search =
@@ -466,29 +527,29 @@ function filterData(){
 
 
 
-
-
     document
     .querySelectorAll("#historyTable tr")
     .forEach(row=>{
 
 
+
+        let text =
+        row.innerText.toLowerCase();
+
+
+
         let date =
         row.children[3]
-        .innerText;
-
-
-
-        let parts =
-        date.split("-");
+        .innerText
+        .split("-");
 
 
 
         let rowDate =
         new Date(
-            parts[2],
-            parts[1]-1,
-            parts[0]
+        date[2],
+        date[1]-1,
+        date[0]
         );
 
 
@@ -498,73 +559,47 @@ function filterData(){
 
 
 
-
-
-        if(fromDate){
+        if(from){
 
 
             show =
             rowDate >=
-            new Date(fromDate);
+            new Date(from);
 
 
         }
 
 
 
-
-
-
-        if(
-            toDate &&
-            show
-        ){
+        if(to && show){
 
 
             show =
             rowDate <=
-            new Date(toDate);
+            new Date(to);
 
 
         }
 
 
 
-
-
-
-
-        if(
-            search &&
-            show
-        ){
+        if(search && show){
 
 
             show =
-            row.innerText
-            .toLowerCase()
-            .includes(search);
+            text.includes(search);
 
 
         }
-
-
-
-
 
 
 
         row.style.display =
-        show
-        ?
-        ""
-        :
-        "none";
+        show ? "" : "none";
 
 
 
     });
-
 
 
 }
@@ -576,31 +611,16 @@ function filterData(){
 
 
 
-// ============================
-// RESET FILTER
-// ============================
-
-
 function resetFilter(){
 
 
-
-    document.getElementById("fromDate")
-    .value="";
+    document.getElementById("fromDate").value="";
 
 
-
-    document.getElementById("toDate")
-    .value="";
+    document.getElementById("toDate").value="";
 
 
-
-    document.getElementById("search")
-    .value="";
-
-
-
-
+    document.getElementById("search").value="";
 
 
 
@@ -624,9 +644,155 @@ function resetFilter(){
 
 
 
-// ============================
-// ESC CLOSE POPUP
-// ============================
+
+// ===============================
+// PAGINATION
+// ===============================
+
+
+function showPage(page){
+
+
+    let rows =
+    document.querySelectorAll(
+    "#historyTable tr"
+    );
+
+
+
+    let start =
+    (page-1)*rowsPerPage;
+
+
+    let end =
+    start+rowsPerPage;
+
+
+
+
+    rows.forEach((row,index)=>{
+
+
+        if(
+        index>=start &&
+        index<end
+        ){
+
+            row.style.display="";
+
+
+        }
+        else{
+
+
+            row.style.display="none";
+
+
+        }
+
+
+    });
+
+
+
+    currentPage=page;
+
+
+
+    createPagination();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function createPagination(){
+
+
+    let rows =
+    document.querySelectorAll(
+    "#historyTable tr"
+    );
+
+
+
+    let total =
+    Math.ceil(
+    rows.length/rowsPerPage
+    );
+
+
+
+    let box =
+    document.getElementById("pagination");
+
+
+
+    if(!box){
+
+        return;
+
+    }
+
+
+
+    box.innerHTML="";
+
+
+
+
+    for(
+    let i=1;
+    i<=total;
+    i++
+    ){
+
+
+
+        let btn =
+        document.createElement("button");
+
+
+
+        btn.innerText=i;
+
+
+
+        btn.onclick=function(){
+
+            showPage(i);
+
+        };
+
+
+
+        box.appendChild(btn);
+
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+// ===============================
+// ESC CLOSE
+// ===============================
 
 
 document.addEventListener(
