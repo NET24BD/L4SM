@@ -1,536 +1,569 @@
 "use strict";
 
 
-// ================================
-// USER LOAD
-// ================================
+// ============================
+// GLOBAL VARIABLE
+// ============================
 
-function loadUser(){
+let selectedRow = null;
 
-    let user = null;
 
 
-    try{
 
-        user = JSON.parse(
-            localStorage.getItem(
-                "loggedInUser"
-            )
-        );
 
-    }
-    catch(e){
-
-        user = null;
-
-    }
-
-
-
-    if(!user){
-
-        user = {
-
-            username:
-            localStorage.getItem(
-                "username"
-            ) || "User",
-
-
-            name:
-            localStorage.getItem(
-                "name"
-            ) || "User",
-
-
-            picture:
-            localStorage.getItem(
-                "picture"
-            ) || "assets/profile.png"
-
-        };
-
-    }
-
-
-
-    let name =
-    user.name ||
-    user.username ||
-    "User";
-
-
-    let picture =
-    user.profileImage ||
-    user.picture ||
-    "assets/profile.png";
-
-
-
-    const username =
-    document.getElementById(
-        "username"
-    );
-
-
-    const profileImg =
-    document.getElementById(
-        "profileImg"
-    );
-
-
-
-    if(username){
-
-        username.innerHTML =
-        name;
-
-    }
-
-
-
-    if(profileImg){
-
-        profileImg.src =
-        picture;
-
-
-        profileImg.onerror =
-        function(){
-
-            this.src =
-            "assets/profile.png";
-
-        };
-
-    }
-
-
-}
-
-
-
-
-// ================================
-// PROFILE MENU
-// ================================
-
-
-function toggleProfile(){
-
-    document
-    .getElementById(
-        "profileMenu"
-    )
-    .classList.toggle(
-        "show"
-    );
-
-}
-
-
-
-
-// ================================
-// LOGOUT
-// ================================
-
-
-function logout(){
-
-    localStorage.removeItem(
-        "auth"
-    );
-
-    localStorage.removeItem(
-        "isLogin"
-    );
-
-    localStorage.removeItem(
-        "loggedInUser"
-    );
-
-    localStorage.removeItem(
-        "username"
-    );
-
-    localStorage.removeItem(
-        "name"
-    );
-
-    localStorage.removeItem(
-        "picture"
-    );
-
-
-    location.href =
-    "login.html";
-
-}
-
-
-
-
-// ================================
-// BACK
-// ================================
-
+// ============================
+// BACK BUTTON
+// ============================
 
 function goBack(){
 
-    location.href =
-    "dashboard.html";
-
-}
-
-
-
-// ================================
-// HISTORY DATA
-// ================================
-
-
-let historyData = [];
-
-let currentPage = 1;
-
-let perPage = 10;
-
-let editIndex = null;
-
-
-
-// Demo data remove kore
-// Google Sheet API data bosano jabe
-
-
-historyData = [
-
-{
-
-customerId:"ABMB020",
-
-problem:"ONU Problem",
-
-reference:"Shemanto",
-
-date:"2026-08-01",
-
-support:"Shemanto",
-
-supportWork:"ONU Change"
-
-},
-
-
-{
-
-customerId:"ABMB021",
-
-problem:"Internet Slow",
-
-reference:"Rahim",
-
-date:"2026-08-02",
-
-support:"Rahim",
-
-supportWork:"Line Check"
-
-}
-
-];
-
-
-
-let filteredData =
-[...historyData];
-
-
-
-
-// ================================
-// LOAD TABLE
-// ================================
-
-
-function loadTable(){
-
-
-const tbody =
-document.getElementById(
-"historyList"
-);
-
-
-
-tbody.innerHTML="";
-
-
-
-let start =
-(currentPage-1)
-*
-perPage;
-
-
-let end =
-start + perPage;
-
-
-
-let data =
-filteredData.slice(
-start,
-end
-);
-
-
-
-if(data.length===0){
-
-
-tbody.innerHTML=
-
-`
-<tr>
-<td colspan="5">
-No Data Found
-</td>
-</tr>
-
-`;
-
-
-return;
+    window.history.back();
 
 }
 
 
 
 
-data.forEach(
-(item,index)=>{
-
-
-let realIndex =
-historyData.indexOf(
-item
-);
 
 
 
-tbody.innerHTML +=
+// ============================
+// FILTER SHOW / HIDE
+// ============================
+
+function toggleFilter(){
+
+    let filter =
+    document.getElementById("filterBox");
 
 
-`
-
-<tr>
-
-<td>
-${item.customerId}
-</td>
+    filter.classList.toggle("show");
 
 
-<td>
-${item.problem}
-</td>
-
-
-<td>
-${item.reference}
-</td>
-
-
-<td>
-${item.date}
-</td>
+}
 
 
 
-<td>
-
-<button
-class="view-btn"
-onclick="openEdit(${realIndex})">
-
-<i class="fa fa-eye"></i>
-
-View
-
-</button>
 
 
-</td>
 
 
-</tr>
+// ============================
+// PROFILE MENU
+// ============================
 
-`;
+function toggleProfileMenu(){
 
+
+    let menu =
+    document.getElementById("profileMenu");
+
+
+    if(menu.style.display === "block"){
+
+        menu.style.display="none";
+
+    }
+
+    else{
+
+        menu.style.display="block";
+
+    }
+
+
+}
+
+
+
+
+
+
+// CLOSE PROFILE OUTSIDE CLICK
+
+document.addEventListener(
+"click",
+function(e){
+
+
+    let profile =
+    document.querySelector(".profile");
+
+
+    let menu =
+    document.getElementById("profileMenu");
+
+
+
+    if(
+        profile &&
+        !profile.contains(e.target)
+    ){
+
+        menu.style.display="none";
+
+    }
 
 
 });
 
 
-createPagination();
 
+
+
+
+
+
+// ============================
+// LOGOUT
+// ============================
+
+
+function logout(){
+
+
+    let confirmLogout =
+    confirm(
+        "Are you sure you want to logout?"
+    );
+
+
+    if(confirmLogout){
+
+
+        localStorage.clear();
+
+        sessionStorage.clear();
+
+
+
+        window.location.href =
+        "login.html";
+
+
+    }
 
 
 }
 
 
 
-// ================================
-// SEARCH + DATE FILTER
-// ================================
+
+
+
+
+
+// ============================
+// OPEN VIEW POPUP
+// ============================
+
+
+function openModal(button){
+
+
+    selectedRow =
+    button.closest("tr");
+
+
+
+    let data =
+    selectedRow.children;
+
+
+
+    document.getElementById("mCustomer").value =
+    data[0].innerText.trim();
+
+
+
+    document.getElementById("mProblem").value =
+    data[1].innerText.trim();
+
+
+
+    document.getElementById("mReference").value =
+    data[2].innerText.trim();
+
+
+
+    document.getElementById("mDate").value =
+    data[3].innerText.trim();
+
+
+
+
+
+    document.getElementById("mSupport").value =
+    selectedRow.dataset.support || "";
+
+
+
+    document.getElementById("mSupportWork").value =
+    selectedRow.dataset.supportWork || "";
+
+
+
+    document.getElementById("mCall").value =
+    selectedRow.dataset.call || "";
+
+
+
+    document.getElementById("mCallWork").value =
+    selectedRow.dataset.callWork || "";
+
+
+
+
+
+    document.getElementById("viewModal")
+    .style.display="flex";
+
+
+}
+
+
+
+
+
+
+
+// ============================
+// CLOSE POPUP
+// ============================
+
+
+function closeModal(){
+
+
+    document.getElementById("viewModal")
+    .style.display="none";
+
+
+    selectedRow=null;
+
+
+}
+
+
+
+
+
+
+// CLOSE CLICK OUTSIDE
+
+window.onclick=function(e){
+
+
+    let modal =
+    document.getElementById("viewModal");
+
+
+
+    if(e.target === modal){
+
+
+        closeModal();
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+// ============================
+// SUBMIT UPDATE
+// ============================
+
+
+function submitData(){
+
+
+    if(!selectedRow){
+
+        return;
+
+    }
+
+
+
+
+    selectedRow.children[0].innerText =
+    document.getElementById("mCustomer").value;
+
+
+
+    selectedRow.children[1].innerText =
+    document.getElementById("mProblem").value;
+
+
+
+    selectedRow.children[2].innerText =
+    document.getElementById("mReference").value;
+
+
+
+    selectedRow.children[3].innerText =
+    document.getElementById("mDate").value;
+
+
+
+
+
+
+
+    selectedRow.dataset.support =
+    document.getElementById("mSupport").value;
+
+
+
+    selectedRow.dataset.supportWork =
+    document.getElementById("mSupportWork").value;
+
+
+
+    selectedRow.dataset.call =
+    document.getElementById("mCall").value;
+
+
+
+    selectedRow.dataset.callWork =
+    document.getElementById("mCallWork").value;
+
+
+
+
+
+    alert(
+        "History Updated Successfully"
+    );
+
+
+
+    closeModal();
+
+
+}
+
+
+
+
+
+
+
+
+// ============================
+// DELETE TABLE ROW
+// ============================
+
+
+function deleteRow(button){
+
+
+    let row =
+    button.closest("tr");
+
+
+
+    if(
+        confirm(
+        "Delete this history?"
+        )
+    ){
+
+
+        row.remove();
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+// ============================
+// DELETE FROM POPUP
+// ============================
+
+
+function deleteData(){
+
+
+
+    if(!selectedRow){
+
+        return;
+
+    }
+
+
+
+    if(
+        confirm(
+        "Delete this history?"
+        )
+    ){
+
+
+        selectedRow.remove();
+
+
+        closeModal();
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+// ============================
+// FILTER FUNCTION
+// ============================
 
 
 function filterData(){
 
 
-let search =
-document.getElementById(
-"historySearch"
-).value
-.toLowerCase();
 
+    let fromDate =
+    document.getElementById("fromDate")
+    .value;
 
 
-let from =
-document.getElementById(
-"fromDate"
-).value;
 
+    let toDate =
+    document.getElementById("toDate")
+    .value;
 
-let to =
-document.getElementById(
-"toDate"
-).value;
 
 
 
-filteredData =
-historyData.filter(
-item=>{
+    let search =
+    document.getElementById("search")
+    .value
+    .toLowerCase();
 
 
-let text =
 
-item.customerId+
-item.problem+
-item.reference
 
-.toLowerCase();
 
 
 
-let searchOK =
-text.includes(
-search
-);
+    document
+    .querySelectorAll("#historyTable tr")
+    .forEach(row=>{
 
 
+        let date =
+        row.children[3]
+        .innerText;
 
-let dateOK=true;
 
 
+        let parts =
+        date.split("-");
 
-if(from){
 
-dateOK =
-item.date >= from;
 
-}
+        let rowDate =
+        new Date(
+            parts[2],
+            parts[1]-1,
+            parts[0]
+        );
 
 
 
-if(to){
+        let show=true;
 
-dateOK =
-dateOK &&
-item.date <= to;
 
-}
 
 
 
-return (
-searchOK &&
-dateOK
-);
 
+        if(fromDate){
 
 
-});
+            show =
+            rowDate >=
+            new Date(fromDate);
 
 
+        }
 
-currentPage=1;
 
-loadTable();
 
 
-}
 
 
+        if(
+            toDate &&
+            show
+        ){
 
 
-// ================================
-// PAGINATION
-// ================================
+            show =
+            rowDate <=
+            new Date(toDate);
 
 
-function createPagination(){
+        }
 
 
-let box =
-document.getElementById(
-"pagination"
-);
 
 
-if(!box)return;
 
 
-box.innerHTML="";
 
+        if(
+            search &&
+            show
+        ){
 
 
-let pages =
-Math.ceil(
-filteredData.length /
-perPage
-);
+            show =
+            row.innerText
+            .toLowerCase()
+            .includes(search);
 
 
+        }
 
-for(
-let i=1;
-i<=pages;
-i++
-){
 
 
-box.innerHTML +=
 
-`
 
-<button
-onclick="changePage(${i})"
-class="
-${i===currentPage?
-'active-page':''}
-">
 
-${i}
 
-</button>
+        row.style.display =
+        show
+        ?
+        ""
+        :
+        "none";
 
-`;
 
 
-}
+    });
 
 
 
@@ -539,79 +572,47 @@ ${i}
 
 
 
-function changePage(page){
-
-currentPage =
-page;
-
-loadTable();
-
-}
 
 
 
 
-// ================================
-// EDIT POPUP
-// ================================
+// ============================
+// RESET FILTER
+// ============================
 
 
-function openEdit(index){
-
-
-editIndex=index;
-
-
-let item =
-historyData[index];
+function resetFilter(){
 
 
 
-document.getElementById(
-"customerId"
-).value =
-item.customerId;
-
-
-document.getElementById(
-"problem"
-).value =
-item.problem;
-
-
-document.getElementById(
-"reference"
-).value =
-item.reference;
-
-
-document.getElementById(
-"date"
-).value =
-item.date;
-
-
-document.getElementById(
-"support"
-).value =
-item.support;
-
-
-document.getElementById(
-"supportWork"
-).value =
-item.supportWork;
+    document.getElementById("fromDate")
+    .value="";
 
 
 
-document
-.querySelector(
-".popup"
-)
-.classList.add(
-"show"
-);
+    document.getElementById("toDate")
+    .value="";
 
+
+
+    document.getElementById("search")
+    .value="";
+
+
+
+
+
+
+
+    document
+    .querySelectorAll("#historyTable tr")
+    .forEach(row=>{
+
+
+        row.style.display="";
+
+
+    });
 
 
 }
@@ -619,264 +620,27 @@ document
 
 
 
-function closeEdit(){
 
 
-document
-.querySelector(
-".popup"
-)
-.classList.remove(
-"show"
-);
 
 
-}
-
-
-
-
-// ================================
-// UPDATE
-// ================================
-
-
-function updateSupport(){
-
-
-
-historyData[editIndex]={
-
-
-customerId:
-
-document.getElementById(
-"customerId"
-).value,
-
-
-problem:
-
-document.getElementById(
-"problem"
-).value,
-
-
-reference:
-
-document.getElementById(
-"reference"
-).value,
-
-
-date:
-
-document.getElementById(
-"date"
-).value,
-
-
-support:
-
-document.getElementById(
-"support"
-).value,
-
-
-supportWork:
-
-document.getElementById(
-"supportWork"
-).value
-
-
-
-};
-
-
-
-closeEdit();
-
-
-showSuccess(
-"Updated Successfully"
-);
-
-
-filterData();
-
-
-}
-
-
-
-
-// ================================
-// DELETE
-// ================================
-
-
-function deleteSupport(){
-
-
-document
-.querySelector(
-".custom-popup"
-)
-.classList.add(
-"show"
-);
-
-
-}
-
-
-
-
-function confirmDelete(){
-
-
-
-historyData.splice(
-editIndex,
-1
-);
-
-
-closeConfirmPopup();
-
-
-closeEdit();
-
-
-showSuccess(
-"Deleted Successfully"
-);
-
-
-filterData();
-
-
-
-}
-
-
-
-function closeConfirmPopup(){
-
-document
-.querySelector(
-".custom-popup"
-)
-.classList.remove(
-"show"
-);
-
-
-}
-
-
-
-
-// ================================
-// SUCCESS POPUP
-// ================================
-
-
-function showSuccess(msg){
-
-
-let popup =
-document.querySelector(
-".success-popup"
-);
-
-
-
-if(popup){
-
-popup.classList.add(
-"show"
-);
-
-
-document.getElementById(
-"successMessage"
-).innerHTML =
-msg;
-
-
-}
-
-}
-
-
-
-
-function closeSuccessPopup(){
-
-document
-.querySelector(
-".success-popup"
-)
-.classList.remove(
-"show"
-);
-
-
-}
-
-
-
-
-
-// ================================
-// START
-// ================================
+// ============================
+// ESC CLOSE POPUP
+// ============================
 
 
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+"keydown",
+function(e){
 
 
-loadUser();
-
-loadTable();
+    if(e.key==="Escape"){
 
 
-
-document
-.getElementById(
-"historySearch"
-)
-.addEventListener(
-"input",
-filterData
-);
+        closeModal();
 
 
-
-document
-.getElementById(
-"fromDate"
-)
-.addEventListener(
-"change",
-filterData
-);
-
-
-
-document
-.getElementById(
-"toDate"
-)
-.addEventListener(
-"change",
-filterData
-);
-
+    }
 
 
 });
