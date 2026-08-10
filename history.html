@@ -10,585 +10,30 @@
 <title>Support History</title>
 
 
+<link rel="stylesheet" href="history.css">
+
+
 <link 
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-<style>
-
-
-*{
-
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Segoe UI",sans-serif;
-
-}
-
-
-body{
-
-background:#f1f5f9;
-
-color:#334155;
-
-}
-
-
-
-/* =====================
-HEADER
-===================== */
-
-
-header{
-
-height:80px;
-
-background:white;
-
-display:flex;
-
-align-items:center;
-
-gap:20px;
-
-padding:0 30px;
-
-box-shadow:0 3px 10px #0001;
-
-}
-
-
-
-
-.back-btn{
-
-background:#064e3b;
-
-color:white;
-
-border:none;
-
-padding:12px 18px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-font-size:14px;
-
-}
-
-
-
-.back-btn:hover{
-
-background:#10b981;
-
-}
-
-
-
-
-
-.history-title{
-
-flex:1;
-
-font-size:24px;
-
-color:#064e3b;
-
-cursor:pointer;
-
-user-select:none;
-
-}
-
-
-
-.history-title:hover{
-
-color:#10b981;
-
-}
-
-
-
-
-
-
-
-/* =====================
-PROFILE
-===================== */
-
-
-.profile{
-
-position:relative;
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-cursor:pointer;
-
-}
-
-
-
-.profile img{
-
-width:45px;
-
-height:45px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-}
-
-
-
-.profile p{
-
-font-size:12px;
-
-color:#64748b;
-
-}
-
-
-
-
-
-
-
-/* PROFILE MENU */
-
-
-.profile-menu{
-
-display:none;
-
-position:absolute;
-
-right:0;
-
-top:60px;
-
-width:180px;
-
-background:white;
-
-border-radius:12px;
-
-box-shadow:0 5px 20px #0002;
-
-overflow:hidden;
-
-z-index:999;
-
-}
-
-
-
-.profile-menu a,
-.profile-menu button{
-
-width:100%;
-
-padding:13px 15px;
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-background:white;
-
-border:none;
-
-text-decoration:none;
-
-color:#334155;
-
-cursor:pointer;
-
-}
-
-
-
-.profile-menu a:hover,
-.profile-menu button:hover{
-
-background:#f1f5f9;
-
-}
-
-
-
-.profile-menu button{
-
-color:#dc2626;
-
-}
-
-
-
-
-
-/* =====================
-MAIN CONTENT
-===================== */
-
-
-.container{
-
-padding:30px;
-
-}
-
-
-
-.card{
-
-background:white;
-
-padding:25px;
-
-border-radius:18px;
-
-box-shadow:0 5px 20px #0001;
-
-}
-
-
-
-
-
-
-/* =====================
-FILTER
-===================== */
-
-
-.filter-box{
-
-display:none;
-
-gap:15px;
-
-align-items:end;
-
-margin-bottom:25px;
-
-}
-
-
-
-.filter-box.show{
-
-display:flex;
-
-}
-
-
-
-.filter-item{
-
-display:flex;
-
-flex-direction:column;
-
-gap:7px;
-
-}
-
-
-
-.filter-item label{
-
-font-size:13px;
-
-color:#64748b;
-
-}
-
-
-
-.filter-item input{
-
-padding:11px;
-
-border:1px solid #ddd;
-
-border-radius:8px;
-
-outline:none;
-
-}
-
-
-
-.search-box{
-
-flex:1;
-
-}
-
-
-
-.search-box input{
-
-width:100%;
-
-}
-
-
-
-
-
-.filter-btn{
-
-display:flex;
-
-gap:10px;
-
-}
-
-
-
-.filter-btn button{
-
-padding:11px 18px;
-
-border:none;
-
-border-radius:8px;
-
-background:#064e3b;
-
-color:white;
-
-cursor:pointer;
-
-}
-
-
-
-.filter-btn .reset{
-
-background:#64748b;
-
-}
-
-
-
-
-
-
-/* =====================
-TABLE
-===================== */
-
-
-.table-box{
-
-overflow-x:auto;
-
-}
-
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-
-
-thead{
-
-background:#064e3b;
-
-color:white;
-
-}
-
-
-
-th{
-
-padding:15px;
-
-text-align:left;
-
-}
-
-
-
-td{
-
-padding:14px;
-
-border-bottom:1px solid #eee;
-
-}
-
-
-
-tr:hover{
-
-background:#f8fafc;
-
-}
-
-
-
-
-
-/* ACTION */
-
-
-.action button{
-
-border:none;
-
-padding:8px 12px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-margin-right:5px;
-
-}
-
-
-
-.view{
-
-background:#dbeafe;
-
-color:#1d4ed8;
-
-}
-
-
-
-.delete{
-
-background:#fee2e2;
-
-color:#dc2626;
-
-}
-
-
-
-
-
-/* MOBILE */
-
-
-@media(max-width:768px){
-
-
-header{
-
-padding:0 15px;
-
-}
-
-
-
-.history-title{
-
-font-size:18px;
-
-}
-
-
-
-.profile div{
-
-display:none;
-
-}
-
-
-
-.container{
-
-padding:15px;
-
-}
-
-
-
-.filter-box.show{
-
-flex-direction:column;
-
-align-items:stretch;
-
-}
-
-
-
-.filter-btn{
-
-display:flex;
-
-}
-
-
-
-.filter-btn button{
-
-flex:1;
-
-}
-
-
-
-}
-
-
-
-</style>
-
-
 </head>
-
 
 
 <body>
 
 
 
+<!-- ================= HEADER ================= -->
+
+
 <header>
 
 
-<button class="back-btn" onclick="goBack()">
+<button 
+class="back-btn"
+onclick="goBack()">
 
 <i class="fa fa-arrow-left"></i>
 
@@ -600,11 +45,15 @@ Back
 
 
 
-<h2 class="history-title" onclick="toggleFilter()">
+<h2 
+class="history-title"
+onclick="toggleFilter()">
+
 
 <i class="fa fa-history"></i>
 
 Support History
+
 
 </h2>
 
@@ -613,14 +62,22 @@ Support History
 
 
 
-<div class="profile" onclick="toggleProfileMenu()">
+<!-- PROFILE -->
+
+
+<div 
+class="profile"
+onclick="toggleProfileMenu()">
 
 
 
-<img src="https://i.pravatar.cc/100">
+<img 
+src="https://i.pravatar.cc/100"
+alt="Profile">
 
 
-<div>
+
+<div class="profile-info">
 
 <h4>Admin</h4>
 
@@ -630,7 +87,13 @@ Support History
 
 
 
-<div class="profile-menu" id="profileMenu">
+
+
+
+<div 
+class="profile-menu"
+id="profileMenu">
+
 
 
 <a href="my-account.html">
@@ -643,6 +106,7 @@ My Account
 
 
 
+
 <button onclick="logout()">
 
 <i class="fa fa-sign-out"></i>
@@ -652,7 +116,9 @@ Logout
 </button>
 
 
+
 </div>
+
 
 
 
@@ -661,9 +127,16 @@ Logout
 
 
 </header>
-<!-- =========================
-MAIN CONTENT
-========================= -->
+
+
+
+
+
+
+
+
+
+<!-- ================= MAIN ================= -->
 
 
 <div class="container">
@@ -673,10 +146,18 @@ MAIN CONTENT
 
 
 
-<!-- FILTER BOX -->
 
 
-<div class="filter-box" id="filterBox">
+
+
+<!-- FILTER -->
+
+
+<div 
+class="filter-box"
+id="filterBox">
+
+
 
 
 
@@ -692,11 +173,13 @@ From Date
 
 <input 
 type="date"
-id="fromDate"
->
+id="fromDate">
 
 
 </div>
+
+
+
 
 
 
@@ -713,11 +196,12 @@ To Date
 
 <input 
 type="date"
-id="toDate"
->
+id="toDate">
 
 
 </div>
+
+
 
 
 
@@ -736,11 +220,11 @@ Search
 <input 
 type="text"
 id="search"
-placeholder="Customer ID / Problem / Reference"
->
+placeholder="Customer ID / Problem / Reference">
 
 
 </div>
+
 
 
 
@@ -755,7 +239,6 @@ placeholder="Customer ID / Problem / Reference"
 
 <i class="fa fa-filter"></i>
 
-
 Filter
 
 
@@ -765,14 +248,14 @@ Filter
 
 
 
+
 <button 
 class="reset"
-onclick="resetFilter()"
->
+onclick="resetFilter()">
+
 
 
 <i class="fa fa-refresh"></i>
-
 
 Reset
 
@@ -781,19 +264,23 @@ Reset
 
 
 
-</div>
-
-
 
 </div>
 
 
 
 
+</div>
 
 
 
-<!-- HISTORY TABLE -->
+
+
+
+
+
+
+<!-- TABLE -->
 
 
 <div class="table-box">
@@ -815,13 +302,11 @@ Customer ID
 </th>
 
 
-
 <th>
 
 Problem
 
 </th>
-
 
 
 <th>
@@ -831,7 +316,6 @@ Reference
 </th>
 
 
-
 <th>
 
 Date
@@ -839,13 +323,11 @@ Date
 </th>
 
 
-
 <th>
 
 Action
 
 </th>
-
 
 
 </tr>
@@ -857,8 +339,10 @@ Action
 
 
 
-
 <tbody id="historyTable">
+
+
+
 
 
 
@@ -866,11 +350,12 @@ Action
 
 data-support="Support Team"
 
-data-support-work="Internet checked"
+data-support-work="Internet Checked"
 
 data-call="Call Team"
 
-data-call-work="Customer confirmed"
+data-call-work="Customer Confirmed"
+
 
 >
 
@@ -891,11 +376,13 @@ Internet Problem
 
 
 
+
 <td>
 
 Router Issue
 
 </td>
+
 
 
 
@@ -908,21 +395,18 @@ Router Issue
 
 
 
+
+
 <td class="action">
 
 
-
 <button
-
 class="view"
+onclick="openModal(this)">
 
-onclick="openModal(this)"
-
->
 
 
 <i class="fa fa-eye"></i>
-
 
 View
 
@@ -933,17 +417,15 @@ View
 
 
 
+
+
 <button
-
 class="delete"
+onclick="deleteRow(this)">
 
-onclick="deleteRow(this)"
-
->
 
 
 <i class="fa fa-trash"></i>
-
 
 Delete
 
@@ -953,10 +435,14 @@ Delete
 
 
 
+
 </td>
 
 
+
 </tr>
+
+
 
 
 
@@ -968,13 +454,15 @@ Delete
 
 data-support="Support Team"
 
-data-support-work="Line checked"
+data-support-work="Line Checked"
 
 data-call="Call Team"
 
-data-call-work="Customer contacted"
+data-call-work="Customer Called"
+
 
 >
+
 
 
 <td>
@@ -1010,21 +498,18 @@ Line Issue
 
 
 
+
 <td class="action">
 
 
 
 <button
-
 class="view"
+onclick="openModal(this)">
 
-onclick="openModal(this)"
-
->
 
 
 <i class="fa fa-eye"></i>
-
 
 View
 
@@ -1035,17 +520,15 @@ View
 
 
 
+
+
 <button
-
 class="delete"
+onclick="deleteRow(this)">
 
-onclick="deleteRow(this)"
-
->
 
 
 <i class="fa fa-trash"></i>
-
 
 Delete
 
@@ -1054,8 +537,9 @@ Delete
 
 
 
-
 </td>
+
+
 
 
 </tr>
@@ -1064,22 +548,14 @@ Delete
 
 
 
-</tbody>
 
+
+</tbody>
 
 
 </table>
 
 
-
-</div>
-
-
-
-
-</div>
-
-
 </div>
 
 
@@ -1087,23 +563,33 @@ Delete
 
 
 
+</div>
+
+
+</div>
 
 
 
-<!-- =========================
-VIEW POPUP
-========================= -->
+
+
+
+
+
+
+<!-- ================= VIEW POPUP ================= -->
 
 
 
 <div 
 class="modal"
-id="viewModal"
->
+id="viewModal">
+
+
 
 
 
 <div class="modal-box">
+
 
 
 
@@ -1118,18 +604,16 @@ id="viewModal"
 
 History Details
 
+
 </h3>
 
 
 
 
-<button
-
+<button 
 class="close-btn"
+onclick="closeModal()">
 
-onclick="closeModal()"
-
->
 
 
 <i class="fa fa-times"></i>
@@ -1165,11 +649,11 @@ Customer ID
 
 <input 
 id="mCustomer"
-type="text"
->
+type="text">
 
 
 </div>
+
 
 
 
@@ -1188,8 +672,7 @@ Date
 
 <input 
 id="mDate"
-type="text"
->
+type="text">
 
 
 </div>
@@ -1212,8 +695,7 @@ Problem
 
 <input 
 id="mProblem"
-type="text"
->
+type="text">
 
 
 </div>
@@ -1236,8 +718,7 @@ Reference
 
 <input 
 id="mReference"
-type="text"
->
+type="text">
 
 
 </div>
@@ -1260,8 +741,7 @@ Support
 
 <input 
 id="mSupport"
-type="text"
->
+type="text">
 
 
 </div>
@@ -1284,8 +764,7 @@ Support Work
 
 <input 
 id="mSupportWork"
-type="text"
->
+type="text">
 
 
 </div>
@@ -1308,8 +787,7 @@ Call
 
 <input 
 id="mCall"
-type="text"
->
+type="text">
 
 
 </div>
@@ -1332,8 +810,7 @@ Call Work
 
 <input 
 id="mCallWork"
-type="text"
->
+type="text">
 
 
 </div>
@@ -1359,16 +836,12 @@ type="text"
 
 
 <button
-
 class="submit-btn"
+onclick="submitData()">
 
-onclick="submitData()"
-
->
 
 
 <i class="fa fa-check"></i>
-
 
 Submit
 
@@ -1382,16 +855,12 @@ Submit
 
 
 <button
-
 class="cancel-btn"
+onclick="closeModal()">
 
-onclick="closeModal()"
-
->
 
 
 <i class="fa fa-times"></i>
-
 
 Cancel
 
@@ -1405,16 +874,12 @@ Cancel
 
 
 <button
-
 class="delete-btn"
+onclick="deleteData()">
 
-onclick="deleteData()"
-
->
 
 
 <i class="fa fa-trash"></i>
-
 
 Delete
 
@@ -1424,6 +889,15 @@ Delete
 
 
 
+</div>
+
+
+
+
+
+
+</div>
+
 
 </div>
 
@@ -1431,560 +905,14 @@ Delete
 
 
 
-</div>
 
 
 
-</div>
-<script>
 
 
-"use strict";
+<script src="history.js"></script>
 
 
+</body>
 
-let selectedRow = null;
-
-
-
-// =====================
-// BACK BUTTON
-// =====================
-
-function goBack(){
-
-    window.history.back();
-
-}
-
-
-
-
-
-// =====================
-// FILTER SHOW / HIDE
-// =====================
-
-function toggleFilter(){
-
-    document
-    .getElementById("filterBox")
-    .classList.toggle("show");
-
-}
-
-
-
-
-
-// =====================
-// PROFILE MENU
-// =====================
-
-
-function toggleProfileMenu(){
-
-
-let menu =
-document.getElementById("profileMenu");
-
-
-
-menu.style.display =
-menu.style.display==="block"
-?
-"none"
-:
-"block";
-
-
-}
-
-
-
-
-
-document.addEventListener(
-"click",
-function(e){
-
-
-let profile =
-document.querySelector(".profile");
-
-
-let menu =
-document.getElementById("profileMenu");
-
-
-
-if(
-profile &&
-!profile.contains(e.target)
-){
-
-menu.style.display="none";
-
-
-}
-
-
-});
-
-
-
-
-
-
-
-// =====================
-// LOGOUT
-// =====================
-
-
-function logout(){
-
-
-let confirmLogout =
-confirm(
-"Are you sure you want to logout?"
-);
-
-
-
-if(confirmLogout){
-
-
-localStorage.clear();
-
-sessionStorage.clear();
-
-
-
-window.location.href="login.html";
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-// =====================
-// OPEN VIEW POPUP
-// =====================
-
-
-function openModal(btn){
-
-
-selectedRow =
-btn.closest("tr");
-
-
-
-let data =
-selectedRow.children;
-
-
-
-
-document.getElementById("mCustomer").value =
-data[0].innerText;
-
-
-
-document.getElementById("mProblem").value =
-data[1].innerText;
-
-
-
-document.getElementById("mReference").value =
-data[2].innerText;
-
-
-
-document.getElementById("mDate").value =
-data[3].innerText;
-
-
-
-
-
-
-document.getElementById("mSupport").value =
-selectedRow.dataset.support;
-
-
-
-document.getElementById("mSupportWork").value =
-selectedRow.dataset.supportWork;
-
-
-
-document.getElementById("mCall").value =
-selectedRow.dataset.call;
-
-
-
-document.getElementById("mCallWork").value =
-selectedRow.dataset.callWork;
-
-
-
-
-
-
-document.getElementById("viewModal")
-.style.display="flex";
-
-
-
-}
-
-
-
-
-
-
-
-
-// =====================
-// CLOSE POPUP
-// =====================
-
-
-function closeModal(){
-
-
-document
-.getElementById("viewModal")
-.style.display="none";
-
-
-selectedRow=null;
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================
-// SUBMIT UPDATE
-// =====================
-
-
-function submitData(){
-
-
-
-if(!selectedRow)
-return;
-
-
-
-
-selectedRow.children[0].innerText =
-document.getElementById("mCustomer").value;
-
-
-
-selectedRow.children[1].innerText =
-document.getElementById("mProblem").value;
-
-
-
-selectedRow.children[2].innerText =
-document.getElementById("mReference").value;
-
-
-
-selectedRow.children[3].innerText =
-document.getElementById("mDate").value;
-
-
-
-
-
-
-selectedRow.dataset.support =
-document.getElementById("mSupport").value;
-
-
-
-selectedRow.dataset.supportWork =
-document.getElementById("mSupportWork").value;
-
-
-
-selectedRow.dataset.call =
-document.getElementById("mCall").value;
-
-
-
-selectedRow.dataset.callWork =
-document.getElementById("mCallWork").value;
-
-
-
-
-alert(
-"History Updated Successfully"
-);
-
-
-
-closeModal();
-
-
-}
-
-
-
-
-
-
-
-
-// =====================
-// DELETE ROW
-// =====================
-
-
-function deleteRow(btn){
-
-
-let row =
-btn.closest("tr");
-
-
-
-if(
-confirm("Delete this history?")
-){
-
-
-row.remove();
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-// DELETE FROM POPUP
-
-
-function deleteData(){
-
-
-if(selectedRow){
-
-
-if(
-confirm("Delete this history?")
-){
-
-
-selectedRow.remove();
-
-closeModal();
-
-
-}
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================
-// FILTER FUNCTION
-// =====================
-
-
-function filterData(){
-
-
-let from =
-document.getElementById("fromDate").value;
-
-
-
-let to =
-document.getElementById("toDate").value;
-
-
-
-
-let search =
-document.getElementById("search")
-.value
-.toLowerCase();
-
-
-
-
-
-document
-.querySelectorAll("#historyTable tr")
-.forEach(row=>{
-
-
-
-let date =
-row.children[3]
-.innerText;
-
-
-
-let rowDate =
-new Date(
-date.split("-").reverse().join("-")
-);
-
-
-
-let show=true;
-
-
-
-
-
-if(from){
-
-
-show =
-rowDate >=
-new Date(from);
-
-
-}
-
-
-
-
-
-if(to && show){
-
-
-show =
-rowDate <=
-new Date(to);
-
-
-}
-
-
-
-
-
-
-if(search && show){
-
-
-show =
-row.innerText
-.toLowerCase()
-.includes(search);
-
-
-
-}
-
-
-
-
-
-
-row.style.display =
-show
-?
-""
-:
-"none";
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================
-// RESET FILTER
-// =====================
-
-
-function resetFilter(){
-
-
-
-document.getElementById("fromDate").value="";
-
-
-document.getElementById("toDate").value="";
-
-
-document.getElementById("search").value="";
-
-
-
-
-
-document
-.querySelectorAll("#historyTable tr")
-.forEach(row=>{
-
-
-row.style.display="";
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-</script>
+</html>
