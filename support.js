@@ -4,8 +4,9 @@
 
 "use strict";
 
+
 // =====================================================
-// API CONFIG
+// API
 // =====================================================
 
 const API_URL =
@@ -13,16 +14,18 @@ const API_URL =
 
 
 // =====================================================
-// GLOBAL VARIABLES
+// GLOBAL
 // =====================================================
 
 let currentRow = null;
+
 let supportData = [];
+
 let confirmCallback = null;
 
 
 // =====================================================
-// PAGE AUTH PROTECTION
+// AUTH
 // =====================================================
 
 (function () {
@@ -50,7 +53,6 @@ let confirmCallback = null;
     }
 
 
-    // Browser back protection
     history.pushState(
         null,
         "",
@@ -76,7 +78,6 @@ let confirmCallback = null;
     );
 
 
-    // BFCache protection
     window.addEventListener(
         "pageshow",
         function (event) {
@@ -86,7 +87,9 @@ let confirmCallback = null;
             }
 
             if (event.persisted) {
+
                 window.location.reload();
+
             }
 
         }
@@ -96,14 +99,14 @@ let confirmCallback = null;
 
 
 // =====================================================
-// INITIALIZE
+// START
 // =====================================================
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-        initializePopupIds();
+        setupPopupIds();
 
         loadProfile();
 
@@ -111,85 +114,71 @@ document.addEventListener(
 
         setupSearch();
 
-        setupOutsideClicks();
+        setupOutsideClick();
 
-        setupEscapeKey();
+        setupEscape();
 
     }
 );
 
 
 // =====================================================
-// CREATE/ASSIGN POPUP IDS
-// IMPORTANT
+// POPUP IDS
 // =====================================================
 
-function initializePopupIds() {
+function setupPopupIds() {
 
-    // -----------------------------------------
-    // EDIT MODAL
-    // -----------------------------------------
-
-    const editPopup =
+    const edit =
         document.querySelector(
             ".popup"
         );
 
+
     if (
-        editPopup &&
-        !editPopup.id
+        edit &&
+        !edit.id
     ) {
 
-        editPopup.id =
+        edit.id =
             "editModal";
 
     }
 
 
-    // -----------------------------------------
-    // CUSTOM POPUPS
-    // -----------------------------------------
-
-    const customPopups =
+    const popups =
         document.querySelectorAll(
             ".custom-popup"
         );
 
 
     if (
-        customPopups.length >= 1 &&
-        !document.getElementById(
-            "confirmPopup"
-        )
+        popups[0] &&
+        !popups[0].id
     ) {
 
-        customPopups[0].id =
+        popups[0].id =
             "confirmPopup";
 
     }
 
 
     if (
-        customPopups.length >= 2 &&
-        !document.getElementById(
-            "successPopup"
-        )
+        popups[1] &&
+        !popups[1].id
     ) {
 
-        customPopups[1].id =
+        popups[1].id =
             "successPopup";
 
     }
 
 
     if (
-        customPopups.length >= 3 &&
-        !document.getElementById(
-            "errorPopup"
-        )
+        popups[2] &&
+        !popups[2].id
     ) {
 
-        customPopups[2].id =
+        popups[2].id =
             "errorPopup";
 
     }
@@ -221,21 +210,21 @@ function loadProfile() {
         );
 
 
-    const usernameElement =
+    const user =
         document.getElementById(
             "username"
         );
 
 
-    const profileImg =
+    const image =
         document.getElementById(
             "profileImg"
         );
 
 
-    if (usernameElement) {
+    if (user) {
 
-        usernameElement.textContent =
+        user.textContent =
             username ||
             name ||
             "User";
@@ -244,20 +233,20 @@ function loadProfile() {
 
 
     if (
-        profileImg &&
+        image &&
         picture &&
         picture.trim() !== ""
     ) {
 
-        profileImg.src =
+        image.src =
             picture;
 
     }
 
 
-    if (profileImg) {
+    if (image) {
 
-        profileImg.onerror =
+        image.onerror =
             function () {
 
                 this.onerror = null;
@@ -273,7 +262,7 @@ function loadProfile() {
 
 
 // =====================================================
-// PROFILE MENU
+// PROFILE TOGGLE
 // =====================================================
 
 function toggleProfile() {
@@ -315,12 +304,19 @@ function myAccount() {
 function logout() {
 
     localStorage.removeItem("auth");
+
     localStorage.removeItem("isLogin");
+
     localStorage.removeItem("username");
+
     localStorage.removeItem("name");
+
     localStorage.removeItem("picture");
+
     localStorage.removeItem("role");
+
     localStorage.removeItem("lastActivity");
+
 
     window.location.replace(
         "login.html"
@@ -343,7 +339,7 @@ function goBack() {
 
 
 // =====================================================
-// SEARCH SETUP
+// SEARCH
 // =====================================================
 
 function setupSearch() {
@@ -367,8 +363,115 @@ function setupSearch() {
 }
 
 
+function searchSupport() {
+
+    const search =
+        document.getElementById(
+            "supportSearch"
+        );
+
+
+    if (!search) {
+        return;
+    }
+
+
+    const keyword =
+        search.value
+            .trim()
+            .toLowerCase();
+
+
+    if (!keyword) {
+
+        renderSupport(
+            supportData
+        );
+
+        return;
+
+    }
+
+
+    const result =
+        supportData.filter(
+            function (item) {
+
+                const customerId =
+                    String(
+                        item.customerId || ""
+                    ).toLowerCase();
+
+
+                const problem =
+                    String(
+                        item.problem || ""
+                    ).toLowerCase();
+
+
+                const reference =
+                    String(
+                        item.reference || ""
+                    ).toLowerCase();
+
+
+                const date =
+                    String(
+                        item.date || ""
+                    ).toLowerCase();
+
+
+                const formattedDate =
+                    formatDate(
+                        item.date
+                    ).toLowerCase();
+
+
+                return (
+
+                    customerId.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    problem.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    reference.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    date.includes(
+                        keyword
+                    )
+
+                    ||
+
+                    formattedDate.includes(
+                        keyword
+                    )
+
+                );
+
+            }
+        );
+
+
+    renderSupport(
+        result
+    );
+
+}
+
+
 // =====================================================
-// LOAD SUPPORT
+// LOAD DATA
 // =====================================================
 
 function loadSupport() {
@@ -446,7 +549,7 @@ function loadSupport() {
         data => {
 
             console.log(
-                "SUPPORT DATA:",
+                "SUPPORT RESPONSE:",
                 data
             );
 
@@ -483,7 +586,7 @@ function loadSupport() {
         error => {
 
             console.error(
-                "LOAD SUPPORT ERROR:",
+                "LOAD ERROR:",
                 error
             );
 
@@ -499,7 +602,8 @@ function loadSupport() {
                             style="
                                 text-align:center;
                                 padding:40px;
-                                color:#ef4444;
+                                color:#dc2626;
+                                font-weight:600;
                             "
                         >
 
@@ -522,7 +626,7 @@ function loadSupport() {
 
 
 // =====================================================
-// RENDER SUPPORT
+// RENDER
 // =====================================================
 
 function renderSupport(data) {
@@ -539,7 +643,7 @@ function renderSupport(data) {
 
 
     if (
-        !data ||
+        !Array.isArray(data) ||
         data.length === 0
     ) {
 
@@ -636,160 +740,7 @@ function renderSupport(data) {
 
 
 // =====================================================
-// SEARCH
-// =====================================================
-
-function searchSupport() {
-
-    const input =
-        document.getElementById(
-            "supportSearch"
-        );
-
-
-    if (!input) {
-        return;
-    }
-
-
-    const keyword =
-        input.value
-            .trim()
-            .toLowerCase();
-
-
-    if (!keyword) {
-
-        renderSupport(
-            supportData
-        );
-
-        return;
-
-    }
-
-
-    const result =
-        supportData.filter(
-            function (item) {
-
-                const customerId =
-                    String(
-                        item.customerId || ""
-                    ).toLowerCase();
-
-
-                const problem =
-                    String(
-                        item.problem || ""
-                    ).toLowerCase();
-
-
-                const reference =
-                    String(
-                        item.reference || ""
-                    ).toLowerCase();
-
-
-                const date =
-                    String(
-                        item.date || ""
-                    ).toLowerCase();
-
-
-                const formattedDate =
-                    formatDate(
-                        item.date
-                    ).toLowerCase();
-
-
-                return (
-
-                    customerId.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    problem.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    reference.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    date.includes(
-                        keyword
-                    )
-
-                    ||
-
-                    formattedDate.includes(
-                        keyword
-                    )
-
-                );
-
-            }
-        );
-
-
-    if (
-        result.length === 0
-    ) {
-
-        const list =
-            document.getElementById(
-                "supportList"
-            );
-
-
-        if (list) {
-
-            list.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="5"
-                        style="
-                            text-align:center;
-                            padding:40px;
-                            color:#64748b;
-                        "
-                    >
-
-                        <i class="fa fa-search"></i>
-
-                        No matching support found
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }
-
-        return;
-
-    }
-
-
-    renderSupport(
-        result
-    );
-
-}
-
-
-// =====================================================
-// EDIT SUPPORT
+// EDIT
 // =====================================================
 
 function editSupport(row) {
@@ -800,10 +751,10 @@ function editSupport(row) {
 
     const item =
         supportData.find(
-            function (support) {
+            function (record) {
 
                 return Number(
-                    support.row
+                    record.row
                 ) === currentRow;
 
             }
@@ -817,8 +768,7 @@ function editSupport(row) {
             "Error"
         );
 
-        currentRow =
-            null;
+        currentRow = null;
 
         return;
 
@@ -885,7 +835,7 @@ function editSupport(row) {
 
 
 // =====================================================
-// SET VALUE
+// SET / GET
 // =====================================================
 
 function setValue(
@@ -910,10 +860,6 @@ function setValue(
 
 }
 
-
-// =====================================================
-// GET VALUE
-// =====================================================
 
 function getValue(id) {
 
@@ -966,7 +912,7 @@ function closeEdit() {
 
 
 // =====================================================
-// UPDATE / SUBMIT SUPPORT
+// SUBMIT
 // =====================================================
 
 function updateSupport() {
@@ -1036,7 +982,7 @@ function updateSupport() {
     }
 
 
-    const rowToMove =
+    const row =
         Number(currentRow);
 
 
@@ -1059,7 +1005,7 @@ function updateSupport() {
                     "moveToCall",
 
                 row:
-                    rowToMove,
+                    row,
 
                 customerId:
                     getValue(
@@ -1111,12 +1057,6 @@ function updateSupport() {
     .then(
         data => {
 
-            console.log(
-                "MOVE TO CALL:",
-                data
-            );
-
-
             if (
                 !data ||
                 data.success !== true
@@ -1136,7 +1076,7 @@ function updateSupport() {
 
                         return Number(
                             item.row
-                        ) !== rowToMove;
+                        ) !== row;
 
                     }
                 );
@@ -1196,7 +1136,7 @@ function updateSupport() {
 
 
 // =====================================================
-// DELETE SUPPORT
+// DELETE
 // =====================================================
 
 function deleteSupport() {
@@ -1231,7 +1171,7 @@ function deleteSupport() {
 
 
 // =====================================================
-// PERFORM DELETE
+// ACTUAL DELETE
 // =====================================================
 
 function performDeleteSupport() {
@@ -1318,7 +1258,7 @@ function performDeleteSupport() {
         data => {
 
             console.log(
-                "DELETE RESPONSE:",
+                "DELETE:",
                 data
             );
 
@@ -1336,7 +1276,6 @@ function performDeleteSupport() {
             }
 
 
-            // Remove local record
             supportData =
                 supportData.filter(
                     function (item) {
@@ -1349,17 +1288,13 @@ function performDeleteSupport() {
                 );
 
 
-            // Refresh table
             renderSupport(
                 supportData
             );
 
 
-            // Close confirm
             closeConfirmPopup();
 
-
-            // Close edit
             closeEdit();
 
 
@@ -1367,7 +1302,6 @@ function performDeleteSupport() {
                 null;
 
 
-            // Success
             showSuccessPopup(
                 "Support deleted successfully.",
                 "Deleted Successfully"
@@ -1429,31 +1363,11 @@ function showConfirmPopup(
         );
 
 
-    const titleElement =
-        document.getElementById(
-            "confirmTitle"
-        );
-
-
-    const messageElement =
-        document.getElementById(
-            "confirmMessage"
-        );
-
-
-    const button =
-        document.getElementById(
-            "confirmActionBtn"
-        );
-
-
     if (!popup) {
 
-        // Fallback
         if (
-            confirm(
-                message ||
-                "Are you sure?"
+            window.confirm(
+                message
             )
         ) {
 
@@ -1473,11 +1387,29 @@ function showConfirmPopup(
     }
 
 
+    const titleElement =
+        document.getElementById(
+            "confirmTitle"
+        );
+
+
+    const messageElement =
+        document.getElementById(
+            "confirmMessage"
+        );
+
+
+    const button =
+        document.getElementById(
+            "confirmActionBtn"
+        );
+
+
     if (titleElement) {
 
         titleElement.textContent =
             title ||
-            "Confirm";
+            "Confirm Delete";
 
     }
 
@@ -1499,7 +1431,6 @@ function showConfirmPopup(
 
         button.disabled =
             false;
-
 
         button.innerHTML =
             '<i class="fa fa-trash"></i> Delete';
@@ -1534,7 +1465,7 @@ function showConfirmPopup(
 
 
 // =====================================================
-// CLOSE CONFIRM POPUP
+// CLOSE CONFIRM
 // =====================================================
 
 function closeConfirmPopup() {
@@ -1566,7 +1497,7 @@ function closeConfirmPopup() {
 
 
 // =====================================================
-// SUCCESS POPUP
+// SUCCESS
 // =====================================================
 
 function showSuccessPopup(
@@ -1619,7 +1550,6 @@ function showSuccessPopup(
         "show"
     );
 
-
     document.body.classList.add(
         "modal-open"
     );
@@ -1656,7 +1586,7 @@ function closeSuccessPopup() {
 
 
 // =====================================================
-// ERROR POPUP
+// ERROR
 // =====================================================
 
 function showErrorPopup(
@@ -1716,7 +1646,6 @@ function showErrorPopup(
         "show"
     );
 
-
     document.body.classList.add(
         "modal-open"
     );
@@ -1753,7 +1682,7 @@ function closeErrorPopup() {
 
 
 // =====================================================
-// DATE → INPUT
+// DATE INPUT
 // =====================================================
 
 function convertDate(date) {
@@ -1767,7 +1696,6 @@ function convertDate(date) {
         String(date).trim();
 
 
-    // Already YYYY-MM-DD
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(
             text
@@ -1779,21 +1707,20 @@ function convertDate(date) {
     }
 
 
-    // DD/MM/YYYY
-    let match =
+    const slash =
         text.match(
             /^(\d{2})\/(\d{2})\/(\d{4})$/
         );
 
 
-    if (match) {
+    if (slash) {
 
         return (
-            match[3] +
+            slash[3] +
             "-" +
-            match[2] +
+            slash[2] +
             "-" +
-            match[1]
+            slash[1]
         );
 
     }
@@ -1817,18 +1744,14 @@ function convertDate(date) {
     return (
 
         d.getFullYear() +
-
         "-" +
-
         String(
             d.getMonth() + 1
         ).padStart(
             2,
             "0"
         ) +
-
         "-" +
-
         String(
             d.getDate()
         ).padStart(
@@ -1856,8 +1779,7 @@ function formatDate(date) {
         String(date).trim();
 
 
-    // YYYY-MM-DD
-    let match =
+    const match =
         text.match(
             /^(\d{4})-(\d{2})-(\d{2})$/
         );
@@ -1884,7 +1806,6 @@ function formatDate(date) {
 
 
         return (
-
             match[3] +
             " " +
             months[
@@ -1892,7 +1813,6 @@ function formatDate(date) {
             ] +
             " " +
             match[1]
-
         );
 
     }
@@ -1932,32 +1852,18 @@ function formatDate(date) {
 
 
     return (
-
         String(
             d.getDate()
         ).padStart(
             2,
             "0"
-        )
-
-        +
-
-        " "
-
-        +
-
+        ) +
+        " " +
         months[
             d.getMonth()
-        ]
-
-        +
-
-        " "
-
-        +
-
+        ] +
+        " " +
         d.getFullYear()
-
     );
 
 }
@@ -2013,23 +1919,20 @@ function escapeHTML(value) {
 // OUTSIDE CLICK
 // =====================================================
 
-function setupOutsideClicks() {
+function setupOutsideClick() {
 
     document.addEventListener(
         "click",
         function (event) {
 
-            // -------------------------------
-            // PROFILE
-            // -------------------------------
-
+            // Profile
             const profile =
                 document.querySelector(
                     ".profile"
                 );
 
 
-            const profileMenu =
+            const menu =
                 document.getElementById(
                     "profileMenu"
                 );
@@ -2037,33 +1940,29 @@ function setupOutsideClicks() {
 
             if (
                 profile &&
-                profileMenu &&
+                menu &&
                 !profile.contains(
                     event.target
                 )
             ) {
 
-                profileMenu.classList.remove(
+                menu.classList.remove(
                     "show"
                 );
 
             }
 
 
-            // -------------------------------
-            // EDIT MODAL
-            // -------------------------------
-
-            const editModal =
+            // Edit modal
+            const edit =
                 document.getElementById(
                     "editModal"
                 );
 
 
             if (
-                editModal &&
-                event.target ===
-                    editModal
+                edit &&
+                event.target === edit
             ) {
 
                 closeEdit();
@@ -2071,10 +1970,7 @@ function setupOutsideClicks() {
             }
 
 
-            // -------------------------------
-            // CONFIRM
-            // -------------------------------
-
+            // Confirm
             const confirmPopup =
                 document.getElementById(
                     "confirmPopup"
@@ -2092,10 +1988,7 @@ function setupOutsideClicks() {
             }
 
 
-            // -------------------------------
-            // SUCCESS
-            // -------------------------------
-
+            // Success
             const successPopup =
                 document.getElementById(
                     "successPopup"
@@ -2113,10 +2006,7 @@ function setupOutsideClicks() {
             }
 
 
-            // -------------------------------
-            // ERROR
-            // -------------------------------
-
+            // Error
             const errorPopup =
                 document.getElementById(
                     "errorPopup"
@@ -2143,7 +2033,7 @@ function setupOutsideClicks() {
 // ESC KEY
 // =====================================================
 
-function setupEscapeKey() {
+function setupEscape() {
 
     document.addEventListener(
         "keydown",
