@@ -1,21 +1,26 @@
 "use strict";
 
 
+// ===============================
+// GLOBAL
+// ===============================
+
 
 let selectedRow = null;
 
 let currentPage = 1;
 
-const perPage = 10;
+const rowsPerPage = 10;
 
 
 
 
 
 
-// =============================
+
+// ===============================
 // PAGE LOAD
-// =============================
+// ===============================
 
 
 document.addEventListener(
@@ -42,13 +47,12 @@ showPage(1);
 
 
 
-// =============================
-// PROFILE LOAD
-// =============================
+// ===============================
+// LOAD PROFILE
+// ===============================
 
 
 function loadProfile(){
-
 
 
 let name =
@@ -57,7 +61,6 @@ localStorage.getItem("name")
 localStorage.getItem("username")
 ||
 "User";
-
 
 
 
@@ -74,8 +77,9 @@ document.getElementById("userName");
 
 
 
-let photoBox =
+let imageBox =
 document.getElementById("userPhoto");
+
 
 
 
@@ -92,26 +96,21 @@ nameBox.innerText = name;
 
 
 
-if(photoBox){
+
+if(imageBox){
 
 
 
-if(
-picture &&
-picture !== "null" &&
-picture !== "undefined"
-){
+if(picture){
 
-
-photoBox.src = picture;
-
+imageBox.src = picture;
 
 }
 
 else{
 
 
-photoBox.src =
+imageBox.src =
 "https://ui-avatars.com/api/?name="
 +
 encodeURIComponent(name)
@@ -125,7 +124,7 @@ encodeURIComponent(name)
 
 
 
-photoBox.onerror=function(){
+imageBox.onerror=function(){
 
 
 this.src =
@@ -156,9 +155,10 @@ encodeURIComponent(name)
 
 
 
-// =============================
+
+// ===============================
 // BACK BUTTON
-// =============================
+// ===============================
 
 
 function goBack(){
@@ -177,13 +177,13 @@ window.history.back();
 
 
 
-
-// =============================
+// ===============================
 // PROFILE MENU
-// =============================
+// ===============================
 
 
 function toggleProfile(){
+
 
 
 let menu =
@@ -193,9 +193,8 @@ document.getElementById(
 
 
 
-if(
-menu.style.display === "block"
-){
+
+if(menu.style.display==="block"){
 
 
 menu.style.display="none";
@@ -223,20 +222,13 @@ menu.style.display="block";
 
 
 
-
-
-// =============================
+// ===============================
 // LOGOUT
-// =============================
+// ===============================
 
 
 function logout(){
 
-
-
-if(
-confirm("Logout?")
-){
 
 
 localStorage.clear();
@@ -244,13 +236,11 @@ localStorage.clear();
 sessionStorage.clear();
 
 
+
 window.location.href =
 "login.html";
 
 
-}
-
-
 
 }
 
@@ -262,13 +252,14 @@ window.location.href =
 
 
 
-// =============================
+
+
+// ===============================
 // FILTER SHOW HIDE
-// =============================
+// ===============================
 
 
 function toggleFilter(){
-
 
 
 document
@@ -277,7 +268,6 @@ document
 .toggle("show");
 
 
-
 }
 
 
@@ -290,27 +280,12 @@ document
 
 
 
-// =============================
-// FILTER DATA
-// =============================
+// ===============================
+// SEARCH + DATE FILTER
+// ===============================
 
 
 function filterData(){
-
-
-
-let from =
-document.getElementById(
-"fromDate"
-).value;
-
-
-
-let to =
-document.getElementById(
-"toDate"
-).value;
-
 
 
 
@@ -319,6 +294,20 @@ document
 .getElementById("search")
 .value
 .toLowerCase();
+
+
+
+
+let from =
+document.getElementById("fromDate")
+.value;
+
+
+
+
+let to =
+document.getElementById("toDate")
+.value;
 
 
 
@@ -343,15 +332,8 @@ row.innerText.toLowerCase();
 
 
 
-let date =
-row.children[3]
-.innerText;
+let show=true;
 
-
-
-
-
-let show = true;
 
 
 
@@ -372,35 +354,38 @@ show=false;
 
 
 
+let dateText =
+row.children[3]
+.innerText;
 
 
-if(from){
+
+
+if(from || to){
 
 
 
 let rowDate =
 new Date(
-date.split("-").reverse().join("-")
+dateText.replace(" "," ")
 );
 
 
 
-if(
-rowDate <
-new Date(from)
-){
 
+if(from){
+
+
+if(
+rowDate < new Date(from)
+){
 
 show=false;
 
-
 }
 
 
-
 }
-
-
 
 
 
@@ -408,19 +393,9 @@ show=false;
 if(to){
 
 
-
-let rowDate =
-new Date(
-date.split("-").reverse().join("-")
-);
-
-
-
 if(
-rowDate >
-new Date(to)
+rowDate > new Date(to)
 ){
-
 
 show=false;
 
@@ -428,9 +403,11 @@ show=false;
 }
 
 
-
 }
 
+
+
+}
 
 
 
@@ -455,30 +432,27 @@ show ? "" : "none";
 
 
 
-// =============================
+// ===============================
 // RESET FILTER
-// =============================
+// ===============================
 
 
 function resetFilter(){
 
 
 
-document.getElementById(
-"fromDate"
-).value="";
+document.getElementById("fromDate")
+.value="";
 
 
 
-document.getElementById(
-"toDate"
-).value="";
+document.getElementById("toDate")
+.value="";
 
 
 
-document.getElementById(
-"search"
-).value="";
+document.getElementById("search")
+.value="";
 
 
 
@@ -509,12 +483,15 @@ row.style.display="";
 
 
 
-// =============================
+
+
+// ===============================
 // PAGINATION
-// =============================
+// ===============================
 
 
 function showPage(page){
+
 
 
 let rows =
@@ -525,12 +502,12 @@ document.querySelectorAll(
 
 
 let start =
-(page-1)*perPage;
+(page-1)*rowsPerPage;
 
 
 
 let end =
-start+perPage;
+start+rowsPerPage;
 
 
 
@@ -574,9 +551,6 @@ currentPage=page;
 
 
 
-
-
-
 function createPagination(){
 
 
@@ -590,7 +564,7 @@ document.querySelectorAll(
 
 let total =
 Math.ceil(
-rows.length/perPage
+rows.length / rowsPerPage
 );
 
 
@@ -621,14 +595,11 @@ i++
 
 
 let btn =
-document.createElement(
-"button"
-);
+document.createElement("button");
 
 
 
 btn.innerText=i;
-
 
 
 
@@ -661,9 +632,9 @@ box.appendChild(btn);
 
 
 
-// =============================
-// VIEW POPUP
-// =============================
+// ===============================
+// EDIT POPUP
+// ===============================
 
 
 function openModal(btn){
@@ -682,43 +653,29 @@ selectedRow.children;
 
 
 
-document.getElementById(
-"mCustomer"
-).value =
+document.getElementById("mCustomer").value =
 data[0].innerText;
 
 
 
-
-document.getElementById(
-"mProblem"
-).value =
+document.getElementById("mProblem").value =
 data[1].innerText;
 
 
 
-
-document.getElementById(
-"mReference"
-).value =
+document.getElementById("mReference").value =
 data[2].innerText;
 
 
 
-
-document.getElementById(
-"mDate"
-).value =
+document.getElementById("mDate").value =
 data[3].innerText;
 
 
 
 
-
-document.getElementById(
-"viewModal"
-).style.display =
-"flex";
+document.getElementById("viewModal")
+.style.display="flex";
 
 
 
@@ -732,18 +689,18 @@ document.getElementById(
 
 
 
-// =============================
+
+
+// ===============================
 // CLOSE POPUP
-// =============================
+// ===============================
 
 
 function closeModal(){
 
 
-document.getElementById(
-"viewModal"
-).style.display =
-"none";
+document.getElementById("viewModal")
+.style.display="none";
 
 
 }
@@ -756,9 +713,9 @@ document.getElementById(
 
 
 
-// =============================
-// SUBMIT UPDATE
-// =============================
+// ===============================
+// UPDATE DATA
+// ===============================
 
 
 function submitData(){
@@ -778,44 +735,30 @@ selectedRow.children;
 
 
 
-
 data[0].innerText =
-document.getElementById(
-"mCustomer"
-).value;
-
+document.getElementById("mCustomer").value;
 
 
 
 data[1].innerText =
-document.getElementById(
-"mProblem"
-).value;
-
+document.getElementById("mProblem").value;
 
 
 
 data[2].innerText =
-document.getElementById(
-"mReference"
-).value;
-
+document.getElementById("mReference").value;
 
 
 
 data[3].innerText =
-document.getElementById(
-"mDate"
-).value;
+document.getElementById("mDate").value;
 
 
 
 
 
-alert(
-"Updated Successfully"
-);
 
+alert("Updated Successfully");
 
 
 
@@ -832,10 +775,9 @@ closeModal();
 
 
 
-
-// =============================
-// DELETE ROW
-// =============================
+// ===============================
+// DELETE
+// ===============================
 
 
 function deleteRow(btn){
@@ -847,10 +789,7 @@ btn.closest("tr");
 
 
 
-if(
-confirm("Delete this history?")
-){
-
+if(confirm("Delete this data?")){
 
 
 row.remove();
@@ -860,56 +799,11 @@ row.remove();
 createPagination();
 
 
-
 showPage(1);
 
 
 
 }
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =============================
-// DELETE FROM POPUP
-// =============================
-
-
-function deleteData(){
-
-
-
-if(selectedRow){
-
-
-
-selectedRow.remove();
-
-
-
-closeModal();
-
-
-
-createPagination();
-
-
-
-showPage(1);
-
-
-
-}
-
 
 
 }
