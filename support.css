@@ -1,6 +1,6 @@
-/* =====================================================
+/* =========================================================
    RESET
-===================================================== */
+========================================================= */
 
 * {
     margin: 0;
@@ -8,6 +8,11 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
 
 body {
     font-family:
@@ -15,240 +20,163 @@ body {
         Helvetica,
         sans-serif;
 
-    background:
-        linear-gradient(
-            135deg,
-            #eef5ff 0%,
-            #f7faff 45%,
-            #eefcf8 100%
-        );
+    background: #f3f7fc;
 
     color: #172033;
-
-    min-height: 100vh;
 }
 
 
-/* =====================================================
-   TOP / HEADER SECTION
-===================================================== */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .left-section {
-
     width: 100%;
+    height: 72px;
 
-    min-height: 72px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #f8fbff
-        );
-
-    border-bottom:
-        1px solid #dbe5f2;
+    padding: 0 27px;
 
     display: flex;
-
     align-items: center;
+    gap: 17px;
 
-    gap: 18px;
+    background: #ffffff;
 
-    padding: 11px 28px;
+    border-bottom: 1px solid #dce5ef;
 
-    position: sticky;
-
-    top: 0;
-
-    z-index: 100;
-
-    box-shadow:
-        0 3px 15px
-        rgba(37, 99, 235, .07);
+    position: relative;
+    z-index: 20;
 }
 
 
-/* =====================================================
-   BACK BUTTON
-===================================================== */
-
 .back-btn {
-
     height: 40px;
 
     padding: 0 15px;
 
-    border: none;
-
+    border: 0;
     border-radius: 9px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #f1f5f9,
-            #e8eef7
-        );
+    background: #edf2f8;
 
     color: #334155;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 7px;
 
     font-size: 14px;
-
     font-weight: 600;
 
     cursor: pointer;
 
-    transition: .2s;
+    transition: 0.2s;
 }
 
 
 .back-btn:hover {
-
-    background:
-        linear-gradient(
-            135deg,
-            #dbeafe,
-            #e0f2fe
-        );
-
+    background: #dce8f7;
     color: #1d4ed8;
-
-    transform: translateY(-1px);
 }
 
-
-.back-btn i {
-
-    font-size: 14px;
-}
-
-
-/* =====================================================
-   PAGE TITLE
-===================================================== */
 
 .left-section h2 {
-
-    font-size: 21px;
-
-    color: #172033;
+    margin: 0;
 
     display: flex;
-
     align-items: center;
 
     gap: 9px;
+
+    color: #172033;
+
+    font-size: 21px;
+    font-weight: 700;
 }
 
 
 .left-section h2 i {
-
     color: #2563eb;
-
     font-size: 22px;
 }
 
 
-/* =====================================================
+/* =========================================================
    PROFILE
-===================================================== */
+========================================================= */
 
 .profile {
-
     position: absolute;
 
+    right: 24px;
     top: 14px;
 
-    right: 28px;
-
-    z-index: 300;
+    z-index: 100;
 }
 
 
 .profile-head {
-
     min-height: 44px;
 
-    padding: 3px 9px 3px 5px;
-
-    border-radius: 25px;
+    padding: 3px 7px;
 
     display: flex;
-
     align-items: center;
 
     gap: 8px;
 
+    border-radius: 25px;
+
     cursor: pointer;
 
-    transition: .2s;
+    transition: 0.2s;
 }
 
 
 .profile-head:hover {
-
-    background: #eef5ff;
+    background: #f0f6ff;
 }
 
 
 .profile-head img {
-
-    width: 37px;
-
-    height: 37px;
+    width: 38px;
+    height: 38px;
 
     border-radius: 50%;
 
     object-fit: cover;
 
-    border:
-        2px solid #bfdbfe;
+    border: 2px solid #d6e4f5;
 
-    background: #eff6ff;
-
-    box-shadow:
-        0 2px 7px
-        rgba(37, 99, 235, .18);
+    background: #edf4ff;
 }
 
 
 .profile-head span {
-
     color: #172033;
 
     font-size: 14px;
-
     font-weight: 700;
 }
 
 
 .profile-head > i {
-
     color: #64748b;
-
     font-size: 12px;
 }
 
 
-/* =====================================================
+/* =========================================================
    PROFILE MENU
-===================================================== */
+========================================================= */
 
 .profile-menu {
-
     position: absolute;
 
+    top: 48px;
     right: 0;
-
-    top: calc(100% + 7px);
 
     width: 180px;
 
@@ -256,14 +184,12 @@ body {
 
     background: #ffffff;
 
-    border:
-        1px solid #dbe5f2;
+    border: 1px solid #dbe4ef;
 
-    border-radius: 11px;
+    border-radius: 10px;
 
     box-shadow:
-        0 15px 40px
-        rgba(15, 23, 42, .15);
+        0 15px 35px rgba(15, 23, 42, 0.16);
 
     display: none;
 
@@ -272,141 +198,102 @@ body {
 
 
 .profile-menu.show {
-
     display: block;
-
-    animation:
-        menuShow .18s ease;
-}
-
-
-@keyframes menuShow {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(-6px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-    }
 }
 
 
 .profile-menu button {
-
     width: 100%;
-
-    height: 41px;
+    height: 40px;
 
     padding: 0 12px;
 
-    border: none;
-
-    border-radius: 8px;
+    border: 0;
+    border-radius: 7px;
 
     background: transparent;
 
     color: #334155;
 
     display: flex;
-
     align-items: center;
 
     gap: 10px;
 
+    font-size: 13px;
+    font-weight: 600;
+
     cursor: pointer;
 
     text-align: left;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    transition: .2s;
 }
 
 
 .profile-menu button:hover {
-
-    background: #eff6ff;
-
+    background: #eef5ff;
     color: #2563eb;
 }
 
 
 .profile-menu button i {
-
-    width: 17px;
-
-    text-align: center;
+    width: 18px;
 
     color: #2563eb;
+
+    text-align: center;
 }
 
 
-/* =====================================================
-   SEARCH AREA
-===================================================== */
+/* =========================================================
+   SEARCH
+========================================================= */
 
 .search-box {
-
+    width: calc(100% - 54px);
     max-width: 1400px;
-
-    width: calc(100% - 56px);
 
     height: 46px;
 
-    margin:
-        22px auto 18px;
+    margin: 22px auto 18px;
 
     padding: 0 14px;
 
+    display: flex;
+    align-items: center;
+
     background: #ffffff;
 
-    border:
-        1px solid #cbd5e1;
+    border: 1px solid #cbd8e8;
 
     border-radius: 10px;
 
-    display: flex;
+    transition: 0.2s;
+}
 
-    align-items: center;
 
-    transition: .2s;
+.search-box:focus-within {
+    border-color: #2563eb;
 
     box-shadow:
-        0 4px 14px
-        rgba(37, 99, 235, .05);
+        0 0 0 3px rgba(37, 99, 235, 0.08);
 }
 
 
 .search-box i {
+    margin-right: 10px;
 
     color: #2563eb;
 
     font-size: 15px;
-
-    margin-right: 10px;
 }
 
 
 .search-box input {
-
     width: 100%;
-
     height: 100%;
 
-    border: none;
-
-    outline: none;
+    border: 0;
+    outline: 0;
 
     background: transparent;
 
@@ -417,393 +304,272 @@ body {
 
 
 .search-box input::placeholder {
-
-    color: #94a3b8;
+    color: #8ca0b8;
 }
 
 
-.search-box:focus-within {
-
-    border-color: #2563eb;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(37, 99, 235, .10);
-}
-
-
-/* =====================================================
-   TABLE CONTAINER
-===================================================== */
+/* =========================================================
+   TABLE
+========================================================= */
 
 table {
-
+    width: calc(100% - 54px);
     max-width: 1400px;
-
-    width: calc(100% - 56px);
 
     margin: 0 auto;
 
     border-collapse: separate;
-
     border-spacing: 0;
 
     background: #ffffff;
 
-    border:
-        1px solid #d7e2ef;
+    border: 1px solid #d8e3ef;
 
-    border-radius: 15px;
+    border-radius: 14px;
 
     overflow: hidden;
 
     box-shadow:
-        0 10px 30px
-        rgba(30, 64, 175, .09);
+        0 7px 25px rgba(30, 64, 175, 0.07);
 }
 
 
-/* =====================================================
+/* =========================================================
    TABLE HEADER
-===================================================== */
+========================================================= */
 
 thead {
-
     background:
         linear-gradient(
             90deg,
-            #1d4ed8,
-            #2563eb 50%,
-            #0e7490
+            #2558db,
+            #2563eb,
+            #117c96
         );
 }
 
 
 th {
-
     height: 53px;
 
-    padding:
-        0 16px;
-
-    text-align: left;
+    padding: 0 16px;
 
     color: #ffffff;
 
-    font-size: 12px;
+    text-align: left;
 
+    font-size: 12px;
     font-weight: 700;
 
-    letter-spacing: .2px;
-
-    white-space: nowrap;
-
     border-right:
-        1px solid
-        rgba(255,255,255,.16);
+        1px solid rgba(255, 255, 255, 0.15);
 }
 
 
 th:last-child {
-
-    border-right: none;
-
     text-align: center;
+    border-right: 0;
 }
 
 
-/* =====================================================
+/* =========================================================
    TABLE BODY
-===================================================== */
+========================================================= */
 
 tbody tr {
-
-    transition: .2s;
-}
-
-
-tbody tr:nth-child(odd) {
-
     background: #ffffff;
+
+    transition: 0.15s;
 }
 
 
 tbody tr:nth-child(even) {
-
-    background: #f0f7ff;
+    background: #f1f7ff;
 }
 
 
 tbody tr:hover {
-
-    background: #dbeafe;
-
-    box-shadow:
-        inset 4px 0 0 #2563eb;
+    background: #e3efff;
 }
 
 
 td {
-
     height: 64px;
 
-    padding:
-        9px 16px;
+    padding: 9px 16px;
+
+    border-bottom: 1px solid #dce7f2;
 
     color: #334155;
 
     font-size: 13px;
-
-    border-bottom:
-        1px solid #dbe7f3;
 
     vertical-align: middle;
 }
 
 
 tbody tr:last-child td {
-
-    border-bottom: none;
+    border-bottom: 0;
 }
 
-
-/* =====================================================
-   CUSTOMER ID
-===================================================== */
 
 td:first-child {
-
-    color: #1d4ed8;
-
+    color: #174dd3;
     font-weight: 700;
 }
 
-
-/* =====================================================
-   PROBLEM
-===================================================== */
 
 td:nth-child(2) {
-
     color: #334155;
-
-    font-weight: 500;
-
-    max-width: 430px;
 }
 
-
-/* =====================================================
-   REFERENCE
-===================================================== */
 
 td:nth-child(3) {
-
-    color: #7c3aed;
-
-    font-weight: 700;
+    color: #6d3fc1;
+    font-weight: 600;
 }
 
 
-/* =====================================================
-   DATE
-===================================================== */
-
 td:nth-child(4) {
-
-    color: #047857;
-
+    color: #07805d;
     font-weight: 700;
-
     white-space: nowrap;
 }
 
 
-/* =====================================================
-   ACTION COLUMN
-===================================================== */
-
 td:last-child {
-
     text-align: center;
 }
 
 
-/* =====================================================
-   COMMON ACTION BUTTONS
-   Works with buttons created by existing JS
-===================================================== */
+/* =========================================================
+   TABLE ACTION BUTTON
+========================================================= */
 
 td button {
+    min-height: 36px;
 
-    min-height: 35px;
+    padding: 0 13px;
 
-    padding:
-        0 13px;
+    border: 1px solid #bfdbfe;
 
     border-radius: 8px;
 
-    border:
-        1px solid #bfdbfe;
+    background: #eff6ff;
 
-    background:
-        linear-gradient(
-            135deg,
-            #eff6ff,
-            #dbeafe
-        );
-
-    color: #1d4ed8;
+    color: #2563eb;
 
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 6px;
 
     font-size: 12px;
-
     font-weight: 700;
 
     cursor: pointer;
 
-    transition: .2s;
+    transition: 0.2s;
 }
 
 
 td button:hover {
+    background: #2563eb;
 
     color: #ffffff;
 
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #1d4ed8
-        );
-
     border-color: #2563eb;
 
-    transform: translateY(-1px);
-
     box-shadow:
-        0 5px 12px
-        rgba(37, 99, 235, .22);
+        0 5px 12px rgba(37, 99, 235, 0.2);
 }
 
 
-/* =====================================================
+/* =========================================================
    LOADING
-===================================================== */
+========================================================= */
 
 .loading-cell {
+    height: 90px !important;
 
     text-align: center !important;
-
-    padding: 40px !important;
 
     color: #2563eb !important;
 
     font-weight: 700 !important;
 
-    background: #f8fbff !important;
+    background: #ffffff !important;
 }
 
 
-.loading-cell::before {
-
-    content: "\f110";
-
-    font-family:
-        "Font Awesome 6 Free";
-
-    font-weight: 900;
-
-    margin-right: 8px;
-
-    animation:
-        loadingSpin 1s linear infinite;
-
-    display: inline-block;
-}
-
-
-@keyframes loadingSpin {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-
-/* =====================================================
-   EDIT POPUP
-===================================================== */
+/* =========================================================
+   IMPORTANT:
+   EDIT POPUP DEFAULT HIDDEN
+========================================================= */
 
 .popup {
-
-    width: 94%;
-
-    max-width: 570px;
-
-    max-height: 92vh;
-
-    overflow-y: auto;
+    display: none;
 
     position: fixed;
 
     left: 50%;
-
     top: 50%;
 
     transform:
         translate(-50%, -50%);
 
+    width: 94%;
+    max-width: 570px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
     padding: 25px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #f8fbff
-        );
+    background: #ffffff;
 
-    border:
-        1px solid #dbeafe;
+    border: 1px solid #d9e4f0;
 
-    border-radius: 16px;
+    border-radius: 15px;
 
     box-shadow:
         0 25px 70px
-        rgba(15, 23, 42, .28);
+        rgba(15, 23, 42, 0.30);
 
     z-index: 1000;
 }
 
 
-/* =====================================================
-   POPUP CLOSE
-===================================================== */
+/*
+   JS যদি class "show" ব্যবহার করে
+*/
+.popup.show {
+    display: block;
+}
+
+
+/*
+   JS যদি inline display ব্যবহার করে
+   সেটাও কাজ করবে
+*/
+
+
+/* =========================================================
+   POPUP CLOSE BUTTON
+========================================================= */
 
 .close-btn {
-
     position: absolute;
 
     right: 14px;
-
     top: 14px;
 
     width: 34px;
-
     height: 34px;
 
-    border: none;
+    border: 0;
 
     border-radius: 8px;
 
@@ -811,102 +577,88 @@ td button:hover {
 
     color: #dc2626;
 
-    font-size: 21px;
-
-    line-height: 1;
+    font-size: 20px;
 
     cursor: pointer;
 
-    transition: .2s;
+    transition: 0.2s;
 }
 
 
 .close-btn:hover {
-
     background: #fecaca;
 
-    transform: rotate(3deg);
+    transform: scale(1.04);
 }
 
 
-/* =====================================================
-   POPUP TITLE
-===================================================== */
+/* =========================================================
+   EDIT POPUP TITLE
+========================================================= */
 
 .popup h2 {
+    margin: 0 0 14px;
 
-    padding-bottom: 15px;
+    padding-bottom: 14px;
 
-    margin-bottom: 6px;
+    border-bottom: 1px solid #dce5ef;
 
-    border-bottom:
-        1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
 
     color: #172033;
 
     font-size: 19px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 9px;
 }
 
 
 .popup h2 i {
+    width: 43px;
+    height: 43px;
 
-    width: 42px;
-
-    height: 42px;
-
-    border-radius: 10px;
+    border-radius: 11px;
 
     background:
         linear-gradient(
             135deg,
             #2563eb,
-            #4f46e5
+            #3b5bea
         );
 
     color: #ffffff;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     font-size: 17px;
 }
 
 
-/* =====================================================
+/* =========================================================
    POPUP FORM
-===================================================== */
+========================================================= */
 
 .popup label {
-
     display: block;
 
     margin:
-        13px 0 6px;
+        12px 0 6px;
 
     color: #334155;
 
     font-size: 12px;
-
     font-weight: 700;
 }
 
 
 .popup input,
 .popup textarea {
-
     width: 100%;
 
-    border:
-        1px solid #cbd5e1;
+    border: 1px solid #cbd8e8;
 
     border-radius: 8px;
 
@@ -916,29 +668,25 @@ td button:hover {
 
     color: #172033;
 
-    font-family: inherit;
+    font-family: Arial, Helvetica, sans-serif;
 
     font-size: 14px;
 
-    transition: .2s;
+    transition: 0.2s;
 }
 
 
 .popup input {
-
     height: 42px;
 
-    padding:
-        0 12px;
+    padding: 0 12px;
 }
 
 
 .popup textarea {
-
     min-height: 78px;
 
-    padding:
-        10px 12px;
+    padding: 10px 12px;
 
     resize: vertical;
 }
@@ -946,68 +694,57 @@ td button:hover {
 
 .popup input:focus,
 .popup textarea:focus {
-
     border-color: #2563eb;
 
     box-shadow:
         0 0 0 3px
-        rgba(37, 99, 235, .09);
+        rgba(37, 99, 235, 0.08);
 }
 
 
-/* =====================================================
+/* =========================================================
    POPUP BUTTONS
-===================================================== */
+========================================================= */
 
 .popup-buttons {
+    margin-top: 20px;
 
     display: flex;
-
     align-items: center;
 
     gap: 9px;
-
-    margin-top: 21px;
 
     flex-wrap: wrap;
 }
 
 
 .popup-buttons button {
-
     height: 42px;
 
-    padding:
-        0 16px;
+    padding: 0 16px;
 
-    border: none;
+    border: 0;
 
     border-radius: 8px;
 
-    display: flex;
-
+    display: inline-flex;
     align-items: center;
-
     justify-content: center;
 
     gap: 7px;
 
     font-size: 13px;
-
     font-weight: 700;
 
     cursor: pointer;
 
-    transition: .2s;
+    transition: 0.2s;
 }
 
 
-/* =====================================================
-   SUBMIT
-===================================================== */
+/* SUBMIT */
 
 .submit-btn {
-
     background:
         linear-gradient(
             135deg,
@@ -1016,57 +753,35 @@ td button:hover {
         );
 
     color: #ffffff;
-
-    box-shadow:
-        0 4px 10px
-        rgba(37, 99, 235, .18);
 }
 
 
 .submit-btn:hover {
-
     transform: translateY(-1px);
 
     box-shadow:
-        0 7px 15px
-        rgba(37, 99, 235, .27);
+        0 6px 14px
+        rgba(37, 99, 235, 0.22);
 }
 
 
-/* =====================================================
-   CANCEL
-===================================================== */
+/* CANCEL */
 
 .cancel-btn {
+    background: #dbe3ed;
 
-    background:
-        linear-gradient(
-            135deg,
-            #e2e8f0,
-            #cbd5e1
-        );
-
-    color: #334155;
+    color: #475569;
 }
 
 
 .cancel-btn:hover {
-
-    background:
-        linear-gradient(
-            135deg,
-            #cbd5e1,
-            #94a3b8
-        );
+    background: #cbd5e1;
 }
 
 
-/* =====================================================
-   DELETE
-===================================================== */
+/* DELETE */
 
 .delete-btn {
-
     background:
         linear-gradient(
             135deg,
@@ -1075,37 +790,32 @@ td button:hover {
         );
 
     color: #ffffff;
-
-    box-shadow:
-        0 4px 10px
-        rgba(220, 38, 38, .16);
 }
 
 
 .delete-btn:hover {
-
     transform: translateY(-1px);
 
     box-shadow:
-        0 7px 15px
-        rgba(220, 38, 38, .25);
+        0 6px 14px
+        rgba(220, 38, 38, 0.22);
 }
 
 
-/* =====================================================
-   CUSTOM POPUP
-===================================================== */
+/* =========================================================
+   IMPORTANT:
+   CUSTOM POPUPS DEFAULT HIDDEN
+========================================================= */
 
 .custom-popup {
+    display: none;
 
     width: 94%;
-
     max-width: 390px;
 
     position: fixed;
 
     left: 50%;
-
     top: 50%;
 
     transform:
@@ -1117,38 +827,48 @@ td button:hover {
 
     background: #ffffff;
 
-    border:
-        1px solid #dbe5f2;
+    border: 1px solid #d7e1ed;
 
     border-radius: 16px;
 
     box-shadow:
         0 25px 70px
-        rgba(15, 23, 42, .25);
+        rgba(15, 23, 42, 0.30);
 
-    z-index: 1100;
+    z-index: 1200;
 }
 
 
-/* =====================================================
+/*
+   JS যদি show class ব্যবহার করে
+*/
+
+.custom-popup.show {
+    display: block;
+}
+
+
+/*
+   যদি JavaScript সরাসরি
+   style.display = "block"
+   করে, সেটাও কাজ করবে।
+*/
+
+
+/* =========================================================
    POPUP ICON
-===================================================== */
+========================================================= */
 
 .popup-icon {
-
     width: 62px;
-
     height: 62px;
+
+    margin: 0 auto 14px;
 
     border-radius: 50%;
 
-    margin:
-        0 auto 15px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     font-size: 25px;
@@ -1156,74 +876,63 @@ td button:hover {
 
 
 .popup-icon.warning {
-
-    background: #fef3c7;
+    background: #fff4d6;
 
     color: #d97706;
 
-    border:
-        5px solid #fffbeb;
+    border: 5px solid #fff9e8;
 }
 
 
 .popup-icon.success {
-
     background: #dcfce7;
 
     color: #16a34a;
 
-    border:
-        5px solid #f0fdf4;
+    border: 5px solid #f0fdf4;
 }
 
 
 .popup-icon.error {
-
     background: #fee2e2;
 
     color: #dc2626;
 
-    border:
-        5px solid #fef2f2;
+    border: 5px solid #fff1f1;
 }
 
 
-/* =====================================================
+/* =========================================================
    CUSTOM POPUP TEXT
-===================================================== */
+========================================================= */
 
 .custom-popup h3 {
+    margin-bottom: 8px;
 
     color: #172033;
 
     font-size: 19px;
-
-    margin-bottom: 8px;
 }
 
 
 .custom-popup p {
+    margin-bottom: 20px;
 
     color: #64748b;
 
     font-size: 14px;
 
     line-height: 1.6;
-
-    margin-bottom: 20px;
 }
 
 
-/* =====================================================
-   CUSTOM POPUP BUTTONS
-===================================================== */
+/* =========================================================
+   CONFIRM BUTTONS
+========================================================= */
 
 .custom-popup-buttons {
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 10px;
@@ -1231,55 +940,36 @@ td button:hover {
 
 
 .custom-popup-buttons button {
-
     height: 40px;
 
-    padding:
-        0 18px;
+    padding: 0 18px;
 
-    border: none;
+    border: 0;
 
     border-radius: 8px;
 
-    cursor: pointer;
-
     font-size: 13px;
-
     font-weight: 700;
 
-    transition: .2s;
+    cursor: pointer;
+
+    transition: 0.2s;
 }
 
 
-/* =====================================================
-   CONFIRM CANCEL
-===================================================== */
-
 .popup-cancel-btn {
-
-    background:
-        linear-gradient(
-            135deg,
-            #e2e8f0,
-            #cbd5e1
-        );
+    background: #e2e8f0;
 
     color: #334155;
 }
 
 
 .popup-cancel-btn:hover {
-
     background: #cbd5e1;
 }
 
 
-/* =====================================================
-   CONFIRM DELETE
-===================================================== */
-
 .popup-confirm-btn {
-
     background:
         linear-gradient(
             135deg,
@@ -1292,28 +982,24 @@ td button:hover {
 
 
 .popup-confirm-btn:hover {
-
-    transform: translateY(-1px);
-
     box-shadow:
         0 6px 14px
-        rgba(220, 38, 38, .24);
+        rgba(220, 38, 38, 0.22);
 }
 
 
-/* =====================================================
+/* =========================================================
    OK BUTTON
-===================================================== */
+========================================================= */
 
 .popup-ok-btn {
-
     min-width: 80px;
 
     height: 40px;
 
     padding: 0 18px;
 
-    border: none;
+    border: 0;
 
     border-radius: 8px;
 
@@ -1326,30 +1012,14 @@ td button:hover {
 
     color: #ffffff;
 
+    font-size: 13px;
     font-weight: 700;
 
     cursor: pointer;
-
-    transition: .2s;
 }
 
-
-.popup-ok-btn:hover {
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 6px 14px
-        rgba(22, 163, 74, .24);
-}
-
-
-/* =====================================================
-   ERROR OK
-===================================================== */
 
 .error-btn {
-
     background:
         linear-gradient(
             135deg,
@@ -1359,173 +1029,153 @@ td button:hover {
 }
 
 
-.error-btn:hover {
+/* =========================================================
+   POPUP SCROLLBAR
+========================================================= */
 
-    box-shadow:
-        0 6px 14px
-        rgba(220, 38, 38, .24);
+.popup::-webkit-scrollbar {
+    width: 7px;
 }
 
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+.popup::-webkit-scrollbar-track {
+    background: #f1f5f9;
+
+    border-radius: 10px;
+}
+
+
+.popup::-webkit-scrollbar-thumb {
+    background: #aebed1;
+
+    border-radius: 10px;
+}
+
+
+.popup::-webkit-scrollbar-thumb:hover {
+    background: #8da3bc;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 700px) {
 
-
     .left-section {
+        height: 64px;
 
-        min-height: 64px;
-
-        padding:
-            10px 12px;
+        padding: 0 12px;
 
         gap: 9px;
-
     }
 
 
     .left-section h2 {
-
         font-size: 18px;
-
     }
 
 
     .left-section h2 i {
-
         font-size: 19px;
-
     }
 
 
     .back-btn {
-
         width: 40px;
 
         padding: 0;
-
     }
 
 
     .back-btn {
-
         font-size: 0;
-
     }
 
 
     .back-btn i {
-
         font-size: 14px;
-
-        margin: 0;
-
     }
 
 
     .profile {
-
-        right: 10px;
-
+        right: 8px;
         top: 10px;
-
     }
 
 
     .profile-head span {
-
         display: none;
-
-    }
-
-
-    .profile-head {
-
-        padding-right: 4px;
-
-    }
-
-
-    .search-box {
-
-        width:
-            calc(100% - 20px);
-
-        margin:
-            15px auto;
-
-    }
-
-
-    table {
-
-        width:
-            calc(100% - 20px);
-
-        min-width: 800px;
-
-    }
-
-
-    .popup {
-
-        padding: 20px;
-
-    }
-
-
-    .popup-buttons {
-
-        flex-direction: column;
-
-    }
-
-
-    .popup-buttons button {
-
-        width: 100%;
-
-    }
-
-
-    .custom-popup {
-
-        padding: 23px;
-
-    }
-
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media (max-width: 430px) {
-
-
-    .left-section h2 {
-
-        font-size: 16px;
-
     }
 
 
     .profile-head img {
+        width: 36px;
+        height: 36px;
+    }
 
+
+    .search-box {
+        width: calc(100% - 20px);
+
+        margin:
+            15px auto;
+    }
+
+
+    table {
+        width: calc(100% - 20px);
+
+        min-width: 800px;
+    }
+
+
+    .popup {
+        width: 94%;
+
+        max-height: 88vh;
+
+        padding: 20px;
+    }
+
+
+    .popup-buttons {
+        flex-direction: column;
+    }
+
+
+    .popup-buttons button {
+        width: 100%;
+    }
+
+
+    .custom-popup {
+        width: 92%;
+
+        padding: 23px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .left-section h2 {
+        font-size: 16px;
+    }
+
+
+    .profile-head img {
         width: 34px;
-
         height: 34px;
-
     }
 
 
     .popup h2 {
-
         font-size: 17px;
-
     }
-
 }
