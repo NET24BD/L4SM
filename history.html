@@ -7,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Support History</title>
 
 
@@ -14,8 +15,8 @@
 
 
 <link 
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+rel="stylesheet">
 
 
 </head>
@@ -29,6 +30,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 <header>
+
 
 
 <button 
@@ -52,7 +54,7 @@ onclick="toggleFilter()">
 
 <i class="fa fa-history"></i>
 
-Support History
+History
 
 
 </h2>
@@ -62,32 +64,54 @@ Support History
 
 
 
-<!-- PROFILE -->
+
+
+<!-- USER PROFILE -->
 
 
 <div 
 class="profile"
-onclick="toggleProfileMenu()">
+onclick="toggleProfile()">
 
 
 
 <img 
-src="https://i.pravatar.cc/100"
+id="userPhoto"
+src="assets/profile.png"
 alt="Profile">
 
 
 
-<div class="profile-info">
 
-<h4>Admin</h4>
 
-<p>Administrator</p>
+
+<div class="user-info">
+
+
+<h4 id="userName">
+
+User
+
+</h4>
+
+
+<p id="userRole">
+
+Role
+
+</p>
+
+
 
 </div>
 
 
 
 
+
+
+
+<!-- PROFILE MENU -->
 
 
 <div 
@@ -96,33 +120,52 @@ id="profileMenu">
 
 
 
+
+
 <a href="my-account.html">
+
 
 <i class="fa fa-user"></i>
 
+
 My Account
+
 
 </a>
 
 
 
 
+
+
+
 <button onclick="logout()">
+
+
 
 <i class="fa fa-sign-out"></i>
 
+
+
 Logout
+
+
 
 </button>
 
 
 
+
+
+
 </div>
 
 
 
 
+
 </div>
+
 
 
 
@@ -140,6 +183,7 @@ Logout
 
 
 <div class="container">
+
 
 
 <div class="card">
@@ -220,7 +264,7 @@ Search
 <input 
 type="text"
 id="search"
-placeholder="Customer ID / Problem / Reference">
+placeholder="Search Customer ID / Problem">
 
 
 </div>
@@ -239,11 +283,11 @@ placeholder="Customer ID / Problem / Reference">
 
 <i class="fa fa-filter"></i>
 
+
 Filter
 
 
 </button>
-
 
 
 
@@ -257,6 +301,7 @@ onclick="resetFilter()">
 
 <i class="fa fa-refresh"></i>
 
+
 Reset
 
 
@@ -264,12 +309,6 @@ Reset
 
 
 
-
-</div>
-
-
-
-
 </div>
 
 
@@ -277,16 +316,25 @@ Reset
 
 
 
+</div>
 
 
 
-<!-- TABLE -->
+
+
+
+
+
+
+<!-- HISTORY TABLE -->
 
 
 <div class="table-box">
 
 
+
 <table>
+
 
 
 <thead>
@@ -302,11 +350,13 @@ Customer ID
 </th>
 
 
+
 <th>
 
 Problem
 
 </th>
+
 
 
 <th>
@@ -316,6 +366,7 @@ Reference
 </th>
 
 
+
 <th>
 
 Date
@@ -323,11 +374,13 @@ Date
 </th>
 
 
+
 <th>
 
 Action
 
 </th>
+
 
 
 </tr>
@@ -339,8 +392,8 @@ Action
 
 
 
-<tbody id="historyTable">
 
+<tbody id="historyTable">
 
 
 
@@ -350,14 +403,16 @@ Action
 
 data-support="Support Team"
 
-data-support-work="Internet Checked"
+data-support-work="Internet checked"
 
 data-call="Call Team"
 
-data-call-work="Customer Confirmed"
+data-call-work="Customer confirmed"
+
 
 
 >
+
 
 
 <td>
@@ -376,13 +431,11 @@ Internet Problem
 
 
 
-
 <td>
 
 Router Issue
 
 </td>
-
 
 
 
@@ -395,18 +448,17 @@ Router Issue
 
 
 
-
-
 <td class="action">
 
 
-<button
+
+<button 
 class="view"
 onclick="openModal(this)">
 
 
-
 <i class="fa fa-eye"></i>
+
 
 View
 
@@ -417,9 +469,7 @@ View
 
 
 
-
-
-<button
+<button 
 class="delete"
 onclick="deleteRow(this)">
 
@@ -427,12 +477,11 @@ onclick="deleteRow(this)">
 
 <i class="fa fa-trash"></i>
 
+
 Delete
 
 
 </button>
-
-
 
 
 
@@ -448,17 +497,16 @@ Delete
 
 
 
-
-
 <tr
 
 data-support="Support Team"
 
-data-support-work="Line Checked"
+data-support-work="Line checked"
 
 data-call="Call Team"
 
-data-call-work="Customer Called"
+data-call-work="Customer called"
+
 
 
 >
@@ -498,18 +546,18 @@ Line Issue
 
 
 
-
 <td class="action">
 
 
 
-<button
+<button 
 class="view"
 onclick="openModal(this)">
 
 
 
 <i class="fa fa-eye"></i>
+
 
 View
 
@@ -520,15 +568,14 @@ View
 
 
 
-
-
-<button
+<button 
 class="delete"
 onclick="deleteRow(this)">
 
 
 
 <i class="fa fa-trash"></i>
+
 
 Delete
 
@@ -541,9 +588,7 @@ Delete
 
 
 
-
 </tr>
-
 
 
 
@@ -553,18 +598,10 @@ Delete
 </tbody>
 
 
+
 </table>
 
 
-</div>
-
-
-
-
-
-
-</div>
-
 
 </div>
 
@@ -576,51 +613,12 @@ Delete
 
 
 
-<!-- ================= VIEW POPUP ================= -->
-
+<!-- PAGINATION -->
 
 
 <div 
-class="modal"
-id="viewModal">
-
-
-
-
-
-<div class="modal-box">
-
-
-
-
-
-
-<div class="modal-header">
-
-
-<h3>
-
-<i class="fa fa-history"></i>
-
-History Details
-
-
-</h3>
-
-
-
-
-<button 
-class="close-btn"
-onclick="closeModal()">
-
-
-
-<i class="fa fa-times"></i>
-
-
-</button>
-
+class="pagination"
+id="pagination">
 
 
 </div>
@@ -631,288 +629,7 @@ onclick="closeModal()">
 
 
 
-<div class="form-grid">
-
-
-
-
-
-<div>
-
-
-<label>
-
-Customer ID
-
-</label>
-
-
-<input 
-id="mCustomer"
-type="text">
-
-
-</div>
-
-
-
-
-
-
-
-<div>
-
-
-<label>
-
-Date
-
-</label>
-
-
-<input 
-id="mDate"
-type="text">
-
-
-</div>
-
-
-
-
-
-
-
-<div class="full">
-
-
-<label>
-
-Problem
-
-</label>
-
-
-<input 
-id="mProblem"
-type="text">
-
-
-</div>
-
-
-
-
-
-
-
-<div class="full">
-
-
-<label>
-
-Reference
-
-</label>
-
-
-<input 
-id="mReference"
-type="text">
-
-
-</div>
-
-
-
-
-
-
-
-<div>
-
-
-<label>
-
-Support
-
-</label>
-
-
-<input 
-id="mSupport"
-type="text">
-
-
-</div>
-
-
-
-
-
-
-
-<div>
-
-
-<label>
-
-Support Work
-
-</label>
-
-
-<input 
-id="mSupportWork"
-type="text">
-
-
-</div>
-
-
-
-
-
-
-
-<div>
-
-
-<label>
-
-Call
-
-</label>
-
-
-<input 
-id="mCall"
-type="text">
-
-
-</div>
-
-
-
-
-
-
-
-<div>
-
-
-<label>
-
-Call Work
-
-</label>
-
-
-<input 
-id="mCallWork"
-type="text">
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="modal-buttons">
-
-
-
-
-
-<button
-class="submit-btn"
-onclick="submitData()">
-
-
-
-<i class="fa fa-check"></i>
-
-Submit
-
-
-</button>
-
-
-
-
-
-
-
-<button
-class="cancel-btn"
-onclick="closeModal()">
-
-
-
-<i class="fa fa-times"></i>
-
-Cancel
-
-
-</button>
-
-
-
-
-
-
-
-<button
-class="delete-btn"
-onclick="deleteData()">
-
-
-
-<i class="fa fa-trash"></i>
-
-Delete
-
-
-</button>
-
-
-
-
-</div>
-
-
-
-
-
-
 </div>
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-<script src="history.js"></script>
-
-
-</body>
-
-</html>
