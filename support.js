@@ -1,21 +1,21 @@
-// =====================================================
+// ============================================
 // SUPPORT.JS - FULL FINAL
-// =====================================================
+// ============================================
 
 "use strict";
 
 
-// =====================================================
+// ============================================
 // API
-// =====================================================
+// ============================================
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbxRQLGuRc-P8bZ2FE-6ua8B1iPH6IQ1tAffS0erigyv15xQSALef2nrNTSqdMOYHt1fqg/exec";
 
 
-// =====================================================
-// GLOBAL
-// =====================================================
+// ============================================
+// GLOBAL VARIABLES
+// ============================================
 
 let currentRow = null;
 
@@ -24,83 +24,93 @@ let supportData = [];
 let confirmCallback = null;
 
 
-// =====================================================
+// ============================================
 // AUTH
-// =====================================================
+// ============================================
 
-(function () {
+function checkAuth() {
 
-    function checkAuth() {
+    const auth =
+        localStorage.getItem("auth");
 
-        const auth =
-            localStorage.getItem("auth");
+    if (auth !== "true") {
 
-        if (auth !== "true") {
+        window.location.replace(
+            "login.html"
+        );
 
-            window.location.replace(
-                "login.html"
-            );
-
-            return false;
-        }
-
-        return true;
+        return false;
     }
 
+    return true;
+}
 
-    if (!checkAuth()) {
-        return;
+
+// ============================================
+// PAGE START
+// ============================================
+
+if (!checkAuth()) {
+
+    throw new Error(
+        "Authentication required."
+    );
+}
+
+
+// ============================================
+// BACK PROTECTION
+// ============================================
+
+history.pushState(
+    null,
+    "",
+    location.href
+);
+
+
+window.addEventListener(
+    "popstate",
+    function () {
+
+        if (!checkAuth()) {
+            return;
+        }
+
+        history.pushState(
+            null,
+            "",
+            location.href
+        );
     }
+);
 
 
-    history.pushState(
-        null,
-        "",
-        location.href
-    );
+// ============================================
+// BFCACHE
+// ============================================
 
+window.addEventListener(
+    "pageshow",
+    function (event) {
 
-    window.addEventListener(
-        "popstate",
-        function () {
+        if (!checkAuth()) {
+            return;
+        }
 
-            if (!checkAuth()) {
-                return;
-            }
+        if (event.persisted) {
 
-            history.pushState(
-                null,
-                "",
-                location.href
-            );
+            window.location.reload();
 
         }
-    );
+
+    }
+);
 
 
-    window.addEventListener(
-        "pageshow",
-        function (event) {
-
-            if (!checkAuth()) {
-                return;
-            }
-
-            if (event.persisted) {
-
-                window.location.reload();
-
-            }
-
-        }
-    );
-
-})();
-
-
-// =====================================================
-// START
-// =====================================================
+// ============================================
+// DOM READY
+// ============================================
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -114,71 +124,61 @@ document.addEventListener(
 
         setupSearch();
 
-        setupOutsideClick();
-
-        setupEscape();
-
     }
 );
 
 
-// =====================================================
-// POPUP IDS
-// =====================================================
+// ============================================
+// CREATE POPUP IDS
+// WITHOUT CHANGING HTML
+// ============================================
 
 function setupPopupIds() {
 
-    const edit =
-        document.querySelector(
-            ".popup"
-        );
+    // ------------------------------
+    // EDIT POPUP
+    // ------------------------------
 
+    const editPopup =
+        document.querySelector(".popup");
 
-    if (
-        edit &&
-        !edit.id
-    ) {
+    if (editPopup) {
 
-        edit.id =
+        editPopup.id =
             "editModal";
 
     }
 
 
-    const popups =
+    // ------------------------------
+    // CUSTOM POPUPS
+    // ------------------------------
+
+    const customPopups =
         document.querySelectorAll(
             ".custom-popup"
         );
 
 
-    if (
-        popups[0] &&
-        !popups[0].id
-    ) {
+    if (customPopups[0]) {
 
-        popups[0].id =
+        customPopups[0].id =
             "confirmPopup";
 
     }
 
 
-    if (
-        popups[1] &&
-        !popups[1].id
-    ) {
+    if (customPopups[1]) {
 
-        popups[1].id =
+        customPopups[1].id =
             "successPopup";
 
     }
 
 
-    if (
-        popups[2] &&
-        !popups[2].id
-    ) {
+    if (customPopups[2]) {
 
-        popups[2].id =
+        customPopups[2].id =
             "errorPopup";
 
     }
@@ -186,9 +186,9 @@ function setupPopupIds() {
 }
 
 
-// =====================================================
+// ============================================
 // PROFILE
-// =====================================================
+// ============================================
 
 function loadProfile() {
 
@@ -210,43 +210,45 @@ function loadProfile() {
         );
 
 
-    const user =
+    const usernameElement =
         document.getElementById(
             "username"
         );
 
 
-    const image =
+    const profileImg =
         document.getElementById(
             "profileImg"
         );
 
 
-    if (user) {
+    if (
+        usernameElement
+    ) {
 
-        user.textContent =
-            username ||
+        usernameElement.textContent =
             name ||
+            username ||
             "User";
 
     }
 
 
     if (
-        image &&
+        profileImg &&
         picture &&
         picture.trim() !== ""
     ) {
 
-        image.src =
+        profileImg.src =
             picture;
 
     }
 
 
-    if (image) {
+    if (profileImg) {
 
-        image.onerror =
+        profileImg.onerror =
             function () {
 
                 this.onerror = null;
@@ -261,9 +263,9 @@ function loadProfile() {
 }
 
 
-// =====================================================
-// PROFILE TOGGLE
-// =====================================================
+// ============================================
+// PROFILE MENU
+// ============================================
 
 function toggleProfile() {
 
@@ -285,9 +287,9 @@ function toggleProfile() {
 }
 
 
-// =====================================================
+// ============================================
 // MY ACCOUNT
-// =====================================================
+// ============================================
 
 function myAccount() {
 
@@ -297,9 +299,9 @@ function myAccount() {
 }
 
 
-// =====================================================
+// ============================================
 // LOGOUT
-// =====================================================
+// ============================================
 
 function logout() {
 
@@ -325,9 +327,9 @@ function logout() {
 }
 
 
-// =====================================================
+// ============================================
 // BACK
-// =====================================================
+// ============================================
 
 function goBack() {
 
@@ -338,9 +340,9 @@ function goBack() {
 }
 
 
-// =====================================================
-// SEARCH
-// =====================================================
+// ============================================
+// SEARCH SETUP
+// ============================================
 
 function setupSearch() {
 
@@ -363,21 +365,309 @@ function setupSearch() {
 }
 
 
+// ============================================
+// LOAD SUPPORT
+// ============================================
+
+function loadSupport() {
+
+    const list =
+        document.getElementById(
+            "supportList"
+        );
+
+
+    if (list) {
+
+        list.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="loading-cell"
+                >
+
+                    <i
+                        class="fa fa-spinner fa-spin"
+                    ></i>
+
+                    Loading...
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+    fetch(
+        API_URL,
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+
+            },
+
+            body: JSON.stringify({
+
+                action:
+                    "getPendingSupport"
+
+            })
+
+        }
+    )
+
+    .then(
+        function (response) {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Server Error"
+                );
+
+            }
+
+            return response.json();
+
+        }
+    )
+
+    .then(
+        function (data) {
+
+            console.log(
+                "SUPPORT DATA:",
+                data
+            );
+
+
+            if (
+                !data ||
+                data.success !== true
+            ) {
+
+                throw new Error(
+                    data?.message ||
+                    "Unable to load support."
+                );
+
+            }
+
+
+            supportData =
+                Array.isArray(
+                    data.data
+                )
+                    ? data.data
+                    : [];
+
+
+            renderSupport(
+                supportData
+            );
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "LOAD ERROR:",
+                error
+            );
+
+
+            if (list) {
+
+                list.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            style="
+                                text-align:center;
+                                padding:40px;
+                                color:#dc2626;
+                                font-weight:600;
+                            "
+                        >
+
+                            <i
+                                class="fa fa-circle-exclamation"
+                            ></i>
+
+                            Failed to load data
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        }
+    );
+
+}
+
+
+// ============================================
+// RENDER SUPPORT
+// ============================================
+
+function renderSupport(data) {
+
+    const list =
+        document.getElementById(
+            "supportList"
+        );
+
+
+    if (!list) {
+        return;
+    }
+
+
+    if (
+        !Array.isArray(data) ||
+        data.length === 0
+    ) {
+
+        list.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    style="
+                        text-align:center;
+                        padding:40px;
+                        color:#64748b;
+                        font-weight:600;
+                    "
+                >
+
+                    <i
+                        class="fa fa-inbox"
+                        style="
+                            color:#2563eb;
+                            margin-right:7px;
+                        "
+                    ></i>
+
+                    No Pending Support
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    data.forEach(
+        function (item) {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(
+                            item.customerId
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            item.problem
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            item.reference
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatDate(
+                            item.date
+                        )}
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="edit-btn"
+                            onclick="editSupport(${Number(
+                                item.row
+                            )})"
+                        >
+
+                            <i
+                                class="fa fa-pen"
+                            ></i>
+
+                            Edit
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    list.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// SEARCH
+// ============================================
+
 function searchSupport() {
 
-    const search =
+    const input =
         document.getElementById(
             "supportSearch"
         );
 
 
-    if (!search) {
+    if (!input) {
         return;
     }
 
 
     const keyword =
-        search.value
+        input.value
             .trim()
             .toLowerCase();
 
@@ -463,265 +753,39 @@ function searchSupport() {
         );
 
 
-    renderSupport(
-        result
-    );
+    if (result.length === 0) {
 
-}
-
-
-// =====================================================
-// LOAD DATA
-// =====================================================
-
-function loadSupport() {
-
-    const list =
-        document.getElementById(
-            "supportList"
-        );
-
-
-    if (list) {
-
-        list.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="5"
-                    class="loading-cell"
-                >
-
-                    <i class="fa fa-spinner fa-spin"></i>
-
-                    Loading...
-
-                </td>
-
-            </tr>
-
-        `;
-
-    }
-
-
-    fetch(
-        API_URL,
-        {
-
-            method: "POST",
-
-            headers: {
-
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-
-            },
-
-            body: JSON.stringify({
-
-                action:
-                    "getPendingSupport"
-
-            })
-
-        }
-    )
-
-    .then(
-        response => {
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Server Error"
-                );
-
-            }
-
-            return response.json();
-
-        }
-    )
-
-    .then(
-        data => {
-
-            console.log(
-                "SUPPORT RESPONSE:",
-                data
+        const list =
+            document.getElementById(
+                "supportList"
             );
 
 
-            if (
-                !data ||
-                data.success !== true
-            ) {
+        if (list) {
 
-                throw new Error(
-                    data?.message ||
-                    "Unable to load support."
-                );
-
-            }
-
-
-            supportData =
-                Array.isArray(
-                    data.data
-                )
-                    ? data.data
-                    : [];
-
-
-            renderSupport(
-                supportData
-            );
-
-        }
-    )
-
-    .catch(
-        error => {
-
-            console.error(
-                "LOAD ERROR:",
-                error
-            );
-
-
-            if (list) {
-
-                list.innerHTML = `
-
-                    <tr>
-
-                        <td
-                            colspan="5"
-                            style="
-                                text-align:center;
-                                padding:40px;
-                                color:#dc2626;
-                                font-weight:600;
-                            "
-                        >
-
-                            <i class="fa fa-circle-exclamation"></i>
-
-                            Failed to load data
-
-                        </td>
-
-                    </tr>
-
-                `;
-
-            }
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// RENDER
-// =====================================================
-
-function renderSupport(data) {
-
-    const list =
-        document.getElementById(
-            "supportList"
-        );
-
-
-    if (!list) {
-        return;
-    }
-
-
-    if (
-        !Array.isArray(data) ||
-        data.length === 0
-    ) {
-
-        list.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="5"
-                    style="
-                        text-align:center;
-                        padding:40px;
-                        color:#64748b;
-                    "
-                >
-
-                    <i class="fa fa-inbox"></i>
-
-                    No Pending Support
-
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-
-    }
-
-
-    let html = "";
-
-
-    data.forEach(
-        function (item) {
-
-            html += `
+            list.innerHTML = `
 
                 <tr>
 
-                    <td>
-                        ${escapeHTML(
-                            item.customerId
-                        )}
-                    </td>
+                    <td
+                        colspan="5"
+                        style="
+                            text-align:center;
+                            padding:40px;
+                            color:#64748b;
+                            font-weight:600;
+                        "
+                    >
 
-                    <td>
-                        ${escapeHTML(
-                            item.problem
-                        )}
-                    </td>
+                        <i
+                            class="fa fa-magnifying-glass"
+                            style="
+                                color:#2563eb;
+                                margin-right:7px;
+                            "
+                        ></i>
 
-                    <td>
-                        ${escapeHTML(
-                            item.reference
-                        )}
-                    </td>
-
-                    <td>
-                        ${formatDate(
-                            item.date
-                        )}
-                    </td>
-
-                    <td>
-
-                        <button
-                            type="button"
-                            class="edit-btn"
-                            onclick="editSupport(${Number(item.row)})"
-                        >
-
-                            <i class="fa fa-pen"></i>
-
-                            Edit
-
-                        </button>
+                        No matching support found
 
                     </td>
 
@@ -730,18 +794,22 @@ function renderSupport(data) {
             `;
 
         }
+
+        return;
+
+    }
+
+
+    renderSupport(
+        result
     );
-
-
-    list.innerHTML =
-        html;
 
 }
 
 
-// =====================================================
-// EDIT
-// =====================================================
+// ============================================
+// EDIT SUPPORT
+// ============================================
 
 function editSupport(row) {
 
@@ -751,10 +819,10 @@ function editSupport(row) {
 
     const item =
         supportData.find(
-            function (record) {
+            function (support) {
 
                 return Number(
-                    record.row
+                    support.row
                 ) === currentRow;
 
             }
@@ -768,7 +836,8 @@ function editSupport(row) {
             "Error"
         );
 
-        currentRow = null;
+        currentRow =
+            null;
 
         return;
 
@@ -825,18 +894,14 @@ function editSupport(row) {
             "show"
         );
 
-        document.body.classList.add(
-            "modal-open"
-        );
-
     }
 
 }
 
 
-// =====================================================
-// SET / GET
-// =====================================================
+// ============================================
+// SET VALUE
+// ============================================
 
 function setValue(
     id,
@@ -852,14 +917,16 @@ function setValue(
     if (element) {
 
         element.value =
-            value == null
-                ? ""
-                : value;
+            value ?? "";
 
     }
 
 }
 
+
+// ============================================
+// GET VALUE
+// ============================================
 
 function getValue(id) {
 
@@ -879,9 +946,9 @@ function getValue(id) {
 }
 
 
-// =====================================================
+// ============================================
 // CLOSE EDIT
-// =====================================================
+// ============================================
 
 function closeEdit() {
 
@@ -900,20 +967,15 @@ function closeEdit() {
     }
 
 
-    document.body.classList.remove(
-        "modal-open"
-    );
-
-
     currentRow =
         null;
 
 }
 
 
-// =====================================================
-// SUBMIT
-// =====================================================
+// ============================================
+// UPDATE SUPPORT
+// ============================================
 
 function updateSupport() {
 
@@ -982,10 +1044,6 @@ function updateSupport() {
     }
 
 
-    const row =
-        Number(currentRow);
-
-
     fetch(
         API_URL,
         {
@@ -1005,7 +1063,9 @@ function updateSupport() {
                     "moveToCall",
 
                 row:
-                    row,
+                    Number(
+                        currentRow
+                    ),
 
                 customerId:
                     getValue(
@@ -1039,7 +1099,7 @@ function updateSupport() {
     )
 
     .then(
-        response => {
+        function (response) {
 
             if (!response.ok) {
 
@@ -1055,7 +1115,13 @@ function updateSupport() {
     )
 
     .then(
-        data => {
+        function (data) {
+
+            console.log(
+                "MOVE TO CALL:",
+                data
+            );
+
 
             if (
                 !data ||
@@ -1076,7 +1142,9 @@ function updateSupport() {
 
                         return Number(
                             item.row
-                        ) !== row;
+                        ) !== Number(
+                            currentRow
+                        );
 
                     }
                 );
@@ -1099,7 +1167,7 @@ function updateSupport() {
     )
 
     .catch(
-        error => {
+        function (error) {
 
             console.error(
                 "SUBMIT ERROR:",
@@ -1135,9 +1203,9 @@ function updateSupport() {
 }
 
 
-// =====================================================
-// DELETE
-// =====================================================
+// ============================================
+// DELETE SUPPORT
+// ============================================
 
 function deleteSupport() {
 
@@ -1170,14 +1238,16 @@ function deleteSupport() {
 }
 
 
-// =====================================================
-// ACTUAL DELETE
-// =====================================================
+// ============================================
+// PERFORM DELETE
+// ============================================
 
 function performDeleteSupport() {
 
     const row =
-        Number(currentRow);
+        Number(
+            currentRow
+        );
 
 
     if (
@@ -1239,7 +1309,7 @@ function performDeleteSupport() {
     )
 
     .then(
-        response => {
+        function (response) {
 
             if (!response.ok) {
 
@@ -1255,10 +1325,10 @@ function performDeleteSupport() {
     )
 
     .then(
-        data => {
+        function (data) {
 
             console.log(
-                "DELETE:",
+                "DELETE RESPONSE:",
                 data
             );
 
@@ -1311,7 +1381,7 @@ function performDeleteSupport() {
     )
 
     .catch(
-        error => {
+        function (error) {
 
             console.error(
                 "DELETE ERROR:",
@@ -1347,9 +1417,9 @@ function performDeleteSupport() {
 }
 
 
-// =====================================================
+// ============================================
 // CONFIRM POPUP
-// =====================================================
+// ============================================
 
 function showConfirmPopup(
     message,
@@ -1361,30 +1431,6 @@ function showConfirmPopup(
         document.getElementById(
             "confirmPopup"
         );
-
-
-    if (!popup) {
-
-        if (
-            window.confirm(
-                message
-            )
-        ) {
-
-            if (
-                typeof callback ===
-                "function"
-            ) {
-
-                callback();
-
-            }
-
-        }
-
-        return;
-
-    }
 
 
     const titleElement =
@@ -1405,11 +1451,16 @@ function showConfirmPopup(
         );
 
 
+    if (!popup) {
+        return;
+    }
+
+
     if (titleElement) {
 
         titleElement.textContent =
             title ||
-            "Confirm Delete";
+            "Confirm";
 
     }
 
@@ -1457,16 +1508,12 @@ function showConfirmPopup(
         "show"
     );
 
-    document.body.classList.add(
-        "modal-open"
-    );
-
 }
 
 
-// =====================================================
+// ============================================
 // CLOSE CONFIRM
-// =====================================================
+// ============================================
 
 function closeConfirmPopup() {
 
@@ -1488,17 +1535,12 @@ function closeConfirmPopup() {
     confirmCallback =
         null;
 
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
 }
 
 
-// =====================================================
-// SUCCESS
-// =====================================================
+// ============================================
+// SUCCESS POPUP
+// ============================================
 
 function showSuccessPopup(
     message,
@@ -1550,16 +1592,12 @@ function showSuccessPopup(
         "show"
     );
 
-    document.body.classList.add(
-        "modal-open"
-    );
-
 }
 
 
-// =====================================================
+// ============================================
 // CLOSE SUCCESS
-// =====================================================
+// ============================================
 
 function closeSuccessPopup() {
 
@@ -1577,17 +1615,12 @@ function closeSuccessPopup() {
 
     }
 
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
 }
 
 
-// =====================================================
-// ERROR
-// =====================================================
+// ============================================
+// ERROR POPUP
+// ============================================
 
 function showErrorPopup(
     message,
@@ -1601,14 +1634,7 @@ function showErrorPopup(
 
 
     if (!popup) {
-
-        alert(
-            message ||
-            "Something went wrong."
-        );
-
         return;
-
     }
 
 
@@ -1646,16 +1672,12 @@ function showErrorPopup(
         "show"
     );
 
-    document.body.classList.add(
-        "modal-open"
-    );
-
 }
 
 
-// =====================================================
+// ============================================
 // CLOSE ERROR
-// =====================================================
+// ============================================
 
 function closeErrorPopup() {
 
@@ -1673,17 +1695,12 @@ function closeErrorPopup() {
 
     }
 
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
 }
 
 
-// =====================================================
-// DATE INPUT
-// =====================================================
+// ============================================
+// DATE CONVERT
+// ============================================
 
 function convertDate(date) {
 
@@ -1693,7 +1710,7 @@ function convertDate(date) {
 
 
     const text =
-        String(date).trim();
+        String(date);
 
 
     if (
@@ -1703,25 +1720,6 @@ function convertDate(date) {
     ) {
 
         return text;
-
-    }
-
-
-    const slash =
-        text.match(
-            /^(\d{2})\/(\d{2})\/(\d{4})$/
-        );
-
-
-    if (slash) {
-
-        return (
-            slash[3] +
-            "-" +
-            slash[2] +
-            "-" +
-            slash[1]
-        );
 
     }
 
@@ -1743,15 +1741,27 @@ function convertDate(date) {
 
     return (
 
-        d.getFullYear() +
-        "-" +
+        d.getFullYear()
+
+        +
+
+        "-"
+
+        +
+
         String(
             d.getMonth() + 1
         ).padStart(
             2,
             "0"
-        ) +
-        "-" +
+        )
+
+        +
+
+        "-"
+
+        +
+
         String(
             d.getDate()
         ).padStart(
@@ -1764,9 +1774,9 @@ function convertDate(date) {
 }
 
 
-// =====================================================
+// ============================================
 // DATE DISPLAY
-// =====================================================
+// ============================================
 
 function formatDate(date) {
 
@@ -1776,12 +1786,15 @@ function formatDate(date) {
 
 
     const text =
-        String(date).trim();
+        String(date);
 
+
+    // Google Sheet sometimes returns
+    // YYYY-MM-DD directly.
 
     const match =
         text.match(
-            /^(\d{4})-(\d{2})-(\d{2})$/
+            /^(\d{4})-(\d{2})-(\d{2})/
         );
 
 
@@ -1806,13 +1819,29 @@ function formatDate(date) {
 
 
         return (
-            match[3] +
-            " " +
+
+            match[3]
+
+            +
+
+            " "
+
+            +
+
             months[
-                Number(match[2]) - 1
-            ] +
-            " " +
+                Number(
+                    match[2]
+                ) - 1
+            ]
+
+            +
+
+            " "
+
+            +
+
             match[1]
+
         );
 
     }
@@ -1852,26 +1881,40 @@ function formatDate(date) {
 
 
     return (
+
         String(
             d.getDate()
         ).padStart(
             2,
             "0"
-        ) +
-        " " +
+        )
+
+        +
+
+        " "
+
+        +
+
         months[
             d.getMonth()
-        ] +
-        " " +
+        ]
+
+        +
+
+        " "
+
+        +
+
         d.getFullYear()
+
     );
 
 }
 
 
-// =====================================================
+// ============================================
 // ESCAPE HTML
-// =====================================================
+// ============================================
 
 function escapeHTML(value) {
 
@@ -1915,149 +1958,173 @@ function escapeHTML(value) {
 }
 
 
-// =====================================================
-// OUTSIDE CLICK
-// =====================================================
+// ============================================
+// PROFILE OUTSIDE CLICK
+// ============================================
 
-function setupOutsideClick() {
+document.addEventListener(
+    "click",
+    function (event) {
 
-    document.addEventListener(
-        "click",
-        function (event) {
-
-            // Profile
-            const profile =
-                document.querySelector(
-                    ".profile"
-                );
+        const profile =
+            document.querySelector(
+                ".profile"
+            );
 
 
-            const menu =
-                document.getElementById(
-                    "profileMenu"
-                );
+        const menu =
+            document.getElementById(
+                "profileMenu"
+            );
 
 
-            if (
-                profile &&
-                menu &&
-                !profile.contains(
-                    event.target
-                )
-            ) {
+        if (
+            profile &&
+            menu &&
+            !profile.contains(
+                event.target
+            )
+        ) {
 
-                menu.classList.remove(
-                    "show"
-                );
-
-            }
-
-
-            // Edit modal
-            const edit =
-                document.getElementById(
-                    "editModal"
-                );
-
-
-            if (
-                edit &&
-                event.target === edit
-            ) {
-
-                closeEdit();
-
-            }
-
-
-            // Confirm
-            const confirmPopup =
-                document.getElementById(
-                    "confirmPopup"
-                );
-
-
-            if (
-                confirmPopup &&
-                event.target ===
-                    confirmPopup
-            ) {
-
-                closeConfirmPopup();
-
-            }
-
-
-            // Success
-            const successPopup =
-                document.getElementById(
-                    "successPopup"
-                );
-
-
-            if (
-                successPopup &&
-                event.target ===
-                    successPopup
-            ) {
-
-                closeSuccessPopup();
-
-            }
-
-
-            // Error
-            const errorPopup =
-                document.getElementById(
-                    "errorPopup"
-                );
-
-
-            if (
-                errorPopup &&
-                event.target ===
-                    errorPopup
-            ) {
-
-                closeErrorPopup();
-
-            }
+            menu.classList.remove(
+                "show"
+            );
 
         }
-    );
 
-}
-
-
-// =====================================================
-// ESC KEY
-// =====================================================
-
-function setupEscape() {
-
-    document.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (
-                event.key !==
-                "Escape"
-            ) {
-
-                return;
-
-            }
+    }
+);
 
 
-            closeConfirmPopup();
+// ============================================
+// EDIT MODAL OUTSIDE CLICK
+// ============================================
 
-            closeSuccessPopup();
+document.addEventListener(
+    "click",
+    function (event) {
 
-            closeErrorPopup();
+        const modal =
+            document.getElementById(
+                "editModal"
+            );
+
+
+        if (
+            modal &&
+            event.target === modal
+        ) {
 
             closeEdit();
 
         }
-    );
 
-}
+    }
+);
+
+
+// ============================================
+// CUSTOM POPUP OUTSIDE CLICK
+// ============================================
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const confirmPopup =
+            document.getElementById(
+                "confirmPopup"
+            );
+
+
+        const successPopup =
+            document.getElementById(
+                "successPopup"
+            );
+
+
+        const errorPopup =
+            document.getElementById(
+                "errorPopup"
+            );
+
+
+        if (
+            confirmPopup &&
+            event.target ===
+                confirmPopup
+        ) {
+
+            closeConfirmPopup();
+
+        }
+
+
+        if (
+            successPopup &&
+            event.target ===
+                successPopup
+        ) {
+
+            closeSuccessPopup();
+
+        }
+
+
+        if (
+            errorPopup &&
+            event.target ===
+                errorPopup
+        ) {
+
+            closeErrorPopup();
+
+        }
+
+    }
+);
+
+
+// ============================================
+// ESC KEY
+// ============================================
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key !== "Escape"
+        ) {
+
+            return;
+
+        }
+
+
+        closeConfirmPopup();
+
+        closeSuccessPopup();
+
+        closeErrorPopup();
+
+
+        const modal =
+            document.getElementById(
+                "editModal"
+            );
+
+
+        if (
+            modal &&
+            modal.classList.contains(
+                "show"
+            )
+        ) {
+
+            closeEdit();
+
+        }
+
+    }
+);
