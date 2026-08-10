@@ -3,751 +3,1988 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>History</title>
+<title>Support History</title>
 
 
-    <!-- CSS -->
-
-    <link
-        rel="stylesheet"
-        href="support.css"
-    >
+<link 
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-    <!-- Font Awesome -->
+<style>
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    >
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+
+}
+
+
+body{
+
+background:#f1f5f9;
+
+color:#334155;
+
+}
+
+
+
+/* =====================
+HEADER
+===================== */
+
+
+header{
+
+height:80px;
+
+background:white;
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+padding:0 30px;
+
+box-shadow:0 3px 10px #0001;
+
+}
+
+
+
+
+.back-btn{
+
+background:#064e3b;
+
+color:white;
+
+border:none;
+
+padding:12px 18px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+font-size:14px;
+
+}
+
+
+
+.back-btn:hover{
+
+background:#10b981;
+
+}
+
+
+
+
+
+.history-title{
+
+flex:1;
+
+font-size:24px;
+
+color:#064e3b;
+
+cursor:pointer;
+
+user-select:none;
+
+}
+
+
+
+.history-title:hover{
+
+color:#10b981;
+
+}
+
+
+
+
+
+
+
+/* =====================
+PROFILE
+===================== */
+
+
+.profile{
+
+position:relative;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+cursor:pointer;
+
+}
+
+
+
+.profile img{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+}
+
+
+
+.profile p{
+
+font-size:12px;
+
+color:#64748b;
+
+}
+
+
+
+
+
+
+
+/* PROFILE MENU */
+
+
+.profile-menu{
+
+display:none;
+
+position:absolute;
+
+right:0;
+
+top:60px;
+
+width:180px;
+
+background:white;
+
+border-radius:12px;
+
+box-shadow:0 5px 20px #0002;
+
+overflow:hidden;
+
+z-index:999;
+
+}
+
+
+
+.profile-menu a,
+.profile-menu button{
+
+width:100%;
+
+padding:13px 15px;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+background:white;
+
+border:none;
+
+text-decoration:none;
+
+color:#334155;
+
+cursor:pointer;
+
+}
+
+
+
+.profile-menu a:hover,
+.profile-menu button:hover{
+
+background:#f1f5f9;
+
+}
+
+
+
+.profile-menu button{
+
+color:#dc2626;
+
+}
+
+
+
+
+
+/* =====================
+MAIN CONTENT
+===================== */
+
+
+.container{
+
+padding:30px;
+
+}
+
+
+
+.card{
+
+background:white;
+
+padding:25px;
+
+border-radius:18px;
+
+box-shadow:0 5px 20px #0001;
+
+}
+
+
+
+
+
+
+/* =====================
+FILTER
+===================== */
+
+
+.filter-box{
+
+display:none;
+
+gap:15px;
+
+align-items:end;
+
+margin-bottom:25px;
+
+}
+
+
+
+.filter-box.show{
+
+display:flex;
+
+}
+
+
+
+.filter-item{
+
+display:flex;
+
+flex-direction:column;
+
+gap:7px;
+
+}
+
+
+
+.filter-item label{
+
+font-size:13px;
+
+color:#64748b;
+
+}
+
+
+
+.filter-item input{
+
+padding:11px;
+
+border:1px solid #ddd;
+
+border-radius:8px;
+
+outline:none;
+
+}
+
+
+
+.search-box{
+
+flex:1;
+
+}
+
+
+
+.search-box input{
+
+width:100%;
+
+}
+
+
+
+
+
+.filter-btn{
+
+display:flex;
+
+gap:10px;
+
+}
+
+
+
+.filter-btn button{
+
+padding:11px 18px;
+
+border:none;
+
+border-radius:8px;
+
+background:#064e3b;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+
+
+.filter-btn .reset{
+
+background:#64748b;
+
+}
+
+
+
+
+
+
+/* =====================
+TABLE
+===================== */
+
+
+.table-box{
+
+overflow-x:auto;
+
+}
+
+
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+
+
+thead{
+
+background:#064e3b;
+
+color:white;
+
+}
+
+
+
+th{
+
+padding:15px;
+
+text-align:left;
+
+}
+
+
+
+td{
+
+padding:14px;
+
+border-bottom:1px solid #eee;
+
+}
+
+
+
+tr:hover{
+
+background:#f8fafc;
+
+}
+
+
+
+
+
+/* ACTION */
+
+
+.action button{
+
+border:none;
+
+padding:8px 12px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+margin-right:5px;
+
+}
+
+
+
+.view{
+
+background:#dbeafe;
+
+color:#1d4ed8;
+
+}
+
+
+
+.delete{
+
+background:#fee2e2;
+
+color:#dc2626;
+
+}
+
+
+
+
+
+/* MOBILE */
+
+
+@media(max-width:768px){
+
+
+header{
+
+padding:0 15px;
+
+}
+
+
+
+.history-title{
+
+font-size:18px;
+
+}
+
+
+
+.profile div{
+
+display:none;
+
+}
+
+
+
+.container{
+
+padding:15px;
+
+}
+
+
+
+.filter-box.show{
+
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+
+
+.filter-btn{
+
+display:flex;
+
+}
+
+
+
+.filter-btn button{
+
+flex:1;
+
+}
+
+
+
+}
+
+
+
+</style>
+
 
 </head>
+
 
 
 <body>
 
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
 
-    <header class="top-header">
+<header>
 
 
-        <div class="header-left">
+<button class="back-btn" onclick="goBack()">
 
+<i class="fa fa-arrow-left"></i>
 
-            <!-- BACK BUTTON -->
+Back
 
-            <button
-                type="button"
-                class="back-btn"
-                onclick="goBack()"
-            >
+</button>
 
-                <i class="fa fa-arrow-left"></i>
 
-                Back
 
-            </button>
 
 
-            <!-- PAGE TITLE -->
+<h2 class="history-title" onclick="toggleFilter()">
 
-            <h2>
+<i class="fa fa-history"></i>
 
-                <i class="fa fa-clock-rotate-left"></i>
+Support History
 
-                History
+</h2>
 
-            </h2>
 
 
-        </div>
 
 
 
-        <!-- =================================================
-             USER PROFILE
-        ================================================== -->
+<div class="profile" onclick="toggleProfileMenu()">
 
-        <div class="profile">
 
 
-            <!-- PROFILE HEAD -->
+<img src="https://i.pravatar.cc/100">
 
-            <div
-                class="profile-head"
-                onclick="toggleProfile()"
-            >
 
+<div>
 
-                <img
-                    id="profileImg"
-                    src="assets/profile.png"
-                    alt="Profile"
-                >
+<h4>Admin</h4>
 
+<p>Administrator</p>
 
-                <span id="username">
-                    User
-                </span>
+</div>
 
 
-                <i class="fa fa-angle-down"></i>
 
+<div class="profile-menu" id="profileMenu">
 
-            </div>
 
+<a href="my-account.html">
 
+<i class="fa fa-user"></i>
 
-            <!-- PROFILE MENU -->
+My Account
 
-            <div
-                class="profile-menu"
-                id="profileMenu"
-            >
+</a>
 
 
-                <!-- MY ACCOUNT -->
 
-                <button
-                    type="button"
-                    onclick="myAccount()"
-                >
+<button onclick="logout()">
 
-                    <i class="fa fa-user"></i>
+<i class="fa fa-sign-out"></i>
 
-                    My Account
+Logout
 
-                </button>
+</button>
 
 
+</div>
 
-                <!-- LOGOUT -->
 
-                <button
-                    type="button"
-                    onclick="logout()"
-                >
 
-                    <i class="fa fa-sign-out"></i>
+</div>
 
-                    Logout
 
-                </button>
 
+</header>
+<!-- =========================
+MAIN CONTENT
+========================= -->
 
-            </div>
 
+<div class="container">
 
-        </div>
 
+<div class="card">
 
-    </header>
 
 
+<!-- FILTER BOX -->
 
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
 
-    <main>
+<div class="filter-box" id="filterBox">
 
 
-        <!-- =================================================
-             SEARCH + DATE FILTER
-        ================================================== -->
 
-        <div class="tools-row">
+<div class="filter-item">
 
 
-            <!-- SEARCH -->
+<label>
 
-            <div class="search-box">
+From Date
 
+</label>
 
-                <i class="fa fa-search"></i>
 
+<input 
+type="date"
+id="fromDate"
+>
 
-                <input
-                    type="text"
-                    id="historySearch"
-                    placeholder="Search Customer ID, Problem, Reference..."
-                    autocomplete="off"
-                >
 
+</div>
 
-            </div>
 
 
 
-            <!-- FROM DATE -->
+<div class="filter-item">
 
-            <div class="date-filter">
 
+<label>
 
-                <label for="fromDate">
-                    From
-                </label>
+To Date
 
+</label>
 
-                <input
-                    type="date"
-                    id="fromDate"
-                >
 
+<input 
+type="date"
+id="toDate"
+>
 
-            </div>
 
+</div>
 
 
-            <!-- TO DATE -->
 
-            <div class="date-filter">
 
 
-                <label for="toDate">
-                    To
-                </label>
+<div class="filter-item search-box">
 
 
-                <input
-                    type="date"
-                    id="toDate"
-                >
+<label>
 
+Search
 
-            </div>
+</label>
 
 
+<input 
+type="text"
+id="search"
+placeholder="Customer ID / Problem / Reference"
+>
 
-            <!-- CLEAR -->
 
-            <button
-                type="button"
-                class="clear-filter-btn"
-                onclick="clearFilters()"
-            >
+</div>
 
-                <i class="fa fa-rotate-left"></i>
 
-                Clear
 
-            </button>
 
 
-        </div>
 
+<div class="filter-btn">
 
 
-        <!-- =================================================
-             TABLE
-        ================================================== -->
+<button onclick="filterData()">
 
-        <div class="table-wrapper">
 
+<i class="fa fa-filter"></i>
 
-            <table>
 
+Filter
 
-                <thead>
 
+</button>
 
-                    <tr>
 
 
-                        <th>
-                            Customer ID
-                        </th>
 
 
-                        <th>
-                            Problem
-                        </th>
+<button 
+class="reset"
+onclick="resetFilter()"
+>
 
 
-                        <th>
-                            Reference
-                        </th>
+<i class="fa fa-refresh"></i>
 
 
-                        <th>
-                            Date
-                        </th>
+Reset
 
 
-                        <th>
-                            Action
-                        </th>
+</button>
 
 
-                    </tr>
 
+</div>
 
-                </thead>
 
 
+</div>
 
-                <tbody id="historyList">
 
 
-                    <tr>
 
 
-                        <td
-                            colspan="5"
-                            class="loading-cell"
-                        >
 
-                            Loading...
 
+<!-- HISTORY TABLE -->
 
-                        </td>
 
+<div class="table-box">
 
-                    </tr>
 
+<table>
 
-                </tbody>
 
+<thead>
 
-            </table>
 
+<tr>
 
-        </div>
 
+<th>
 
+Customer ID
 
-        <!-- =================================================
-             PAGINATION
-        ================================================== -->
+</th>
 
-        <div
-            class="pagination"
-            id="pagination"
-        ></div>
 
 
-    </main>
+<th>
 
+Problem
 
+</th>
 
-    <!-- =====================================================
-         EDIT POPUP
-    ====================================================== -->
 
-    <div
-        class="popup-overlay"
-        id="editPopup"
-    >
 
+<th>
 
-        <div class="popup">
+Reference
 
+</th>
 
-            <!-- CLOSE -->
 
-            <button
-                type="button"
-                class="close-btn"
-                onclick="closeEdit()"
-            >
 
-                <i class="fa fa-xmark"></i>
+<th>
 
-            </button>
+Date
 
+</th>
 
 
-            <!-- TITLE -->
 
-            <h2>
+<th>
 
-                <i class="fa fa-pen-to-square"></i>
+Action
 
-                Edit History
+</th>
 
-            </h2>
 
 
+</tr>
 
-            <!-- HIDDEN INDEX -->
 
-            <input
-                type="hidden"
-                id="editIndex"
-            >
+</thead>
 
 
 
-            <!-- CUSTOMER ID -->
 
-            <label for="customerId">
 
-                Customer ID
 
-            </label>
+<tbody id="historyTable">
 
 
-            <input
-                type="text"
-                id="customerId"
-            >
 
+<tr
 
+data-support="Support Team"
 
-            <!-- PROBLEM -->
+data-support-work="Internet checked"
 
-            <label for="problem">
+data-call="Call Team"
 
-                Problem
+data-call-work="Customer confirmed"
 
-            </label>
+>
 
 
-            <textarea
-                id="problem"
-            ></textarea>
+<td>
 
+CUS-1001
 
+</td>
 
-            <!-- REFERENCE -->
 
-            <label for="reference">
 
-                Reference
+<td>
 
-            </label>
+Internet Problem
 
+</td>
 
-            <input
-                type="text"
-                id="reference"
-            >
 
 
+<td>
 
-            <!-- DATE -->
+Router Issue
 
-            <label for="date">
+</td>
 
-                Date
 
-            </label>
 
+<td>
 
-            <input
-                type="date"
-                id="date"
-            >
+10-08-2026
 
+</td>
 
 
-            <!-- SUPPORT -->
 
-            <label for="support">
 
-                Support
+<td class="action">
 
-            </label>
 
 
-            <input
-                type="text"
-                id="support"
-            >
+<button
 
+class="view"
 
+onclick="openModal(this)"
 
-            <!-- SUPPORT WORK -->
+>
 
-            <label for="supportWork">
 
-                Support Work
+<i class="fa fa-eye"></i>
 
-            </label>
 
+View
 
-            <textarea
-                id="supportWork"
-            ></textarea>
 
+</button>
 
 
-            <!-- BUTTONS -->
 
-            <div class="popup-buttons">
 
 
-                <!-- SUBMIT -->
+<button
 
-                <button
-                    type="button"
-                    class="submit-btn"
-                    onclick="updateHistory()"
-                >
+class="delete"
 
-                    <i class="fa fa-paper-plane"></i>
+onclick="deleteRow(this)"
 
-                    Submit
+>
 
-                </button>
 
+<i class="fa fa-trash"></i>
 
 
-                <!-- CANCEL -->
+Delete
 
-                <button
-                    type="button"
-                    class="cancel-btn"
-                    onclick="closeEdit()"
-                >
 
-                    <i class="fa fa-xmark"></i>
+</button>
 
-                    Cancel
 
-                </button>
 
 
+</td>
 
-                <!-- DELETE -->
 
-                <button
-                    type="button"
-                    class="delete-btn"
-                    onclick="askDelete()"
-                >
+</tr>
 
-                    <i class="fa fa-trash"></i>
 
-                    Delete
 
-                </button>
 
 
-            </div>
 
 
-        </div>
+<tr
 
+data-support="Support Team"
 
-    </div>
+data-support-work="Line checked"
 
+data-call="Call Team"
 
+data-call-work="Customer contacted"
 
-    <!-- =====================================================
-         DELETE CONFIRM POPUP
-    ====================================================== -->
+>
 
-    <div
-        class="custom-popup-overlay"
-        id="confirmPopup"
-    >
 
+<td>
 
-        <div class="custom-popup">
+CUS-1002
 
+</td>
 
-            <!-- ICON -->
 
-            <div class="popup-icon warning">
 
-                <i class="fa fa-triangle-exclamation"></i>
+<td>
 
-            </div>
+Slow Speed
 
+</td>
 
 
-            <!-- TITLE -->
 
-            <h3 id="confirmTitle">
+<td>
 
-                Confirm Delete
+Line Issue
 
-            </h3>
+</td>
 
 
 
-            <!-- MESSAGE -->
+<td>
 
-            <p id="confirmMessage">
+08-08-2026
 
-                Are you sure you want to delete this history?
+</td>
 
-            </p>
 
 
 
-            <!-- BUTTONS -->
+<td class="action">
 
-            <div class="custom-popup-buttons">
 
 
-                <!-- CANCEL -->
+<button
 
-                <button
-                    type="button"
-                    class="popup-cancel-btn"
-                    onclick="closeConfirmPopup()"
-                >
+class="view"
 
-                    Cancel
+onclick="openModal(this)"
 
-                </button>
+>
 
 
+<i class="fa fa-eye"></i>
 
-                <!-- DELETE -->
 
-                <button
-                    type="button"
-                    class="popup-confirm-btn"
-                    onclick="confirmDelete()"
-                >
+View
 
-                    <i class="fa fa-trash"></i>
 
-                    Delete
+</button>
 
-                </button>
 
 
-            </div>
 
 
-        </div>
+<button
 
+class="delete"
 
-    </div>
+onclick="deleteRow(this)"
 
+>
 
 
-    <!-- =====================================================
-         SUCCESS POPUP
-    ====================================================== -->
+<i class="fa fa-trash"></i>
 
-    <div
-        class="custom-popup-overlay"
-        id="successPopup"
-    >
 
+Delete
 
-        <div class="custom-popup">
 
+</button>
 
-            <div class="popup-icon success">
 
-                <i class="fa fa-check"></i>
 
-            </div>
 
+</td>
 
 
-            <h3 id="successTitle">
+</tr>
 
-                Success
 
-            </h3>
 
 
 
-            <p id="successMessage">
+</tbody>
 
-                Operation completed successfully.
 
-            </p>
 
+</table>
 
 
-            <button
-                type="button"
-                class="popup-ok-btn"
-                onclick="closeSuccessPopup()"
-            >
 
-                OK
+</div>
 
-            </button>
 
 
-        </div>
 
+</div>
 
-    </div>
 
+</div>
 
 
-    <!-- =====================================================
-         ERROR POPUP
-    ====================================================== -->
 
-    <div
-        class="custom-popup-overlay"
-        id="errorPopup"
-    >
 
 
-        <div class="custom-popup">
 
 
-            <div class="popup-icon error">
 
-                <i class="fa fa-xmark"></i>
 
-            </div>
+<!-- =========================
+VIEW POPUP
+========================= -->
 
 
 
-            <h3 id="errorTitle">
+<div 
+class="modal"
+id="viewModal"
+>
 
-                Error
 
-            </h3>
 
+<div class="modal-box">
 
 
-            <p id="errorMessage">
 
-                Something went wrong.
 
-            </p>
 
+<div class="modal-header">
 
 
-            <button
-                type="button"
-                class="popup-ok-btn error-btn"
-                onclick="closeErrorPopup()"
-            >
+<h3>
 
-                OK
+<i class="fa fa-history"></i>
 
-            </button>
+History Details
 
+</h3>
 
-        </div>
 
 
-    </div>
 
+<button
 
+class="close-btn"
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
+onclick="closeModal()"
 
-    <script src="history.js"></script>
+>
 
 
-</body>
+<i class="fa fa-times"></i>
 
-</html>
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-grid">
+
+
+
+
+
+<div>
+
+
+<label>
+
+Customer ID
+
+</label>
+
+
+<input 
+id="mCustomer"
+type="text"
+>
+
+
+</div>
+
+
+
+
+
+
+<div>
+
+
+<label>
+
+Date
+
+</label>
+
+
+<input 
+id="mDate"
+type="text"
+>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="full">
+
+
+<label>
+
+Problem
+
+</label>
+
+
+<input 
+id="mProblem"
+type="text"
+>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="full">
+
+
+<label>
+
+Reference
+
+</label>
+
+
+<input 
+id="mReference"
+type="text"
+>
+
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+
+<label>
+
+Support
+
+</label>
+
+
+<input 
+id="mSupport"
+type="text"
+>
+
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+
+<label>
+
+Support Work
+
+</label>
+
+
+<input 
+id="mSupportWork"
+type="text"
+>
+
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+
+<label>
+
+Call
+
+</label>
+
+
+<input 
+id="mCall"
+type="text"
+>
+
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+
+<label>
+
+Call Work
+
+</label>
+
+
+<input 
+id="mCallWork"
+type="text"
+>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal-buttons">
+
+
+
+
+
+<button
+
+class="submit-btn"
+
+onclick="submitData()"
+
+>
+
+
+<i class="fa fa-check"></i>
+
+
+Submit
+
+
+</button>
+
+
+
+
+
+
+
+<button
+
+class="cancel-btn"
+
+onclick="closeModal()"
+
+>
+
+
+<i class="fa fa-times"></i>
+
+
+Cancel
+
+
+</button>
+
+
+
+
+
+
+
+<button
+
+class="delete-btn"
+
+onclick="deleteData()"
+
+>
+
+
+<i class="fa fa-trash"></i>
+
+
+Delete
+
+
+</button>
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+</div>
+<script>
+
+
+"use strict";
+
+
+
+let selectedRow = null;
+
+
+
+// =====================
+// BACK BUTTON
+// =====================
+
+function goBack(){
+
+    window.history.back();
+
+}
+
+
+
+
+
+// =====================
+// FILTER SHOW / HIDE
+// =====================
+
+function toggleFilter(){
+
+    document
+    .getElementById("filterBox")
+    .classList.toggle("show");
+
+}
+
+
+
+
+
+// =====================
+// PROFILE MENU
+// =====================
+
+
+function toggleProfileMenu(){
+
+
+let menu =
+document.getElementById("profileMenu");
+
+
+
+menu.style.display =
+menu.style.display==="block"
+?
+"none"
+:
+"block";
+
+
+}
+
+
+
+
+
+document.addEventListener(
+"click",
+function(e){
+
+
+let profile =
+document.querySelector(".profile");
+
+
+let menu =
+document.getElementById("profileMenu");
+
+
+
+if(
+profile &&
+!profile.contains(e.target)
+){
+
+menu.style.display="none";
+
+
+}
+
+
+});
+
+
+
+
+
+
+
+// =====================
+// LOGOUT
+// =====================
+
+
+function logout(){
+
+
+let confirmLogout =
+confirm(
+"Are you sure you want to logout?"
+);
+
+
+
+if(confirmLogout){
+
+
+localStorage.clear();
+
+sessionStorage.clear();
+
+
+
+window.location.href="login.html";
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+// =====================
+// OPEN VIEW POPUP
+// =====================
+
+
+function openModal(btn){
+
+
+selectedRow =
+btn.closest("tr");
+
+
+
+let data =
+selectedRow.children;
+
+
+
+
+document.getElementById("mCustomer").value =
+data[0].innerText;
+
+
+
+document.getElementById("mProblem").value =
+data[1].innerText;
+
+
+
+document.getElementById("mReference").value =
+data[2].innerText;
+
+
+
+document.getElementById("mDate").value =
+data[3].innerText;
+
+
+
+
+
+
+document.getElementById("mSupport").value =
+selectedRow.dataset.support;
+
+
+
+document.getElementById("mSupportWork").value =
+selectedRow.dataset.supportWork;
+
+
+
+document.getElementById("mCall").value =
+selectedRow.dataset.call;
+
+
+
+document.getElementById("mCallWork").value =
+selectedRow.dataset.callWork;
+
+
+
+
+
+
+document.getElementById("viewModal")
+.style.display="flex";
+
+
+
+}
+
+
+
+
+
+
+
+
+// =====================
+// CLOSE POPUP
+// =====================
+
+
+function closeModal(){
+
+
+document
+.getElementById("viewModal")
+.style.display="none";
+
+
+selectedRow=null;
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// SUBMIT UPDATE
+// =====================
+
+
+function submitData(){
+
+
+
+if(!selectedRow)
+return;
+
+
+
+
+selectedRow.children[0].innerText =
+document.getElementById("mCustomer").value;
+
+
+
+selectedRow.children[1].innerText =
+document.getElementById("mProblem").value;
+
+
+
+selectedRow.children[2].innerText =
+document.getElementById("mReference").value;
+
+
+
+selectedRow.children[3].innerText =
+document.getElementById("mDate").value;
+
+
+
+
+
+
+selectedRow.dataset.support =
+document.getElementById("mSupport").value;
+
+
+
+selectedRow.dataset.supportWork =
+document.getElementById("mSupportWork").value;
+
+
+
+selectedRow.dataset.call =
+document.getElementById("mCall").value;
+
+
+
+selectedRow.dataset.callWork =
+document.getElementById("mCallWork").value;
+
+
+
+
+alert(
+"History Updated Successfully"
+);
+
+
+
+closeModal();
+
+
+}
+
+
+
+
+
+
+
+
+// =====================
+// DELETE ROW
+// =====================
+
+
+function deleteRow(btn){
+
+
+let row =
+btn.closest("tr");
+
+
+
+if(
+confirm("Delete this history?")
+){
+
+
+row.remove();
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+// DELETE FROM POPUP
+
+
+function deleteData(){
+
+
+if(selectedRow){
+
+
+if(
+confirm("Delete this history?")
+){
+
+
+selectedRow.remove();
+
+closeModal();
+
+
+}
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// FILTER FUNCTION
+// =====================
+
+
+function filterData(){
+
+
+let from =
+document.getElementById("fromDate").value;
+
+
+
+let to =
+document.getElementById("toDate").value;
+
+
+
+
+let search =
+document.getElementById("search")
+.value
+.toLowerCase();
+
+
+
+
+
+document
+.querySelectorAll("#historyTable tr")
+.forEach(row=>{
+
+
+
+let date =
+row.children[3]
+.innerText;
+
+
+
+let rowDate =
+new Date(
+date.split("-").reverse().join("-")
+);
+
+
+
+let show=true;
+
+
+
+
+
+if(from){
+
+
+show =
+rowDate >=
+new Date(from);
+
+
+}
+
+
+
+
+
+if(to && show){
+
+
+show =
+rowDate <=
+new Date(to);
+
+
+}
+
+
+
+
+
+
+if(search && show){
+
+
+show =
+row.innerText
+.toLowerCase()
+.includes(search);
+
+
+
+}
+
+
+
+
+
+
+row.style.display =
+show
+?
+""
+:
+"none";
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// RESET FILTER
+// =====================
+
+
+function resetFilter(){
+
+
+
+document.getElementById("fromDate").value="";
+
+
+document.getElementById("toDate").value="";
+
+
+document.getElementById("search").value="";
+
+
+
+
+
+document
+.querySelectorAll("#historyTable tr")
+.forEach(row=>{
+
+
+row.style.display="";
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+</script>
