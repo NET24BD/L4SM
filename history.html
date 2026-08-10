@@ -14,9 +14,9 @@
 <link rel="stylesheet" href="history.css">
 
 
-<link 
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-rel="stylesheet">
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
 </head>
@@ -47,6 +47,8 @@ Back
 
 
 
+
+
 <h2 
 class="history-title"
 onclick="toggleFilter()">
@@ -66,6 +68,7 @@ History
 
 
 
+
 <!-- USER PROFILE -->
 
 
@@ -77,7 +80,7 @@ onclick="toggleProfile()">
 
 <img 
 id="userPhoto"
-src="assets/profile.png"
+src="https://i.pravatar.cc/100"
 alt="Profile">
 
 
@@ -90,20 +93,23 @@ alt="Profile">
 
 <h4 id="userName">
 
-User
+Loading...
 
 </h4>
 
 
+
 <p id="userRole">
 
-Role
+User
 
 </p>
 
 
 
 </div>
+
+
 
 
 
@@ -157,8 +163,9 @@ Logout
 
 
 
-
 </div>
+
+
 
 
 
@@ -194,7 +201,7 @@ Logout
 
 
 
-<!-- FILTER -->
+<!-- FILTER BOX -->
 
 
 <div 
@@ -228,6 +235,7 @@ id="fromDate">
 
 
 
+
 <div class="filter-item">
 
 
@@ -251,6 +259,7 @@ id="toDate">
 
 
 
+
 <div class="filter-item search-box">
 
 
@@ -264,7 +273,7 @@ Search
 <input 
 type="text"
 id="search"
-placeholder="Search Customer ID / Problem">
+placeholder="Customer ID / Problem / Reference">
 
 
 </div>
@@ -278,6 +287,7 @@ placeholder="Search Customer ID / Problem">
 <div class="filter-btn">
 
 
+
 <button onclick="filterData()">
 
 
@@ -288,6 +298,8 @@ Filter
 
 
 </button>
+
+
 
 
 
@@ -306,6 +318,9 @@ Reset
 
 
 </button>
+
+
+
 
 
 
@@ -332,7 +347,6 @@ Reset
 <div class="table-box">
 
 
-
 <table>
 
 
@@ -341,6 +355,7 @@ Reset
 
 
 <tr>
+
 
 
 <th>
@@ -386,7 +401,11 @@ Action
 </tr>
 
 
+
 </thead>
+
+
+
 
 
 
@@ -399,19 +418,19 @@ Action
 
 
 
+
 <tr
 
 data-support="Support Team"
 
-data-support-work="Internet checked"
+data-support-work="Internet Checked"
 
 data-call="Call Team"
 
-data-call-work="Customer confirmed"
-
-
+data-call-work="Customer Confirmed"
 
 >
+
 
 
 
@@ -448,13 +467,16 @@ Router Issue
 
 
 
+
+
 <td class="action">
 
 
 
-<button 
+<button
 class="view"
 onclick="openModal(this)">
+
 
 
 <i class="fa fa-eye"></i>
@@ -469,7 +491,8 @@ View
 
 
 
-<button 
+
+<button
 class="delete"
 onclick="deleteRow(this)">
 
@@ -485,7 +508,10 @@ Delete
 
 
 
+
 </td>
+
+
 
 
 
@@ -497,19 +523,19 @@ Delete
 
 
 
+
 <tr
 
 data-support="Support Team"
 
-data-support-work="Line checked"
+data-support-work="Line Checked"
 
 data-call="Call Team"
 
-data-call-work="Customer called"
-
-
+data-call-work="Customer Called"
 
 >
+
 
 
 
@@ -546,11 +572,13 @@ Line Issue
 
 
 
+
+
 <td class="action">
 
 
 
-<button 
+<button
 class="view"
 onclick="openModal(this)">
 
@@ -568,7 +596,9 @@ View
 
 
 
-<button 
+
+
+<button
 class="delete"
 onclick="deleteRow(this)">
 
@@ -584,7 +614,11 @@ Delete
 
 
 
+
+
 </td>
+
+
 
 
 
@@ -595,7 +629,10 @@ Delete
 
 
 
+
 </tbody>
+
+
 
 
 
@@ -604,8 +641,6 @@ Delete
 
 
 </div>
-
-
 
 
 
@@ -628,14 +663,13 @@ id="pagination">
 
 
 
-
 </div>
 
 
 </div>
-<!-- =========================
+<!-- ==========================
 VIEW DETAILS POPUP
-========================= -->
+========================== -->
 
 
 <div 
@@ -653,7 +687,8 @@ id="viewModal">
 
 
 
-<!-- MODAL HEADER -->
+
+<!-- POPUP HEADER -->
 
 
 <div class="modal-header">
@@ -661,14 +696,12 @@ id="viewModal">
 
 <h3>
 
-
 <i class="fa fa-history"></i>
-
 
 History Details
 
-
 </h3>
+
 
 
 
@@ -698,10 +731,11 @@ onclick="closeModal()">
 
 
 
-<!-- FORM -->
+<!-- DETAILS FORM -->
 
 
 <div class="form-grid">
+
 
 
 
@@ -722,7 +756,9 @@ type="text"
 id="mCustomer">
 
 
+
 </div>
+
 
 
 
@@ -745,7 +781,9 @@ type="text"
 id="mDate">
 
 
+
 </div>
+
 
 
 
@@ -768,7 +806,9 @@ type="text"
 id="mProblem">
 
 
+
 </div>
+
 
 
 
@@ -791,7 +831,9 @@ type="text"
 id="mReference">
 
 
+
 </div>
+
 
 
 
@@ -813,6 +855,7 @@ Support
 <input
 type="text"
 id="mSupport">
+
 
 
 </div>
@@ -839,6 +882,7 @@ type="text"
 id="mSupportWork">
 
 
+
 </div>
 
 
@@ -863,6 +907,7 @@ type="text"
 id="mCall">
 
 
+
 </div>
 
 
@@ -885,6 +930,7 @@ Call Work
 <input
 type="text"
 id="mCallWork">
+
 
 
 </div>
@@ -924,13 +970,10 @@ onclick="submitData()">
 <i class="fa fa-check"></i>
 
 
-
 Submit
 
 
-
 </button>
-
 
 
 
@@ -947,13 +990,10 @@ onclick="closeModal()">
 <i class="fa fa-times"></i>
 
 
-
 Cancel
 
 
-
 </button>
-
 
 
 
@@ -970,9 +1010,7 @@ onclick="deleteData()">
 <i class="fa fa-trash"></i>
 
 
-
 Delete
-
 
 
 </button>
@@ -992,13 +1030,11 @@ Delete
 
 
 
-</div>
-
-
 
 </div>
 
 
+</div>
 
 
 
@@ -1006,7 +1042,9 @@ Delete
 
 
 
-<!-- JAVASCRIPT FILE -->
+
+
+<!-- JS FILE -->
 
 
 <script src="history.js"></script>
